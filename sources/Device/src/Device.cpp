@@ -10,6 +10,12 @@
 #include <cstdio>
 
 
+namespace Device
+{
+
+}
+
+
 void Device::Init()
 {
     HAL::Init();
