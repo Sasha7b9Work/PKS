@@ -33,6 +33,8 @@ add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum
 file(GLOB STM32F1                ../common/STM32Cube_F1/Drivers/STM32F1xx_HAL_Driver/Src/*.c
                                  ../common/STM32Cube_F1/Drivers/STM32F1xx_HAL_Driver/Inc/*.h)
 file(GLOB SRC                    src/*.*)
+file(GLOB BLOCKS_CALCULATOR      src/Blocks/Calculator/*)
+file(GLOB BLOCKS_MEASURER        src/Blocks/Measurer/*)
 file(GLOB HARDWARE               src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS         src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL           src/Hardware/HAL/*.*)
@@ -41,6 +43,8 @@ file(GLOB UTILS                  src/Utils/*.*)
 
 source_group(STM32F1             FILES ${STM32F1})
 source_group(src                 FILES ${SRC})
+source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
+source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/CMSIS      FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
@@ -48,14 +52,13 @@ source_group(Modules/SIM800C     FILES ${MODULES_SIM800C})
 source_group(Utils               FILES ${UTILS})
 
 set_source_files_properties(${STM32F1} ${HARDWARE_CMSIS}
-                            src/Hardware/CDC/usbd_desc.c
-                            src/Hardware/CDC/usb_device.c
-                            src/Hardware/CDC/usbd_conf.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}
             ${STM32F1}
             ${SRC}
+            ${BLOCKS_CALCULATOR}
+            ${BLOCKS_MEASURER}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}

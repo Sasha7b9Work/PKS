@@ -4,10 +4,8 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Modules/SIM800C/SIM800C.h"
-#include <stm32f1xx_hal.h>
-#include <cstdlib>
-#include <cstring>
-#include <cstdio>
+#include "Blocks/Measurer/Measurer.h"
+#include "Blocks/Calculator/Calculator.h"
 
 
 namespace Device
@@ -30,4 +28,7 @@ void Device::Init()
 
 void Device::Update()
 {
+    InputData in = Measurer::ReadInputData();
+
+    OutputData out = Calculator::CalculateOutput(in);
 }
