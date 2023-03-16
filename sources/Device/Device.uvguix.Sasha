@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\Device\src\Modules\SIM800C</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\Device\src\Hardware\CMSIS</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
