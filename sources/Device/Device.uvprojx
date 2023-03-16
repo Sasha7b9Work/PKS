@@ -523,36 +523,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
-            <File>
-              <FileName>Beeper.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Beeper.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Beeper.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Beeper.h</FilePath>
-            </File>
-            <File>
-              <FileName>Power.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Power.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Power.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Power.h</FilePath>
-            </File>
-            <File>
-              <FileName>Communicator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Communicator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Communicator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Communicator.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -599,16 +569,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_SPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_SPI.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USART2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USART2.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ADC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
@@ -623,100 +583,20 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
-            <File>
-              <FileName>HAL_FLASH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_FLASH.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/CLRC66303HN</GroupName>
+          <GroupName>Modules/SIM800C</GroupName>
           <Files>
             <File>
-              <FileName>CLRC66303HN.cpp</FileName>
+              <FileName>SIM800C.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CLRC66303HN.cpp</FilePath>
+              <FilePath>.\src\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
             <File>
-              <FileName>CLRC66303HN.h</FileName>
+              <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CLRC66303HN.h</FilePath>
-            </File>
-            <File>
-              <FileName>CommandsCLRC663.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CommandsCLRC663.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>CommandsCLRC663.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CommandsCLRC663.h</FilePath>
-            </File>
-            <File>
-              <FileName>RegistersCLRC663.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\RegistersCLRC663.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>RegistersCLRC663.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\RegistersCLRC663.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/LIS2DH12</GroupName>
-          <Files>
-            <File>
-              <FileName>LIS2DH12.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\LIS2DH12\LIS2DH12.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LIS2DH12.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\LIS2DH12\LIS2DH12.h</FilePath>
-            </File>
-            <File>
-              <FileName>LIS2DH12_reg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\LIS2DH12\LIS2DH12_reg.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/W25Q80DV</GroupName>
-          <Files>
-            <File>
-              <FileName>W25Q80DV.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\W25Q80DV\W25Q80DV.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>W25Q80DV.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\W25Q80DV\W25Q80DV.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/WS2812B</GroupName>
-          <Files>
-            <File>
-              <FileName>WS2812B.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\WS2812B\WS2812B.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>WS2812B.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\WS2812B\WS2812B.h</FilePath>
-            </File>
-            <File>
-              <FileName>IndicatorWrite.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\WS2812B\IndicatorWrite.cpp</FilePath>
+              <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1249,36 +1129,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
-            <File>
-              <FileName>Beeper.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Beeper.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Beeper.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Beeper.h</FilePath>
-            </File>
-            <File>
-              <FileName>Power.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Power.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Power.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Power.h</FilePath>
-            </File>
-            <File>
-              <FileName>Communicator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Communicator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Communicator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Communicator.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1325,16 +1175,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_SPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_SPI.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USART2.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USART2.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ADC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
@@ -1349,100 +1189,20 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
-            <File>
-              <FileName>HAL_FLASH.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_FLASH.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/CLRC66303HN</GroupName>
+          <GroupName>Modules/SIM800C</GroupName>
           <Files>
             <File>
-              <FileName>CLRC66303HN.cpp</FileName>
+              <FileName>SIM800C.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CLRC66303HN.cpp</FilePath>
+              <FilePath>.\src\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
             <File>
-              <FileName>CLRC66303HN.h</FileName>
+              <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CLRC66303HN.h</FilePath>
-            </File>
-            <File>
-              <FileName>CommandsCLRC663.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CommandsCLRC663.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>CommandsCLRC663.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\CommandsCLRC663.h</FilePath>
-            </File>
-            <File>
-              <FileName>RegistersCLRC663.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\RegistersCLRC663.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>RegistersCLRC663.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\CLRC66303HN\RegistersCLRC663.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/LIS2DH12</GroupName>
-          <Files>
-            <File>
-              <FileName>LIS2DH12.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\LIS2DH12\LIS2DH12.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LIS2DH12.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\LIS2DH12\LIS2DH12.h</FilePath>
-            </File>
-            <File>
-              <FileName>LIS2DH12_reg.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\LIS2DH12\LIS2DH12_reg.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/W25Q80DV</GroupName>
-          <Files>
-            <File>
-              <FileName>W25Q80DV.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\W25Q80DV\W25Q80DV.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>W25Q80DV.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\W25Q80DV\W25Q80DV.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/WS2812B</GroupName>
-          <Files>
-            <File>
-              <FileName>WS2812B.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\WS2812B\WS2812B.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>WS2812B.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\WS2812B\WS2812B.h</FilePath>
-            </File>
-            <File>
-              <FileName>IndicatorWrite.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\WS2812B\IndicatorWrite.cpp</FilePath>
+              <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -1,8 +1,6 @@
 // 2022/6/10 9:08:02 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
-#include "Hardware/Power.h"
-#include "Hardware/Communicator.h"
 #include <stm32f1xx_hal.h>
 
 
@@ -71,17 +69,6 @@ void SysTick_Handler(void)
     HAL_IncTick();
 }
 
-
-void USART2_IRQHandler(void)
-{
-    Communicator::AppendByte((uint8)USART2->DR);
-}
-
-
-void TIM3_IRQHandler(void)
-{
-    HAL_TIM_IRQHandler((TIM_HandleTypeDef *)Power::handleTIM3);
-}
 
 #ifdef __cplusplus
 }

@@ -24,8 +24,6 @@ void HAL_I2C1::Init(void)
         return;
     }
 
-    HAL_SPI::DeInit();
-
     initialized = true;
 
     GPIO_InitTypeDef GPIO_InitStruct;

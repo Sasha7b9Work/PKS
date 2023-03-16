@@ -36,10 +36,7 @@ file(GLOB SRC                    src/*.*)
 file(GLOB HARDWARE               src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS         src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL           src/Hardware/HAL/*.*)
-file(GLOB MODULES_CLRC66303HN    src/Modules/CLRC66303HN/*.*)
-file(GLOB MODULES_LIS2DH12       src/Modules/LIS2DH12/*.*)
-file(GLOB MODULES_W25Q80DV       src/Modules/W25Q80DV/*.*)
-file(GLOB MODULES_WS2812B        src/Modules/WS2812B/*.*)
+file(GLOB MODULES_SIM800C        src/Modules/SIM800C/*.*)
 file(GLOB UTILS                  src/Utils/*.*)
 
 source_group(STM32F1             FILES ${STM32F1})
@@ -47,10 +44,7 @@ source_group(src                 FILES ${SRC})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/CMSIS      FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Modules/CLRC66303HN FILES ${MODULES_CLRC66303HN})
-source_group(Modules/LIS2DH12    FILES ${MODULES_LIS2DH12})
-source_group(Modules/W25Q80DV    FILES ${MODULES_W25Q80DV})
-source_group(Modules/WS2812B     FILES ${MODULES_WS2812B})
+source_group(Modules/SIM800C     FILES ${MODULES_SIM800C})
 source_group(Utils               FILES ${UTILS})
 
 set_source_files_properties(${STM32F1} ${HARDWARE_CMSIS}
@@ -65,9 +59,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${MODULES_CLRC66303HN}
-            ${MODULES_LIS2DH12}
-            ${MODULES_W25Q80DV}
-            ${MODULES_WS2812B}
+            ${MODULES_SIM800C}
             ${UTILS}    
             )

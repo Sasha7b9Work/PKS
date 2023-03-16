@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\NFC-Reader\sources\Device\src\Modules\WS2812B</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\Device\src\Modules\SIM800C</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>

@@ -1,6 +1,5 @@
 // (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Modules/CLRC66303HN/CommandsCLRC663.h"
 
 
 struct DirectionSPI
@@ -30,25 +29,6 @@ namespace HAL_ADC
 }
 
 
-namespace HAL_FLASH
-{
-    void LoadAntennaConfiguration106();
-
-    void LoadProtocol();
-}
-
-
-namespace HAL_SPI
-{
-    void DeInit();
-
-    void Write(DirectionSPI::E, uint8);
-    void Write(DirectionSPI::E, const void *buffer, int size);
-    void Read(DirectionSPI::E, const void *buffer, int size);
-    void WriteRead(DirectionSPI::E, const void *out, void *in, int size);
-}
-
-
 namespace HAL_I2C1
 {
     void DeInit();
@@ -58,21 +38,6 @@ namespace HAL_I2C1
 
     int8 Write(uint8 dev_id, uint8 reg_addr, const uint8 *reg_data, uint16 len);
     int8 Write8(uint8 dev_id, uint8 data);
-}
-
-
-namespace HAL_USART2_WG26
-{
-    void Init();
-
-    // Переключиться в режим UART
-    void SwitchToUART();
-
-    void TransmitRAW(char *);
-
-    void Transmit(char *format, ...);
-
-    void TransmitUID(CLRC66303HN::UID &);
 }
 
 
@@ -89,8 +54,6 @@ extern "C" {
     void DebugMon_Handler(void);
     void PendSV_Handler(void);
     void SysTick_Handler(void);
-    void USART2_IRQHandler(void);
-    void TIM3_IRQHandler(void);
         
 #ifdef __cplusplus
 }
