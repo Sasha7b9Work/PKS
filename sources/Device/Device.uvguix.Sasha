@@ -15,7 +15,7 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>115 85</TableColWidths>
+      <TableColWidths>130 130</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
@@ -101,10 +101,10 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>233</Top>
-        <Left>22</Left>
-        <Right>1656</Right>
-        <Bottom>1000</Bottom>
+        <Top>450</Top>
+        <Left>40</Left>
+        <Right>1674</Right>
+        <Bottom>1217</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
