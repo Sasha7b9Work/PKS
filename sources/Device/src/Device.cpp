@@ -31,4 +31,13 @@ void Device::Update()
     InputData in = Measurer::ReadInputData();
 
     OutputData out = Calculator::CalculateOutput(in);
+
+    if (SIM800C::IsConnected())
+    {
+        SIM800C::SendData(out);
+    }
+    else
+    {
+
+    }
 }
