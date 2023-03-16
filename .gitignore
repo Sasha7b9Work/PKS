@@ -1,0 +1,5 @@
+*.dbgconf
+
+sources/Device/Listings/*
+sources/Device/Objects/*
+sources/Device/Objects-Debug/*
