@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.14)
 
-project (NFC-Reader)
+project (Meter)
 
 set (TARGET_NAME )
 
@@ -9,7 +9,3 @@ if(${CMAKE_BUILD_TYPE} STREQUAL Debug)
 endif()
 
 add_subdirectory(Device)
-add_subdirectory(Reader771_1)
-add_subdirectory(3-Accelerometer)
-add_subdirectory(Sample)
-add_subdirectory(CodeGenerator)
