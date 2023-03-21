@@ -86,6 +86,8 @@ file(GLOB SRC                   *.h *.cpp
 file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_tim.cpp
                                 ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_rcc.cpp
                                 ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_gpio.cpp
+                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_adc.cpp
+                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_adc_ex.cpp
                                 ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal.cpp)
 file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
 file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
