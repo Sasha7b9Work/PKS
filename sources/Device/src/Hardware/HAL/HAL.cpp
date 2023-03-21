@@ -17,8 +17,6 @@ void HAL::Init()
     __HAL_RCC_AFIO_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
-    __HAL_AFIO_REMAP_SWJ_DISABLE();         // Отключаем SW и JTAG для уменьшения энергопотребления
-
     HAL_PINS::Init();
 
     HAL_ADC::Init();

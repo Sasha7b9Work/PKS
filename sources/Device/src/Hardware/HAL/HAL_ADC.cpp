@@ -14,7 +14,9 @@ namespace HAL_ADC
 
 void HAL_ADC::Init()
 {
+#ifndef GUI
     __HAL_RCC_ADC1_CLK_ENABLE();
+#endif
 
     GPIO_InitTypeDef is =
     {

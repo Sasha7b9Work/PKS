@@ -13,7 +13,9 @@ namespace Timer
 
 void Timer::Init()
 {
+#ifndef GUI
     __HAL_RCC_TIM2_CLK_ENABLE();
+#endif
 
     handleTIM2.Instance = TIM2;                             // Для отсчёта тиков
     handleTIM2.Init.Prescaler = 0;
@@ -25,7 +27,9 @@ void Timer::Init()
 
     HAL_TIM_Base_Start(&handleTIM2);
 
+#ifndef GUI
     __HAL_RCC_TIM4_CLK_ENABLE();
+#endif
 
     handleTIM4.Instance = TIM4;                             // Для отсчёта микросекунд
     handleTIM4.Init.Prescaler = 60;                         // Каждые 60 тиков будет срабатывать - 1 мкс

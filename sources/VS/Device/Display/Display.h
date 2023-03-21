@@ -16,8 +16,8 @@ struct Color
 
 namespace Display
 {
-    static const int WIDTH = 1024;
-    static const int HEIGHT = 800;
+    static const int WIDTH = 500;
+    static const int HEIGHT = 300;
 }
 
 
