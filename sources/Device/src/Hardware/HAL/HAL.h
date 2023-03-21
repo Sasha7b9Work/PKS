@@ -25,7 +25,7 @@ namespace HAL_ADC
 
     void Update();
 
-    float GetVoltage();
+    float GetVoltage(int num, int ch);
 }
 
 
