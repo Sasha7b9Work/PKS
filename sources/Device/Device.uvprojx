@@ -14,16 +14,16 @@
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F103VG</Device>
-          <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F1xx_DFP.2.4.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x20000000,0x00018000) IROM(0x08000000,0x00100000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
+          <Device>GD32F303VC</Device>
+          <Vendor>GigaDevice</Vendor>
+          <PackID>GigaDevice.GD32F30x_DFP.2.2.1</PackID>
+          <PackURL>https://gd32mcu.com/data/documents/pack/</PackURL>
+          <Cpu>IRAM(0x20000000,0x0C000) IROM(0x08000000,0x040000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F103VG$Flash\STM32F10x_1024.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0GD32F30x_HD -FS08000000 -FL040000 -FP0($$Device:GD32F303VC$Flash\GD32F30x_HD.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:STM32F103VG$Device\Include\stm32f10x.h</RegisterFile>
+          <RegisterFile>$$Device:GD32F303VC$Device\Include\gd32f30x.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -33,7 +33,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32F103VG$SVD\STM32F103xx.svd</SFDFile>
+          <SFDFile>$$Device:GD32F303VC$SVD\GD32F30x_HD.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -112,11 +112,11 @@
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments> -REMAP -MPU</SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pCM3</SimDlgDllArguments>
+          <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments> -MPU</TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pCM3</TargetDlgDllArguments>
+          <TargetDlgDllArguments>-pCM4</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -174,7 +174,7 @@
             <AdsLsxf>1</AdsLsxf>
             <RvctClst>0</RvctClst>
             <GenPPlst>0</GenPPlst>
-            <AdsCpuType>"Cortex-M3"</AdsCpuType>
+            <AdsCpuType>"Cortex-M4"</AdsCpuType>
             <RvctDeviceName></RvctDeviceName>
             <mOS>0</mOS>
             <uocRom>0</uocRom>
@@ -183,7 +183,7 @@
             <hadIRAM>1</hadIRAM>
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
-            <RvdsVP>0</RvdsVP>
+            <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
@@ -246,12 +246,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x18000</Size>
+                <Size>0xc000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x100000</Size>
+                <Size>0x40000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -276,7 +276,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x100000</Size>
+                <Size>0x40000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -301,7 +301,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x18000</Size>
+                <Size>0xc000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -337,9 +337,9 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--cpp</MiscControls>
-              <Define>USE_HAL_DRIVER, STM32F103xG, __cplusplus</Define>
+              <Define>USE_HAL_DRIVER, STM32F303xC, __cplusplus</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;.\src\Hardware\CDC;..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Inc;..\common\STM32Cube_F1\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\common\STM32Cube_F1\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\common\STM32Cube_F1\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\common\STM32Cube_F1\Drivers\CMSIS\Core\Include</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Inc;..\common\STM32Cube_F3\Drivers\CMSIS\Device\ST\STM32F3xx\Include;..\common\STM32Cube_F3\Drivers\CMSIS\Core\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -381,102 +381,77 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>STM32F1</GroupName>
+          <GroupName>STM32F3</GroupName>
           <Files>
             <File>
-              <FileName>stm32f1xx_hal.c</FileName>
+              <FileName>stm32f3xx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_rcc.c</FileName>
+              <FileName>stm32f3xx_hal_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_rcc_ex.c</FileName>
+              <FileName>stm32f3xx_hal_rcc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc_ex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_gpio.c</FileName>
+              <FileName>stm32f3xx_hal_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_pcd.c</FileName>
+              <FileName>stm32f3xx_hal_cortex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pcd.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_cortex.c</FileName>
+              <FileName>stm32f3xx_hal_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_cortex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_ll_usb.c</FileName>
+              <FileName>stm32f3xx_hal_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_ll_usb.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_spi.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_dma.c</FileName>
+              <FileName>stm32f3xx_hal_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_dma.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_i2c.c</FileName>
+              <FileName>stm32f3xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_i2c.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_uart.c</FileName>
+              <FileName>stm32f3xx_hal_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_uart.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_pcd_ex.c</FileName>
+              <FileName>stm32f3xx_hal_adc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pcd_ex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_spi.c</FileName>
+              <FileName>stm32f3xx_hal_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_tim.c</FileName>
+              <FileName>stm32f3xx_hal_flash_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_tim_ex.c</FileName>
+              <FileName>stm32f3xx_hal_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_adc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_adc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_flash_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash_ex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -559,14 +534,14 @@
           <GroupName>Hardware/CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>system_stm32f1xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\CMSIS\system_stm32f1xx.c</FilePath>
+              <FileName>startup_stm32f303xc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\Hardware\CMSIS\startup_stm32f303xc.s</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f103xg.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\Hardware\CMSIS\startup_stm32f103xg.s</FilePath>
+              <FileName>system_stm32f3xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\CMSIS\system_stm32f3xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -589,11 +564,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\stm32f1xx_hal_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ADC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
@@ -607,6 +577,11 @@
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f3xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\stm32f3xx_hal_conf.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -645,16 +620,16 @@
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
-          <Device>STM32F103VG</Device>
-          <Vendor>STMicroelectronics</Vendor>
-          <PackID>Keil.STM32F1xx_DFP.2.4.0</PackID>
-          <PackURL>http://www.keil.com/pack/</PackURL>
-          <Cpu>IRAM(0x20000000,0x00018000) IROM(0x08000000,0x00100000) CPUTYPE("Cortex-M3") CLOCK(12000000) ELITTLE</Cpu>
+          <Device>GD32F303VC</Device>
+          <Vendor>GigaDevice</Vendor>
+          <PackID>GigaDevice.GD32F30x_DFP.2.2.1</PackID>
+          <PackURL>https://gd32mcu.com/data/documents/pack/</PackURL>
+          <Cpu>IRAM(0x20000000,0x0C000) IROM(0x08000000,0x040000) CPUTYPE("Cortex-M4") FPU2 CLOCK(12000000) ELITTLE</Cpu>
           <FlashUtilSpec></FlashUtilSpec>
           <StartupFile></StartupFile>
-          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0STM32F10x_1024 -FS08000000 -FL0100000 -FP0($$Device:STM32F103VG$Flash\STM32F10x_1024.FLM))</FlashDriverDll>
+          <FlashDriverDll>UL2CM3(-S0 -C0 -P0 -FD20000000 -FC1000 -FN1 -FF0GD32F30x_HD -FS08000000 -FL040000 -FP0($$Device:GD32F303VC$Flash\GD32F30x_HD.FLM))</FlashDriverDll>
           <DeviceId>0</DeviceId>
-          <RegisterFile>$$Device:STM32F103VG$Device\Include\stm32f10x.h</RegisterFile>
+          <RegisterFile>$$Device:GD32F303VC$Device\Include\gd32f30x.h</RegisterFile>
           <MemoryEnv></MemoryEnv>
           <Cmp></Cmp>
           <Asm></Asm>
@@ -664,7 +639,7 @@
           <SLE66CMisc></SLE66CMisc>
           <SLE66AMisc></SLE66AMisc>
           <SLE66LinkerMisc></SLE66LinkerMisc>
-          <SFDFile>$$Device:STM32F103VG$SVD\STM32F103xx.svd</SFDFile>
+          <SFDFile>$$Device:GD32F303VC$SVD\GD32F30x_HD.svd</SFDFile>
           <bCustSvd>0</bCustSvd>
           <UseEnv>0</UseEnv>
           <BinPath></BinPath>
@@ -743,11 +718,11 @@
           <SimDllName>SARMCM3.DLL</SimDllName>
           <SimDllArguments> -REMAP -MPU</SimDllArguments>
           <SimDlgDll>DCM.DLL</SimDlgDll>
-          <SimDlgDllArguments>-pCM3</SimDlgDllArguments>
+          <SimDlgDllArguments>-pCM4</SimDlgDllArguments>
           <TargetDllName>SARMCM3.DLL</TargetDllName>
           <TargetDllArguments> -MPU</TargetDllArguments>
           <TargetDlgDll>TCM.DLL</TargetDlgDll>
-          <TargetDlgDllArguments>-pCM3</TargetDlgDllArguments>
+          <TargetDlgDllArguments>-pCM4</TargetDlgDllArguments>
         </DllOption>
         <DebugOption>
           <OPTHX>
@@ -805,7 +780,7 @@
             <AdsLsxf>1</AdsLsxf>
             <RvctClst>1</RvctClst>
             <GenPPlst>0</GenPPlst>
-            <AdsCpuType>"Cortex-M3"</AdsCpuType>
+            <AdsCpuType>"Cortex-M4"</AdsCpuType>
             <RvctDeviceName></RvctDeviceName>
             <mOS>0</mOS>
             <uocRom>0</uocRom>
@@ -814,7 +789,7 @@
             <hadIRAM>1</hadIRAM>
             <hadXRAM>0</hadXRAM>
             <uocXRam>0</uocXRam>
-            <RvdsVP>0</RvdsVP>
+            <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
             <hadIRAM2>0</hadIRAM2>
@@ -877,12 +852,12 @@
               <IRAM>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x18000</Size>
+                <Size>0xc000</Size>
               </IRAM>
               <IROM>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x100000</Size>
+                <Size>0x40000</Size>
               </IROM>
               <XRAM>
                 <Type>0</Type>
@@ -907,7 +882,7 @@
               <OCR_RVCT4>
                 <Type>1</Type>
                 <StartAddress>0x8000000</StartAddress>
-                <Size>0x100000</Size>
+                <Size>0x40000</Size>
               </OCR_RVCT4>
               <OCR_RVCT5>
                 <Type>1</Type>
@@ -932,7 +907,7 @@
               <OCR_RVCT9>
                 <Type>0</Type>
                 <StartAddress>0x20000000</StartAddress>
-                <Size>0x18000</Size>
+                <Size>0xc000</Size>
               </OCR_RVCT9>
               <OCR_RVCT10>
                 <Type>0</Type>
@@ -968,7 +943,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--cpp</MiscControls>
-              <Define>USE_HAL_DRIVER, STM32F103xG, __cplusplus</Define>
+              <Define>USE_HAL_DRIVER, STM32F303xC, __cplusplus</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\Hardware\HAL;.\src\Hardware\CDC;..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Inc;..\common\STM32Cube_F1\Middlewares\ST\STM32_USB_Device_Library\Core\Inc;..\common\STM32Cube_F1\Middlewares\ST\STM32_USB_Device_Library\Class\CDC\Inc;..\common\STM32Cube_F1\Drivers\CMSIS\Device\ST\STM32F1xx\Include;..\common\STM32Cube_F1\Drivers\CMSIS\Core\Include</IncludePath>
             </VariousControls>
@@ -1012,102 +987,77 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>STM32F1</GroupName>
+          <GroupName>STM32F3</GroupName>
           <Files>
             <File>
-              <FileName>stm32f1xx_hal.c</FileName>
+              <FileName>stm32f3xx_hal.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_rcc.c</FileName>
+              <FileName>stm32f3xx_hal_rcc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_rcc_ex.c</FileName>
+              <FileName>stm32f3xx_hal_rcc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_rcc_ex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_rcc_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_gpio.c</FileName>
+              <FileName>stm32f3xx_hal_gpio.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_gpio.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_pcd.c</FileName>
+              <FileName>stm32f3xx_hal_cortex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pcd.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_cortex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_cortex.c</FileName>
+              <FileName>stm32f3xx_hal_dma.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_cortex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_dma.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_ll_usb.c</FileName>
+              <FileName>stm32f3xx_hal_spi.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_ll_usb.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_spi.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_dma.c</FileName>
+              <FileName>stm32f3xx_hal_tim.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_dma.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_i2c.c</FileName>
+              <FileName>stm32f3xx_hal_tim_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_i2c.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_tim_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_uart.c</FileName>
+              <FileName>stm32f3xx_hal_adc.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_uart.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_pcd_ex.c</FileName>
+              <FileName>stm32f3xx_hal_adc_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pcd_ex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_adc_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_spi.c</FileName>
+              <FileName>stm32f3xx_hal_flash.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_spi.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_tim.c</FileName>
+              <FileName>stm32f3xx_hal_flash_ex.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_flash_ex.c</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_tim_ex.c</FileName>
+              <FileName>stm32f3xx_hal_pwr.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_tim_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_adc_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_adc_ex.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_pwr.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_pwr.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_flash.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash.c</FilePath>
-            </File>
-            <File>
-              <FileName>stm32f1xx_hal_flash_ex.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\STM32Cube_F1\Drivers\STM32F1xx_HAL_Driver\Src\stm32f1xx_hal_flash_ex.c</FilePath>
+              <FilePath>..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_pwr.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1190,14 +1140,14 @@
           <GroupName>Hardware/CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>system_stm32f1xx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\CMSIS\system_stm32f1xx.c</FilePath>
+              <FileName>startup_stm32f303xc.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\Hardware\CMSIS\startup_stm32f303xc.s</FilePath>
             </File>
             <File>
-              <FileName>startup_stm32f103xg.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\Hardware\CMSIS\startup_stm32f103xg.s</FilePath>
+              <FileName>system_stm32f3xx.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\CMSIS\system_stm32f3xx.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1220,11 +1170,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
             <File>
-              <FileName>stm32f1xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\stm32f1xx_hal_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ADC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
@@ -1238,6 +1183,11 @@
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>stm32f3xx_hal_conf.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\stm32f3xx_hal_conf.h</FilePath>
             </File>
           </Files>
         </Group>

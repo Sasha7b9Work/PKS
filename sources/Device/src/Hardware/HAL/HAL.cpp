@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/HAL_PINS.h"
-#include <stm32f1xx_hal.h>
+#include <stm32f3xx_hal.h>
 
 
 static void SystemClock_Config();
@@ -14,7 +14,6 @@ void HAL::Init()
 
     SystemClock_Config();
 
-    __HAL_RCC_AFIO_CLK_ENABLE();
     __HAL_RCC_PWR_CLK_ENABLE();
 
     HAL_PINS::Init();
