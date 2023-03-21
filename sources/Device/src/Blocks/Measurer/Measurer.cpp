@@ -2,6 +2,12 @@
 #include "Blocks/Measurer/Measurer.h"
 
 
+void Measurer::Init()
+{
+
+}
+
+
 InputData Measurer::ReadInputData()
 {
     return InputData();

@@ -10,5 +10,7 @@ struct InputData
 
 namespace Measurer
 {
+    void Init();
+
     InputData ReadInputData();
 }
