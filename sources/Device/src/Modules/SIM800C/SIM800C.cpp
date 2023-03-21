@@ -6,3 +6,15 @@ void SIM800C::Init()
 {
 
 }
+
+
+bool SIM800C::IsConnected()
+{
+    return false;
+}
+
+
+void SIM800C::SendData(OutputData &)
+{
+
+}

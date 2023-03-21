@@ -2,9 +2,7 @@
 #include "defines.h"
 #include "Frame.h"
 #include "Display/Display.h"
-#include "Modules/ST7735/ST7735.h"
 #include "Application.h"
-#include "Menu/Menu.h"
 #include "wx/statline.h"
 
 
@@ -161,9 +159,8 @@ void Frame::OnMouseDown(wxMouseEvent &)
 
 void Frame::OnMouseUp(wxMouseEvent &)
 {
-    if (meterButton.ElapsedTime() < 500)
+    if (meterButton.ElapsedMS() < 500)
     {
-        Menu::ShortPress();
         timerButton.Stop();
     }
 }
@@ -171,71 +168,4 @@ void Frame::OnMouseUp(wxMouseEvent &)
 
 void Frame::OnTimerButton(wxTimerEvent &)
 {
-    Menu::LongPress();
-}
-
-
-static wxColour ConvertColor(Color::E e)
-{
-    uint16 value = Color::colors[e];
-
-    float b = (float)BLUE_FROM_COLOR(value);
-    float g = (float)GREEN_FROM_COLOR(value);
-    float r = (float)RED_FROM_COLOR(value);
-
-    uint8 blue  = (uint8)((b / 31.0f) * 255);
-    uint8 green = (uint8)((g / 63.0f) * 255);
-    uint8 red   = (uint8)((r / 31.0f) * 255);
-
-    return wxColour(red, green, blue);
-}
-
-
-void ST7735::WriteBuffer(int x0, int y0, int width, int height)
-{
-    static const wxColour colors[16] =
-    {
-        ConvertColor((Color::E)0),
-        ConvertColor((Color::E)1),
-        ConvertColor((Color::E)2),
-        ConvertColor((Color::E)3),
-        ConvertColor((Color::E)4),
-        ConvertColor((Color::E)5),
-        ConvertColor((Color::E)6),
-        ConvertColor((Color::E)7),
-        ConvertColor((Color::E)8),
-        ConvertColor((Color::E)9)
-    };
-
-    memDC.SelectObject(bitmap);
-
-    static wxPen pen = *wxWHITE_PEN;
-
-    for (int y = y0; y < y0 + height; y++)
-    {
-        uint8 *points = Display::Buffer::GetLine(x0, y);
-
-        uint8 value = *points;
-
-        for (int x = x0; x < x0 + width; x += 2)
-        {
-            pen.SetColour(colors[value >> 4]);
-
-            memDC.SetPen(pen);
-
-            memDC.DrawPoint(x + 1, y);
-
-            pen.SetColour(colors[value & 0x0f]);
-
-            memDC.SetPen(pen);
-
-            memDC.DrawPoint(x, y);
-
-            value = *(++points);
-        }
-    }
-
-    memDC.SelectObject(wxNullBitmap);
-
-    screen->Refresh();
 }

@@ -67,6 +67,7 @@ if(WIN32)
     add_compile_options(/wd4623)
     add_compile_options(/wd4625)
     add_compile_options(/wd4626)
+    add_compile_options(/wd4668)
     add_compile_options(/wd4774)
     add_compile_options(/wd4820)
     add_compile_options(/wd4996)
@@ -82,8 +83,10 @@ endif()
 file(GLOB SRC                   *.h *.cpp
                                 ../../Device/src/defines.h
                                 ../../Device/src/Device.*)
+file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F1/stm32f4xx_hal_tim.cpp)
 file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
 file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
+file(GLOB DISPLAY                                Display/*.*)
 file(GLOB HARDWARE              ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL          ../../Device/src/Hardware/HAL/*.*
                                                  Hardware/HAL/*.*)
@@ -92,8 +95,10 @@ file(GLOB MODULES_SIM800C       ../../Device/src/Modules/SIM800C/*.*)
 file(GLOB UTILS                 ../../Device/src/Utils/*.*)
 
 source_group(src                 FILES ${SRC})
+source_group(libs                FILES ${LIBS})
 source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
 source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
+source_group(Display             FILES ${DISPLAY})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
 source_group(Modules/MemoryCard  FILES ${MODULES_MEMORYCARD})
@@ -103,8 +108,10 @@ source_group(Utils               FILES ${UTILS})
 
 add_executable( ${PROJECT_NAME}
                 ${SRC}
+                ${LIBS}
                 ${BLOCKS_CALCULATOR}
                 ${BLOCKS_MEASURER}
+                ${DISPLAY}
                 ${HARDWARE}
                 ${HARDWARE_HAL}
                 ${MODULES_MEMORYCARD}
