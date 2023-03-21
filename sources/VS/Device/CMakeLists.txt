@@ -82,13 +82,12 @@ endif()
 file(GLOB SRC                   *.h *.cpp
                                 ../../Device/src/defines.h
                                 ../../Device/src/Device.*)
-file(GLOB DISPLAY               ../../Device/src/Display/*.*)
+file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
+file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
 file(GLOB DISPLAY_FONT          ../../Device/src/Display/Font/*.*)
 file(GLOB HARDWARE              ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL          ../../Device/src/Hardware/HAL/*.*
                                                  Hardware/HAL/*.*)
-file(GLOB MENU                  ../../Device/src/Menu/*.*)
-file(GLOB MENU_PAGES            ../../Device/src/Menu/Pages/*.*)
 file(GLOB MODULES_BH1750        ../../Device/src/Modules/BH1750/*.*)
 file(GLOB MODULES_BME280        ../../Device/src/Modules/BME280/*.*)
 file(GLOB MODULES_CG_ANEM       ../../Device/src/Modules/CG-Anem/*.*)
@@ -99,12 +98,10 @@ file(GLOB UTILS                 ../../Device/src/Utils/*.*)
 file(GLOB UTILS_TEXT            ../../Device/src/Utils/Text/*.*)
 
 source_group(src                 FILES ${SRC})
-source_group(Display             FILES ${DISPLAY})
-source_group(Display/Font        FILES ${DISPLAY_FONT})
+source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
+source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Menu                FILES ${MENU})
-source_group(Menu/Pages          FILES ${MENU_PAGES})
 source_group(Modules/BH1750      FILES ${MODULES_BH1750})
 source_group(Modules/BME280      FILES ${MODULES_BME280})
 source_group(Modules/CG-Anem     FILES ${MODULES_CG_ANEM})
@@ -117,12 +114,10 @@ source_group(Utils/Text          FILES ${UTILS_TEXT})
 
 add_executable( ${PROJECT_NAME}
                 ${SRC}
-                ${DISPLAY}
-                ${DISPLAY_FONT}
+                ${BLOCKS_CALCULATOR}
+                ${BLOCKS_MEASURER}
                 ${HARDWARE}
                 ${HARDWARE_HAL}
-                ${MENU}
-                ${MENU_PAGES}
                 ${MODULES_BH1750}
                 ${MODULES_BME280}
                 ${MODULES_CG_ANEM}
