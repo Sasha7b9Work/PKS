@@ -84,32 +84,21 @@ file(GLOB SRC                   *.h *.cpp
                                 ../../Device/src/Device.*)
 file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
 file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
-file(GLOB DISPLAY_FONT          ../../Device/src/Display/Font/*.*)
 file(GLOB HARDWARE              ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL          ../../Device/src/Hardware/HAL/*.*
                                                  Hardware/HAL/*.*)
-file(GLOB MODULES_BH1750        ../../Device/src/Modules/BH1750/*.*)
-file(GLOB MODULES_BME280        ../../Device/src/Modules/BME280/*.*)
-file(GLOB MODULES_CG_ANEM       ../../Device/src/Modules/CG-Anem/*.*)
-file(GLOB MODULES_HC12          ../../Device/src/Modules/HC12/*.*)
-file(GLOB MODULES_ST7735        ../../Device/src/Modules/ST7735/*.*)
-file(GLOB SETTINGS              ../../Device/src/Settings/*.*)
+file(GLOB MODULES_MEMORYCARD    ../../Device/src/Modules/MemoryCard/*.*)
+file(GLOB MODULES_SIM800C       ../../Device/src/Modules/SIM800C/*.*)
 file(GLOB UTILS                 ../../Device/src/Utils/*.*)
-file(GLOB UTILS_TEXT            ../../Device/src/Utils/Text/*.*)
 
 source_group(src                 FILES ${SRC})
 source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
 source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Modules/BH1750      FILES ${MODULES_BH1750})
-source_group(Modules/BME280      FILES ${MODULES_BME280})
-source_group(Modules/CG-Anem     FILES ${MODULES_CG_ANEM})
-source_group(Modules/HC12        FILES ${MODULES_HC12})
-source_group(Modules/ST7735      FILES ${MODULES_ST7735})
-source_group(Settings            FILES ${SETTINGS})
+source_group(Modules/MemoryCard  FILES ${MODULES_MEMORYCARD})
+source_group(Modules/SIM800C     FILES ${MODULES_SIM800C})
 source_group(Utils               FILES ${UTILS})
-source_group(Utils/Text          FILES ${UTILS_TEXT})
 
 
 add_executable( ${PROJECT_NAME}
@@ -118,14 +107,9 @@ add_executable( ${PROJECT_NAME}
                 ${BLOCKS_MEASURER}
                 ${HARDWARE}
                 ${HARDWARE_HAL}
-                ${MODULES_BH1750}
-                ${MODULES_BME280}
-                ${MODULES_CG_ANEM}
-                ${MODULES_HC12}
-                ${MODULES_ST7735}
-                ${SETTINGS}
+                ${MODULES_MEMORYCARD}
+                ${MODULES_SIM800C}
                 ${UTILS}
-                ${UTILS_TEXT}
                 )
 
 target_link_libraries(${PROJECT_NAME} wxbase32ud wxmsw32ud_core Ws2_32)
