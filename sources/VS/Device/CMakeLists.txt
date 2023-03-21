@@ -83,7 +83,10 @@ endif()
 file(GLOB SRC                   *.h *.cpp
                                 ../../Device/src/defines.h
                                 ../../Device/src/Device.*)
-file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F1/stm32f4xx_hal_tim.cpp)
+file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_tim.cpp
+                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_rcc.cpp
+                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_gpio.cpp
+                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal.cpp)
 file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
 file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
 file(GLOB DISPLAY                                Display/*.*)
