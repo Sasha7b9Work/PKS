@@ -1,5 +1,5 @@
 // 2022/04/27 14:36:00 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
-#include <stm32f1xx_hal.h>
+#include <stm32f3xx_hal.h>
 
 
 void  HAL_GPIO_Init(GPIO_TypeDef * /*GPIOx*/, GPIO_InitTypeDef * /*GPIO_Init*/)

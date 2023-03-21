@@ -7,8 +7,6 @@
 namespace HAL_ADC
 {
     static ADC_HandleTypeDef handle;
-
-    static uint value = 0;
 }
 
 
@@ -56,12 +54,10 @@ void HAL_ADC::Update()
     HAL_ADC_Start(&handle);
 
     HAL_ADC_PollForConversion(&handle, 10);
-
-    value = HAL_ADC_GetValue(&handle);
 }
 
 
-float HAL_ADC::GetVoltage(int num, int chan)
+float HAL_ADC::GetVoltage(int, int)
 {
     return 0.0f;
 }

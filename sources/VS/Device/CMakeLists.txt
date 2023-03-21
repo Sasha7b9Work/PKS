@@ -12,15 +12,13 @@ include_directories(.
                     ../../VS/ThirdParty/wxWidgets/include
                     ../../generated/ThirdParty/lib/vc_dll/mswud
                     ../../common/_VS_KEIL/CMSIS
-                    ../../common/_VS_LIBS/STM32F1
-                    ../../common/STM32Cube_F1/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc
-                    ../../common/STM32Cube_F1/Middlewares/ST/STM32_USB_Device_Library/Core/Inc
-                    ../../common/STM32Cube_F1/Drivers/CMSIS/Device/ST/STM32F1xx/Include
-                    ../../common/STM32Cube_F1/Drivers/STM32F1xx_HAL_Driver/Inc)
+                    ../../common/_VS_LIBS/STM32F3
+                    ../../common/STM32Cube_F3/Drivers/CMSIS/Device/ST/STM32F3xx/Include
+                    ../../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc)
 
 link_directories(../../generated/ThirdParty/lib/vc_dll)
 
-add_definitions(-DSTM32F103xB -DWXUSINGDLL -DGUI -DDEVICE)
+add_definitions(-DSTM32F303xC -DWXUSINGDLL -DGUI -DDEVICE)
 
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
@@ -83,12 +81,12 @@ endif()
 file(GLOB SRC                   *.h *.cpp
                                 ../../Device/src/defines.h
                                 ../../Device/src/Device.*)
-file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_tim.cpp
-                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_rcc.cpp
-                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_gpio.cpp
-                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_adc.cpp
-                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal_adc_ex.cpp
-                                ../../common/_VS_LIBS/STM32F1/stm32f1xx_hal.cpp)
+file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_tim.cpp
+                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_rcc.cpp
+                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_gpio.cpp
+                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_adc.cpp
+                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_adc_ex.cpp
+                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal.cpp)
 file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
 file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
 file(GLOB DISPLAY                                Display/*.*)

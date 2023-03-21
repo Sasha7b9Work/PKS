@@ -6,16 +6,13 @@ message("-----------------------------------------------------------------------
 
 include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/_VS_KEIL/std_includes/
-                    ../common/STM32Cube_F1/Middlewares/ST/STM32_USB_Device_Library/Class/CDC/Inc/
-                    ../common/STM32Cube_F1/Middlewares/ST/STM32_USB_Device_Library/Core/Inc/
-                    ../common/STM32Cube_F1/Drivers/STM32F1xx_HAL_Driver/Inc/
-                    ../common/STM32Cube_F1/Drivers/CMSIS/Device/ST/STM32F1xx/Include/
+                    ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/
+                    ../common/STM32Cube_F3/Drivers/CMSIS/Device/ST/STM32F3xx/Include/
                     src/Hardware/HAL/
-                    src/Hardware/CDC/
                     src/
                     )
 
-add_definitions(-DSTM32F103xB)
+add_definitions(-DSTM32F303xC)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
