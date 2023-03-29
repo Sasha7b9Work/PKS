@@ -13,4 +13,8 @@
     <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
+  <project>
+    <PathAndName>.\TestHardware\TestHardware.uvprojx</PathAndName>
+  </project>
+
 </ProjectWorkspace>

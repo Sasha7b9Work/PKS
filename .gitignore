@@ -1,6 +1,13 @@
 *.dbgconf
 
 sources/generated/*
+
 sources/Device/Listings/*
+sources/Device/Listings-Debug/*
 sources/Device/Objects/*
 sources/Device/Objects-Debug/*
+
+sources/TestHardware/Listings/*
+sources/TestHardware/Listings-Debug/*
+sources/TestHardware/Objects/*
+sources/TestHardware/Objects-Debug/*
