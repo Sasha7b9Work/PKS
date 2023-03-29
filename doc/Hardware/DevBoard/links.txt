@@ -1,0 +1,5 @@
+https://imax9.narod.ru/publs/Obzor_F407VET6.html
+https://stm32-base.org/boards/STM32F407VET6-STM32-F4VE-V2.0.html
+https://github.com/mcauser/BLACK_F407VE
+https://docs.zephyrproject.org/3.1.0/boards/arm/black_f407ve/doc/index.html
+https://os.mbed.com/users/hudakz/code/STM32F407VET6_Hello/
