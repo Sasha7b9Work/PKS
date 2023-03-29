@@ -1,6 +1,6 @@
 # (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 
-project (Device)
+project (TestHardware)
 
 message("------------------------------------------------------------------------ ${PROJECT_NAME}")
 
@@ -35,7 +35,10 @@ file(GLOB BLOCKS_MEASURER        src/Blocks/Measurer/*)
 file(GLOB HARDWARE               src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS         src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL           src/Hardware/HAL/*.*)
+file(GLOB MODULES_MEMORYCARD     src/Modules/MemoryCard/*.*)
 file(GLOB MODULES_SIM800C        src/Modules/SIM800C/*.*)
+file(GLOB MODULES_SSD1306        src/Modules/SSD1306/*.*)
+file(GLOB MODULES_ZMPT101        src/Modules/ZMPT101/*.*)
 file(GLOB UTILS                  src/Utils/*.*)
 
 source_group(STM32F1             FILES ${STM32F1})
@@ -45,7 +48,10 @@ source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/CMSIS      FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
+source_group(Modules/MemoryCard  FILES ${MODULES_MEMORYCARD})
 source_group(Modules/SIM800C     FILES ${MODULES_SIM800C})
+source_group(Modules/SSD1306     FILES ${MODULES_SSD1306})
+source_group(Modules/ZMPT101     FILES ${MODULES_ZMPT101})
 source_group(Utils               FILES ${UTILS})
 
 set_source_files_properties(${STM32F1} ${HARDWARE_CMSIS}
@@ -59,6 +65,9 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
+            ${MODULES_MEMORYCARD}
             ${MODULES_SIM800C}
+            ${MODULES_SSD1306}
+            ${MODULES_ZMPT101}
             ${UTILS}    
             )
