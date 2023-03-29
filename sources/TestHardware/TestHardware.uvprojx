@@ -586,6 +586,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Modules/MemoryCard</GroupName>
+          <Files>
+            <File>
+              <FileName>MemoryCard.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\MemoryCard\MemoryCard.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MemoryCard.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\MemoryCard\MemoryCard.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Modules/SIM800C</GroupName>
           <Files>
             <File>
@@ -597,6 +612,36 @@
               <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/SSD1306</GroupName>
+          <Files>
+            <File>
+              <FileName>SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\SSD1306\SSD1306.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\SSD1306\SSD1306.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/ZMPT101</GroupName>
+          <Files>
+            <File>
+              <FileName>ZMPT101.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\ZMPT101\ZMPT101.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ZMPT101.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1192,6 +1237,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Modules/MemoryCard</GroupName>
+          <Files>
+            <File>
+              <FileName>MemoryCard.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\MemoryCard\MemoryCard.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MemoryCard.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\MemoryCard\MemoryCard.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Modules/SIM800C</GroupName>
           <Files>
             <File>
@@ -1203,6 +1263,36 @@
               <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/SSD1306</GroupName>
+          <Files>
+            <File>
+              <FileName>SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\SSD1306\SSD1306.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\SSD1306\SSD1306.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/ZMPT101</GroupName>
+          <Files>
+            <File>
+              <FileName>ZMPT101.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\ZMPT101\ZMPT101.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ZMPT101.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
