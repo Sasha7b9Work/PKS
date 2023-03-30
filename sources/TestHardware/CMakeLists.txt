@@ -31,26 +31,26 @@ file(GLOB STM32F3                ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Dr
                                  ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/*.h
                                  ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy/*.h)
 file(GLOB SRC                    src/*.*)
-file(GLOB BLOCKS_CALCULATOR      src/Blocks/Calculator/*)
+file(GLOB CALCULATOR             src/Calculator/*.*)
+file(GLOB DISPLAY                src/Display/*.*)
+file(GLOB FLASHDISK              src/FlashDisk/*.*)
 file(GLOB HARDWARE               src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS         src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL           src/Hardware/HAL/*.*)
-file(GLOB MODULES_DISPLAY        src/Modules/Display/*.*)
-file(GLOB MODULES_FLASHDISK      src/Modules/FlashDisk/*.*)
-file(GLOB MODULES_MEASURER       src/Modules/Measurer/*.*)
-file(GLOB MODULES_MODEM          src/Modules/Modem/*.*)
+file(GLOB MEASURER               src/Measurer/*.*)
+file(GLOB MODEM                  src/Modem/*.*)
 file(GLOB UTILS                  src/Utils/*.*)
 
 source_group(STM32F3             FILES ${STM32F3})
 source_group(src                 FILES ${SRC})
-source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
+source_group(Calculator          FILES ${CALCULATOR})
+source_group(Display             FILES ${DISPLAY})
+source_group(FlashDisk           FILES ${FLASHDISK})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/CMSIS      FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Modules/Display     FILES ${MODULES_DISPLAY})
-source_group(Modules/FlashDisk   FILES ${MODULES_FLASHDISK})
-source_group(Modules/Measurer    FILES ${MODULES_MEASURER})
-source_group(Modules/Modem       FILES ${MODULES_MODEM})
+source_group(Measurer            FILES ${MEASURER})
+source_group(Modem               FILES ${MODEM})
 source_group(Utils               FILES ${UTILS})
 
 set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
@@ -59,13 +59,13 @@ set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
 add_library(${PROJECT_NAME}
             ${STM32F3}
             ${SRC}
-            ${BLOCKS_CALCULATOR}
+            ${CALCULATOR}
+            ${DISPLAY}
+            ${FLASHDISK}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${MODULES_DISPLAY}
-            ${MODULES_FLASHDISK}
-            ${MODULES_MEASURER}
-            ${MODULES_MODEM}
+            ${MEASURER}
+            ${MODEM}
             ${UTILS}    
             )

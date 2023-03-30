@@ -3,11 +3,11 @@
 #include "Device.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
-#include "Modules/Modem/Modem.h"
-#include "Modules/Display/Display.h"
-#include "Modules/Measurer/Measurer.h"
-#include "Blocks/Calculator/Calculator.h"
-#include "Modules/FlashDisk/FlashDisk.h"
+#include "Modem/Modem.h"
+#include "Display/Display.h"
+#include "Measurer/Measurer.h"
+#include "Calculator/Calculator.h"
+#include "FlashDisk/FlashDisk.h"
 
 
 void Device::Init()
