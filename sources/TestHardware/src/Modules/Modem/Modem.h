@@ -3,7 +3,7 @@
 #include "Blocks/Calculator/Calculator.h"
 
 
-namespace SIM800C
+namespace Modem
 {
     void Init();
 

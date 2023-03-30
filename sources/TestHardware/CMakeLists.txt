@@ -28,30 +28,29 @@ add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum
 
 
 file(GLOB STM32F3                ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Src/*.c
-                                 ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/*.h)
+                                 ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/*.h
+                                 ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy/*.h)
 file(GLOB SRC                    src/*.*)
 file(GLOB BLOCKS_CALCULATOR      src/Blocks/Calculator/*)
-file(GLOB BLOCKS_MEASURER        src/Blocks/Measurer/*)
 file(GLOB HARDWARE               src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS         src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL           src/Hardware/HAL/*.*)
-file(GLOB MODULES_MEMORYCARD     src/Modules/MemoryCard/*.*)
-file(GLOB MODULES_SIM800C        src/Modules/SIM800C/*.*)
-file(GLOB MODULES_SSD1306        src/Modules/SSD1306/*.*)
-file(GLOB MODULES_ZMPT101        src/Modules/ZMPT101/*.*)
+file(GLOB MODULES_DISPLAY        src/Modules/Display/*.*)
+file(GLOB MODULES_FLASHDISK      src/Modules/FlashDisk/*.*)
+file(GLOB MODULES_MEASURER       src/Modules/Measurer/*.*)
+file(GLOB MODULES_MODEM          src/Modules/Modem/*.*)
 file(GLOB UTILS                  src/Utils/*.*)
 
 source_group(STM32F3             FILES ${STM32F3})
 source_group(src                 FILES ${SRC})
 source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
-source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/CMSIS      FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Modules/MemoryCard  FILES ${MODULES_MEMORYCARD})
-source_group(Modules/SIM800C     FILES ${MODULES_SIM800C})
-source_group(Modules/SSD1306     FILES ${MODULES_SSD1306})
-source_group(Modules/ZMPT101     FILES ${MODULES_ZMPT101})
+source_group(Modules/Display     FILES ${MODULES_DISPLAY})
+source_group(Modules/FlashDisk   FILES ${MODULES_FLASHDISK})
+source_group(Modules/Measurer    FILES ${MODULES_MEASURER})
+source_group(Modules/Modem       FILES ${MODULES_MODEM})
 source_group(Utils               FILES ${UTILS})
 
 set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
@@ -61,13 +60,12 @@ add_library(${PROJECT_NAME}
             ${STM32F3}
             ${SRC}
             ${BLOCKS_CALCULATOR}
-            ${BLOCKS_MEASURER}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${MODULES_MEMORYCARD}
-            ${MODULES_SIM800C}
-            ${MODULES_SSD1306}
-            ${MODULES_ZMPT101}
+            ${MODULES_DISPLAY}
+            ${MODULES_FLASHDISK}
+            ${MODULES_MEASURER}
+            ${MODULES_MODEM}
             ${UTILS}    
             )

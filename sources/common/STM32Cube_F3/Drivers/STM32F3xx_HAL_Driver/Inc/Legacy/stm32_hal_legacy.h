@@ -1809,7 +1809,7 @@ extern "C" {
 #define HAL_FMPI2CEx_AnalogFilter_Config      HAL_FMPI2CEx_ConfigAnalogFilter
 #define HAL_FMPI2CEx_DigitalFilter_Config     HAL_FMPI2CEx_ConfigDigitalFilter
 
-#define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) ((cmd == ENABLE)? \
+#define HAL_I2CFastModePlusConfig(SYSCFG_I2CFastModePlus, cmd) (((cmd) == ENABLE)? \
                                                                 HAL_I2CEx_EnableFastModePlus(SYSCFG_I2CFastModePlus): \
                                                                 HAL_I2CEx_DisableFastModePlus(SYSCFG_I2CFastModePlus))
 

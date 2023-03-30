@@ -6,6 +6,7 @@
 #include "Modules/SIM800C/SIM800C.h"
 #include "Blocks/Measurer/Measurer.h"
 #include "Blocks/Calculator/Calculator.h"
+#include "Modules/FlashDrive/FlashDrive.h"
 
 
 namespace Device
@@ -23,6 +24,8 @@ void Device::Init()
     Timer::Delay(500);
 
     SIM800C::Init();
+
+    FlashDrive::Init();
 }
 
 

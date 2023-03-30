@@ -149,7 +149,7 @@ typedef struct
   * @brief  FLASH Options bytes program structure definition
   */
 typedef struct
-{
+{ //-V802
   uint32_t OptionType;  /*!< OptionType: Option byte to be configured.
                              This parameter can be a value of @ref FLASHEx_OB_Type */
 
