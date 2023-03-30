@@ -27,8 +27,8 @@ add_compile_options(/wd5220)    # a non-static data member with a volatile quali
 add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum class' over 'enum' (Enum.3)
 
 
-file(GLOB STM32F1                ../common/STM32Cube_F1/Drivers/STM32F1xx_HAL_Driver/Src/*.c
-                                 ../common/STM32Cube_F1/Drivers/STM32F1xx_HAL_Driver/Inc/*.h)
+file(GLOB STM32F3                ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Src/*.c
+                                 ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/*.h)
 file(GLOB SRC                    src/*.*)
 file(GLOB BLOCKS_CALCULATOR      src/Blocks/Calculator/*)
 file(GLOB BLOCKS_MEASURER        src/Blocks/Measurer/*)
@@ -41,7 +41,7 @@ file(GLOB MODULES_SSD1306        src/Modules/SSD1306/*.*)
 file(GLOB MODULES_ZMPT101        src/Modules/ZMPT101/*.*)
 file(GLOB UTILS                  src/Utils/*.*)
 
-source_group(STM32F1             FILES ${STM32F1})
+source_group(STM32F3             FILES ${STM32F3})
 source_group(src                 FILES ${SRC})
 source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
 source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
@@ -54,11 +54,11 @@ source_group(Modules/SSD1306     FILES ${MODULES_SSD1306})
 source_group(Modules/ZMPT101     FILES ${MODULES_ZMPT101})
 source_group(Utils               FILES ${UTILS})
 
-set_source_files_properties(${STM32F1} ${HARDWARE_CMSIS}
+set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}
-            ${STM32F1}
+            ${STM32F3}
             ${SRC}
             ${BLOCKS_CALCULATOR}
             ${BLOCKS_MEASURER}
