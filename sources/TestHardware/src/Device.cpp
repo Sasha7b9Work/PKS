@@ -8,6 +8,7 @@
 #include "Measurer/Measurer.h"
 #include "Calculator/Calculator.h"
 #include "FlashDisk/FlashDisk.h"
+#include "Test.h"
 
 
 void Device::Init()
@@ -30,5 +31,21 @@ void Device::Init()
 
 void Device::Update()
 {
+    if (Test::Display())
+    {
+        LOG_WRITE("Display is Ok!");
+    }
+    else
+    {
+        LOG_ERROR("Display failed");
+    }
 
+    if (Test::Modem())
+    {
+        LOG_WRITE("Modem is Ok!");
+    }
+    else
+    {
+        LOG_ERROR("Modem failed");
+    }
 }
