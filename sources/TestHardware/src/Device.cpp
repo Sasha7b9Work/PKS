@@ -36,4 +36,6 @@ void Device::Update()
     Test::Modem() ? LOG_WRITE("Modem is Ok!") : LOG_ERROR("Modem failed");
 
     Test::Measurer() ? LOG_WRITE("Measurer is Ok!") : LOG_WRITE("Measurer failed");
+
+    Test::FlashDrive() ? LOG_WRITE("FlashDrive is Ok!") : LOG_WRITE("FlashDrive failed");
 }

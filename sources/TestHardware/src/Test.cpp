@@ -19,3 +19,9 @@ bool Test::Measurer()
 {
     return false;
 }
+
+
+bool Test::FlashDrive()
+{
+    return false;
+}

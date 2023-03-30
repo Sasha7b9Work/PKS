@@ -9,4 +9,6 @@ namespace Test
     bool Modem();
 
     bool Measurer();
+
+    bool FlashDrive();
 }
