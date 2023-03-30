@@ -31,21 +31,9 @@ void Device::Init()
 
 void Device::Update()
 {
-    if (Test::Display())
-    {
-        LOG_WRITE("Display is Ok!");
-    }
-    else
-    {
-        LOG_ERROR("Display failed");
-    }
+    Test::Display() ? LOG_WRITE("Display is Ok!") : LOG_ERROR("Display failed");
 
-    if (Test::Modem())
-    {
-        LOG_WRITE("Modem is Ok!");
-    }
-    else
-    {
-        LOG_ERROR("Modem failed");
-    }
+    Test::Modem() ? LOG_WRITE("Modem is Ok!") : LOG_ERROR("Modem failed");
+
+    Test::Measurer() ? LOG_WRITE("Measurer is Ok!") : LOG_WRITE("Measurer failed");
 }

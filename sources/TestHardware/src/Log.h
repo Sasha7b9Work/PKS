@@ -2,5 +2,12 @@
 #pragma once
 
 
-#define LOG_WRITE(...)
-#define LOG_ERROR(...)
+#define LOG_WRITE(...)      Log::Write(__VA_ARGS__)
+#define LOG_ERROR(...)      Log::Error(__VA_ARGS__)
+
+
+namespace Log
+{
+    void Write(pchar, ...);
+    void Error(pchar, ...);
+}

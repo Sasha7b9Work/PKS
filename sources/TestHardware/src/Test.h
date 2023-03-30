@@ -7,4 +7,6 @@ namespace Test
     bool Display();
 
     bool Modem();
+
+    bool Measurer();
 }
