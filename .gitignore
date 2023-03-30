@@ -1,5 +1,7 @@
 *.dbgconf
 
+archive.zip
+
 sources/generated/*
 
 sources/Device/Listings/*
