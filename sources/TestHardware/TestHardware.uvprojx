@@ -501,21 +501,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Blocks/Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Measurer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
@@ -586,62 +571,92 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/MemoryCard</GroupName>
+          <GroupName>Modules/Display</GroupName>
           <Files>
             <File>
-              <FileName>MemoryCard.cpp</FileName>
+              <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.cpp</FilePath>
+              <FilePath>.\src\Modules\Display\Display.cpp</FilePath>
             </File>
             <File>
-              <FileName>MemoryCard.h</FileName>
+              <FileName>Display.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.h</FilePath>
+              <FilePath>.\src\Modules\Display\Display.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/SSD1306</GroupName>
-          <Files>
             <File>
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.cpp</FilePath>
+              <FilePath>.\src\Modules\Display\SSD1306.cpp</FilePath>
             </File>
             <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.h</FilePath>
+              <FilePath>.\src\Modules\Display\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/ZMPT101</GroupName>
+          <GroupName>Modules/FlashDisk</GroupName>
           <Files>
+            <File>
+              <FileName>FlashDisk.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\FlashDisk\FlashDisk.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\Measurer\Measurer.h</FilePath>
+            </File>
             <File>
               <FileName>ZMPT101.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.cpp</FilePath>
+              <FilePath>.\src\Modules\Measurer\ZMPT101.cpp</FilePath>
             </File>
             <File>
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.h</FilePath>
+              <FilePath>.\src\Modules\Measurer\ZMPT101.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\Modem\Modem.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\Modem\SIM800C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\Modem\SIM800C.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1152,21 +1167,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Blocks/Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Measurer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Hardware</GroupName>
           <Files>
             <File>
@@ -1237,62 +1237,92 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/MemoryCard</GroupName>
+          <GroupName>Modules/Display</GroupName>
           <Files>
             <File>
-              <FileName>MemoryCard.cpp</FileName>
+              <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.cpp</FilePath>
+              <FilePath>.\src\Modules\Display\Display.cpp</FilePath>
             </File>
             <File>
-              <FileName>MemoryCard.h</FileName>
+              <FileName>Display.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.h</FilePath>
+              <FilePath>.\src\Modules\Display\Display.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/SSD1306</GroupName>
-          <Files>
             <File>
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.cpp</FilePath>
+              <FilePath>.\src\Modules\Display\SSD1306.cpp</FilePath>
             </File>
             <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.h</FilePath>
+              <FilePath>.\src\Modules\Display\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/ZMPT101</GroupName>
+          <GroupName>Modules/FlashDisk</GroupName>
           <Files>
+            <File>
+              <FileName>FlashDisk.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\FlashDisk\FlashDisk.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\Measurer\Measurer.h</FilePath>
+            </File>
             <File>
               <FileName>ZMPT101.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.cpp</FilePath>
+              <FilePath>.\src\Modules\Measurer\ZMPT101.cpp</FilePath>
             </File>
             <File>
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.h</FilePath>
+              <FilePath>.\src\Modules\Measurer\ZMPT101.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modules/Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\Modem\Modem.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modules\Modem\SIM800C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modules\Modem\SIM800C.h</FilePath>
             </File>
           </Files>
         </Group>
