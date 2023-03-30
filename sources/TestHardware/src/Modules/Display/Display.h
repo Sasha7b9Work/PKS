@@ -4,7 +4,7 @@
 
 // Модуль дисплея
 
-namespace SSD1306
+namespace Display
 {
     void Init();
 }

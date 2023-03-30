@@ -3,7 +3,7 @@
 #include "Modules/Display/Display.h"
 
 
-void SSD1306::Init()
+void Display::Init()
 {
 
 }
