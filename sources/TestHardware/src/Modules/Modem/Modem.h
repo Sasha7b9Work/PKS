@@ -6,8 +6,4 @@
 namespace Modem
 {
     void Init();
-
-    bool IsConnected();
-
-    void SendData(OutputData &);
 }

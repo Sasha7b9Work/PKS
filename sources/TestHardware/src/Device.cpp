@@ -10,12 +10,6 @@
 #include "Modules/FlashDisk/FlashDisk.h"
 
 
-namespace Device
-{
-
-}
-
-
 void Device::Init()
 {
     HAL::Init();
