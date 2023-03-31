@@ -80,45 +80,53 @@ endif()
 
 file(GLOB SRC                   *.h *.cpp
                                 ../../Device/src/defines.h
-                                ../../Device/src/Device.*)
+                                ../../Device/src/Device.*
+                                ../../Device/src/Log.*
+                                ../../Device/src/Test.*)
 file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_tim.cpp
                                 ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_rcc.cpp
                                 ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_gpio.cpp
                                 ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_adc.cpp
                                 ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_adc_ex.cpp
                                 ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal.cpp)
-file(GLOB BLOCKS_CALCULATOR     ../../Device/src/Blocks/Calculator/*.*)
+file(GLOB CALCULATOR            ../../Device/src/Calculator/*.*)
 file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
-file(GLOB DISPLAY                                Display/*.*)
+file(GLOB DISPLAY               ../../Device/src/Display/Display.h
+                                                 Display/*.*)
 file(GLOB HARDWARE              ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL          ../../Device/src/Hardware/HAL/*.*
                                                  Hardware/HAL/*.*)
-file(GLOB MODULES_MEMORYCARD    ../../Device/src/Modules/MemoryCard/*.*)
-file(GLOB MODULES_SIM800C       ../../Device/src/Modules/SIM800C/*.*)
+file(GLOB HARDWARE_MODULES_SIM800C               Hardware/Modules/SIM800C/*.*)
+file(GLOB FLASHDISK             ../../Device/src/FlashDisk/*.*)
+file(GLOB MEASURER              ../../Device/src/Measurer/*.*)
+file(GLOB MODEM                 ../../Device/src/Modem/*.*)
 file(GLOB UTILS                 ../../Device/src/Utils/*.*)
 
 source_group(src                 FILES ${SRC})
 source_group(libs                FILES ${LIBS})
-source_group(Blocks/Calculator   FILES ${BLOCKS_CALCULATOR})
+source_group(Calculator          FILES ${CALCULATOR})
 source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
 source_group(Display             FILES ${DISPLAY})
 source_group(Hardware            FILES ${HARDWARE})
 source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Modules/MemoryCard  FILES ${MODULES_MEMORYCARD})
-source_group(Modules/SIM800C     FILES ${MODULES_SIM800C})
+source_group(Hardware/Modules/)
+source_group(FlashDisk           FILES ${FLASHDISK})
+source_group(Measurer            FILES ${MEASURER})
+source_group(Modem               FILES ${MODEM})
 source_group(Utils               FILES ${UTILS})
 
 
 add_executable( ${PROJECT_NAME}
                 ${SRC}
                 ${LIBS}
-                ${BLOCKS_CALCULATOR}
+                ${CALCULATOR}
                 ${BLOCKS_MEASURER}
                 ${DISPLAY}
                 ${HARDWARE}
                 ${HARDWARE_HAL}
-                ${MODULES_MEMORYCARD}
-                ${MODULES_SIM800C}
+                ${FLASHDISK}
+                ${MEASURER}
+                ${MODEM}
                 ${UTILS}
                 )
 
