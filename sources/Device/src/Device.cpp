@@ -3,15 +3,12 @@
 #include "Device.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
-#include "Modules/SIM800C/SIM800C.h"
-#include "Blocks/Measurer/Measurer.h"
-#include "Blocks/Calculator/Calculator.h"
-
-
-namespace Device
-{
-
-}
+#include "Modem/Modem.h"
+#include "Display/Display.h"
+#include "Measurer/Measurer.h"
+#include "Calculator/Calculator.h"
+#include "FlashDisk/FlashDisk.h"
+#include "Test.h"
 
 
 void Device::Init()
@@ -22,22 +19,23 @@ void Device::Init()
 
     Timer::Delay(500);
 
-    SIM800C::Init();
+    Display::Init();
+
+    FlashDisk::Init();
+
+    Measurer::Init();
+
+    Modem::Init();
 }
 
 
 void Device::Update()
 {
-    InputData in = Measurer::ReadInputData();
+    Test::Display() ? LOG_WRITE("Display is Ok!") : LOG_ERROR("Display failed");
 
-    OutputData out = Calculator::CalculateOutput(in);
+    Test::Modem() ? LOG_WRITE("Modem is Ok!") : LOG_ERROR("Modem failed");
 
-    if (SIM800C::IsConnected())
-    {
-        SIM800C::SendData(out);
-    }
-    else
-    {
+    Test::Measurer() ? LOG_WRITE("Measurer is Ok!") : LOG_WRITE("Measurer failed");
 
-    }
+    Test::FlashDrive() ? LOG_WRITE("FlashDrive is Ok!") : LOG_WRITE("FlashDrive failed");
 }
