@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\Device\src\Hardware\HAL</LastAddFilePath>
+    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>

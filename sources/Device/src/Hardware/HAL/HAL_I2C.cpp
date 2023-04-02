@@ -3,50 +3,75 @@
 #include <stm32f3xx_hal.h>
 
 
-static I2C_HandleTypeDef hi2c1;
-
-
 namespace HAL_I2C2
 {
+    static I2C_HandleTypeDef hi2c1;
+
     void *handle = &hi2c1;
 }
 
 
 void HAL_I2C2::Init(void)
 {
-    hi2c1.Instance = I2C1;
-    hi2c1.Init.ClockSpeed = 100000;
-    hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
+    hi2c1.Instance = I2C2;
+    hi2c1.Init.Timing = 0x2000090E;
     hi2c1.Init.OwnAddress1 = 0;
     hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
     hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
     hi2c1.Init.OwnAddress2 = 0;
+    hi2c1.Init.OwnAddress2Masks = I2C_OA2_NOMASK;
     hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
     hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
 
-    HAL_I2C_Init(&hi2c1);
+    if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+    {
+        HAL::ErrorHandler();
+    }
+
+    if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+    {
+        HAL::ErrorHandler();
+    }
+
+    if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+    {
+        HAL::ErrorHandler();
+    }
 }
 
 
 void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle) //-V2009
 {
-    GPIO_InitTypeDef GPIO_InitStruct;
+    GPIO_InitTypeDef GPIO_InitStruct = { 0 };
 
-    if (i2cHandle->Instance == I2C1)
+    if (i2cHandle->Instance == I2C2)
     {
-        GPIO_InitStruct.Pin = GPIO_PIN_6 | GPIO_PIN_7;
+        /* USER CODE BEGIN I2C2_MspInit 0 */
+
+        /* USER CODE END I2C2_MspInit 0 */
+
+        __HAL_RCC_GPIOA_CLK_ENABLE();
+        /**I2C2 GPIO Configuration
+        PA9     ------> I2C2_SCL
+        PA10     ------> I2C2_SDA
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_9 | GPIO_PIN_10;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
-        GPIO_InitStruct.Pull = GPIO_PULLUP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
         GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_HIGH;
+        GPIO_InitStruct.Alternate = GPIO_AF4_I2C2;
+        HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
-        HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+        /* Peripheral clock enable */
+        __HAL_RCC_I2C2_CLK_ENABLE();
+        /* USER CODE BEGIN I2C2_MspInit 1 */
 
-        __HAL_RCC_I2C1_CLK_ENABLE();
+        /* USER CODE END I2C2_MspInit 1 */
     }
 }
 
 
-int8 HAL_I2C1::Read(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
+int8 HAL_I2C2::Read(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
 {
     while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
     {
@@ -68,7 +93,7 @@ int8 HAL_I2C1::Read(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
 }
 
 
-int8 HAL_I2C1::Read16(uint8 dev_id, uint8* data)
+int8 HAL_I2C2::Read16(uint8 dev_id, uint8* data)
 {
     while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
     {
@@ -84,7 +109,7 @@ int8 HAL_I2C1::Read16(uint8 dev_id, uint8* data)
 }
 
 
-int8 HAL_I2C1::Write(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
+int8 HAL_I2C2::Write(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
 {
     while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
     {
@@ -107,7 +132,7 @@ int8 HAL_I2C1::Write(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
 }
 
 
-int8 HAL_I2C1::Write8(uint8 dev_id, uint8 data)
+int8 HAL_I2C2::Write8(uint8 dev_id, uint8 data)
 {
     while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
     {
