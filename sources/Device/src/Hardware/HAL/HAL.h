@@ -31,7 +31,7 @@ namespace HAL_ADC
 }
 
 
-namespace HAL_I2C1
+namespace HAL_I2C2
 {
     void DeInit();
 
