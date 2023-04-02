@@ -10,17 +10,24 @@ static void SystemClock_Config();
 
 void HAL::Init()
 {
+    __HAL_RCC_GPIOA_CLK_ENABLE();
+    __HAL_RCC_GPIOB_CLK_ENABLE();
+    __HAL_RCC_GPIOC_CLK_ENABLE();
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+    __HAL_RCC_GPIOE_CLK_ENABLE();
+
+    __HAL_RCC_SYSCFG_CLK_ENABLE();
+    __HAL_RCC_PWR_CLK_ENABLE();
+
     HAL_Init();
 
     SystemClock_Config();
 
-#ifndef GUI
-    __HAL_RCC_PWR_CLK_ENABLE();
-#endif
+    HAL_I2C2::Init();
 
-    HAL_PINS::Init();
+//    HAL_PINS::Init();
 
-    HAL_ADC::Init();
+//    HAL_ADC::Init();
 }
 
 
