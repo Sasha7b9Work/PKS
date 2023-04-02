@@ -16,6 +16,8 @@ struct DirectionSPI
 namespace HAL
 {
     void Init();
+
+    void ErrorHandler();
 }
 
 
