@@ -152,22 +152,6 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>63</LineNumber>
-          <EnabledFlag>1</EnabledFlag>
-          <Address>134219762</Address>
-          <ByteObject>0</ByteObject>
-          <HtxType>0</HtxType>
-          <ManyObjects>0</ManyObjects>
-          <SizeOfObject>0</SizeOfObject>
-          <BreakByAccess>0</BreakByAccess>
-          <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Hardware\HAL\HAL_I2C.cpp</Filename>
-          <ExecCommand></ExecCommand>
-          <Expression>\\NFC_Reader\src/Hardware/HAL/HAL_I2C.cpp\63</Expression>
-        </Bp>
-        <Bp>
-          <Number>1</Number>
-          <Type>0</Type>
           <LineNumber>197</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>134218872</Address>
@@ -180,6 +164,22 @@
           <Filename>&lt;1&gt;..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Src\stm32f3xx_hal_gpio.c</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\NFC_Reader\../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Src/stm32f3xx_hal_gpio.c\197</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>63</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134219762</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;.\src\Hardware\HAL\HAL_I2C.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\NFC_Reader\src/Hardware/HAL/HAL_I2C.cpp\63</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>
