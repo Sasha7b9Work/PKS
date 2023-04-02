@@ -1,7 +1,7 @@
 // 2022/6/17 0:37:41 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
-#include <stm32f3xx_hal.h>
+#include <gd32f30x.h>
 
 
 namespace HAL_ADC

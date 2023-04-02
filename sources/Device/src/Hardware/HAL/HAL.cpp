@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/HAL_PINS.h"
-#include <stm32f3xx_hal.h>
+#include <gd32f30x.h>
 
 
 static void SystemClock_Config();
