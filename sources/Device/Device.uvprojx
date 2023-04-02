@@ -625,14 +625,14 @@
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f3xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\stm32f3xx_hal_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>HAL_I2C.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_libopt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1387,14 +1387,14 @@
               <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
             <File>
-              <FileName>stm32f3xx_hal_conf.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\stm32f3xx_hal_conf.h</FilePath>
-            </File>
-            <File>
               <FileName>HAL_I2C.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_libopt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
           </Files>
         </Group>

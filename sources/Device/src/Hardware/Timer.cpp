@@ -1,7 +1,7 @@
 // 2022/6/10 9:08:19 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/Timer.h"
-#include <stm32f3xx_hal.h>
+#include <gd32f30x.h>
 
 
 namespace Timer

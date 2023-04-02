@@ -1,6 +1,6 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
-#include <stm32f3xx_hal.h>
+#include <gd32f30x.h>
 
 
 namespace HAL_I2C2
