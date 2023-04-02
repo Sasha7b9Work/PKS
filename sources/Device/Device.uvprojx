@@ -484,35 +484,25 @@
               <FileType>8</FileType>
               <FilePath>.\src\defines.cpp</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Blocks/Calculator</GroupName>
-          <Files>
             <File>
-              <FileName>Calculator.cpp</FileName>
+              <FileName>Log.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Blocks\Calculator\Calculator.cpp</FilePath>
+              <FilePath>.\src\Log.cpp</FilePath>
             </File>
             <File>
-              <FileName>Calculator.h</FileName>
+              <FileName>Log.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Blocks\Calculator\Calculator.h</FilePath>
+              <FilePath>.\src\Log.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Blocks/Measurer</GroupName>
-          <Files>
             <File>
-              <FileName>Measurer.cpp</FileName>
+              <FileName>Test.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.cpp</FilePath>
+              <FilePath>.\src\Test.cpp</FilePath>
             </File>
             <File>
-              <FileName>Measurer.h</FileName>
+              <FileName>Test.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.h</FilePath>
+              <FilePath>.\src\Test.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -587,62 +577,122 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/MemoryCard</GroupName>
-          <Files>
-            <File>
-              <FileName>MemoryCard.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MemoryCard.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/SIM800C</GroupName>
+          <GroupName>Hardware/Modules/SIM800C</GroupName>
           <Files>
             <File>
               <FileName>SIM800C.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
             <File>
               <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/SSD1306</GroupName>
+          <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
             </File>
             <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/ZMPT101</GroupName>
+          <GroupName>Hardware/Modules/ZMPT101</GroupName>
           <Files>
             <File>
               <FileName>ZMPT101.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.cpp</FilePath>
             </File>
             <File>
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Calculator</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FlashDisk</GroupName>
+          <Files>
+            <File>
+              <FileName>FlashDisk.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1136,35 +1186,25 @@
               <FileType>8</FileType>
               <FilePath>.\src\defines.cpp</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Blocks/Calculator</GroupName>
-          <Files>
             <File>
-              <FileName>Calculator.cpp</FileName>
+              <FileName>Log.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Blocks\Calculator\Calculator.cpp</FilePath>
+              <FilePath>.\src\Log.cpp</FilePath>
             </File>
             <File>
-              <FileName>Calculator.h</FileName>
+              <FileName>Log.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Blocks\Calculator\Calculator.h</FilePath>
+              <FilePath>.\src\Log.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Blocks/Measurer</GroupName>
-          <Files>
             <File>
-              <FileName>Measurer.cpp</FileName>
+              <FileName>Test.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.cpp</FilePath>
+              <FilePath>.\src\Test.cpp</FilePath>
             </File>
             <File>
-              <FileName>Measurer.h</FileName>
+              <FileName>Test.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Blocks\Measurer\Measurer.h</FilePath>
+              <FilePath>.\src\Test.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1239,62 +1279,122 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/MemoryCard</GroupName>
-          <Files>
-            <File>
-              <FileName>MemoryCard.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MemoryCard.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modules\MemoryCard\MemoryCard.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modules/SIM800C</GroupName>
+          <GroupName>Hardware/Modules/SIM800C</GroupName>
           <Files>
             <File>
               <FileName>SIM800C.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
             <File>
               <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\SIM800C\SIM800C.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/SSD1306</GroupName>
+          <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
             </File>
             <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\SSD1306\SSD1306.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
-          <GroupName>Modules/ZMPT101</GroupName>
+          <GroupName>Hardware/Modules/ZMPT101</GroupName>
           <Files>
             <File>
               <FileName>ZMPT101.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.cpp</FilePath>
             </File>
             <File>
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modules\ZMPT101\ZMPT101.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Calculator</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FlashDisk</GroupName>
+          <Files>
+            <File>
+              <FileName>FlashDisk.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1317,5 +1417,14 @@
     <components/>
     <files/>
   </RTE>
+
+  <LayerInfo>
+    <Layers>
+      <Layer>
+        <LayName>Device</LayName>
+        <LayPrjMark>1</LayPrjMark>
+      </Layer>
+    </Layers>
+  </LayerInfo>
 
 </Project>

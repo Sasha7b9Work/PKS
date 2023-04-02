@@ -6,6 +6,8 @@ struct Color
 {
     enum E
     {
+        Black,
+        White,
         Count
     };
 
