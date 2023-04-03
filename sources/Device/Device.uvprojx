@@ -450,6 +450,36 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
+              <FileName>gd32f30x_libopt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_IT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
+            </File>
+            <File>
               <FileName>systick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Hardware\HAL\systick.c</FilePath>
@@ -458,26 +488,6 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1062,6 +1072,36 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
+              <FileName>gd32f30x_libopt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_I2C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_IT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
+            </File>
+            <File>
               <FileName>systick.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Hardware\HAL\systick.c</FilePath>
@@ -1070,26 +1110,6 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
             </File>
           </Files>
         </Group>

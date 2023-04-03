@@ -10,6 +10,8 @@ void HAL_Init(void)
     systick_config();
     
     HAL_I2C0_Init();
+
+    HAL_ADC_Init();
 }
 
 
