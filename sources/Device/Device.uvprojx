@@ -336,8 +336,8 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--cpp</MiscControls>
-              <Define>USE_HAL_DRIVER, GD32F30X_HD, __cplusplus</Define>
+              <MiscControls></MiscControls>
+              <Define>USE_STDPERIPH_DRIVER,GD32F30X_HD</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
             </VariousControls>
@@ -384,49 +384,24 @@
           <GroupName>GD32F30x</GroupName>
           <Files>
             <File>
-              <FileName>gd32f30x_crc.c</FileName>
+              <FileName>system_gd32f30x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_crc.c</FilePath>
+              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\system_gd32f30x.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_ctc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_ctc.c</FilePath>
+              <FileName>startup_gd32f30x_hd.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_hd.s</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_dac.c</FilePath>
+              <FileName>gd32f30x_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_dbg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_dbg.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_enet.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_enet.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_exmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_exmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_fwdgt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fwdgt.c</FilePath>
+              <FileName>gd32f30x_rcu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_rcu.h</FilePath>
             </File>
             <File>
               <FileName>gd32f30x_gpio.c</FileName>
@@ -434,49 +409,9 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_i2c.c</FileName>
+              <FileName>gd32f30x_rcu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_misc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_misc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_pmu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_pmu.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_sdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_sdio.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_wwdgt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
-            </File>
-            <File>
-              <FileName>_gd32f30x_rcu_.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\_gd32f30x_rcu_.c</FilePath>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -484,120 +419,15 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>defines.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\defines.h</FilePath>
-            </File>
-            <File>
-              <FileName>Device.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Device.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>defines.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\defines.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Log.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Log.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Log.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Log.h</FilePath>
-            </File>
-            <File>
-              <FileName>Test.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Test.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Test.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware</GroupName>
-          <Files>
-            <File>
-              <FileName>Timer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Timer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Timer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/CMSIS</GroupName>
-          <Files>
-            <File>
-              <FileName>startup_gd32f30x_hd.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_gd32f30x.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
+              <FilePath>.\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Hardware/HAL</GroupName>
           <Files>
-            <File>
-              <FileName>HAL.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_PINS.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_PINS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_libopt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
-            </File>
             <File>
               <FileName>systick.c</FileName>
               <FileType>1</FileType>
@@ -608,135 +438,10 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
             <File>
-              <FileName>SIM800C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SSD1306</GroupName>
-          <Files>
-            <File>
-              <FileName>SSD1306.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SSD1306.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Calculator</GroupName>
-          <Files>
-            <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculator\Calculator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Display</GroupName>
-          <Files>
-            <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FlashDisk</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDisk.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDisk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Measurer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem</GroupName>
-          <Files>
-            <File>
-              <FileName>Modem.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Modem.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Modem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\Modem.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Utils</GroupName>
-          <Files>
-            <File>
-              <FileName>Buffer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Buffer.h</FilePath>
+              <FileName>HAL_IT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1120,49 +825,24 @@
           <GroupName>GD32F30x</GroupName>
           <Files>
             <File>
-              <FileName>gd32f30x_crc.c</FileName>
+              <FileName>system_gd32f30x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_crc.c</FilePath>
+              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\system_gd32f30x.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_ctc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_ctc.c</FilePath>
+              <FileName>startup_gd32f30x_hd.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_hd.s</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_dac.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_dac.c</FilePath>
+              <FileName>gd32f30x_gpio.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_gpio.h</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_dbg.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_dbg.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_dma.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_dma.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_enet.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_enet.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_exmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_exmc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_exti.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_exti.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_fwdgt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fwdgt.c</FilePath>
+              <FileName>gd32f30x_rcu.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_rcu.h</FilePath>
             </File>
             <File>
               <FileName>gd32f30x_gpio.c</FileName>
@@ -1170,49 +850,9 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_i2c.c</FileName>
+              <FileName>gd32f30x_rcu.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_misc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_misc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_pmu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_pmu.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_sdio.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_sdio.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_spi.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_timer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_usart.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_wwdgt.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
-            </File>
-            <File>
-              <FileName>_gd32f30x_rcu_.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\_gd32f30x_rcu_.c</FilePath>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1220,120 +860,15 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>defines.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\defines.h</FilePath>
-            </File>
-            <File>
-              <FileName>Device.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Device.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>defines.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\defines.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Log.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Log.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Log.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Log.h</FilePath>
-            </File>
-            <File>
-              <FileName>Test.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Test.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Test.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware</GroupName>
-          <Files>
-            <File>
-              <FileName>Timer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Timer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Timer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Timer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/CMSIS</GroupName>
-          <Files>
-            <File>
-              <FileName>startup_gd32f30x_hd.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</FilePath>
-            </File>
-            <File>
-              <FileName>system_gd32f30x.c</FileName>
+              <FileName>main.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
+              <FilePath>.\src\main.c</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Hardware/HAL</GroupName>
           <Files>
-            <File>
-              <FileName>HAL.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_PINS.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_PINS.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_libopt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
-            </File>
             <File>
               <FileName>systick.c</FileName>
               <FileType>1</FileType>
@@ -1344,135 +879,10 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
             <File>
-              <FileName>SIM800C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SSD1306</GroupName>
-          <Files>
-            <File>
-              <FileName>SSD1306.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SSD1306.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Calculator</GroupName>
-          <Files>
-            <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Calculator\Calculator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculator\Calculator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Display</GroupName>
-          <Files>
-            <File>
-              <FileName>Display.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Display\Display.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FlashDisk</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDisk.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDisk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Measurer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem</GroupName>
-          <Files>
-            <File>
-              <FileName>Modem.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Modem.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Modem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\Modem.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Utils</GroupName>
-          <Files>
-            <File>
-              <FileName>Buffer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Buffer.h</FilePath>
+              <FileName>HAL_IT.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
             </File>
           </Files>
         </Group>

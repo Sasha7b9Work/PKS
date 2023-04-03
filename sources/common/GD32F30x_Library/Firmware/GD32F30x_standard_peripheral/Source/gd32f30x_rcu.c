@@ -231,10 +231,10 @@ void rcu_periph_clock_sleep_disable(rcu_periph_sleep_enum periph)
     \param[out] none
     \retval     none
 */
-//void rcu_periph_reset_enable(rcu_periph_reset_enum periph_reset)
-//{
-//    RCU_REG_VAL(periph_reset) |= BIT(RCU_BIT_POS(periph_reset));
-//}
+void rcu_periph_reset_enable(rcu_periph_reset_enum periph_reset)
+{
+    RCU_REG_VAL(periph_reset) |= BIT(RCU_BIT_POS(periph_reset));
+}
 
 /*!
     \brief      disable reset the peripheral
@@ -260,10 +260,10 @@ void rcu_periph_clock_sleep_disable(rcu_periph_sleep_enum periph)
     \param[out] none
     \retval     none
 */
-//void rcu_periph_reset_disable(rcu_periph_reset_enum periph_reset)
-//{
-//    RCU_REG_VAL(periph_reset) &= ~BIT(RCU_BIT_POS(periph_reset));
-//}
+void rcu_periph_reset_disable(rcu_periph_reset_enum periph_reset)
+{
+    RCU_REG_VAL(periph_reset) &= ~BIT(RCU_BIT_POS(periph_reset));
+}
 
 /*!
     \brief      reset the BKP domain

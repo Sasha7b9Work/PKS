@@ -2,45 +2,21 @@
 #pragma once
 
 
-struct DirectionSPI
-{
-    enum E
-    {
-        Memory,         // Работа с флеш-памятью
-        Reader,         // Работа с карт-ридером
-        Count
-    };
-};
+void HAL_Init(void);
+void HAL_ErrorHandler(void);
 
 
-namespace HAL
-{
-    void Init();
-
-    void ErrorHandler();
-}
+void HAL_ADC_Init(void);
+void HAL_ADC_Update(void);
+float HAL_ADC_GetVoltage(int num, int ch);
 
 
-namespace HAL_ADC
-{
-    void Init();
+void HAL_I2C2_Init(void);
+int8 HAL_I2C2_Read(uint8 dev_id, uint8 reg_addr, uint8 *reg_data, uint16 len);
+int8 HAL_I2C2_Read16(uint8 dev_id, uint8 *data);
+int8 HAL_I2C2_Write(uint8 dev_id, uint8 reg_addr, uint8 *reg_data, uint16 len);
+int8 HAL_I2C2_Write8(uint8 dev_id, uint8 data);
 
-    void Update();
-
-    float GetVoltage(int num, int ch);
-}
-
-
-namespace HAL_I2C2
-{
-    void Init();
-
-    int8 Read(uint8 dev_id, uint8 reg_addr, uint8 *reg_data, uint16 len);
-    int8 Read16(uint8 dev_id, uint8 *data);
-
-    int8 Write(uint8 dev_id, uint8 reg_addr, uint8 *reg_data, uint16 len);
-    int8 Write8(uint8 dev_id, uint8 data);
-}
 
 
 #ifdef __cplusplus

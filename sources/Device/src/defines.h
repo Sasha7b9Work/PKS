@@ -34,15 +34,6 @@ union BitSet32
 };
 
 
-union BitSet16
-{
-    BitSet16() : half_word(0) { }
-
-    uint16 half_word;
-    uint8  byte[2];
-};
-
-
 #define _GET_BIT(value, bit)   (((value) >> (bit)) & 0x01)
 #define _SET_BIT(value, bit)   ((value) |= (1 << (bit)))
 #define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit))))
