@@ -385,16 +385,6 @@
           <GroupName>GD32F30x</GroupName>
           <Files>
             <File>
-              <FileName>system_gd32f30x.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\system_gd32f30x.c</FilePath>
-            </File>
-            <File>
-              <FileName>startup_gd32f30x_hd.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_hd.s</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_gpio.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_gpio.h</FilePath>
@@ -433,6 +423,26 @@
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
+            </File>
+            <File>
+              <FileName>Device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Device.c</FilePath>
+            </File>
+            <File>
+              <FileName>Device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Device.h</FilePath>
+            </File>
+            <File>
+              <FileName>Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Test.c</FilePath>
+            </File>
+            <File>
+              <FileName>Test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Test.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -498,6 +508,111 @@
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Calculator</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Calculator\Calculator.c</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FlashDisk</GroupName>
+          <Files>
+            <File>
+              <FileName>FlashDisk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.c</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Measurer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Measurer\Measurer.c</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Modem\Modem.c</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/CMSIS</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_gd32f30x_hd.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_gd32f30x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/Modules/SIM800C</GroupName>
+          <Files>
+            <File>
+              <FileName>SIM800C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/Modules/ZMPT101</GroupName>
+          <Files>
+            <File>
+              <FileName>ZMPT101.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
+            </File>
+            <File>
+              <FileName>ZMPT101.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -882,16 +997,6 @@
           <GroupName>GD32F30x</GroupName>
           <Files>
             <File>
-              <FileName>system_gd32f30x.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\system_gd32f30x.c</FilePath>
-            </File>
-            <File>
-              <FileName>startup_gd32f30x_hd.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_hd.s</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_gpio.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_gpio.h</FilePath>
@@ -930,6 +1035,26 @@
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
+            </File>
+            <File>
+              <FileName>Device.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Device.c</FilePath>
+            </File>
+            <File>
+              <FileName>Device.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Device.h</FilePath>
+            </File>
+            <File>
+              <FileName>Test.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Test.c</FilePath>
+            </File>
+            <File>
+              <FileName>Test.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Test.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -995,6 +1120,111 @@
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Calculator</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Calculator\Calculator.c</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>FlashDisk</GroupName>
+          <Files>
+            <File>
+              <FileName>FlashDisk.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.c</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Measurer.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Measurer\Measurer.c</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Modem\Modem.c</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/CMSIS</GroupName>
+          <Files>
+            <File>
+              <FileName>startup_gd32f30x_hd.s</FileName>
+              <FileType>2</FileType>
+              <FilePath>.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</FilePath>
+            </File>
+            <File>
+              <FileName>system_gd32f30x.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/Modules/SIM800C</GroupName>
+          <Files>
+            <File>
+              <FileName>SIM800C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/Modules/ZMPT101</GroupName>
+          <Files>
+            <File>
+              <FileName>ZMPT101.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
+            </File>
+            <File>
+              <FileName>ZMPT101.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
