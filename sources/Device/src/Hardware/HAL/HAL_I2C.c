@@ -17,7 +17,7 @@ void HAL_I2C0_Init(void)
 
     /* connect PB6 to I2C0_SCL */
     /* connect PB7 to I2C0_SDA */
-    gpio_init(GPIOB, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_10 | GPIO_PIN_11);
+    gpio_init(GPIOB, GPIO_MODE_AF_OD, GPIO_OSPEED_50MHZ, GPIO_PIN_10 | GPIO_PIN_11);
 
     /* configure I2C clock */
     i2c_clock_config(I2C1,I2C1_SPEED,I2C_DTCY_2);
