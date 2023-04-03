@@ -3,6 +3,7 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
+#include <stdlib.h>
 
 
 #define SSD1306_ADDR              0x3C
@@ -73,7 +74,7 @@ static void SSD1306_Update()
 
 void SSD1306_Fill(uint color)
 {
-    memset(buffer, 0x00, CACHE_SIZE_MEM);
+    memset(buffer, (uint8)color, CACHE_SIZE_MEM);
     
     SSD1306_Update();
 }
