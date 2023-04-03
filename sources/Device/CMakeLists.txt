@@ -6,13 +6,13 @@ message("-----------------------------------------------------------------------
 
 include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/_VS_KEIL/std_includes/
-                    ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/
-                    ../common/STM32Cube_F3/Drivers/CMSIS/Device/ST/STM32F3xx/Include/
+                    ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
+                    ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
                     src/Hardware/HAL/
                     src/
                     )
 
-add_definitions(-DSTM32F303xC)
+add_definitions(-DGD32F30X_CL)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 

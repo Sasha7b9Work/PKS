@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -338,7 +337,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--cpp</MiscControls>
-              <Define>USE_HAL_DRIVER, STM32F303xC, __cplusplus</Define>
+              <Define>USE_HAL_DRIVER, GD32F30X_HD, __cplusplus</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
             </VariousControls>
@@ -610,11 +609,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_ADC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_PINS.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
@@ -633,6 +627,16 @@
               <FileName>gd32f30x_libopt.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
+            </File>
+            <File>
+              <FileName>systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -948,7 +952,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1100,7 +1103,7 @@
             <v6Rtti>0</v6Rtti>
             <VariousControls>
               <MiscControls>--cpp</MiscControls>
-              <Define>USE_HAL_DRIVER, STM32F303xC, __cplusplus</Define>
+              <Define>USE_HAL_DRIVER, GD32F30X_HD, __cplusplus</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\Hardware\HAL;..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Inc;..\common\STM32Cube_F3\Drivers\CMSIS\Device\ST\STM32F3xx\Include;..\common\STM32Cube_F3\Drivers\CMSIS\Core\Include</IncludePath>
             </VariousControls>
@@ -1372,11 +1375,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_ADC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_PINS.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
@@ -1395,6 +1393,16 @@
               <FileName>gd32f30x_libopt.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
+            </File>
+            <File>
+              <FileName>systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\systick.c</FilePath>
+            </File>
+            <File>
+              <FileName>systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
           </Files>
         </Group>
