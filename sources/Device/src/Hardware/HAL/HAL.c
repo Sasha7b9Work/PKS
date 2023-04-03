@@ -9,7 +9,7 @@ void HAL_Init()
 {
     systick_config();
     
-    HAL_I2C1_Init();
+    HAL_I2C0_Init();
 }
 
 

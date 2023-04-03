@@ -1,10 +1,16 @@
 // 2023/03/30 10:55:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
+#include "Hardware/HAL/HAL.h"
 #include <cstring>
 
 
 #define SSD1306_ADDR              0x3C
+
+#define SSD1306_COMMAND           0x80  // Continuation bit=1, D/C=0; 1000 0000
+#define SSD1306_COMMAND_STREAM    0x00  // Continuation bit=0, D/C=0; 0000 0000
+#define SSD1306_DATA              0xC0  // Continuation bit=1, D/C=1; 1100 0000
+#define SSD1306_DATA_STREAM       0x40  // Continuation bit=0, D/C=1; 0100 0000
 
 
 #define CACHE_SIZE_MEM  1024
@@ -13,6 +19,8 @@ static uint8 buffer[CACHE_SIZE_MEM];
 
 static void SSD1306_SendCommand(uint8 command)
 {
+    HAL_I2C0_Write8(SSD1306_COMMAND);
+    HAL_I2C0_Write8(command);
 }
 
 

@@ -11,11 +11,8 @@ void HAL_ADC_Update(void);
 float HAL_ADC_GetVoltage(int num, int ch);
 
 
-void HAL_I2C1_Init(void);
-int8 HAL_I2C1_Read(uint8 dev_id, uint8 reg_addr, uint8 *reg_data, uint16 len);
-int8 HAL_I2C1_Read16(uint8 dev_id, uint8 *data);
-int8 HAL_I2C1_Write(uint8 dev_id, uint8 reg_addr, uint8 *reg_data, uint16 len);
-int8 HAL_I2C1_Write8(uint8 dev_id, uint8 data);
+void HAL_I2C0_Init(void);
+int8 HAL_I2C0_Write8(uint8 data);
 
 
 

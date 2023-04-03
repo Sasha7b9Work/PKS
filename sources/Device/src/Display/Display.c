@@ -29,4 +29,5 @@ void Display_Update(void)
 
 void Display_Fill(enum Color color)
 {
+    SSD1306_Fill((color == White) ? 0xff : 0x00);
 }
