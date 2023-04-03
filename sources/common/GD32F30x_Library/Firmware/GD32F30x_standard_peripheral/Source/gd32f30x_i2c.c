@@ -736,3 +736,149 @@ void i2c_interrupt_flag_clear(uint32_t i2c_periph, i2c_interrupt_flag_enum int_f
         I2C_REG_VAL2(i2c_periph, int_flag) = ~BIT(I2C_BIT_POS2(int_flag));
     }
 }
+
+
+#define SEL_IRC8M                   ((uint16_t)0U)  /* IRC8M is selected as CK_SYS */
+#define SEL_HXTAL                   ((uint16_t)1U)  /* HXTAL is selected as CK_SYS */
+#define SEL_PLL                     ((uint16_t)2U)  /* PLL is selected as CK_SYS */
+
+/*!
+    \brief      get the system clock, bus and peripheral clock frequency
+    \param[in]  clock: the clock frequency which to get
+                only one parameter can be selected which is shown as below:
+      \arg        CK_SYS: system clock frequency
+      \arg        CK_AHB: AHB clock frequency
+      \arg        CK_APB1: APB1 clock frequency
+      \arg        CK_APB2: APB2 clock frequency
+    \param[out] none
+    \retval     clock frequency of system, AHB, APB1, APB2
+*/
+uint32_t rcu_clock_freq_get(rcu_clock_freq_enum clock)
+{
+    uint32_t sws, ck_freq = 0U;
+    uint32_t cksys_freq, ahb_freq, apb1_freq, apb2_freq;
+    uint32_t pllsel, pllpresel, predv0sel, pllmf,ck_src, idx, clk_exp;
+#ifdef GD32F30X_CL
+    uint32_t predv0, predv1, pll1mf;
+#endif /* GD32F30X_CL */
+
+    /* exponent of AHB, APB1 and APB2 clock divider */
+    uint8_t ahb_exp[16] = {0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 4, 6, 7, 8, 9};
+    uint8_t apb1_exp[8] = {0, 0, 0, 0, 1, 2, 3, 4};
+    uint8_t apb2_exp[8] = {0, 0, 0, 0, 1, 2, 3, 4};
+
+    sws = GET_BITS(RCU_CFG0, 2, 3);
+    switch(sws){
+    /* IRC8M is selected as CK_SYS */
+    case SEL_IRC8M:
+        cksys_freq = IRC8M_VALUE;
+        break;
+    /* HXTAL is selected as CK_SYS */
+    case SEL_HXTAL:
+        cksys_freq = HXTAL_VALUE;
+        break;
+    /* PLL is selected as CK_SYS */
+    case SEL_PLL:
+        /* PLL clock source selection, HXTAL, IRC48M or IRC8M / 2 */
+        pllsel = (RCU_CFG0 & RCU_CFG0_PLLSEL);
+
+        if(RCU_PLLSRC_HXTAL_IRC48M == pllsel) {
+            /* PLL clock source is HXTAL or IRC48M */
+            pllpresel = (RCU_CFG1 & RCU_CFG1_PLLPRESEL);
+            
+            if(RCU_PLLPRESRC_HXTAL == pllpresel){
+                /* PLL clock source is HXTAL */
+                ck_src = HXTAL_VALUE;
+            }else{
+                /* PLL clock source is IRC48 */
+                ck_src = IRC48M_VALUE;
+            }
+
+#if (defined(GD32F30X_HD) || defined(GD32F30X_XD))
+            predv0sel = (RCU_CFG0 & RCU_CFG0_PREDV0);
+            /* PREDV0 input source clock divided by 2 */
+            if(RCU_CFG0_PREDV0 == predv0sel){
+                ck_src /= 2U;
+            }
+#elif defined(GD32F30X_CL)
+            predv0sel = (RCU_CFG1 & RCU_CFG1_PREDV0SEL);
+            /* source clock use PLL1 */
+            if(RCU_PREDV0SRC_CKPLL1 == predv0sel){
+                predv1 = ((RCU_CFG1 & RCU_CFG1_PREDV1) >> RCU_CFG1_PREDV1_OFFSET) + 1U;
+                pll1mf = (uint32_t)((RCU_CFG1 & RCU_CFG1_PLL1MF) >> RCU_CFG1_PLL1MF_OFFSET) + 2U;
+                if(17U == pll1mf){
+                    pll1mf = 20U;
+                }
+                ck_src = (ck_src / predv1)*pll1mf;
+            }
+            predv0 = (RCU_CFG1 & RCU_CFG1_PREDV0) + 1U;
+            ck_src /= predv0;
+#endif /* GD32F30X_HD and GD32F30X_XD */
+        }else{
+            /* PLL clock source is IRC8M / 2 */
+            ck_src = IRC8M_VALUE / 2U;
+        }
+
+        /* PLL multiplication factor */
+        pllmf = GET_BITS(RCU_CFG0, 18, 21);
+        if((RCU_CFG0 & RCU_CFG0_PLLMF_4)){
+            pllmf |= 0x10U;
+        }
+        if((RCU_CFG0 & RCU_CFG0_PLLMF_5)){
+            pllmf |= 0x20U;
+        }
+        if(pllmf < 15U){
+            pllmf += 2U;
+        }else if((pllmf >= 15U) && (pllmf <= 62U)){
+            pllmf += 1U;
+        }else{
+            pllmf = 63U;
+        }
+        cksys_freq = ck_src*pllmf;
+    #ifdef GD32F30X_CL
+        if(15U == pllmf){
+            cksys_freq = ck_src*6U + ck_src / 2U;
+        }
+    #endif /* GD32F30X_CL */
+
+        break;
+    /* IRC8M is selected as CK_SYS */
+    default:
+        cksys_freq = IRC8M_VALUE;
+        break;
+    }
+
+    /* calculate AHB clock frequency */
+    idx = GET_BITS(RCU_CFG0, 4, 7);
+    clk_exp = ahb_exp[idx];
+    ahb_freq = cksys_freq >> clk_exp;
+    
+    /* calculate APB1 clock frequency */
+    idx = GET_BITS(RCU_CFG0, 8, 10);
+    clk_exp = apb1_exp[idx];
+    apb1_freq = ahb_freq >> clk_exp;
+    
+    /* calculate APB2 clock frequency */
+    idx = GET_BITS(RCU_CFG0, 11, 13);
+    clk_exp = apb2_exp[idx];
+    apb2_freq = ahb_freq >> clk_exp;
+    
+    /* return the clocks frequency */
+    switch(clock){
+    case CK_SYS:
+        ck_freq = cksys_freq;
+        break;
+    case CK_AHB:
+        ck_freq = ahb_freq;
+        break;
+    case CK_APB1:
+        ck_freq = apb1_freq;
+        break;
+    case CK_APB2:
+        ck_freq = apb2_freq;
+        break;
+    default:
+        break;
+    }
+    return ck_freq;
+}

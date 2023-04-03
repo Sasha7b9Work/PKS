@@ -384,11 +384,6 @@
           <GroupName>GD32F30x</GroupName>
           <Files>
             <File>
-              <FileName>gd32f30x_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_crc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_crc.c</FilePath>
@@ -429,11 +424,6 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_exti.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_fmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fmc.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_fwdgt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fwdgt.c</FilePath>
@@ -459,16 +449,6 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_pmu.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_rcu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rtc.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_sdio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_sdio.c</FilePath>
@@ -492,6 +472,11 @@
               <FileName>gd32f30x_wwdgt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
+            </File>
+            <File>
+              <FileName>_gd32f30x_rcu_.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\_gd32f30x_rcu_.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1135,11 +1120,6 @@
           <GroupName>GD32F30x</GroupName>
           <Files>
             <File>
-              <FileName>gd32f30x_adc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_crc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_crc.c</FilePath>
@@ -1180,11 +1160,6 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_exti.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_fmc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fmc.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_fwdgt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fwdgt.c</FilePath>
@@ -1210,16 +1185,6 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_pmu.c</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_rcu.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_rtc.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rtc.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_sdio.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_sdio.c</FilePath>
@@ -1243,6 +1208,11 @@
               <FileName>gd32f30x_wwdgt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
+            </File>
+            <File>
+              <FileName>_gd32f30x_rcu_.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\_gd32f30x_rcu_.c</FilePath>
             </File>
           </Files>
         </Group>

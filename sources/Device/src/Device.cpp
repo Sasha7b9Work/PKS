@@ -9,12 +9,13 @@
 #include "Calculator/Calculator.h"
 #include "FlashDisk/FlashDisk.h"
 #include "Test.h"
+#include "gd32f30x_rcu.h"
 
 
 void Device::Init()
 {
     HAL::Init();
-
+    
     Timer::Init();
 
     Timer::Delay(500);
