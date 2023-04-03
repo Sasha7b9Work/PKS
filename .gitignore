@@ -13,3 +13,6 @@ sources/TestHardware/Listings/*
 sources/TestHardware/Listings-Debug/*
 sources/TestHardware/Objects/*
 sources/TestHardware/Objects-Debug/*
+
+sources/common/GD32F30x_Demo_Suites_V2.4.3/GD32303C_EVAL_Demo_Suites/Projects/11_I2C_EEPROM/MDK-ARM/list
+sources/common/GD32F30x_Demo_Suites_V2.4.3/GD32303C_EVAL_Demo_Suites/Projects/11_I2C_EEPROM/MDK-ARM/output
