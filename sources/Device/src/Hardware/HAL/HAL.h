@@ -12,7 +12,8 @@ float HAL_ADC_GetVoltage(int num, int ch);
 
 
 void HAL_I2C0_Init(void);
-int8 HAL_I2C0_Write8(uint8 data);
+void HAL_I2C0_Write8(uint8 data);
+void HAL_I2C0_Write(uint8 *, int size);
 
 
 

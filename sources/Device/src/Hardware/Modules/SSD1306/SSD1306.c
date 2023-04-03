@@ -65,7 +65,9 @@ void SSD1306_Init(void)
 
 static void SSD1306_Update()
 {
-
+    HAL_I2C0_Write8(SSD1306_DATA_STREAM);
+    
+    HAL_I2C0_Write(buffer, CACHE_SIZE_MEM);
 }   
 
 
