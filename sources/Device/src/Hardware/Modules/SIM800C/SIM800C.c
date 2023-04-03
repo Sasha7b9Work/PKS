@@ -3,7 +3,7 @@
 #include "Hardware/Modules/SIM800C/SIM800C.h"
 
 
-void SIM800C_Init()
+void SIM800C_Init(void)
 {
 
 }
