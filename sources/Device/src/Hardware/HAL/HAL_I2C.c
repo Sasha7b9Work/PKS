@@ -8,7 +8,7 @@
 #define I2C_PAGE_SIZE           8
 
 
-void HAL_I2C2::Init(void)
+void HAL_I2C1_Init(void)
 {
     /* enable GPIOB clock */
     rcu_periph_clock_enable(RCU_GPIOB);
@@ -33,25 +33,25 @@ void HAL_I2C2::Init(void)
 }
 
 
-int8 HAL_I2C2::Read(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
+int8 HAL_I2C1_Read(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
 {
     return 0;
 }
 
 
-int8 HAL_I2C2::Read16(uint8 dev_id, uint8* data)
+int8 HAL_I2C1_Read16(uint8 dev_id, uint8* data)
 {
     return 0;
 }
 
 
-int8 HAL_I2C2::Write(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
+int8 HAL_I2C1_Write(uint8 dev_id, uint8 reg_addr, uint8* reg_data, uint16 len)
 {
     return 0;
 }
 
 
-int8 HAL_I2C2::Write8(uint8 dev_id, uint8 data)
+int8 HAL_I2C1_Write8(uint8 dev_id, uint8 data)
 {
     return 0;
 }

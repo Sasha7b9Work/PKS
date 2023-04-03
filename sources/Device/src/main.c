@@ -1,5 +1,6 @@
 #include "defines.h"
 #include "Display/Display.h"
+#include "Hardware/HAL/HAL.h"
 #include "gd32f30x.h"
 #include "systick.h"
 
@@ -11,12 +12,9 @@
 */
 int main(void)
 {  
-    rcu_periph_clock_enable(RCU_GPIOB);
-
-    gpio_init(RCU_GPIOB, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_6);
-    gpio_init(RCU_GPIOB, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_7);
-
     systick_config();
+    
+    HAL_Init();
     
     Display_Init();
 
