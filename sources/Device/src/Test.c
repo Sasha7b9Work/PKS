@@ -3,25 +3,25 @@
 #include "Test.h"
 
 
-int Test_Display()
+int Test_Display(void)
 {
     return 0;
 }
 
 
-int Test_Modem()
+int Test_Modem(void)
 {
     return 0;
 }
 
 
-int Test_Measurer()
+int Test_Measurer(void)
 {
     return 0;
 }
 
 
-int Test_FlashDrive()
+int Test_FlashDrive(void)
 {
     return 0;
 }
