@@ -134,11 +134,11 @@
             <RunIndependent>0</RunIndependent>
             <UpdateFlashBeforeDebugging>1</UpdateFlashBeforeDebugging>
             <Capability>1</Capability>
-            <DriverSelection>4107</DriverSelection>
+            <DriverSelection>4096</DriverSelection>
           </Flash1>
           <bUseTDR>1</bUseTDR>
           <Flash2>BIN\UL2CM3.DLL</Flash2>
-          <Flash3></Flash3>
+          <Flash3>"" ()</Flash3>
           <Flash4></Flash4>
           <pFcarmOut></pFcarmOut>
           <pFcarmGrp></pFcarmGrp>
@@ -574,19 +574,14 @@
           <GroupName>Hardware/CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>startup_gd32f30x_cl.s</FileName>
+              <FileName>startup_gd32f30x_hd.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_cl.s</FilePath>
-            </File>
-            <File>
-              <FileName>startup_gd32f30x_xd.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_xd.s</FilePath>
+              <FilePath>.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</FilePath>
             </File>
             <File>
               <FileName>system_gd32f30x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\system_gd32f30x.c</FilePath>
+              <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1340,19 +1335,14 @@
           <GroupName>Hardware/CMSIS</GroupName>
           <Files>
             <File>
-              <FileName>startup_gd32f30x_cl.s</FileName>
+              <FileName>startup_gd32f30x_hd.s</FileName>
               <FileType>2</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_cl.s</FilePath>
-            </File>
-            <File>
-              <FileName>startup_gd32f30x_xd.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\ARM\startup_gd32f30x_xd.s</FilePath>
+              <FilePath>.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</FilePath>
             </File>
             <File>
               <FileName>system_gd32f30x.c</FileName>
               <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Source\system_gd32f30x.c</FilePath>
+              <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
             </File>
           </Files>
         </Group>
