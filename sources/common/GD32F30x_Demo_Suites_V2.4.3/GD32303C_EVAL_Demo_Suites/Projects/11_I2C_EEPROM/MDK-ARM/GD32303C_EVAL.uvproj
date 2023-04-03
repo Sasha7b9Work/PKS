@@ -10,6 +10,7 @@
       <TargetName>GD32F303C_EVAL</TargetName>
       <ToolsetNumber>0x4</ToolsetNumber>
       <ToolsetName>ARM-ADS</ToolsetName>
+      <pCCUsed>5060960::V5.06 update 7 (build 960)::.\ARMCC</pCCUsed>
       <uAC6>0</uAC6>
       <TargetOption>
         <TargetCommonOption>
@@ -574,23 +575,8 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>GD32F30x_EVAL</GroupName>
-          <Files>
-            <File>
-              <FileName>gd32f303c_eval.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\..\..\Utilities\gd32f303c_eval.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Soft_Drive</GroupName>
           <Files>
-            <File>
-              <FileName>at24cxx.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\Soft_Drive\at24cxx.c</FilePath>
-            </File>
             <File>
               <FileName>i2c.c</FileName>
               <FileType>1</FileType>
