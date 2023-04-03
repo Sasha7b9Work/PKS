@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects-Debug\</OutputDirectory>
-          <OutputName>NFC-Reader</OutputName>
+          <OutputName>ElectricityMeter</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -387,16 +387,6 @@
               <FileName>gd32f30x_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_bkp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_bkp.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_can.c</FilePath>
             </File>
             <File>
               <FileName>gd32f30x_crc.c</FileName>
@@ -1148,16 +1138,6 @@
               <FileName>gd32f30x_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_bkp.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_bkp.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_can.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_can.c</FilePath>
             </File>
             <File>
               <FileName>gd32f30x_crc.c</FileName>

@@ -40,7 +40,7 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x_rcu.h"
 #include "gd32f30x_adc.h"
-#include "gd32f30x_can.h"
+//#include "gd32f30x_can.h"
 #include "gd32f30x_crc.h"
 #include "gd32f30x_ctc.h"
 #include "gd32f30x_dac.h"
