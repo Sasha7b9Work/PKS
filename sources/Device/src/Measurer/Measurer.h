@@ -7,7 +7,4 @@
 */
 
 
-namespace Measurer
-{
-    void Init();
-}
+void Measurer_Init(void);

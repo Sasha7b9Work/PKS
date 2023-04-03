@@ -3,25 +3,25 @@
 #include "Test.h"
 
 
-bool Test::Display()
+int Test_Display()
 {
-    return false;
+    return 0;
 }
 
 
-bool Test::Modem()
+int Test_Modem()
 {
-    return false;
+    return 0;
 }
 
 
-bool Test::Measurer()
+int Test_Measurer()
 {
-    return false;
+    return 0;
 }
 
 
-bool Test::FlashDrive()
+int Test_FlashDrive()
 {
-    return false;
+    return 0;
 }

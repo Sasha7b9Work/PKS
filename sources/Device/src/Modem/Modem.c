@@ -4,7 +4,7 @@
 #include "Hardware/Modules/SIM800C/SIM800C.h"
 
 
-void Modem::Init()
+void Modem_Init(void)
 {
-    SIM800C::Init();
+    SIM800C_Init();
 }

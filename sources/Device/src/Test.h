@@ -2,13 +2,10 @@
 #pragma once
 
 
-namespace Test
-{
-    bool Display();
+int Test_Display(void);
 
-    bool Modem();
+int Test_Modem(void);
 
-    bool Measurer();
+int Test_Measurer(void);
 
-    bool FlashDrive();
-}
+int Test_FlashDrive(void);

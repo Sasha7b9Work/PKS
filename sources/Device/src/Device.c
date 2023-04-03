@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Device.h"
 #include "Hardware/HAL/HAL.h"
-#include "Hardware/Timer.h"
 #include "Modem/Modem.h"
 #include "Display/Display.h"
 #include "Measurer/Measurer.h"
@@ -12,7 +11,7 @@
 #include "gd32f30x_rcu.h"
 
 
-void Device::Init()
+void Device_Init(void)
 {
     HAL_Init();
 
@@ -20,7 +19,7 @@ void Device::Init()
 }
 
 
-void Device::Update()
+void Device_Update(void)
 {
     Display_Update();
 

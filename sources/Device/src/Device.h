@@ -2,9 +2,6 @@
 #pragma once
 
 
-namespace Device
-{
-    void Init();
+void Device_Init(void);
 
-    void Update();
-}
+void Device_Update(void);

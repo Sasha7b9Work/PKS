@@ -3,7 +3,7 @@
 #include "Measurer/Measurer.h"
 
 
-void Measurer::Init()
+void Measurer_Init()
 {
 
 }

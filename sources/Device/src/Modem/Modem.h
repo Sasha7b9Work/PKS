@@ -3,7 +3,4 @@
 #include "Calculator/Calculator.h"
 
 
-namespace Modem
-{
-    void Init();
-}
+void Modem_Init(void);

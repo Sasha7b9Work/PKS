@@ -2,8 +2,4 @@
 #pragma once
 
 
-namespace FlashDisk
-{
-    void Init();
-}
-
+void FlashDisk_Init(void);
