@@ -44,34 +44,23 @@ OF SUCH DAMAGE.
 */
 int main(void)
 {  
-    gd_eval_led_init(LED2);
-    gd_eval_led_init(LED3);
-    gd_eval_led_init(LED4);
-    
     systick_config();
     
-    while(1){
-        /* turn on LED1 */
-        gd_eval_led_on(LED2);
-        /* insert 200 ms delay */
-        delay_1ms(200);
-        
-        /* turn on LED2 */
-        gd_eval_led_on(LED3);
-        /* insert 200 ms delay */
-        delay_1ms(200);
-        
-        /* turn on LED3 */
-        gd_eval_led_on(LED4);
-        /* insert 200 ms delay */
-        delay_1ms(200);        
+    rcu_periph_clock_enable(RCU_GPIOA);
 
-        /* turn off LEDs */
-        gd_eval_led_off(LED2);
-        gd_eval_led_off(LED3);
-        gd_eval_led_off(LED4);
-        
-        /* insert 200 ms delay */
-        delay_1ms(200);
+    gpio_init(RCU_GPIOA, GPIO_MODE_OUT_OD, GPIO_OSPEED_50MHZ, GPIO_PIN_6);
+    gpio_init(RCU_GPIOA, GPIO_MODE_OUT_OD, GPIO_OSPEED_50MHZ, GPIO_PIN_7);
+    
+    while(1)
+    {
+        gpio_bit_set(GPIOA, GPIO_PIN_6);
+        gpio_bit_set(GPIOA, GPIO_PIN_7);
+
+        delay_1ms(500);
+
+        gpio_bit_reset(GPIOA, GPIO_PIN_6);
+        gpio_bit_reset(GPIOA, GPIO_PIN_7);
+
+        delay_1ms(500);
     }
 }

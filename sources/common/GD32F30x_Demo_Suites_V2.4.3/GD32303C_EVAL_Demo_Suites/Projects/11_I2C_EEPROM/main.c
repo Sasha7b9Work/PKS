@@ -44,17 +44,36 @@ uint8_t count=0;
 
 int main(void)
 {   
+    int i = 0;
+
     /* configure systick */
     systick_config();
 
     /* configure GPIO */
-    gpio_config();
+//    gpio_config();
     
     /* configure I2C */
-    i2c_config();
+//    i2c_config();
+
+    /* enable the led clock */
+    rcu_periph_clock_enable(RCU_GPIOA);
+//    rcu_periph_clock_enable(RCU_AF);
+
+    /* configure led GPIO port */ 
+    gpio_init(RCU_GPIOA, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_6);
+    gpio_init(RCU_GPIOA, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_7);
 
     while(1)
     {
+        GPIO_BOP(GPIOA) = GPIO_PIN_6;
+        GPIO_BC(GPIOA) = GPIO_PIN_7;
+        
+        for(i = 0; i < 32000; i++)
+        {
+        }
+        
+        GPIO_BOP(GPIOA) = GPIO_PIN_7;
+        GPIO_BC(GPIOA) = GPIO_PIN_6;
     };
 }
 
