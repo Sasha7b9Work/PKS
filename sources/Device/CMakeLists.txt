@@ -14,7 +14,7 @@ include_directories(../common/_VS_KEIL/CMSIS/
                     src/
                     )
 
-add_definitions(-DGD32F30X_CL)
+add_definitions(-DGD32F30X_HD)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
