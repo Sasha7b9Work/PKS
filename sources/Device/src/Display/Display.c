@@ -24,6 +24,8 @@ void Display_Update(void)
         
         color = (color == Black) ? White : Black;
     }
+    
+    Display_Fill(color);
 }
 
 
