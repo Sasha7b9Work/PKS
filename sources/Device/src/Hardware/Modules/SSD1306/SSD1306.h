@@ -2,7 +2,4 @@
 #pragma once
 
 
-namespace SSD1306
-{
-    void Init();
-}
+void SSD1306_Init(void);

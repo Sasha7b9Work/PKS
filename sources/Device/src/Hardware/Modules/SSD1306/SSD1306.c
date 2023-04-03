@@ -3,7 +3,7 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 
 
-void SSD1306::Init()
+void SSD1306_Init(void)
 {
 
 }

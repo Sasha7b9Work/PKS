@@ -2,27 +2,22 @@
 #pragma once
 
 
-struct Color
+enum Color
 {
-    enum E
-    {
-        Black,
-        White,
-        Count
-    };
-
-
-    static const uint16 colors[Count];
+    Black,
+    White,
+    Count
 };
 
 
-namespace Display
-{
-    static const int WIDTH = 128;
-    static const int HEIGHT = 64;
+static const uint16 colors[Count];
 
-    void Init();
-}
+
+
+static const int DISPLAY_WIDTH = 128;
+static const int DISPLAY_HEIGHT = 64;
+
+void Display_Init(void);
 
 
 #define BLUE_FROM_COLOR(color)  ((color) & 0x1f)

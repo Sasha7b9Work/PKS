@@ -4,7 +4,7 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 
 
-void Display::Init()
+void Display_Init()
 {
-    SSD1306::Init();
+    SSD1306_Init();
 }
