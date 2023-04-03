@@ -409,6 +409,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1030,6 +1035,11 @@
               <FileName>gd32f30x_i2c.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_adc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
             </File>
           </Files>
         </Group>
