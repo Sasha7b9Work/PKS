@@ -10,7 +10,7 @@ enum Color
 };
 
 
-static const uint16 colors[Count];
+static const uint8 colors[Count] = { 0x00, 0xff };
 
 
 

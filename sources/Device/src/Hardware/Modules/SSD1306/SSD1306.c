@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 #include "Hardware/HAL/HAL.h"
-#include <cstring>
+#include <string.h>
 #include <stdlib.h>
 
 
@@ -64,7 +64,7 @@ void SSD1306_Init(void)
 }
 
 
-static void SSD1306_Update()
+static void SSD1306_Update(void)
 {
     HAL_I2C0_Write8(SSD1306_DATA_STREAM);
     

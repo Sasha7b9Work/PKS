@@ -3,13 +3,13 @@
 #include "Log.h"
 
 
-void Log::Write(pchar, ...)
+void Log_Write(pchar, ...)
 {
 
 }
 
 
-void Log::Error(pchar, ...)
+void Log_Error(pchar, ...)
 {
 
 }

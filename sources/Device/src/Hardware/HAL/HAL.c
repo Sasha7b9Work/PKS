@@ -5,15 +5,15 @@
 #include <gd32f30x.h>
 
 
-void HAL_Init()
+void HAL_Init(void)
 {
     systick_config();
     
-   HAL_I2C0_Init();
+    HAL_I2C0_Init();
 }
 
 
-void HAL_ErrorHandler()
+void HAL_ErrorHandler(void)
 {
     while (1)
     {

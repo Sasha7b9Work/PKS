@@ -16,6 +16,8 @@ add_definitions(-DGD32F30X_CL)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
+add_compile_options(/wd4013)
+add_compile_options(/wd4131)
 add_compile_options(/wd4201)
 add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
 add_compile_options(/wd4623)    # default constructor was implicitly defined as deleted
