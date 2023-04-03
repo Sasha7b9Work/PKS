@@ -482,6 +482,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Hardware/Modules/SIM800C</GroupName>
+          <Files>
+            <File>
+              <FileName>SIM800C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
@@ -497,17 +512,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Display</GroupName>
+          <GroupName>Hardware/Modules/ZMPT101</GroupName>
           <Files>
             <File>
-              <FileName>Display.c</FileName>
+              <FileName>ZMPT101.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
             </File>
             <File>
-              <FileName>Display.h</FileName>
+              <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -523,6 +538,21 @@
               <FileName>Calculator.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Display\Display.c</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -583,36 +613,6 @@
               <FileName>system_gd32f30x.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
-            </File>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1094,6 +1094,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Hardware/Modules/SIM800C</GroupName>
+          <Files>
+            <File>
+              <FileName>SIM800C.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
@@ -1109,17 +1124,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Display</GroupName>
+          <GroupName>Hardware/Modules/ZMPT101</GroupName>
           <Files>
             <File>
-              <FileName>Display.c</FileName>
+              <FileName>ZMPT101.c</FileName>
               <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
             </File>
             <File>
-              <FileName>Display.h</FileName>
+              <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1135,6 +1150,21 @@
               <FileName>Calculator.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Calculator\Calculator.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Display\Display.c</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Display.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1195,36 +1225,6 @@
               <FileName>system_gd32f30x.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Hardware\CMSIS\system_gd32f30x.c</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
-            </File>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>
