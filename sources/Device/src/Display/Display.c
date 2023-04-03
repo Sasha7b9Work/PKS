@@ -4,7 +4,29 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 
 
-void Display_Init()
+void Display_Init(void)
 {
     SSD1306_Init();
+}
+
+
+void Display_Update(void)
+{
+    static enum Color color = Black;
+    
+    static int counter = 0;
+    
+    counter++;
+    
+    if(counter > 1000)
+    {
+        counter = 0;
+        
+        color = (color == Black) ? White : Black;
+    }
+}
+
+
+void Display_Fill(enum Color color)
+{
 }

@@ -3,3 +3,4 @@
 
 
 void SSD1306_Init(void);
+void SSD1306_Fill(uint);

@@ -22,5 +22,6 @@ int main(void)
 
     while(1)
     {
+        Display_Update();
     }
 }

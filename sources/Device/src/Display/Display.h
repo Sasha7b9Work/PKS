@@ -18,6 +18,8 @@ static const int DISPLAY_WIDTH = 128;
 static const int DISPLAY_HEIGHT = 64;
 
 void Display_Init(void);
+void Display_Update(void);
+void Display_Fill(enum Color);
 
 
 #define BLUE_FROM_COLOR(color)  ((color) & 0x1f)
