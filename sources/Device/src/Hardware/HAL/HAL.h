@@ -39,6 +39,8 @@ extern "C" {
     /* this function handles SysTick exception */
     void SysTick_Handler(void);
 
+    void ADC0_1_IRQHandler(void);
+
 #ifdef __cplusplus
 }
 #endif

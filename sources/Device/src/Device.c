@@ -15,13 +15,13 @@ void Device_Init(void)
 {
     HAL_Init();
 
-    Display_Init();
+//    Display_Init();
 }
 
 
 void Device_Update(void)
 {
-    Display_Update();
+//    Display_Update();
 
 /*
     Test::Display() ? LOG_WRITE("Display is Ok!") : LOG_ERROR("Display failed");

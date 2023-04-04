@@ -33,6 +33,7 @@ void HAL_ADC_Init()
     rcu_periph_clock_enable(RCU_GPIOA);
     rcu_periph_clock_enable(RCU_ADC0);
     rcu_periph_clock_enable(RCU_DMA0);
+    rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV6);
 
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_0);
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_1);
