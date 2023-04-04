@@ -7,6 +7,8 @@ void HAL_ErrorHandler(void);
 
 
 void HAL_ADC_Init(void);
+void HAL_ADC_Start(void);
+void HAL_ADC_Stop(void);
 // Вызывать, когда считаны новые значения
 void HAL_ADC_ReadyNewValues(void);
 

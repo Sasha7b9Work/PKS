@@ -116,10 +116,9 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void)
     {
+        HAL_ADC_ReadyNewValues();
 
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
-
-
     }
 
 #ifdef __cplusplus

@@ -28,6 +28,12 @@
 static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
 
 
+void HAL_ADC_ReadyNewValues()
+{
+
+}
+
+
 void HAL_ADC_Init()
 {
     rcu_periph_clock_enable(RCU_GPIOA);
@@ -66,11 +72,6 @@ void HAL_ADC_Init()
 
     dma_circulation_enable(DMA0, DMA_CH0);
 
-    dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
-
-    /* enable DMA channel */
-    dma_channel_enable(DMA0, DMA_CH0);
-
     /////////////////////////////////////////////////////////////////////////////////////////// TIM
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
@@ -99,13 +100,6 @@ void HAL_ADC_Init()
     timer_primary_output_config(TIMER0, ENABLE);
     /* auto-reload preload enable */
     timer_auto_reload_shadow_enable(TIMER0);
-
-    timer_interrupt_enable(TIMER0, TIMER_INT_CH0);
-    timer_interrupt_enable(TIMER0, TIMER_INT_UP);
-
-    /* enable TIMER0 */
-    timer_enable(TIMER0);
-
 
     /////////////////////////////////////////////////////////////////////////////////////////////// ADC
     /* ADC mode config */
@@ -136,12 +130,6 @@ void HAL_ADC_Init()
     /* ADC trigger config */
     adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
 
-    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
-    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
-
-//    adc_interrupt_enable(ADC0, ADC_INT_EOC);
-    adc_interrupt_enable(ADC0, ADC_INT_EOC);
-
     /* enable ADC interface */
     adc_enable(ADC0);
     delay_1ms(1);
@@ -149,8 +137,38 @@ void HAL_ADC_Init()
     /* ADC calibration and reset calibration */
     adc_calibration_enable(ADC0);
 
+    HAL_ADC_Start();
+}
+
+
+void HAL_ADC_Start()
+{
+    dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
+
+    dma_channel_enable(DMA0, DMA_CH0);
+
+    timer_enable(TIMER0);
+
+    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
+    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
+
+    adc_interrupt_enable(ADC0, ADC_INT_EOC);
+
     adc_dma_mode_enable(ADC0);
 
     adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
 }
 
+
+void HAL_ADC_Stop()
+{
+    adc_dma_mode_disable(ADC0);
+
+    adc_interrupt_disable(ADC0, ADC_INT_EOC);
+
+    timer_disable(TIMER0);
+
+    dma_channel_disable(DMA0, DMA_CH0);
+
+    dma_interrupt_disable(DMA0, DMA_CH0, DMA_INT_FTF);
+}
