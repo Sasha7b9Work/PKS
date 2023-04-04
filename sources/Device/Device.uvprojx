@@ -395,21 +395,6 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_rcu.h</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_gpio.c</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_rcu.c</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
@@ -448,6 +433,21 @@
               <FileName>gd32f30x_misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_rcu.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_gpio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_i2c.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1052,21 +1052,6 @@
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_rcu.h</FilePath>
             </File>
             <File>
-              <FileName>gd32f30x_gpio.c</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_rcu.c</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
-            </File>
-            <File>
-              <FileName>gd32f30x_i2c.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.c</FilePath>
-            </File>
-            <File>
               <FileName>gd32f30x_adc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_adc.c</FilePath>
@@ -1105,6 +1090,21 @@
               <FileName>gd32f30x_misc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_misc.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_rcu.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_gpio.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_i2c.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_i2c.cpp</FilePath>
             </File>
           </Files>
         </Group>
