@@ -115,26 +115,15 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void)
     {
+        uint16 adc0 = HAL_ADC_GetValue(0);
+        uint16 adc1 = HAL_ADC_GetValue(1);
+        uint16 adc2 = HAL_ADC_GetValue(2);
+        uint16 adc3 = HAL_ADC_GetValue(3);
+        uint16 adc4 = HAL_ADC_GetValue(4);
+        uint16 adc5 = HAL_ADC_GetValue(5);
+
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
     }
-
-    void TIMER0_Channel_IRQHandler(void)
-    {
-        int i = 0;
-    }
-
-    void TIMER0_UP_IRQHandler(void)
-    {
-        int i = 0;
-    }
-
-
-    void DMA0_Channel0_IRQHandler(void)
-    {
-        int i = 0;
-    }
-
-
 
 #ifdef __cplusplus
 }

@@ -21,9 +21,6 @@ void Device_Init(void)
 
 void Device_Update(void)
 {
-
-    HAL_ADC_Update();
-
     //    Display_Update();
 
 /*

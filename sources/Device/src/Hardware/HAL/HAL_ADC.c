@@ -28,26 +28,9 @@
 static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
 
 
-void HAL_ADC_Update()
+uint16 HAL_ADC_GetValue(int num)
 {
-    static uint16 prev_value = 0;
-
-    uint16 adc0 = adc_value[0];
-    uint16 adc1 = adc_value[1];
-    uint16 adc2 = adc_value[2];
-    uint16 adc3 = adc_value[3];
-    uint16 adc4 = adc_value[4];
-    uint16 adc5 = adc_value[5];
-    
-    static int counter = 0;
-
-    if (prev_value != adc_value[0])
-    {
-        int i = 0;
-        counter++;
-    }
-
-    prev_value = adc_value[0];
+    return adc_value[num];
 }
 
 

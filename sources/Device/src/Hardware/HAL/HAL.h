@@ -8,6 +8,7 @@ void HAL_ErrorHandler(void);
 
 void HAL_ADC_Init(void);
 void HAL_ADC_Update(void);
+uint16 HAL_ADC_GetValue(int);
 
 
 void HAL_I2C0_Init(void);
@@ -41,12 +42,6 @@ extern "C" {
     void SysTick_Handler(void);
 
     void ADC0_1_IRQHandler(void);
-
-    void TIMER0_Channel_IRQHandler(void);
-
-    void TIMER0_UP_IRQHandler(void);
-
-    void DMA0_Channel0_IRQHandler(void);
 
 #ifdef __cplusplus
 }
