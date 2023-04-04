@@ -7,8 +7,6 @@ void HAL_ErrorHandler(void);
 
 
 void HAL_ADC_Init(void);
-void HAL_ADC_Update(void);
-float HAL_ADC_GetVoltage(int num, int ch);
 
 
 void HAL_I2C0_Init(void);
