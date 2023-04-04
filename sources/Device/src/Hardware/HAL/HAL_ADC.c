@@ -31,6 +31,13 @@ static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
 void HAL_ADC_Update()
 {
     static uint16 prev_value = 0;
+
+    uint16 adc0 = adc_value[0];
+    uint16 adc1 = adc_value[1];
+    uint16 adc2 = adc_value[2];
+    uint16 adc3 = adc_value[3];
+    uint16 adc4 = adc_value[4];
+    uint16 adc5 = adc_value[5];
     
     static int counter = 0;
 
@@ -145,6 +152,8 @@ void HAL_ADC_Init()
     /* ADC trigger config */
     adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
 
+    adc_interrupt_enable(ADC0, ADC_INT_EOC);
+    adc_interrupt_enable(ADC0, ADC_INT_EOIC);
 
     /* enable ADC interface */
     adc_enable(ADC0);

@@ -42,6 +42,8 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void);
 
+    void TIMER0_Channel_IRQHandler(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -118,6 +118,11 @@ extern "C" {
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
     }
 
+    void TIMER0_Channel_IRQHandler(void)
+    {
+        int i = 0;
+    }
+
 
 
 #ifdef __cplusplus
