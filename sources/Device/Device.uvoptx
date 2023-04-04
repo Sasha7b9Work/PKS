@@ -168,7 +168,7 @@
         <Bp>
           <Number>1</Number>
           <Type>0</Type>
-          <LineNumber>39</LineNumber>
+          <LineNumber>37</LineNumber>
           <EnabledFlag>1</EnabledFlag>
           <Address>134218960</Address>
           <ByteObject>0</ByteObject>
@@ -179,7 +179,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;1&gt;.\src\Hardware\HAL\HAL_ADC.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\\src/Hardware/HAL/HAL_ADC.c\39</Expression>
+          <Expression>\\ElectricityMeter\src/Hardware/HAL/HAL_ADC.c\37</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>

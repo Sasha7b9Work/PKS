@@ -30,15 +30,14 @@ static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
 
 void HAL_ADC_Update()
 {
-    for (int i = 0; i < 6; i++)
-    {
-        volatile uint16 value = adc_value[i];
+    static uint16 prev_value = 0;
 
-        if (value != 0)
-        {
-            int i = 0;
-        }
+    if (prev_value != adc_value[0])
+    {
+        int i = 0;
     }
+
+    prev_value = adc_value[0];
 }
 
 
@@ -88,7 +87,7 @@ void HAL_ADC_Init()
     timer_initpara.prescaler = 8399;
     timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
-    timer_initpara.period = 9999;
+    timer_initpara.period = 0xffffffff;
     timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
     timer_init(TIMER0, &timer_initpara);
@@ -150,6 +149,8 @@ void HAL_ADC_Init()
 
     /* ADC calibration and reset calibration */
     adc_calibration_enable(ADC0);
+
+    adc_dma_mode_enable(ADC0);
 
     /* ADC software trigger enable */
 //    adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
