@@ -1,13 +1,14 @@
-// 2023/03/30 11:03:58 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+ï»¿// 2023/03/30 11:03:58 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Measurer/Measurer.h"
+#include "Measurer/Calculator.h"
 
 
 static void Measurer_Calculate(void);
 
 static struct FullMeasure measure;
 
-static int measure_ready = 0;               // Íå íîëü, åñëè èçìåðåíèå ãîòîâî. Óñòàíàâëèâàåòñÿ â 0 ïîñëå ñ÷èòûâàíèÿ
+static int measure_ready = 0;               // ÐÐµ Ð½Ð¾Ð»ÑŒ, ÐµÑÐ»Ð¸ Ð¸Ð·Ð¼ÐµÑ€ÐµÐ½Ð¸Ðµ Ð³Ð¾Ñ‚Ð¾Ð²Ð¾. Ð£ÑÑ‚Ð°Ð½Ð°Ð²Ð»Ð¸Ð²Ð°ÐµÑ‚ÑÑ Ð² 0 Ð¿Ð¾ÑÐ»Ðµ ÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°Ð½Ð¸Ñ
 
 static uint16 currentA[NUM_POINTS];
 static uint16 currentB[NUM_POINTS];
@@ -17,7 +18,10 @@ static uint16 voltA[NUM_POINTS];
 static uint16 voltB[NUM_POINTS];
 static uint16 voltC[NUM_POINTS];
 
-static int16 pos_adc_value = 0;             // Ïîçèöèÿ òåêóùèõ ñ÷èòûâàåìûõ çíà÷åíèé
+static int16 pos_adc_value = 0;             // ÐŸÐ¾Ð·Ð¸Ñ†Ð¸Ñ Ñ‚ÐµÐºÑƒÑ‰Ð¸Ñ… ÑÑ‡Ð¸Ñ‚Ñ‹Ð²Ð°ÐµÐ¼Ñ‹Ñ… Ð·Ð½Ð°Ñ‡ÐµÐ½Ð¸Ð¹
+
+
+static void CalculatePower(struct PhaseMeasure *);
 
 
 void Measurer_Update()
@@ -29,6 +33,7 @@ void Measurer_Update()
         measure_ready = 1;
     }
 }
+
 
 void Measurer_AppendMeasures(uint16 adc_values[6])
 {
@@ -53,9 +58,25 @@ int Measurer_BuffersFull()
 }
 
 
+static void CalculatePower(struct PhaseMeasure *meas)
+{
+    meas->power = meas->current * meas->voltage;
+}
+
+
 static void Measurer_Calculate()
 {
+    measure.measures[0].current = Calculator_CalculateCurrent(currentA);
+    measure.measures[1].current = Calculator_CalculateCurrent(currentB);
+    measure.measures[2].current = Calculator_CalculateCurrent(currentC);
 
+    measure.measures[0].voltage = Calculator_CalculateVoltage(voltA);
+    measure.measures[1].voltage = Calculator_CalculateVoltage(voltB);
+    measure.measures[2].voltage = Calculator_CalculateVoltage(voltC);
+
+    CalculatePower(&measure.measures[0]);
+    CalculatePower(&measure.measures[1]);
+    CalculatePower(&measure.measures[2]);
 }
 
 
