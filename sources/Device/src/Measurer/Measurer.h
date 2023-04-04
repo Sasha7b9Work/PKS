@@ -3,12 +3,14 @@
 
 
 /*
-*   
+*   Измеритель напряжения
 */
 
 
-
 void Measurer_AppendMeasures(uint16 adc0, uint16 adc1, uint16 adc2, uint16 adc3, uint16 adc4, uint16 adc5);
+
+// Не ноль, если буферы заполнены
+int Measurer_BuffersFull(void);
 
 // Возвращает не ноль, если готово новое измерение
 int Measurer_MeasureReady(void);

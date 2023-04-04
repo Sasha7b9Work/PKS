@@ -5,7 +5,6 @@
 #include "Modem/Modem.h"
 #include "Display/Display.h"
 #include "Measurer/Measurer.h"
-#include "Calculator/Calculator.h"
 #include "FlashDisk/FlashDisk.h"
 #include "Test.h"
 #include "gd32f30x_rcu.h"

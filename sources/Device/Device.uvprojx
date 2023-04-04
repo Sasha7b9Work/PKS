@@ -592,21 +592,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Calculator</GroupName>
-          <Files>
-            <File>
-              <FileName>Calculator.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Calculator\Calculator.c</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculator\Calculator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
@@ -648,6 +633,16 @@
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Measurer\Calculator.c</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Calculator.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1254,21 +1249,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Calculator</GroupName>
-          <Files>
-            <File>
-              <FileName>Calculator.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Calculator\Calculator.c</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Calculator\Calculator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
@@ -1310,6 +1290,16 @@
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Measurer\Calculator.c</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Calculator.h</FilePath>
             </File>
           </Files>
         </Group>
