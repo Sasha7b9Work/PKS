@@ -325,7 +325,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
+            <uSurpInc>1</uSurpInc>
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
@@ -337,10 +337,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--cpp</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -366,7 +366,7 @@
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
-            <RepFail>1</RepFail>
+            <RepFail>0</RepFail>
             <useFile>0</useFile>
             <TextAddressRange>0x08000000</TextAddressRange>
             <DataAddressRange>0x20000000</DataAddressRange>
@@ -396,12 +396,12 @@
             </File>
             <File>
               <FileName>gd32f30x_gpio.c</FileName>
-              <FileType>1</FileType>
+              <FileType>8</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>gd32f30x_rcu.c</FileName>
-              <FileType>1</FileType>
+              <FileType>8</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
             </File>
             <File>
@@ -1053,12 +1053,12 @@
             </File>
             <File>
               <FileName>gd32f30x_gpio.c</FileName>
-              <FileType>1</FileType>
+              <FileType>8</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_gpio.c</FilePath>
             </File>
             <File>
               <FileName>gd32f30x_rcu.c</FileName>
-              <FileType>1</FileType>
+              <FileType>8</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_rcu.c</FilePath>
             </File>
             <File>
