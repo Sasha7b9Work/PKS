@@ -7,7 +7,7 @@
 */
 
 
-#define NUM_POINTS 3900
+#define NUM_POINTS 2000
 
 
 struct PhaseMeasure
