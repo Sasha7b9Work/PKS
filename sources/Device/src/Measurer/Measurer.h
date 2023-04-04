@@ -8,6 +8,7 @@
 
 
 #define NUM_POINTS 2000
+#define POINTS_ON_PERIOD (2000 / 6)
 
 
 struct PhaseMeasure
@@ -35,4 +36,3 @@ int Measurer_BuffersFull(void);
 int Measurer_MeasureReady(void);
 
 struct FullMeasure Measurer_GetMeasure(void);
-

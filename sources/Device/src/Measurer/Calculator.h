@@ -4,6 +4,6 @@
 #include "Measurer/Measurer.h"
 
 
-float Calculator_CalculateCurrent(uint16 samples[NUM_POINTS]);
+float Calculator_CalculateCurrent(const uint16 samples[NUM_POINTS]);
 
-float Calculator_CalculateVoltage(uint16 samples[NUM_POINTS]);
+float Calculator_CalculateVoltage(const uint16 samples[NUM_POINTS]);
