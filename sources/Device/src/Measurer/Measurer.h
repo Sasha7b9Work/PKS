@@ -3,26 +3,22 @@
 
 
 /*
-*   Измеритель напряжения
+*   Измеритель параметров
 */
 
 
-//struct PhaseMeasure
-//{
-//    float current;
-//    float voltage;
-//    float power;
-//};
+struct PhaseMeasure
+{
+    float current;
+    float voltage;
+    float power;
+};
 
 
-//struct FullMeasure
-//{
-////    struct PhaseMeasure measures[3];
-//
-//    float current[3];
-//    float voltage[3];
-//    float power[3];
-//};
+struct FullMeasure
+{
+    struct PhaseMeasure measures[3];
+};
 
 
 void Measurer_AppendMeasures(uint16 adc_values[6]);
@@ -33,5 +29,5 @@ int Measurer_BuffersFull(void);
 // Возвращает не ноль, если готово новое измерение
 int Measurer_MeasureReady(void);
 
-float Measurer_Get
+//float Measurer_Get
 

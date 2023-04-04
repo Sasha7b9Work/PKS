@@ -4,9 +4,15 @@
 
 
 
-void Measurer_AppendMeasures(uint16 adc0, uint16 adc1, uint16 adc2, uint16 adc3, uint16 adc4, uint16 adc5)
+void Measurer_AppendMeasures(uint16 adc_values[3])
 {
 
+}
+
+
+int Measurer_BuffersFull()
+{
+    return 0;
 }
 
 
