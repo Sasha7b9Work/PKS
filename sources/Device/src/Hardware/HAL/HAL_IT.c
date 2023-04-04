@@ -1,6 +1,7 @@
 // 2022/6/10 9:08:02 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include "Measurer/Measurer.h"
 #include <gd32f30x.h>
 #include <systick.h>
 
@@ -115,14 +116,10 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void)
     {
-        uint16 adc0 = HAL_ADC_GetValue(0);
-        uint16 adc1 = HAL_ADC_GetValue(1);
-        uint16 adc2 = HAL_ADC_GetValue(2);
-        uint16 adc3 = HAL_ADC_GetValue(3);
-        uint16 adc4 = HAL_ADC_GetValue(4);
-        uint16 adc5 = HAL_ADC_GetValue(5);
 
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
+
+
     }
 
 #ifdef __cplusplus

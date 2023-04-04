@@ -21,7 +21,13 @@ void Device_Init(void)
 
 void Device_Update(void)
 {
-    //    Display_Update();
+    if (Measurer_MeasureReady())
+    {
+
+    }
+
+
+//    Display_Update();
 
 /*
     Test::Display() ? LOG_WRITE("Display is Ok!") : LOG_ERROR("Display failed");

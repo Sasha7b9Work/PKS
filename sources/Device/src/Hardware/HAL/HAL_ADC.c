@@ -28,12 +28,6 @@
 static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
 
 
-uint16 HAL_ADC_GetValue(int num)
-{
-    return adc_value[num];
-}
-
-
 void HAL_ADC_Init()
 {
     rcu_periph_clock_enable(RCU_GPIOA);

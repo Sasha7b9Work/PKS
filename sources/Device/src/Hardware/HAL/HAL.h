@@ -7,9 +7,8 @@ void HAL_ErrorHandler(void);
 
 
 void HAL_ADC_Init(void);
-void HAL_ADC_Update(void);
-uint16 HAL_ADC_GetValue(int);
-
+// Вызывать, когда считаны новые значения
+void HAL_ADC_ReadyNewValues(void);
 
 void HAL_I2C0_Init(void);
 void HAL_I2C0_Write8(uint8 data);
