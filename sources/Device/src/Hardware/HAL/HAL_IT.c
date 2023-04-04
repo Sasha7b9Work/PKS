@@ -115,7 +115,7 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void)
     {
-        adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
+        adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
     }
 
     void TIMER0_Channel_IRQHandler(void)

@@ -438,6 +438,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_timer.h</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_misc.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1088,6 +1098,16 @@
               <FileName>gd32f30x_timer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_misc.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_misc.h</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_misc.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_misc.c</FilePath>
             </File>
           </Files>
         </Group>

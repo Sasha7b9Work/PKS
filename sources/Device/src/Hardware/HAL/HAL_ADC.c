@@ -59,6 +59,8 @@ void HAL_ADC_Init()
     rcu_periph_clock_enable(RCU_TIMER0);
     rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV6);
 
+    nvic_irq_enable(ADC0_1_IRQn, 0, 0);
+
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_0);
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_1);
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_2);
