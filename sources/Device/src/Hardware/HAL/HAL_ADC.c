@@ -32,7 +32,7 @@ static void HAL_ADC_Stop(void);
 static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
 
 
-void HAL_ADC_Handler_ReadyNewValues()
+void HAL_ADC_Callback()
 {
     Measurer_AppendMeasures(adc_values);
 

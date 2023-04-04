@@ -89,6 +89,7 @@ int Measurer_MeasureReady()
 struct FullMeasure Measurer_GetMeasure()
 {
     measure_ready = 0;
+    pos_adc_value = 0;
 
     return measure;
 }

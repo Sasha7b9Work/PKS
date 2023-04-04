@@ -9,7 +9,7 @@ void HAL_ErrorHandler(void);
 void HAL_ADC_Init(void);
 void HAL_ADC_Start(void);
 // Вызывать, когда считаны новые значения
-void HAL_ADC_Handler_ReadyNewValues(void);
+void HAL_ADC_Callback(void);
 
 
 void HAL_I2C0_Init(void);

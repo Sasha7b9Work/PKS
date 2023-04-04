@@ -116,7 +116,7 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void)
     {
-        HAL_ADC_Handler_ReadyNewValues();
+        HAL_ADC_Callback();
 
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
     }
