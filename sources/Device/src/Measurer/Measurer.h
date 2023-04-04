@@ -26,8 +26,10 @@ void Measurer_AppendMeasures(uint16 adc_values[6]);
 // Не ноль, если буферы заполнены
 int Measurer_BuffersFull(void);
 
+void Measurer_Calculate(void);
+
 // Возвращает не ноль, если готово новое измерение
 int Measurer_MeasureReady(void);
 
-//float Measurer_Get
+struct FullMeasure Measurer_GetMeasure(void);
 

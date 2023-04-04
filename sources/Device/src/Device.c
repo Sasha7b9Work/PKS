@@ -22,7 +22,9 @@ void Device_Update(void)
 {
     if (Measurer_MeasureReady())
     {
+        struct FullMeasure measure = Measurer_GetMeasure();
 
+        measure = measure;
     }
 
 

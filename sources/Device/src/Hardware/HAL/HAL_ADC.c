@@ -1,6 +1,7 @@
 // 2023/04/03 19:52:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include "Measurer/Measurer.h"
 #include <gd32f30x.h>
 #include <systick.h>
 
@@ -25,16 +26,23 @@
 */
 
 
+static void HAL_ADC_Start(void);
+
+static void HAL_ADC_Stop(void);
+
+
 static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
 
 
-void HAL_ADC_ReadyNewValues()
+void HAL_ADC_Handler_ReadyNewValues()
 {
     Measurer_AppendMeasures(adc_values);
 
     if (Measurer_BuffersFull())
     {
         HAL_ADC_Stop();
+
+        Measurer_Calculate();
     }
 }
 
@@ -146,7 +154,7 @@ void HAL_ADC_Init()
 }
 
 
-void HAL_ADC_Start()
+static void HAL_ADC_Start()
 {
     dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
 
@@ -165,7 +173,7 @@ void HAL_ADC_Start()
 }
 
 
-void HAL_ADC_Stop()
+static void HAL_ADC_Stop()
 {
     adc_dma_mode_disable(ADC0);
 
