@@ -7,11 +7,31 @@
 */
 
 
-void Measurer_AppendMeasures(uint16 adc0, uint16 adc1, uint16 adc2, uint16 adc3, uint16 adc4, uint16 adc5);
+//struct PhaseMeasure
+//{
+//    float current;
+//    float voltage;
+//    float power;
+//};
+
+
+//struct FullMeasure
+//{
+////    struct PhaseMeasure measures[3];
+//
+//    float current[3];
+//    float voltage[3];
+//    float power[3];
+//};
+
+
+void Measurer_AppendMeasures(uint16 adc_values[6]);
 
 // Не ноль, если буферы заполнены
 int Measurer_BuffersFull(void);
 
 // Возвращает не ноль, если готово новое измерение
 int Measurer_MeasureReady(void);
+
+float Measurer_Get
 

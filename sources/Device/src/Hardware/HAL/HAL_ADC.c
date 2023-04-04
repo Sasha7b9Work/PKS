@@ -25,12 +25,17 @@
 */
 
 
-static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
+static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
 
 
 void HAL_ADC_ReadyNewValues()
 {
+    Measurer_AppendMeasures(adc_values);
 
+    if (Measurer_BuffersFull())
+    {
+        HAL_ADC_Stop();
+    }
 }
 
 
@@ -61,7 +66,7 @@ void HAL_ADC_Init()
     /* initialize DMA single data mode */
     dma_data_parameter.periph_addr = (uint32_t)(&ADC_RDATA(ADC0));
     dma_data_parameter.periph_inc = DMA_PERIPH_INCREASE_DISABLE;
-    dma_data_parameter.memory_addr = (uint32_t)(&adc_value);
+    dma_data_parameter.memory_addr = (uint32_t)(&adc_values);
     dma_data_parameter.memory_inc = DMA_MEMORY_INCREASE_ENABLE;
     dma_data_parameter.periph_width = DMA_PERIPHERAL_WIDTH_16BIT;
     dma_data_parameter.memory_width = DMA_MEMORY_WIDTH_16BIT;
