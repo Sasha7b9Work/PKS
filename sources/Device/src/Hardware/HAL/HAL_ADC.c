@@ -56,6 +56,7 @@ void HAL_ADC_Init()
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_4);
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_5);
 
+    ///////////////////////////////////////////////////////////////////////////////////////////// DMA
     /* ADC_DMA_channel configuration */
     dma_parameter_struct dma_data_parameter;
 
@@ -79,7 +80,7 @@ void HAL_ADC_Init()
     /* enable DMA channel */
     dma_channel_enable(DMA0, DMA_CH0);
 
-
+    /////////////////////////////////////////////////////////////////////////////////////////// TIM
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
 
@@ -90,20 +91,29 @@ void HAL_ADC_Init()
     timer_initpara.period = 9999;
     timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
-    timer_init(TIMER1, &timer_initpara);
+    timer_init(TIMER0, &timer_initpara);
 
     timer_channel_output_struct_para_init(&timer_ocintpara);
 
     /* CH0 configuration in PWM mode1 */
     timer_ocintpara.ocpolarity = TIMER_OC_POLARITY_HIGH;
     timer_ocintpara.outputstate = TIMER_CCX_ENABLE;
-    timer_channel_output_config(TIMER1, TIMER_CH_0, &timer_ocintpara);
+    timer_channel_output_config(TIMER0, TIMER_CH_0, &timer_ocintpara);
 
-    timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 3999);
-    timer_channel_output_mode_config(TIMER1, TIMER_CH_0, TIMER_OC_MODE_PWM1);
-    timer_channel_output_shadow_config(TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
+    timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, 3999);
+    timer_channel_output_mode_config(TIMER0, TIMER_CH_0, TIMER_OC_MODE_PWM0);
+    timer_channel_output_shadow_config(TIMER0, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
+
+    /* TIMER0 primary output enable */
+    timer_primary_output_config(TIMER0, ENABLE);
+    /* auto-reload preload enable */
+    timer_auto_reload_shadow_enable(TIMER0);
+
+    /* enable TIMER0 */
+    timer_enable(TIMER0);
 
 
+    /////////////////////////////////////////////////////////////////////////////////////////////// ADC
     /* ADC mode config */
     adc_mode_config(ADC_MODE_FREE);
 
@@ -128,7 +138,7 @@ void HAL_ADC_Init()
     adc_regular_channel_config(ADC0, 5, ADC_CHANNEL_5, ADC_SAMPLETIME_55POINT5);
 
     /* ADC trigger config */
-    adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_2_EXTTRIG_REGULAR_NONE);
+    adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
     adc_external_trigger_config(ADC0, ADC_REGULAR_CHANNEL, ENABLE);
 
     /* ADC DMA function enable */
@@ -142,6 +152,6 @@ void HAL_ADC_Init()
     adc_calibration_enable(ADC0);
 
     /* ADC software trigger enable */
-    adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
+//    adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
 }
 
