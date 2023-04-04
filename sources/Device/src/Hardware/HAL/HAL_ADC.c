@@ -26,8 +26,6 @@
 */
 
 
-static void HAL_ADC_Start(void);
-
 static void HAL_ADC_Stop(void);
 
 
@@ -41,8 +39,6 @@ void HAL_ADC_Handler_ReadyNewValues()
     if (Measurer_BuffersFull())
     {
         HAL_ADC_Stop();
-
-        Measurer_Calculate();
     }
 }
 
@@ -154,7 +150,7 @@ void HAL_ADC_Init()
 }
 
 
-static void HAL_ADC_Start()
+void HAL_ADC_Start()
 {
     dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
 

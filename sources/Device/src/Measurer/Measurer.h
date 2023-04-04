@@ -3,8 +3,11 @@
 
 
 /*
-*   Измеритель параметров
+*   РР·РјРµСЂРёС‚РµР»СЊ РїР°СЂР°РјРµС‚СЂРѕРІ
 */
+
+
+#define NUM_POINTS 3900
 
 
 struct PhaseMeasure
@@ -21,14 +24,14 @@ struct FullMeasure
 };
 
 
+void Measurer_Update(void);
+
 void Measurer_AppendMeasures(uint16 adc_values[6]);
 
-// Не ноль, если буферы заполнены
+// РќРµ РЅРѕР»СЊ, РµСЃР»Рё Р±СѓС„РµСЂС‹ Р·Р°РїРѕР»РЅРµРЅС‹
 int Measurer_BuffersFull(void);
 
-void Measurer_Calculate(void);
-
-// Возвращает не ноль, если готово новое измерение
+// Р’РѕР·РІСЂР°С‰Р°РµС‚ РЅРµ РЅРѕР»СЊ, РµСЃР»Рё РіРѕС‚РѕРІРѕ РЅРѕРІРѕРµ РёР·РјРµСЂРµРЅРёРµ
 int Measurer_MeasureReady(void);
 
 struct FullMeasure Measurer_GetMeasure(void);

@@ -1,4 +1,4 @@
-// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
 
@@ -7,8 +7,10 @@ void HAL_ErrorHandler(void);
 
 
 void HAL_ADC_Init(void);
-// Вызывать, когда считаны новые значения
+void HAL_ADC_Start(void);
+// Р’С‹Р·С‹РІР°С‚СЊ, РєРѕРіРґР° СЃС‡РёС‚Р°РЅС‹ РЅРѕРІС‹Рµ Р·РЅР°С‡РµРЅРёСЏ
 void HAL_ADC_Handler_ReadyNewValues(void);
+
 
 void HAL_I2C0_Init(void);
 void HAL_I2C0_Write8(uint8 data);

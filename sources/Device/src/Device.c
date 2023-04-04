@@ -20,11 +20,15 @@ void Device_Init(void)
 
 void Device_Update(void)
 {
+    Measurer_Update();
+
     if (Measurer_MeasureReady())
     {
         struct FullMeasure measure = Measurer_GetMeasure();
 
         measure = measure;
+
+        HAL_ADC_Start();
     }
 
 
