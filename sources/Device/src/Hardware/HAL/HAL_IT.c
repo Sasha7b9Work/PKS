@@ -123,6 +123,11 @@ extern "C" {
         int i = 0;
     }
 
+    void TIMER0_UP_IRQHandler(void)
+    {
+        int i = 0;
+    }
+
 
 
 #ifdef __cplusplus

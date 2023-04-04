@@ -119,6 +119,9 @@ void HAL_ADC_Init()
     /* auto-reload preload enable */
     timer_auto_reload_shadow_enable(TIMER0);
 
+    timer_interrupt_enable(TIMER0, TIMER_INT_CH0);
+    timer_interrupt_enable(TIMER0, TIMER_INT_UP);
+
     /* enable TIMER0 */
     timer_enable(TIMER0);
 
@@ -163,5 +166,7 @@ void HAL_ADC_Init()
     adc_calibration_enable(ADC0);
 
     adc_dma_mode_enable(ADC0);
+
+    adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
 }
 
