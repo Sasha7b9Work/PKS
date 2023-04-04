@@ -6,7 +6,6 @@ float sqrtf(float);
 float log10f(float);
 float cosf(float);
 float sinf(float);
-bool isnan(float);
 float expf(float);
 void srand(unsigned int);
 float powf(float, float);

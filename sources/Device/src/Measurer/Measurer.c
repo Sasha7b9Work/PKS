@@ -66,13 +66,13 @@ static void CalculatePower(struct PhaseMeasure *meas)
 
 static void Measurer_Calculate()
 {
-    measure.measures[0].current = Calculator_CalculateCurrent(currentA);
-    measure.measures[1].current = Calculator_CalculateCurrent(currentB);
-    measure.measures[2].current = Calculator_CalculateCurrent(currentC);
+    measure.measures[0].current = Calculator_CalculateCurrentRMS(currentA);
+    measure.measures[1].current = Calculator_CalculateCurrentRMS(currentB);
+    measure.measures[2].current = Calculator_CalculateCurrentRMS(currentC);
 
-    measure.measures[0].voltage = Calculator_CalculateVoltage(voltA);
-    measure.measures[1].voltage = Calculator_CalculateVoltage(voltB);
-    measure.measures[2].voltage = Calculator_CalculateVoltage(voltC);
+    measure.measures[0].voltage = Calculator_CalculateVoltageRMS(voltA);
+    measure.measures[1].voltage = Calculator_CalculateVoltageRMS(voltB);
+    measure.measures[2].voltage = Calculator_CalculateVoltageRMS(voltC);
 
     CalculatePower(&measure.measures[0]);
     CalculatePower(&measure.measures[1]);
