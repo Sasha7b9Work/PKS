@@ -1,4 +1,4 @@
-// 2023/04/03 19:52:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+﻿// 2023/04/03 19:52:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Measurer/Measurer.h"
@@ -86,10 +86,10 @@ void HAL_ADC_Init()
     timer_parameter_struct timer_initpara;
 
     /* TIMER1 configuration */
-    timer_initpara.prescaler = 8399;
+    timer_initpara.prescaler = (480 - 1);               // Получаем частоту 8 МГц / 480 = 16.(6) кГц. На этой частоте 2000 точек считываются за 120 мс
     timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
-    timer_initpara.period = 99999;
+    timer_initpara.period = (uint)(-1);
     timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
     timer_init(TIMER0, &timer_initpara);
