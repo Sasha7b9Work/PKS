@@ -31,10 +31,13 @@ static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
 void HAL_ADC_Update()
 {
     static uint16 prev_value = 0;
+    
+    static int counter = 0;
 
     if (prev_value != adc_value[0])
     {
         int i = 0;
+        counter++;
     }
 
     prev_value = adc_value[0];
@@ -46,6 +49,7 @@ void HAL_ADC_Init()
     rcu_periph_clock_enable(RCU_GPIOA);
     rcu_periph_clock_enable(RCU_ADC0);
     rcu_periph_clock_enable(RCU_DMA0);
+    rcu_periph_clock_enable(RCU_TIMER0);
     rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV6);
 
     gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_10MHZ, GPIO_PIN_0);
@@ -87,7 +91,7 @@ void HAL_ADC_Init()
     timer_initpara.prescaler = 8399;
     timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
-    timer_initpara.period = 0xffffffff;
+    timer_initpara.period = 9999;
     timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
     timer_init(TIMER0, &timer_initpara);
@@ -136,12 +140,11 @@ void HAL_ADC_Init()
     adc_regular_channel_config(ADC0, 4, ADC_CHANNEL_4, ADC_SAMPLETIME_55POINT5);
     adc_regular_channel_config(ADC0, 5, ADC_CHANNEL_5, ADC_SAMPLETIME_55POINT5);
 
-    /* ADC trigger config */
-    adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
     adc_external_trigger_config(ADC0, ADC_REGULAR_CHANNEL, ENABLE);
 
-    /* ADC DMA function enable */
-    adc_dma_mode_enable(ADC0);
+    /* ADC trigger config */
+    adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
+
 
     /* enable ADC interface */
     adc_enable(ADC0);
@@ -151,8 +154,5 @@ void HAL_ADC_Init()
     adc_calibration_enable(ADC0);
 
     adc_dma_mode_enable(ADC0);
-
-    /* ADC software trigger enable */
-//    adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
 }
 
