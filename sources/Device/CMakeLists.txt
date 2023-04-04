@@ -31,9 +31,7 @@ add_compile_options(/wd5220)    # a non-static data member with a volatile quali
 add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum class' over 'enum' (Enum.3)
 
 
-file(GLOB STM32F3                  ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Src/*.c
-                                   ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/*.h
-                                   ../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc/Legacy/*.h)
+file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
 file(GLOB SRC                      src/*.*)
 file(GLOB CALCULATOR               src/Calculator/*.*)
 file(GLOB DISPLAY                  src/Display/*.*)
@@ -47,7 +45,7 @@ file(GLOB HARDWARE_MODULES_ZMPT101 src/Hardware/Modules/ZMPT101/*.*)
 file(GLOB MEASURER                 src/Measurer/*.*)
 file(GLOB MODEM                    src/Modem/*.*)
 
-source_group(STM32F3                  FILES ${STM32F3})
+source_group(GD32F3                   FILES ${GD32F3})
 source_group(src                      FILES ${SRC})
 source_group(Calculator               FILES ${CALCULATOR})
 source_group(Display                  FILES ${DISPLAY})
@@ -65,7 +63,7 @@ set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}
-            ${STM32F3}
+            ${GD32F3}
             ${SRC}
             ${CALCULATOR}
             ${DISPLAY}
