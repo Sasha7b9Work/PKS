@@ -21,7 +21,10 @@ void Device_Init(void)
 
 void Device_Update(void)
 {
-//    Display_Update();
+
+    HAL_ADC_Update();
+
+    //    Display_Update();
 
 /*
     Test::Display() ? LOG_WRITE("Display is Ok!") : LOG_ERROR("Display failed");

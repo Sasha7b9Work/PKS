@@ -25,7 +25,21 @@
 */
 
 
-static uint16 adc_value[6];
+static uint16 adc_value[6] = { 0, 0, 0, 0, 0, 0 };
+
+
+void HAL_ADC_Update()
+{
+    for (int i = 0; i < 6; i++)
+    {
+        volatile uint16 value = adc_value[i];
+
+        if (value != 0)
+        {
+            int i = 0;
+        }
+    }
+}
 
 
 void HAL_ADC_Init()

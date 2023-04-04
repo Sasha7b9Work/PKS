@@ -113,10 +113,10 @@ extern "C" {
         delay_decrement();
     }
 
-    void ADC0_1_IRQHandler(void)
-    {
-        adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
-    }
+//    void ADC0_1_IRQHandler(void)
+//    {
+//        adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
+//    }
 
 
 

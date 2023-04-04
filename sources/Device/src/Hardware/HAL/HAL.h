@@ -7,6 +7,7 @@ void HAL_ErrorHandler(void);
 
 
 void HAL_ADC_Init(void);
+void HAL_ADC_Update(void);
 
 
 void HAL_I2C0_Init(void);
