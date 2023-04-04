@@ -80,6 +80,30 @@ void HAL_ADC_Init()
     dma_channel_enable(DMA0, DMA_CH0);
 
 
+    timer_oc_parameter_struct timer_ocintpara;
+    timer_parameter_struct timer_initpara;
+
+    /* TIMER1 configuration */
+    timer_initpara.prescaler = 8399;
+    timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
+    timer_initpara.counterdirection = TIMER_COUNTER_UP;
+    timer_initpara.period = 9999;
+    timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
+    timer_initpara.repetitioncounter = 0;
+    timer_init(TIMER1, &timer_initpara);
+
+    timer_channel_output_struct_para_init(&timer_ocintpara);
+
+    /* CH0 configuration in PWM mode1 */
+    timer_ocintpara.ocpolarity = TIMER_OC_POLARITY_HIGH;
+    timer_ocintpara.outputstate = TIMER_CCX_ENABLE;
+    timer_channel_output_config(TIMER1, TIMER_CH_0, &timer_ocintpara);
+
+    timer_channel_output_pulse_value_config(TIMER1, TIMER_CH_0, 3999);
+    timer_channel_output_mode_config(TIMER1, TIMER_CH_0, TIMER_OC_MODE_PWM1);
+    timer_channel_output_shadow_config(TIMER1, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
+
+
     /* ADC mode config */
     adc_mode_config(ADC_MODE_FREE);
 
