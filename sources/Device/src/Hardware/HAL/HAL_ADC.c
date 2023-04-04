@@ -5,40 +5,29 @@
 #include <systick.h>
 
 
+/*
+    ADC012_IN0      23  PA0
+    ADC012_IN1      24  PA1
+    ADC012_IN2      25  PA2
+    ADC012_IN3      26  PA3
+    ADC012_IN4      29  PA4
+    ADC012_IN5      30  PA5
+    ADC012_IN6      31  PA6
+    ADC012_IN7      32  PA7
+    ADC012_IN8      35  PB0
+    ADC012_IN9      36  PB1
+    ADC012_IN10     15  PC0
+    ADC012_IN11     16  PC1
+    ADC012_IN12     17  PC2
+    ADC012_IN13     18  PC3
+    ADC012_IN14     33  PC4
+    ADC012_IN15     34  PC5
+*/
+
+
 void HAL_ADC_Init()
 {
-    /* ADC mode config */
-    adc_mode_config(ADC_MODE_FREE);
 
-    /* ADC data alignment config */
-    adc_data_alignment_config(ADC0, ADC_DATAALIGN_RIGHT);
-
-    /* ADC SCAN function enable */
-    adc_special_function_config(ADC0, ADC_SCAN_MODE, ENABLE);
-
-    /* ADC channel length config */
-    adc_channel_length_config(ADC0, ADC_INSERTED_CHANNEL, 2);
-
-    /* ADC temperature sensor channel config */
-    adc_inserted_channel_config(ADC0, 0, ADC_CHANNEL_16, ADC_SAMPLETIME_239POINT5);
-
-    /* ADC internal reference voltage channel config */
-    adc_inserted_channel_config(ADC0, 1, ADC_CHANNEL_17, ADC_SAMPLETIME_239POINT5);
-
-    /* ADC external trigger enable */
-    adc_external_trigger_config(ADC0, ADC_INSERTED_CHANNEL, ENABLE);
-
-    /* ADC trigger config */
-    adc_external_trigger_source_config(ADC0, ADC_INSERTED_CHANNEL, ADC0_1_2_EXTTRIG_INSERTED_NONE);
-
-    /* ADC temperature and Vrefint enable */
-    adc_tempsensor_vrefint_enable();
-
-    /* enable ADC interface */
-    adc_enable(ADC0);
-    delay_1ms(1);
-    /* ADC calibration and reset calibration */
-    adc_calibration_enable(ADC0);
 }
 
 
