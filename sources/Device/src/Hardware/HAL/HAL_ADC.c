@@ -78,7 +78,7 @@ void HAL_ADC_Init()
     adc_data_alignment_config(ADC0, ADC_DATAALIGN_RIGHT);
 
     /* ADC channel length config */
-    adc_channel_length_config(ADC0, ADC_REGULAR_CHANNEL, 4);
+    adc_channel_length_config(ADC0, ADC_REGULAR_CHANNEL, 6);
 
     /* ADC regular channel config */
     adc_regular_channel_config(ADC0, 0, ADC_CHANNEL_0, ADC_SAMPLETIME_55POINT5);

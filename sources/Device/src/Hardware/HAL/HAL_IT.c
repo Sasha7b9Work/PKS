@@ -1,6 +1,7 @@
 // 2022/6/10 9:08:02 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include <gd32f30x.h>
 #include <systick.h>
 
 
@@ -110,6 +111,11 @@ extern "C" {
     void SysTick_Handler(void)
     {
         delay_decrement();
+    }
+
+    void ADC0_1_IRQHandler(void)
+    {
+        adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
     }
 
 
