@@ -87,6 +87,8 @@ void HAL_ADC_Init()
 
     dma_circulation_enable(DMA0, DMA_CH0);
 
+    dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
+
     /* enable DMA channel */
     dma_channel_enable(DMA0, DMA_CH0);
 
@@ -111,7 +113,7 @@ void HAL_ADC_Init()
     timer_channel_output_config(TIMER0, TIMER_CH_0, &timer_ocintpara);
 
     timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, 3999);
-    timer_channel_output_mode_config(TIMER0, TIMER_CH_0, TIMER_OC_MODE_PWM0);
+    timer_channel_output_mode_config(TIMER0, TIMER_CH_0, TIMER_OC_MODE_PWM1);
     timer_channel_output_shadow_config(TIMER0, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
 
     /* TIMER0 primary output enable */
@@ -155,8 +157,11 @@ void HAL_ADC_Init()
     /* ADC trigger config */
     adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
 
+    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
+    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
+
+//    adc_interrupt_enable(ADC0, ADC_INT_EOC);
     adc_interrupt_enable(ADC0, ADC_INT_EOC);
-    adc_interrupt_enable(ADC0, ADC_INT_EOIC);
 
     /* enable ADC interface */
     adc_enable(ADC0);

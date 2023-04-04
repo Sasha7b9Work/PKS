@@ -129,6 +129,12 @@ extern "C" {
     }
 
 
+    void DMA0_Channel0_IRQHandler(void)
+    {
+        int i = 0;
+    }
+
+
 
 #ifdef __cplusplus
 }
