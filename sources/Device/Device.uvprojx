@@ -992,10 +992,10 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls>--cpp</MiscControls>
-              <Define>USE_HAL_DRIVER, GD32F30X_HD, __cplusplus</Define>
+              <MiscControls></MiscControls>
+              <Define>USE_HAL_DRIVER, GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\STM32Cube_F3\Drivers\STM32F3xx_HAL_Driver\Inc;..\common\STM32Cube_F3\Drivers\CMSIS\Device\ST\STM32F3xx\Include;..\common\STM32Cube_F3\Drivers\CMSIS\Core\Include</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
