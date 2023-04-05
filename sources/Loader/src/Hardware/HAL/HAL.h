@@ -6,6 +6,9 @@ void HAL_Init(void);
 void HAL_ErrorHandler(void);
 
 
+void HAL_ROM_EraseSector(uint8 address);
+
+
 #ifdef __cplusplus
 extern "C" {
 #endif 
