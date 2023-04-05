@@ -4,13 +4,13 @@
 #include "Hardware/Modules/SIM800C/SIM800C.h"
 
 
-void Modem_Init(void)
+void Modem::Init(void)
 {
-    SIM800C_Init();
+    SIM800C::Init();
 }
 
 
-int Modem_ExistUpdate()
+bool Modem::ExistUpdate()
 {
-    return 0;
+    return false;
 }

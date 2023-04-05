@@ -32,7 +32,7 @@ void Device::Update(void)
         HAL_ADC::Start();
     }
 
-    Updater_Update();
+    Updater::Update();
 
 
 //    Display_Update();

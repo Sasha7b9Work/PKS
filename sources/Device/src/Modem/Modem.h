@@ -3,7 +3,10 @@
 #include "Measurer/Calculator.h"
 
 
-void Modem_Init(void);
+namespace Modem
+{
+    void Init(void);
 
-// Есть обновление
-int Modem_ExistUpdate(void);
+    // Есть обновление
+    bool ExistUpdate(void);
+}

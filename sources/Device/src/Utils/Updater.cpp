@@ -6,51 +6,60 @@
 #include <gd32f30x.h>
 
 
+namespace Updater
+{
 #define SIZE_SECTOR                 (2 * 1024)
 #define FLASH_ADDR_SAVED_FIRMWARE   (FLASH_BASE + 50 * SIZE_SECTOR)
 #define FLASH_ADDR_BOOTLOADER       (FLASH_BASE + 100 * SIZE_SECTOR)
 
 
-typedef  void (*iapfun)(void);
-iapfun      jump2app;
+    typedef  void (*iapfun)(void);
+    iapfun      jump2app;
 
 
 #ifdef WIN32
-    #define __asm
+#define __asm
 #endif
 
-__asm void MSR_MSP(uint addr)
-{
+    __asm void MSR_MSP(uint)
+    {
 #ifndef WIN32
-    MSR MSP, r0
-    BX r14
+        MSR MSP, r0
+            BX r14
 #endif
-}//set Main Stack value
+    }//set Main Stack value
 
 
-static void JumpToBootloader()
-{
-    jump2app = (iapfun) * (volatile uint *)(FLASH_ADDR_BOOTLOADER + 4);       //the second address of app code is the program
-    MSR_MSP(*(volatile uint *)FLASH_ADDR_BOOTLOADER);                         //initialize app pointer
-    jump2app();                                                         //jump to app
+    static void JumpToBootloader()
+    {
+        jump2app = (iapfun) * (volatile uint *)(FLASH_ADDR_BOOTLOADER + 4);       //the second address of app code is the program
+        MSR_MSP(*(volatile uint *)FLASH_ADDR_BOOTLOADER);                         //initialize app pointer
+        jump2app();                                                         //jump to app
+    }
+
+    static void LoadFirmware();
+    // Сохранить часть прошивки 
+    static void SaveParthFirmware(int part, uint8 data[2048]);
+
+    static int GetSizeFirmware();
+
+    // Получить часть прошивки
+    static void GetPartFirmware(int, uint8[2048]);
 }
 
-
-static int GetSizeFirmware()
+int Updater::GetSizeFirmware()
 {
     return 0;
 }
 
 
-// Получить часть прошивки
-static void GetPartFirmware(int part, uint8 data[2048])
+void Updater::GetPartFirmware(int , uint8 [2048])
 {
 
 }
 
 
-// Сохранить часть прошивки 
-static void SaveParthFirmware(int part, uint8 data[2048])
+void Updater::SaveParthFirmware(int part, uint8 data[2048])
 {
     HAL_ROM::EraseSector(part + 50);
 
@@ -58,7 +67,7 @@ static void SaveParthFirmware(int part, uint8 data[2048])
 }
 
 
-static void LoadFirmware()
+void Updater::LoadFirmware()
 {
     int size = GetSizeFirmware();
 
@@ -79,18 +88,12 @@ static void LoadFirmware()
 }
 
 
-static void Update()
+void Updater::Update()
 {
-    LoadFirmware();
-
-    JumpToBootloader();
-}
-
-
-void Updater_Update()
-{
-    if (Modem_ExistUpdate())
+    if (Modem::ExistUpdate())
     {
-        Update();
+        LoadFirmware();
+
+        JumpToBootloader();
     }
 }

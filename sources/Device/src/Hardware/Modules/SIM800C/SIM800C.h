@@ -2,4 +2,7 @@
 #pragma once
 
 
-void SIM800C_Init(void);
+namespace SIM800C
+{
+    void Init(void);
+}

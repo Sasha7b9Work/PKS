@@ -3,13 +3,13 @@
 #include "Hardware/HAL/HAL.h"
 
 
-void HAL_ROM::EraseSector(int num_sector)
+void HAL_ROM::EraseSector(int)
 {
 
 }
 
 
-void HAL_ROM::WriteData(uint address, uint8 *data, int size)
+void HAL_ROM::WriteData(uint, uint8 *, int)
 {
 
 }

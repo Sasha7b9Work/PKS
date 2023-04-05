@@ -4,13 +4,13 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 
 
-void Display_Init(void)
+void Display::Init(void)
 {
-    SSD1306_Init();
+    SSD1306::Init();
 }
 
 
-void Display_Update(void)
+void Display::Update(void)
 {
     static enum Color color = Black;
     
@@ -31,5 +31,5 @@ void Display_Update(void)
 
 void Display::Fill(enum Color color)
 {
-    SSD1306_Fill((color == White) ? 0xff : 0x00);
+    SSD1306::Fill((color == White) ? 0xffU : 0x00U);
 }

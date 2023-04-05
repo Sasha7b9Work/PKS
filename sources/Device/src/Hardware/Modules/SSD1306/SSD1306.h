@@ -2,5 +2,9 @@
 #pragma once
 
 
-void SSD1306_Init(void);
-void SSD1306_Fill(uint);
+namespace SSD1306
+{
+    void Init(void);
+
+    void Fill(uint);
+}
