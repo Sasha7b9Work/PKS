@@ -509,29 +509,9 @@
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
             <File>
-              <FileName>HAL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
-            </File>
-            <File>
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
             </File>
             <File>
               <FileName>systick.c</FileName>
@@ -544,9 +524,29 @@
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_ROM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ROM.c</FilePath>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_I2C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_IT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -554,14 +554,14 @@
           <GroupName>Hardware/Modules/SIM800C</GroupName>
           <Files>
             <File>
-              <FileName>SIM800C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
-            </File>
-            <File>
               <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -569,25 +569,20 @@
           <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
-              <FileName>SSD1306.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.c</FilePath>
-            </File>
-            <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Hardware/Modules/ZMPT101</GroupName>
           <Files>
-            <File>
-              <FileName>ZMPT101.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
-            </File>
             <File>
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
@@ -599,14 +594,14 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
-            </File>
-            <File>
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -614,14 +609,14 @@
           <GroupName>FlashDisk</GroupName>
           <Files>
             <File>
-              <FileName>FlashDisk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.c</FilePath>
-            </File>
-            <File>
               <FileName>FlashDisk.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -629,24 +624,24 @@
           <GroupName>Measurer</GroupName>
           <Files>
             <File>
-              <FileName>Measurer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Measurer.c</FilePath>
-            </File>
-            <File>
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
             <File>
-              <FileName>Calculator.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Calculator.c</FilePath>
-            </File>
-            <File>
               <FileName>Calculator.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Calculator.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -654,14 +649,14 @@
           <GroupName>Modem</GroupName>
           <Files>
             <File>
-              <FileName>Modem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Modem\Modem.c</FilePath>
-            </File>
-            <File>
               <FileName>Modem.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -674,9 +669,9 @@
               <FilePath>.\src\Utils\Updater.h</FilePath>
             </File>
             <File>
-              <FileName>Updater.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\Updater.c</FilePath>
+              <FileName>Updater.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Updater.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1185,29 +1180,9 @@
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
             <File>
-              <FileName>HAL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
-            </File>
-            <File>
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
             </File>
             <File>
               <FileName>systick.c</FileName>
@@ -1220,9 +1195,29 @@
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_ROM.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ROM.c</FilePath>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_I2C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_IT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1230,14 +1225,14 @@
           <GroupName>Hardware/Modules/SIM800C</GroupName>
           <Files>
             <File>
-              <FileName>SIM800C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
-            </File>
-            <File>
               <FileName>SIM800C.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1245,25 +1240,20 @@
           <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
-              <FileName>SSD1306.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.c</FilePath>
-            </File>
-            <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
             </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Hardware/Modules/ZMPT101</GroupName>
           <Files>
-            <File>
-              <FileName>ZMPT101.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
-            </File>
             <File>
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
@@ -1275,14 +1265,14 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
-              <FileName>Display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
-            </File>
-            <File>
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1290,14 +1280,14 @@
           <GroupName>FlashDisk</GroupName>
           <Files>
             <File>
-              <FileName>FlashDisk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.c</FilePath>
-            </File>
-            <File>
               <FileName>FlashDisk.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
+            </File>
+            <File>
+              <FileName>FlashDisk.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1305,24 +1295,24 @@
           <GroupName>Measurer</GroupName>
           <Files>
             <File>
-              <FileName>Measurer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Measurer.c</FilePath>
-            </File>
-            <File>
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
             <File>
-              <FileName>Calculator.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Calculator.c</FilePath>
-            </File>
-            <File>
               <FileName>Calculator.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Calculator.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1330,14 +1320,14 @@
           <GroupName>Modem</GroupName>
           <Files>
             <File>
-              <FileName>Modem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Modem\Modem.c</FilePath>
-            </File>
-            <File>
               <FileName>Modem.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1350,9 +1340,9 @@
               <FilePath>.\src\Utils\Updater.h</FilePath>
             </File>
             <File>
-              <FileName>Updater.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Utils\Updater.c</FilePath>
+              <FileName>Updater.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\Updater.cpp</FilePath>
             </File>
           </Files>
         </Group>
