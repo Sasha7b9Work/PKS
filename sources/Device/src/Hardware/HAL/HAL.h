@@ -9,10 +9,13 @@ namespace HAL
 }
 
 
-void HAL_ADC_Init(void);
-void HAL_ADC_Start(void);
-// Вызывать, когда считаны новые значения
-void HAL_ADC_Callback(void);
+namespace HAL_ADC
+{
+    void Init(void);
+    void Start(void);
+    // Вызывать, когда считаны новые значения
+    void Callback(void);
+}
 
 
 void HAL_I2C0_Init(void);

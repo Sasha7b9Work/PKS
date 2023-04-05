@@ -13,7 +13,7 @@ void HAL::Init(void)
     
     HAL_I2C0_Init();
 
-    HAL_ADC_Init();
+    HAL_ADC::Init();
 }
 
 

@@ -26,24 +26,26 @@
 */
 
 
-static void HAL_ADC_Stop(void);
+namespace HAL_ADC
+{
+    static void Stop(void);
+
+    static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
+}
 
 
-static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
-
-
-void HAL_ADC_Callback()
+void HAL_ADC::Callback()
 {
     Measurer_AppendMeasures(adc_values);
 
     if (Measurer_BuffersFull())
     {
-        HAL_ADC_Stop();
+        Stop();
     }
 }
 
 
-void HAL_ADC_Init()
+void HAL_ADC::Init()
 {
     rcu_periph_clock_enable(RCU_GPIOA);
     rcu_periph_clock_enable(RCU_ADC0);
@@ -146,11 +148,11 @@ void HAL_ADC_Init()
     /* ADC calibration and reset calibration */
     adc_calibration_enable(ADC0);
 
-    HAL_ADC_Start();
+    Start();
 }
 
 
-void HAL_ADC_Start()
+void HAL_ADC::Start()
 {
     dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
 
@@ -169,7 +171,7 @@ void HAL_ADC_Start()
 }
 
 
-static void HAL_ADC_Stop()
+void HAL_ADC::Stop()
 {
     adc_dma_mode_disable(ADC0);
 

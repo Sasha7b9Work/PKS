@@ -29,7 +29,7 @@ void Device::Update(void)
 
         measure = measure;
 
-        HAL_ADC_Start();
+        HAL_ADC::Start();
     }
 
     Updater_Update();
