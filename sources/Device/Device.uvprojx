@@ -454,19 +454,9 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main.c</FilePath>
-            </File>
-            <File>
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
-            </File>
-            <File>
-              <FileName>Device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Device.c</FilePath>
             </File>
             <File>
               <FileName>Device.h</FileName>
@@ -474,14 +464,24 @@
               <FilePath>.\src\Device.h</FilePath>
             </File>
             <File>
-              <FileName>Test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Test.c</FilePath>
-            </File>
-            <File>
               <FileName>Test.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Test.h</FilePath>
+            </File>
+            <File>
+              <FileName>Device.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Device.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Test.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Test.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1130,19 +1130,9 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main.c</FilePath>
-            </File>
-            <File>
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
-            </File>
-            <File>
-              <FileName>Device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Device.c</FilePath>
             </File>
             <File>
               <FileName>Device.h</FileName>
@@ -1150,14 +1140,24 @@
               <FilePath>.\src\Device.h</FilePath>
             </File>
             <File>
-              <FileName>Test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Test.c</FilePath>
-            </File>
-            <File>
               <FileName>Test.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Test.h</FilePath>
+            </File>
+            <File>
+              <FileName>Device.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Device.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Test.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Test.cpp</FilePath>
             </File>
           </Files>
         </Group>
