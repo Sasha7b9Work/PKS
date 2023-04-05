@@ -543,6 +543,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
+            <File>
+              <FileName>HAL_ROM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1213,6 +1218,11 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ROM.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
           </Files>
         </Group>

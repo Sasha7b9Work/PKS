@@ -17,6 +17,9 @@ void HAL_I2C0_Write8(uint8 data);
 void HAL_I2C0_Write(uint8 *, int size);
 
 
+void HAL_ROM_EraseSector(int num_sector);
+
+
 
 #ifdef __cplusplus
 extern "C" {

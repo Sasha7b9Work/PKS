@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Utils/Updater.h"
 #include "Modem/Modem.h"
+#include "Hardware/HAL/HAL.h"
 
 
 #define FLASH_APP1_ADDR  0x08032000
@@ -15,11 +16,7 @@ iapfun      jump2app;
     #define __asm
 #endif
 
-__asm void MSR_MSP(uint
-#ifndef WIN32
-addr
-#endif
-)
+__asm void MSR_MSP(uint addr)
 {
 #ifndef WIN32
     MSR MSP, r0
@@ -36,8 +33,65 @@ static void JumpToApplication()
 }
 
 
+static int GetSizeFirmware()
+{
+    return 0;
+}
+
+
+static void EraseSector(int sector)
+{
+
+}
+
+
+static void WriteSector(int sector, uint8 data[2048])
+{
+
+}
+
+
+// Получить часть прошивки
+static void GetPartFirmware(int part, uint8 data[2048])
+{
+
+}
+
+
+// Сохранить часть прошивки 
+static void SaveParthFirmware(int part, uint8 data[2048])
+{
+    EraseSector(part);
+
+    WriteSector(part, data);
+}
+
+
+static void LoadFirmware()
+{
+    int size = GetSizeFirmware();
+
+    uint8 data[2048];
+
+    int part = 0;
+
+    while (size > 0)
+    {
+        GetPartFirmware(part, data);
+
+        SaveParthFirmware(part, data);
+
+        size -= 2048;
+
+        part++;
+    }
+}
+
+
 static void Update()
 {
+    LoadFirmware();
+
     JumpToApplication();
 }
 
