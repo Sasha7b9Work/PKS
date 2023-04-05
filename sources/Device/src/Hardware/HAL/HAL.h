@@ -29,6 +29,8 @@ namespace HAL_I2C0
 namespace HAL_ROM
 {
     void ErasePage(int num_page);
+
+    // address должен быть кратен 4, size должен быть кратен 4
     void WriteData(uint address, uint8 *data, int size);
 }
 
