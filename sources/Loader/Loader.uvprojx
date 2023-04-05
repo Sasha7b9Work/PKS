@@ -463,26 +463,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
             </File>
-            <File>
-              <FileName>Device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Device.c</FilePath>
-            </File>
-            <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>Test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Test.c</FilePath>
-            </File>
-            <File>
-              <FileName>Test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Test.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -519,16 +499,6 @@
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
-            </File>
-            <File>
               <FileName>HAL_IT.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
@@ -542,121 +512,6 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SSD1306</GroupName>
-          <Files>
-            <File>
-              <FileName>SSD1306.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.c</FilePath>
-            </File>
-            <File>
-              <FileName>SSD1306.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
-            </File>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Display</GroupName>
-          <Files>
-            <File>
-              <FileName>Display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FlashDisk</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDisk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.c</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDisk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Measurer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Measurer.c</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Calculator.c</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Calculator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem</GroupName>
-          <Files>
-            <File>
-              <FileName>Modem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Modem\Modem.c</FilePath>
-            </File>
-            <File>
-              <FileName>Modem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\Modem.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1119,26 +974,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
             </File>
-            <File>
-              <FileName>Device.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Device.c</FilePath>
-            </File>
-            <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>Test.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Test.c</FilePath>
-            </File>
-            <File>
-              <FileName>Test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Test.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1175,16 +1010,6 @@
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_ADC.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.c</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.c</FilePath>
-            </File>
-            <File>
               <FileName>HAL_IT.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
@@ -1198,121 +1023,6 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.c</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SSD1306</GroupName>
-          <Files>
-            <File>
-              <FileName>SSD1306.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.c</FilePath>
-            </File>
-            <File>
-              <FileName>SSD1306.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.c</FilePath>
-            </File>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Display</GroupName>
-          <Files>
-            <File>
-              <FileName>Display.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Display\Display.c</FilePath>
-            </File>
-            <File>
-              <FileName>Display.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Display\Display.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FlashDisk</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDisk.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.c</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDisk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Measurer.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Measurer.c</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Measurer\Calculator.c</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Calculator.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem</GroupName>
-          <Files>
-            <File>
-              <FileName>Modem.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Modem\Modem.c</FilePath>
-            </File>
-            <File>
-              <FileName>Modem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\Modem.h</FilePath>
             </File>
           </Files>
         </Group>
