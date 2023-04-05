@@ -8,3 +8,9 @@ void Modem_Init(void)
 {
     SIM800C_Init();
 }
+
+
+int Modem_ExistUpdate()
+{
+    return 1;
+}

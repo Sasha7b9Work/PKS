@@ -4,3 +4,6 @@
 
 
 void Modem_Init(void);
+
+// Есть обновление
+int Modem_ExistUpdate(void);
