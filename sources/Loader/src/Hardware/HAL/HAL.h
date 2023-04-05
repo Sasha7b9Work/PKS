@@ -12,7 +12,10 @@ namespace HAL
 namespace HAL_ROM
 {
     // num_sector от 0 до 127. Каждый сектор занимает 2 кБ
-    void ROM_ErasePage(int num_page);
+    void ErasePage(int num_page);
+
+    // address должен быть кратен 4, size должен быть кратен 4
+    void WriteData(uint address, uint8 *data, int size);
 }
 
 
