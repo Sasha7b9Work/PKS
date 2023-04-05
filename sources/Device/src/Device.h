@@ -4,7 +4,7 @@
 
 namespace Device
 {
-    void Init(void);
+    void Init();
 
-    void Update(void);
+    void Update();
 }

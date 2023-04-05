@@ -29,15 +29,15 @@ struct FullMeasure
 
 namespace Measurer
 {
-    void Update(void);
+    void Update();
 
     void AppendMeasures(uint16 adc_values[6]);
 
     // Не ноль, если буферы заполнены
-    bool BuffersFull(void);
+    bool BuffersFull();
 
     // Возвращает не ноль, если готово новое измерение
-    bool MeasureReady(void);
+    bool MeasureReady();
 
-    FullMeasure GetMeasure(void);
+    FullMeasure GetMeasure();
 }

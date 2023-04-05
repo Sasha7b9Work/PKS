@@ -3,7 +3,7 @@
 #include "FlashDisk/FlashDisk.h"
 
 
-void FlashDisk::Init(void)
+void FlashDisk::Init()
 {
 
 }

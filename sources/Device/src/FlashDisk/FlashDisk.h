@@ -4,5 +4,5 @@
 
 namespace FlashDisk
 {
-    void Init(void);
+    void Init();
 }

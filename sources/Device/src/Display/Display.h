@@ -18,8 +18,8 @@ namespace Display
     static const int WIDTH = 128;
     static const int HEIGHT = 64;
 
-    void Init(void);
-    void Update(void);
+    void Init();
+    void Update();
     void Fill(enum Color);
 }
 

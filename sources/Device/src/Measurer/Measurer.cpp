@@ -6,7 +6,7 @@
 
 namespace Measurer
 {
-    static void Calculate(void);
+    static void Calculate();
 
     static struct FullMeasure measure;
 
