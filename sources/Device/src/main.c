@@ -2,22 +2,29 @@
 #include "Device.h"
 
 
+#define FLASH_APP1_ADDR  0x08032000
 
-#define MAIN_PROGRAM_START_ADDRESS  0x08032000
+
+typedef  void (*iapfun)(void);
+iapfun      jump2app;
+
+__asm void MSR_MSP(uint addr)
+{
+    MSR MSP, r0
+    BX r14
+}//set Main Stack value
+
+void iap_load_app(uint appxaddr)
+{
+    jump2app = (iapfun) * (volatile uint *)(appxaddr + 4);      //the second address of app code is the program
+    MSR_MSP(*(volatile uint *)appxaddr);                        //initialize app pointer
+    jump2app();                                                 //jump to app
+}
+
 
 int main(void)
-{  
-//    Device_Init();
-
-    __disable_irq();
-    typedef void(*pFunction)();
-    // Теперь переходим на основную программу
-    pFunction JumpToApplication;
-    JumpToApplication = (pFunction)(MAIN_PROGRAM_START_ADDRESS + 4); //-V2571
-//    set_MSP(*(__IO uint *)MAIN_PROGRAM_START_ADDRESS);
-    __enable_irq();
-    JumpToApplication();
-
+{
+    iap_load_app(FLASH_APP1_ADDR);
 
     while(1)
     {
