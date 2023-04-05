@@ -8,36 +8,10 @@
 
 namespace Updater
 {
-#define SIZE_SECTOR                 (2 * 1024)
-#define FLASH_ADDR_SAVED_FIRMWARE   (FLASH_BASE + 50 * SIZE_SECTOR)
-#define FLASH_ADDR_BOOTLOADER       (FLASH_BASE + 100 * SIZE_SECTOR)
-
-
-    typedef  void (*iapfun)(void);
-    iapfun      jump2app;
-
-
-#ifdef WIN32
-#define __asm
-#endif
-
-    __asm void MSR_MSP(uint)
-    {
-#ifndef WIN32
-        MSR MSP, r0
-            BX r14
-#endif
-    }//set Main Stack value
-
-
-    static void JumpToBootloader()
-    {
-        jump2app = (iapfun) * (volatile uint *)(FLASH_ADDR_BOOTLOADER + 4);       //the second address of app code is the program
-        MSR_MSP(*(volatile uint *)FLASH_ADDR_BOOTLOADER);                         //initialize app pointer
-        jump2app();                                                         //jump to app
-    }
+    static void JumpToBootloader();
 
     static void LoadFirmware();
+
     // Сохранить часть прошивки 
     static void SaveParthFirmware(int part, uint8 data[2048]);
 
@@ -63,7 +37,7 @@ void Updater::SaveParthFirmware(int part, uint8 data[2048])
 {
     HAL_ROM::ErasePage(part + 50);
 
-    HAL_ROM::WriteData(FLASH_ADDR_SAVED_FIRMWARE + part * SIZE_SECTOR, data, 2048);
+    HAL_ROM::WriteData(HAL_ROM::ADDR_SAVED_FIRMWARE + part * HAL_ROM::SIZE_SECTOR, data, 2048);
 }
 
 
@@ -96,4 +70,25 @@ void Updater::Update()
 
         JumpToBootloader();
     }
+}
+
+
+//set Main Stack value
+__asm void MSR_MSP(uint)
+{
+#ifndef WIN32
+    MSR MSP, r0
+    BX r14
+#endif
+}
+
+
+void Updater::JumpToBootloader()
+{
+    typedef void (*iapfun)(void);
+    iapfun  jump2app;
+
+    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_BOOTLOADER + 4);
+    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_BOOTLOADER);                        //initialize app pointer
+    jump2app();                                                                 //jump to app
 }
