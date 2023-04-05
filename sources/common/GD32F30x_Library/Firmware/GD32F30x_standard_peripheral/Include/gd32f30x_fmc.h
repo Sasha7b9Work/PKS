@@ -41,6 +41,10 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* FMC and option byte definition */
 #define FMC                        FMC_BASE                       /*!< FMC register base address */
 #define OB                         OB_BASE                        /*!< option bytes base address */
@@ -371,5 +375,9 @@ fmc_state_enum fmc_bank1_state_get(void);
 fmc_state_enum fmc_bank0_ready_wait(uint32_t timeout);
 /* check FMC bank1 ready or not */
 fmc_state_enum fmc_bank1_ready_wait(uint32_t timeout);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GD32F30X_FMC_H */
