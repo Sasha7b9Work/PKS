@@ -2,20 +2,25 @@
 #pragma once
 
 
-class PinADC
+struct PinADC
 {
-public:
     PinADC(uint _port, uint _pin, uint8 _channel) : port(_port), pin(_pin), channel(_channel) { }
-
     void Init();
-
     uint8 Channel() const { return channel; }
-
 private:
-
     uint port;
     uint pin;
     uint8 channel;
+};
+
+
+struct PinI2C
+{
+    PinI2C(uint _port, uint _pin) : port(_port), pin(_pin) { }
+    void Init();
+private:
+    uint port;
+    uint pin;
 };
 
 
@@ -30,3 +35,8 @@ extern PinADC pinCur3L;     // ACCURROUTL3
 extern PinADC pinCur1H;     // ACCURROUTH1
 extern PinADC pinCur2H;     // ACCURROUTH2
 extern PinADC pinCur3H;     // ACCURROUTH3
+
+extern const uint I2C_ADDR;
+extern PinI2C pinI2C_SCL;
+extern PinI2C pinI2C_SDA;
+
