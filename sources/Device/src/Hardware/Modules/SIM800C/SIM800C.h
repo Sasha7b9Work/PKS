@@ -4,5 +4,5 @@
 
 namespace SIM800C
 {
-    void Init(void);
+    void Init();
 }

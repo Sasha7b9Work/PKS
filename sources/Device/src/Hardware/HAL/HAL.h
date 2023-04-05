@@ -4,23 +4,23 @@
 
 namespace HAL
 {
-    void Init(void);
-    void ErrorHandler(void);
+    void Init();
+    void ErrorHandler();
 }
 
 
 namespace HAL_ADC
 {
-    void Init(void);
-    void Start(void);
+    void Init();
+    void Start();
     // Вызывать, когда считаны новые значения
-    void Callback(void);
+    void Callback();
 }
 
 
 namespace HAL_I2C0
 {
-    void Init(void);
+    void Init();
     void Write8(uint8 data);
     void Write(uint8 *, int size);
 }

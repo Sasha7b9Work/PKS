@@ -4,7 +4,7 @@
 
 namespace SSD1306
 {
-    void Init(void);
+    void Init();
 
     void Fill(uint);
 }

@@ -5,7 +5,7 @@
 #include <gd32f30x.h>
 
 
-void HAL::Init(void)
+void HAL::Init()
 {
     systick_config();
     
@@ -17,7 +17,7 @@ void HAL::Init(void)
 }
 
 
-void HAL::ErrorHandler(void)
+void HAL::ErrorHandler()
 {
     while (1)
     {

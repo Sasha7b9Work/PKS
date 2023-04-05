@@ -2,8 +2,8 @@
 #pragma once
 
 
-void HAL_Init(void);
-void HAL_ErrorHandler(void);
+void HAL_Init();
+void HAL_ErrorHandler();
 
 
 // num_sector от 0 до 127. Каждый сектор занимает 2 кБ

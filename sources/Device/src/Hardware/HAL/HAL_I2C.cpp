@@ -8,7 +8,7 @@
 #define I2C1_PAGE_SIZE           8
 
 
-void HAL_I2C0::Init(void)
+void HAL_I2C0::Init()
 {
     /* enable GPIOB clock */
     rcu_periph_clock_enable(RCU_GPIOB);

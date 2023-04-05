@@ -4,11 +4,11 @@
 
 namespace Test
 {
-    int Display(void);
+    int Display();
 
-    int Modem(void);
+    int Modem();
 
-    int Measurer(void);
+    int Measurer();
 
-    int FlashDrive(void);
+    int FlashDrive();
 }

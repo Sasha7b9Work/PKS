@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--cpp</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F30X_HD</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
@@ -454,14 +454,14 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main.c</FilePath>
-            </File>
-            <File>
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -489,19 +489,9 @@
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
             <File>
-              <FileName>HAL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
-            </File>
-            <File>
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
             </File>
             <File>
               <FileName>systick.c</FileName>
@@ -512,6 +502,16 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_IT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -847,7 +847,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, GD32F30X_HD</Define>
               <Undefine></Undefine>
               <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include</IncludePath>
@@ -965,14 +965,14 @@
           <GroupName>src</GroupName>
           <Files>
             <File>
-              <FileName>main.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\main.c</FilePath>
-            </File>
-            <File>
               <FileName>defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\defines.h</FilePath>
+            </File>
+            <File>
+              <FileName>main.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\main.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1000,19 +1000,9 @@
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
             <File>
-              <FileName>HAL.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.c</FilePath>
-            </File>
-            <File>
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_IT.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_IT.c</FilePath>
             </File>
             <File>
               <FileName>systick.c</FileName>
@@ -1023,6 +1013,16 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_IT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_IT.cpp</FilePath>
             </File>
           </Files>
         </Group>

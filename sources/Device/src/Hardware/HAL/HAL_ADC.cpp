@@ -28,7 +28,7 @@
 
 namespace HAL_ADC
 {
-    static void Stop(void);
+    static void Stop();
 
     static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
 }

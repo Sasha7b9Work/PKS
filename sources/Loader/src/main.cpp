@@ -3,7 +3,7 @@
 #include "Hardware/HAL/HAL.h"
 
 
-int main(void)
+int main()
 {
     HAL_Init();
 

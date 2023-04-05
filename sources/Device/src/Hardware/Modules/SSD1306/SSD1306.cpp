@@ -21,7 +21,7 @@ namespace SSD1306
 
     static void SendCommand(uint8);
 
-    static void Update(void);
+    static void Update();
 }
 
 
@@ -32,7 +32,7 @@ void SSD1306::SendCommand(uint8 command)
 }
 
 
-void SSD1306::Init(void)
+void SSD1306::Init()
 {
     SendCommand(0xAE); // Set display OFF
  
@@ -71,7 +71,7 @@ void SSD1306::Init(void)
 }
 
 
-void SSD1306::Update(void)
+void SSD1306::Update()
 {
     HAL_I2C0::Write8(SSD1306_DATA_STREAM);
     

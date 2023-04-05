@@ -5,5 +5,5 @@
 namespace Updater
 {
     // Провеить на наличие обновления и обновить в случае необходимости
-    void Update(void);
+    void Update();
 }
