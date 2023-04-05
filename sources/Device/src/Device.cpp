@@ -14,6 +14,11 @@
 void Device::Init()
 {
     HAL::Init();
+
+    for (int page = 100; page < 128; page++)
+    {
+        HAL_ROM::ErasePage(page);
+    }
 }
 
 

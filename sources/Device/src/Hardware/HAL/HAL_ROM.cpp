@@ -4,9 +4,24 @@
 #include <gd32f30x.h>
 
 
-void HAL_ROM::EraseSector(int)
+#define PAGE_SIZE (2 * 1024)
+
+
+void HAL_ROM::ErasePage(int num_page)
 {
     fmc_unlock();
+
+    fmc_flag_clear(FMC_FLAG_BANK0_END);
+    fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
+    fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
+
+    fmc_page_erase(FLASH_BASE + num_page * PAGE_SIZE);
+
+    fmc_flag_clear(FMC_FLAG_BANK0_END);
+    fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
+    fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
+
+    fmc_lock();
 }
 
 

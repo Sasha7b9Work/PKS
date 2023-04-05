@@ -28,7 +28,7 @@ namespace HAL_I2C0
 
 namespace HAL_ROM
 {
-    void EraseSector(int num_sector);
+    void ErasePage(int num_page);
     void WriteData(uint address, uint8 *data, int size);
 }
 

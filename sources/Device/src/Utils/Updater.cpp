@@ -61,7 +61,7 @@ void Updater::GetPartFirmware(int , uint8 [2048])
 
 void Updater::SaveParthFirmware(int part, uint8 data[2048])
 {
-    HAL_ROM::EraseSector(part + 50);
+    HAL_ROM::ErasePage(part + 50);
 
     HAL_ROM::WriteData(FLASH_ADDR_SAVED_FIRMWARE + part * SIZE_SECTOR, data, 2048);
 }
