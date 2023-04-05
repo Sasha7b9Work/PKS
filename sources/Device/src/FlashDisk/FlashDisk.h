@@ -2,4 +2,7 @@
 #pragma once
 
 
-void FlashDisk_Init(void);
+namespace FlashDisk
+{
+    void Init(void);
+}

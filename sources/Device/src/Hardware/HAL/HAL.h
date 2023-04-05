@@ -2,8 +2,11 @@
 #pragma once
 
 
-void HAL_Init(void);
-void HAL_ErrorHandler(void);
+namespace HAL
+{
+    void Init(void);
+    void ErrorHandler(void);
+}
 
 
 void HAL_ADC_Init(void);

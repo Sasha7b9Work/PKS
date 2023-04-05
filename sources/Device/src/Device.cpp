@@ -13,7 +13,7 @@
 
 void Device::Init(void)
 {
-    HAL_Init();
+    HAL::Init();
 
 //    Display_Init();
 }
