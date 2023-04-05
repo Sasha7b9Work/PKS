@@ -18,6 +18,7 @@ void HAL_I2C0_Write(uint8 *, int size);
 
 
 void HAL_ROM_EraseSector(int num_sector);
+void HAL_ROM_WriteData(uint address, uint8 *data, int size);
 
 
 

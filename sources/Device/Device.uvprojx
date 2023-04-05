@@ -544,9 +544,9 @@
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_ROM.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+              <FileName>HAL_ROM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.c</FilePath>
             </File>
           </Files>
         </Group>
@@ -1220,9 +1220,9 @@
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
             </File>
             <File>
-              <FileName>HAL_ROM.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+              <FileName>HAL_ROM.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_ROM.c</FilePath>
             </File>
           </Files>
         </Group>

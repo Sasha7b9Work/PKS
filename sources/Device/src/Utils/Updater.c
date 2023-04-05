@@ -1,11 +1,14 @@
-// 2023/04/05 12:25:03 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2023/04/05 12:25:03 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Utils/Updater.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
+#include <gd32f30x.h>
 
 
-#define FLASH_APP1_ADDR  0x08032000
+#define SIZE_SECTOR                 (2 * 1024)
+#define FLASH_ADDR_SAVED_FIRMWARE   (FLASH_BASE + 50 * SIZE_SECTOR)
+#define FLASH_ADDR_BOOTLOADER       (FLASH_BASE + 100 * SIZE_SECTOR)
 
 
 typedef  void (*iapfun)(void);
@@ -25,10 +28,10 @@ __asm void MSR_MSP(uint addr)
 }//set Main Stack value
 
 
-static void JumpToApplication()
+static void JumpToBootloader()
 {
-    jump2app = (iapfun) * (volatile uint *)(FLASH_APP1_ADDR + 4);       //the second address of app code is the program
-    MSR_MSP(*(volatile uint *)FLASH_APP1_ADDR);                         //initialize app pointer
+    jump2app = (iapfun) * (volatile uint *)(FLASH_ADDR_BOOTLOADER + 4);       //the second address of app code is the program
+    MSR_MSP(*(volatile uint *)FLASH_ADDR_BOOTLOADER);                         //initialize app pointer
     jump2app();                                                         //jump to app
 }
 
@@ -39,31 +42,19 @@ static int GetSizeFirmware()
 }
 
 
-static void EraseSector(int sector)
-{
-
-}
-
-
-static void WriteSector(int sector, uint8 data[2048])
-{
-
-}
-
-
-// Получить часть прошивки
+// РџРѕР»СѓС‡РёС‚СЊ С‡Р°СЃС‚СЊ РїСЂРѕС€РёРІРєРё
 static void GetPartFirmware(int part, uint8 data[2048])
 {
 
 }
 
 
-// Сохранить часть прошивки 
+// РЎРѕС…СЂР°РЅРёС‚СЊ С‡Р°СЃС‚СЊ РїСЂРѕС€РёРІРєРё 
 static void SaveParthFirmware(int part, uint8 data[2048])
 {
-    EraseSector(part);
+    HAL_ROM_EraseSector(part + 50);
 
-    WriteSector(part, data);
+    HAL_ROM_WriteData(FLASH_ADDR_SAVED_FIRMWARE + part * SIZE_SECTOR, data, 2048);
 }
 
 
@@ -92,7 +83,7 @@ static void Update()
 {
     LoadFirmware();
 
-    JumpToApplication();
+    JumpToBootloader();
 }
 
 
