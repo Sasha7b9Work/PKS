@@ -8,12 +8,15 @@
 #include "FlashDisk/FlashDisk.h"
 #include "Test.h"
 #include "Utils/Updater.h"
+#include "Hardware/Timer.h"
 #include <gd32f30x_rcu.h>
 
 
 void Device::Init()
 {
     HAL::Init();
+
+    Timer::Init();
 }
 
 
