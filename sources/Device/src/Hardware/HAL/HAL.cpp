@@ -11,7 +11,7 @@ void HAL::Init(void)
     
     nvic_priority_group_set(NVIC_PRIGROUP_PRE1_SUB3);
     
-    HAL_I2C0_Init();
+    HAL_I2C0::Init();
 
     HAL_ADC::Init();
 }

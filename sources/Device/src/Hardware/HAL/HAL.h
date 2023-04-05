@@ -18,13 +18,19 @@ namespace HAL_ADC
 }
 
 
-void HAL_I2C0_Init(void);
-void HAL_I2C0_Write8(uint8 data);
-void HAL_I2C0_Write(uint8 *, int size);
+namespace HAL_I2C0
+{
+    void Init(void);
+    void Write8(uint8 data);
+    void Write(uint8 *, int size);
+}
 
 
-void HAL_ROM_EraseSector(int num_sector);
-void HAL_ROM_WriteData(uint address, uint8 *data, int size);
+namespace HAL_ROM
+{
+    void EraseSector(int num_sector);
+    void WriteData(uint address, uint8 *data, int size);
+}
 
 
 

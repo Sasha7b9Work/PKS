@@ -20,8 +20,8 @@ static uint8 buffer[CACHE_SIZE_MEM];
 
 static void SSD1306_SendCommand(uint8 command)
 {
-    HAL_I2C0_Write8(SSD1306_COMMAND);
-    HAL_I2C0_Write8(command);
+    HAL_I2C0::Write8(SSD1306_COMMAND);
+    HAL_I2C0::Write8(command);
 }
 
 
@@ -66,9 +66,9 @@ void SSD1306_Init(void)
 
 static void SSD1306_Update(void)
 {
-    HAL_I2C0_Write8(SSD1306_DATA_STREAM);
+    HAL_I2C0::Write8(SSD1306_DATA_STREAM);
     
-    HAL_I2C0_Write(buffer, CACHE_SIZE_MEM);
+    HAL_I2C0::Write(buffer, CACHE_SIZE_MEM);
 }   
 
 

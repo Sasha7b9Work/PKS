@@ -8,7 +8,7 @@
 #define I2C1_PAGE_SIZE           8
 
 
-void HAL_I2C0_Init(void)
+void HAL_I2C0::Init(void)
 {
     /* enable GPIOB clock */
     rcu_periph_clock_enable(RCU_GPIOB);
@@ -29,7 +29,7 @@ void HAL_I2C0_Init(void)
     i2c_ack_config(I2C1,I2C_ACK_ENABLE);
 }
 
-void HAL_I2C0_Write8(uint8 data)
+void HAL_I2C0::Write8(uint8 data)
 {
     /* wait until I2C bus is idle */
     while(i2c_flag_get(I2C1, I2C_FLAG_I2CBSY));
@@ -68,7 +68,7 @@ void HAL_I2C0_Write8(uint8 data)
 }
 
 
-void HAL_I2C0_Write(uint8 *data, int size)
+void HAL_I2C0::Write(uint8 *data, int size)
 {
     /* wait until I2C bus is idle */
     while(i2c_flag_get(I2C1, I2C_FLAG_I2CBSY));
