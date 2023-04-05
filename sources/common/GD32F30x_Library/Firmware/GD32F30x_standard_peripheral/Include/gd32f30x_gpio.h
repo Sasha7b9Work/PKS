@@ -40,6 +40,10 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* GPIOx(x=A,B,C,D,E,F,G) definitions */
 #define GPIOA                      (GPIO_BASE + 0x00000000U)
 #define GPIOB                      (GPIO_BASE + 0x00000400U)
@@ -533,5 +537,9 @@ void gpio_pin_lock(uint32_t gpio_periph, uint32_t pin);
 void gpio_compensation_config(uint32_t compensation); 
 /* check the I/O compensation cell is ready or not */
 FlagStatus gpio_compensation_flag_get(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GD32F30X_GPIO_H */

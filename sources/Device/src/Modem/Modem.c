@@ -12,5 +12,5 @@ void Modem_Init(void)
 
 int Modem_ExistUpdate()
 {
-    return 1;
+    return 0;
 }

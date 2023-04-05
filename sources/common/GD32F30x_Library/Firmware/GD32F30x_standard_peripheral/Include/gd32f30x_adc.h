@@ -40,6 +40,10 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* ADC definitions */
 #define ADC0                            ADC_BASE
 #define ADC1                            (ADC_BASE + 0x400U)
@@ -400,4 +404,9 @@ void adc_oversample_mode_config(uint32_t adc_periph , uint32_t mode , uint16_t s
 void adc_oversample_mode_enable(uint32_t adc_periph);
 /* disable ADC oversample mode */
 void adc_oversample_mode_disable(uint32_t adc_periph);
+
+#ifdef __cplusplus
+}
+#endif
+
 #endif /* GD32F30X_ADC_H */

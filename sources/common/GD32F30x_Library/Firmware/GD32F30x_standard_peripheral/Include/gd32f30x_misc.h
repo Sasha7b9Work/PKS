@@ -40,6 +40,10 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* constants definitions */
 /* set the RAM and FLASH base address */
 #define NVIC_VECTTAB_RAM            ((uint32_t)0x20000000) /*!< RAM base address */
@@ -90,5 +94,9 @@ void system_lowpower_reset(uint8_t lowpower_mode);
 
 /* set the systick clock source */
 void systick_clksource_set(uint32_t systick_clksource);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GD32F30X_MISC_H */
