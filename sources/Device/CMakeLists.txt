@@ -7,7 +7,7 @@ set(CMAKE_UNITY_BUILD OFF)
 message("------------------------------------------------------------------------ ${PROJECT_NAME}")
 
 include_directories(../common/_VS_KEIL/CMSIS/
-                    ../common/_VS_KEIL/std_includes/
+                    ../common/_VS_KEIL/std_includes
                     ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
                     ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
                     src/Hardware/HAL/

@@ -13,13 +13,15 @@ enum Color
 static const uint8 colors[Count] = { 0x00, 0xff };
 
 
+namespace Display
+{
+    static const int WIDTH = 128;
+    static const int HEIGHT = 64;
 
-static const int DISPLAY_WIDTH = 128;
-static const int DISPLAY_HEIGHT = 64;
-
-void Display_Init(void);
-void Display_Update(void);
-void Display_Fill(enum Color);
+    void Init(void);
+    void Update(void);
+    void Fill(enum Color);
+}
 
 
 #define BLUE_FROM_COLOR(color)  ((color) & 0x1f)

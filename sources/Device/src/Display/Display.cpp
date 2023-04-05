@@ -25,11 +25,11 @@ void Display_Update(void)
         color = (color == Black) ? White : Black;
     }
     
-    Display_Fill(color);
+    Display::Fill(color);
 }
 
 
-void Display_Fill(enum Color color)
+void Display::Fill(enum Color color)
 {
     SSD1306_Fill((color == White) ? 0xff : 0x00);
 }

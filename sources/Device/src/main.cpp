@@ -4,10 +4,10 @@
 
 int main(void)
 {
-    Device_Init();
+    Device::Init();
 
     while(1)
     {
-        Device_Update();
+        Device::Update();
     }
 }

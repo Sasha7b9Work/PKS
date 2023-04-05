@@ -11,7 +11,7 @@
 #include <gd32f30x_rcu.h>
 
 
-void Device_Init(void)
+void Device::Init(void)
 {
     HAL_Init();
 
@@ -19,7 +19,7 @@ void Device_Init(void)
 }
 
 
-void Device_Update(void)
+void Device::Update(void)
 {
     Measurer_Update();
 
