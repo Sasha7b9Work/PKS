@@ -43,6 +43,7 @@ file(GLOB HARDWARE_MODULES_SSD1306 src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_ZMPT101 src/Hardware/Modules/ZMPT101/*.*)
 file(GLOB MEASURER                 src/Measurer/*.*)
 file(GLOB MODEM                    src/Modem/*.*)
+file(GLOB UTILS                    src/Utils/*.*)
 
 source_group(GD32F3                   FILES ${GD32F3})
 source_group(src                      FILES ${SRC})
@@ -56,6 +57,7 @@ source_group(Hardware/Modules/SSD1306 FILES ${HARDWARE_MODULES_SSD1306})
 source_group(Hardware/Modules/ZMPT101 FILES ${HARDWARE_MODULES_ZMPT101})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
+source_group(Utils                    FILES ${UTILS})
 
 set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
                             PROPERTIES HEADER_FILE_ONLY TRUE)
@@ -73,4 +75,5 @@ add_library(${PROJECT_NAME}
             ${HARDWARE_MODULES_ZMPT101}
             ${MEASURER}
             ${MODEM}
+            ${UTILS}
             )

@@ -7,7 +7,8 @@
 #include "Measurer/Measurer.h"
 #include "FlashDisk/FlashDisk.h"
 #include "Test.h"
-#include "gd32f30x_rcu.h"
+#include "Utils/Updater.h"
+#include <gd32f30x_rcu.h>
 
 
 void Device_Init(void)
@@ -30,6 +31,8 @@ void Device_Update(void)
 
         HAL_ADC_Start();
     }
+
+    Updater_Update();
 
 
 //    Display_Update();

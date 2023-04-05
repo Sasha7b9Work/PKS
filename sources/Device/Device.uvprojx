@@ -660,6 +660,21 @@
             </File>
           </Files>
         </Group>
+        <Group>
+          <GroupName>Utils</GroupName>
+          <Files>
+            <File>
+              <FileName>Updater.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Updater.h</FilePath>
+            </File>
+            <File>
+              <FileName>Updater.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Utils\Updater.c</FilePath>
+            </File>
+          </Files>
+        </Group>
       </Groups>
     </Target>
     <Target>
@@ -1313,6 +1328,21 @@
               <FileName>Modem.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils</GroupName>
+          <Files>
+            <File>
+              <FileName>Updater.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Updater.h</FilePath>
+            </File>
+            <File>
+              <FileName>Updater.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>.\src\Utils\Updater.c</FilePath>
             </File>
           </Files>
         </Group>
