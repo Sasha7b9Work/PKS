@@ -21,18 +21,21 @@ struct PhaseMeasure
 
 struct FullMeasure
 {
-    struct PhaseMeasure measures[3];
+    PhaseMeasure measures[3];
 };
 
 
-void Measurer_Update(void);
+namespace Measurer
+{
+    void Update(void);
 
-void Measurer_AppendMeasures(uint16 adc_values[6]);
+    void AppendMeasures(uint16 adc_values[6]);
 
-// Не ноль, если буферы заполнены
-int Measurer_BuffersFull(void);
+    // Не ноль, если буферы заполнены
+    bool BuffersFull(void);
 
-// Возвращает не ноль, если готово новое измерение
-int Measurer_MeasureReady(void);
+    // Возвращает не ноль, если готово новое измерение
+    bool MeasureReady(void);
 
-struct FullMeasure Measurer_GetMeasure(void);
+    FullMeasure GetMeasure(void);
+}

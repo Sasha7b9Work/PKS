@@ -4,38 +4,41 @@
 #include "Measurer/Calculator.h"
 
 
-static void Measurer_Calculate(void);
-
-static struct FullMeasure measure;
-
-static int measure_ready = 0;               // Не ноль, если измерение готово. Устанавливается в 0 после считывания
-
-static uint16 currentA[NUM_POINTS];
-static uint16 currentB[NUM_POINTS];
-static uint16 currentC[NUM_POINTS];
-
-static uint16 voltA[NUM_POINTS];
-static uint16 voltB[NUM_POINTS];
-static uint16 voltC[NUM_POINTS];
-
-static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
-
-
-static void CalculatePower(struct PhaseMeasure *);
-
-
-void Measurer_Update()
+namespace Measurer
 {
-    if (Measurer_BuffersFull())
+    static void Calculate(void);
+
+    static struct FullMeasure measure;
+
+    static bool measure_ready = false;          // Не ноль, если измерение готово. Устанавливается в 0 после считывания
+
+    static uint16 currentA[NUM_POINTS];
+    static uint16 currentB[NUM_POINTS];
+    static uint16 currentC[NUM_POINTS];
+
+    static uint16 voltA[NUM_POINTS];
+    static uint16 voltB[NUM_POINTS];
+    static uint16 voltC[NUM_POINTS];
+
+    static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
+
+    static void CalculatePower(struct PhaseMeasure *);
+}
+
+
+
+void Measurer::Update()
+{
+    if (BuffersFull())
     {
-        Measurer_Calculate();
+        Calculate();
 
         measure_ready = 1;
     }
 }
 
 
-void Measurer_AppendMeasures(uint16 adc_values[6])
+void Measurer::AppendMeasures(uint16 adc_values[6])
 {
     if (pos_adc_value < NUM_POINTS)
     {
@@ -52,19 +55,19 @@ void Measurer_AppendMeasures(uint16 adc_values[6])
 }
 
 
-int Measurer_BuffersFull()
+bool Measurer::BuffersFull()
 {
     return pos_adc_value >= NUM_POINTS;
 }
 
 
-static void CalculatePower(struct PhaseMeasure *meas)
+void Measurer::CalculatePower(struct PhaseMeasure *meas)
 {
     meas->power = meas->current * meas->voltage;
 }
 
 
-static void Measurer_Calculate()
+void Measurer::Calculate()
 {
     measure.measures[0].current = Calculator::CalculateCurrentRMS(currentA);
     measure.measures[1].current = Calculator::CalculateCurrentRMS(currentB);
@@ -80,13 +83,13 @@ static void Measurer_Calculate()
 }
 
 
-int Measurer_MeasureReady()
+bool Measurer::MeasureReady()
 {
     return measure_ready;
 }
 
 
-struct FullMeasure Measurer_GetMeasure()
+FullMeasure Measurer::GetMeasure()
 {
     measure_ready = 0;
     pos_adc_value = 0;

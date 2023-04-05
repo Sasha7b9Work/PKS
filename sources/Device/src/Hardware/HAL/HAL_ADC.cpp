@@ -36,9 +36,9 @@ namespace HAL_ADC
 
 void HAL_ADC::Callback()
 {
-    Measurer_AppendMeasures(adc_values);
+    Measurer::AppendMeasures(adc_values);
 
-    if (Measurer_BuffersFull())
+    if (Measurer::BuffersFull())
     {
         Stop();
     }

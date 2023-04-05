@@ -21,11 +21,11 @@ void Device::Init(void)
 
 void Device::Update(void)
 {
-    Measurer_Update();
+    Measurer::Update();
 
-    if (Measurer_MeasureReady())
+    if (Measurer::MeasureReady())
     {
-        struct FullMeasure measure = Measurer_GetMeasure();
+        struct FullMeasure measure = Measurer::GetMeasure();
 
         measure = measure;
 
