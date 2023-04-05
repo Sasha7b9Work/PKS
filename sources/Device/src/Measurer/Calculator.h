@@ -4,6 +4,9 @@
 #include "Measurer/Measurer.h"
 
 
-float Calculator_CalculateCurrentRMS(const uint16 samples[NUM_POINTS]);
+namespace Calculator
+{
+    float CalculateCurrentRMS(const uint16 samples[NUM_POINTS]);
 
-float Calculator_CalculateVoltageRMS(const uint16 samples[NUM_POINTS]);
+    float CalculateVoltageRMS(const uint16 samples[NUM_POINTS]);
+}

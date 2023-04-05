@@ -36,7 +36,7 @@ static int CalculatePeriod(const uint16 samples[NUM_POINTS])
     int max_period = (int)(NUM_POINTS - 0.5f * POINTS_ON_PERIOD);
 
     uint min_delta = (uint)(-1);
-    uint period_min_delta = 0;
+    int period_min_delta = 0;
 
     for (int period = min_period; period < max_period; period++)      // Рассматриваем периоды от минимального до максимального
     {
@@ -65,7 +65,7 @@ static int CalculatePeriod(const uint16 samples[NUM_POINTS])
 }
 
 
-float Calculator_CalculateCurrentRMS(const uint16 samples[NUM_POINTS])
+float Calculator::CalculateCurrentRMS(const uint16 samples[NUM_POINTS])
 {
     int period = CalculatePeriod(samples);
 
@@ -82,7 +82,7 @@ float Calculator_CalculateCurrentRMS(const uint16 samples[NUM_POINTS])
 }
 
 
-float Calculator_CalculateVoltageRMS(const uint16 samples[NUM_POINTS])
+float Calculator::CalculateVoltageRMS(const uint16 samples[NUM_POINTS])
 {
     int period = CalculatePeriod(samples);
 
