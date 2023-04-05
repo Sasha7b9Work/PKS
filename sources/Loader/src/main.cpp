@@ -5,7 +5,7 @@
 
 int main()
 {
-    HAL_Init();
+    HAL::Init();
 
     int counter = 0;
 

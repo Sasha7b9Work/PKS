@@ -2,12 +2,18 @@
 #pragma once
 
 
-void HAL_Init();
-void HAL_ErrorHandler();
+namespace HAL
+{
+    void Init();
+    void ErrorHandler();
+}
 
 
-// num_sector от 0 до 127. Каждый сектор занимает 2 кБ
-void HAL_ROM_EraseSector(int num_secttor);
+namespace HAL_ROM
+{
+    // num_sector от 0 до 127. Каждый сектор занимает 2 кБ
+    void ROM_ErasePage(int num_page);
+}
 
 
 #ifdef __cplusplus
