@@ -10,11 +10,6 @@
 
 void HAL_I2C0::Init()
 {
-    /* enable GPIOB clock */
-    rcu_periph_clock_enable(RCU_GPIOB);
-    /* enable I2C0 clock */
-    rcu_periph_clock_enable(RCU_I2C1);
-
     /* connect PB6 to I2C0_SCL */
     /* connect PB7 to I2C0_SDA */
     gpio_init(GPIOB, GPIO_MODE_AF_OD, GPIO_OSPEED_50MHZ, GPIO_PIN_10 | GPIO_PIN_11);

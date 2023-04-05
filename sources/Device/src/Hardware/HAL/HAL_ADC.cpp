@@ -47,20 +47,17 @@ void HAL_ADC::Callback()
 
 void HAL_ADC::Init()
 {
-    rcu_periph_clock_enable(RCU_GPIOA);
-    rcu_periph_clock_enable(RCU_ADC0);
-    rcu_periph_clock_enable(RCU_DMA0);
-    rcu_periph_clock_enable(RCU_TIMER0);
 //    rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV6);
 
     nvic_irq_enable(ADC0_1_IRQn, 0, 0);
 
-    gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_MAX, GPIO_PIN_0);
-    gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_MAX, GPIO_PIN_1);
-    gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_MAX, GPIO_PIN_2);
-    gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_MAX, GPIO_PIN_3);
-    gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_MAX, GPIO_PIN_4);
-    gpio_init(GPIOA, GPIO_MODE_AIN, GPIO_OSPEED_MAX, GPIO_PIN_5);
+    pinVolt1.Init();
+    pinVolt2.Init();
+    pinVolt3.Init();
+
+    pinCur1L.Init();
+    pinCur2L.Init();
+    pinCur3L.Init();
 
     ///////////////////////////////////////////////////////////////////////////////////////////// DMA
     /* ADC_DMA_channel configuration */
@@ -129,12 +126,13 @@ void HAL_ADC::Init()
     adc_channel_length_config(ADC0, ADC_REGULAR_CHANNEL, 6);
 
     /* ADC regular channel config */
-    adc_regular_channel_config(ADC0, 0, ADC_CHANNEL_0, ADC_SAMPLETIME_239POINT5);
-    adc_regular_channel_config(ADC0, 1, ADC_CHANNEL_1, ADC_SAMPLETIME_239POINT5);
-    adc_regular_channel_config(ADC0, 2, ADC_CHANNEL_2, ADC_SAMPLETIME_239POINT5);
-    adc_regular_channel_config(ADC0, 3, ADC_CHANNEL_3, ADC_SAMPLETIME_239POINT5);
-    adc_regular_channel_config(ADC0, 4, ADC_CHANNEL_4, ADC_SAMPLETIME_239POINT5);
-    adc_regular_channel_config(ADC0, 5, ADC_CHANNEL_5, ADC_SAMPLETIME_239POINT5);
+    adc_regular_channel_config(ADC0, 0, pinVolt1.Channel(), ADC_SAMPLETIME_239POINT5);
+    adc_regular_channel_config(ADC0, 1, pinVolt2.Channel(), ADC_SAMPLETIME_239POINT5);
+    adc_regular_channel_config(ADC0, 2, pinVolt3.Channel(), ADC_SAMPLETIME_239POINT5);
+
+    adc_regular_channel_config(ADC0, 3, pinCur1L.Channel(), ADC_SAMPLETIME_239POINT5);
+    adc_regular_channel_config(ADC0, 4, pinCur2L.Channel(), ADC_SAMPLETIME_239POINT5);
+    adc_regular_channel_config(ADC0, 5, pinCur3L.Channel(), ADC_SAMPLETIME_239POINT5);
 
     adc_external_trigger_config(ADC0, ADC_REGULAR_CHANNEL, ENABLE);
 

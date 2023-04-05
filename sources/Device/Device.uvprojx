@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -568,6 +569,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_PINS.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -877,6 +888,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1258,6 +1270,16 @@
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
           </Files>
         </Group>

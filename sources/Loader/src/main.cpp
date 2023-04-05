@@ -3,14 +3,22 @@
 #include "Hardware/HAL/HAL.h"
 
 
+static void Reset()
+{
+
+}
+
+
 int main()
 {
     HAL::Init();
 
-    int counter = 0;
-
-    while (1)
+    for (int i = 0; i < 50; i++)
     {
-        counter++;
+        HAL_ROM::ErasePage(i);
     }
+
+
+
+    Reset();
 }

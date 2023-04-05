@@ -11,6 +11,11 @@ namespace HAL
 
 namespace HAL_ROM
 {
+    static const uint ADDR_BASE = 0x08000000U;
+    static const uint SIZE_SECTOR = 2 * 1024;
+    static const uint ADDR_SAVED_FIRMWARE = ADDR_BASE + 50 * SIZE_SECTOR;
+    static const uint ADDR_BOOTLOADER = ADDR_BASE + 100 * SIZE_SECTOR;
+
     // num_sector от 0 до 127. Каждый сектор занимает 2 кБ
     void ErasePage(int num_page);
 

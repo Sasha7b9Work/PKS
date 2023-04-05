@@ -19,7 +19,20 @@ void HAL::Init()
     systick_config();
     
     nvic_priority_group_set(NVIC_PRIGROUP_PRE1_SUB3);
-    
+
+    rcu_periph_clock_enable(RCU_GPIOA);
+    rcu_periph_clock_enable(RCU_GPIOB);
+    rcu_periph_clock_enable(RCU_GPIOC);
+    rcu_periph_clock_enable(RCU_GPIOD);
+    rcu_periph_clock_enable(RCU_GPIOE);
+    rcu_periph_clock_enable(RCU_GPIOF);
+
+    rcu_periph_clock_enable(RCU_ADC0);
+    rcu_periph_clock_enable(RCU_DMA0);
+    rcu_periph_clock_enable(RCU_I2C1);
+    rcu_periph_clock_enable(RCU_TIMER0);
+    rcu_periph_clock_enable(RCU_TIMER1);
+
     HAL_I2C0::Init();
 
     HAL_ADC::Init();
