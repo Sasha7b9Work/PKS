@@ -21,8 +21,6 @@ namespace Measurer
     static uint16 voltC[NUM_POINTS];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
-
-    static void CalculatePower(struct PhaseMeasure *);
 }
 
 
@@ -61,9 +59,9 @@ bool Measurer::BuffersFull()
 }
 
 
-void Measurer::CalculatePower(struct PhaseMeasure *meas)
+void PhaseMeasure::CalculatePower()
 {
-    meas->power = meas->current * meas->voltage;
+    power = current * voltage;
 }
 
 
@@ -77,9 +75,9 @@ void Measurer::Calculate()
     measure.measures[1].voltage = Calculator::CalculateVoltageRMS(voltB);
     measure.measures[2].voltage = Calculator::CalculateVoltageRMS(voltC);
 
-    CalculatePower(&measure.measures[0]);
-    CalculatePower(&measure.measures[1]);
-    CalculatePower(&measure.measures[2]);
+    measure.measures[0].CalculatePower();
+    measure.measures[1].CalculatePower();
+    measure.measures[2].CalculatePower();
 }
 
 

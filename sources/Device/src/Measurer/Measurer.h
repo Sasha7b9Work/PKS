@@ -16,6 +16,8 @@ struct PhaseMeasure
     float current;
     float voltage;
     float power;
+
+    void CalculatePower();
 };
 
 
