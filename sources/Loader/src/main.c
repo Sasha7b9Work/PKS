@@ -6,4 +6,11 @@
 int main(void)
 {
     HAL_Init();
+
+    int counter = 0;
+
+    while (1)
+    {
+        counter++;
+    }
 }
