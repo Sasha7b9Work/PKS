@@ -84,7 +84,6 @@ void HAL_ADC::Init()
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
 
-    /* TIMER1 configuration */
     timer_initpara.prescaler = (480 - 1);               // Получаем частоту 8 МГц / 480 = 16.(6) кГц. На этой частоте 2000 точек считываются за 120 мс
     timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
