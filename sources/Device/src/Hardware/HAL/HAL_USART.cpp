@@ -1,6 +1,7 @@
 // 2023/04/06 13:08:24 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/Modem.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -19,7 +20,7 @@ void HAL_USART::Init()
 }
 
 
-void HAL_USART::Transmit(char *message)
+void HAL_USART::Transmit(pchar message)
 {
     int size = (int)std::strlen(message);
 
@@ -36,5 +37,5 @@ void HAL_USART::Transmit(char *message)
 
 void HAL_USART::CallbackOnReceive(char symbol)
 {
-
+    Modem::CallbackOnReceive(symbol);
 }

@@ -9,4 +9,11 @@ namespace Modem
 
     // Есть обновление
     bool ExistUpdate();
+
+    void Transmit(pchar);
+
+    // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
+    pchar LastAnswer();
+
+    void CallbackOnReceive(char);
 }
