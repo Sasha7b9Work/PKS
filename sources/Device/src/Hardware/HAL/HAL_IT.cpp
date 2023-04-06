@@ -135,6 +135,10 @@ extern "C" {
 
             HAL_USART::CallbackOnReceive((char)usart_data_receive(USART_ADDR));
         }
+        else
+        {
+            int i = 0;
+        }
     }
 
 #ifdef __cplusplus
