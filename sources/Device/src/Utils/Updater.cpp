@@ -37,7 +37,7 @@ void Updater::SaveParthFirmware(int part, uint8 data[2048])
 {
     HAL_ROM::ErasePage(part + 50);
 
-    HAL_ROM::WriteData(HAL_ROM::ADDR_SAVED_FIRMWARE + part * HAL_ROM::SIZE_SECTOR, data, 2048);
+    HAL_ROM::WriteData(HAL_ROM::ADDR_SAVED_FIRMWARE + part * HAL_ROM::SIZE_PAGE, data, 2048);
 }
 
 

@@ -25,6 +25,24 @@ void HAL_ROM::ErasePage(int num_page)
 }
 
 
+bool HAL_ROM::PageNotEmpty(int num_page)
+{
+    uint *start = (uint *)(ADDR_BASE + num_page * SIZE_PAGE);
+
+    uint *end = start + SIZE_PAGE;
+
+    for (uint *address = start; address < end; address += 4)
+    {
+        if (*address != (uint)(-1))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
+
+
 void HAL_ROM::WriteData(uint address, uint8 *data, int size)
 {
     fmc_unlock();

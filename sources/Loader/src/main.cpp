@@ -18,7 +18,5 @@ int main()
         HAL_ROM::ErasePage(i);
     }
 
-
-
     Reset();
 }
