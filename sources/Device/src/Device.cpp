@@ -54,6 +54,6 @@ void Device::UpdateModem()
         pchar answer = Modem::LastAnswer();
         answer = answer;
 
-        Modem::Transmit("AT+CPIN?");
+        Modem::Transmit("AT+CPAS");
     }
 }
