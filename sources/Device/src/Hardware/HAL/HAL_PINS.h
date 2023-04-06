@@ -60,7 +60,7 @@ extern const uint I2C_ADDR;
 extern PinI2C pinI2C_SCL;
 extern PinI2C pinI2C_SDA;
 
-extern const uint USART_ADDR;
-extern PinUSART_TX pinUSART_TX;
-extern PinUSART_RX pinUSART_RX;
+extern const uint USART_GPRS_ADDR;
+extern PinUSART_TX pinUSART_GPRS_TX;
+extern PinUSART_RX pinUSART_GPRS_RX;
 
