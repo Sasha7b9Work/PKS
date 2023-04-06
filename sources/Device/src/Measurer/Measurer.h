@@ -7,8 +7,9 @@
 */
 
 
-#define NUM_POINTS 2000
-#define POINTS_ON_PERIOD (2000 / 6)
+#define NUM_PERIODS 7.0f
+#define NUM_POINTS  2000
+#define POINTS_ON_PERIOD ((float)NUM_POINTS / NUM_PERIODS)
 
 
 struct PhaseMeasure

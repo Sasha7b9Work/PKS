@@ -152,9 +152,9 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>66</LineNumber>
+          <LineNumber>65</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134221272</Address>
+          <Address>134221184</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -163,7 +163,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>&lt;1&gt;.\src\Measurer\Measurer.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ElectricityMeter\src/Measurer/Measurer.cpp\66</Expression>
+          <Expression>\\ElectricityMeter\src/Measurer/Measurer.cpp\65</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
