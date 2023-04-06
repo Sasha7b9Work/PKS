@@ -18,7 +18,8 @@ void Modem::Init()
 {
     SIM800C::Init();
 
-    Modem::Transmit("ATE0&W");
+    Modem::Transmit("ATE0");
+    Modem::Transmit("ATV0");
 }
 
 
