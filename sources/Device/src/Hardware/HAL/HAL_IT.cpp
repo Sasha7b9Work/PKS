@@ -129,6 +129,11 @@ extern "C" {
         timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
     }
 
+    void USART2_IRQHandler(void)
+    {
+
+    }
+
 #ifdef __cplusplus
 }
 #endif

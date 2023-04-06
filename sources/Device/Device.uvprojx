@@ -453,6 +453,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fmc.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1158,6 +1163,11 @@
               <FileName>gd32f30x_fmc.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fmc.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
             </File>
           </Files>
         </Group>

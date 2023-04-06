@@ -40,6 +40,10 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* USARTx(x=0,1,2)/UARTx(x=3,4) definitions */
 #define USART1                        USART_BASE                             /*!< USART1 base address */
 #define USART2                        (USART_BASE+0x00000400U)               /*!< USART2 base address */
@@ -440,5 +444,9 @@ void usart_interrupt_disable(uint32_t usart_periph, usart_interrupt_enum interru
 FlagStatus usart_interrupt_flag_get(uint32_t usart_periph, usart_interrupt_flag_enum int_flag);
 /* clear interrupt flag in STAT0/STAT1 register */
 void usart_interrupt_flag_clear(uint32_t usart_periph, usart_interrupt_flag_enum int_flag);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GD32F30x_USART_H */ 

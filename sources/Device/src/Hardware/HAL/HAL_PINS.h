@@ -23,6 +23,15 @@ private:
     uint pin;
 };
 
+struct PinUSART
+{
+    PinUSART(uint _port, uint _pin) : port(_port), pin(_pin) { }
+    void Init();
+private:
+    uint port;
+    uint pin;
+};
+
 
 extern PinADC pinVolt1;     // ACVOLTOUT1
 extern PinADC pinVolt2;     // ACVOLTOUT2
@@ -39,4 +48,8 @@ extern PinADC pinCur3H;     // ACCURROUTH3
 extern const uint I2C_ADDR;
 extern PinI2C pinI2C_SCL;
 extern PinI2C pinI2C_SDA;
+
+extern const uint USART_ADDR;
+extern PinUSART pinUSART_TX;
+extern PinUSART pinUSART_RX;
 

@@ -20,6 +20,10 @@ const uint I2C_ADDR = I2C0;
 PinI2C pinI2C_SCL(GPIOB, GPIO_PIN_10);
 PinI2C pinI2C_SDA(GPIOB, GPIO_PIN_11);
 
+const uint USART_ADDR = USART2;
+PinUSART pinUSART_TX(GPIOD, GPIO_PIN_5);
+PinUSART pinUSART_RX(GPIOD, GPIO_PIN_6);
+
 
 void PinADC::Init()
 {
@@ -30,4 +34,10 @@ void PinADC::Init()
 void PinI2C::Init()
 {
     gpio_init(port, GPIO_MODE_AF_OD, GPIO_OSPEED_50MHZ, pin);
+}
+
+
+void PinUSART::Init()
+{
+
 }
