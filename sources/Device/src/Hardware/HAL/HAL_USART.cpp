@@ -70,4 +70,13 @@ void HAL_USART_LOG::Transmit(pchar message)
 
         while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {};
     }
+
+    static const char end_message[3] = { '\x0d', '\x0a', '\0' };
+
+    for (int i = 0; i < 2; i++)
+    {
+        usart_data_transmit(USART_LOG_ADDR, (uint16)end_message[i]);
+
+        while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {};
+    }
 }

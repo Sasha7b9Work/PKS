@@ -494,6 +494,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Test.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Log.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1205,6 +1215,16 @@
               <FileName>Test.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Test.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
             </File>
           </Files>
         </Group>
