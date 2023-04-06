@@ -33,9 +33,11 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_TIMER0);
     rcu_periph_clock_enable(RCU_TIMER1);
 
-    HAL_I2C0::Init();
+    HAL_I2C::Init();
 
     HAL_ADC::Init();
+
+    HAL_USART::Init();
 }
 
 

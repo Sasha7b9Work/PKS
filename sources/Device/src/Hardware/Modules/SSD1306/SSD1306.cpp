@@ -27,8 +27,8 @@ namespace SSD1306
 
 void SSD1306::SendCommand(uint8 command)
 {
-    HAL_I2C0::Write8(SSD1306_COMMAND);
-    HAL_I2C0::Write8(command);
+    HAL_I2C::Write8(SSD1306_COMMAND);
+    HAL_I2C::Write8(command);
 }
 
 
@@ -73,9 +73,9 @@ void SSD1306::Init()
 
 void SSD1306::Update()
 {
-    HAL_I2C0::Write8(SSD1306_DATA_STREAM);
+    HAL_I2C::Write8(SSD1306_DATA_STREAM);
     
-    HAL_I2C0::Write(buffer, CACHE_SIZE_MEM);
+    HAL_I2C::Write(buffer, CACHE_SIZE_MEM);
 }   
 
 

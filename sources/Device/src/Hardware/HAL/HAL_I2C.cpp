@@ -8,7 +8,7 @@
 #define I2C_PAGE_SIZE           8
 
 
-void HAL_I2C0::Init()
+void HAL_I2C::Init()
 {
     pinI2C_SCL.Init();
     pinI2C_SDA.Init();
@@ -26,7 +26,7 @@ void HAL_I2C0::Init()
     i2c_ack_config(I2C_ADDR, I2C_ACK_ENABLE);
 }
 
-void HAL_I2C0::Write8(uint8 data)
+void HAL_I2C::Write8(uint8 data)
 {
     /* wait until I2C bus is idle */
     while(i2c_flag_get(I2C_ADDR, I2C_FLAG_I2CBSY));
@@ -65,7 +65,7 @@ void HAL_I2C0::Write8(uint8 data)
 }
 
 
-void HAL_I2C0::Write(uint8 *data, int size)
+void HAL_I2C::Write(uint8 *data, int size)
 {
     /* wait until I2C bus is idle */
     while(i2c_flag_get(I2C_ADDR, I2C_FLAG_I2CBSY));

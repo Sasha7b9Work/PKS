@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\Device\src\Hardware\HAL</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\Device\src\Hardware\HAL</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -15,17 +15,17 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>158 137</TableColWidths>
+      <TableColWidths>158 159</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
       <ViewName>Code Coverage</ViewName>
-      <TableColWidths>560 1110</TableColWidths>
+      <TableColWidths>560 160</TableColWidths>
     </View>
     <View>
       <WinId>204</WinId>
       <ViewName>Performance Analyzer</ViewName>
-      <TableColWidths>720 108 108 734</TableColWidths>
+      <TableColWidths>720</TableColWidths>
     </View>
   </SECTreeCtrl>
 
