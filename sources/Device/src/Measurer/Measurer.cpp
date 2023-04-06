@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Measurer/Measurer.h"
 #include "Measurer/Calculator.h"
+#include "Hardware/Timer.h"
 
 
 namespace Measurer
@@ -21,6 +22,9 @@ namespace Measurer
     static uint16 voltC[NUM_POINTS];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
+
+    static uint time_start_measure = 0;
+    static uint time_measure = 0;
 }
 
 
@@ -38,6 +42,11 @@ void Measurer::Update()
 
 void Measurer::AppendMeasures(uint16 adc_values[6])
 {
+    if (pos_adc_value == 0)
+    {
+        time_start_measure = Timer::TimeMS();
+    }
+
     if (pos_adc_value < NUM_POINTS)
     {
         currentA[pos_adc_value] = adc_values[0];
@@ -49,6 +58,12 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
         voltC[pos_adc_value] = adc_values[5];
 
         pos_adc_value++;
+    }
+
+    if (pos_adc_value == NUM_POINTS)
+    {
+        time_measure = Timer::TimeMS() - time_start_measure;
+        time_measure = time_measure;
     }
 }
 
