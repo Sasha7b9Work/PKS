@@ -131,7 +131,10 @@ extern "C" {
 
     void USART2_IRQHandler(void)
     {
+        if (RESET != usart_interrupt_flag_get(USART_ADDR, USART_INT_FLAG_RBNE)) {
 
+            HAL_USART::CallbackOnReceive((char)usart_data_receive(USART_ADDR));
+        }
     }
 
 #ifdef __cplusplus

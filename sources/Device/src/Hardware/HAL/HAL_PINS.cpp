@@ -39,5 +39,5 @@ void PinI2C::Init()
 
 void PinUSART::Init()
 {
-
+    gpio_init(port, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, pin);
 }

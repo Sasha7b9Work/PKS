@@ -29,8 +29,8 @@ namespace HAL_I2C
 namespace HAL_USART
 {
     void Init();
-    void Write(char *);
-    void CallbackOnReceive(char *);
+    void Transmit(char *);
+    void CallbackOnReceive(char);
 }
 
 
