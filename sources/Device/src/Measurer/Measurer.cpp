@@ -11,7 +11,7 @@ namespace Measurer
 
     static struct FullMeasure measure;
 
-    static bool measure_ready = false;          // Не ноль, если измерение готово. Устанавливается в 0 после считывания
+    static bool measure_ready = false;          // true, если измерение готово. Устанавливается в 0 после считывания
 
     static uint16 currentA[NUM_POINTS];
     static uint16 currentB[NUM_POINTS];
@@ -31,11 +31,11 @@ namespace Measurer
 
 void Measurer::Update()
 {
-    if (BuffersFull())
+    if (BuffersFull() && !measure_ready)
     {
         Calculate();
 
-        measure_ready = 1;
+        measure_ready = true;
     }
 }
 

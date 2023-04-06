@@ -15,6 +15,8 @@
 namespace Device
 {
     static void UpdateModem();
+    
+    static void ProcessMeasure();
 }
 
 
@@ -34,9 +36,7 @@ void Device::Update()
 
     if (Measurer::MeasureReady())
     {
-        struct FullMeasure measure = Measurer::GetMeasure();
-
-        measure = measure;
+        ProcessMeasure();
     }
 
     Updater::Update();
@@ -58,4 +58,12 @@ void Device::UpdateModem()
 
         Modem::Transmit("AT+IPR?");
     }
+}
+
+
+void Device::ProcessMeasure()
+{
+    struct FullMeasure measure = Measurer::GetMeasure();
+
+    measure = measure;
 }
