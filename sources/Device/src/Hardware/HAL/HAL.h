@@ -26,7 +26,7 @@ namespace HAL_I2C
 }
 
 
-namespace HAL_USART
+namespace HAL_USART_GPRS
 {
     void Init();
     void Transmit(pchar);

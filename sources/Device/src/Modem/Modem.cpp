@@ -34,11 +34,11 @@ void Modem::Transmit(pchar message)
     answer[0] = '\0';
     pointer = 0;
 
-    HAL_USART::Transmit(message);
+    HAL_USART_GPRS::Transmit(message);
 
     static const char end_message[2] = { 0x13, 0 };
 
-    HAL_USART::Transmit(end_message);
+    HAL_USART_GPRS::Transmit(end_message);
 }
 
 

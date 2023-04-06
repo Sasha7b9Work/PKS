@@ -6,7 +6,7 @@
 #include <cstring>
 
 
-void HAL_USART::Init()
+void HAL_USART_GPRS::Init()
 {
     pinUSART_TX.Init();
     pinUSART_RX.Init();
@@ -26,7 +26,7 @@ void HAL_USART::Init()
 }
 
 
-void HAL_USART::Transmit(pchar message)
+void HAL_USART_GPRS::Transmit(pchar message)
 {
     int size = (int)std::strlen(message);
 
@@ -39,7 +39,7 @@ void HAL_USART::Transmit(pchar message)
 }
 
 
-void HAL_USART::CallbackOnReceive(char symbol)
+void HAL_USART_GPRS::CallbackOnReceive(char symbol)
 {
     Modem::CallbackOnReceive(symbol);
 }

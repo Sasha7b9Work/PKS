@@ -39,7 +39,7 @@ void HAL::Init()
 
     HAL_ADC::Init();
 
-    HAL_USART::Init();
+    HAL_USART_GPRS::Init();
 }
 
 
