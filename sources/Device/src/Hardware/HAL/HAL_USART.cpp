@@ -11,12 +11,18 @@ void HAL_USART::Init()
     pinUSART_TX.Init();
     pinUSART_RX.Init();
 
+    gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
+
+    nvic_irq_enable(USART1_IRQn, 0, 0);
+
     usart_deinit(USART_ADDR);
     usart_baudrate_set(USART_ADDR, 9600);
     usart_receive_config(USART_ADDR, USART_RECEIVE_ENABLE);
     usart_transmit_config(USART_ADDR, USART_TRANSMIT_ENABLE);
 
     usart_interrupt_enable(USART_ADDR, USART_INT_RBNE);
+
+    usart_enable(USART_ADDR);
 }
 
 
@@ -26,9 +32,7 @@ void HAL_USART::Transmit(pchar message)
 
     for (int i = 0; i < size; i++)
     {
-        while (RESET == usart_flag_get(USART_ADDR, USART_FLAG_TBE))
-        {
-        }
+//        while (RESET == usart_flag_get(USART_ADDR, USART_FLAG_TBE)) { }
 
         usart_data_transmit(USART_ADDR, (uint16)message[i]);
     }
