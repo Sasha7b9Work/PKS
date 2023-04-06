@@ -43,3 +43,25 @@ void HAL_USART_GPRS::CallbackOnReceive(char symbol)
 {
     Modem::CallbackOnReceive(symbol);
 }
+
+
+void HAL_USART_LOG::Init()
+{
+    pinUSART_LOG_TX.Init();
+    pinUSART_LOG_RX.Init();
+
+    gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
+
+    gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
+
+    nvic_irq_enable(USART1_IRQn, 0, 0);
+
+    usart_deinit(USART_LOG_ADDR);
+    usart_baudrate_set(USART_LOG_ADDR, 9600);
+    usart_receive_config(USART_LOG_ADDR, USART_RECEIVE_ENABLE);
+    usart_transmit_config(USART_LOG_ADDR, USART_TRANSMIT_ENABLE);
+
+    usart_interrupt_enable(USART_LOG_ADDR, USART_INT_RBNE);
+
+    usart_enable(USART_LOG_ADDR);
+}
