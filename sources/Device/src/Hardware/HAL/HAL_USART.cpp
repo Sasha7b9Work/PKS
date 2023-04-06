@@ -52,16 +52,22 @@ void HAL_USART_LOG::Init()
 
     gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
 
-    gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
-
-    nvic_irq_enable(USART1_IRQn, 0, 0);
-
     usart_deinit(USART_LOG_ADDR);
     usart_baudrate_set(USART_LOG_ADDR, 9600);
-    usart_receive_config(USART_LOG_ADDR, USART_RECEIVE_ENABLE);
     usart_transmit_config(USART_LOG_ADDR, USART_TRANSMIT_ENABLE);
 
-    usart_interrupt_enable(USART_LOG_ADDR, USART_INT_RBNE);
-
     usart_enable(USART_LOG_ADDR);
+}
+
+
+void HAL_USART_LOG::Transmit(pchar message)
+{
+    int size = (int)std::strlen(message);
+
+    for (int i = 0; i < size; i++)
+    {
+        usart_data_transmit(USART_LOG_ADDR, (uint16)message[i]);
+
+        while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {};
+    }
 }

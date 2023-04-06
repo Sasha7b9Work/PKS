@@ -37,6 +37,7 @@ namespace HAL_USART_GPRS
 namespace HAL_USART_LOG
 {
     void Init();
+    void Transmit(pchar);
 }
 
 
@@ -83,8 +84,6 @@ extern "C" {
     void ADC0_1_IRQHandler(void);
 
     void TIMER1_IRQHandler(void);
-
-    void USART1_IRQHandler(void);
 
     void UART3_IRQHandler(void);
 
