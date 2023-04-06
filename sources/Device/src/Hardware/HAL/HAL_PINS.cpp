@@ -21,8 +21,8 @@ PinI2C pinI2C_SCL(GPIOB, GPIO_PIN_10);
 PinI2C pinI2C_SDA(GPIOB, GPIO_PIN_11);
 
 const uint USART_ADDR = USART2;
-PinUSART pinUSART_TX(GPIOD, GPIO_PIN_5);
-PinUSART pinUSART_RX(GPIOD, GPIO_PIN_6);
+PinUSART_TX pinUSART_TX(GPIOD, GPIO_PIN_5);
+PinUSART_RX pinUSART_RX(GPIOD, GPIO_PIN_6);
 
 
 void PinADC::Init()
@@ -37,7 +37,13 @@ void PinI2C::Init()
 }
 
 
-void PinUSART::Init()
+void PinUSART_TX::Init()
 {
     gpio_init(port, GPIO_MODE_AF_PP, GPIO_OSPEED_50MHZ, pin);
+}
+
+
+void PinUSART_RX::Init()
+{
+    gpio_init(port, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, pin);
 }

@@ -23,9 +23,20 @@ private:
     uint pin;
 };
 
-struct PinUSART
+
+struct PinUSART_TX
 {
-    PinUSART(uint _port, uint _pin) : port(_port), pin(_pin) { }
+    PinUSART_TX(uint _port, uint _pin) : port(_port), pin(_pin) { }
+    void Init();
+private:
+    uint port;
+    uint pin;
+};
+
+
+struct PinUSART_RX
+{
+    PinUSART_RX(uint _port, uint _pin) : port(_port), pin(_pin) { }
     void Init();
 private:
     uint port;
@@ -50,6 +61,6 @@ extern PinI2C pinI2C_SCL;
 extern PinI2C pinI2C_SDA;
 
 extern const uint USART_ADDR;
-extern PinUSART pinUSART_TX;
-extern PinUSART pinUSART_RX;
+extern PinUSART_TX pinUSART_TX;
+extern PinUSART_RX pinUSART_RX;
 
