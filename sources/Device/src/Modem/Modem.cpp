@@ -17,6 +17,8 @@ namespace Modem
 void Modem::Init()
 {
     SIM800C::Init();
+
+    Modem::Transmit("ATE0&W");
 }
 
 
@@ -33,9 +35,9 @@ void Modem::Transmit(pchar message)
 
     HAL_USART::Transmit(message);
 
-//    static const char end_message[2] = { 0x13, 0 };
+    static const char end_message[2] = { 0x13, 0 };
 
-//    HAL_USART::Transmit(end_message);
+    HAL_USART::Transmit(end_message);
 }
 
 

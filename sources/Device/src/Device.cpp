@@ -23,6 +23,8 @@ void Device::Init()
     HAL::Init();
 
     Timer::Init();
+
+    Modem::Init();
 }
 
 
@@ -54,6 +56,6 @@ void Device::UpdateModem()
         pchar answer = Modem::LastAnswer();
         answer = answer;
 
-        Modem::Transmit("AT+IPR?\x0d");
+        Modem::Transmit("AT+IPR?");
     }
 }
