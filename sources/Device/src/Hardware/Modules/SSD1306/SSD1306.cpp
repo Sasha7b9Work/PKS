@@ -81,7 +81,7 @@ void SSD1306::Update()
 
 void SSD1306::Fill(uint color)
 {
-    memset(buffer, (uint8)color, CACHE_SIZE_MEM);
+    std::memset(buffer, (uint8)color, CACHE_SIZE_MEM);
     
     SSD1306::Update();
 }

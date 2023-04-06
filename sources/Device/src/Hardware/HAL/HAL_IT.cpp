@@ -129,7 +129,7 @@ extern "C" {
         timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
     }
 
-    void USART1_IRQHandler(void)
+    void UART3_IRQHandler(void)
     {
         if (RESET != usart_interrupt_flag_get(USART_ADDR, USART_INT_FLAG_RBNE)) {
 

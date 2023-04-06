@@ -78,7 +78,7 @@ extern "C" {
 
     void TIMER1_IRQHandler(void);
 
-    void USART1_IRQHandler(void);
+    void UART3_IRQHandler(void);
 
 #ifdef __cplusplus
 }
