@@ -41,3 +41,15 @@ void Timer::OnCallbackInterrupt()
 {
     timeMS++;
 }
+
+
+void TimeMeterMS::Reset()
+{
+    time_reset = Timer::timeMS;
+}
+
+
+uint TimeMeterMS::ElapsedTime()
+{
+    return Timer::timeMS - time_reset;
+}

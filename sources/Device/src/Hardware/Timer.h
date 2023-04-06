@@ -10,3 +10,16 @@ namespace Timer
 
     void OnCallbackInterrupt();
 }
+
+
+struct TimeMeterMS
+{
+    TimeMeterMS()
+    {
+        Reset();
+    }
+    void Reset();
+    uint ElapsedTime();
+private:
+    uint time_reset;
+};

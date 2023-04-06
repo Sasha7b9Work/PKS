@@ -26,7 +26,7 @@ void HAL_USART::Transmit(pchar message)
 
     for (int i = 0; i < size; i++)
     {
-        while (RESET == usart_flag_get(USART_ADDR, USART_FLAG_TBE))
+        while (RESET != usart_flag_get(USART_ADDR, USART_FLAG_TBE))
         {
         }
 

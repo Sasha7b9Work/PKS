@@ -12,6 +12,12 @@
 #include <gd32f30x_rcu.h>
 
 
+namespace Device
+{
+    static void UpdateModem();
+}
+
+
 void Device::Init()
 {
     HAL::Init();
@@ -32,4 +38,22 @@ void Device::Update()
     }
 
     Updater::Update();
+
+    UpdateModem();
+}
+
+
+void Device::UpdateModem()
+{
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() > 1000)
+    {
+        meter.Reset();
+
+        pchar answer = Modem::LastAnswer();
+        answer = answer;
+
+        Modem::Transmit("AT+CPIN?");
+    }
 }
