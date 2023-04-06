@@ -58,12 +58,12 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
         voltC[pos_adc_value] = adc_values[5];
 
         pos_adc_value++;
-    }
 
-    if (pos_adc_value == NUM_POINTS)
-    {
-        time_measure = Timer::TimeMS() - time_start_measure;
-        time_measure = time_measure;
+        if (pos_adc_value == NUM_POINTS)
+        {
+            time_measure = Timer::TimeMS() - time_start_measure;
+            time_measure = time_measure;
+        }
     }
 }
 

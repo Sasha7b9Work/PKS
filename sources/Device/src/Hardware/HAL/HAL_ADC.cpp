@@ -28,8 +28,6 @@
 
 namespace HAL_ADC
 {
-    static void Stop();
-
     static uint16 adc_values[6] = { 0, 0, 0, 0, 0, 0 };
 }
 
@@ -37,17 +35,12 @@ namespace HAL_ADC
 void HAL_ADC::Callback()
 {
     Measurer::AppendMeasures(adc_values);
-
-    if (Measurer::BuffersFull())
-    {
-        Stop();
-    }
 }
 
 
 void HAL_ADC::Init()
 {
-//    rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV6);
+    rcu_adc_clock_config(RCU_CKADC_CKAPB2_DIV6);
 
     nvic_irq_enable(ADC0_1_IRQn, 0, 0);
 
@@ -80,15 +73,19 @@ void HAL_ADC::Init()
 
     dma_circulation_enable(DMA0, DMA_CH0);
 
+    dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
+
+    dma_channel_enable(DMA0, DMA_CH0);
+
     /////////////////////////////////////////////////////////////////////////////////////////// TIM
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
 
-    timer_initpara.prescaler = (480 - 1);               // Получаем частоту 8 МГц / 480 = 16.(6) кГц. На этой частоте 2000 точек считываются за 120 мс
-    timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
+    timer_initpara.prescaler = (240 - 1);               // Получаем частоту 8 МГц / 480 = 16.(6) кГц. На этой частоте 2000 точек считываются за 120 мс
+    timer_initpara.alignedmode = TIMER_COUNTER_UP;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
     timer_initpara.period = (uint)(-1);
-    timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
+    timer_initpara.clockdivision = TIMER_CKDIV_DIV2;
     timer_initpara.repetitioncounter = 0;
     timer_init(TIMER0, &timer_initpara);
 
@@ -99,7 +96,7 @@ void HAL_ADC::Init()
     timer_ocintpara.outputstate = TIMER_CCX_ENABLE;
     timer_channel_output_config(TIMER0, TIMER_CH_0, &timer_ocintpara);
 
-    timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, 3999);
+    timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, 2999);
     timer_channel_output_mode_config(TIMER0, TIMER_CH_0, TIMER_OC_MODE_PWM1);
     timer_channel_output_shadow_config(TIMER0, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
 
@@ -107,6 +104,8 @@ void HAL_ADC::Init()
     timer_primary_output_config(TIMER0, ENABLE);
     /* auto-reload preload enable */
     timer_auto_reload_shadow_enable(TIMER0);
+
+    timer_enable(TIMER0);
 
     /////////////////////////////////////////////////////////////////////////////////////////////// ADC
     /* ADC mode config */
@@ -138,6 +137,11 @@ void HAL_ADC::Init()
     /* ADC trigger config */
     adc_external_trigger_source_config(ADC0, ADC_REGULAR_CHANNEL, ADC0_1_EXTTRIG_REGULAR_T0_CH0);
 
+    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
+    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
+
+    adc_interrupt_enable(ADC0, ADC_INT_EOC);
+
     /* enable ADC interface */
     adc_enable(ADC0);
     delay_1ms(1);
@@ -145,38 +149,7 @@ void HAL_ADC::Init()
     /* ADC calibration and reset calibration */
     adc_calibration_enable(ADC0);
 
-    Start();
-}
-
-
-void HAL_ADC::Start()
-{
-    dma_interrupt_enable(DMA0, DMA_CH0, DMA_INT_FTF);
-
-    dma_channel_enable(DMA0, DMA_CH0);
-
-    timer_enable(TIMER0);
-
-    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
-    adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
-
-    adc_interrupt_enable(ADC0, ADC_INT_EOC);
-
     adc_dma_mode_enable(ADC0);
 
     adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
-}
-
-
-void HAL_ADC::Stop()
-{
-    adc_dma_mode_disable(ADC0);
-
-    adc_interrupt_disable(ADC0, ADC_INT_EOC);
-
-    timer_disable(TIMER0);
-
-    dma_channel_disable(DMA0, DMA_CH0);
-
-    dma_interrupt_disable(DMA0, DMA_CH0, DMA_INT_FTF);
 }

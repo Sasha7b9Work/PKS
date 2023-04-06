@@ -13,7 +13,6 @@ namespace HAL
 namespace HAL_ADC
 {
     void Init();
-    void Start();
     // Вызывать, когда считаны новые значения
     void Callback();
 }

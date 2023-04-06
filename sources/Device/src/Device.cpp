@@ -29,8 +29,6 @@ void Device::Update()
         struct FullMeasure measure = Measurer::GetMeasure();
 
         measure = measure;
-
-        HAL_ADC::Start();
     }
 
     Updater::Update();
