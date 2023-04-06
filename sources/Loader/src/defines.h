@@ -19,6 +19,7 @@ typedef unsigned char uchar;
     #define __DSB()
     #define __disable_irq()
     #define __enable_irq()
+    #define __asm
 #ifndef GUI
     #define asm(x)
 #endif

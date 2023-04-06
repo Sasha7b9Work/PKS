@@ -13,6 +13,7 @@ namespace HAL_ROM
 {
     static const uint ADDR_BASE = 0x08000000U;
     static const uint SIZE_PAGE = 2 * 1024;
+    static const uint ADDR_APPLICATION = ADDR_BASE;
     static const uint ADDR_SAVED_FIRMWARE = ADDR_BASE + 50 * SIZE_PAGE;
     static const uint ADDR_BOOTLOADER = ADDR_BASE + 100 * SIZE_PAGE;
 

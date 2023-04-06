@@ -40,7 +40,7 @@
       <WinId>1506</WinId>
       <ViewName>Symbols</ViewName>
       <UserString></UserString>
-      <TableColWidths>106 106 106</TableColWidths>
+      <TableColWidths>70 70 70</TableColWidths>
     </View>
     <View>
       <WinId>1936</WinId>
@@ -101,10 +101,10 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>265</Top>
-        <Left>329</Left>
-        <Right>2249</Right>
-        <Bottom>1324</Bottom>
+        <Top>309</Top>
+        <Left>319</Left>
+        <Right>1846</Right>
+        <Bottom>1076</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>

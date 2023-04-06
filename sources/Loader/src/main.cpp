@@ -3,7 +3,7 @@
 #include "Hardware/HAL/HAL.h"
 
 
-static void Reset();
+static void JumpToApplication();
 
 
 int main()
@@ -24,11 +24,26 @@ int main()
         }
     }
 
-    Reset();
+    JumpToApplication();
 }
 
 
-static void Reset()
+//set Main Stack value
+__asm void MSR_MSP(uint)
 {
+#ifndef WIN32
+    MSR MSP, r0
+        BX r14
+#endif
+}
 
+
+static void JumpToApplication()
+{
+    typedef void (*iapfun)(void);
+    iapfun  jump2app;
+
+    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_APPLICATION + 4);
+    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_APPLICATION);                        //initialize app pointer
+    jump2app();                                                                 //jump to app
 }
