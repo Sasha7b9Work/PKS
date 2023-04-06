@@ -25,7 +25,7 @@ void HAL_ROM::ErasePage(int num_page)
 }
 
 
-bool HAL_ROM::PageNotEmpty(int num_page)
+bool HAL_ROM::PageIsEmpty(int num_page)
 {
     uint *start = (uint *)(ADDR_BASE + num_page * SIZE_PAGE);
 
