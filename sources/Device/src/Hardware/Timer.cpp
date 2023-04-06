@@ -4,11 +4,19 @@
 #include <gd32f30x.h>
 
 
+namespace Timer
+{
+    static uint timeMS = 0;
+}
+
+
 void Timer::Init()
 {
+    nvic_irq_enable(TIMER1_IRQn, 0, 0);
+
     timer_parameter_struct timer_initpara;
 
-    timer_initpara.prescaler = 8000 - 1;                // „астота 8ћ√ц / 8к√ц = 1к√ц
+    timer_initpara.prescaler = 1;
     timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
     timer_initpara.period = (uint)(-1);
@@ -17,11 +25,19 @@ void Timer::Init()
 
     timer_init(TIMER1, &timer_initpara);
 
+    timer_interrupt_enable(TIMER1, TIMER_INT_UP);
+
     timer_enable(TIMER1);
 }
 
 
 uint Timer::TimeMS()
 {
-    return timer_counter_read(TIMER1);
+    return timeMS;
+}
+
+
+void Timer::OnCallbackInterrupt()
+{
+    timeMS++;
 }

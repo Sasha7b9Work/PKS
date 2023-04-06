@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Measurer/Measurer.h"
+#include "Hardware/Timer.h"
 #include <gd32f30x.h>
 #include <systick.h>
 
@@ -119,6 +120,13 @@ extern "C" {
         HAL_ADC::Callback();
 
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
+    }
+
+    void TIMER1_IRQHandler(void)
+    {
+        Timer::OnCallbackInterrupt();
+
+        timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
     }
 
 #ifdef __cplusplus
