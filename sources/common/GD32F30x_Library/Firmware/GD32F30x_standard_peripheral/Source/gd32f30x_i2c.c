@@ -623,8 +623,8 @@ void i2c_flag_clear(uint32_t i2c_periph, i2c_flag_enum flag)
 {
     if(I2C_FLAG_ADDSEND == flag){
         /* read I2C_STAT0 and then read I2C_STAT1 to clear ADDSEND */
-        I2C_STAT0(i2c_periph);
-        I2C_STAT1(i2c_periph);
+        uint32_t state0 = I2C_STAT0(i2c_periph);
+        uint32_t state1 = I2C_STAT1(i2c_periph);
     }else{
         I2C_REG_VAL(i2c_periph, flag) &= ~BIT(I2C_BIT_POS(flag));
     }
@@ -730,8 +730,8 @@ void i2c_interrupt_flag_clear(uint32_t i2c_periph, i2c_interrupt_flag_enum int_f
 {
     if(I2C_INT_FLAG_ADDSEND == int_flag){
         /* read I2C_STAT0 and then read I2C_STAT1 to clear ADDSEND */
-        I2C_STAT0(i2c_periph);
-        I2C_STAT1(i2c_periph);
+        uint32_t stat0 = I2C_STAT0(i2c_periph);
+        uint32_t stat1 = I2C_STAT1(i2c_periph);
     }else{
         I2C_REG_VAL2(i2c_periph, int_flag) = ~BIT(I2C_BIT_POS2(int_flag));
     }

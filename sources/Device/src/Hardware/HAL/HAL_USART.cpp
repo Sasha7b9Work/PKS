@@ -53,7 +53,7 @@ void HAL_USART_LOG::Init()
     gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
 
     usart_deinit(USART_LOG_ADDR);
-    usart_baudrate_set(USART_LOG_ADDR, 9600);
+    usart_baudrate_set(USART_LOG_ADDR, 115200);
     usart_transmit_config(USART_LOG_ADDR, USART_TRANSMIT_ENABLE);
 
     usart_enable(USART_LOG_ADDR);
