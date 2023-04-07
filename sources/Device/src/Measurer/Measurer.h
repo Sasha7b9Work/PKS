@@ -19,15 +19,13 @@ struct Sample
     static const uint16 ZERO = 2047;
     static const uint16 MIN = 0;
 
-    static const float AMPLITUDE_VOLTAGE;           // Размах напряжения от MIN до MAX
-
     Sample(uint16 _rel = 0) : rel(_rel) {}
     float ToVoltage() const;
     float ToCurrent() const;
-    float VoltsInSample() const { return AMPLITUDE_VOLTAGE / MAX; }
+    float VoltsInSample() const { return AmplitudeVoltage() / MAX; }
     float AmpersInSample() const { return AmplitudeCurrent() / MAX; }
     float AmplitudeCurrent() const;                 // Размах тока от MIN до MAX
-    float AmplitudeVoltage() const;
+    float AmplitudeVoltage() const;                 // Размах напряжения от MIN до MAX
     void FromVoltage(float);
     void FromCurrent(float);
     operator uint16() const { return rel; }
