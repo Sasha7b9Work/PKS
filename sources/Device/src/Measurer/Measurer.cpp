@@ -6,6 +6,9 @@
 #include "Utils/SoftwareGenerator.h"
 
 
+const float Sample::AMPLITUDE_VOLTAGE = 380.0f * 2.0f;
+
+
 namespace Measurer
 {
     static void Calculate();
@@ -27,6 +30,11 @@ namespace Measurer
     static TimeMeterMS meter;
 }
 
+
+float Sample::AmplitudeCurrent() const
+{
+    return 20.0f;
+}
 
 
 void Measurer::Update()
