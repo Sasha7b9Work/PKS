@@ -84,8 +84,6 @@ extern "C" {
 
     void ADC0_1_IRQHandler(void);
 
-    void TIMER1_IRQHandler(void);
-
     void UART3_IRQHandler(void);
 
 #ifdef __cplusplus

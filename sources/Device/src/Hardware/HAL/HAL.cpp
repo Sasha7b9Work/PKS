@@ -32,7 +32,6 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_I2C0);
     rcu_periph_clock_enable(RCU_I2C1);
     rcu_periph_clock_enable(RCU_TIMER0);    // ADC
-    rcu_periph_clock_enable(RCU_TIMER1);    // Timer
     rcu_periph_clock_enable(RCU_USART1);    // Log
     rcu_periph_clock_enable(RCU_UART3);     // GPRS
     rcu_periph_clock_enable(RCU_AF);

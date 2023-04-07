@@ -4,11 +4,7 @@
 
 namespace Timer
 {
-    void Init();
-
     uint TimeMS();
-
-    void OnCallbackInterrupt();
 }
 
 

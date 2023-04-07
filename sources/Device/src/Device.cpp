@@ -24,8 +24,6 @@ void Device::Init()
 {
     HAL::Init();
 
-    Timer::Init();
-
     Modem::Init();
 }
 

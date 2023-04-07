@@ -112,6 +112,10 @@ extern "C" {
     */
     void SysTick_Handler(void)
     {
+        extern uint timer_counter;
+
+        timer_counter++;
+
         delay_decrement();
     }
 
@@ -120,13 +124,6 @@ extern "C" {
         HAL_ADC::Callback();
 
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
-    }
-
-    void TIMER1_IRQHandler(void)
-    {
-        Timer::OnCallbackInterrupt();
-
-        timer_interrupt_flag_clear(TIMER1, TIMER_INT_FLAG_UP);
     }
 
     void UART3_IRQHandler(void)
