@@ -32,7 +32,15 @@ void Device::Init()
 
 void Device::Update()
 {
-    LOG_WRITE("Test");
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() >= 1000)
+    {
+        meter.Reset();
+
+        LOG_WRITE("time %d ms", Timer::TimeMS());
+    }
+
 
     Measurer::Update();
 
