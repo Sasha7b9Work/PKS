@@ -28,22 +28,43 @@ void HAL_SPI::Init()
     is.prescale = SPI_PSC_256;
     is.endian = SPI_ENDIAN_MSB;
     spi_init(SPI_ADDR, &is);
+
+    spi_enable(SPI_ADDR);
 }
 
 
-void HAL_SPI::Write(uint8)
+void HAL_SPI::Write(uint8 byte)
 {
+    while(RESET == spi_i2s_flag_get(SPI_ADDR, SPI_FLAG_TBE)) { }
 
+    spi_i2s_data_transmit(SPI_ADDR, byte);
 }
 
 
 void HAL_SPI::Write(const void *buffer, int size)
 {
+    const uint8 *data = (const uint8 *)buffer;
 
+    for (int i = 0; i < size; i++)
+    {
+        Write(data[i]);
+    }
 }
 
 
-void HAL_SPI::WriteRead(const void *out, void *in, int size)
+void HAL_SPI::WriteRead(const void *_out, void *_in, int size)
 {
+    const uint8 *out = (const uint8 *)_out;
+    uint8 *in = (uint8 *)_in;
 
+    for (int i = 0; i < size; i++)
+    {
+        while(RESET == spi_i2s_flag_get(SPI_ADDR, SPI_FLAG_TBE)) { }
+
+        spi_i2s_data_transmit(SPI_ADDR, out[i]);
+
+        while(RESET == spi_i2s_flag_get(SPI_ADDR, SPI_FLAG_RBNE)) { }
+
+        in[i] = (uint8)spi_i2s_data_receive(SPI_ADDR);
+    }
 }
