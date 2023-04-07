@@ -31,6 +31,9 @@ namespace HAL_I2C
 namespace HAL_SPI
 {
     void Init();
+    void Write(uint8);
+    void Write(const void *buffer, int size);
+    void WriteRead(const void *out, void *in, int size);
 }
 
 

@@ -29,3 +29,21 @@ void HAL_SPI::Init()
     is.endian = SPI_ENDIAN_MSB;
     spi_init(SPI_ADDR, &is);
 }
+
+
+void HAL_SPI::Write(uint8)
+{
+
+}
+
+
+void HAL_SPI::Write(const void *buffer, int size)
+{
+
+}
+
+
+void HAL_SPI::WriteRead(const void *out, void *in, int size)
+{
+
+}
