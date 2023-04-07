@@ -4,7 +4,47 @@
 #include <math.h>
 
 
-static int CalculatePeriod(const uint16 samples[NUM_POINTS])
+namespace Calculator
+{
+    static int CalculatePeriod(const Sample samples[NUM_POINTS]);
+}
+
+
+float Calculator::CalculateCurrentRMS(const Sample samples[NUM_POINTS])
+{
+    int period = CalculatePeriod(samples);
+
+    float result = 0.0f;
+
+    for (int i = 0; i < period; i++)
+    {
+        float current = samples[i].ToCurrent();
+
+        result += current * current;
+    }
+
+    return sqrtf(result / (float)period);
+}
+
+
+float Calculator::CalculateVoltageRMS(const Sample samples[NUM_POINTS])
+{
+    int period = CalculatePeriod(samples);
+
+    float result = 0.0f;
+
+    for (int i = 0; i < period; i++)
+    {
+        float voltage = Sample(samples[i]).ToVoltage();
+
+        result += voltage * voltage;
+    }
+
+    return sqrtf(result / (float)period);
+}
+
+
+int Calculator::CalculatePeriod(const Sample samples[NUM_POINTS])
 {
     uint sums[NUM_POINTS];
 
@@ -45,38 +85,4 @@ static int CalculatePeriod(const uint16 samples[NUM_POINTS])
     }
 
     return period_min_delta;
-}
-
-
-float Calculator::CalculateCurrentRMS(const uint16 samples[NUM_POINTS])
-{
-    int period = CalculatePeriod(samples);
-
-    float result = 0.0f;
-
-    for (int i = 0; i < period; i++)
-    {
-        float current = Sample(samples[i]).ToCurrent();
-
-        result += current * current;
-    }
-
-    return sqrtf(result / (float)period);
-}
-
-
-float Calculator::CalculateVoltageRMS(const uint16 samples[NUM_POINTS])
-{
-    int period = CalculatePeriod(samples);
-
-    float result = 0.0f;
-
-    for (int i = 0; i < period; i++)
-    {
-        float voltage = Sample(samples[i]).ToVoltage();
-
-        result += voltage * voltage;
-    }
-
-    return sqrtf(result / (float)period);
 }

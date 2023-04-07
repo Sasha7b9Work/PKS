@@ -5,25 +5,25 @@
 
 namespace Generator
 {
-    static void GenerateLineZero(uint16[NUM_POINTS]);
-    static void GenerateLineMax(uint16[NUM_POINTS]);
-    static void GenerateLineMin(uint16[NUM_POINTS]);
+    static void GenerateLineZero(Sample[NUM_POINTS]);
+    static void GenerateLineMax(Sample[NUM_POINTS]);
+    static void GenerateLineMin(Sample[NUM_POINTS]);
 }
 
 
-void Generator::GenerateVoltage(uint16 samples[NUM_POINTS])
+void Generator::GenerateVoltage(Sample samples[NUM_POINTS])
 {
     GenerateLineMax(samples);
 }
 
 
-void Generator::GenerateCurrent(uint16 samples[NUM_POINTS])
+void Generator::GenerateCurrent(Sample samples[NUM_POINTS])
 {
     GenerateLineMax(samples);
 }
 
 
-void Generator::GenerateLineZero(uint16 samples[NUM_POINTS])
+void Generator::GenerateLineZero(Sample samples[NUM_POINTS])
 {
     for (int i = 0; i < NUM_POINTS; i++)
     {
@@ -32,7 +32,7 @@ void Generator::GenerateLineZero(uint16 samples[NUM_POINTS])
 }
 
 
-void Generator::GenerateLineMax(uint16 samples[NUM_POINTS])
+void Generator::GenerateLineMax(Sample samples[NUM_POINTS])
 {
     for (int i = 0; i < NUM_POINTS; i++)
     {
@@ -41,7 +41,7 @@ void Generator::GenerateLineMax(uint16 samples[NUM_POINTS])
 }
 
 
-void Generator::GenerateLineMin(uint16 samples[NUM_POINTS])
+void Generator::GenerateLineMin(Sample samples[NUM_POINTS])
 {
     for (int i = 0; i < NUM_POINTS; i++)
     {

@@ -6,7 +6,7 @@
 
 namespace Calculator
 {
-    float CalculateCurrentRMS(const uint16 samples[NUM_POINTS]);
+    float CalculateCurrentRMS(const Sample samples[NUM_POINTS]);
 
-    float CalculateVoltageRMS(const uint16 samples[NUM_POINTS]);
+    float CalculateVoltageRMS(const Sample samples[NUM_POINTS]);
 }

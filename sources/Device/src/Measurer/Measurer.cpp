@@ -14,13 +14,13 @@ namespace Measurer
 
     static bool measure_ready = false;          // true, если измерение готово. Устанавливается в 0 после считывания
 
-    static uint16 currentA[NUM_POINTS];
-    static uint16 currentB[NUM_POINTS];
-    static uint16 currentC[NUM_POINTS];
+    static Sample currentA[NUM_POINTS];
+    static Sample currentB[NUM_POINTS];
+    static Sample currentC[NUM_POINTS];
 
-    static uint16 voltA[NUM_POINTS];
-    static uint16 voltB[NUM_POINTS];
-    static uint16 voltC[NUM_POINTS];
+    static Sample voltA[NUM_POINTS];
+    static Sample voltB[NUM_POINTS];
+    static Sample voltC[NUM_POINTS];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 

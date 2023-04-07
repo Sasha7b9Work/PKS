@@ -19,11 +19,12 @@ struct Sample
     static const uint16 ZERO = 2047;
     static const uint16 MIN = 0;
 
-    Sample(uint16 _rel) : rel(_rel) {}
+    Sample(uint16 _rel = 0) : rel(_rel) {}
     float ToVoltage() const;
     float ToCurrent() const;
     float VoltsInSample() const { return 380.0f / (float)ZERO; }
     float AmpersInSample() const { return 10.0f / (float)ZERO; }
+    operator uint16() const { return rel; }
 
 private:
 
