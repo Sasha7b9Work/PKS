@@ -11,6 +11,9 @@ typedef const char *pchar;
 typedef unsigned char uchar;
 
 
+// Закомментировать на "боевой" плате
+#define DEV_BOARD
+
 #ifndef WIN32
     #define nullptr 0 //-V1059
     #pragma diag_suppress 2748

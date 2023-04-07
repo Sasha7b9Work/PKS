@@ -43,7 +43,9 @@ void HAL::Init()
 
     HAL_USART_GPRS::Init();
 
+#ifdef DEV_BOARD
     HAL_USART_LOG::Init();
+#endif
 }
 
 
