@@ -458,6 +458,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -598,6 +603,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_SPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_SPI.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -637,6 +647,21 @@
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/Modules/W25Q128</GroupName>
+          <Files>
+            <File>
+              <FileName>W25Q128.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>W25Q128.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1189,6 +1214,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1329,6 +1359,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_SPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_SPI.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1368,6 +1403,21 @@
               <FileName>ZMPT101.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware/Modules/W25Q128</GroupName>
+          <Files>
+            <File>
+              <FileName>W25Q128.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>W25Q128.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.h</FilePath>
             </File>
           </Files>
         </Group>

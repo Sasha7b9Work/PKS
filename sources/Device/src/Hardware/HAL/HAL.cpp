@@ -29,8 +29,9 @@ void HAL::Init()
 
     rcu_periph_clock_enable(RCU_ADC0);
     rcu_periph_clock_enable(RCU_DMA0);
-    rcu_periph_clock_enable(RCU_I2C0);
+    rcu_periph_clock_enable(RCU_I2C0);      // Display
     rcu_periph_clock_enable(RCU_I2C1);
+    rcu_periph_clock_enable(RCU_SPI2);      // Ext Flash
     rcu_periph_clock_enable(RCU_TIMER0);    // ADC
     rcu_periph_clock_enable(RCU_USART1);    // Log
     rcu_periph_clock_enable(RCU_UART3);     // GPRS
@@ -41,6 +42,8 @@ void HAL::Init()
     HAL_ADC::Init();
 
     HAL_USART_GPRS::Init();
+
+    HAL_SPI::Init();
 
 #ifdef DEV_BOARD
     HAL_USART_LOG::Init();

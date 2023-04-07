@@ -28,6 +28,8 @@ const uint USART_LOG_ADDR = USART1;
 PinUSART_TX pinUSART_LOG_TX(GPIOD, GPIO_PIN_5);
 PinUSART_RX pinUSART_LOG_RX(GPIOD, GPIO_PIN_6);
 
+const uint SPI_ADDR = SPI2;
+
 
 void PinADC::Init()
 {

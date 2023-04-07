@@ -27,6 +27,13 @@ namespace HAL_I2C
 }
 
 
+// Для внешней памяти
+namespace HAL_SPI
+{
+    void Init();
+}
+
+
 namespace HAL_USART_GPRS
 {
     void Init();

@@ -1,8 +1,8 @@
 // 2023/04/07 10:58:52 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Utils/SoftwareGenerator.h"
-#include <cmath>
 #include <cstdlib>
+#include <cmath>
 
 
 #define M_PI 3.141592653589793238462643383279502884
