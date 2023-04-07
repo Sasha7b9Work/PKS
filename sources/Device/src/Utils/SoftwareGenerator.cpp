@@ -20,7 +20,7 @@ void Generator::GenerateVoltage(Sample samples[NUM_SAMPLES])
 
 void Generator::GenerateCurrent(Sample samples[NUM_SAMPLES])
 {
-    GenerateLineCurrent(samples, -5.0f);
+    GenerateLineCurrent(samples, 10.0f);
 }
 
 
