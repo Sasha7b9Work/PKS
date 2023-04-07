@@ -3,6 +3,7 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Calculator.h"
 #include "Hardware/Timer.h"
+#include "Utils/SoftwareGenerator.h"
 
 
 namespace Measurer
@@ -60,6 +61,11 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
         if (pos_adc_value == NUM_POINTS)
         {
+#ifdef DEV_BOARD
+            Generator::GenerateVoltage(voltA);
+            Generator::GenerateCurrent(currentA);
+#endif
+
 //            LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
         }
     }

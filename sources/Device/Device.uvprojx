@@ -723,6 +723,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Updater.cpp</FilePath>
             </File>
+            <File>
+              <FileName>SoftwareGenerator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\SoftwareGenerator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SoftwareGenerator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\SoftwareGenerator.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1443,6 +1453,16 @@
               <FileName>Updater.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Utils\Updater.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SoftwareGenerator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\SoftwareGenerator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SoftwareGenerator.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\SoftwareGenerator.h</FilePath>
             </File>
           </Files>
         </Group>

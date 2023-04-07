@@ -63,5 +63,5 @@ void Device::ProcessMeasure()
 {
     struct FullMeasure measure = Measurer::GetMeasure();
 
-    measure = measure;
+    LOG_WRITE("voltage %f, current %f, power %f", measure.measures[0].voltage, measure.measures[0].current, measure.measures[0].power);
 }
