@@ -113,3 +113,15 @@ FullMeasure Measurer::GetMeasure()
 
     return measure;
 }
+
+
+float Sample::ToVoltage() const
+{
+    return ((float)rel - (float)ZERO) * VOLTS_IN_SAMPLE;
+}
+
+
+float Sample::ToCurrent() const
+{
+    return ((float)rel - (float)ZERO) * AMPERS_IN_SAMPLE;
+}

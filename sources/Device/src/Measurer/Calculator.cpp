@@ -4,23 +4,6 @@
 #include <math.h>
 
 
-#define VOLTS_IN_SAMPLE (380.0f / 2047.0f)
-
-#define AMPERS_IN_SAMPLE (10.0f / 2047.0f)
-
-
-static float SampleToVoltage(uint16 sample)
-{
-    return ((float)sample - 2047.0f) * VOLTS_IN_SAMPLE;
-}
-
-
-static float SampleToCurrent(uint16 sample)
-{
-    return ((float)sample - 2047.0f) * AMPERS_IN_SAMPLE;
-}
-
-
 static int CalculatePeriod(const uint16 samples[NUM_POINTS])
 {
     uint sums[NUM_POINTS];
@@ -73,7 +56,7 @@ float Calculator::CalculateCurrentRMS(const uint16 samples[NUM_POINTS])
 
     for (int i = 0; i < period; i++)
     {
-        float current = SampleToCurrent(samples[i]);
+        float current = Sample(samples[i]).ToCurrent();
 
         result += current * current;
     }
@@ -90,7 +73,7 @@ float Calculator::CalculateVoltageRMS(const uint16 samples[NUM_POINTS])
 
     for (int i = 0; i < period; i++)
     {
-        float voltage = SampleToVoltage(samples[i]);
+        float voltage = Sample(samples[i]).ToVoltage();
 
         result += voltage * voltage;
     }

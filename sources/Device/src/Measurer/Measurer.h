@@ -13,6 +13,24 @@
 #define POINTS_ON_PERIOD ((float)NUM_POINTS / NUM_PERIODS)      // Точек на периодв
 
 
+struct Sample
+{
+    static const uint16 MAX = 4094;
+    static const uint16 ZERO = 2047;
+    static const uint16 MIN = 0;
+
+#define VOLTS_IN_SAMPLE (380.0f / 2047.0f)
+
+#define AMPERS_IN_SAMPLE (10.0f / 2047.0f)
+
+    Sample(uint16 _rel) : rel(_rel) {}
+    float ToVoltage() const;
+    float ToCurrent() const;
+private:
+    uint16 rel;
+};
+
+
 struct PhaseMeasure
 {
     float current;

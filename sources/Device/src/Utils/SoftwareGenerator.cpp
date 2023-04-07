@@ -5,7 +5,7 @@
 
 namespace Generator
 {
-    static void GenerateLineNull(uint16[NUM_POINTS]);
+    static void GenerateLineZero(uint16[NUM_POINTS]);
     static void GenerateLineMax(uint16[NUM_POINTS]);
     static void GenerateLineMin(uint16[NUM_POINTS]);
 }
@@ -23,11 +23,11 @@ void Generator::GenerateCurrent(uint16 samples[NUM_POINTS])
 }
 
 
-void Generator::GenerateLineNull(uint16 samples[NUM_POINTS])
+void Generator::GenerateLineZero(uint16 samples[NUM_POINTS])
 {
     for (int i = 0; i < NUM_POINTS; i++)
     {
-        samples[i] = 2047;
+        samples[i] = Sample::ZERO;
     }
 }
 
@@ -36,7 +36,7 @@ void Generator::GenerateLineMax(uint16 samples[NUM_POINTS])
 {
     for (int i = 0; i < NUM_POINTS; i++)
     {
-        samples[i] = 4095;
+        samples[i] = Sample::MAX;
     }
 }
 
@@ -45,6 +45,6 @@ void Generator::GenerateLineMin(uint16 samples[NUM_POINTS])
 {
     for (int i = 0; i < NUM_POINTS; i++)
     {
-        samples[i] = 0;
+        samples[i] = Sample::MIN;
     }
 }
