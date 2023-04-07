@@ -17,13 +17,13 @@ namespace Measurer
 
     static bool measure_ready = false;          // true, если измерение готово. Устанавливается в 0 после считывания
 
-    static Sample currentA[NUM_POINTS];
-    static Sample currentB[NUM_POINTS];
-    static Sample currentC[NUM_POINTS];
+    static Sample currentA[NUM_SAMPLES];
+    static Sample currentB[NUM_SAMPLES];
+    static Sample currentC[NUM_SAMPLES];
 
-    static Sample voltA[NUM_POINTS];
-    static Sample voltB[NUM_POINTS];
-    static Sample voltC[NUM_POINTS];
+    static Sample voltA[NUM_SAMPLES];
+    static Sample voltB[NUM_SAMPLES];
+    static Sample voltC[NUM_SAMPLES];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 
@@ -55,7 +55,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
         meter.Reset();
     }
 
-    if (pos_adc_value < NUM_POINTS)
+    if (pos_adc_value < NUM_SAMPLES)
     {
         currentA[pos_adc_value] = adc_values[0];
         currentB[pos_adc_value] = adc_values[1];
@@ -67,7 +67,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
         pos_adc_value++;
 
-        if (pos_adc_value == NUM_POINTS)
+        if (pos_adc_value == NUM_SAMPLES)
         {
 #ifdef DEV_BOARD
             Generator::GenerateVoltage(voltA);
@@ -82,7 +82,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
 bool Measurer::BuffersFull()
 {
-    return pos_adc_value >= NUM_POINTS;
+    return pos_adc_value >= NUM_SAMPLES;
 }
 
 

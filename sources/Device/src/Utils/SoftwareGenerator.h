@@ -5,6 +5,6 @@
 
 namespace Generator
 {
-    void GenerateVoltage(Sample[NUM_POINTS]);
-    void GenerateCurrent(Sample[NUM_POINTS]);
+    void GenerateVoltage(Sample[NUM_SAMPLES]);
+    void GenerateCurrent(Sample[NUM_SAMPLES]);
 }

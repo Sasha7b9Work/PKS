@@ -6,11 +6,11 @@
 
 namespace Calculator
 {
-    static int CalculatePeriod(const Sample samples[NUM_POINTS]);
+    static int CalculatePeriod(const Sample samples[NUM_SAMPLES]);
 }
 
 
-float Calculator::CalculateCurrentRMS(const Sample samples[NUM_POINTS])
+float Calculator::CalculateCurrentRMS(const Sample samples[NUM_SAMPLES])
 {
     int period = CalculatePeriod(samples);
 
@@ -27,7 +27,7 @@ float Calculator::CalculateCurrentRMS(const Sample samples[NUM_POINTS])
 }
 
 
-float Calculator::CalculateVoltageRMS(const Sample samples[NUM_POINTS])
+float Calculator::CalculateVoltageRMS(const Sample samples[NUM_SAMPLES])
 {
     int period = CalculatePeriod(samples);
 
@@ -44,19 +44,19 @@ float Calculator::CalculateVoltageRMS(const Sample samples[NUM_POINTS])
 }
 
 
-int Calculator::CalculatePeriod(const Sample samples[NUM_POINTS])
+int Calculator::CalculatePeriod(const Sample samples[NUM_SAMPLES])
 {
-    uint sums[NUM_POINTS];
+    uint sums[NUM_SAMPLES];
 
     sums[0] = samples[0];
 
-    for (int i = 1; i < NUM_POINTS; i++)
+    for (int i = 1; i < NUM_SAMPLES; i++)
     {
         sums[i] = sums[i - 1] + samples[i];
     }
 
-    int min_period = (int)(NUM_POINTS - 1.5f * POINTS_ON_PERIOD);     // Минимальный рассматриваемый период
-    int max_period = (int)(NUM_POINTS - 0.5f * POINTS_ON_PERIOD);
+    int min_period = (int)(NUM_SAMPLES - 1.5f * SAMPLES_ON_PERIOD);     // Минимальный рассматриваемый период
+    int max_period = (int)(NUM_SAMPLES - 0.5f * SAMPLES_ON_PERIOD);
 
     uint min_delta = (uint)(-1);
     int period_min_delta = 0;
@@ -66,7 +66,7 @@ int Calculator::CalculatePeriod(const Sample samples[NUM_POINTS])
         uint min = (uint)(-1);
         uint max = 0;
 
-        for (int start = 0; start < (NUM_POINTS - period); start++)
+        for (int start = 0; start < (NUM_SAMPLES - period); start++)
         {
             uint sum = sums[start + period] - sums[start];
 

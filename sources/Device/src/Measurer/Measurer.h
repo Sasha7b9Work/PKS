@@ -9,8 +9,8 @@
 
 #define TIME_MEASURE 150                                        // В миллисекундах
 #define NUM_PERIODS 7.5f                                        // Приблизительно периодов в одном измерении
-#define NUM_POINTS  2000                                        // Число точек в одном измерении
-#define POINTS_ON_PERIOD ((float)NUM_POINTS / NUM_PERIODS)      // Точек на периодв
+#define NUM_SAMPLES  2000                                       // Число точек в одном измерении
+#define SAMPLES_ON_PERIOD ((float)NUM_SAMPLES / NUM_PERIODS)    // Точек на периодв
 
 
 struct Sample
@@ -26,7 +26,7 @@ struct Sample
     float ToCurrent() const;
     float VoltsInSample() const { return AMPLITUDE_VOLTAGE / MAX; }
     float AmpersInSample() const { return AmplitudeCurrent() / MAX; }
-    float AmplitudeCurrent() const;
+    float AmplitudeCurrent() const;                 // Размах тока от MIN до MAX
     operator uint16() const { return rel; }
 
 private:
