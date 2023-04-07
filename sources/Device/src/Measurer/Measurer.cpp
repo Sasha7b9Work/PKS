@@ -31,12 +31,6 @@ namespace Measurer
 }
 
 
-float Sample::AmplitudeCurrent() const
-{
-    return 20.0f;
-}
-
-
 void Measurer::Update()
 {
     if (BuffersFull() && !measure_ready)
@@ -132,4 +126,22 @@ float Sample::ToVoltage() const
 float Sample::ToCurrent() const
 {
     return ((float)rel - (float)ZERO) * AmpersInSample();
+}
+
+
+float Sample::AmplitudeCurrent() const
+{
+    return 20.0f;
+}
+
+
+void Sample::FromVoltage(float level)
+{
+    rel = (uint16)(level / VoltsInSample() * 2);
+}
+
+
+void Sample::FromCurrent(float level)
+{
+    rel = (uint16)(level / AmpersInSample() * 2);
 }

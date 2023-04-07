@@ -24,7 +24,7 @@ extern "C" {
 
     /*!
         \brief      this function handles HardFault exception
-        \param[in]  none
+        \param[in]  none    
         \param[out] none
         \retval     none
     */

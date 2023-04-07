@@ -5,46 +5,51 @@
 
 namespace Generator
 {
-    static void GenerateLineZero(Sample[NUM_SAMPLES]);
-    static void GenerateLineMax(Sample[NUM_SAMPLES]);
-    static void GenerateLineMin(Sample[NUM_SAMPLES]);
+    static void GenerateLineVoltage(Sample[NUM_SAMPLES], float level);
+    static void GenerateLineCurrent(Sample[NUM_SAMPLES], float level);
+    static void GenerateSineVoltage(Sample[NUM_SAMPLES], float amplitude);
+    static void GenerateSineCurrent(Sample[NUM_SAMPLES], float amplitude);
 }
 
 
 void Generator::GenerateVoltage(Sample samples[NUM_SAMPLES])
 {
-    GenerateLineZero(samples);
+    GenerateLineVoltage(samples, 380.0f);
+    LOG_WRITE("%d", (uint16)samples[0]);
 }
 
 
 void Generator::GenerateCurrent(Sample samples[NUM_SAMPLES])
 {
-    GenerateLineMax(samples);
+    GenerateLineCurrent(samples, 10.0f);
 }
 
 
-void Generator::GenerateLineZero(Sample samples[NUM_SAMPLES])
+void Generator::GenerateLineVoltage(Sample samples[NUM_SAMPLES], float level)
 {
     for (int i = 0; i < NUM_SAMPLES; i++)
     {
-        samples[i] = Sample::ZERO;
+        samples[i].FromVoltage(level);
     }
 }
 
 
-void Generator::GenerateLineMax(Sample samples[NUM_SAMPLES])
+void Generator::GenerateLineCurrent(Sample samples[NUM_SAMPLES], float level)
 {
     for (int i = 0; i < NUM_SAMPLES; i++)
     {
-        samples[i] = Sample::MAX;
+        samples[i].FromCurrent(level);
     }
 }
 
 
-void Generator::GenerateLineMin(Sample samples[NUM_SAMPLES])
+void Generator::GenerateSineVoltage(Sample samples[NUM_SAMPLES], float amplitude)
 {
-    for (int i = 0; i < NUM_SAMPLES; i++)
-    {
-        samples[i] = Sample::MIN;
-    }
+
+}
+
+
+void Generator::GenerateSineCurrent(Sample samples[NUM_SAMPLES], float amplitude)
+{
+
 }
