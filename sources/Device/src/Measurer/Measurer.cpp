@@ -6,7 +6,7 @@
 #include "Utils/SoftwareGenerator.h"
 
 
-const float Sample::AMPLITUDE_VOLTAGE = 380.0f * 2.0f;
+const float Sample::AMPLITUDE_VOLTAGE = 220.0f * 2;
 
 
 namespace Measurer
@@ -137,11 +137,11 @@ float Sample::AmplitudeCurrent() const
 
 void Sample::FromVoltage(float level)
 {
-    rel = (uint16)(level / VoltsInSample() * 2);
+    rel = (uint16)(level / VoltsInSample() + ZERO);
 }
 
 
 void Sample::FromCurrent(float level)
 {
-    rel = (uint16)(level / AmpersInSample() * 2);
+    rel = (uint16)(level / AmpersInSample() + ZERO);
 }

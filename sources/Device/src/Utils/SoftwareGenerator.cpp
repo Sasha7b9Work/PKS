@@ -14,14 +14,13 @@ namespace Generator
 
 void Generator::GenerateVoltage(Sample samples[NUM_SAMPLES])
 {
-    GenerateLineVoltage(samples, 380.0f);
-    LOG_WRITE("%d", (uint16)samples[0]);
+    GenerateLineVoltage(samples, 220.0f);
 }
 
 
 void Generator::GenerateCurrent(Sample samples[NUM_SAMPLES])
 {
-    GenerateLineCurrent(samples, 10.0f);
+    GenerateLineCurrent(samples, -5.0f);
 }
 
 
