@@ -55,3 +55,5 @@ union BitSet32
   (((uint8)((uint)bits / 010000000) % 010) << 7)))
 
 #define BINARY_U8( bits ) _bitset(0##bits)
+
+#include "Log.h"

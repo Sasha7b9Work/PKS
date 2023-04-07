@@ -32,6 +32,8 @@ void Device::Init()
 
 void Device::Update()
 {
+    LOG_WRITE("Test");
+
     Measurer::Update();
 
     if (Measurer::MeasureReady())
