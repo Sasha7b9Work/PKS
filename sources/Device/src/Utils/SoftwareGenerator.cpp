@@ -3,13 +3,48 @@
 #include "Utils/SoftwareGenerator.h"
 
 
+namespace Generator
+{
+    static void GenerateLineNull(uint16[NUM_POINTS]);
+    static void GenerateLineMax(uint16[NUM_POINTS]);
+    static void GenerateLineMin(uint16[NUM_POINTS]);
+}
+
+
 void Generator::GenerateVoltage(uint16 samples[NUM_POINTS])
 {
-
+    GenerateLineMax(samples);
 }
 
 
 void Generator::GenerateCurrent(uint16 samples[NUM_POINTS])
 {
+    GenerateLineMax(samples);
+}
 
+
+void Generator::GenerateLineNull(uint16 samples[NUM_POINTS])
+{
+    for (int i = 0; i < NUM_POINTS; i++)
+    {
+        samples[i] = 2047;
+    }
+}
+
+
+void Generator::GenerateLineMax(uint16 samples[NUM_POINTS])
+{
+    for (int i = 0; i < NUM_POINTS; i++)
+    {
+        samples[i] = 4095;
+    }
+}
+
+
+void Generator::GenerateLineMin(uint16 samples[NUM_POINTS])
+{
+    for (int i = 0; i < NUM_POINTS; i++)
+    {
+        samples[i] = 0;
+    }
 }
