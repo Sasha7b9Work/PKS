@@ -7,8 +7,8 @@
 */
 
 
-#define TIME_MEASURE 140                                        // В миллисекундах
-#define NUM_PERIODS 7.0f                                        // Приблизительно периодов в одном измерении
+#define TIME_MEASURE 150                                        // В миллисекундах
+#define NUM_PERIODS 7.5f                                        // Приблизительно периодов в одном измерении
 #define NUM_POINTS  2000                                        // Число точек в одном измерении
 #define POINTS_ON_PERIOD ((float)NUM_POINTS / NUM_PERIODS)      // Точек на периодв
 

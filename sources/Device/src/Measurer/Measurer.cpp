@@ -23,8 +23,7 @@ namespace Measurer
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 
-    static uint time_start_measure = 0;
-    static uint time_measure = 0;
+    static TimeMeterMS meter;
 }
 
 
@@ -44,7 +43,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 {
     if (pos_adc_value == 0)
     {
-        time_start_measure = Timer::TimeMS();
+        meter.Reset();
     }
 
     if (pos_adc_value < NUM_POINTS)
@@ -61,8 +60,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
         if (pos_adc_value == NUM_POINTS)
         {
-            time_measure = Timer::TimeMS() - time_start_measure;
-            time_measure = time_measure;
+//            LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
         }
     }
 }

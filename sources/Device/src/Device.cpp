@@ -30,16 +30,6 @@ void Device::Init()
 
 void Device::Update()
 {
-    static TimeMeterMS meter;
-
-    if (meter.ElapsedTime() >= 1000)
-    {
-        meter.Reset();
-
-        LOG_WRITE("time %d ms", Timer::TimeMS());
-    }
-
-
     Measurer::Update();
 
     if (Measurer::MeasureReady())
