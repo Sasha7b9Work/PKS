@@ -134,7 +134,7 @@ float Sample::AmplitudeCurrent() const
 
 float Sample::AmplitudeVoltage() const
 {
-    return 220.0f * 2.0f;
+    return 300.0f * 2.0f;
 }
 
 
