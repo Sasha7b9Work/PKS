@@ -2,8 +2,8 @@
 #include "defines.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 #include "Hardware/HAL/HAL.h"
-#include <string.h>
-#include <stdlib.h>
+#include <cstring>
+#include <cstdlib>
 
 
 namespace SSD1306

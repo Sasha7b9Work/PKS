@@ -29,6 +29,7 @@ void HAL::Init()
 
     rcu_periph_clock_enable(RCU_ADC0);
     rcu_periph_clock_enable(RCU_DMA0);
+    rcu_periph_clock_enable(RCU_I2C0);
     rcu_periph_clock_enable(RCU_I2C1);
     rcu_periph_clock_enable(RCU_TIMER0);    // ADC
     rcu_periph_clock_enable(RCU_TIMER1);    // Timer

@@ -18,6 +18,7 @@ namespace HAL_ADC
 }
 
 
+// Для дисплея
 namespace HAL_I2C
 {
     void Init();
