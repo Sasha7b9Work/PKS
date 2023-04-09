@@ -21,7 +21,7 @@ namespace Generator
 
 void Generator::GenerateVoltage(Sample samples[NUM_SAMPLES])
 {
-    GenerateSineVoltage(samples, 220.0f * std::sqrtf(2.0f), true);
+    GenerateSineVoltage(samples, 220.0f * std::sqrtf(2.0f), false);
 }
 
 
@@ -85,27 +85,19 @@ void Generator::GenerateSineCurrent(Sample samples[NUM_SAMPLES], float amplitude
 double Generator::GenerateNoise()
 {
     static double noise = 0.0;
-    static double dir = 1.0;
-    const double bound = 15.0;
+    const double bound = 30.0;
 
-    double step = (double)(std::rand()) / 65535 / 10000.0;
+    double step = ((double)(std::rand()) / RAND_MAX - 0.5) * 2.0 * (bound / 20.0f);
 
-    if (step > bound)
-    {
-        LOG_WRITE("step %f exceeds the limits %f", step, bound);
-    }
-
-    noise += step * dir;
+    noise += step;
 
     if (noise > bound)
     {
         noise = bound;
-        dir = -dir;
     }
     else if (noise < -bound)
     {
         noise = -bound;
-        dir = -dir;
     }
 
     return noise;
