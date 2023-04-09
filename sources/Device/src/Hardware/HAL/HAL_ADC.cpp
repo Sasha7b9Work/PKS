@@ -81,11 +81,11 @@ void HAL_ADC::Init()
     timer_oc_parameter_struct timer_ocintpara;
     timer_parameter_struct timer_initpara;
 
-    timer_initpara.prescaler = (240 - 1);               // Получаем частоту 8 МГц / 480 = 16.(6) кГц. На этой частоте 2000 точек считываются за 120 мс
-    timer_initpara.alignedmode = TIMER_COUNTER_UP;
-    timer_initpara.counterdirection = TIMER_COUNTER_UP;
-    timer_initpara.period = (uint)(-1);
-    timer_initpara.clockdivision = TIMER_CKDIV_DIV2;
+    timer_initpara.prescaler = 30000;               // Получаем частоту 8 МГц / 480 = 16.(6) кГц. На этой частоте 2000 точек считываются за 120 мс
+    timer_initpara.alignedmode = TIMER_COUNTER_DOWN;
+    timer_initpara.counterdirection = TIMER_COUNTER_DOWN;
+    timer_initpara.period = 0xFFF;
+    timer_initpara.clockdivision = TIMER_CKDIV_DIV4;
     timer_initpara.repetitioncounter = 0;
     timer_init(TIMER0, &timer_initpara);
 
@@ -96,14 +96,14 @@ void HAL_ADC::Init()
     timer_ocintpara.outputstate = TIMER_CCX_ENABLE;
     timer_channel_output_config(TIMER0, TIMER_CH_0, &timer_ocintpara);
 
-    timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, 2999);
+    timer_channel_output_pulse_value_config(TIMER0, TIMER_CH_0, 4094);
     timer_channel_output_mode_config(TIMER0, TIMER_CH_0, TIMER_OC_MODE_PWM1);
     timer_channel_output_shadow_config(TIMER0, TIMER_CH_0, TIMER_OC_SHADOW_DISABLE);
 
     /* TIMER0 primary output enable */
     timer_primary_output_config(TIMER0, ENABLE);
     /* auto-reload preload enable */
-    timer_auto_reload_shadow_enable(TIMER0);
+    timer_auto_reload_shadow_disable(TIMER0);
 
     timer_enable(TIMER0);
 

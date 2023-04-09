@@ -124,6 +124,7 @@ extern "C" {
         HAL_ADC::Callback();
 
         adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOC);
+        adc_interrupt_flag_clear(ADC0, ADC_INT_FLAG_EOIC);
     }
 
     void UART3_IRQHandler(void)
