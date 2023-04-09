@@ -6,6 +6,43 @@
 
 namespace Contactor
 {
+    enum E
+    {
+        MX0,
+        MX1,
+        MX2,
+        MX3,
+        MX4,
+        KMA1,
+        KMA2,
+        KMA3,
+        KMA4,
+        KMA5,
+        KMA6,
+        KMA7,
+        KMA8,
+        KMA9,
+        KMB1,
+        KMB2,
+        KMB3,
+        KMB4,
+        KMB5,
+        KMB6,
+        KMB7,
+        KMB8,
+        KMB9,
+        KMC1,
+        KMC2,
+        KMC3,
+        KMC4,
+        KMC5,
+        KMC6,
+        KMC7,
+        KMC8,
+        KMC9,
+        Cout
+    };
+
     static PinOUT *pins[Cout] =
     {
         &pinOutMX0,
@@ -41,6 +78,10 @@ namespace Contactor
         &pinOutKMC8,
         &pinOutKMC9
     };
+
+    void Enable(E);
+
+    void Disable(E);
 }
 
 
@@ -62,4 +103,10 @@ void Contactor::Enable(E pin)
 void Contactor::Disable(E pin)
 {
     pins[pin]->Reset();
+}
+
+
+void Contactor::Update(const FullMeasure &measure)
+{
+
 }

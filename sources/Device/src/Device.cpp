@@ -16,8 +16,6 @@
 namespace Device
 {
     static void UpdateModem();
-    
-    static void ProcessMeasure();
 }
 
 
@@ -39,7 +37,8 @@ void Device::Update()
 
     if (Measurer::MeasureReady())
     {
-        ProcessMeasure();
+        FullMeasure measure = Measurer::GetMeasure();
+        Contactor::Update(measure);
     }
 
     Updater::Update();
@@ -63,16 +62,4 @@ void Device::UpdateModem()
 
         Modem::Transmit("AT+IPR?");
     }
-}
-
-
-void Device::ProcessMeasure()
-{
-    struct FullMeasure measure = Measurer::GetMeasure();
-
-    static TimeMeterMS meter;
-
-    LOG_WRITE("voltage %f, current %f, power %f", measure.measures[0].voltage, measure.measures[0].current, measure.measures[0].power);
-
-    meter.Reset();
 }
