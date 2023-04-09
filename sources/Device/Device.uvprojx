@@ -524,6 +524,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
+            <File>
+              <FileName>Contactor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Contactor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Contactor.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1280,6 +1290,16 @@
               <FileName>Timer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Contactor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Contactor.h</FilePath>
             </File>
           </Files>
         </Group>
