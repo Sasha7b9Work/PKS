@@ -9,6 +9,7 @@
 #include "Test.h"
 #include "Utils/Updater.h"
 #include "Hardware/Timer.h"
+#include "Hardware/Contactor.h"
 #include <gd32f30x_rcu.h>
 
 
@@ -25,6 +26,8 @@ void Device::Init()
     HAL::Init();
 
     Modem::Init();
+
+    Contactor::Init();
 
 //    Display::Init();
 }

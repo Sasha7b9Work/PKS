@@ -44,6 +44,18 @@ private:
 };
 
 
+struct PinOUT
+{
+    PinOUT(uint _port, uint _pin) : port(_port), pin(_pin) { }
+    void Init();
+    void Set();
+    void Reset();
+private:
+    uint port;
+    uint pin;
+};
+
+
 extern PinADC pinVolt1;     // ACVOLTOUT1
 extern PinADC pinVolt2;     // ACVOLTOUT2
 extern PinADC pinVolt3;     // ACVOLTOUT3
@@ -69,3 +81,36 @@ extern PinUSART_TX pinUSART_LOG_TX;
 extern PinUSART_RX pinUSART_LOG_RX;
 
 extern const uint SPI_ADDR;
+
+extern PinOUT pinOutMX0;
+extern PinOUT pinOutMX1;
+extern PinOUT pinOutMX2;
+extern PinOUT pinOutMX3;
+extern PinOUT pinOutMX4;
+extern PinOUT pinOutKMA1;
+extern PinOUT pinOutKMA2;
+extern PinOUT pinOutKMA3;
+extern PinOUT pinOutKMA4;
+extern PinOUT pinOutKMA5;
+extern PinOUT pinOutKMA6;
+extern PinOUT pinOutKMA7;
+extern PinOUT pinOutKMA8;
+extern PinOUT pinOutKMA9;
+extern PinOUT pinOutKMB1;
+extern PinOUT pinOutKMB2;
+extern PinOUT pinOutKMB3;
+extern PinOUT pinOutKMB4;
+extern PinOUT pinOutKMB5;
+extern PinOUT pinOutKMB6;
+extern PinOUT pinOutKMB7;
+extern PinOUT pinOutKMB8;
+extern PinOUT pinOutKMB9;
+extern PinOUT pinOutKMC1;
+extern PinOUT pinOutKMC2;
+extern PinOUT pinOutKMC3;
+extern PinOUT pinOutKMC4;
+extern PinOUT pinOutKMC5;
+extern PinOUT pinOutKMC6;
+extern PinOUT pinOutKMC7;
+extern PinOUT pinOutKMC8;
+extern PinOUT pinOutKMC9;
