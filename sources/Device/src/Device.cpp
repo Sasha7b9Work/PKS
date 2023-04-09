@@ -25,6 +25,8 @@ void Device::Init()
     HAL::Init();
 
     Modem::Init();
+
+    Display::Init();
 }
 
 
@@ -40,6 +42,8 @@ void Device::Update()
     Updater::Update();
 
     UpdateModem();
+
+    Display::Update();
 }
 
 
@@ -52,7 +56,7 @@ void Device::UpdateModem()
         meter.Reset();
 
         pchar answer = Modem::LastAnswer();
-        answer = answer;
+        LOG_WRITE("modem %s", answer);
 
         Modem::Transmit("AT+IPR?");
     }
@@ -63,5 +67,9 @@ void Device::ProcessMeasure()
 {
     struct FullMeasure measure = Measurer::GetMeasure();
 
-    LOG_WRITE("voltage %f, current %f, power %f", measure.measures[0].voltage, measure.measures[0].current, measure.measures[0].power);
+    static TimeMeterMS meter;
+
+    LOG_WRITE("voltage %f, time process measure %d ms", measure.measures[0].voltage, meter.ElapsedTime());
+
+    meter.Reset();
 }

@@ -32,7 +32,9 @@ void Measurer::Update()
 {
     if (BuffersFull() && !measure_ready)
     {
+        TimeMeterMS meterUpdate;
         Calculate();
+//        LOG_WRITE("time calculate %d ms", meterUpdate.ElapsedTime());
 
         measure_ready = true;
     }

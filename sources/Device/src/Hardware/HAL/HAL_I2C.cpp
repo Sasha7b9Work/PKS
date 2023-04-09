@@ -1,11 +1,47 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
 #include <gd32f30x.h>
 
 
 #define I2C_SPEED              100000
 #define I2C_SLAVE_ADDRESS7     (0x3c << 1)
 #define I2C_PAGE_SIZE           8
+
+
+namespace HAL_I2C
+{
+    static void WaitFlagYes(i2c_flag_enum);
+    static void WaitFlagNo(i2c_flag_enum);
+}
+
+
+void HAL_I2C::WaitFlagYes(i2c_flag_enum flag)
+{
+    TimeMeterMS meter;
+
+    while (i2c_flag_get(I2C_ADDR, flag))
+    {
+        if (meter.ElapsedTime() > 10)
+        {
+            break;
+        }
+    }
+}
+
+
+void HAL_I2C::WaitFlagNo(i2c_flag_enum flag)
+{
+    TimeMeterMS meter;
+
+    while (!i2c_flag_get(I2C_ADDR, flag))
+    {
+        if (meter.ElapsedTime() > 10)
+        {
+            break;
+        }
+    }
+}
 
 
 void HAL_I2C::Init()
@@ -29,19 +65,19 @@ void HAL_I2C::Init()
 void HAL_I2C::Write8(uint8 data)
 {
     /* wait until I2C bus is idle */
-    while(i2c_flag_get(I2C_ADDR, I2C_FLAG_I2CBSY));
+    WaitFlagYes(I2C_FLAG_I2CBSY);
 
     /* send a start condition to I2C bus */
     i2c_start_on_bus(I2C_ADDR);
 
     /* wait until SBSEND bit is set */
-    while(!i2c_flag_get(I2C_ADDR, I2C_FLAG_SBSEND));
+    WaitFlagNo(I2C_FLAG_SBSEND);
 
     /* send slave address to I2C bus */
     i2c_master_addressing(I2C_ADDR, I2C_SLAVE_ADDRESS7, I2C_TRANSMITTER);
 
     /* wait until ADDSEND bit is set */
-    while(!i2c_flag_get(I2C_ADDR, I2C_FLAG_ADDSEND));
+    WaitFlagNo(I2C_FLAG_ADDSEND);
 
     /* N=1,reset ACKEN bit before clearing ADDRSEND bit */
     i2c_ack_config(I2C_ADDR, I2C_ACK_DISABLE);
@@ -52,7 +88,7 @@ void HAL_I2C::Write8(uint8 data)
     i2c_data_transmit(I2C_ADDR, data);
     
     /* wait until the TBE bit is set */
-    while(!i2c_flag_get(I2C_ADDR, I2C_FLAG_TBE));
+    WaitFlagNo(I2C_FLAG_TBE);
 
     /* send a stop condition to I2C bus */
     i2c_stop_on_bus(I2C_ADDR);
@@ -68,19 +104,19 @@ void HAL_I2C::Write8(uint8 data)
 void HAL_I2C::Write(uint8 *data, int size)
 {
     /* wait until I2C bus is idle */
-    while(i2c_flag_get(I2C_ADDR, I2C_FLAG_I2CBSY));
+    WaitFlagYes(I2C_FLAG_I2CBSY);
 
     /* send a start condition to I2C bus */
     i2c_start_on_bus(I2C_ADDR);
 
     /* wait until SBSEND bit is set */
-    while(!i2c_flag_get(I2C_ADDR, I2C_FLAG_SBSEND));
+    WaitFlagNo(I2C_FLAG_SBSEND);
 
     /* send slave address to I2C bus */
     i2c_master_addressing(I2C_ADDR, I2C_SLAVE_ADDRESS7, I2C_TRANSMITTER);
 
     /* wait until ADDSEND bit is set */
-    while(!i2c_flag_get(I2C_ADDR, I2C_FLAG_ADDSEND));
+    WaitFlagNo(I2C_FLAG_ADDSEND);
 
     /* N=1,reset ACKEN bit before clearing ADDRSEND bit */
     i2c_ack_config(I2C_ADDR, I2C_ACK_DISABLE);
@@ -93,7 +129,7 @@ void HAL_I2C::Write(uint8 *data, int size)
         i2c_data_transmit(I2C_ADDR, *data++);
     
         /* wait until the TBE bit is set */
-        while(!i2c_flag_get(I2C_ADDR, I2C_FLAG_TBE));
+        WaitFlagNo(I2C_FLAG_TBE);
     }
 
     /* send a stop condition to I2C bus */
