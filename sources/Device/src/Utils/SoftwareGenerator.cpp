@@ -21,7 +21,7 @@ namespace Generator
 
 void Generator::GenerateVoltage(Sample samples[NUM_SAMPLES])
 {
-    GenerateSineVoltage(samples, 220.0f * std::sqrtf(2.0f), false);
+    GenerateSineVoltage(samples, 220.0f * std::sqrtf(2.0f), true);
 }
 
 
