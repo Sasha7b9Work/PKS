@@ -21,7 +21,7 @@ namespace Generator
 
 void Generator::GenerateVoltage(Sample samples[NUM_SAMPLES])
 {
-    GenerateSineVoltage(samples, 220.0f * std::sqrtf(2.0f), false);
+    GenerateSineVoltage(samples, 220.0f * std::sqrtf(2.0f), true);
 }
 
 
@@ -85,7 +85,7 @@ void Generator::GenerateSineCurrent(Sample samples[NUM_SAMPLES], float amplitude
 double Generator::GenerateNoise()
 {
     static double noise = 0.0;
-    const double bound = 30.0;
+    const double bound = 70.0;
 
     double step = ((double)(std::rand()) / RAND_MAX - 0.5) * 2.0 * (bound / 20.0f);
 
