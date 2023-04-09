@@ -37,7 +37,8 @@ namespace Contactor
         KMC6,
         KMC7,
         KMC8,
-        KMC9
+        KMC9,
+        Cout
     };
 
     void Init();
