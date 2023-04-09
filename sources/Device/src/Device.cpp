@@ -26,7 +26,7 @@ void Device::Init()
 
     Modem::Init();
 
-    Display::Init();
+//    Display::Init();
 }
 
 
@@ -43,7 +43,7 @@ void Device::Update()
 
     UpdateModem();
 
-    Display::Update();
+//    Display::Update();
 }
 
 

@@ -1,9 +1,10 @@
-﻿// 2023/03/30 11:03:58 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2023/03/30 11:03:58 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Measurer/Measurer.h"
 #include "Measurer/Calculator.h"
 #include "Hardware/Timer.h"
 #include "Utils/SoftwareGenerator.h"
+#include <cmath>
 
 
 namespace Measurer
@@ -136,7 +137,7 @@ float Sample::AmplitudeCurrent() const
 
 float Sample::AmplitudeVoltage() const
 {
-    return 300.0f * 2.0f;
+    return 400.0f * 2.0f;
 }
 
 

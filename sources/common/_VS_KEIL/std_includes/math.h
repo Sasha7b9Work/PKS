@@ -9,3 +9,4 @@ float sinf(float);
 float expf(float);
 void srand(unsigned int);
 float powf(float, float);
+float floor(float);

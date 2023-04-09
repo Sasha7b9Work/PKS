@@ -8,6 +8,7 @@ bool isinf(float);
 namespace std
 {
     double sin(double);
+    float floor(float);
 
 #include "math.h"
 }
