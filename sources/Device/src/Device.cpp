@@ -69,7 +69,7 @@ void Device::ProcessMeasure()
 
     static TimeMeterMS meter;
 
-    LOG_WRITE("voltage %f, time process measure %d ms", measure.measures[0].voltage, meter.ElapsedTime());
+    LOG_WRITE("voltage %f, current %f, power %f", measure.measures[0].voltage, measure.measures[0].current, measure.measures[0].power);
 
     meter.Reset();
 }

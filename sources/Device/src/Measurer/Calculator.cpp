@@ -1,6 +1,6 @@
 // 2023/03/16 16:53:18 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Measurer/Calculator.h"
+#include "Measurer/Measurer.h"
 #include <math.h>
 
 
@@ -10,37 +10,37 @@ namespace Calculator
 }
 
 
-float Calculator::CalculateCurrentRMS(const Sample samples[NUM_SAMPLES])
+void PhaseMeasure::Calculate(const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES])
 {
-    int period = CalculatePeriod(samples);
+    int period = Calculator::CalculatePeriod(samplesVolts);
 
-    float result = 0.0f;
+    // Рассчитываем ток
+
+    float currentRMS = 0.0f;
 
     for (int i = 0; i < period; i++)
     {
-        float current = samples[i].ToCurrent();
+        float value = samplesAmpers[i].ToCurrent();
 
-        result += current * current;
+        currentRMS += value * value;
     }
 
-    return sqrtf(result / (float)period);
-}
+    current = sqrtf(currentRMS / (float)period);
 
+    // Рассчитывем напряжение
 
-float Calculator::CalculateVoltageRMS(const Sample samples[NUM_SAMPLES])
-{
-    int period = CalculatePeriod(samples);
-
-    float result = 0.0f;
+    float voltsRMS = 0.0f;
 
     for (int i = 0; i < period; i++)
     {
-        float voltage = Sample(samples[i]).ToVoltage();
+        float value = samplesVolts[i].ToVoltage();
 
-        result += voltage * voltage;
+        voltsRMS += value * value;
     }
 
-    return sqrtf(result / (float)period);
+    voltage = sqrtf(voltsRMS / (float)period);
+
+    power = current * voltage;
 }
 
 

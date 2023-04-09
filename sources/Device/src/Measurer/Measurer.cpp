@@ -1,7 +1,6 @@
 // 2023/03/30 11:03:58 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Measurer/Measurer.h"
-#include "Measurer/Calculator.h"
 #include "Hardware/Timer.h"
 #include "Utils/SoftwareGenerator.h"
 #include <cmath>
@@ -24,8 +23,6 @@ namespace Measurer
     static Sample voltC[NUM_SAMPLES];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
-
-    static TimeMeterMS meter;
 }
 
 
@@ -44,6 +41,8 @@ void Measurer::Update()
 
 void Measurer::AppendMeasures(uint16 adc_values[6])
 {
+    static TimeMeterMS meter;
+
     if (pos_adc_value == 0)
     {
         meter.Reset();
@@ -68,7 +67,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
             Generator::GenerateCurrent(currentA);
 #endif
 
-//            LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
+            LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
         }
     }
 }
@@ -80,25 +79,11 @@ bool Measurer::BuffersFull()
 }
 
 
-void PhaseMeasure::CalculatePower()
-{
-    power = current * voltage;
-}
-
-
 void Measurer::Calculate()
 {
-    measure.measures[0].current = Calculator::CalculateCurrentRMS(currentA);
-    measure.measures[1].current = Calculator::CalculateCurrentRMS(currentB);
-    measure.measures[2].current = Calculator::CalculateCurrentRMS(currentC);
-
-    measure.measures[0].voltage = Calculator::CalculateVoltageRMS(voltA);
-    measure.measures[1].voltage = Calculator::CalculateVoltageRMS(voltB);
-    measure.measures[2].voltage = Calculator::CalculateVoltageRMS(voltC);
-
-    measure.measures[0].CalculatePower();
-    measure.measures[1].CalculatePower();
-    measure.measures[2].CalculatePower();
+    measure.measures[0].Calculate(currentA, voltA);
+    measure.measures[1].Calculate(currentB, voltB);
+    measure.measures[2].Calculate(currentC, voltC);
 }
 
 
