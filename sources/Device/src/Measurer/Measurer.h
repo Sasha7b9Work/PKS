@@ -13,6 +13,16 @@
 #define SAMPLES_ON_PERIOD ((float)NUM_SAMPLES / NUM_PERIODS)    // Точек на периодв
 
 
+struct Phase
+{
+    enum E
+    {
+        A,
+        B,
+        C
+    };
+};
+
 struct Sample
 {
     static const uint16 MAX = 4094;

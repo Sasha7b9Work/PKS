@@ -50,6 +50,16 @@ struct PinOUT
     void Init();
     void Set();
     void Reset();
+    void SetState(bool);
+private:
+    uint port;
+    uint pin;
+};
+
+
+struct PinIN
+{
+    bool IsLow();
 private:
     uint port;
     uint pin;
@@ -114,3 +124,31 @@ extern PinOUT pinOutKMC6;
 extern PinOUT pinOutKMC7;
 extern PinOUT pinOutKMC8;
 extern PinOUT pinOutKMC9;
+
+extern PinIN pinInKMA1;
+extern PinIN pinInKMA2;
+extern PinIN pinInKMA3;
+extern PinIN pinInKMA4;
+extern PinIN pinInKMA5;
+extern PinIN pinInKMA6;
+extern PinIN pinInKMA7;
+extern PinIN pinInKMA8;
+extern PinIN pinInKMA9;
+extern PinIN pinInKMB1;
+extern PinIN pinInKMB2;
+extern PinIN pinInKMB3;
+extern PinIN pinInKMB4;
+extern PinIN pinInKMB5;
+extern PinIN pinInKMB6;
+extern PinIN pinInKMB7;
+extern PinIN pinInKMB8;
+extern PinIN pinInKMB9;
+extern PinIN pinInKMC1;
+extern PinIN pinInKMC2;
+extern PinIN pinInKMC3;
+extern PinIN pinInKMC4;
+extern PinIN pinInKMC5;
+extern PinIN pinInKMC6;
+extern PinIN pinInKMC7;
+extern PinIN pinInKMC8;
+extern PinIN pinInKMC9;

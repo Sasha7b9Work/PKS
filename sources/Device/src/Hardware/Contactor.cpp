@@ -80,17 +80,30 @@ namespace Contactor
         &pinOutKMC9
     };
 
-    static void Enable(E);
+    struct PinOUT *pinsKM[3][10] =
+    {
+        {nullptr, &pinOutKMA1, &pinOutKMA2, &pinOutKMA3, &pinOutKMA4, &pinOutKMA5, &pinOutKMA6, &pinOutKMA7, &pinOutKMA8, &pinOutKMA9},
+        {nullptr, &pinOutKMB1, &pinOutKMB2, &pinOutKMB3, &pinOutKMB4, &pinOutKMB5, &pinOutKMB6, &pinOutKMB7, &pinOutKMB8, &pinOutKMB9},
+        {nullptr, &pinOutKMC1, &pinOutKMC2, &pinOutKMC3, &pinOutKMC4, &pinOutKMC5, &pinOutKMC6, &pinOutKMC7, &pinOutKMC8, &pinOutKMC9}
+    };
 
-    static void Disable(E);
+    struct PinIN *pinsInKM[3][10] =
+    {
+        {nullptr, &pinInKMA1, &pinInKMA2, &pinInKMA3, &pinInKMA4, &pinInKMA5, &pinInKMA6, &pinInKMA7, &pinInKMA8, &pinInKMA9},
+        {nullptr, &pinInKMB1, &pinInKMB2, &pinInKMB3, &pinInKMB4, &pinInKMB5, &pinInKMB6, &pinInKMB7, &pinInKMB8, &pinInKMB9},
+        {nullptr, &pinInKMC1, &pinInKMC2, &pinInKMC3, &pinInKMC4, &pinInKMC5, &pinInKMC6, &pinInKMC7, &pinInKMC8, &pinInKMC9}
+    };
 
-    static void UpdatePhase(const PhaseMeasure &);
+    static void UpdatePhase(Phase::E, const PhaseMeasure &);
 
-#define KM_ON       1U
-#define KM_OFF      0
-#define KM_PAUSE    5000U   //be aware to set pause less than watchdog interval
+#define KM_ON               true
+#define KM_OFF              false
+#define KM_PAUSE            5000U   //be aware to set pause less than watchdog interval
+#define KM_TRANSITION_DELAY 130U
 
-    static void km_action(uint8 _n, uint8 _state);
+    static void km_action(Phase::E, uint8 _n, bool _state);
+
+    static void km_error(uint8 _n);
 
     static float adc_160v = 160.0f;
     static float adc_190v = 190.0f;
@@ -116,28 +129,16 @@ void Contactor::Init()
 }
 
 
-void Contactor::Enable(E pin)
-{
-    pins[pin]->Set();
-}
-
-
-void Contactor::Disable(E pin)
-{
-    pins[pin]->Reset();
-}
-
-
 void Contactor::Update(const FullMeasure &measure)
 {
     for (int i = 0; i < 3; i++)
     {
-        UpdatePhase(measure.measures[i]);
+        UpdatePhase((Phase::E)i, measure.measures[i]);
     }
 }
 
 
-void Contactor::UpdatePhase(const PhaseMeasure &measure)
+void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 {
     static int32_t _current_stage_num = 0, _old_stage_num;
     //static uint32_t _voltage_old = 0;
@@ -225,277 +226,128 @@ void Contactor::UpdatePhase(const PhaseMeasure &measure)
         //first, switch to bypass
         if (_old_stage_num != 0)
         {
-            km_action(2, KM_ON);
-            km_action(3, KM_ON);
-            km_action(1, KM_OFF);
-            km_action(2, KM_OFF);
+            km_action(phase, 2, KM_ON);
+            km_action(phase, 3, KM_ON);
+            km_action(phase, 1, KM_OFF);
+            km_action(phase, 2, KM_OFF);
             delay_1ms(KM_PAUSE);
 //            HAL_IWDG_Refresh(&hiwdg);
-            km_action(3, KM_OFF);
+            km_action(phase, 3, KM_OFF);
         };
 
         //set current stage
         if ((_current_stage_num == 0) || (_current_stage_num == 1))
         {
-            km_action(4, KM_OFF);
-            km_action(5, KM_OFF);
-            km_action(6, KM_OFF);
-            km_action(7, KM_OFF);
-            km_action(8, KM_OFF);
+            km_action(phase, 4, KM_OFF);
+            km_action(phase, 5, KM_OFF);
+            km_action(phase, 6, KM_OFF);
+            km_action(phase, 7, KM_OFF);
+            km_action(phase, 8, KM_OFF);
         };
 
         if (_current_stage_num == 2)
         {
-            km_action(4, KM_OFF);
-            km_action(5, KM_OFF);
-            km_action(6, KM_ON);
-            km_action(7, KM_ON);
-            km_action(8, KM_OFF);
+            km_action(phase, 4, KM_OFF);
+            km_action(phase, 5, KM_OFF);
+            km_action(phase, 6, KM_ON);
+            km_action(phase, 7, KM_ON);
+            km_action(phase, 8, KM_OFF);
         };
 
         if (_current_stage_num == 3)
         {
-            km_action(4, KM_OFF);
-            km_action(5, KM_ON);
-            km_action(6, KM_ON);
-            km_action(7, KM_ON);
-            km_action(8, KM_OFF);
+            km_action(phase, 4, KM_OFF);
+            km_action(phase, 5, KM_ON);
+            km_action(phase, 6, KM_ON);
+            km_action(phase, 7, KM_ON);
+            km_action(phase, 8, KM_OFF);
         };
 
         if (_current_stage_num == 4)
         {
-            km_action(4, KM_ON);
-            km_action(5, KM_ON);
-            km_action(6, KM_ON);
-            km_action(7, KM_ON);
-            km_action(8, KM_OFF);
+            km_action(phase, 4, KM_ON);
+            km_action(phase, 5, KM_ON);
+            km_action(phase, 6, KM_ON);
+            km_action(phase, 7, KM_ON);
+            km_action(phase, 8, KM_OFF);
         };
 
         if (_current_stage_num == -1)
         {
-            km_action(4, KM_OFF);
-            km_action(5, KM_OFF);
-            km_action(6, KM_OFF);
-            km_action(7, KM_OFF);
-            km_action(8, KM_ON);
+            km_action(phase, 4, KM_OFF);
+            km_action(phase, 5, KM_OFF);
+            km_action(phase, 6, KM_OFF);
+            km_action(phase, 7, KM_OFF);
+            km_action(phase, 8, KM_ON);
         };
 
         if (_current_stage_num == -2)
         {
-            km_action(4, KM_OFF);
-            km_action(5, KM_OFF);
-            km_action(6, KM_ON);
-            km_action(7, KM_ON);
-            km_action(8, KM_ON);
+            km_action(phase, 4, KM_OFF);
+            km_action(phase, 5, KM_OFF);
+            km_action(phase, 6, KM_ON);
+            km_action(phase, 7, KM_ON);
+            km_action(phase, 8, KM_ON);
         };
 
         if (_current_stage_num == -3)
         {
-            km_action(4, KM_OFF);
-            km_action(5, KM_ON);
-            km_action(6, KM_ON);
-            km_action(7, KM_ON);
-            km_action(8, KM_ON);
+            km_action(phase, 4, KM_OFF);
+            km_action(phase, 5, KM_ON);
+            km_action(phase, 6, KM_ON);
+            km_action(phase, 7, KM_ON);
+            km_action(phase, 8, KM_ON);
         };
 
         if (_current_stage_num == -4)
         {
-            km_action(4, KM_ON);
-            km_action(5, KM_ON);
-            km_action(6, KM_ON);
-            km_action(7, KM_ON);
-            km_action(8, KM_ON);
+            km_action(phase, 4, KM_ON);
+            km_action(phase, 5, KM_ON);
+            km_action(phase, 6, KM_ON);
+            km_action(phase, 7, KM_ON);
+            km_action(phase, 8, KM_ON);
         };
 
         //final sequence if not bypass
         if (_current_stage_num != 0)
         {
-            km_action(2, KM_ON);
-            km_action(3, KM_ON);
-            km_action(1, KM_ON);
-            km_action(2, KM_OFF);
+            km_action(phase, 2, KM_ON);
+            km_action(phase, 3, KM_ON);
+            km_action(phase, 1, KM_ON);
+            km_action(phase, 2, KM_OFF);
             delay_1ms(KM_PAUSE);
 //            HAL_IWDG_Refresh(&hiwdg);
-            km_action(3, KM_OFF);
+            km_action(phase, 3, KM_OFF);
         };
     };
 }
 
 
-void Contactor::km_action(uint8 _n, uint8 _state)
+void Contactor::km_action(Phase::E phase, uint8 _n, bool _state)
 {
     uint _delay = 50U;          //2.5 periods of grid is a timeout to acquisite pulses from AC detectors
     uint _off_cnt = 0, _on_cnt = 0;
 
     systick_f = 0;
 
-    //KM1
-    if (_n == 1)
+    pinsKM[phase][_n]->SetState(_state);
+    delay_1ms(KM_TRANSITION_DELAY);
+
+    while (_delay)
     {
-        HAL_GPIO_WritePin(KM1_GPIO_Port, KM1_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
+        if (pinsInKM[phase][_n]->IsLow())
+            _on_cnt++;
 
-        while (_delay)
+        if (pinsInKM[phase][9]->IsLow())
+            _off_cnt++;
+
+        if (systick_f)
         {
-            if (HAL_GPIO_ReadPin(TSTKM1_GPIO_Port, TSTKM1_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM9_GPIO_Port, TSTKM9_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
+            systick_f = 0;
+            _delay--;
         };
     };
 
-    //KM2 on
-    if (_n == 2)
-    {
-        HAL_GPIO_WritePin(KM2_GPIO_Port, KM2_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM2_GPIO_Port, TSTKM2_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM10_GPIO_Port, TSTKM10_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
-
-    //KM3 on
-    if (_n == 3)
-    {
-        HAL_GPIO_WritePin(KM3_GPIO_Port, KM3_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM3_GPIO_Port, TSTKM3_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM11_GPIO_Port, TSTKM11_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
-
-    //KM4 on
-    if (_n == 4)
-    {
-        HAL_GPIO_WritePin(KM4_GPIO_Port, KM4_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM4_GPIO_Port, TSTKM4_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM12_GPIO_Port, TSTKM12_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
-
-    //KM5 on
-    if (_n == 5)
-    {
-        HAL_GPIO_WritePin(KM5_GPIO_Port, KM5_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM5_GPIO_Port, TSTKM5_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM13_GPIO_Port, TSTKM13_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
-
-    //KM6 on
-    if (_n == 6)
-    {
-        HAL_GPIO_WritePin(KM6_GPIO_Port, KM6_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM6_GPIO_Port, TSTKM6_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM14_GPIO_Port, TSTKM14_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
-
-    //KM7 on
-    if (_n == 7)
-    {
-        HAL_GPIO_WritePin(KM7_GPIO_Port, KM7_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM7_GPIO_Port, TSTKM7_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM15_GPIO_Port, TSTKM15_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
-
-    //KM8 on
-    if (_n == 8)
-    {
-        HAL_GPIO_WritePin(KM8_GPIO_Port, KM8_Pin, _state ? GPIO_PIN_SET : GPIO_PIN_RESET);
-        HAL_Delay(KM_TRANSITION_DELAY);
-
-        while (_delay)
-        {
-            if (HAL_GPIO_ReadPin(TSTKM8_GPIO_Port, TSTKM8_Pin) == GPIO_PIN_RESET)
-                _on_cnt++;
-            if (HAL_GPIO_ReadPin(TSTKM16_GPIO_Port, TSTKM16_Pin) == GPIO_PIN_RESET)
-                _off_cnt++;
-
-            if (systick_f)
-            {
-                systick_f = 0;
-                _delay--;
-            };
-        };
-    };
 
 #ifndef CONTACTORS_NO_FEEDBACK
     //check contactorts except KM8
@@ -508,4 +360,10 @@ void Contactor::km_action(uint8 _n, uint8 _state)
             km_error(_n);
     };
 #endif
+}
+
+
+void Contactor::km_error(uint8)
+{
+
 }

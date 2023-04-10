@@ -64,6 +64,35 @@ PinOUT pinOutKMC8(GPIOD, GPIO_PIN_14);
 PinOUT pinOutKMC9(GPIOD, GPIO_PIN_15);
 
 
+PinIN pinInKMA1;
+PinIN pinInKMA2;
+PinIN pinInKMA3;
+PinIN pinInKMA4;
+PinIN pinInKMA5;
+PinIN pinInKMA6;
+PinIN pinInKMA7;
+PinIN pinInKMA8;
+PinIN pinInKMA9;
+PinIN pinInKMB1;
+PinIN pinInKMB2;
+PinIN pinInKMB3;
+PinIN pinInKMB4;
+PinIN pinInKMB5;
+PinIN pinInKMB6;
+PinIN pinInKMB7;
+PinIN pinInKMB8;
+PinIN pinInKMB9;
+PinIN pinInKMC1;
+PinIN pinInKMC2;
+PinIN pinInKMC3;
+PinIN pinInKMC4;
+PinIN pinInKMC5;
+PinIN pinInKMC6;
+PinIN pinInKMC7;
+PinIN pinInKMC8;
+PinIN pinInKMC9;
+
+
 void PinADC::Init()
 {
     gpio_init(port, GPIO_MODE_AIN, GPIO_OSPEED_MAX, pin);
@@ -103,4 +132,16 @@ void PinOUT::Set()
 void PinOUT::Reset()
 {
     GPIO_BC(port) = pin;
+}
+
+
+void PinOUT::SetState(bool state)
+{
+    state ? Set() : Reset();
+}
+
+
+bool PinIN::IsLow()
+{
+    return gpio_input_bit_get(port, pin) == RESET;
 }
