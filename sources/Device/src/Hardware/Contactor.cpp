@@ -105,16 +105,16 @@ namespace Contactor
 
     static void km_error(uint8 _n);
 
-    static float adc_160v = 160.0f;
-    static float adc_190v = 190.0f;
-    static float adc_200v = 200.0f;
-    static float adc_210v = 210.0f;
-    static float adc_220v = 220.0f;
-    static float adc_230v = 230.0f;
-    static float adc_240v = 240.0f;
-    static float adc_250v = 250.0f;
-    static float adc_260v = 260.0f;
-    static float adc_270v = 270.0f;
+    static float adc_160v[Phase::Count] = { 160.0f, 160.0f, 160.0f };
+    static float adc_190v[Phase::Count] = { 190.0f, 190.0f, 190.0f };
+    static float adc_200v[Phase::Count] = { 200.0f, 200.0f, 200.0f };
+    static float adc_210v[Phase::Count] = { 210.0f, 210.0f, 210.0f };
+    static float adc_220v[Phase::Count] = { 220.0f, 220.0f, 220.0f };
+    static float adc_230v[Phase::Count] = { 230.0f, 230.0f, 230.0f };
+    static float adc_240v[Phase::Count] = { 240.0f, 240.0f, 240.0f };
+    static float adc_250v[Phase::Count] = { 250.0f, 250.0f, 250.0f };
+    static float adc_260v[Phase::Count] = { 260.0f, 260.0f, 260.0f };
+    static float adc_270v[Phase::Count] = { 270.0f, 270.0f, 270.0f };
 
     static uint8 systick_f = 0;
 }
@@ -140,91 +140,92 @@ void Contactor::Update(const FullMeasure &measure)
 
 void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 {
-    static int32_t _current_stage_num = 0, _old_stage_num;
+    static int _current_stage_num[Phase::Count] = { 0, 0, 0 };
+    static int _old_stage_num[Phase::Count];
     //static uint32_t _voltage_old = 0;
 
-    _old_stage_num = _current_stage_num;
+    _old_stage_num[phase] = _current_stage_num[phase];
 
     float _adc_voltage = measure.voltage;
 
     //determine new stage according to voltage and prev stage
-    if (_adc_voltage <= adc_160v)
-        _current_stage_num = 0;
+    if (_adc_voltage <= adc_160v[phase])
+        _current_stage_num[phase] = 0;
     else
-        if (_adc_voltage <= adc_190v)
-            _current_stage_num = 4;
+        if (_adc_voltage <= adc_190v[phase])
+            _current_stage_num[phase] = 4;
         else
-            if (_adc_voltage <= adc_200v)
+            if (_adc_voltage <= adc_200v[phase])
             {
-                if (_old_stage_num >= 4)
-                    _current_stage_num = 4;
+                if (_old_stage_num[phase] >= 4)
+                    _current_stage_num[phase] = 4;
                 else
-                    _current_stage_num = 3;
+                    _current_stage_num[phase] = 3;
             }
             else
-                if (_adc_voltage <= adc_210v)
+                if (_adc_voltage <= adc_210v[phase])
                 {
-                    if (_old_stage_num >= 3)
-                        _current_stage_num = 3;
+                    if (_old_stage_num[phase] >= 3)
+                        _current_stage_num[phase] = 3;
                     else
-                        _current_stage_num = 2;
+                        _current_stage_num[phase] = 2;
                 }
                 else
-                    if (_adc_voltage <= adc_220v)
+                    if (_adc_voltage <= adc_220v[phase])
                     {
-                        if (_old_stage_num >= 2)
-                            _current_stage_num = 2;
+                        if (_old_stage_num[phase] >= 2)
+                            _current_stage_num[phase] = 2;
                         else
-                            _current_stage_num = 1;
+                            _current_stage_num[phase] = 1;
                     }
                     else
-                        if (_adc_voltage <= adc_230v)
+                        if (_adc_voltage <= adc_230v[phase])
                         {
-                            if (_old_stage_num >= 1)
-                                _current_stage_num = 1;
+                            if (_old_stage_num[phase] >= 1)
+                                _current_stage_num[phase] = 1;
                             else
-                                _current_stage_num = 0;
+                                _current_stage_num[phase] = 0;
                         }
                         else
-                            if (_adc_voltage <= adc_240v)
+                            if (_adc_voltage <= adc_240v[phase])
                             {
                                 if (_old_stage_num >= 0)
-                                    _current_stage_num = 0;
+                                    _current_stage_num[phase] = 0;
                                 else
-                                    _current_stage_num = -1;
+                                    _current_stage_num[phase] = -1;
                             }
                             else
-                                if (_adc_voltage <= adc_250v)
+                                if (_adc_voltage <= adc_250v[phase])
                                 {
-                                    if (_old_stage_num >= -1)
-                                        _current_stage_num = -1;
+                                    if (_old_stage_num[phase] >= -1)
+                                        _current_stage_num[phase] = -1;
                                     else
-                                        _current_stage_num = -2;
+                                        _current_stage_num[phase] = -2;
                                 }
                                 else
-                                    if (_adc_voltage <= adc_260v)
+                                    if (_adc_voltage <= adc_260v[phase])
                                     {
-                                        if (_old_stage_num >= -2)
-                                            _current_stage_num = -2;
+                                        if (_old_stage_num[phase] >= -2)
+                                            _current_stage_num[phase] = -2;
                                         else
-                                            _current_stage_num = -3;
+                                            _current_stage_num[phase] = -3;
                                     }
                                     else
-                                        if (_adc_voltage <= adc_270v)
+                                        if (_adc_voltage <= adc_270v[phase])
                                         {
-                                            if (_old_stage_num >= -3)
-                                                _current_stage_num = -3;
+                                            if (_old_stage_num[phase] >= -3)
+                                                _current_stage_num[phase] = -3;
                                             else
-                                                _current_stage_num = -4;
+                                                _current_stage_num[phase] = -4;
                                         }
                                         else
-                                            _current_stage_num = -4;
+                                            _current_stage_num[phase] = -4;
 
     //switch to another stage
-    if (_old_stage_num != _current_stage_num)
+    if (_old_stage_num[phase] != _current_stage_num[phase])
     {
         //first, switch to bypass
-        if (_old_stage_num != 0)
+        if (_old_stage_num[phase] != 0)
         {
             km_action(phase, 2, KM_ON);
             km_action(phase, 3, KM_ON);
@@ -236,7 +237,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
         };
 
         //set current stage
-        if ((_current_stage_num == 0) || (_current_stage_num == 1))
+        if ((_current_stage_num[phase] == 0) || (_current_stage_num[phase] == 1))
         {
             km_action(phase, 4, KM_OFF);
             km_action(phase, 5, KM_OFF);
@@ -245,7 +246,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_OFF);
         };
 
-        if (_current_stage_num == 2)
+        if (_current_stage_num[phase] == 2)
         {
             km_action(phase, 4, KM_OFF);
             km_action(phase, 5, KM_OFF);
@@ -254,7 +255,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_OFF);
         };
 
-        if (_current_stage_num == 3)
+        if (_current_stage_num[phase] == 3)
         {
             km_action(phase, 4, KM_OFF);
             km_action(phase, 5, KM_ON);
@@ -263,7 +264,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_OFF);
         };
 
-        if (_current_stage_num == 4)
+        if (_current_stage_num[phase] == 4)
         {
             km_action(phase, 4, KM_ON);
             km_action(phase, 5, KM_ON);
@@ -272,7 +273,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_OFF);
         };
 
-        if (_current_stage_num == -1)
+        if (_current_stage_num[phase] == -1)
         {
             km_action(phase, 4, KM_OFF);
             km_action(phase, 5, KM_OFF);
@@ -281,7 +282,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_ON);
         };
 
-        if (_current_stage_num == -2)
+        if (_current_stage_num[phase] == -2)
         {
             km_action(phase, 4, KM_OFF);
             km_action(phase, 5, KM_OFF);
@@ -290,7 +291,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_ON);
         };
 
-        if (_current_stage_num == -3)
+        if (_current_stage_num[phase] == -3)
         {
             km_action(phase, 4, KM_OFF);
             km_action(phase, 5, KM_ON);
@@ -299,7 +300,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
             km_action(phase, 8, KM_ON);
         };
 
-        if (_current_stage_num == -4)
+        if (_current_stage_num[phase] == -4)
         {
             km_action(phase, 4, KM_ON);
             km_action(phase, 5, KM_ON);
@@ -309,7 +310,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
         };
 
         //final sequence if not bypass
-        if (_current_stage_num != 0)
+        if (_current_stage_num[phase] != 0)
         {
             km_action(phase, 2, KM_ON);
             km_action(phase, 3, KM_ON);

@@ -19,7 +19,8 @@ struct Phase
     {
         A,
         B,
-        C
+        C,
+        Count
     };
 };
 
