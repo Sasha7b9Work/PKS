@@ -151,75 +151,66 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
     //determine new stage according to voltage and prev stage
     if (_adc_voltage <= adc_160v[phase])
         _current_stage_num[phase] = 0;
-    else
-        if (_adc_voltage <= adc_190v[phase])
+    else if (_adc_voltage <= adc_190v[phase])
+        _current_stage_num[phase] = 4;
+    else if (_adc_voltage <= adc_200v[phase])
+    {
+        if (_old_stage_num[phase] >= 4)
             _current_stage_num[phase] = 4;
         else
-            if (_adc_voltage <= adc_200v[phase])
-            {
-                if (_old_stage_num[phase] >= 4)
-                    _current_stage_num[phase] = 4;
-                else
-                    _current_stage_num[phase] = 3;
-            }
-            else
-                if (_adc_voltage <= adc_210v[phase])
-                {
-                    if (_old_stage_num[phase] >= 3)
-                        _current_stage_num[phase] = 3;
-                    else
-                        _current_stage_num[phase] = 2;
-                }
-                else
-                    if (_adc_voltage <= adc_220v[phase])
-                    {
-                        if (_old_stage_num[phase] >= 2)
-                            _current_stage_num[phase] = 2;
-                        else
-                            _current_stage_num[phase] = 1;
-                    }
-                    else
-                        if (_adc_voltage <= adc_230v[phase])
-                        {
-                            if (_old_stage_num[phase] >= 1)
-                                _current_stage_num[phase] = 1;
-                            else
-                                _current_stage_num[phase] = 0;
-                        }
-                        else
-                            if (_adc_voltage <= adc_240v[phase])
-                            {
-                                if (_old_stage_num >= 0)
-                                    _current_stage_num[phase] = 0;
-                                else
-                                    _current_stage_num[phase] = -1;
-                            }
-                            else
-                                if (_adc_voltage <= adc_250v[phase])
-                                {
-                                    if (_old_stage_num[phase] >= -1)
-                                        _current_stage_num[phase] = -1;
-                                    else
-                                        _current_stage_num[phase] = -2;
-                                }
-                                else
-                                    if (_adc_voltage <= adc_260v[phase])
-                                    {
-                                        if (_old_stage_num[phase] >= -2)
-                                            _current_stage_num[phase] = -2;
-                                        else
-                                            _current_stage_num[phase] = -3;
-                                    }
-                                    else
-                                        if (_adc_voltage <= adc_270v[phase])
-                                        {
-                                            if (_old_stage_num[phase] >= -3)
-                                                _current_stage_num[phase] = -3;
-                                            else
-                                                _current_stage_num[phase] = -4;
-                                        }
-                                        else
-                                            _current_stage_num[phase] = -4;
+            _current_stage_num[phase] = 3;
+    }
+    else if (_adc_voltage <= adc_210v[phase])
+    {
+        if (_old_stage_num[phase] >= 3)
+            _current_stage_num[phase] = 3;
+        else
+            _current_stage_num[phase] = 2;
+    }
+    else if (_adc_voltage <= adc_220v[phase])
+    {
+        if (_old_stage_num[phase] >= 2)
+            _current_stage_num[phase] = 2;
+        else
+            _current_stage_num[phase] = 1;
+    }
+    else if (_adc_voltage <= adc_230v[phase])
+    {
+        if (_old_stage_num[phase] >= 1)
+            _current_stage_num[phase] = 1;
+        else
+            _current_stage_num[phase] = 0;
+    }
+    else if (_adc_voltage <= adc_240v[phase])
+    {
+        if (_old_stage_num >= 0)
+            _current_stage_num[phase] = 0;
+        else
+            _current_stage_num[phase] = -1;
+    }
+    else if (_adc_voltage <= adc_250v[phase])
+    {
+        if (_old_stage_num[phase] >= -1)
+            _current_stage_num[phase] = -1;
+        else
+            _current_stage_num[phase] = -2;
+    }
+    else if (_adc_voltage <= adc_260v[phase])
+    {
+        if (_old_stage_num[phase] >= -2)
+            _current_stage_num[phase] = -2;
+        else
+            _current_stage_num[phase] = -3;
+    }
+    else if (_adc_voltage <= adc_270v[phase])
+    {
+        if (_old_stage_num[phase] >= -3)
+            _current_stage_num[phase] = -3;
+        else
+            _current_stage_num[phase] = -4;
+    }
+    else
+        _current_stage_num[phase] = -4;
 
     //switch to another stage
     if (_old_stage_num[phase] != _current_stage_num[phase])
