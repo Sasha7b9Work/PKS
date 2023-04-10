@@ -349,7 +349,6 @@ void Contactor::km_action(Phase::E phase, uint8 _n, bool _state)
     };
 
 
-#ifndef CONTACTORS_NO_FEEDBACK
     //check contactorts except KM8
     if (_n != 8U)
     {
@@ -359,7 +358,6 @@ void Contactor::km_action(Phase::E phase, uint8 _n, bool _state)
         if (!_state && (!_off_cnt || _on_cnt))
             km_error(_n);
     };
-#endif
 }
 
 
