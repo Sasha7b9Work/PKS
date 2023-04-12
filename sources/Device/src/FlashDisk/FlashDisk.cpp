@@ -10,18 +10,21 @@
 
 namespace FlashDisk
 {
-    struct DataInfo
+    static const int SIZE = 128 / 8 * 1024 * 1024;
+
+    struct Sector
     {
-        uint transmited : 1;
+        Record records[113];
     };
 
-    struct Record
+    struct Block
     {
-        uint       crc;
-        PackedTime time;
-        float      ampl[3];
-        float      curr[3];
-        DataInfo   info;
+        Sector sectors[16];
+    };
+
+    struct Memory
+    {
+        Block blocks[256];
     };
 }
 
