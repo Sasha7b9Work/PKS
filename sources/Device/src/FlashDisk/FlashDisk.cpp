@@ -2,38 +2,65 @@
 #include "defines.h"
 #include "FlashDisk/FlashDisk.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Modules/W25Q128/W25Q128.h"
 
-
-#ifndef WIN32
-#pragma pack(push, 1)
-#endif
 
 namespace FlashDisk
 {
     static const int SIZE = 128 / 8 * 1024 * 1024;
+    static const int SIZE_SECTOR = 4 * 1024;
+    static const int RECORDS_IN_SECTOR = SIZE_SECTOR / sizeof(Record);
+    static const int NUM_SECTORS = 256 * 16;
 
-    struct Sector
+    struct Sector                   // 4 kB
     {
-        Record records[113];
+        // Стёртый сектор хранит 
+        uint info[7];
+
+        Record records[RECORDS_IN_SECTOR];
     };
 
-    struct Block
+    struct Memory                   // 8 MB
     {
-        Sector sectors[16];
+        Sector sectors[NUM_SECTORS];
     };
 
-    struct Memory
-    {
-        Block blocks[256];
-    };
+
+    // Если 0, то места для запси нет
+    static uint FindEmptyRecord();
+
+    // Стереть самую старую запись
+    static void EraseOldRecord();
 }
-
-#ifndef WIN32
-#pragma pack(pop)
-#endif
 
 
 void FlashDisk::Init()
 {
 
+}
+
+
+void FlashDisk::WriteRecord(const Record &record)
+{
+    uint address = FindEmptyRecord();
+
+    if (address == 0)
+    {
+        EraseOldRecord();
+
+        address = FindEmptyRecord();
+    }
+
+    W25Q80DV::WriteRecord(address, record);
+}
+
+
+void FlashDisk::ReadRecord(Record &)
+{
+}
+
+
+uint FlashDisk::FindEmptyRecord()
+{
+    return 0;
 }
