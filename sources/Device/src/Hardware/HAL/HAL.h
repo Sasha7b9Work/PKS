@@ -3,6 +3,19 @@
 #include "Hardware/HAL/HAL_PINS.h"
 
 
+struct PackedTime
+{
+    uint year    : 6;
+    uint month   : 4;
+    uint day     : 5;
+    uint hours   : 5;
+    uint minutes : 6;
+    uint seconds : 6;
+    PackedTime(uint h = 11, uint m = 11, uint s = 11, uint d = 11, uint mo = 11, uint y = 11) :
+        year(y), month(mo), day(d), hours(h), minutes(m), seconds(s) {};
+};
+
+
 namespace HAL
 {
     void Init();
