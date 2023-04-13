@@ -99,30 +99,6 @@ public:
         return size_buffer;
     }
 
-    void Append(const void *data, int _size)
-    {
-        if (Size() + _size > Capacity())
-        {
-        }
-        else
-        {
-            std::memcpy(&buffer[size], data, (uint)_size);
-            size += _size;
-        }
-    }
-
-    T &operator[](uint i)
-    {
-        if ((int)i >= 0 && (int)i < Size())
-        {
-            return buffer[i];
-        }
-
-        static T null(0);
-
-        return null;
-    }
-
     T &operator[](int i)
     {
         if (i >= 0 && i < Size())
@@ -140,24 +116,4 @@ protected:
     int size;
 
     T buffer[size_buffer];
-};
-
-
-template<class T>
-class Buffer1024 : public Buffer<T, 1024>
-{
-public:
-    Buffer1024() : Buffer<T, 1024>() { };
-    Buffer1024(int size) : Buffer<T, 1024>(size) { };
-    Buffer1024(int size, T value) : Buffer<T, 1024>(size, value) { };
-};
-
-
-template<class T>
-class Buffer2048 : public Buffer<T, 2048>
-{
-public:
-    Buffer2048() : Buffer<T, 2048>() { };
-    Buffer2048(int size) : Buffer<T, 2048>(size) { };
-    Buffer2048(int size, T value) : Buffer<T, 2048>(size, value) { };
 };
