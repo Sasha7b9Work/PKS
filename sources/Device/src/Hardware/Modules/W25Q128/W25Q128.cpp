@@ -31,6 +31,9 @@ namespace W25Q80DV
     void WaitRelease();
 
     uint8 test_value = 0;
+
+    // Произвести запись в пределах одного сектора. Size не может быть больше 256 байт
+    static void WriteToSector(uint address, uint8 *buffer, int size);
 }
 
 
@@ -67,6 +70,57 @@ void W25Q80DV::Write1024bytes(const uint8 *buffer, int size)
 }
 
 
+void W25Q80DV::WriteToSector(uint address, uint8 *buffer, int size)
+{
+    Buffer<uint8, 256 + 4> data;
+
+    BitSet32 bs(address);
+
+    data[0] = PROGRAM_PAGE;
+    data[1] = bs.byte[2];
+    data[2] = bs.byte[1];
+    data[1] = bs.byte[0];
+
+    for (int i = 0; i < size; i++)
+    {
+        data[i + 4] = buffer[i];
+    }
+
+    WaitRelease();
+
+    HAL_SPI::Write(data.Data(), size + 4);
+}
+
+
+void W25Q80DV::Write(uint address, void *buffer, int size)
+{
+    WaitRelease();
+
+    HAL_SPI::Write(WRITE_ENABLE);
+
+    uint8 *bufU8 = (uint8 *)buffer;
+
+    while (size > 0)
+    {
+        Sector sector = Sector::ForAddress(address);
+
+        uint last_address = sector.End();
+
+        int portion = (size <= (int)(last_address - address)) ? size : (int)(last_address - address);
+
+        WriteToSector(address, bufU8, portion);
+
+        bufU8 += portion;
+        address += portion;
+        size -= portion;
+    }
+
+    WaitRelease();
+
+    HAL_SPI::Write(WRITE_DISABLE);
+}
+
+
 void W25Q80DV::Read1024bytes(uint8 *buffer, int size)
 {
     WaitRelease();
@@ -85,6 +139,40 @@ void W25Q80DV::Read1024bytes(uint8 *buffer, int size)
     for (int i = 0; i < size; i++)
     {
         buffer[i] = in[4 + i];
+    }
+}
+
+
+void W25Q80DV::Read(uint address, void *buffer, int size)
+{
+    uint8 *bufU8 = (uint8 *)buffer;
+
+    Buffer<uint8, 1024 + 4> out;
+    Buffer<uint8, 1024 + 4> in;
+
+    out[0] = READ_DATA;
+
+    BitSet32 bs(address);
+
+    while (size > 0)
+    {
+        int portion = (size <= 1024) ? size : 1024;
+
+        out[1] = bs.byte[2];
+        out[2] = bs.byte[1];
+        out[3] = bs.byte[0];
+
+        WaitRelease();
+
+        HAL_SPI::WriteRead(out.Data(), in.Data(), portion + 4);
+
+        for (int i = 0; i < portion; i++)
+        {
+            *bufU8++ = in[i + 4];
+        }
+
+        size -= portion;
+        address += portion;
     }
 }
 
@@ -117,7 +205,7 @@ void W25Q80DV::WaitRelease()
 {
     TimeMeterMS meter;
 
-    while (IsBusy() && (meter.ElapsedTime() < 1000))
+    while (IsBusy() && (meter.ElapsedTime() < 100))
     {
     }
 }
@@ -153,13 +241,22 @@ uint8 W25Q80DV::TestValue()
 }
 
 
-void W25Q80DV::Write(uint , void *, int )
+Sector::Sector(uint _number) : number(_number)
 {
-
+    begin = _number * Sector::SIZE;
+    end = begin + Sector::SIZE;
 }
 
 
-void W25Q80DV::Read(uint , void *, int )
+Sector Sector::ForAddress(uint address)
 {
+    uint num_sector = address / Sector::SIZE;
 
+    return Sector(num_sector);
+}
+
+
+uint Sector::End() const
+{
+    return (Number() + 1) * Sector::SIZE;
 }

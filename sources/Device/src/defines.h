@@ -32,8 +32,8 @@ typedef unsigned char uchar;
 
 union BitSet32
 {
+    BitSet32(uint _word) : word(_word) { }
     uint   word;
-    uint16 half_word[2];
     uint8  byte[4];
 };
 
@@ -58,5 +58,6 @@ union BitSet32
   (((uint8)((uint)bits / 010000000) % 010) << 7)))
 
 #define BINARY_U8( bits ) _bitset(0##bits)
+
 
 #include "Log.h"

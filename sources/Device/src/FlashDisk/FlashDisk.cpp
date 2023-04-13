@@ -12,19 +12,8 @@ uint Record::num_newest = (uint)(-1);
 namespace FlashDisk
 {
     static const int SIZE = 128 / 8 * 1024 * 1024;
-    static const int SIZE_SECTOR = 4 * 1024;
 //    static const int NUM_SECTORS = 256 * 16;                // Количество секторов
     static const int NUM_RECORDS = SIZE / sizeof(Record);   // Столько записей помещается в памяти
-
-    struct Sector                   // 4 kB
-    {
-        Sector(uint _number);
-        uint Number() { return number; }
-    private:
-        uint number;    // Номер сектора
-        uint begin;     // Начало сектора
-        uint end;       // Конец сектора (адрес за последним байтом сектора)
-    };
 
     struct Memory                   // 8 MB
     {
@@ -35,13 +24,6 @@ namespace FlashDisk
         Record records[NUM_RECORDS];
 //        Sector sectors[NUM_SECTORS];
     };
-}
-
-
-FlashDisk::Sector::Sector(uint _number) : number(_number)
-{
-    begin = _number * SIZE_SECTOR;
-    end = begin + SIZE_SECTOR;
 }
 
 
