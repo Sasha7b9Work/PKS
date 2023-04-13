@@ -39,8 +39,8 @@ void Device::Update()
 
     if (Measurer::MeasureReady())
     {
-        FullMeasure measure = Measurer::GetMeasure();
-        Contactor::Update(measure);
+        volatile FullMeasure measure = Measurer::GetMeasure();
+//        Contactor::Update(measure);
     }
 
     Updater::Update();

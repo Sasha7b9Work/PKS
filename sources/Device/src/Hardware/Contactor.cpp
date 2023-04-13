@@ -129,11 +129,11 @@ void Contactor::Init()
 }
 
 
-void Contactor::Update(const FullMeasure &)
+void Contactor::Update(const FullMeasure &measure)
 {
     for (int i = 0; i < 3; i++)
     {
-//        UpdatePhase((Phase::E)i, measure.measures[i]);
+        UpdatePhase((Phase::E)i, measure.measures[i]);
     }
 }
 
