@@ -30,43 +30,24 @@ namespace W25Q80DV
 
     void WaitRelease();
 
-    uint8 test_value = 0;
-
     // Произвести запись в пределах одного сектора. Size не может быть больше 256 байт
     static void WriteToSector(uint address, uint8 *buffer, int size);
 }
 
 
-void W25Q80DV::Write1024bytes(const uint8 *buffer, int size)
+void W25Q80DV::EraseSector(uint num_sector)
 {
     WaitRelease();
 
-    HAL_SPI::Write(WRITE_ENABLE);             // Write enable
-
-    Write32bit(SECTOR_ERASE, 0x000000);                             // Sector erase
-
-    HAL_SPI::Write(WRITE_DISABLE);            // Write disable
+    HAL_SPI::Write(WRITE_ENABLE);
 
     WaitRelease();
 
-    HAL_SPI::Write(WRITE_ENABLE);             // Write enable
+    Write32bit(SECTOR_ERASE, num_sector * Sector::SIZE);
 
-    uint8 data[1024 + 4];
+    WaitRelease();
 
-    data[0] = PROGRAM_PAGE; //-V525
-    data[1] = 0;                // \ 
-    data[2] = 0;                // | Адрес
-    data[3] = 0;                // /
-
-    for (int i = 0; i < size; i++)
-    {
-        data[4 + i] = buffer[i];
-    }
-
-    //                                                       команда   адрес
-    HAL_SPI::Write(data, size +    1    +   3);     // Page program
-
-    HAL_SPI::Write(WRITE_DISABLE);              // Write disable
+    HAL_SPI::Write(WRITE_DISABLE);
 }
 
 
@@ -121,27 +102,6 @@ void W25Q80DV::Write(uint address, void *buffer, int size)
 }
 
 
-void W25Q80DV::Read1024bytes(uint8 *buffer, int size)
-{
-    WaitRelease();
-
-    uint8 out[1024 + 4];
-    uint8 in[1024 + 4];
-
-    out[0] = READ_DATA; //-V525
-    out[1] = 0;
-    out[2] = 0;
-    out[3] = 0;
-
-    HAL_SPI::WriteRead(out, in, size + 1 + 3);
-
-    for (int i = 0; i < size; i++)
-    {
-        buffer[i] = in[4 + i];
-    }
-}
-
-
 void W25Q80DV::Read(uint address, void *buffer, int size)
 {
     uint8 *bufU8 = (uint8 *)buffer;
@@ -180,10 +140,12 @@ void W25Q80DV::Write32bit(uint8 command, uint bits24)
 {
     uint8 data[4];
 
+    BitSet32 bs(bits24);
+
     data[0] = command;
-    data[1] = (uint8)(bits24 >> 16);
-    data[2] = (uint8)(bits24 >> 8);
-    data[3] = (uint8)(bits24);
+    data[1] = bs.byte[2];
+    data[2] = bs.byte[1];
+    data[3] = bs.byte[0];
 
     HAL_SPI::Write(data, 4);
 }
@@ -210,33 +172,16 @@ void W25Q80DV::WaitRelease()
 }
 
 
-void W25Q80DV::ReadID()
+uint16 W25Q80DV::ReadID()
 {
     uint8 out[6] = { 0x90, 0, 0, 0, 0, 0 };
     uint8 in[6] = { 0, 0, 0, 0, 0, 0 };
 
+    WaitRelease();
+
     HAL_SPI::WriteRead(out, in, 6);
-}
 
-
-bool W25Q80DV::Test()
-{
-    uint8 out[256] = { 0x55 }; //-V1009
-    uint8 in[256] = { 0x00 };
-
-    Write1024bytes(out, 1);
-
-    Read1024bytes(in, 1);
-
-    test_value = in[0];
-
-    return (std::memcmp(out, in, 1) == 0); //-V1086
-}
-
-
-uint8 W25Q80DV::TestValue()
-{
-    return test_value;
+    return (uint16)((in[4] << 8) + in[5]);
 }
 
 
