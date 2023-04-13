@@ -1,4 +1,4 @@
-﻿// 2023/03/30 10:41:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2023/03/30 10:41:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Hardware/HAL/HAL.h"
 
@@ -37,13 +37,17 @@ struct Record
     // Запись хранит значения
     bool IsFill() const { return !IsEmpty() && !IsErased(); }
 
+    void *GetBuffer() const { return (void *)this; }
+
+    int GetSize() const { return sizeof(*this); }
+
 private:
 
     friend struct FlashDisk::Memory;
     friend struct FlashDisk::Sector;
 
-    static int num_oldest;      // Номер самой старой записи
-    static int num_newest;      // Номер последней записи
+    static uint num_oldest;      // Номер самой старой записи
+    static uint num_newest;      // Номер последней записи
 };
 
 

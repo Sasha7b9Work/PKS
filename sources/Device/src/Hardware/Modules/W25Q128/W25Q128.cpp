@@ -151,3 +151,15 @@ uint8 W25Q80DV::TestValue()
 {
     return test_value;
 }
+
+
+void W25Q80DV::Write(uint address, void *buffer, int size)
+{
+
+}
+
+
+void W25Q80DV::Read(uint address, void *buffer, int size)
+{
+
+}

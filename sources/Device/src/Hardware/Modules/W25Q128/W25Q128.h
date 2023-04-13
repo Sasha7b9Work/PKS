@@ -18,7 +18,7 @@ namespace W25Q80DV
     // Возвращает значение, считанное во время теста
     uint8 TestValue();
 
-    void WriteRecord(uint address, const Record &);
+    void Write(uint address, void *buffer, int size);
 
-    void ReadRecord(uint address, Record &);
+    void Read(uint address, void *buffer, int size);
 }
