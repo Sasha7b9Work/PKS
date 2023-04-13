@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Frame.h"
 #include "Display/Display.h"
-#include "Application.h"
+//#include "Application.h"
 #include <wx/statline.h>
 
 
@@ -159,7 +159,7 @@ void Frame::OnMouseDown(wxMouseEvent &)
 
 void Frame::OnMouseUp(wxMouseEvent &)
 {
-    if (meterButton.ElapsedTime() < 500)
+    if (meterButton.ElapsedMS() < 500)
     {
         timerButton.Stop();
     }

@@ -12,51 +12,21 @@ include_directories(.
                     ../../VS/ThirdParty/wxWidgets/include
                     ../../generated/ThirdParty/lib/vc_dll/mswud
                     ../../common/_VS_KEIL/CMSIS
-                    ../../common/_VS_LIBS/STM32F3
-                    ../../common/STM32Cube_F3/Drivers/CMSIS/Device/ST/STM32F3xx/Include
-                    ../../common/STM32Cube_F3/Drivers/STM32F3xx_HAL_Driver/Inc)
+                    ../../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include
+                    ../../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include)
 
 link_directories(../../generated/ThirdParty/lib/vc_dll)
 
-add_definitions(-DSTM32F303xC -DWXUSINGDLL -DGUI -DDEVICE)
+add_definitions(-DGD32F30X_HD -DWXUSINGDLL -DGUI -DDEVICE)
 
 if(WIN32)
     SET(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
     
-    # Older cmake versions don't support string(APPEND ...) provide a workaround
-    macro(wx_string_append var str)
-        set(${var} ${${var}}${str})
-    endmacro()
-    
-    if(BUILD_USE_STATIC_RUNTIME)
-        set(MSVC_LIB_USE "/MTd")
-        set(MSVC_LIB_REPLACE "/MDd")
-        
-        # Set MSVC runtime flags for all configurations
-        foreach(cfg "" ${CMAKE_CONFIGURATION_TYPES})
-            set(c_flag_var CMAKE_C_FLAGS)
-            set(cxx_flag_var CMAKE_CXX_FLAGS)
-            if(cfg)
-                string(TOUPPER ${cfg} cfg_upper)
-                wx_string_append(c_flag_var "_${cfg_upper}")
-                wx_string_append(cxx_flag_var "_${cfg_upper}")
-            endif()
-            if(${c_flag_var} MATCHES ${MSVC_LIB_REPLACE})
-                string(REPLACE ${MSVC_LIB_REPLACE} ${MSVC_LIB_USE} ${c_flag_var} "${${c_flag_var}}")
-                set(${c_flag_var} ${${c_flag_var}} CACHE STRING
-                "Flags used by the C compiler during ${cfg_upper} builds." FORCE)
-            endif()
-            if(${cxx_flag_var} MATCHES ${MSVC_LIB_REPLACE})
-                string(REPLACE ${MSVC_LIB_REPLACE} ${MSVC_LIB_USE} ${cxx_flag_var} "${${cxx_flag_var}}")
-                set(${cxx_flag_var} ${${cxx_flag_var}} CACHE STRING
-                "Flags used by the CXX compiler during ${cfg_upper} builds." FORCE)
-            endif()
-        endforeach()
-    endif()
 
-#    add_compile_options(/wd4005)
+    add_compile_options(/wd4005)
     add_compile_options(/wd4100)
+    add_compile_options(/wd4201)
     add_compile_options(/wd4255)
     add_compile_options(/wd4365)
     add_compile_options(/wd4464)
@@ -78,53 +48,48 @@ if(WIN32)
     add_compile_options(/wd26812)
 endif()
 
-file(GLOB SRC                   *.h *.cpp
-                                ../../Device/src/defines.h
-                                ../../Device/src/Device.*
-                                ../../Device/src/Log.*
-                                ../../Device/src/Test.*)
-file(GLOB LIBS                  ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_tim.cpp
-                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_rcc.cpp
-                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_gpio.cpp
-                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_adc.cpp
-                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal_adc_ex.cpp
-                                ../../common/_VS_LIBS/STM32F3/stm32f3xx_hal.cpp)
-file(GLOB CALCULATOR            ../../Device/src/Calculator/*.*)
-file(GLOB BLOCKS_MEASURER       ../../Device/src/Blocks/Measurer/*.*)
-file(GLOB DISPLAY               ../../Device/src/Display/Display.h
-                                                 Display/*.*)
-file(GLOB HARDWARE              ../../Device/src/Hardware/*.*)
-file(GLOB HARDWARE_HAL          ../../Device/src/Hardware/HAL/*.*
-                                                 Hardware/HAL/*.*)
-file(GLOB HARDWARE_MODULES_SIM800C               Hardware/Modules/SIM800C/*.*)
-file(GLOB FLASHDISK             ../../Device/src/FlashDisk/*.*)
-file(GLOB MEASURER              ../../Device/src/Measurer/*.*)
-file(GLOB MODEM                 ../../Device/src/Modem/*.*)
-file(GLOB UTILS                 ../../Device/src/Utils/*.*)
+file(GLOB SRC                       *.h *.cpp
+                                    ../../Device/src/defines.h
+                                    ../../Device/src/Device.*
+                                    ../../Device/src/Log.*
+                                    ../../Device/src/Test.*)
+file(GLOB LIBS                      ../../common/_VS_LIBS/GD32F3/*.*)
+file(GLOB DISPLAY                   ../../Device/src/Display/Display.h
+                                                     Display/*.*)
+file(GLOB FLASHDISK                 ../../Device/src/FlashDisk/*.*)
+file(GLOB HARDWARE                  ../../Device/src/Hardware/*.*)
+file(GLOB HARDWARE_HAL              ../../Device/src/Hardware/HAL/*.*
+                                                     Hardware/HAL/*.*)
+file(GLOB HARDWARE_MODULES_SIM800C  ../../Device/src/Hardware/Modules/SIM800C/*.*)
+file(GLOB HARDWARE_MODULES_W25Q128  ../../Device/src/Hardware/Modules/W25Q128/*.*)
+file(GLOB MEASURER                  ../../Device/src/Measurer/*.*)
+file(GLOB MODEM                     ../../Device/src/Modem/*.*)
+file(GLOB UTILS                     ../../Device/src/Utils/*.*)
 
-source_group(src                 FILES ${SRC})
-source_group(libs                FILES ${LIBS})
-source_group(Calculator          FILES ${CALCULATOR})
-source_group(Blocks/Measurer     FILES ${BLOCKS_MEASURER})
-source_group(Display             FILES ${DISPLAY})
-source_group(Hardware            FILES ${HARDWARE})
-source_group(Hardware/HAL        FILES ${HARDWARE_HAL})
-source_group(Hardware/Modules/)
-source_group(FlashDisk           FILES ${FLASHDISK})
-source_group(Measurer            FILES ${MEASURER})
-source_group(Modem               FILES ${MODEM})
-source_group(Utils               FILES ${UTILS})
+source_group(src                        FILES ${SRC})
+source_group(libs                       FILES ${LIBS})
+source_group(Display                    FILES ${DISPLAY})
+source_group(FlashDisk                  FILES ${FLASHDISK})
+source_group(Hardware                   FILES ${HARDWARE})
+source_group(Hardware/HAL               FILES ${HARDWARE_HAL})
+source_group(Hardware/Modules/SIM800C   FILES ${HARDWARE_MODULES_SIM800C})
+source_group(Hardware/Modules/W25Q128   FILES ${HARDWARE_MODULES_W25Q128})
+source_group(Measurer                   FILES ${MEASURER})
+source_group(Modem                      FILES ${MODEM})
+source_group(Utils                      FILES ${UTILS})
 
+set_source_files_properties(../../Device/src/Hardware/HAL/systick.c
+                            PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_executable( ${PROJECT_NAME}
                 ${SRC}
                 ${LIBS}
-                ${CALCULATOR}
-                ${BLOCKS_MEASURER}
                 ${DISPLAY}
+                ${FLASHDISK}
                 ${HARDWARE}
                 ${HARDWARE_HAL}
-                ${FLASHDISK}
+                ${HARDWARE_MODULES_SIM800C}
+                ${HARDWARE_MODULES_W25Q128}
                 ${MEASURER}
                 ${MODEM}
                 ${UTILS}

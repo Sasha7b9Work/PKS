@@ -73,14 +73,17 @@ void Updater::Update()
 }
 
 
-//set Main Stack value
-__asm void MSR_MSP(uint)
-{
-#ifndef WIN32
-    MSR MSP, r0
-    BX r14
+#ifdef GUI
+#else
+    //set Main Stack value
+    __asm void MSR_MSP(uint)
+    {
+    #ifndef WIN32
+        MSR MSP, r0
+        BX r14
+    #endif
+    }
 #endif
-}
 
 
 void Updater::JumpToBootloader()
@@ -89,6 +92,8 @@ void Updater::JumpToBootloader()
     iapfun  jump2app;
 
     jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_BOOTLOADER + 4);
+#ifndef GUI
     MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_BOOTLOADER);                        //initialize app pointer
+#endif
     jump2app();                                                                 //jump to app
 }

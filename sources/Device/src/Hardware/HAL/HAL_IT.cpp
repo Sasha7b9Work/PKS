@@ -112,9 +112,11 @@ extern "C" {
     */
     void SysTick_Handler(void)
     {
+#ifndef GUI
         extern uint timer_counter;
 
         timer_counter++;
+#endif
 
         delay_decrement();
     }

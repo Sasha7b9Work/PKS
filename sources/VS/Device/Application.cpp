@@ -1,4 +1,5 @@
 // 2022/04/27 11:10:09 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#include "defines.h"
 #include "Application.h"
 #include "Frame.h"
 
