@@ -1,5 +1,13 @@
-// 2023/03/30 10:41:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2023/03/30 10:41:59 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Hardware/HAL/HAL.h"
+
+
+namespace FlashDisk
+{
+    struct Memory;
+    struct Sector;
+}
 
 
 union DataInfo
@@ -20,14 +28,22 @@ struct Record
     float      curr[3];
     DataInfo   info;
 
-    // В эту запись ничего не записывали
+    // Р’ СЌС‚Сѓ Р·Р°РїРёСЃСЊ РЅРёС‡РµРіРѕ РЅРµ Р·Р°РїРёСЃС‹РІР°Р»Рё
     bool IsEmpty() const { return crc == (uint)-1; }
 
-    // Запись стёрта
+    // Р—Р°РїРёСЃСЊ СЃС‚С‘СЂС‚Р°
     bool IsErased() const { return crc == 0; }
 
-    // Запись хранит значения
+    // Р—Р°РїРёСЃСЊ С…СЂР°РЅРёС‚ Р·РЅР°С‡РµРЅРёСЏ
     bool IsFill() const { return !IsEmpty() && !IsErased(); }
+
+private:
+
+    friend struct FlashDisk::Memory;
+    friend struct FlashDisk::Sector;
+
+    static int num_oldest;      // РќРѕРјРµСЂ СЃР°РјРѕР№ СЃС‚Р°СЂРѕР№ Р·Р°РїРёСЃРё
+    static int num_newest;      // РќРѕРјРµСЂ РїРѕСЃР»РµРґРЅРµР№ Р·Р°РїРёСЃРё
 };
 
 

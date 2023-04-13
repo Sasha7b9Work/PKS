@@ -27,6 +27,8 @@ void Device::Init()
 
     Contactor::Init();
 
+    FlashDisk::Init();
+
 //    Display::Init();
 }
 
