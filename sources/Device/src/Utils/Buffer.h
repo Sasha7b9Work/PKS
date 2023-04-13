@@ -33,11 +33,6 @@ public:
 
     const T *DataConst() const { return buffer; }
 
-    T *Last()
-    {
-        return buffer + Size();
-    }
-
     void Realloc(int _size)
     {
         size = _size;
@@ -74,34 +69,9 @@ public:
         }
     }
 
-    // Записать в буфер size байт из buffer. Если памяти выделено меньше, заполнить только выделенную память
-    void FillFromBuffer(const T *in, int _size)
-    {
-        if (_size > Size())
-        {
-            _size = Size();
-        }
-
-        for (int i = 0; i < _size; i++)
-        {
-            buffer[i] = in[i];
-        }
-    }
-
-    // Возвращает количество элементов в буфере
-    int Size() const
-    {
-        return size;
-    }
-
-    int Capacity() const
-    {
-        return size_buffer;
-    }
-
     T &operator[](int i)
     {
-        if (i >= 0 && i < Size())
+        if (i >= 0 && i < size_buffer)
         {
             return buffer[i];
         }
