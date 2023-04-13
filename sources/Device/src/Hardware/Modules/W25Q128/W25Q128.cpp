@@ -3,7 +3,7 @@
 #include "Hardware/Modules/W25Q128/W25Q128.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
-#include "Utils/Buffer.h"
+#include <cstring>
 
 
 /*
@@ -51,7 +51,7 @@ void W25Q80DV::Write1024bytes(const uint8 *buffer, int size)
 
     HAL_SPI::Write(WRITE_ENABLE);             // Write enable
 
-    Buffer<uint8, 1024> data;
+    uint8 data[1024 + 4];
 
     data[0] = PROGRAM_PAGE; //-V525
     data[1] = 0;                // \ 
@@ -64,7 +64,7 @@ void W25Q80DV::Write1024bytes(const uint8 *buffer, int size)
     }
 
     //                                                       команда   адрес
-    HAL_SPI::Write(data.Data(), size +    1    +   3);     // Page program
+    HAL_SPI::Write(data, size +    1    +   3);     // Page program
 
     HAL_SPI::Write(WRITE_DISABLE);              // Write disable
 }
@@ -72,7 +72,7 @@ void W25Q80DV::Write1024bytes(const uint8 *buffer, int size)
 
 void W25Q80DV::WriteToSector(uint address, uint8 *buffer, int size)
 {
-    Buffer<uint8, 256 + 4> data;
+    uint8 data[256 + 4];
 
     BitSet32 bs(address);
 
@@ -88,7 +88,7 @@ void W25Q80DV::WriteToSector(uint address, uint8 *buffer, int size)
 
     WaitRelease();
 
-    HAL_SPI::Write(data.Data(), size + 4);
+    HAL_SPI::Write(data, size + 4);
 }
 
 
@@ -125,16 +125,15 @@ void W25Q80DV::Read1024bytes(uint8 *buffer, int size)
 {
     WaitRelease();
 
-    Buffer<uint8, 1024> out;
+    uint8 out[1024 + 4];
+    uint8 in[1024 + 4];
 
     out[0] = READ_DATA; //-V525
     out[1] = 0;
     out[2] = 0;
     out[3] = 0;
 
-    Buffer<uint8, 1024> in;
-
-    HAL_SPI::WriteRead(out.Data(), in.Data(), size + 1 + 3);
+    HAL_SPI::WriteRead(out, in, size + 1 + 3);
 
     for (int i = 0; i < size; i++)
     {
@@ -147,8 +146,8 @@ void W25Q80DV::Read(uint address, void *buffer, int size)
 {
     uint8 *bufU8 = (uint8 *)buffer;
 
-    Buffer<uint8, 1024 + 4> out;
-    Buffer<uint8, 1024 + 4> in;
+    uint8 out[1024 + 4];
+    uint8 in[1024 + 4];
 
     out[0] = READ_DATA;
 
@@ -164,7 +163,7 @@ void W25Q80DV::Read(uint address, void *buffer, int size)
 
         WaitRelease();
 
-        HAL_SPI::WriteRead(out.Data(), in.Data(), portion + 4);
+        HAL_SPI::WriteRead(out, in, portion + 4);
 
         for (int i = 0; i < portion; i++)
         {
