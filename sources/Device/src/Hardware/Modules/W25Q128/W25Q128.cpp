@@ -204,3 +204,9 @@ uint Sector::End() const
 {
     return (Number() + 1) * Sector::SIZE;
 }
+
+
+bool Sector::AddressBelong(uint address) const
+{
+    return (address >= begin) && (address < end);
+}

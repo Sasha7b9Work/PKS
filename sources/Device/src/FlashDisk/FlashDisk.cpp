@@ -3,6 +3,7 @@
 #include "FlashDisk/FlashDisk.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Modules/W25Q128/W25Q128.h"
+#include "Utils/Math.h"
 
 
 uint Record::num_oldest = (uint)(-1);
@@ -13,7 +14,7 @@ namespace FlashDisk
 {
     static const int SIZE = 128 / 8 * 1024 * 1024;
 //    static const int NUM_SECTORS = 256 * 16;                // Количество секторов
-    static const int NUM_RECORDS = SIZE / sizeof(Record);   // Столько записей помещается в памяти
+    static const int NUM_RECORDS = SIZE / Record::SIZE;   
 
     struct Memory                   // 8 MB
     {
@@ -25,6 +26,9 @@ namespace FlashDisk
 //        Sector sectors[NUM_SECTORS];
     };
 }
+
+
+const int Record::MAX_NUM = FlashDisk::SIZE / SIZE;  // Столько записей помещается в памяти
 
 
 void FlashDisk::Init()
@@ -56,7 +60,7 @@ void FlashDisk::Memory::Write(const Record &record)
     else
     {
         // Номер записи, куда будем сохранять
-        uint num_record = Record::num_newest + 1;
+        uint num_record = Math::CircularIncrease(Record::num_newest, 0U, (uint)(Record::MAX_NUM - 1));
 
         if (num_record > Record::num_oldest)            // Если сохраняемая запись находится за самой старой - нормальный порядок
         {
@@ -79,7 +83,7 @@ void FlashDisk::Memory::Write(const Record &record)
 
 void FlashDisk::Memory::Write(uint number_record, const Record &record)
 {
-    uint address = sizeof(Record) * number_record;
+    uint address = Record::SIZE * number_record;
 
     W25Q80DV::Write(address, record.GetBuffer(), record.GetSize());
 }
@@ -87,4 +91,10 @@ void FlashDisk::Memory::Write(uint number_record, const Record &record)
 
 void FlashDisk::ReadRecord(Record &)
 {
+}
+
+
+uint Record::AddressBegin(uint num_record)
+{
+    return num_record * Record::SIZE;
 }

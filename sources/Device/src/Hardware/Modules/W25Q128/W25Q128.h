@@ -12,6 +12,8 @@ struct Sector                   // 4 kB
     uint Number() const { return number; }
     // Адрес байта, следующего за последним байтом сектора
     uint End() const;
+    // true, если адрес принадлежит сектору
+    bool AddressBelong(uint address) const;
     // Возвращает сектор, содержащий address
     static Sector ForAddress(uint address);
 private:

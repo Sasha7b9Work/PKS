@@ -22,6 +22,9 @@ union DataInfo
 
 struct Record
 {
+    static const int SIZE = 36;
+    static const int MAX_NUM;
+
     uint       crc;
     PackedTime time;
     float      ampl[3];
@@ -48,6 +51,9 @@ private:
 
     static uint num_oldest;      // Номер самой старой записи
     static uint num_newest;      // Номер последней записи
+
+    // Адрес начала записи
+    static uint AddressBegin(uint num_record);
 };
 
 
