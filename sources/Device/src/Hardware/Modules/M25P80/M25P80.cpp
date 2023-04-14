@@ -37,17 +37,6 @@ namespace M25P80
 
 void M25P80::EraseSector(uint num_sector)
 {
-    WaitRelease();
-
-    HAL_SPI::Write(WRITE_ENABLE);
-
-    WaitRelease();
-
-    Write32bit(SECTOR_ERASE, num_sector * Sector::SIZE);
-
-    WaitRelease();
-
-    HAL_SPI::Write(WRITE_DISABLE);
 }
 
 
@@ -75,64 +64,11 @@ void M25P80::WriteToSector(uint address, uint8 *buffer, int size)
 
 void M25P80::Write(uint address, void *buffer, int size)
 {
-    WaitRelease();
-
-    HAL_SPI::Write(WRITE_ENABLE);
-
-    uint8 *bufU8 = (uint8 *)buffer;
-
-    while (size > 0)
-    {
-        Sector sector = Sector::ForAddress(address);
-
-        uint last_address = sector.End();
-
-        int portion = (size <= (int)(last_address - address)) ? size : (int)(last_address - address);
-
-        WriteToSector(address, bufU8, portion);
-
-        bufU8 += portion;
-        address += portion;
-        size -= portion;
-    }
-
-    WaitRelease();
-
-    HAL_SPI::Write(WRITE_DISABLE);
 }
 
 
 void M25P80::Read(uint address, void *buffer, int size)
 {
-    uint8 *bufU8 = (uint8 *)buffer;
-
-    uint8 out[1024 + 4];
-    uint8 in[1024 + 4];
-
-    out[0] = READ_DATA;
-
-    BitSet32 bs(address);
-
-    while (size > 0)
-    {
-        int portion = (size <= 1024) ? size : 1024;
-
-        out[1] = bs.byte[2];
-        out[2] = bs.byte[1];
-        out[3] = bs.byte[0];
-
-        WaitRelease();
-
-        HAL_SPI::WriteRead(out, in, portion + 4);
-
-        for (int i = 0; i < portion; i++)
-        {
-            *bufU8++ = in[i + 4];
-        }
-
-        size -= portion;
-        address += portion;
-    }
 }
 
 
@@ -172,19 +108,6 @@ void M25P80::WaitRelease()
 }
 
 
-uint16 M25P80::ReadID()
-{
-    uint8 out[6] = { 0x90, 0, 0, 0, 0, 0 };
-    uint8 in[6] = { 0, 0, 0, 0, 0, 0 };
-
-    WaitRelease();
-
-    HAL_SPI::WriteRead(out, in, 6);
-
-    return (uint16)((in[4] << 8) + in[5]);
-}
-
-
 Sector::Sector(uint _number) : number(_number)
 {
     begin = _number * Sector::SIZE;
@@ -209,4 +132,16 @@ uint Sector::End() const
 bool Sector::AddressBelong(uint address) const
 {
     return (address >= begin) && (address < end);
+}
+
+
+void M25P80::WriteByte(uint8 byte)
+{
+
+}
+
+
+uint8 M25P80::ReadByte()
+{
+    return 0;
 }

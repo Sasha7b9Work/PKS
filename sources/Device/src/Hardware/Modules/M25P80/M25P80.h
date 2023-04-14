@@ -31,5 +31,9 @@ namespace M25P80
 
     void Read(uint address, void *buffer, int size);
 
-    uint16 ReadID();
+    // Записать байт по нулевому адресу
+    void WriteByte(uint8 byte);
+
+    // Читать байт из нулевого адреса
+    uint8 ReadByte();
 }

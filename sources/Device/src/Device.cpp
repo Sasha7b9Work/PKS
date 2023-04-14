@@ -10,12 +10,15 @@
 #include "Utils/Updater.h"
 #include "Hardware/Timer.h"
 #include "Hardware/Contactor.h"
+#include "Hardware/Modules/M25P80/M25P80.h"
 #include <gd32f30x_rcu.h>
 
 
 namespace Device
 {
     static void UpdateModem();
+
+    static bool TestMemory();
 }
 
 
@@ -47,6 +50,8 @@ void Device::Update()
 
     UpdateModem();
 
+    TestMemory();
+
 //    Display::Update();
 }
 
@@ -64,4 +69,29 @@ void Device::UpdateModem()
 
         Modem::Transmit("AT+IPR?");
     }
+}
+
+
+bool Device::TestMemory()
+{
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() < 100)
+    {
+        return false;
+    }
+
+    meter.Reset();
+
+    M25P80::EraseSector(0);
+
+    uint8 byte_write = 0x38;
+
+    M25P80::WriteByte(byte_write);
+
+    uint8 byte_read = M25P80::ReadByte();
+
+    bool result = (byte_read == byte_write);
+
+    return result;
 }
