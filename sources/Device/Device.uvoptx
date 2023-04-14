@@ -607,7 +607,7 @@
 
   <Group>
     <GroupName>src</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1046,8 +1046,8 @@
   </Group>
 
   <Group>
-    <GroupName>Hardware/Modules/W25Q128</GroupName>
-    <tvExp>0</tvExp>
+    <GroupName>Hardware/Modules/M25P80</GroupName>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1058,8 +1058,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Hardware\Modules\W25Q128\W25Q128.cpp</PathWithFileName>
-      <FilenameWithoutPath>W25Q128.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Hardware\Modules\M25P80\M25P80.cpp</PathWithFileName>
+      <FilenameWithoutPath>M25P80.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1070,8 +1070,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Hardware\Modules\W25Q128\W25Q128.h</PathWithFileName>
-      <FilenameWithoutPath>W25Q128.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Hardware\Modules\M25P80\M25P80.h</PathWithFileName>
+      <FilenameWithoutPath>M25P80.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

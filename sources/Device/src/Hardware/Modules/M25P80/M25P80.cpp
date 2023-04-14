@@ -1,6 +1,6 @@
 ﻿// 2023/04/07 17:06:22 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Hardware/Modules/W25Q128/W25Q128.h"
+#include "Hardware/Modules/M25P80/M25P80.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include <cstring>
@@ -21,7 +21,7 @@
 #define SECTOR_ERASE  0x20  /* 36 */
 
 
-namespace W25Q80DV
+namespace M25P80
 {
     // Записывает uin8, а затем младшие 3 байта из второго значения
     void Write32bit(uint8, uint);
@@ -35,7 +35,7 @@ namespace W25Q80DV
 }
 
 
-void W25Q80DV::EraseSector(uint num_sector)
+void M25P80::EraseSector(uint num_sector)
 {
     WaitRelease();
 
@@ -51,7 +51,7 @@ void W25Q80DV::EraseSector(uint num_sector)
 }
 
 
-void W25Q80DV::WriteToSector(uint address, uint8 *buffer, int size)
+void M25P80::WriteToSector(uint address, uint8 *buffer, int size)
 {
     uint8 data[256 + 4];
 
@@ -73,7 +73,7 @@ void W25Q80DV::WriteToSector(uint address, uint8 *buffer, int size)
 }
 
 
-void W25Q80DV::Write(uint address, void *buffer, int size)
+void M25P80::Write(uint address, void *buffer, int size)
 {
     WaitRelease();
 
@@ -102,7 +102,7 @@ void W25Q80DV::Write(uint address, void *buffer, int size)
 }
 
 
-void W25Q80DV::Read(uint address, void *buffer, int size)
+void M25P80::Read(uint address, void *buffer, int size)
 {
     uint8 *bufU8 = (uint8 *)buffer;
 
@@ -136,7 +136,7 @@ void W25Q80DV::Read(uint address, void *buffer, int size)
 }
 
 
-void W25Q80DV::Write32bit(uint8 command, uint bits24)
+void M25P80::Write32bit(uint8 command, uint bits24)
 {
     uint8 data[4];
 
@@ -151,7 +151,7 @@ void W25Q80DV::Write32bit(uint8 command, uint bits24)
 }
 
 
-bool W25Q80DV::IsBusy()
+bool M25P80::IsBusy()
 {
     static const uint8 out[2] = { READ_STATUS_1, 0 };
     static uint8 in[2] = { 0, 0 };
@@ -162,7 +162,7 @@ bool W25Q80DV::IsBusy()
 }
 
 
-void W25Q80DV::WaitRelease()
+void M25P80::WaitRelease()
 {
     TimeMeterMS meter;
 
@@ -172,7 +172,7 @@ void W25Q80DV::WaitRelease()
 }
 
 
-uint16 W25Q80DV::ReadID()
+uint16 M25P80::ReadID()
 {
     uint8 out[6] = { 0x90, 0, 0, 0, 0, 0 };
     uint8 in[6] = { 0, 0, 0, 0, 0, 0 };

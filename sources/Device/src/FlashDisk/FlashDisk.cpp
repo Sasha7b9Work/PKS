@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "FlashDisk/FlashDisk.h"
 #include "Hardware/HAL/HAL.h"
-#include "Hardware/Modules/W25Q128/W25Q128.h"
+#include "Hardware/Modules/M25P80/M25P80.h"
 #include "Utils/Math.h"
 
 
@@ -85,7 +85,7 @@ void FlashDisk::Memory::Write(uint number_record, const Record &record)
 {
     uint address = Record::SIZE * number_record;
 
-    W25Q80DV::Write(address, record.GetBuffer(), record.GetSize());
+    M25P80::Write(address, record.GetBuffer(), record.GetSize());
 }
 
 

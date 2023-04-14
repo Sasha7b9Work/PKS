@@ -61,7 +61,7 @@ file(GLOB HARDWARE                  ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL              ../../Device/src/Hardware/HAL/*.*
                                                      Hardware/HAL/*.*)
 file(GLOB HARDWARE_MODULES_SIM800C  ../../Device/src/Hardware/Modules/SIM800C/*.*)
-file(GLOB HARDWARE_MODULES_W25Q128  ../../Device/src/Hardware/Modules/W25Q128/*.*)
+file(GLOB HARDWARE_MODULES_M25P80   ../../Device/src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                  ../../Device/src/Measurer/*.*)
 file(GLOB MODEM                     ../../Device/src/Modem/*.*)
 file(GLOB UTILS                     ../../Device/src/Utils/*.*)
@@ -73,7 +73,7 @@ source_group(FlashDisk                  FILES ${FLASHDISK})
 source_group(Hardware                   FILES ${HARDWARE})
 source_group(Hardware/HAL               FILES ${HARDWARE_HAL})
 source_group(Hardware/Modules/SIM800C   FILES ${HARDWARE_MODULES_SIM800C})
-source_group(Hardware/Modules/W25Q128   FILES ${HARDWARE_MODULES_W25Q128})
+source_group(Hardware/Modules/M25P80    FILES ${HARDWARE_MODULES_M25P80})
 source_group(Measurer                   FILES ${MEASURER})
 source_group(Modem                      FILES ${MODEM})
 source_group(Utils                      FILES ${UTILS})
@@ -89,7 +89,7 @@ add_executable( ${PROJECT_NAME}
                 ${HARDWARE}
                 ${HARDWARE_HAL}
                 ${HARDWARE_MODULES_SIM800C}
-                ${HARDWARE_MODULES_W25Q128}
+                ${HARDWARE_MODULES_M25P80}
                 ${MEASURER}
                 ${MODEM}
                 ${UTILS}

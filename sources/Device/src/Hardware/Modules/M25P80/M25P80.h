@@ -23,7 +23,7 @@ private:
 };
 
 
-namespace W25Q80DV
+namespace M25P80
 {
     void EraseSector(uint num_sector);
 

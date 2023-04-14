@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -662,17 +661,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware/Modules/W25Q128</GroupName>
+          <GroupName>Hardware/Modules/M25P80</GroupName>
           <Files>
             <File>
-              <FileName>W25Q128.cpp</FileName>
+              <FileName>M25P80.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\M25P80\M25P80.cpp</FilePath>
             </File>
             <File>
-              <FileName>W25Q128.h</FileName>
+              <FileName>M25P80.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\M25P80\M25P80.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -953,7 +952,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1429,17 +1427,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware/Modules/W25Q128</GroupName>
+          <GroupName>Hardware/Modules/M25P80</GroupName>
           <Files>
             <File>
-              <FileName>W25Q128.cpp</FileName>
+              <FileName>M25P80.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.cpp</FilePath>
+              <FilePath>.\src\Hardware\Modules\M25P80\M25P80.cpp</FilePath>
             </File>
             <File>
-              <FileName>W25Q128.h</FileName>
+              <FileName>M25P80.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\W25Q128\W25Q128.h</FilePath>
+              <FilePath>.\src\Hardware\Modules\M25P80\M25P80.h</FilePath>
             </File>
           </Files>
         </Group>
