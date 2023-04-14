@@ -26,14 +26,12 @@ namespace M25P80
     // Записывает uin8, а затем младшие 3 байта из второго значения
     void Write32bit(uint8, uint);
 
-    void WriteCommand(uint8);
-
     bool IsBusy();
 
     void WaitRelease();
 
     // Произвести запись в пределах одного сектора. Size не может быть больше 256 байт
-    static void WriteToSector(uint address, uint8 *buffer, int size);
+//    static void WriteToSector(uint address, uint8 *buffer, int size);
 }
 
 
@@ -41,7 +39,7 @@ void M25P80::EraseSector(uint num_sector)
 {
     WaitRelease();
 
-    WriteCommand(WRITE_ENABLE);
+    HAL_SPI::Write(WRITE_ENABLE);
 
     WaitRelease();
 
@@ -49,30 +47,30 @@ void M25P80::EraseSector(uint num_sector)
 
     WaitRelease();
 
-    WriteCommand(WRITE_DISABLE);
+    HAL_SPI::Write(WRITE_DISABLE);
 }
 
 
-void M25P80::WriteToSector(uint address, uint8 *buffer, int size)
-{
-    uint8 data[256 + 4];
-
-    BitSet32 bs(address);
-
-    data[0] = PROGRAM_PAGE;
-    data[1] = bs.byte[2];
-    data[2] = bs.byte[1];
-    data[1] = bs.byte[0];
-
-    for (int i = 0; i < size; i++)
-    {
-        data[i + 4] = buffer[i];
-    }
-
-    WaitRelease();
-
-    HAL_SPI::Write(data, size + 4);
-}
+//void M25P80::WriteToSector(uint address, uint8 *buffer, int size)
+//{
+//    uint8 data[256 + 4];
+//
+//    BitSet32 bs(address);
+//
+//    data[0] = PROGRAM_PAGE;
+//    data[1] = bs.byte[2];
+//    data[2] = bs.byte[1];
+//    data[1] = bs.byte[0];
+//
+//    for (int i = 0; i < size; i++)
+//    {
+//        data[i + 4] = buffer[i];
+//    }
+//
+//    WaitRelease();
+//
+//    HAL_SPI::Write(data, size + 4);
+//}
 
 
 void M25P80::WriteByte(uint8 byte)
@@ -86,13 +84,13 @@ void M25P80::WriteByte(uint8 byte)
 
     WaitRelease();
 
-    WriteCommand(WRITE_ENABLE);
+    HAL_SPI::Write(WRITE_ENABLE);
 
     HAL_SPI::Write(data, 5);
 
     WaitRelease();
 
-    WriteCommand(WRITE_DISABLE);
+    HAL_SPI::Write(WRITE_DISABLE);
 }
 
 
