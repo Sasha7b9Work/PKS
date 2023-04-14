@@ -13,18 +13,20 @@
 */
 
 //                            page
-#define PROGRAM_PAGE  0x02  /* 34 */
-#define READ_DATA     0x03  /* 26 */
-#define WRITE_DISABLE 0x04  /* 23 */
-#define READ_STATUS_1 0x05  /* 24 */
-#define WRITE_ENABLE  0x06  /* 22 */
-#define SECTOR_ERASE  0x20  /* 36 */
+#define PROGRAM_PAGE  0x02
+#define READ_DATA     0x03
+#define WRITE_DISABLE 0x04
+#define READ_STATUS   0x05
+#define WRITE_ENABLE  0x06
+#define SECTOR_ERASE  0xD8
 
 
 namespace M25P80
 {
     // Записывает uin8, а затем младшие 3 байта из второго значения
     void Write32bit(uint8, uint);
+
+    void WriteCommand(uint8);
 
     bool IsBusy();
 
@@ -37,6 +39,17 @@ namespace M25P80
 
 void M25P80::EraseSector(uint num_sector)
 {
+    WaitRelease();
+
+    WriteCommand(WRITE_ENABLE);
+
+    WaitRelease();
+
+    Write32bit(SECTOR_ERASE, num_sector * 0x10000);
+
+    WaitRelease();
+
+    WriteCommand(WRITE_DISABLE);
 }
 
 
@@ -62,12 +75,50 @@ void M25P80::WriteToSector(uint address, uint8 *buffer, int size)
 }
 
 
-void M25P80::Write(uint address, void *buffer, int size)
+void M25P80::WriteByte(uint8 byte)
+{
+    uint8 data[5] = { PROGRAM_PAGE };
+
+    data[1] = 0;
+    data[2] = 0;
+    data[3] = 0;
+    data[4] = byte;
+
+    WaitRelease();
+
+    WriteCommand(WRITE_ENABLE);
+
+    HAL_SPI::Write(data, 5);
+
+    WaitRelease();
+
+    WriteCommand(WRITE_DISABLE);
+}
+
+
+uint8 M25P80::ReadByte()
+{
+    uint8 data[5] = { READ_DATA };
+
+    data[1] = 0;
+    data[2] = 0;
+    data[3] = 0;
+    data[4] = 0;
+
+    uint8 in[5] = { 0, 0, 0, 0, 0 };
+
+    HAL_SPI::WriteRead(data, in, 5);
+
+    return data[4];
+}
+
+
+void M25P80::Write(uint, void *, int)
 {
 }
 
 
-void M25P80::Read(uint address, void *buffer, int size)
+void M25P80::Read(uint , void *, int )
 {
 }
 
@@ -89,7 +140,7 @@ void M25P80::Write32bit(uint8 command, uint bits24)
 
 bool M25P80::IsBusy()
 {
-    static const uint8 out[2] = { READ_STATUS_1, 0 };
+    static const uint8 out[2] = { READ_STATUS, 0 };
     static uint8 in[2] = { 0, 0 };
 
     HAL_SPI::WriteRead(out, in, 2);
@@ -102,7 +153,7 @@ void M25P80::WaitRelease()
 {
     TimeMeterMS meter;
 
-    while (IsBusy() && (meter.ElapsedTime() < 100))
+    while (IsBusy())
     {
     }
 }
@@ -132,16 +183,4 @@ uint Sector::End() const
 bool Sector::AddressBelong(uint address) const
 {
     return (address >= begin) && (address < end);
-}
-
-
-void M25P80::WriteByte(uint8 byte)
-{
-
-}
-
-
-uint8 M25P80::ReadByte()
-{
-    return 0;
 }
