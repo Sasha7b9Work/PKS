@@ -324,7 +324,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
+            <uSurpInc>1</uSurpInc>
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
@@ -339,7 +339,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1090,7 +1090,7 @@
             <Rwpi>0</Rwpi>
             <wLevel>2</wLevel>
             <uThumb>0</uThumb>
-            <uSurpInc>0</uSurpInc>
+            <uSurpInc>1</uSurpInc>
             <uC99>1</uC99>
             <uGnu>0</uGnu>
             <useXO>0</useXO>
@@ -1105,7 +1105,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
