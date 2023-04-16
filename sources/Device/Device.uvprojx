@@ -652,16 +652,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Hardware/Modules/M25P80</GroupName>
           <Files>
             <File>
@@ -1415,16 +1405,6 @@
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/ZMPT101</GroupName>
-          <Files>
-            <File>
-              <FileName>ZMPT101.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\ZMPT101\ZMPT101.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -40,7 +40,6 @@ file(GLOB HARDWARE_CMSIS           src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL             src/Hardware/HAL/*.*)
 file(GLOB HARDWARE_MODULES_SIM800C src/Hardware/Modules/SIM800C/*.*)
 file(GLOB HARDWARE_MODULES_SSD1306 src/Hardware/Modules/SSD1306/*.*)
-file(GLOB HARDWARE_MODULES_ZMPT101 src/Hardware/Modules/ZMPT101/*.*)
 file(GLOB HARDWARE_MODULES_M25P80  src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 src/Measurer/*.*)
 file(GLOB MODEM                    src/Modem/*.*)
@@ -55,7 +54,6 @@ source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
 source_group(Hardware/Modules/SIM800C FILES ${HARDWARE_MODULES_SIM800C})
 source_group(Hardware/Modules/SSD1306 FILES ${HARDWARE_MODULES_SSD1306})
-source_group(Hardware/Modules/ZMPT101 FILES ${HARDWARE_MODULES_ZMPT101})
 source_group(Hardware/Modules/M25P80  FILES ${HARDWARE_MODULES_M25P80})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
@@ -74,7 +72,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE_HAL}
             ${HARDWARE_MODULES_SIM800C}
             ${HARDWARE_MODULES_SSD1306}
-            ${HARDWARE_MODULES_ZMPT101}
             ${HARDWARE_MODULES_M25P80}
             ${MEASURER}
             ${MODEM}

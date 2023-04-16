@@ -7,3 +7,15 @@ void HAL_I2C::Init()
 {
 
 }
+
+
+void HAL_I2C::Write8(uint8)
+{
+
+}
+
+
+void HAL_I2C::Write(uint8 *, int size)
+{
+
+}
