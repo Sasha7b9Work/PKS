@@ -17,6 +17,9 @@ void HAL_USART_GPRS::Init()
 
     usart_deinit(USART_GPRS_ADDR);
     usart_baudrate_set(USART_GPRS_ADDR, 9600);
+    usart_parity_config(USART_GPRS_ADDR, USART_PM_NONE);
+    usart_word_length_set(USART_GPRS_ADDR, USART_WL_8BIT);
+    usart_stop_bit_set(USART_GPRS_ADDR, USART_STB_1BIT);
     usart_receive_config(USART_GPRS_ADDR, USART_RECEIVE_ENABLE);
     usart_transmit_config(USART_GPRS_ADDR, USART_TRANSMIT_ENABLE);
 
