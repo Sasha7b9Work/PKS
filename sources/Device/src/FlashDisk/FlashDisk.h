@@ -52,8 +52,6 @@ struct Record
 
     uint CalculateHash();
 
-    static uint SDBMHash(uint, uint8);
-
 private:
 
     friend struct FlashDisk::Memory;

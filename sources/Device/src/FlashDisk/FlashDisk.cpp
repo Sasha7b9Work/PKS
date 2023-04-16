@@ -126,12 +126,6 @@ Record::Record(const FullMeasure &measure)
 }
 
 
-uint Record::SDBMHash(uint _hash, uint8 byte)
-{
-    return byte + (_hash << 6) + (_hash << 16) - _hash;
-}
-
-
 uint Record::CalculateHash()
 {
     uint8 *first_byte = (uint8 *)&number;
@@ -141,7 +135,7 @@ uint Record::CalculateHash()
 
     for (uint8 *pointer = first_byte; pointer < last_byte; pointer++)
     {
-        result = SDBMHash(result, *pointer++);
+        result = *pointer++ + (result << 6) + (result << 16) - result;
     }
 
     return result;
