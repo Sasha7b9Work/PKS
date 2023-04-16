@@ -16,12 +16,10 @@ namespace SSD1306
 #define SSD1306_DATA_STREAM       0x40  // Continuation bit=0, D/C=1; 0100 0000
 
 
-#define CACHE_SIZE_MEM  1024
-    static uint8 buffer[CACHE_SIZE_MEM];
+#define SIZE_BUFFER  1024
+    static uint8 buffer[SIZE_BUFFER];
 
     static void SendCommand(uint8);
-
-    static void Update();
 }
 
 
@@ -71,17 +69,9 @@ void SSD1306::Init()
 }
 
 
-void SSD1306::Update()
+void SSD1306::WriteBuffer()
 {
     HAL_I2C::Write8(SSD1306_DATA_STREAM);
-    
-    HAL_I2C::Write(buffer, CACHE_SIZE_MEM);
-}   
 
-
-void SSD1306::Fill(uint color)
-{
-    std::memset(buffer, (uint8)color, CACHE_SIZE_MEM);
-    
-    SSD1306::Update();
+    HAL_I2C::Write(buffer, SIZE_BUFFER);
 }

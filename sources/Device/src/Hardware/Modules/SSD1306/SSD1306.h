@@ -6,5 +6,5 @@ namespace SSD1306
 {
     void Init();
 
-    void Fill(uint);
+    void WriteBuffer();
 }
