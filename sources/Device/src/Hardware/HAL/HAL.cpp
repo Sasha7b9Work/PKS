@@ -44,6 +44,8 @@ void HAL::Init()
     HAL_USART_GPRS::Init();
 
     HAL_SPI::Init();
+    
+    HAL_RTC::Init();
 
 #ifdef DEV_BOARD
     HAL_USART_LOG::Init();
