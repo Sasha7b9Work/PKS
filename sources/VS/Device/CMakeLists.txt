@@ -58,7 +58,8 @@ file(GLOB DISPLAY                   ../../Device/src/Display/Display.h
                                                      Display/*.*)
 file(GLOB FLASHDISK                 ../../Device/src/FlashDisk/*.*)
 file(GLOB HARDWARE                  ../../Device/src/Hardware/*.*)
-file(GLOB HARDWARE_HAL              ../../Device/src/Hardware/HAL/*.*
+file(GLOB HARDWARE_HAL              ../../Device/src/Hardware/HAL/HAL_PINS.*
+                                    ../../Device/src/Hardware/HAL/HAL.*
                                                      Hardware/HAL/*.*)
 file(GLOB HARDWARE_MODULES_SIM800C  ../../Device/src/Hardware/Modules/SIM800C/*.*)
 file(GLOB HARDWARE_MODULES_M25P80   ../../Device/src/Hardware/Modules/M25P80/*.*)
