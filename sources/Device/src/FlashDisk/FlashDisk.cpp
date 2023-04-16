@@ -137,14 +137,14 @@ uint Record::CalculateHash()
     uint8 *first_byte = (uint8 *)&number;
     uint8 *last_byte = (uint8 *)&info + sizeof(DataInfo);
 
-    hash = 0;
+    uint result = 0;
 
     for (uint8 *pointer = first_byte; pointer < last_byte; pointer++)
     {
-        hash = SDBMHash(hash, *pointer++);
+        result = SDBMHash(result, *pointer++);
     }
 
-    return 0;
+    return result;
 }
 
 
