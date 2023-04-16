@@ -10,11 +10,17 @@ uint Record::num_oldest = (uint)(-1);
 uint Record::num_newest = (uint)(-1);
 
 
+/*
+*   Записи сохраняются в сектора
+*/
+
+
 namespace FlashDisk
 {
-    static const int SIZE = 128 / 8 * 1024 * 1024;
-//    static const int NUM_SECTORS = 256 * 16;                // Количество секторов
-    static const int NUM_RECORDS = SIZE / Record::SIZE;   
+    static const int SIZE = 1024 * 1024;
+    static const int NUM_SECTORS = 16;                      // Количество секторов
+//    static const int RECORDS_IN_SECTOR = Sector::SIZE / Record::SIZE;
+//    static const int NUM_RECORDS = RECORDS_IN_SECTOR * NUM_SECTORS;
 
     struct Memory                   // 8 MB
     {
@@ -22,8 +28,7 @@ namespace FlashDisk
         static void Write(const Record &);
         static void Write(uint number_record, const Record &);
 
-        Record records[NUM_RECORDS];
-//        Sector sectors[NUM_SECTORS];
+        Sector sectors[NUM_SECTORS];
     };
 }
 

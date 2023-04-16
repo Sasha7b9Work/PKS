@@ -24,12 +24,6 @@ void Display::Update()
         
         color = (color == Black) ? White : Black;
     }
-    
-    Display::Fill(color);
-}
 
-
-void Display::Fill(enum Color color)
-{
-    SSD1306::Fill((color == White) ? 0xffU : 0x00U);
+    SSD1306::WriteBuffer();
 }

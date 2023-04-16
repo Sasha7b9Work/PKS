@@ -6,7 +6,7 @@
 // Описывает сектор
 struct Sector                   // 4 kB
 {
-    static const int SIZE = 4 * 1024;
+    static const int SIZE = 64 * 1024;
 
     Sector(uint _number);
     uint Number() const { return number; }

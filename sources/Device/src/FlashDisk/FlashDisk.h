@@ -6,7 +6,6 @@
 namespace FlashDisk
 {
     struct Memory;
-    struct Sector;
 }
 
 
@@ -22,9 +21,10 @@ union DataInfo
 
 struct Record
 {
-    static const int SIZE = 36;
+    static const int SIZE = 40;
     static const int MAX_NUM;
 
+    uint       number;
     uint       crc;
     PackedTime time;
     float      ampl[3];
@@ -47,7 +47,6 @@ struct Record
 private:
 
     friend struct FlashDisk::Memory;
-    friend struct FlashDisk::Sector;
 
     static uint num_oldest;      // Номер самой старой записи
     static uint num_newest;      // Номер последней записи
