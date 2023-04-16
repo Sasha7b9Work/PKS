@@ -3,6 +3,7 @@
 #include "FlashDisk/FlashDisk.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Modules/M25P80/M25P80.h"
+#include "Measurer/Measurer.h"
 #include "Utils/Math.h"
 
 
@@ -102,4 +103,52 @@ void FlashDisk::ReadRecord(Record &)
 uint Record::AddressBegin(uint num_record)
 {
     return num_record * Record::SIZE;
+}
+
+
+Record::Record(const FullMeasure &measure)
+{
+    ampl[0] = measure.measures[0].voltage;
+    ampl[1] = measure.measures[1].voltage;
+    ampl[2] = measure.measures[2].voltage;
+
+    curr[0] = measure.measures[0].current;
+    curr[1] = measure.measures[1].current;
+    curr[2] = measure.measures[2].current;
+
+    number = FlashDisk::NumberLastRecord() + 1U;
+
+    time = HAL_RTC::CurrentTime();
+
+    info = DataInfo();
+
+    hash = CalculateHash();
+}
+
+
+uint Record::SDBMHash(uint _hash, uint8 byte)
+{
+    return byte + (_hash << 6) + (_hash << 16) - _hash;
+}
+
+
+uint Record::CalculateHash()
+{
+    uint8 *first_byte = (uint8 *)&number;
+    uint8 *last_byte = (uint8 *)&info + sizeof(DataInfo);
+
+    hash = 0;
+
+    for (uint8 *pointer = first_byte; pointer < last_byte; pointer++)
+    {
+        hash = SDBMHash(hash, *pointer++);
+    }
+
+    return 0;
+}
+
+
+int FlashDisk::NumberLastRecord()
+{
+    return -1;
 }

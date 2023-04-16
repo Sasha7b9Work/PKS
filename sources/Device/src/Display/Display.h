@@ -20,7 +20,6 @@ namespace Display
 
     void Init();
     void Update();
-    void Fill(enum Color);
 }
 
 

@@ -32,7 +32,7 @@ void Device::Init()
 
     FlashDisk::Init();
 
-//    Display::Init();
+    Display::Init();
 }
 
 
@@ -42,8 +42,11 @@ void Device::Update()
 
     if (Measurer::MeasureReady())
     {
-        volatile FullMeasure measure = Measurer::GetMeasure();
-//        Contactor::Update(measure);
+        FullMeasure measure = Measurer::GetMeasure();
+
+        Record record(measure);
+
+        FlashDisk::WriteRecord(record);
     }
 
     Updater::Update();
@@ -52,7 +55,7 @@ void Device::Update()
 
     TestMemory();
 
-//    Display::Update();
+    Display::Update();
 }
 
 

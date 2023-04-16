@@ -1,1 +1,1 @@
-start ..\..\generated\GUI\Meter.sln
+start ..\..\generated\GUI\Meter-GUI.sln

@@ -80,6 +80,14 @@ namespace HAL_ROM
 }
 
 
+namespace HAL_RTC
+{
+    void Init();
+
+    PackedTime CurrentTime();
+}
+
+
 
 #ifdef __cplusplus
 extern "C" {

@@ -3,6 +3,9 @@
 #include "Hardware/HAL/HAL.h"
 
 
+struct FullMeasure;
+
+
 namespace FlashDisk
 {
     struct Memory;
@@ -11,6 +14,7 @@ namespace FlashDisk
 
 union DataInfo
 {
+    DataInfo() : transmited(0) { }
     uint empty;
     struct
     {
@@ -24,18 +28,20 @@ struct Record
     static const int SIZE = 40;
     static const int MAX_NUM;
 
+    uint       hash;
     uint       number;
-    uint       crc;
     PackedTime time;
     float      ampl[3];
     float      curr[3];
     DataInfo   info;
 
+    Record(const FullMeasure &);
+
     // В эту запись ничего не записывали
-    bool IsEmpty() const { return crc == (uint)-1; }
+    bool IsEmpty() const { return hash == (uint)-1; }
 
     // Запись стёрта
-    bool IsErased() const { return crc == 0; }
+    bool IsErased() const { return hash == 0; }
 
     // Запись хранит значения
     bool IsFill() const { return !IsEmpty() && !IsErased(); }
@@ -43,6 +49,10 @@ struct Record
     void *GetBuffer() const { return (void *)this; }
 
     int GetSize() const { return sizeof(*this); }
+
+    uint CalculateHash();
+
+    static uint SDBMHash(uint, uint8);
 
 private:
 
@@ -63,4 +73,7 @@ namespace FlashDisk
     void WriteRecord(const Record &);
 
     void ReadRecord(Record &);
+
+    // Возвращает номер последней записи
+    int NumberLastRecord();
 }

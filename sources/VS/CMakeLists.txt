@@ -3,7 +3,7 @@
 cmake_minimum_required(VERSION 2.9)
 
 # Set project name
-project (Meter)
+project (Meter-GUI)
 
 set (TARGET_NAME Meter)
 

@@ -1,6 +1,6 @@
 # (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 
-project (Device)
+project (Device-GUI)
 
 set(CMAKE_UNITY_BUILD OFF)
 
@@ -54,8 +54,7 @@ file(GLOB SRC                       *.h *.cpp
                                     ../../Device/src/Log.*
                                     ../../Device/src/Test.*)
 file(GLOB LIBS                      ../../common/_VS_LIBS/GD32F3/*.*)
-file(GLOB DISPLAY                   ../../Device/src/Display/Display.h
-                                                     Display/*.*)
+file(GLOB DISPLAY                   ../../Device/src/Display/*.*)
 file(GLOB FLASHDISK                 ../../Device/src/FlashDisk/*.*)
 file(GLOB HARDWARE                  ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL              ../../Device/src/Hardware/HAL/HAL_PINS.*
