@@ -3,6 +3,12 @@
 #include "Hardware/HAL/HAL.h"
 
 
+void HAL_RTC::Init()
+{
+
+}
+
+
 PackedTime HAL_RTC::CurrentTime()
 {
     return PackedTime();
