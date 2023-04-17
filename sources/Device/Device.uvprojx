@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -687,6 +686,31 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Display/Font</GroupName>
+          <Files>
+            <File>
+              <FileName>font5.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\font5.inc</FilePath>
+            </File>
+            <File>
+              <FileName>font8.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\font8.inc</FilePath>
+            </File>
+            <File>
+              <FileName>Font.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\Font.h</FilePath>
+            </File>
+            <File>
+              <FileName>font10_7.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\font10_7.inc</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>FlashDisk</GroupName>
           <Files>
             <File>
@@ -948,7 +972,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1445,6 +1468,31 @@
               <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display/Font</GroupName>
+          <Files>
+            <File>
+              <FileName>font5.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\font5.inc</FilePath>
+            </File>
+            <File>
+              <FileName>font8.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\font8.inc</FilePath>
+            </File>
+            <File>
+              <FileName>Font.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\Font.h</FilePath>
+            </File>
+            <File>
+              <FileName>font10_7.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Font\font10_7.inc</FilePath>
             </File>
           </Files>
         </Group>

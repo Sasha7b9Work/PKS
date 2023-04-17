@@ -55,6 +55,7 @@ file(GLOB SRC                       *.h *.cpp
                                     ../../Device/src/Test.*)
 file(GLOB LIBS                      ../../common/_VS_LIBS/GD32F3/*.*)
 file(GLOB DISPLAY                   ../../Device/src/Display/*.*)
+file(GLOB DISPLAY_FONT              ../../Device/src/Display/Font/*.*)
 file(GLOB FLASHDISK                 ../../Device/src/FlashDisk/*.*)
 file(GLOB HARDWARE                  ../../Device/src/Hardware/*.*)
 file(GLOB HARDWARE_HAL              ../../Device/src/Hardware/HAL/HAL_PINS.*
@@ -70,6 +71,7 @@ file(GLOB UTILS                     ../../Device/src/Utils/*.*)
 source_group(src                        FILES ${SRC})
 source_group(libs                       FILES ${LIBS})
 source_group(Display                    FILES ${DISPLAY})
+source_group(Display/Font               FILES ${DISPLAY_FONT})
 source_group(FlashDisk                  FILES ${FLASHDISK})
 source_group(Hardware                   FILES ${HARDWARE})
 source_group(Hardware/HAL               FILES ${HARDWARE_HAL})
@@ -87,6 +89,7 @@ add_executable( ${PROJECT_NAME}
                 ${SRC}
                 ${LIBS}
                 ${DISPLAY}
+                ${DISPLAY_FONT}
                 ${FLASHDISK}
                 ${HARDWARE}
                 ${HARDWARE_HAL}

@@ -6,5 +6,5 @@ namespace SSD1306
 {
     void Init();
 
-    void WriteBuffer();
+    void WriteBuffer(uint8 [1024]);
 }

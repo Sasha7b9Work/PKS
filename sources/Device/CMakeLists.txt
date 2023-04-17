@@ -34,6 +34,7 @@ add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum
 file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
 file(GLOB SRC                      src/*.*)
 file(GLOB DISPLAY                  src/Display/*.*)
+file(GLOB DISPLAY_FONT             src/Display/Font/*.*)
 file(GLOB FLASHDISK                src/FlashDisk/*.*)
 file(GLOB HARDWARE                 src/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS           src/Hardware/CMSIS/*.*)
@@ -48,6 +49,7 @@ file(GLOB UTILS                    src/Utils/*.*)
 source_group(GD32F3                   FILES ${GD32F3})
 source_group(src                      FILES ${SRC})
 source_group(Display                  FILES ${DISPLAY})
+source_group(Display/Font             FILES ${DISPLAY_FONT})
 source_group(FlashDisk                FILES ${FLASHDISK})
 source_group(Hardware                 FILES ${HARDWARE})
 source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
@@ -66,6 +68,7 @@ add_library(${PROJECT_NAME}
             ${GD32F3}
             ${SRC}
             ${DISPLAY}
+            ${DISPLAY_FONT}
             ${FLASHDISK}
             ${HARDWARE}
             ${HARDWARE_CMSIS}

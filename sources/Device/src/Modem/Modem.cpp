@@ -36,7 +36,7 @@ void Modem::Transmit(pchar message)
 
     HAL_USART_GPRS::Transmit(message);
 
-    static const char end_message[2] = { 0x13, 0 };
+    static const char end_message[2] = { 0x0d, 0 };
 
     HAL_USART_GPRS::Transmit(end_message);
 }

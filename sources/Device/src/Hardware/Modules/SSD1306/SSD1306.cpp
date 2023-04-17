@@ -1,6 +1,7 @@
 // 2023/03/30 10:55:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
+#include "Display/Font/Font.h"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
 #include <cstdlib>
@@ -15,9 +16,6 @@ namespace SSD1306
 #define SSD1306_DATA              0xC0  // Continuation bit=1, D/C=1; 1100 0000
 #define SSD1306_DATA_STREAM       0x40  // Continuation bit=0, D/C=1; 0100 0000
 
-
-#define SIZE_BUFFER  1024
-    static uint8 buffer[SIZE_BUFFER];
 
     static void SendCommand(uint8);
 }
@@ -69,9 +67,9 @@ void SSD1306::Init()
 }
 
 
-void SSD1306::WriteBuffer()
+void SSD1306::WriteBuffer(uint8 buffer[1024])
 {
     HAL_I2C::Write8(SSD1306_DATA_STREAM);
 
-    HAL_I2C::Write(buffer, SIZE_BUFFER);
+    HAL_I2C::Write(buffer, 1024);
 }

@@ -1,16 +1,6 @@
 // 2023/03/21 09:58:21 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-
-
-enum Color
-{
-    Black,
-    White,
-    Count
-};
-
-
-static const uint8 colors[Count] = { 0x00, 0xff };
+#include "Display/Font/Font.h"
 
 
 namespace Display
@@ -19,10 +9,14 @@ namespace Display
     static const int HEIGHT = 64;
 
     void Init();
+
     void Update();
+
+    void DrawPixel(int x, int y, uint8 color);
+
+    void SetCursor(int x, int y);
+
+    char WriteString(char *str, const FontDef &);
+
+    char WriteChar(char ch, const FontDef &);
 }
-
-
-#define BLUE_FROM_COLOR(color)  ((color) & 0x1f)
-#define GREEN_FROM_COLOR(color) (((color) >> 5) & 0x3f)
-#define RED_FROM_COLOR(color)   (((color) >> 11) & 0x1f)
