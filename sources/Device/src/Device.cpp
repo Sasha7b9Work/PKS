@@ -40,15 +40,6 @@ void Device::Update()
 {
     Measurer::Update();
 
-    if (Measurer::MeasureReady())
-    {
-        FullMeasure measure = Measurer::GetMeasure();
-
-        Record record(measure);
-
-        FlashDisk::WriteRecord(record);
-    }
-
     Updater::Update();
 
     UpdateModem();

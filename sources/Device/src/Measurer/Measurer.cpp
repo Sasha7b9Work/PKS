@@ -8,11 +8,9 @@
 
 namespace Measurer
 {
-    static void Calculate();
+    static FullMeasure Calculate();
 
     static struct FullMeasure measure;
-
-    static bool measure_ready = false;          // true, если измерение готово. Устанавливается в 0 после считывания
 
     static Sample currentA[NUM_SAMPLES];
     static Sample currentB[NUM_SAMPLES];
@@ -28,14 +26,18 @@ namespace Measurer
 
 void Measurer::Update()
 {
-    if (BuffersFull() && !measure_ready)
+    if (BuffersFull())
     {
-        TimeMeterMS meterUpdate;
-        Calculate();
-//        LOG_WRITE("time calculate %d ms", meterUpdate.ElapsedTime());
+        measure = Calculate();
 
-        measure_ready = true;
+        pos_adc_value = 0;
     }
+}
+
+
+FullMeasure Measurer::LastMeasure()
+{
+    return measure;
 }
 
 
@@ -79,26 +81,15 @@ bool Measurer::BuffersFull()
 }
 
 
-void Measurer::Calculate()
+FullMeasure Measurer::Calculate()
 {
-    measure.measures[0].Calculate(currentA, voltA);
-    measure.measures[1].Calculate(currentB, voltB);
-    measure.measures[2].Calculate(currentC, voltC);
-}
+    FullMeasure result;
 
+    result.measures[0].Calculate(currentA, voltA);
+    result.measures[1].Calculate(currentB, voltB);
+    result.measures[2].Calculate(currentC, voltC);
 
-bool Measurer::MeasureReady()
-{
-    return measure_ready;
-}
-
-
-FullMeasure Measurer::GetMeasure()
-{
-    measure_ready = 0;
-    pos_adc_value = 0;
-
-    return measure;
+    return result;
 }
 
 

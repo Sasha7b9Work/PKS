@@ -24,9 +24,9 @@ int Font::GetHeight()
 {
     switch (type)
     {
-    case TypeFont::_5:      return 5;   break;
-    case TypeFont::_7:      return 7;   break;
-    case TypeFont::_10:     return 10;  break;
+    case TypeFont::_5:      return 5;
+    case TypeFont::_7:      return 7;
+    case TypeFont::_10:     return 10;
     case TypeFont::Count:
         break;
     }

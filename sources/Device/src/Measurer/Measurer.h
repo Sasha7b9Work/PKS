@@ -72,8 +72,5 @@ namespace Measurer
     // Не ноль, если буферы заполнены
     bool BuffersFull();
 
-    // Возвращает не ноль, если готово новое измерение
-    bool MeasureReady();
-
-    FullMeasure GetMeasure();
+    FullMeasure LastMeasure();
 }
