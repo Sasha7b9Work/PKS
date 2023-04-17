@@ -57,15 +57,11 @@ void Display::DrawPixel(int x, int y, int color)
 }
 
 
-void Display::SetCursor(int x, int y)
+char Display::WriteString(int x, int y, char *str)
 {
     cursorX = x;
     cursorY = y;
-}
 
-
-char Display::WriteString(char *str)
-{
     if (typeFont == TypeFont::_10)
     {
         while (*str)
