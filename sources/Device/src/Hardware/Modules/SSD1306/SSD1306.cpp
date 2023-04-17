@@ -62,11 +62,6 @@ void SSD1306::Init()
 
 void SSD1306::WriteBuffer(uint8 buffer[1024])
 {
-//    HAL_I2C::Write8(DATA_STREAM);
-//
-//    HAL_I2C::Write(buffer, 1024);
-
-
     // Write data to each page of RAM. Number of pages
     // depends on the screen height:
     //

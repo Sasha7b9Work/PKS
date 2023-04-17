@@ -2,7 +2,9 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
+#include "Measurer/Measurer.h"
 #include <cstring>
+#include <cstdio>
 
 #include "Display/Font/font10_7.inc"
 
@@ -33,9 +35,26 @@ void Display::Init()
 
 void Display::Update()
 {
+    FullMeasure measure = Measurer::LastMeasure();
+
     BeginScene();
 
-    WriteString(20, 20, "Test string");
+    char message[30];
+
+    static int counter = 0;
+    counter++;
+
+    std::sprintf(message, "%03.1f V", measure.measures[0].voltage + (float)counter);
+
+    WriteString(10, 10, message);
+
+    std::sprintf(message, "%03.1f V", measure.measures[1].voltage);
+
+    WriteString(10, 30, message);
+
+    std::sprintf(message, "%03.1f V", measure.measures[2].voltage);
+
+    WriteString(10, 50, message);
 
     SSD1306::WriteBuffer(buffer);
 }
