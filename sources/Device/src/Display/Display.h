@@ -12,11 +12,11 @@ namespace Display
 
     void Update();
 
-    void DrawPixel(int x, int y, uint8 color);
+    void DrawPixel(int x, int y, int color);
 
     void SetCursor(int x, int y);
 
-    char WriteString(char *str, const FontDef &);
+    char WriteString(char *str);
 
-    char WriteChar(char ch, const FontDef &);
+    char WriteChar(char ch);
 }

@@ -2,10 +2,27 @@
 #pragma once
 
 
+struct TypeFont
+{
+    enum E
+    {
+        _5,
+        _7,
+        _10,
+        Count
+    };
+};
+
+
 struct FontDef
 {
     const uint8 width;      // Font width in pixels
     uint8 height;           // Font height in pixels
     const uint16 *data;     // Pointer to data font data array
-} ;
+};
 
+
+namespace Font
+{
+    void SetType(TypeFont::E);
+}

@@ -15,7 +15,9 @@ namespace Display
     static int cursorX = 0;
     static int cursorY = 0;
 
-    static FontDef Font_7x10 = { 7, 10, Font7x10 };
+    static FontDef font_10x7 = { 7, 10, Font10x7 };
+
+    static TypeFont::E typeFont = TypeFont::_10;
 } 
 
 
@@ -32,7 +34,7 @@ void Display::Update()
 
 
 
-void Display::DrawPixel(int x, int y, uint8 color)
+void Display::DrawPixel(int x, int y, int color)
 {
     if (x >= WIDTH || y >= HEIGHT)
     {
@@ -57,52 +59,58 @@ void Display::SetCursor(int x, int y)
 }
 
 
-char Display::WriteString(char *str, const FontDef &font)
+char Display::WriteString(char *str)
 {
-    while (*str)
+    if (typeFont == TypeFont::_10)
     {
-        if (WriteChar(*str, font) != *str)
+        while (*str)
         {
-            return *str;
-        };
+            if (WriteChar(*str) != *str)
+            {
+                return *str;
+            };
 
-        str++;
-    };
+            str++;
+        };
+    }
 
     return *str;
 }
 
 
-char Display::WriteChar(char ch, const FontDef &font)
+char Display::WriteChar(char ch)
 {
-    if (ch < 32 || ch > 126)
+    if (typeFont == TypeFont::_10)
     {
-        return 0;
-    }
-
-    if (WIDTH < (cursorX + font.width) || HEIGHT < (cursorY + font.height))
-    {
-        return 0;
-    };
-
-    for (int i = 0; i < font.height; i++)
-    {
-        int b = font.data[(ch - 32) * font.height + i];
-
-        for (int j = 0; j < font.width; j++)
+        if (ch < 32 || ch > 126)
         {
-            if ((b << j) & 0x8000)
+            return 0;
+        }
+
+        if (WIDTH < (cursorX + font_10x7.width) || HEIGHT < (cursorY + font_10x7.height))
+        {
+            return 0;
+        };
+
+        for (int i = 0; i < font_10x7.height; i++)
+        {
+            int b = font_10x7.data[(ch - 32) * font_10x7.height + i];
+
+            for (int j = 0; j < font_10x7.width; j++)
             {
-                DrawPixel(cursorX + j, cursorY + i, 1);
-            }
-            else
-            {
-                DrawPixel(cursorX + j, cursorY + i, 0);
+                if ((b << j) & 0x8000)
+                {
+                    DrawPixel(cursorX + j, cursorY + i, 1);
+                }
+                else
+                {
+                    DrawPixel(cursorX + j, cursorY + i, 0);
+                };
             };
         };
-    };
 
-    cursorX += font.width;
+        cursorX += font_10x7.width;
+    }
 
     return ch;
 }
