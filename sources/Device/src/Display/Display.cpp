@@ -18,6 +18,10 @@ namespace Display
     static int cursorY = 0;
 
     static FontDef font_10x7 = { 7, 10, Font10x7 };
+
+    static void WriteVoltage(int i);
+
+    static void WriteAmpere(int i);
 }
 
 
@@ -39,24 +43,45 @@ void Display::Update()
 
     BeginScene();
 
-    char message[30];
+    for (int i = 0; i < 3; i++)
+    {
+        WriteVoltage(i);
 
+        WriteAmpere(i);
+    }
+
+    SSD1306::WriteBuffer(buffer);
+}
+
+
+void Display::WriteVoltage(int i)
+{
     static int counter = 0;
     counter++;
 
-    std::sprintf(message, "%03.1f V", measure.measures[0].voltage + (float)counter);
+    FullMeasure measure = Measurer::LastMeasure();
 
-    WriteString(10, 10, message);
+    char message[30];
 
-    std::sprintf(message, "%03.1f V", measure.measures[1].voltage);
+    std::sprintf(message, "%3.1f V", measure.measures[i].voltage + (float)counter);
 
-    WriteString(10, 30, message);
+    WriteString(10, 10 + i * 20, message);
+}
 
-    std::sprintf(message, "%03.1f V", measure.measures[2].voltage);
 
-    WriteString(10, 50, message);
+void Display::WriteAmpere(int i)
+{
+    static int counter = 0;
+    counter++;
 
-    SSD1306::WriteBuffer(buffer);
+    FullMeasure measure = Measurer::LastMeasure();
+
+    char message[30];
+
+    std::sprintf(message, "%3.1f A", measure.measures[i].current + (float)counter);
+
+    WriteString(64, 10 + i * 20, message);
+
 }
 
 
