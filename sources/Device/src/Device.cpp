@@ -46,7 +46,7 @@ void Device::Update()
 
     UpdateModem();
 
-    TestMemory();
+//    TestMemory();
 }
 
 

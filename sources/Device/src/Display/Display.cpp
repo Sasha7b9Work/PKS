@@ -56,14 +56,11 @@ void Display::Update()
 
 void Display::WriteVoltage(int i)
 {
-    static int counter = 0;
-    counter++;
-
     FullMeasure measure = Measurer::LastMeasure();
 
     char message[30];
 
-    std::sprintf(message, "%3.1f V", measure.measures[i].voltage + (float)counter);
+    std::sprintf(message, "%1.3f", measure.measures[i].voltage);
 
     WriteString(10, 10 + i * 20, message);
 }
@@ -71,16 +68,13 @@ void Display::WriteVoltage(int i)
 
 void Display::WriteAmpere(int i)
 {
-    static int counter = 0;
-    counter++;
-
     FullMeasure measure = Measurer::LastMeasure();
 
     char message[30];
 
-    std::sprintf(message, "%3.1f A", measure.measures[i].current + (float)counter);
+    std::sprintf(message, "%1.3f", measure.measures[i].current);
 
-    WriteString(64, 10 + i * 20, message);
+    WriteString(80, 10 + i * 20, message);
 
 }
 
