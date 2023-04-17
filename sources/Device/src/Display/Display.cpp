@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Display/Display.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
-
+#include <cstring>
 
 #include "Display/Font/font10_7.inc"
 
@@ -32,6 +32,11 @@ void Display::Update()
     SSD1306::WriteBuffer(buffer);
 }
 
+
+void Display::BeginScene()
+{
+    std::memset(buffer, 0, SIZE_BUFFER);
+}
 
 
 void Display::DrawPixel(int x, int y, int color)
