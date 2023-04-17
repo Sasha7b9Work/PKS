@@ -16,9 +16,13 @@ namespace Display
     static int cursorY = 0;
 
     static FontDef font_10x7 = { 7, 10, Font10x7 };
+}
 
-    static TypeFont::E typeFont = TypeFont::_10;
-} 
+
+namespace Font
+{
+    extern TypeFont::E type;
+}
 
 
 void Display::Init()
@@ -62,7 +66,7 @@ char Display::WriteString(int x, int y, char *str)
     cursorX = x;
     cursorY = y;
 
-    if (typeFont == TypeFont::_10)
+    if (Font::type == TypeFont::_10)
     {
         while (*str)
         {
@@ -81,7 +85,7 @@ char Display::WriteString(int x, int y, char *str)
 
 char Display::WriteChar(char ch)
 {
-    if (typeFont == TypeFont::_10)
+    if (Font::type == TypeFont::_10)
     {
         if (ch < 32 || ch > 126)
         {
