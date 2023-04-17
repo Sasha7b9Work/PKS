@@ -708,6 +708,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\font10_7.inc</FilePath>
             </File>
+            <File>
+              <FileName>Font.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1493,6 +1498,11 @@
               <FileName>font10_7.inc</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Display\Font\font10_7.inc</FilePath>
+            </File>
+            <File>
+              <FileName>Font.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
             </File>
           </Files>
         </Group>
