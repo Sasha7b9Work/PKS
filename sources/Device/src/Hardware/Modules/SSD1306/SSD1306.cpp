@@ -10,12 +10,8 @@
 
 namespace SSD1306
 {
-//    static const uint8 ADDR = 0x3C;
-
-    static const uint8 COMMAND        = 0x80;   // Continuation bit=1, D/C=0; 1000 0000
-//    static const uint8 COMMAND_STREAM = 0x00;   // Continuation bit=0, D/C=0; 0000 0000
-    static const uint8 DATA           = 0xC0;   // Continuation bit=1, D/C=1; 1100 0000
-//    static const uint8 DATA_STREAM    = 0x40;   // Continuation bit=0, D/C=1; 0100 0000
+    static const uint8 COMMAND        = 0x00;   // Continuation bit=1, D/C=0; 1000 0000
+    static const uint8 DATA           = 0x40;   // Continuation bit=1, D/C=1; 1100 0000
 
     static const uint8 X_OFFSET_LOWER = 0;
     static const uint8 X_OFFSET_UPPER = 0;
@@ -25,45 +21,39 @@ namespace SSD1306
 }
 
 
-void SSD1306::SendCommand(uint8 command)
-{
-    HAL_I2C::Write(COMMAND, &command, 1);
-}
-
-
 void SSD1306::Init()
 {
     SendCommand(0xAE); // Set display OFF
- 
+
     SendCommand(0xD4); // Set Display Clock Divide Ratio / OSC Frequency
     SendCommand(0x80); // Display Clock Divide Ratio / OSC Frequency 
- 
+
     SendCommand(0xA8); // Set Multiplex Ratio
     SendCommand(0x3F); // Multiplex Ratio for 128x64 (64-1)
- 
+
     SendCommand(0xD3); // Set Display Offset
     SendCommand(0x00); // Display Offset
- 
+
     SendCommand(0x40); // Set Display Start Line
- 
+
     SendCommand(0x8D); // Set Charge Pump
     SendCommand(0x14); // Charge Pump (0x10 External, 0x14 Internal DC/DC)
- 
+
     SendCommand(0xA1); // Set Segment Re-Map
     SendCommand(0xC8); // Set Com Output Scan Direction
- 
+
     SendCommand(0xDA); // Set COM Hardware Configuration
     SendCommand(0x12); // COM Hardware Configuration
- 
+
     SendCommand(0x81); // Set Contrast
     SendCommand(0xCF); // Contrast
- 
+
     SendCommand(0xD9); // Set Pre-Charge Period
     SendCommand(0xF1); // Set Pre-Charge Period (0x22 External, 0xF1 Internal)
- 
+
     SendCommand(0xDB); // Set VCOMH Deselect Level
     SendCommand(0x40); // VCOMH Deselect Level
- 
+
     SendCommand(0xA4); // Set all pixels OFF
     SendCommand(0xA6); // Set display not inverted
     SendCommand(0xAF); // Set display On
@@ -91,4 +81,10 @@ void SSD1306::WriteBuffer(uint8 buffer[1024])
 
         HAL_I2C::Write(DATA, &buffer[Display::WIDTH * i], Display::WIDTH);
     };
+}
+
+
+void SSD1306::SendCommand(uint8 command)
+{
+    HAL_I2C::Write(COMMAND, &command, 1);
 }
