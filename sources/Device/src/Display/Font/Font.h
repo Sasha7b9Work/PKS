@@ -25,4 +25,11 @@ struct FontDef
 namespace Font
 {
     void SetType(TypeFont::E);
+
+    int GetBit(uint8 symbol, int row, int col);
+
+    int GetHeight();
+
+    int GetWidth(uint8 symbol);
 }
+

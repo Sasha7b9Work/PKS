@@ -66,18 +66,15 @@ char Display::WriteString(int x, int y, char *str)
     cursorX = x;
     cursorY = y;
 
-    if (Font::type == TypeFont::_10)
+    while (*str)
     {
-        while (*str)
+        if (WriteChar(*str) != *str)
         {
-            if (WriteChar(*str) != *str)
-            {
-                return *str;
-            };
-
-            str++;
+            return *str;
         };
-    }
+
+        str++;
+    };
 
     return *str;
 }
@@ -85,7 +82,27 @@ char Display::WriteString(int x, int y, char *str)
 
 char Display::WriteChar(char ch)
 {
-    if (Font::type == TypeFont::_10)
+    if (Font::type == TypeFont::_5 || Font::type == TypeFont::_7)
+    {
+        uint8 symbol = (uint8)ch;
+
+        int height = Font::GetHeight();
+        int width = Font::GetWidth(symbol);
+
+        for (int row = 0; row < height; row++)
+        {
+            for (int col = 0; col < width; col++)
+            {
+                if (Font::GetBit(symbol, row, col))
+                {
+                    DrawPixel(cursorX + col, cursorY + row, 1);
+                }
+            }
+        }
+
+        cursorX += width + 1;
+    }
+    else if (Font::type == TypeFont::_10)
     {
         if (ch < 32 || ch > 126)
         {
