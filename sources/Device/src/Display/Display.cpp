@@ -33,6 +33,10 @@ void Display::Init()
 
 void Display::Update()
 {
+    BeginScene();
+
+    WriteString(20, 20, "Test string");
+
     SSD1306::WriteBuffer(buffer);
 }
 

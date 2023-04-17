@@ -35,8 +35,7 @@ namespace HAL_ADC
 namespace HAL_I2C
 {
     void Init();
-    void Write8(uint8 data);
-    void Write(uint8 *, int size);
+    void Write(uint8 command, uint8 *data, int size);
 }
 
 

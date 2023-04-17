@@ -40,13 +40,13 @@ void Device::Update()
 {
     Measurer::Update();
 
+    Display::Update();
+
     Updater::Update();
 
     UpdateModem();
 
     TestMemory();
-
-    Display::Update();
 }
 
 

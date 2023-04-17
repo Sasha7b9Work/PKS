@@ -3,18 +3,22 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 #include "Display/Font/Font.h"
 #include "Hardware/HAL/HAL.h"
+#include "Display/Display.h"
 #include <cstring>
 #include <cstdlib>
 
 
 namespace SSD1306
 {
-#define SSD1306_ADDR              0x3C
+//    static const uint8 ADDR = 0x3C;
 
-#define SSD1306_COMMAND           0x80  // Continuation bit=1, D/C=0; 1000 0000
-#define SSD1306_COMMAND_STREAM    0x00  // Continuation bit=0, D/C=0; 0000 0000
-#define SSD1306_DATA              0xC0  // Continuation bit=1, D/C=1; 1100 0000
-#define SSD1306_DATA_STREAM       0x40  // Continuation bit=0, D/C=1; 0100 0000
+    static const uint8 COMMAND        = 0x80;   // Continuation bit=1, D/C=0; 1000 0000
+//    static const uint8 COMMAND_STREAM = 0x00;   // Continuation bit=0, D/C=0; 0000 0000
+    static const uint8 DATA           = 0xC0;   // Continuation bit=1, D/C=1; 1100 0000
+//    static const uint8 DATA_STREAM    = 0x40;   // Continuation bit=0, D/C=1; 0100 0000
+
+    static const uint8 X_OFFSET_LOWER = 0;
+    static const uint8 X_OFFSET_UPPER = 0;
 
 
     static void SendCommand(uint8);
@@ -23,8 +27,7 @@ namespace SSD1306
 
 void SSD1306::SendCommand(uint8 command)
 {
-    HAL_I2C::Write8(SSD1306_COMMAND);
-    HAL_I2C::Write8(command);
+    HAL_I2C::Write(COMMAND, &command, 1);
 }
 
 
@@ -69,7 +72,23 @@ void SSD1306::Init()
 
 void SSD1306::WriteBuffer(uint8 buffer[1024])
 {
-    HAL_I2C::Write8(SSD1306_DATA_STREAM);
+//    HAL_I2C::Write8(DATA_STREAM);
+//
+//    HAL_I2C::Write(buffer, 1024);
 
-    HAL_I2C::Write(buffer, 1024);
+
+    // Write data to each page of RAM. Number of pages
+    // depends on the screen height:
+    //
+    //  * 32px   ==  4 pages
+    //  * 64px   ==  8 pages
+    //  * 128px  ==  16 pages
+    for (uint8 i = 0; i < Display::HEIGHT / 8; i++)
+    {
+        SendCommand((uint8)(0xB0 + i)); // Set the current RAM page address.
+        SendCommand((uint8)(0x00 + X_OFFSET_LOWER));
+        SendCommand((uint8)(0x10 + X_OFFSET_UPPER));
+
+        HAL_I2C::Write(DATA, &buffer[Display::WIDTH * i], Display::WIDTH);
+    };
 }
