@@ -740,11 +740,6 @@
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
             <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Calculator.h</FilePath>
-            </File>
-            <File>
               <FileName>Calculator.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
@@ -1530,11 +1525,6 @@
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Calculator.h</FilePath>
             </File>
             <File>
               <FileName>Calculator.cpp</FileName>

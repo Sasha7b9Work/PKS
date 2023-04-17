@@ -18,7 +18,7 @@ namespace Device
 {
     static void UpdateModem();
 
-    static bool TestMemory();
+//    static bool TestMemory();
 }
 
 
@@ -66,26 +66,26 @@ void Device::UpdateModem()
 }
 
 
-bool Device::TestMemory()
-{
-    static TimeMeterMS meter;
-
-    if (meter.ElapsedTime() < 100)
-    {
-        return false;
-    }
-
-    meter.Reset();
-
-    M25P80::EraseSector(0);
-
-    uint8 byte_write = 0x38;
-
-    M25P80::WriteByte(byte_write);
-
-    uint8 byte_read = M25P80::ReadByte();
-
-    bool result = (byte_read == byte_write);
-
-    return result;
-}
+//bool Device::TestMemory()
+//{
+//    static TimeMeterMS meter;
+//
+//    if (meter.ElapsedTime() < 100)
+//    {
+//        return false;
+//    }
+//
+//    meter.Reset();
+//
+//    M25P80::EraseSector(0);
+//
+//    uint8 byte_write = 0x38;
+//
+//    M25P80::WriteByte(byte_write);
+//
+//    uint8 byte_read = M25P80::ReadByte();
+//
+//    bool result = (byte_read == byte_write);
+//
+//    return result;
+//}

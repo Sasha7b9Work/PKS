@@ -1,4 +1,4 @@
-// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
 
@@ -11,8 +11,10 @@ typedef const char *pchar;
 typedef unsigned char uchar;
 
 
-// Закомментировать на "боевой" плате
-#define DEV_BOARD
+// Р Р°СЃСЃРєРѕРјРµ
+#define EMULATE
+
+#define ENABLE_LOG
 
 #ifndef WIN32
     #define nullptr 0 //-V1059

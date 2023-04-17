@@ -2,7 +2,7 @@
 #pragma once
 
 
-#ifdef DEV_BOARD
+#ifdef ENABLE_LOG
 #define LOG_WRITE(...)      Log::Write(__VA_ARGS__)
 #else
 #define LOG_WRITE(...)

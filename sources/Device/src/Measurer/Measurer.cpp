@@ -64,9 +64,15 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
         if (pos_adc_value == NUM_SAMPLES)
         {
-#ifdef DEV_BOARD
+#ifdef EMULATE
             Generator::GenerateVoltage(voltA);
             Generator::GenerateCurrent(currentA);
+
+            Generator::GenerateVoltage(voltB);
+            Generator::GenerateCurrent(currentB);
+
+            Generator::GenerateVoltage(voltC);
+            Generator::GenerateCurrent(currentC);
 #endif
 
             LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
