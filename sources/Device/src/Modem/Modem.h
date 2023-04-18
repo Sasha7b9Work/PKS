@@ -6,6 +6,8 @@ namespace Modem
 {
     void Init();
 
+    void Update();
+
     // Есть обновление
     bool ExistUpdate();
 
