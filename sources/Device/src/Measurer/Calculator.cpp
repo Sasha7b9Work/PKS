@@ -14,10 +14,10 @@ void PhaseMeasure::Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES],
 {
     int period = Calculator::CalculatePeriod(samplesVolts);
 
-    if (phase == 1)
-    {
-        LOG_WRITE("period %d", period);
-    }
+//    if (phase == 1)
+//    {
+//        LOG_WRITE("period %d", period);
+//    }
 
     // Рассчитываем ток
 
@@ -36,11 +36,29 @@ void PhaseMeasure::Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES],
 
     float voltsRMS = 0.0f;
 
+    float max = -1e30f;
+    float min = 1e30f;
+
     for (int i = 0; i < period; i++)
     {
         float value = samplesVolts[i].ToVoltage();
 
+        if (value < min)
+        {
+            min = value;
+        }
+
+        if (value > max)
+        {
+            max = value;
+        }
+
         voltsRMS += value * value;
+    }
+
+    if (phase == 1)
+    {
+        LOG_WRITE("min = %f, max = %f", min, max);
     }
 
     voltage = sqrtf(voltsRMS / (float)period);

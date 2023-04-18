@@ -59,6 +59,8 @@ void Measurer::Update()
 
         measure = Calculate();
 
+        LOG_WRITE("%f V", measure.measures[0].voltage);
+
         pos_adc_value = 0;
     }
 }
@@ -148,7 +150,7 @@ float Sample::AmplitudeCurrent() const
 
 float Sample::AmplitudeVoltage() const
 {
-    return 350.0f * 2.0f;
+    return 830.0f * 2.0f;
 }
 
 
