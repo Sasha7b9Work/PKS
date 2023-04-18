@@ -21,32 +21,6 @@ namespace Measurer
     static Sample voltC[NUM_SAMPLES];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
-
-    static int CalculateDelta(const Sample[NUM_SAMPLES]);
-}
-
-
-int Measurer::CalculateDelta(const Sample samples[NUM_SAMPLES])
-{
-    int min = 0xffffffff;
-    int max = 0;
-
-    for (int i = 0; i < NUM_SAMPLES; i++)
-    {
-        if (samples[i] > max)
-        {
-            max = samples[i];
-        }
-
-        if (samples[i] < min)
-        {
-            min = samples[i];
-        }
-    }
-
-    int result = max - min;
-
-    return result;
 }
 
 
@@ -54,9 +28,6 @@ void Measurer::Update()
 {
     if (BuffersFull())
     {
-        volatile int delta = CalculateDelta(voltA);
-        delta = delta;
-
         measure = Calculate();
 
         LOG_WRITE("%f V", measure.measures[0].voltage);
