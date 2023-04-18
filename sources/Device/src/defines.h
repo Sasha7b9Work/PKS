@@ -1,4 +1,4 @@
-﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
 
@@ -12,7 +12,7 @@ typedef unsigned char uchar;
 
 
 // Расскоме
-#define EMULATE
+//#define EMULATE
 
 #define ENABLE_LOG
 
