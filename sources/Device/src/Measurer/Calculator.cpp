@@ -10,9 +10,14 @@ namespace Calculator
 }
 
 
-void PhaseMeasure::Calculate(const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES])
+void PhaseMeasure::Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES])
 {
     int period = Calculator::CalculatePeriod(samplesVolts);
+
+    if (phase == 1)
+    {
+        LOG_WRITE("period %d", period);
+    }
 
     // Рассчитываем ток
 
@@ -55,8 +60,8 @@ int Calculator::CalculatePeriod(const Sample samples[NUM_SAMPLES])
         sums[i] = sums[i - 1] + samples[i];
     }
 
-    int min_period = (int)(NUM_SAMPLES - 1.5f * SAMPLES_ON_PERIOD);     // Минимальный рассматриваемый период
-    int max_period = (int)(NUM_SAMPLES - 0.5f * SAMPLES_ON_PERIOD);
+    int min_period = (int)(NUM_SAMPLES - 2.5f * SAMPLES_ON_PERIOD);     // Минимальный рассматриваемый период
+    int max_period = (int)(NUM_SAMPLES - 1.0f * SAMPLES_ON_PERIOD);
 
     uint min_delta = (uint)(-1);
     int period_min_delta = 0;
@@ -66,7 +71,7 @@ int Calculator::CalculatePeriod(const Sample samples[NUM_SAMPLES])
         uint min = (uint)(-1);
         uint max = 0;
 
-        for (int start = 0; start < (NUM_SAMPLES - period); start++)
+        for (int start = 0; start < (int)SAMPLES_ON_PERIOD; start++)
         {
             uint sum = sums[start + period] - sums[start];
 

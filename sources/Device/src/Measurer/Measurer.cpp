@@ -120,9 +120,9 @@ FullMeasure Measurer::Calculate()
 {
     FullMeasure result;
 
-    result.measures[0].Calculate(currentA, voltA);
-    result.measures[1].Calculate(currentB, voltB);
-    result.measures[2].Calculate(currentC, voltC);
+    result.measures[0].Calculate(1, currentA, voltA);
+    result.measures[1].Calculate(2, currentB, voltB);
+    result.measures[2].Calculate(3, currentC, voltC);
 
     return result;
 }

@@ -53,7 +53,7 @@ struct PhaseMeasure
     float voltage;
     float power;
 
-    void Calculate(const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES]);
+    void Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES]);
 };
 
 
