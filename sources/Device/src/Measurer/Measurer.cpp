@@ -12,13 +12,13 @@ namespace Measurer
 
     static struct FullMeasure measure;
 
-    static Sample currentA[NUM_SAMPLES];
-    static Sample currentB[NUM_SAMPLES];
-    static Sample currentC[NUM_SAMPLES];
-
     static Sample voltA[NUM_SAMPLES];
     static Sample voltB[NUM_SAMPLES];
     static Sample voltC[NUM_SAMPLES];
+
+    static Sample currentA[NUM_SAMPLES];
+    static Sample currentB[NUM_SAMPLES];
+    static Sample currentC[NUM_SAMPLES];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 }
@@ -93,9 +93,9 @@ FullMeasure Measurer::Calculate()
 {
     FullMeasure result;
 
-    result.measures[0].Calculate(1, currentA, voltA);
-    result.measures[1].Calculate(2, currentB, voltB);
-    result.measures[2].Calculate(3, currentC, voltC);
+    result.measures[0].Calculate(voltA, currentA);
+    result.measures[1].Calculate(voltB, currentB);
+    result.measures[2].Calculate(voltC, currentC);
 
     return result;
 }

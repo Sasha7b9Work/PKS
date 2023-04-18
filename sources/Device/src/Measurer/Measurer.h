@@ -49,11 +49,11 @@ private:
 
 struct PhaseMeasure
 {
-    float current;
     float voltage;
+    float current;
     float power;
 
-    void Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES]);
+    void Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES]);
 };
 
 

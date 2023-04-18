@@ -10,14 +10,9 @@ namespace Calculator
 }
 
 
-void PhaseMeasure::Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES], const Sample samplesVolts[NUM_SAMPLES])
+void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES])
 {
     int period = Calculator::CalculatePeriod(samplesVolts);
-
-//    if (phase == 1)
-//    {
-//        LOG_WRITE("period %d", period);
-//    }
 
     // Рассчитываем ток
 
@@ -54,11 +49,6 @@ void PhaseMeasure::Calculate(int phase, const Sample samplesAmpers[NUM_SAMPLES],
         }
 
         voltsRMS += value * value;
-    }
-
-    if (phase == 1)
-    {
-        LOG_WRITE("min = %f, max = %f", min, max);
     }
 
     voltage = sqrtf(voltsRMS / (float)period);
