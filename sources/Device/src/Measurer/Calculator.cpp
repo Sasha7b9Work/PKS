@@ -79,7 +79,7 @@ int Calculator::CalculatePeriod(const Sample samples[NUM_SAMPLES])
     }
 
     int min_period = (int)(NUM_SAMPLES - 2.5f * SAMPLES_ON_PERIOD);     // Минимальный рассматриваемый период
-    int max_period = (int)(NUM_SAMPLES - 1.0f * SAMPLES_ON_PERIOD);
+    int max_period = (int)(NUM_SAMPLES - 1.0f * SAMPLES_ON_PERIOD - 3);
 
     uint min_delta = (uint)(-1);
     int period_min_delta = 0;
