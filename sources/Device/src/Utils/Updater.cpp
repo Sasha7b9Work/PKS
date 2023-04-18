@@ -91,9 +91,9 @@ void Updater::JumpToBootloader()
     typedef void (*iapfun)(void);
     iapfun  jump2app;
 
-    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_BOOTLOADER + 4);
+    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_BOOTLOADER + 4); //-V566
 #ifndef GUI
-    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_BOOTLOADER);                        //initialize app pointer
+    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_BOOTLOADER);                        //initialize app pointer //-V566
 #endif
     jump2app();                                                                 //jump to app
 }

@@ -13,10 +13,6 @@ namespace SSD1306
     static const uint8 COMMAND        = 0x00;   // Continuation bit=1, D/C=0; 1000 0000
     static const uint8 DATA           = 0x40;   // Continuation bit=1, D/C=1; 1100 0000
 
-    static const uint8 X_OFFSET_LOWER = 0;
-    static const uint8 X_OFFSET_UPPER = 0;
-
-
     static void SendCommand(uint8);
 }
 
@@ -71,8 +67,8 @@ void SSD1306::WriteBuffer(uint8 buffer[1024])
     for (uint8 i = 0; i < Display::HEIGHT / 8; i++)
     {
         SendCommand((uint8)(0xB0 + i)); // Set the current RAM page address.
-        SendCommand((uint8)(0x00 + X_OFFSET_LOWER));
-        SendCommand((uint8)(0x10 + X_OFFSET_UPPER));
+        SendCommand((uint8)(0x00));
+        SendCommand((uint8)(0x10));
 
         HAL_I2C::Write(DATA, &buffer[Display::WIDTH * i], Display::WIDTH);
     };

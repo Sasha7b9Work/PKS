@@ -18,7 +18,7 @@ int main()
 
             uint addr_write = HAL_ROM::ADDR_BASE + (page - 50) * HAL_ROM::SIZE_PAGE;
 
-            uint8 *data = (uint8 *)HAL_ROM::ADDR_SAVED_FIRMWARE + page * HAL_ROM::SIZE_PAGE;
+            uint8 *data = (uint8 *)HAL_ROM::ADDR_SAVED_FIRMWARE + page * HAL_ROM::SIZE_PAGE; //-V566
 
             HAL_ROM::WriteData(addr_write, data, HAL_ROM::SIZE_PAGE);
         }
@@ -43,7 +43,7 @@ static void JumpToApplication()
     typedef void (*iapfun)(void);
     iapfun  jump2app;
 
-    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_APPLICATION + 4);
-    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_APPLICATION);                        //initialize app pointer
+    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_APPLICATION + 4); //-V566
+    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_APPLICATION);                        //initialize app pointer //-V566
     jump2app();                                                                 //jump to app
 }

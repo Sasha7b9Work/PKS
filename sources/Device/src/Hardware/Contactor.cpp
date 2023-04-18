@@ -183,7 +183,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
     }
     else if (_adc_voltage <= adc_240v[phase])
     {
-        if (_old_stage_num >= 0)
+        if (_old_stage_num[phase] >= 0)
             _current_stage_num[phase] = 0;
         else
             _current_stage_num[phase] = -1;
