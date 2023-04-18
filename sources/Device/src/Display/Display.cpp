@@ -60,7 +60,7 @@ void Display::WriteVoltage(int i)
 
     char message[30];
 
-    std::sprintf(message, "%1.3f", measure.measures[i].voltage);
+    std::sprintf(message, "%4.1f", measure.measures[i].voltage);
 
     WriteString(10, 10 + i * 20, message);
 }
