@@ -21,6 +21,32 @@ namespace Measurer
     static Sample voltC[NUM_SAMPLES];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
+
+    static int CalculateDelta(const Sample[NUM_SAMPLES]);
+}
+
+
+int Measurer::CalculateDelta(const Sample samples[NUM_SAMPLES])
+{
+    int min = 0xffffffff;
+    int max = 0;
+
+    for (int i = 0; i < NUM_SAMPLES; i++)
+    {
+        if (samples[i] > max)
+        {
+            max = samples[i];
+        }
+
+        if (samples[i] < min)
+        {
+            min = samples[i];
+        }
+    }
+
+    int result = max - min;
+
+    return result;
 }
 
 
@@ -28,6 +54,9 @@ void Measurer::Update()
 {
     if (BuffersFull())
     {
+        volatile int delta = CalculateDelta(voltA);
+        delta = delta;
+
         measure = Calculate();
 
         pos_adc_value = 0;
@@ -52,13 +81,13 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
     if (pos_adc_value < NUM_SAMPLES)
     {
-        currentA[pos_adc_value] = adc_values[0];
-        currentB[pos_adc_value] = adc_values[1];
-        currentC[pos_adc_value] = adc_values[2];
+        voltA [pos_adc_value] = adc_values[0];
+        voltB [pos_adc_value] = adc_values[1];
+        voltC [pos_adc_value] = adc_values[2];
 
-        voltA[pos_adc_value] = adc_values[3];
-        voltB[pos_adc_value] = adc_values[4];
-        voltC[pos_adc_value] = adc_values[5];
+        currentA[pos_adc_value] = adc_values[3];
+        currentB[pos_adc_value] = adc_values[4];
+        currentC[pos_adc_value] = adc_values[5];
 
         pos_adc_value++;
 
@@ -75,7 +104,7 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
             Generator::GenerateCurrent(currentC);
 #endif
 
-            LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
+//            LOG_WRITE("time read measure %d ms", meter.ElapsedTime());
         }
     }
 }
