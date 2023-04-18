@@ -8,9 +8,10 @@
 
 namespace Measurer
 {
-    static FullMeasure Calculate();
-
     static struct FullMeasure measure;
+    static struct FullMeasure measure5Sec;
+    static struct FullMeasure measure1Min;
+
 
     static Sample voltA[NUM_SAMPLES];
     static Sample voltB[NUM_SAMPLES];
@@ -21,6 +22,10 @@ namespace Measurer
     static Sample currentC[NUM_SAMPLES];
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
+
+    static FullMeasure Calculate();
+    static void Calculate5Sec(const FullMeasure &);
+    static void Calculate1Min(const FullMeasure &);
 }
 
 
@@ -29,6 +34,10 @@ void Measurer::Update()
     if (BuffersFull())
     {
         measure = Calculate();
+
+        Calculate5Sec(measure);
+
+        Calculate1Min(measure);
 
         LOG_WRITE("%f V", measure.measures[0].voltage);
 
@@ -40,6 +49,18 @@ void Measurer::Update()
 FullMeasure Measurer::LastMeasure()
 {
     return measure;
+}
+
+
+FullMeasure Measurer::Measure5Sec()
+{
+    return measure5Sec;
+}
+
+
+FullMeasure Measurer::Measure1Min()
+{
+    return measure1Min;
 }
 
 
@@ -134,4 +155,84 @@ void Sample::FromVoltage(float level)
 void Sample::FromCurrent(float level)
 {
     rel = (uint16)(level / AmpersInSample() + ZERO);
+}
+
+
+void Measurer::Calculate5Sec(const FullMeasure &meas)
+{
+    static TimeMeterMS meter;
+
+    static int counter = 0;
+
+    static FullMeasure result;
+
+    if (meter.ElapsedTime() >= 5000)
+    {
+        result.Average(counter);
+
+        measure5Sec = result;
+
+        result.Clear();
+
+        meter.Reset();
+
+        counter = 0;
+    }
+
+    result.AppendMeasure(meas);
+}
+
+
+void Measurer::Calculate1Min(const FullMeasure &meas)
+{
+    static TimeMeterMS meter;
+
+    static int counter = 0;
+
+    static FullMeasure result;
+
+    if (meter.ElapsedTime() >= 1000 * 60)
+    {
+        result.Average(counter);
+
+        measure1Min = result;
+
+        result.Clear();
+
+        meter.Reset();
+
+        counter = 0;
+    }
+
+    result.AppendMeasure(meas);
+}
+
+
+void FullMeasure::Clear()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        measures[i].voltage = 0.0f;
+        measures[i].current = 0.0f;
+    }
+}
+
+
+void FullMeasure::AppendMeasure(const FullMeasure &meas)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        measures[i].voltage += meas.measures[i].voltage;
+        measures[i].current += meas.measures[i].current;
+    }
+}
+
+
+void FullMeasure::Average(int number)
+{
+    for (int i = 0; i < 3; i++)
+    {
+        measures[i].voltage /= (float)number;
+        measures[i].current /= (float)number;
+    }
 }

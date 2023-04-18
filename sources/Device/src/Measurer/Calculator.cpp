@@ -52,8 +52,6 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
     }
 
     voltage = sqrtf(voltsRMS / (float)period);
-
-    power = current * voltage;
 }
 
 

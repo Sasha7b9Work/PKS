@@ -51,7 +51,6 @@ struct PhaseMeasure
 {
     float voltage;
     float current;
-    float power;
 
     void Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES]);
 };
@@ -60,6 +59,12 @@ struct PhaseMeasure
 struct FullMeasure
 {
     PhaseMeasure measures[3];
+
+    void Clear();
+
+    void AppendMeasure(const FullMeasure &);
+
+    void Average(int number);
 };
 
 
@@ -73,4 +78,8 @@ namespace Measurer
     bool BuffersFull();
 
     FullMeasure LastMeasure();
+
+    FullMeasure Measure5Sec();
+
+    FullMeasure Measure1Min();
 }
