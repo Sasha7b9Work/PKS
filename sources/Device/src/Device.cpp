@@ -9,14 +9,14 @@
 #include "Test.h"
 #include "Utils/Updater.h"
 #include "Hardware/Timer.h"
-#include "Hardware/Contactor.h"
+#include "Measurer/Contactor.h"
 #include "Hardware/Modules/M25P80/M25P80.h"
 #include <gd32f30x_rcu.h>
 
 
 namespace Device
 {
-    static void UpdateModem();
+//    static void UpdateModem();
 
 //    static bool TestMemory();
 }
@@ -50,20 +50,20 @@ void Device::Update()
 }
 
 
-void Device::UpdateModem()
-{
-    static TimeMeterMS meter;
-
-    if (meter.ElapsedTime() > 1000)
-    {
-        meter.Reset();
-
-        pchar answer = Modem::LastAnswer();
-        LOG_WRITE("modem %s", answer);
-
-        Modem::Transmit("AT+IPR?");
-    }
-}
+//void Device::UpdateModem()
+//{
+//    static TimeMeterMS meter;
+//
+//    if (meter.ElapsedTime() > 1000)
+//    {
+//        meter.Reset();
+//
+//        pchar answer = Modem::LastAnswer();
+//        LOG_WRITE("modem %s", answer);
+//
+//        Modem::Transmit("AT+IPR?");
+//    }
+//}
 
 
 //bool Device::TestMemory()

@@ -1,6 +1,6 @@
 // 2023/04/09 14:55:08 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Hardware/Contactor.h"
+#include "Measurer/Contactor.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
 

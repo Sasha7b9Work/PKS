@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -523,16 +524,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
-            <File>
-              <FileName>Contactor.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Contactor.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Contactor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Contactor.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -747,6 +738,16 @@
               <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Contactor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Contactor.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -972,6 +973,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1309,16 +1311,6 @@
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
-            <File>
-              <FileName>Contactor.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Contactor.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Contactor.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Contactor.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1533,6 +1525,16 @@
               <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Contactor.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactor.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Contactor.h</FilePath>
             </File>
           </Files>
         </Group>
