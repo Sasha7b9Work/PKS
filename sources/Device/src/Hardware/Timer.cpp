@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Hardware/Timer.h"
 #include <gd32f30x.h>
+#include "Hardware/HAL/systick.h"
 
 
 uint timer_counter = 0;
@@ -22,4 +23,10 @@ void TimeMeterMS::Reset()
 uint TimeMeterMS::ElapsedTime()
 {
     return timer_counter - time_reset;
+}
+
+
+void Timer::DelayMS(uint ms)
+{
+    delay_1ms(ms);
 }

@@ -5,6 +5,8 @@
 namespace Timer
 {
     uint TimeMS();
+
+    void DelayMS(uint ms);
 }
 
 

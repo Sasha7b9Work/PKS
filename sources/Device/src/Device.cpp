@@ -42,7 +42,7 @@ void Device::Update()
 
     Display::Update();
 
-//    Contactor::Update(Measurer::Measure5Sec());
+    Contactor::Update(Measurer::Measure5Sec());
 
     Updater::Update();
 
