@@ -62,6 +62,7 @@ struct PinIN
     PinIN(uint _port, uint _pin) : port(_port), pin(_pin) { }
     void Init();
     bool IsLow();
+    bool IsHi();
 private:
     uint port;
     uint pin;

@@ -41,7 +41,12 @@ namespace Modem
         {
             IDLE,
             WAIT_DISCHARGE_CAPS,    // Ожидание разряда конденсатора после обесточивания модема
-            WAIT_HI_GSM_PG          // Ожидаине появления 1 на входе GSM_PG после включения модема
+            WAIT_HI_GSM_PG,         // Ожидаине появления 1 на входе GSM_PG после включения модема
+            WAIT_500_MS,            // Ожидать полсекунды после появления 1 на входе GSM_PG
+            WAIT_1250_MS,           // Ожидать 1.25 сек после перевода GSM_PWRKEY в 0
+            WAIT_5000_MS,           // Ожидать 5 секунд единицу на GSM_STATUS
+            WAIT_REGISTRATION,      // Ожидание регистрации
+            NORMAL                  // Подключились, зарегистрировались
         };
     };
 
@@ -59,6 +64,9 @@ namespace Modem
 
         static bool ReadInput();
     }
+
+    // Возвращает true, если произошла регистрация в сети
+    static bool RegistrationIsOk();
 }
 
 
@@ -86,11 +94,61 @@ void Modem::Update()
         break;
 
     case State::WAIT_HI_GSM_PG:
-        if (GSM_PG::ReadInput())
+        if (meter.ElapsedTime() > 100)
         {
-
+            state = State::IDLE;
+        }
+        else if (GSM_PG::ReadInput())
+        {
+            meter.Reset();
+            state = State::WAIT_500_MS;
         }
         break;
+
+    case State::WAIT_500_MS:
+        if (meter.ElapsedTime() > 500)
+        {
+            pinGSM_PWRKEY.Reset();
+            meter.Reset();
+            state = State::WAIT_1250_MS;
+        }
+        break;
+
+    case State::WAIT_1250_MS:
+        if (meter.ElapsedTime() > 1250)
+        {
+            pinGSM_PWRKEY.Set();
+            meter.Reset();
+            state = State::WAIT_5000_MS;
+        }
+        break;
+
+    case State::WAIT_5000_MS:
+        if (pinGSM_STATUS.IsHi())
+        {
+            state = State::WAIT_REGISTRATION;
+            meter.Reset();
+        }
+        if (meter.ElapsedTime() > 5000)
+        {
+            state = State::IDLE;
+        }
+        break;
+
+    case State::WAIT_REGISTRATION:
+        if (RegistrationIsOk())
+        {
+            state = State::NORMAL;
+        }
+        if (meter.ElapsedTime() > 30 * 1000)
+        {
+            state = State::IDLE;
+        }
+        break;
+
+    case State::NORMAL:
+        break;
+
     }
 }
 
@@ -100,6 +158,9 @@ void Modem::Init()
     pinGSM_PWR.Init();
     pinGSM_PWRKEY.Init();
     pinGSM_STATUS.Init();
+
+    pinGSM_PWR.Set();
+    pinGSM_PWRKEY.Set();
 
     SIM800C::Init();
 
@@ -159,6 +220,12 @@ void Modem::GSM_PG::ToInPullDown()
 
 
 bool Modem::GSM_PG::ReadInput()
+{
+    return false;
+}
+
+
+bool Modem::RegistrationIsOk()
 {
     return false;
 }
