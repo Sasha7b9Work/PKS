@@ -3,6 +3,7 @@
 #include "Modem/Modem.h"
 #include "Hardware/Modules/SIM800C/SIM800C.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
 #include <cstring>
 
 
@@ -24,6 +25,11 @@
     9)  Если в течение 5с на порту PD1 (GSM_STATUS) лог.0 и не появилась единица, то модем по какой-то причине не включился, повторить всю процедуру сначала.
     10)  С момента появления лог.1 на GSM_STATUS готов к работе UART модема, ожидать регистрации в сети не менее 30с, если за 30с регистрации в сети нет, то
         начать всю процедуру сначала.
+
+        Исходные состояния
+
+        GSM_PWR = 1
+        GSM_PWRKEY = 1
 */
 
 
@@ -33,7 +39,9 @@ namespace Modem
     {
         enum E
         {
-            IDLE
+            IDLE,
+            WAIT_DISCHARGE_CAPS,    // Ожидание разряда конденсатора после обесточивания модема
+            WAIT_HI_GSM_PG          // Ожидаине появления 1 на входе GSM_PG после включения модема
         };
     };
 
@@ -42,14 +50,46 @@ namespace Modem
     static const int SIZE_BUFFER = 128;
     static char answer[SIZE_BUFFER] = { '\0' };
     static int pointer = 0;
+
+    namespace GSM_PG
+    {
+        static void ToOutLow();
+
+        static void ToInPullDown();
+
+        static bool ReadInput();
+    }
 }
 
 
 void Modem::Update()
 {
+    static TimeMeterMS meter;
+
     switch (state)
     {
     case State::IDLE:
+        pinGSM_PWR.Set();
+        GSM_PG::ToOutLow();
+        state = State::WAIT_DISCHARGE_CAPS;
+        meter.Reset();
+        break;
+
+    case State::WAIT_DISCHARGE_CAPS:
+        if (meter.ElapsedTime() >= 100)
+        {
+            GSM_PG::ToInPullDown();
+            pinGSM_PWR.Reset();
+            state = State::WAIT_HI_GSM_PG;
+            meter.Reset();
+        }
+        break;
+
+    case State::WAIT_HI_GSM_PG:
+        if (GSM_PG::ReadInput())
+        {
+
+        }
         break;
     }
 }
@@ -57,6 +97,10 @@ void Modem::Update()
 
 void Modem::Init()
 {
+    pinGSM_PWR.Init();
+    pinGSM_PWRKEY.Init();
+    pinGSM_STATUS.Init();
+
     SIM800C::Init();
 
     Modem::Transmit("ATE0");
@@ -99,4 +143,22 @@ void Modem::CallbackOnReceive(char symbol)
         std::strcat(answer, buffer);
         pointer++;
     }
+}
+
+
+void Modem::GSM_PG::ToOutLow()
+{
+
+}
+
+
+void Modem::GSM_PG::ToInPullDown()
+{
+
+}
+
+
+bool Modem::GSM_PG::ReadInput()
+{
+    return false;
 }

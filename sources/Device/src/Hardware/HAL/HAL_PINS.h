@@ -59,6 +59,8 @@ private:
 
 struct PinIN
 {
+    PinIN(uint _port, uint _pin) : port(_port), pin(_pin) { }
+    void Init();
     bool IsLow();
 private:
     uint port;
@@ -91,6 +93,10 @@ extern PinUSART_TX pinUSART_LOG_TX;
 extern PinUSART_RX pinUSART_LOG_RX;
 
 extern const uint SPI_ADDR;
+
+extern PinOUT pinGSM_PWR;
+extern PinOUT pinGSM_PWRKEY;
+extern PinIN  pinGSM_STATUS;
 
 extern PinOUT pinOutMX0;
 extern PinOUT pinOutMX1;
