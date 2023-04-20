@@ -147,11 +147,17 @@ void PinOUT::SetState(bool state)
 
 void PinIN::Init()
 {
-
+    gpio_init(port, GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, pin);
 }
 
 
 bool PinIN::IsLow()
 {
     return gpio_input_bit_get(port, pin) == RESET;
+}
+
+
+bool PinIN::IsHi()
+{
+    return !IsLow();
 }

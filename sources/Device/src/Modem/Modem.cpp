@@ -4,6 +4,7 @@
 #include "Hardware/Modules/SIM800C/SIM800C.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include <gd32f30x.h>
 #include <cstring>
 
 
@@ -84,7 +85,7 @@ void Modem::Update()
         break;
 
     case State::WAIT_DISCHARGE_CAPS:
-        if (meter.ElapsedTime() >= 100)
+        if (meter.ElapsedTime() > 100)
         {
             GSM_PG::ToInPullDown();
             pinGSM_PWR.Reset();
@@ -94,14 +95,14 @@ void Modem::Update()
         break;
 
     case State::WAIT_HI_GSM_PG:
-        if (meter.ElapsedTime() > 100)
-        {
-            state = State::IDLE;
-        }
-        else if (GSM_PG::ReadInput())
+        if (GSM_PG::ReadInput())
         {
             meter.Reset();
             state = State::WAIT_500_MS;
+        }
+        if (meter.ElapsedTime() > 100)
+        {
+            state = State::IDLE;
         }
         break;
 
@@ -148,7 +149,6 @@ void Modem::Update()
 
     case State::NORMAL:
         break;
-
     }
 }
 
@@ -209,19 +209,21 @@ void Modem::CallbackOnReceive(char symbol)
 
 void Modem::GSM_PG::ToOutLow()
 {
+    gpio_init(GPIOE, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
 
+    GPIO_BC(GPIOE) = GPIO_PIN_2;
 }
 
 
 void Modem::GSM_PG::ToInPullDown()
 {
-
+    gpio_init(GPIOE, GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
 }
 
 
 bool Modem::GSM_PG::ReadInput()
 {
-    return false;
+    return gpio_input_bit_get(GPIOE, GPIO_PIN_2) == SET;
 }
 
 
