@@ -1,4 +1,4 @@
-// 2023/03/16 16:31:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2023/03/16 16:31:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
 
@@ -8,12 +8,16 @@ namespace Modem
 
     void Update();
 
-    // Есть обновление
+    // Р•СЃС‚СЊ РѕР±РЅРѕРІР»РµРЅРёРµ
     bool ExistUpdate();
 
     void Transmit(pchar);
 
-    // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
+    // РџРѕСЃС‹Р»Р°РµС‚ РєРѕРјР°РЅРґСѓ Рё РІРѕР·СЂР°С‰Р°РµС‚ true, РµСЃР»Рё РїСЂРёРЅСЏС‚Рѕ РћРљ
+    bool SendAndRecvOK(pchar);
+
+    // Р’РѕР·РІСЂР°С‰Р°РµС‚ РїРѕСЃР»РµРґРЅРёР№ РїРѕР»СѓС‡РµРЅРЅС‹Р№ РѕС‚РІРµС‚. РџРѕСЃР»Рµ РєР°Р¶РґРѕРіРѕ РІС‹Р·РѕРІР° Transmit() РѕС‚РІРµС‚ РѕС‡РёС‰Р°РµС‚СЃСЏ
+    // РџРѕСЃР»РµРґРЅРёР№ СЃРёРјРІРѕР» РѕС‚РІРµС‚Р° 0x0d <CR>
     pchar LastAnswer();
 
     void CallbackOnReceive(char);

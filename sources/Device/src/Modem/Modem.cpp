@@ -88,6 +88,9 @@ namespace Modem
     static bool RegistrationIsOk();
 
     static bool ExistAnswer();
+
+    // Здать ответ timeout мс
+    static pchar WaitAnswer(char *buffer, uint timeout = 1500);
 }
 
 
@@ -202,13 +205,79 @@ bool Modem::ExistUpdate()
 void Modem::Transmit(pchar message)
 {
     answer[0] = '\0';
-    pointer = 0;
 
     HAL_USART_GPRS::Transmit(message);
 
     static const char end_message[2] = { 0x0d, 0 };
 
     HAL_USART_GPRS::Transmit(end_message);
+}
+
+
+void Modem::CallbackOnReceive(char symbol)
+{
+    if (pointer == SIZE_BUFFER - 1)
+    {
+        pointer = 0;
+    }
+
+    // Если в приёмном буфере уже есть ответ - очищаем его
+    if (pointer != 0 && answer[pointer - 1] == 0x0d)
+    {
+        pointer = 0;
+    }
+
+    if (symbol == 0x0d || symbol == 0x0a)
+    {
+        if (pointer == 0)
+        {
+            return;
+        }
+
+        if (symbol == 0x0a)
+        {
+            return;
+        }
+    }
+
+    answer[pointer++] = symbol;
+}
+
+
+pchar Modem::WaitAnswer(char *buffer, uint timeout)
+{
+    TimeMeterMS meter;
+
+    while (meter.ElapsedTime() < timeout)
+    {
+        pchar message = LastAnswer();
+
+        if (message)
+        {
+            int ptr = 0;
+
+            for (; message[ptr] != 0x0d; ptr++)
+            {
+                buffer[ptr] = message[ptr];
+            }
+
+            buffer[ptr] = '\0';
+
+            return buffer;
+        }
+    }
+
+    return "";
+}
+
+
+bool Modem::SendAndRecvOK(pchar message)
+{
+    Transmit(message);
+
+    char buffer[128];
+
+    return std::strcmp(WaitAnswer(buffer), "OK") == 0;
 }
 
 
@@ -219,9 +288,7 @@ pchar Modem::LastAnswer()
         return answer;
     }
     
-    static const pchar null_answer = "";
-
-    return null_answer;
+    return nullptr;
 }
 
 
@@ -236,24 +303,6 @@ bool Modem::ExistAnswer()
     }
 
     return false;
-}
-
-
-void Modem::CallbackOnReceive(char symbol)
-{
-    // Если в приёмном буфере уже есть ответ - очищаем его
-    if (pointer != 0 && answer[pointer - 1] == 0x0d)
-    {
-        pointer = 0;
-    }
-
-    if (pointer == SIZE_BUFFER - 1)
-    {
-        pointer = 0;
-    }
-
-    answer[pointer++] = symbol;
-    answer[pointer] = '\0';
 }
 
 
