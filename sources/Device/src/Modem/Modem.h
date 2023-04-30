@@ -13,9 +13,6 @@ namespace Modem
     // Есть обновление
     bool ExistUpdate();
 
-    // Посылает команду и возращает true, если принято ОК
-    bool SendAndRecvOK(pchar);
-
     bool SendAndWaitAnswer(pchar cmd, char answer_out[MAX_LENGTH_ANSWERR], uint timeout = 1500);
 
     // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
