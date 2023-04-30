@@ -69,6 +69,8 @@ namespace Modem
 
     // Здать ответ timeout мс
     static pchar WaitAnswer(char buffer_out[MAX_LENGTH_ANSWERR], uint timeout = 1500);
+
+    static void Transmit(pchar);
 }
 
 

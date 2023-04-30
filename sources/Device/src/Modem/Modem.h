@@ -13,8 +13,6 @@ namespace Modem
     // Есть обновление
     bool ExistUpdate();
 
-    void Transmit(pchar);
-
     // Посылает команду и возращает true, если принято ОК
     bool SendAndRecvOK(pchar);
 
