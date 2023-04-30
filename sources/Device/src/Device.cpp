@@ -16,8 +16,6 @@
 
 namespace Device
 {
-//    static void UpdateModem();
-
 //    static bool TestMemory();
 }
 
@@ -48,22 +46,6 @@ void Device::Update()
 
     Modem::Update();
 }
-
-
-//void Device::UpdateModem()
-//{
-//    static TimeMeterMS meter;
-//
-//    if (meter.ElapsedTime() > 1000)
-//    {
-//        meter.Reset();
-//
-//        pchar answer = Modem::LastAnswer();
-//        LOG_WRITE("modem %s", answer);
-//
-//        Modem::Transmit("AT+IPR?");
-//    }
-//}
 
 
 //bool Device::TestMemory()

@@ -15,9 +15,5 @@ namespace Modem
 
     bool SendAndWaitAnswer(pchar cmd, char answer_out[MAX_LENGTH_ANSWERR], uint timeout = 1500);
 
-    // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
-    // Последний символ ответа 0x0d <CR>
-    pchar LastAnswer();
-
     void CallbackOnReceive(char);
 }

@@ -74,6 +74,10 @@ namespace Modem
 
     // Посылает команду и возращает true, если принято ОК
     static bool SendAndRecvOK(pchar);
+
+    // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
+    // Последний символ ответа 0x0d <CR>
+    static pchar LastAnswer();
 }
 
 
