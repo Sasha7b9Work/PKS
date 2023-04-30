@@ -6,5 +6,12 @@
 
 bool Modem::Command::RegistrationIsOk()
 {
-    return SendAndRecvOK("AT+CREG?");
+    char answer[Modem::MAX_LENGTH_ANSWERR];
+
+    if (!SendAndWaitAnswer("AT+CREG?", answer))
+    {
+        return false;
+    }
+
+    return true;
 }

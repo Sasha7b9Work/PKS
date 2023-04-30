@@ -72,8 +72,7 @@ namespace Modem
 
     static State::E state = State::IDLE;
 
-    static const int SIZE_BUFFER = 128;
-    static char answer[SIZE_BUFFER] = { '\0' };
+    static char answer[MAX_LENGTH_ANSWERR] = { '\0' };
     static int pointer = 0;
 
     namespace GSM_PG
@@ -88,7 +87,7 @@ namespace Modem
     static bool ExistAnswer();
 
     // Здать ответ timeout мс
-    static pchar WaitAnswer(char *buffer, uint timeout = 1500);
+    static pchar WaitAnswer(char buffer[MAX_LENGTH_ANSWERR], uint timeout = 1500);
 }
 
 
@@ -222,7 +221,7 @@ void Modem::Transmit(pchar message)
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    if (pointer == SIZE_BUFFER - 1)
+    if (pointer == MAX_LENGTH_ANSWERR - 1)
     {
         pointer = 0;
     }
@@ -250,7 +249,7 @@ void Modem::CallbackOnReceive(char symbol)
 }
 
 
-pchar Modem::WaitAnswer(char *buffer, uint timeout)
+pchar Modem::WaitAnswer(char buffer[MAX_LENGTH_ANSWERR], uint timeout)
 {
     TimeMeterMS meter;
 
@@ -277,11 +276,19 @@ pchar Modem::WaitAnswer(char *buffer, uint timeout)
 }
 
 
+bool Modem::SendAndWaitAnswer(pchar cmd, char answer[MAX_LENGTH_ANSWERR], uint timeout)
+{
+    Transmit(cmd);
+
+    return WaitAnswer(answer, timeout)[0] != '\0';
+}
+
+
 bool Modem::SendAndRecvOK(pchar message)
 {
     Transmit(message);
 
-    char buffer[128];
+    char buffer[MAX_LENGTH_ANSWERR];
 
     return std::strcmp(WaitAnswer(buffer), "OK") == 0;
 }

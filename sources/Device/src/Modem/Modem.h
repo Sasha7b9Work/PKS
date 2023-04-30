@@ -4,6 +4,8 @@
 
 namespace Modem
 {
+    static const int MAX_LENGTH_ANSWERR = 128;
+
     bool Init();
 
     void Update();
@@ -15,6 +17,8 @@ namespace Modem
 
     // Посылает команду и возращает true, если принято ОК
     bool SendAndRecvOK(pchar);
+
+    bool SendAndWaitAnswer(pchar cmd, char answer[MAX_LENGTH_ANSWERR], uint timeout = 1500);
 
     // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
     // Последний символ ответа 0x0d <CR>
