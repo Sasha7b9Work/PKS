@@ -192,6 +192,7 @@ bool Modem::Init()
     SIM800C::Init();
 
     return
+
         // Отключаем режим ЭХО.
         SendAndRecvOK("ATE0") &&
 
@@ -199,28 +200,7 @@ bool Modem::Init()
         SendAndRecvOK("AT+GSMBUSY=1") &&
 
         //    AT + CREG ? – проверка регистрации в сети.
-        SendAndRecvOK("AT + CREG ?") &&
-
-        //    GPRS test
-        SendAndRecvOK("") &&
-
-        //    AT + SAPBR = 3, 1, "APN", "internet"
-        SendAndRecvOK("") &&
-
-        //    AT + SAPBR = 3, 1, "USER", ""
-        SendAndRecvOK("") &&
-
-        //    AT + SAPBR = 3, 1, "PWD", ""
-        SendAndRecvOK("") &&
-
-        //    AT + SAPBR = 1, 1
-        SendAndRecvOK("") &&
-
-        //    AT + HTTPINIT
-        SendAndRecvOK("") &&
-
-        //    AT + HTTPPARA = "CID",
-        SendAndRecvOK("");
+        SendAndRecvOK("AT + CREG ?");
 }
 
 
