@@ -1,7 +1,6 @@
 // 2023/03/16 16:31:54 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/Modem.h"
-#include "Hardware/Modules/SIM800C/SIM800C.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Modem/Commands.h"
@@ -32,24 +31,6 @@
 
         GSM_PWR = 1
         GSM_PWRKEY = 1
-*/
-
-
-/*
-    Последовательность инициализации
-
-    ATE0 – отключаем режим ЭХО.
-    AT+GSMBUSY=0 – запрещаем входящие звонки.
-    AT+CPAS – проверяем готовностью и текущее состояние модуля.
-    AT+CREG? – проверка регистрации в сети.
-    AT+CSQ – проверка уровня сигнала, уровень нужно будет потом вывести на экран
-    GPRS test
-    AT+SAPBR=3,1,"APN","internet"
-    AT+SAPBR=3,1,"USER",""
-    AT+SAPBR=3,1,"PWD",""
-    AT+SAPBR=1,1
-    AT+HTTPINIT
-    AT+HTTPPARA="CID",1
 */
 
 
@@ -87,7 +68,7 @@ namespace Modem
     static bool ExistAnswer();
 
     // Здать ответ timeout мс
-    static pchar WaitAnswer(char buffer[MAX_LENGTH_ANSWERR], uint timeout = 1500);
+    static pchar WaitAnswer(char buffer_out[MAX_LENGTH_ANSWERR], uint timeout = 1500);
 }
 
 
@@ -161,11 +142,14 @@ void Modem::Update()
         break;
 
     case State::WAIT_REGISTRATION:
-        if (Command::RegistrationIsOk())
+
+        if (SendAndRecvOK("ATE0") &&
+            SendAndRecvOK("AT+GSMBUSY=1") &&
+            Command::RegistrationIsOk())
         {
             state = State::NORMAL;
         }
-        if (meter.ElapsedTime() > 30 * 1000)
+        else
         {
             state = State::IDLE;
         }
@@ -177,7 +161,7 @@ void Modem::Update()
 }
 
 
-bool Modem::Init()
+void Modem::Init()
 {
     pinGSM_PWR.Init();
     pinGSM_PWRKEY.Init();
@@ -185,19 +169,6 @@ bool Modem::Init()
 
     pinGSM_PWR.Set();
     pinGSM_PWRKEY.Set();
-
-    SIM800C::Init();
-
-    return
-
-        // Отключаем режим ЭХО.
-        SendAndRecvOK("ATE0") &&
-
-        // Запрещаем входящие звонки.
-        SendAndRecvOK("AT+GSMBUSY=1") &&
-
-        // Проверка регистрации в сети.
-        SendAndRecvOK("AT+CREG?");
 }
 
 
@@ -249,7 +220,7 @@ void Modem::CallbackOnReceive(char symbol)
 }
 
 
-pchar Modem::WaitAnswer(char buffer[MAX_LENGTH_ANSWERR], uint timeout)
+pchar Modem::WaitAnswer(char buffer_out[MAX_LENGTH_ANSWERR], uint timeout)
 {
     TimeMeterMS meter;
 
@@ -263,12 +234,12 @@ pchar Modem::WaitAnswer(char buffer[MAX_LENGTH_ANSWERR], uint timeout)
 
             for (; message[ptr] != 0x0d; ptr++)
             {
-                buffer[ptr] = message[ptr];
+                buffer_out[ptr] = message[ptr];
             }
 
-            buffer[ptr] = '\0';
+            buffer_out[ptr] = '\0';
 
-            return buffer;
+            return buffer_out;
         }
     }
 
@@ -276,11 +247,11 @@ pchar Modem::WaitAnswer(char buffer[MAX_LENGTH_ANSWERR], uint timeout)
 }
 
 
-bool Modem::SendAndWaitAnswer(pchar cmd, char answer[MAX_LENGTH_ANSWERR], uint timeout)
+bool Modem::SendAndWaitAnswer(pchar cmd, char answer_out[MAX_LENGTH_ANSWERR], uint timeout)
 {
     Transmit(cmd);
 
-    return WaitAnswer(answer, timeout)[0] != '\0';
+    return WaitAnswer(answer_out, timeout)[0] != '\0';
 }
 
 

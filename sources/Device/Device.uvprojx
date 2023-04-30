@@ -616,21 +616,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Hardware/Modules/SSD1306</GroupName>
           <Files>
             <File>
@@ -1418,21 +1403,6 @@
               <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Hardware/Modules/SIM800C</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800C.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.h</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SIM800C\SIM800C.cpp</FilePath>
             </File>
           </Files>
         </Group>

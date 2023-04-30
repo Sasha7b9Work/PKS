@@ -26,10 +26,7 @@ void Device::Init()
 {
     HAL::Init();
 
-    if (!Modem::Init())
-    {
-        LOG_WRITE("Can not init modem");
-    }
+    Modem::Init();
 
     Contactor::Init();
 
