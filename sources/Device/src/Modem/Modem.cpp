@@ -86,6 +86,8 @@ namespace Modem
 
     // Возвращает true, если произошла регистрация в сети
     static bool RegistrationIsOk();
+
+    static bool ExistAnswer();
 }
 
 
@@ -212,7 +214,28 @@ void Modem::Transmit(pchar message)
 
 pchar Modem::LastAnswer()
 {
-    return answer;
+    if (ExistAnswer())
+    {
+        return answer;
+    }
+    
+    static const pchar null_answer = "";
+
+    return null_answer;
+}
+
+
+bool Modem::ExistAnswer()
+{
+    for (int i = 0; i < pointer; i++)
+    {
+        if (answer[i] == 0x0d)
+        {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 
