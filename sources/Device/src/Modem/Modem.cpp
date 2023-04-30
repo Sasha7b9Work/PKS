@@ -180,7 +180,7 @@ void Modem::Update()
 }
 
 
-void Modem::Init()
+bool Modem::Init()
 {
     pinGSM_PWR.Init();
     pinGSM_PWRKEY.Init();
@@ -191,8 +191,36 @@ void Modem::Init()
 
     SIM800C::Init();
 
-    Modem::Transmit("ATE0");
-    Modem::Transmit("ATV0");
+    return
+        // Отключаем режим ЭХО.
+        SendAndRecvOK("ATE0") &&
+
+        // Запрещаем входящие звонки.
+        SendAndRecvOK("AT+GSMBUSY=1") &&
+
+        //    AT + CREG ? – проверка регистрации в сети.
+        SendAndRecvOK("AT + CREG ?") &&
+
+        //    GPRS test
+        SendAndRecvOK("") &&
+
+        //    AT + SAPBR = 3, 1, "APN", "internet"
+        SendAndRecvOK("") &&
+
+        //    AT + SAPBR = 3, 1, "USER", ""
+        SendAndRecvOK("") &&
+
+        //    AT + SAPBR = 3, 1, "PWD", ""
+        SendAndRecvOK("") &&
+
+        //    AT + SAPBR = 1, 1
+        SendAndRecvOK("") &&
+
+        //    AT + HTTPINIT
+        SendAndRecvOK("") &&
+
+        //    AT + HTTPPARA = "CID",
+        SendAndRecvOK("");
 }
 
 
@@ -328,7 +356,5 @@ bool Modem::GSM_PG::ReadInput()
 
 bool Modem::RegistrationIsOk()
 {
-    // AT+CREG?
-
-    return false;
+    return SendAndRecvOK("AT + CREG?");
 }

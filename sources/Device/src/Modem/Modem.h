@@ -4,7 +4,7 @@
 
 namespace Modem
 {
-    void Init();
+    bool Init();
 
     void Update();
 
