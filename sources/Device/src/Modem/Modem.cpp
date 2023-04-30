@@ -241,14 +241,19 @@ bool Modem::ExistAnswer()
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    if (pointer < SIZE_BUFFER - 1)
+    // Если в приёмном буфере уже есть ответ - очищаем его
+    if (pointer != 0 && answer[pointer - 1] == 0x0d)
     {
-        static char buffer[2] = { 0, 0 };
-        buffer[0] = symbol;
-
-        std::strcat(answer, buffer);
-        pointer++;
+        pointer = 0;
     }
+
+    if (pointer == SIZE_BUFFER - 1)
+    {
+        pointer = 0;
+    }
+
+    answer[pointer++] = symbol;
+    answer[pointer] = '\0';
 }
 
 
