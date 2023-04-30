@@ -4,6 +4,7 @@
 #include "Hardware/Modules/SIM800C/SIM800C.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include "Modem/Commands.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -84,9 +85,6 @@ namespace Modem
         static bool ReadInput();
     }
 
-    // Возвращает true, если произошла регистрация в сети
-    static bool RegistrationIsOk();
-
     static bool ExistAnswer();
 
     // Здать ответ timeout мс
@@ -164,7 +162,7 @@ void Modem::Update()
         break;
 
     case State::WAIT_REGISTRATION:
-        if (RegistrationIsOk())
+        if (Command::RegistrationIsOk())
         {
             state = State::NORMAL;
         }
@@ -199,8 +197,8 @@ bool Modem::Init()
         // Запрещаем входящие звонки.
         SendAndRecvOK("AT+GSMBUSY=1") &&
 
-        //    AT + CREG ? – проверка регистрации в сети.
-        SendAndRecvOK("AT + CREG ?");
+        // Проверка регистрации в сети.
+        SendAndRecvOK("AT+CREG?");
 }
 
 
@@ -331,10 +329,4 @@ void Modem::GSM_PG::ToInPullDown()
 bool Modem::GSM_PG::ReadInput()
 {
     return gpio_input_bit_get(GPIOE, GPIO_PIN_2) == SET;
-}
-
-
-bool Modem::RegistrationIsOk()
-{
-    return SendAndRecvOK("AT + CREG?");
 }

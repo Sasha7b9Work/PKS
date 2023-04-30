@@ -763,6 +763,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Commands.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Commands.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Commands.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Commands.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1548,6 +1558,16 @@
               <FileName>Modem.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Commands.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Commands.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Commands.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Commands.h</FilePath>
             </File>
           </Files>
         </Group>
