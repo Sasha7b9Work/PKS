@@ -46,7 +46,7 @@ void Device::Update()
 
     Updater::Update();
 
-//    Modem::Update();
+    Modem::Update();
 }
 
 
