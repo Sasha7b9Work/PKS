@@ -27,7 +27,7 @@ bool Modem::Command::RegistrationIsOk()
 
     int pos_colon = PositionSymbol(answer, ':', 1);
 
-    if (pos_colon == -1)
+    if (pos_colon < 0)
     {
         return false;
     }

@@ -9,5 +9,6 @@ namespace Parser
     // num начинаетс€ с единицы
     int PositionSymbol(pchar, char symbol, int num);
 
-    char *GetWord(pchar, char out[32],  int pos_start, int pos_end);
+    //  опирует в out символы, расположенные между позици€ми start и end
+    pchar GetWord(pchar, char out[32], int start, int end);
 }
