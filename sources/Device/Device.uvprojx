@@ -773,6 +773,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Modem\Commands.h</FilePath>
             </File>
+            <File>
+              <FileName>Parser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Parser.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1568,6 +1578,16 @@
               <FileName>Commands.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Modem\Commands.h</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Parser.h</FilePath>
             </File>
           </Files>
         </Group>
