@@ -34,6 +34,24 @@
 */
 
 
+/*
+    Последовательность инициализации
+
+    ATE0 – отключаем режим ЭХО.
+    AT+GSMBUSY=0 – запрещаем входящие звонки.
+    AT+CPAS – проверяем готовностью и текущее состояние модуля.
+    AT+CREG? – проверка регистрации в сети.
+    AT+CSQ – проверка уровня сигнала, уровень нужно будет потом вывести на экран
+    GPRS test
+    AT+SAPBR=3,1,"APN","internet"
+    AT+SAPBR=3,1,"USER",""
+    AT+SAPBR=3,1,"PWD",""
+    AT+SAPBR=1,1
+    AT+HTTPINIT
+    AT+HTTPPARA="CID",1
+*/
+
+
 namespace Modem
 {
     struct State
@@ -95,6 +113,10 @@ void Modem::Update()
         break;
 
     case State::WAIT_HI_GSM_PG:
+#ifdef OLD_VERSION
+        meter.Reset();
+        state = State::WAIT_500_MS;
+#endif
         if (GSM_PG::ReadInput())
         {
             meter.Reset();
@@ -229,5 +251,7 @@ bool Modem::GSM_PG::ReadInput()
 
 bool Modem::RegistrationIsOk()
 {
+    // AT+CREG?
+
     return false;
 }

@@ -11,8 +11,11 @@ typedef const char *pchar;
 typedef unsigned char uchar;
 
 
-// Расскоме
+// Расскоментировать, чтобы на на входах были сгенерированные сигналы
 //#define EMULATE
+
+// Версия, которая у меня, недоработанная
+#define OLD_VERSION
 
 #define ENABLE_LOG
 
