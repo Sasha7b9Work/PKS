@@ -10,6 +10,9 @@ namespace Modem
 
     void Update();
 
+    // true означает, что модем проинициализирован и готов к работе
+    bool IsRunning();
+
     // Есть обновление
     bool ExistUpdate();
 

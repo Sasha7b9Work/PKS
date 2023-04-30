@@ -47,7 +47,7 @@ namespace Modem
             WAIT_1250_MS,           // Ожидать 1.25 сек после перевода GSM_PWRKEY в 0
             WAIT_5000_MS,           // Ожидать 5 секунд единицу на GSM_STATUS
             WAIT_REGISTRATION,      // Ожидание регистрации
-            NORMAL                  // Подключились, зарегистрировались
+            RUNNING                 // Подключились, зарегистрировались, работаем
         };
     };
 
@@ -156,7 +156,7 @@ void Modem::Update()
             SendAndRecvOK("AT+GSMBUSY=1") &&
             Command::RegistrationIsOk())
         {
-            state = State::NORMAL;
+            state = State::RUNNING;
         }
         else
         {
@@ -164,9 +164,15 @@ void Modem::Update()
         }
         break;
 
-    case State::NORMAL:
+    case State::RUNNING:
         break;
     }
+}
+
+
+bool Modem::IsRunning()
+{
+    return state == State::RUNNING;
 }
 
 
