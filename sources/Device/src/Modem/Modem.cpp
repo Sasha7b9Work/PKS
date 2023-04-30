@@ -105,10 +105,6 @@ void Modem::Update()
         break;
 
     case State::WAIT_HI_GSM_PG:
-#ifdef OLD_VERSION
-        meter.Reset();
-        state = State::WAIT_500_MS;
-#endif
         if (GSM_PG::ReadInput())
         {
             meter.Reset();
@@ -118,6 +114,10 @@ void Modem::Update()
         {
             state = State::IDLE;
         }
+#ifdef OLD_VERSION
+        meter.Reset();
+        state = State::WAIT_500_MS;
+#endif
         break;
 
     case State::WAIT_500_MS:
