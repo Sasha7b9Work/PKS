@@ -221,12 +221,6 @@ void Modem::CallbackOnReceive(char symbol)
         pointer = 0;
     }
 
-    // Если в приёмном буфере уже есть ответ - очищаем его
-    if (pointer != 0 && answer[pointer - 1] == 0x0d)
-    {
-        pointer = 0;
-    }
-
     if (symbol == 0x0d && pointer == 0)
     {
         return;
