@@ -195,6 +195,8 @@ void Modem::Update()
 
         if (Command::RegistrationIsOk())
         {
+            Command::RegistrationIsOk();
+
             state = State::RUNNING;
         }
         else if (meter.ElapsedTime() > 30000)
