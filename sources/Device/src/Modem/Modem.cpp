@@ -33,6 +33,15 @@
         GSM_PWRKEY = 1
 */
 
+/*
+    AT+SAPBR=3,1,"APN","internet"
+    AT+SAPBR=3,1,"USER",""
+    AT+SAPBR=3,1,"PWD",""
+    AT+SAPBR=1,1
+    AT+HTTPINIT
+    AT+HTTPPARA="CID",1
+*/
+
 
 namespace Modem
 {
@@ -193,6 +202,11 @@ void Modem::Update()
         if (Command::RegistrationIsOk())
         {
             state = State::RUNNING;
+
+            if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK"))
+            {
+                state = State::IDLE;
+            }
         }
         else if (meter.ElapsedTime() > 30000)
         {
