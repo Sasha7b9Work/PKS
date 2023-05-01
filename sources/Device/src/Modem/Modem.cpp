@@ -201,6 +201,8 @@ void Modem::Update()
         }
         else if (meter.ElapsedTime() > 30000)
         {
+            Command::RegistrationIsOk();
+
             state = State::IDLE;
         }
         break;
