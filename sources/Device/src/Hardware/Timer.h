@@ -18,6 +18,7 @@ struct TimeMeterMS
     }
     void Reset();
     uint ElapsedTime();
+    void Wait(uint);
 private:
     uint time_reset;
 };

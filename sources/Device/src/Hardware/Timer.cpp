@@ -26,6 +26,16 @@ uint TimeMeterMS::ElapsedTime()
 }
 
 
+void TimeMeterMS::Wait(uint time)
+{
+    uint end_time = ElapsedTime() + time;
+
+    while (ElapsedTime() < end_time)
+    {
+    }
+}
+
+
 void Timer::DelayMS(uint ms)
 {
     delay_1ms(ms);

@@ -53,23 +53,49 @@ namespace Modem
 
     static State::E state = State::IDLE;
 
-    static char answer[MAX_LENGTH_ANSWERR] = { '\0' };
-    static int pointer = 0;
-
-    namespace Input
+    namespace Answer
     {
-        static const int SIZE = 1024;
-        static char buffer[SIZE] = { 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
+        static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
         static int pointer = 0;
+        static bool ready = false;
+
+        static void Clear()
+        {
+            pointer = 0;
+            ready = false;
+            buffer[0] = '\0';
+        }
 
         static void Push(char symbol)
         {
-            if (pointer < SIZE)
+            if (symbol == 0x0a)
+            {
+                return;
+            }
+
+            if (pointer == MAX_LENGTH_ANSWERR - 1)
+            {
+                pointer = 0;
+            }
+
+            if (symbol == 0x0d && pointer == 0)
+            {
+                return;
+            }
+
+            if (symbol == 0x0d)
+            {
+                buffer[pointer++] = '\0';
+                ready = true;
+            }
+            else
             {
                 buffer[pointer++] = symbol;
             }
         }
     }
+
+    static const uint TIME_WAIT_ANSWER = 1500;
 
     namespace GSM_PG
     {
@@ -80,19 +106,7 @@ namespace Modem
         static bool ReadInput();
     }
 
-    static bool ExistAnswer();
-
-    // Здать ответ timeout мс
-    static pchar WaitAnswer(char buffer_out[MAX_LENGTH_ANSWERR], uint timeout = 1500);
-
-    static void Transmit(pchar);
-
-    // Посылает команду и возращает true, если принято ОК
-    static bool SendAndRecvOK(pchar);
-
-    // Возвращает последний полученный ответ. После каждого вызова Transmit() ответ очищается
-    // Последний символ ответа 0x0d <CR>
-    static pchar LastAnswer();
+    void Transmit(pchar);
 }
 
 
@@ -167,17 +181,17 @@ void Modem::Update()
 
     case State::WAIT_REGISTRATION:
 
-        char buffer[32];
-
         Transmit("ATE0");
 
-        WaitAnswer(buffer);
-//
-//        Transmit("ATV0");
-//
-//        WaitAnswer(buffer);
+        TimeMeterMS().Wait(1500);
 
-        if(!SendAndRecvOK("AT+GSMBUSY=1"))
+        Transmit("AT+GSMBUSY=1");
+
+        char answer[MAX_LENGTH_ANSWERR];
+
+        LastAnswer(answer);
+
+        if(std::strcmp(answer, "OK") != 0)
         {
             state = State::IDLE;
         }
@@ -222,115 +236,37 @@ bool Modem::ExistUpdate()
 
 void Modem::Transmit(pchar message)
 {
-    pointer = 0;
+    Answer::Clear();
 
     HAL_USART_GPRS::Transmit(message);
 
     static const char end_message[2] = { 0x0d, 0 };
 
     HAL_USART_GPRS::Transmit(end_message);
+
+    TimeMeterMS meter;
+
+    while ((meter.ElapsedTime() < TIME_WAIT_ANSWER) && !Answer::ready)
+    {
+    }
 }
 
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    Input::Push(symbol);
-
-    static char prev_symbol = 0;
-
-    if (symbol == 'K')
-    {
-        symbol = symbol;
-    }
-
-    prev_symbol = symbol;
-
-    if (symbol == 0x0a)
-    {
-        return;
-    }
-
-    if (pointer == MAX_LENGTH_ANSWERR - 1)
-    {
-        pointer = 0;
-    }
-
-    if (symbol == 0x0d && pointer == 0)
-    {
-        return;
-    }
-
-    answer[pointer++] = symbol;
+    Answer::Push(symbol);
 }
 
 
-pchar Modem::WaitAnswer(char buffer_out[MAX_LENGTH_ANSWERR], uint timeout)
+bool Modem::LastAnswer(char out[MAX_LENGTH_ANSWERR])
 {
-    TimeMeterMS meter;
-
-    while (meter.ElapsedTime() < timeout)
+    if(Answer::ready)
     {
-        pchar message = LastAnswer();
-
-        if (message)
-        {
-            int ptr = 0;
-
-            for (; message[ptr] != 0x0d; ptr++)
-            {
-                buffer_out[ptr] = message[ptr];
-            }
-
-            buffer_out[ptr] = '\0';
-
-            return buffer_out;
-        }
+        std::strcpy(out, Answer::buffer);
+        return true;
     }
 
-    return "";
-}
-
-
-bool Modem::SendAndWaitAnswer(pchar cmd, char answer_out[MAX_LENGTH_ANSWERR], uint timeout)
-{
-    Transmit(cmd);
-
-    return WaitAnswer(answer_out, timeout)[0] != '\0';
-}
-
-
-bool Modem::SendAndRecvOK(pchar message)
-{
-    Transmit(message);
-
-    char buffer[MAX_LENGTH_ANSWERR];
-
-    WaitAnswer(buffer);
-
-    return std::strcmp(buffer, "OK") == 0;
-}
-
-
-pchar Modem::LastAnswer()
-{
-    if (ExistAnswer())
-    {
-        return answer;
-    }
-    
-    return nullptr;
-}
-
-
-bool Modem::ExistAnswer()
-{
-    for (int i = 0; i < pointer; i++)
-    {
-        if (answer[i] == 0x0d)
-        {
-            return true;
-        }
-    }
+    out[0] = '\0';
 
     return false;
 }

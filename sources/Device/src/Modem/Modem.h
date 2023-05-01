@@ -16,7 +16,7 @@ namespace Modem
     // Есть обновление
     bool ExistUpdate();
 
-    bool SendAndWaitAnswer(pchar cmd, char answer_out[MAX_LENGTH_ANSWERR], uint timeout = 1500);
+    bool LastAnswer(char [MAX_LENGTH_ANSWERR]);
 
     void CallbackOnReceive(char);
 }
