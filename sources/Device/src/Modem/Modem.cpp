@@ -108,6 +108,9 @@ namespace Modem
 
     // Возращает время до получения ответа
     uint Transmit(pchar);
+
+    // Передаёт сообщение и возвращает true, если принят ответ answer
+    bool TransmitAndWaitAnswer(pchar message, pchar answer);
 }
 
 
@@ -174,9 +177,7 @@ void Modem::Update()
             state = State::WAIT_REGISTRATION;
             meter.Reset();
             Transmit("ATE0");
-            TimeMeterMS().Wait(1500);
-            Transmit("AT+GSMBUSY=1");
-            if (LastAnswer() != "OK")
+            if (!TransmitAndWaitAnswer("AT+GSMBUSY=1", "OK"))
             {
                 state = State::IDLE;
             }
@@ -245,6 +246,14 @@ uint Modem::Transmit(pchar message)
     }
 
     return meter.ElapsedTime();
+}
+
+
+bool Modem::TransmitAndWaitAnswer(pchar message, pchar answer)
+{
+    Transmit(message);
+
+    return LastAnswer() == answer;
 }
 
 
