@@ -59,7 +59,7 @@ namespace Modem
     namespace Input
     {
         static const int SIZE = 1024;
-        static char buffer[SIZE];
+        static char buffer[SIZE] = { 0, 0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0 };
         static int pointer = 0;
 
         static void Push(char symbol)
@@ -169,13 +169,13 @@ void Modem::Update()
 
         char buffer[32];
 
-        Transmit("ATE0");
-
-        WaitAnswer(buffer);
-
-        Transmit("ATV0");
-
-        WaitAnswer(buffer);
+//        Transmit("ATE0");
+//
+//        WaitAnswer(buffer);
+//
+//        Transmit("ATV0");
+//
+//        WaitAnswer(buffer);
 
         if(!SendAndRecvOK("AT+GSMBUSY=1"))
         {
