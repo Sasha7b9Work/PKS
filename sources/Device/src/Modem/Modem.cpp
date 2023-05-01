@@ -219,6 +219,15 @@ void Modem::Transmit(pchar message)
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    static char prev_symbol = 0;
+
+    if (symbol == 'K')
+    {
+        symbol = symbol;
+    }
+
+    prev_symbol = symbol;
+
     if (symbol == 0x0a)
     {
         return;
