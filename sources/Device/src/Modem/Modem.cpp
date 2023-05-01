@@ -211,6 +211,11 @@ void Modem::Transmit(pchar message)
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    if (symbol == 0x0a)
+    {
+        return;
+    }
+
     if (pointer == MAX_LENGTH_ANSWERR - 1)
     {
         pointer = 0;
@@ -222,17 +227,9 @@ void Modem::CallbackOnReceive(char symbol)
         pointer = 0;
     }
 
-    if (symbol == 0x0d || symbol == 0x0a)
+    if (symbol == 0x0d && pointer == 0)
     {
-        if (pointer == 0)
-        {
-            return;
-        }
-
-        if (symbol == 0x0a)
-        {
-            return;
-        }
+        return;
     }
 
     answer[pointer++] = symbol;
