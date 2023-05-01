@@ -56,6 +56,21 @@ namespace Modem
     static char answer[MAX_LENGTH_ANSWERR] = { '\0' };
     static int pointer = 0;
 
+    namespace Input
+    {
+        static const int SIZE = 1024;
+        static char buffer[SIZE];
+        static int pointer = 0;
+
+        static void Push(char symbol)
+        {
+            if (pointer < SIZE)
+            {
+                buffer[pointer++] = symbol;
+            }
+        }
+    }
+
     namespace GSM_PG
     {
         static void ToOutLow();
@@ -219,6 +234,8 @@ void Modem::Transmit(pchar message)
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    Input::Push(symbol);
+
     static char prev_symbol = 0;
 
     if (symbol == 'K')
