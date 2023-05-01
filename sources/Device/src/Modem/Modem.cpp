@@ -199,7 +199,7 @@ bool Modem::ExistUpdate()
 
 void Modem::Transmit(pchar message)
 {
-    answer[0] = '\0';
+    pointer = 0;
 
     HAL_USART_GPRS::Transmit(message);
 
