@@ -207,6 +207,26 @@ void Modem::Update()
             {
                 state = State::IDLE;
             }
+            else if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK"))
+            {
+                state = State::IDLE;
+            }
+            else if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK"))
+            {
+                state = State::IDLE;
+            }
+            else if (!TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK"))
+            {
+                state = State::IDLE;
+            }
+            else if (!TransmitAndWaitAnswer("AT+HTTPINIT", "OK"))
+            {
+                state = State::IDLE;
+            }
+            else if (!TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
+            {
+                state = State::IDLE;
+            }
         }
         else if (meter.ElapsedTime() > 30000)
         {
