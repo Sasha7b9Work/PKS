@@ -53,22 +53,12 @@ bool Modem::Command::RegistrationIsOk()
 
     GetWord(answer, word, pos_comma1, pos_comma2);
 
-    if (std::strcmp(word, "0") == 0)            // Not registered, MT is not currently searching a new operator to register to
-    {
-        return false;
-    }
+    int stat = word[0] & 0x0f;
 
-    if (std::strcmp(word, "2") == 0)            // Not registered, but MT is currently searching a new operator to register to
-    {
-        return false;
-    }
-
-    if (std::strcmp(word, "3") == 0)            // Registration denied
-    {
-        return false;
-    }
-
-    if (std::strcmp(word, "4") == 0)            // Unknown
+    if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
+        stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
+        stat == 3 ||    // Registration denied
+        stat == 4)      // Unknown
     {
         return false;
     }
