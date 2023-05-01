@@ -42,7 +42,12 @@ bool Modem::Command::RegistrationIsOk()
 
     int pos_comma1 = PositionSymbol(answer, ',', 1);
 
-    int pos_comma2 = PositionSymbol(answer, ',', 2);
+    int pos_comma2 = (int)std::strlen(answer);
+
+    if (num_commas > 1)
+    {
+        pos_comma2 = PositionSymbol(answer, ',', 2);
+    }
 
     char word[32];
 
