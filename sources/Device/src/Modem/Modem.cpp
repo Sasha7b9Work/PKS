@@ -172,6 +172,18 @@ void Modem::Update()
         {
             state = State::WAIT_REGISTRATION;
             meter.Reset();
+            Transmit("ATE0");
+            TimeMeterMS().Wait(1500);
+            Transmit("AT+GSMBUSY=1");
+
+            char answer[MAX_LENGTH_ANSWERR];
+
+            LastAnswer(answer);
+
+            if (std::strcmp(answer, "OK") != 0)
+            {
+                state = State::IDLE;
+            }
         }
         if (meter.ElapsedTime() > 5000)
         {
@@ -181,27 +193,13 @@ void Modem::Update()
 
     case State::WAIT_REGISTRATION:
 
-        Transmit("ATE0");
-
-        TimeMeterMS().Wait(1500);
-
-        Transmit("AT+GSMBUSY=1");
-
-        char answer[MAX_LENGTH_ANSWERR];
-
-        LastAnswer(answer);
-
-        if(std::strcmp(answer, "OK") != 0)
-        {
-            state = State::IDLE;
-        }
-        else if (!Command::RegistrationIsOk())
-        {
-            state = State::IDLE;
-        }
-        else
+        if (Command::RegistrationIsOk())
         {
             state = State::RUNNING;
+        }
+        else if (meter.ElapsedTime() > 30000)
+        {
+            state = State::IDLE;
         }
         break;
 
