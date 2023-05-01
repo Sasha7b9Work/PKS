@@ -152,11 +152,9 @@ void Modem::Update()
 
     case State::WAIT_REGISTRATION:
 
-        if (!SendAndRecvOK("ATE0"))
-        {
-            state = State::IDLE;
-        }
-        else if(!SendAndRecvOK("AT+GSMBUSY=1"))
+        Transmit("ATE0");
+
+        if(!SendAndRecvOK("AT+GSMBUSY=1"))
         {
             state = State::IDLE;
         }
