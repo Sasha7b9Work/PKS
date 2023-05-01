@@ -1,5 +1,6 @@
 ﻿// 2023/03/16 16:31:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Utils/String.h"
 
 
 namespace Modem
@@ -17,6 +18,8 @@ namespace Modem
     bool ExistUpdate();
 
     bool LastAnswer(char [MAX_LENGTH_ANSWERR]);
+
+    String LastAnswer();
 
     void CallbackOnReceive(char);
 }

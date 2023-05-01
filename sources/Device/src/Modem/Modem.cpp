@@ -173,15 +173,10 @@ void Modem::Update()
         {
             state = State::WAIT_REGISTRATION;
             meter.Reset();
-            uint time = Transmit("ATE0");
+            Transmit("ATE0");
             TimeMeterMS().Wait(1500);
-            time = Transmit("AT+GSMBUSY=1");
-
-            char answer[MAX_LENGTH_ANSWERR];
-
-            LastAnswer(answer);
-
-            if (std::strcmp(answer, "OK") != 0)
+            Transmit("AT+GSMBUSY=1");
+            if (LastAnswer() != "OK")
             {
                 state = State::IDLE;
             }
@@ -270,6 +265,16 @@ bool Modem::LastAnswer(char out[MAX_LENGTH_ANSWERR])
     out[0] = '\0';
 
     return false;
+}
+
+
+String Modem::LastAnswer()
+{
+    char buffer[MAX_LENGTH_ANSWERR];
+
+    LastAnswer(buffer);
+
+    return String(buffer);
 }
 
 
