@@ -106,7 +106,8 @@ namespace Modem
         static bool ReadInput();
     }
 
-    void Transmit(pchar);
+    // Возращает время до получения ответа
+    uint Transmit(pchar);
 }
 
 
@@ -172,9 +173,9 @@ void Modem::Update()
         {
             state = State::WAIT_REGISTRATION;
             meter.Reset();
-            Transmit("ATE0");
+            uint time = Transmit("ATE0");
             TimeMeterMS().Wait(1500);
-            Transmit("AT+GSMBUSY=1");
+            time = Transmit("AT+GSMBUSY=1");
 
             char answer[MAX_LENGTH_ANSWERR];
 
@@ -232,8 +233,10 @@ bool Modem::ExistUpdate()
 }
 
 
-void Modem::Transmit(pchar message)
+uint Modem::Transmit(pchar message)
 {
+    TimeMeterMS meter;
+
     Answer::Clear();
 
     HAL_USART_GPRS::Transmit(message);
@@ -242,11 +245,11 @@ void Modem::Transmit(pchar message)
 
     HAL_USART_GPRS::Transmit(end_message);
 
-    TimeMeterMS meter;
-
     while ((meter.ElapsedTime() < TIME_WAIT_ANSWER) && !Answer::ready)
     {
     }
+
+    return meter.ElapsedTime();
 }
 
 
