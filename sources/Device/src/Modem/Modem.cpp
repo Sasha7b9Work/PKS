@@ -282,7 +282,9 @@ bool Modem::SendAndRecvOK(pchar message)
 
     char buffer[MAX_LENGTH_ANSWERR];
 
-    return std::strcmp(WaitAnswer(buffer), "OK") == 0;
+    WaitAnswer(buffer);
+
+    return std::strcmp(buffer, "OK") == 0;
 }
 
 
