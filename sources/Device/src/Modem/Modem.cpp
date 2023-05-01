@@ -152,7 +152,15 @@ void Modem::Update()
 
     case State::WAIT_REGISTRATION:
 
+        char buffer[32];
+
         Transmit("ATE0");
+
+        WaitAnswer(buffer);
+
+        Transmit("ATV0");
+
+        WaitAnswer(buffer);
 
         if(!SendAndRecvOK("AT+GSMBUSY=1"))
         {
