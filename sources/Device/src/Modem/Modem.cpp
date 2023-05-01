@@ -169,9 +169,9 @@ void Modem::Update()
 
         char buffer[32];
 
-//        Transmit("ATE0");
-//
-//        WaitAnswer(buffer);
+        Transmit("ATE0");
+
+        WaitAnswer(buffer);
 //
 //        Transmit("ATV0");
 //
