@@ -1,4 +1,0 @@
-   I2C0
-   
-SCL     PB6
-SDA     PB7
