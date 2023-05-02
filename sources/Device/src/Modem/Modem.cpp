@@ -204,7 +204,7 @@ void Modem::Update()
                 !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK") ||
-                !TransmitAndWaitAnswer("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"", "OK", 10000))
+                !TransmitAndWaitAnswer("AT+CIPSTART=0,\"TCP\",\"dev.rightech.io\",\"1883\"", "OK", 10000))
 //                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
 //                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
             {
