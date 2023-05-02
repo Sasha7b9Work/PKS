@@ -214,7 +214,7 @@ void Modem::Update()
 //                !Command::ConnectToTCP())
 //                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
 //                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
-            if(!TransmitAndWaitAnswer("AT_CSTT=\"internet\",\"\",\"\"", "OK") ||
+            if(!TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP START") ||
                 !TransmitAndWaitAnswer("AT+CIICR", "OK") ||
                 !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP GPRSACT") ||
