@@ -116,6 +116,14 @@ FullMeasure Measurer::Calculate()
 
     result.measures[0].Calculate(voltA, currentA);
     result.measures[1].Calculate(voltB, currentB);
+
+    uint16 buffer[32];
+
+    for (int i = 0; i < 32; i++)
+    {
+        buffer[i] = voltC[i];
+    }
+
     result.measures[2].Calculate(voltC, currentC);
 
     return result;

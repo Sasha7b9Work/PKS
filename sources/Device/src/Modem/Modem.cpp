@@ -207,14 +207,6 @@ void Modem::Update()
 
         if (Command::RegistrationIsOk())
         {
-//            if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK") ||
-//                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
-//                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
-//                !TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK") ||
-//                !Command::ConnectToTCP())
-//                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
-//                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
-
             if (!TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
             {
                 state = State::IDLE;
