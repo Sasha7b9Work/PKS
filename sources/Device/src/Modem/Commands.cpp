@@ -64,7 +64,7 @@ bool Modem::Command::RegistrationIsOk()
 
 bool Modem::Command::ConnectToTCP()
 {
-    Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",1883");
+    Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
 
     TimeMeterMS meter;
 
