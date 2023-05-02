@@ -214,10 +214,26 @@ void Modem::Update()
 //                !Command::ConnectToTCP())
 //                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
 //                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
-            if(!TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK") ||
-                !TransmitAndWaitAnswer("AT+CIICR", "OK") ||
-                !Transmit("AT+CIFSR") ||
-                !Command::ConnectToTCP())
+
+            if (!TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
+            {
+                state = State::IDLE;
+            }
+
+            TimeMeterMS().Wait(1000);
+
+            if (!TransmitAndWaitAnswer("AT+CIICR", "OK"))
+            {
+                state = State::IDLE;
+            }
+
+            TimeMeterMS().Wait(1000);
+
+            Transmit("AT+CIFSR");
+
+            TimeMeterMS().Wait(1000);
+
+            if(!Command::ConnectToTCP())
             {
                 state = State::IDLE;
             }
