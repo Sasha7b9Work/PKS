@@ -215,11 +215,11 @@ void Modem::Update()
 //                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
 //                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
             if(!TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK") ||
-                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP START") ||
+                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE:IP START") ||
                 !TransmitAndWaitAnswer("AT+CIICR", "OK") ||
-                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP GPRSACT") ||
+                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE:IP GPRSACT") ||
                 !Transmit("AT+CIFSR") ||
-                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP STATUS") ||
+                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE:IP STATUS") ||
                 !Command::ConnectToTCP())
             {
                 state = State::IDLE;
