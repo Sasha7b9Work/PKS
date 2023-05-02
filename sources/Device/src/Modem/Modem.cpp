@@ -219,8 +219,6 @@ void Modem::Update()
             }
             else
             {
-
-
                 MQTT::Connect();
 
                 state = State::RUNNING;
