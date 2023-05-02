@@ -78,7 +78,7 @@ bool Modem::Command::ConnectToTCP()
         {
             char word[32];
 
-            Parser::GetWord(answer.c_str(), word, 0, pos_space);
+            Parser::GetWord(answer.c_str(), word, -1, pos_space);
 
             if (std::strcmp(word, "ALREADY") == 0)
             {
