@@ -89,7 +89,9 @@ bool Modem::Command::ConnectToTCP()
             {
                 Parser::GetWord(answer.c_str(), word, pos_space + 1, (int)std::strlen(answer.c_str()));
 
-                return std::strcmp(word, "OK") == 0;
+                bool result = std::strcmp(word, "OK") == 0;
+
+                return result;
             }
         }
     }
