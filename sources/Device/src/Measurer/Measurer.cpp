@@ -143,6 +143,12 @@ FullMeasure Measurer::Calculate()
 
     result.measures[2].Calculate(voltC, currentC);
 
+    PhaseMeasure aveVoltageC;
+    aveVoltageC.CalculateLimits(voltC);
+
+    PhaseMeasure aveAmpersC;
+    aveAmpersC.CalculateLimits(currentC);
+
     return result;
 }
 

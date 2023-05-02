@@ -55,6 +55,19 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
 }
 
 
+void PhaseMeasure::CalculateLimits(const Sample samples[NUM_SAMPLES])
+{
+    float sum = 0.0f;
+
+    for (int i = 0; i < NUM_SAMPLES; i++)
+    {
+        sum += samples[i];
+    }
+
+    voltage = sum / NUM_SAMPLES;
+}
+
+
 int Calculator::CalculatePeriod(const Sample samples[NUM_SAMPLES])
 {
     uint sums[NUM_SAMPLES];
