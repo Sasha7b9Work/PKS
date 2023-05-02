@@ -207,13 +207,20 @@ void Modem::Update()
 
         if (Command::RegistrationIsOk())
         {
-            if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK") ||
-                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
-                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
-                !TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK") ||
-                !Command::ConnectToTCP())
+//            if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK") ||
+//                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
+//                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
+//                !TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK") ||
+//                !Command::ConnectToTCP())
 //                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
 //                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
+            if(!TransmitAndWaitAnswer("AT_CSTT=\"internet\",\"\",\"\"", "OK") ||
+                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP START") ||
+                !TransmitAndWaitAnswer("AT+CIICR", "OK") ||
+                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP GPRSACT") ||
+                !Transmit("AT+CIFSR") ||
+                !TransmitAndWaitAnswer("AT+CIPSTATUS", "STATE: IP STATUS") ||
+                !Command::ConnectToTCP())
             {
                 state = State::IDLE;
             }
