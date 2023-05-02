@@ -288,7 +288,9 @@ bool Modem::TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout)
 {
     Transmit(message, timeout);
 
-    return LastAnswer() == answer;
+    char *last_answer = LastAnswer().c_str();
+
+    return std::strcmp(last_answer, answer) == 0;
 }
 
 
