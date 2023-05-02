@@ -3,3 +3,4 @@ https://wireless-e.ru/radiomoduli/sim800x/
 https://arduino.ru/forum/programmirovanie/snova-mqtt-1#comment-411540
 https://www.raviyp.com/mqtt-protocol-tutorial-using-sim900-sim800-modules-mqtt-over-tcp/
 https://www.pvsm.ru/news/373615
+https://habr.com/ru/articles/657935/
