@@ -3,6 +3,7 @@
 #include "Modem/Commands.h"
 #include "Modem/Modem.h"
 #include "Modem/Parser.h"
+#include "Hardware/Timer.h"
 #include <cstring>
 
 
@@ -58,4 +59,40 @@ bool Modem::Command::RegistrationIsOk()
     }
 
     return true;
+}
+
+
+bool Modem::Command::ConnectToTCP()
+{
+    Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+
+    TimeMeterMS meter;
+
+    while (meter.ElapsedTime() < 30000)
+    {
+        String answer = Modem::LastAnswer();
+
+        int pos_space = PositionSymbol(answer.c_str(), ' ', 1);
+
+        if (pos_space > 0)
+        {
+            char word[32];
+
+            Parser::GetWord(answer.c_str(), word, 0, pos_space);
+
+            if (std::strcmp(word, "ALREADY") == 0)
+            {
+                return true;
+            }
+
+            if (std::strcmp(word, "CONNECT"))
+            {
+                Parser::GetWord(answer.c_str(), word, pos_space + 1, (int)std::strlen(answer.c_str()));
+
+                return std::strcmp(word, "OK") == 0;
+            }
+        }
+    }
+
+    return false;
 }

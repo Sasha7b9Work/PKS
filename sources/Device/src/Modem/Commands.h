@@ -7,5 +7,8 @@ namespace Modem
     {
         // Возвращает true, если произошла регистрация в сети
         bool RegistrationIsOk();
+
+        // Попытка приконнектиться к 
+        bool ConnectToTCP();
     }
 }
