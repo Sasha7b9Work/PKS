@@ -203,27 +203,12 @@ void Modem::Update()
         {
             state = State::RUNNING;
 
-            if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK"))
-            {
-                state = State::IDLE;
-            }
-            else if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK"))
-            {
-                state = State::IDLE;
-            }
-            else if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK"))
-            {
-                state = State::IDLE;
-            }
-            else if (!TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK"))
-            {
-                state = State::IDLE;
-            }
-            else if (!TransmitAndWaitAnswer("AT+HTTPINIT", "OK"))
-            {
-                state = State::IDLE;
-            }
-            else if (!TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
+            if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK") ||
+                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
+                !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
+                !TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK") ||
+                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
+                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
             {
                 state = State::IDLE;
             }
