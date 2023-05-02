@@ -53,6 +53,7 @@ namespace HAL_USART_GPRS
 {
     void Init();
     void Transmit(pchar);
+    void Transmit(void *, int);
     void CallbackOnReceive(char);
 }
 

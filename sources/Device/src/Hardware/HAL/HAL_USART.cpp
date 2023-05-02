@@ -31,13 +31,19 @@ void HAL_USART_GPRS::Init()
 
 void HAL_USART_GPRS::Transmit(pchar message)
 {
-    int size = (int)std::strlen(message);
+    Transmit((void *)message, (int)std::strlen(message));
+}
+
+
+void HAL_USART_GPRS::Transmit(void *buffer, int size)
+{
+    uint8 *data = (uint8 *)buffer;
 
     for (int i = 0; i < size; i++)
     {
-        usart_data_transmit(USART_GPRS_ADDR, (uint16)message[i]);
+        usart_data_transmit(USART_GPRS_ADDR, (uint16)*data++);
 
-        while (RESET == usart_flag_get(USART_GPRS_ADDR, USART_FLAG_TBE)) { };
+        while (RESET == usart_flag_get(USART_GPRS_ADDR, USART_FLAG_TBE)) {};
     }
 }
 

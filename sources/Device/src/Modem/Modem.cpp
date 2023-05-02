@@ -4,6 +4,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Modem/Commands.h"
+#include "Modem/MQTT.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -117,6 +118,8 @@ namespace Modem
 
     // Возращает время до получения ответа
     uint Transmit(pchar);
+    void TransmitUINT8(uint8);
+    void TransmitUINT(uint);
 
     // Передаёт сообщение и возвращает true, если принят ответ answer
     bool TransmitAndWaitAnswer(pchar message, pchar answer);
@@ -201,8 +204,6 @@ void Modem::Update()
 
         if (Command::RegistrationIsOk())
         {
-            state = State::RUNNING;
-
             if (!TransmitAndWaitAnswer("AT+SAPBR=3,1,\"APN\",\"internet\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
@@ -211,6 +212,12 @@ void Modem::Update()
                 !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
             {
                 state = State::IDLE;
+            }
+            else
+            {
+                MQTT::Connect();
+
+                state = State::RUNNING;
             }
         }
         else if (meter.ElapsedTime() > 30000)
@@ -265,6 +272,18 @@ uint Modem::Transmit(pchar message)
     }
 
     return meter.ElapsedTime();
+}
+
+
+void Modem::TransmitUINT8(uint8 byte)
+{
+    HAL_USART_GPRS::Transmit(&byte, 1);
+}
+
+
+void Modem::TransmitUINT(uint value)
+{
+    HAL_USART_GPRS::Transmit(&value, 4);
 }
 
 
