@@ -95,8 +95,15 @@ namespace Modem
 
             if (symbol == 0x0d)
             {
-                buffer[pointer++] = '\0';
-                ready = true;
+                if (ready == true)
+                {
+                    Clear();
+                }
+                else
+                {
+                    buffer[pointer++] = '\0';
+                    ready = true;
+                }
             }
             else
             {
