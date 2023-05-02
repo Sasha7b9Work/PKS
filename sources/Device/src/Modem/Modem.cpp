@@ -105,7 +105,7 @@ namespace Modem
         }
     }
 
-    static const uint TIME_WAIT_ANSWER = 1500;
+    static const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
 
     namespace GSM_PG
     {
@@ -117,12 +117,12 @@ namespace Modem
     }
 
     // Возращает время до получения ответа
-    uint Transmit(pchar);
+    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 
     // Передаёт сообщение и возвращает true, если принят ответ answer
-    bool TransmitAndWaitAnswer(pchar message, pchar answer);
+    bool TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
 }
 
 
@@ -208,7 +208,7 @@ void Modem::Update()
                 !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"USER\",\"\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+SAPBR=3,1,\"PWD\",\"\"", "OK") ||
                 !TransmitAndWaitAnswer("AT+SAPBR =1,1", "OK") ||
-                !TransmitAndWaitAnswer("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"", "OK"))
+                !TransmitAndWaitAnswer("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"", "OK", 10000))
 //                !TransmitAndWaitAnswer("AT+HTTPINIT", "OK") ||
 //                !TransmitAndWaitAnswer("AT+HTTPPARA=\"CID\",1", "OK"))
             {
@@ -256,7 +256,7 @@ bool Modem::ExistUpdate()
 }
 
 
-uint Modem::Transmit(pchar message)
+uint Modem::Transmit(pchar message, uint timeout)
 {
     TimeMeterMS meter;
 
@@ -268,7 +268,7 @@ uint Modem::Transmit(pchar message)
 
     HAL_USART_GPRS::Transmit(end_message);
 
-    while ((meter.ElapsedTime() < TIME_WAIT_ANSWER) && !Answer::ready)
+    while ((meter.ElapsedTime() < timeout) && !Answer::ready)
     {
     }
 
@@ -288,9 +288,9 @@ void Modem::TransmitUINT(uint value)
 }
 
 
-bool Modem::TransmitAndWaitAnswer(pchar message, pchar answer)
+bool Modem::TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout)
 {
-    Transmit(message);
+    Transmit(message, timeout);
 
     return LastAnswer() == answer;
 }
