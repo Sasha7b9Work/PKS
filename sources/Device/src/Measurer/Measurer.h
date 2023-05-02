@@ -47,6 +47,9 @@ private:
 };
 
 
+struct FullMeasure;
+
+
 struct PhaseMeasure
 {
     float voltage;
@@ -54,7 +57,7 @@ struct PhaseMeasure
 
     void Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES]);
 
-    void CalculateLimits(const Sample samples[NUM_SAMPLES]);
+    void CalculateLimits(const Sample samples[NUM_SAMPLES], FullMeasure *out);
 };
 
 

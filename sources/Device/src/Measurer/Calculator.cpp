@@ -55,16 +55,32 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
 }
 
 
-void PhaseMeasure::CalculateLimits(const Sample samples[NUM_SAMPLES])
+void PhaseMeasure::CalculateLimits(const Sample samples[NUM_SAMPLES], FullMeasure *result)
 {
     float sum = 0.0f;
+
+    float max = 0.0f;
+
+    float min = 1e5f;
 
     for (int i = 0; i < NUM_SAMPLES; i++)
     {
         sum += samples[i];
+
+        if (samples[i] > max)
+        {
+            max = samples[i];
+        }
+
+        if (samples[i] < min)
+        {
+            min = samples[i];
+        }
     }
 
-    voltage = sum / NUM_SAMPLES;
+    result->measures[0].voltage = sum / NUM_SAMPLES;
+    result->measures[1].voltage = min;
+    result->measures[2].voltage = max;
 }
 
 
