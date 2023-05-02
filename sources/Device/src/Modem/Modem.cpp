@@ -105,8 +105,6 @@ namespace Modem
         }
     }
 
-    static const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
-
     namespace GSM_PG
     {
         static void ToOutLow();
@@ -116,8 +114,6 @@ namespace Modem
         static bool ReadInput();
     }
 
-    // Возращает время до получения ответа
-    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 

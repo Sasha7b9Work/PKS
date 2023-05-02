@@ -1,13 +1,12 @@
 // 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/MQTT.h"
+#include "Modem/Modem.h"
 #include <cstring>
 
 
 namespace Modem
 {
-    // Возращает время до получения ответа
-    uint Transmit(pchar);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 }

@@ -6,6 +6,7 @@
 namespace Modem
 {
     static const int MAX_LENGTH_ANSWERR = 128;
+    static const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
 
     void Init();
 
@@ -13,6 +14,9 @@ namespace Modem
 
     // true означает, что модем проинициализирован и готов к работе
     bool IsRunning();
+
+    // Возращает время до получения ответа
+    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
 
     // Есть обновление
     bool ExistUpdate();

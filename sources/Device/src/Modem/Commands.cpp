@@ -9,12 +9,6 @@
 using namespace Parser;
 
 
-namespace Modem
-{
-    void Transmit(pchar);
-}
-
-
 bool Modem::Command::RegistrationIsOk()
 {
     char answer[Modem::MAX_LENGTH_ANSWERR];
