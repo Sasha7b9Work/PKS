@@ -101,6 +101,11 @@ namespace Modem
             {
                 buffer[pointer - 1] = '\0';
 
+                if (std::strcmp(buffer, "OK") == 0)
+                {
+                    int i = 0;
+                }
+
                 if (num_answers < MAX_ANSWERS)
                 {
                     answers[num_answers++].Set(buffer);
