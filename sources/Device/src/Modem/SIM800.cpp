@@ -89,7 +89,7 @@ void SIM800::Update(const String &answer)
             state = State::WAIT_GSMBUSY;
             meter.Reset();
         }
-        else if (meter.ElapsedTime() > 1000)
+        else if (meter.ElapsedTime() > 10000)
         {
             Reset();
         }
