@@ -92,18 +92,18 @@ void SIM800::Update()
                 Reset();
             }
 
-            TimeMeterMS().Wait(1000);
+            TimeMeterMS().Wait(5000);
 
             if (!SIM800::TransmitAndWaitAnswer("AT+CIICR", "OK"))
             {
                 Reset();
             }
 
-            TimeMeterMS().Wait(1000);
+            TimeMeterMS().Wait(5000);
 
             SIM800::Transmit("AT+CIFSR");
 
-            TimeMeterMS().Wait(1000);
+            TimeMeterMS().Wait(5000);
 
             if (!Command::ConnectToTCP())
             {
