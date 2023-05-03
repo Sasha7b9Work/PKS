@@ -3,12 +3,38 @@
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/Commands.h"
 #include <cstring>
+
+
+namespace Modem
+{
+    void CallbackOnErrorSIM800();
+}
+
+
+namespace MQTT
+{
+    void Connect();
+}
 
 
 namespace SIM800
 {
     const int MAX_LENGTH_ANSWERR = 128;
+
+    struct State
+    {
+        enum E
+        {
+            START,
+            WAIT_REGISTRATION,
+
+            RUNNING
+        };
+    };
+
+    static State::E state = State::START;
 
     namespace Answer
     {
@@ -72,6 +98,76 @@ namespace SIM800
     bool TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout = TIME_WAIT_ANSWER);
 
     void CallbackOnReceive(char);
+
+    void Update();
+
+    // ќжидает ответа 
+    static void WaitAnswer(pchar, uint timeout = TIME_WAIT_ANSWER);
+
+    static void Reset();
+}
+
+
+void SIM800::Update()
+{
+    static TimeMeterMS meter;
+
+    switch (state)
+    {
+    case State::START:
+        SIM800::Transmit("ATE0");
+        if (SIM800::TransmitAndWaitAnswer("AT+GSMBUSY=1", "OK"))
+        {
+            state = State::WAIT_REGISTRATION;
+            meter.Reset();
+        }
+        else
+        {
+            Reset();
+        }
+        break;
+
+    case State::WAIT_REGISTRATION:
+        if (Command::RegistrationIsOk())
+        {
+            if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
+            {
+                Reset();
+            }
+
+            TimeMeterMS().Wait(1000);
+
+            if (!SIM800::TransmitAndWaitAnswer("AT+CIICR", "OK"))
+            {
+                Reset();
+            }
+
+            TimeMeterMS().Wait(1000);
+
+            SIM800::Transmit("AT+CIFSR");
+
+            TimeMeterMS().Wait(1000);
+
+            if (!Command::ConnectToTCP())
+            {
+                Reset();
+            }
+            else
+            {
+                MQTT::Connect();
+
+                state = State::RUNNING;
+            }
+        }
+        else if (meter.ElapsedTime() > 30000)
+        {
+            Reset();
+        }
+        break;
+
+    case State::RUNNING:
+        break;
+    }
 }
 
 
@@ -144,4 +240,11 @@ String SIM800::LastAnswer()
     LastAnswer(buffer);
 
     return String(buffer);
+}
+
+
+void SIM800::Reset()
+{
+    state = State::START;
+    Modem::CallbackOnErrorSIM800();
 }

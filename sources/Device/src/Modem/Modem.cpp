@@ -43,12 +43,6 @@
 */
 
 
-namespace MQTT
-{
-    void Connect();
-}
-
-
 namespace SIM800
 {
     void CallbackOnReceive(char);
@@ -60,6 +54,8 @@ namespace SIM800
 
     // Передаёт сообщение и возвращает true, если принят ответ answer
     bool TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout = TIME_WAIT_ANSWER);
+
+    void Update();
 }
 
 
@@ -75,8 +71,7 @@ namespace Modem
             WAIT_500_MS,            // Ожидать полсекунды после появления 1 на входе GSM_PG
             WAIT_1250_MS,           // Ожидать 1.25 сек после перевода GSM_PWRKEY в 0
             WAIT_5000_MS,           // Ожидать 5 секунд единицу на GSM_STATUS
-            WAIT_REGISTRATION,      // Ожидание регистрации
-            REGISTRATION_IS_OK      // Подключились, зарегистрировались, работаем
+            HARDWARE_IS_OK,         // Железо отработало, работают команды
         };
     };
 
@@ -90,6 +85,9 @@ namespace Modem
 
         static bool ReadInput();
     }
+
+    // После любой необработанной ошибки SIM800 вызывать эту функцию
+    void CallbackOnErrorSIM800();
 }
 
 
@@ -153,13 +151,8 @@ void Modem::Update()
     case State::WAIT_5000_MS:
         if (pinGSM_STATUS.IsHi())
         {
-            state = State::WAIT_REGISTRATION;
+            state = State::HARDWARE_IS_OK;
             meter.Reset();
-            SIM800::Transmit("ATE0");
-            if (!SIM800::TransmitAndWaitAnswer("AT+GSMBUSY=1", "OK"))
-            {
-                state = State::IDLE;
-            }
         }
         if (meter.ElapsedTime() > 5000)
         {
@@ -167,47 +160,8 @@ void Modem::Update()
         }
         break;
 
-    case State::WAIT_REGISTRATION:
-
-        if (Command::RegistrationIsOk())
-        {
-            if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
-            {
-                state = State::IDLE;
-            }
-
-            TimeMeterMS().Wait(1000);
-
-            if (!SIM800::TransmitAndWaitAnswer("AT+CIICR", "OK"))
-            {
-                state = State::IDLE;
-            }
-
-            TimeMeterMS().Wait(1000);
-
-            SIM800::Transmit("AT+CIFSR");
-
-            TimeMeterMS().Wait(1000);
-
-            if(!Command::ConnectToTCP())
-            {
-                state = State::IDLE;
-            }
-            else
-            {
-                MQTT::Connect();
-
-                state = State::REGISTRATION_IS_OK;
-            }
-        }
-        else if (meter.ElapsedTime() > 30000)
-        {
-            state = State::IDLE;
-        }
-        break;
-
-    case State::REGISTRATION_IS_OK:
-        break;
+    case State::HARDWARE_IS_OK:
+        SIM800::Update();
     }
 }
 
@@ -226,6 +180,12 @@ void Modem::Init()
 bool Modem::ExistUpdate()
 {
     return false;
+}
+
+
+void Modem::CallbackOnErrorSIM800()
+{
+    state = State::IDLE;
 }
 
 
