@@ -34,6 +34,11 @@ bool Command::RegistrationIsOk()
         answer = SIM800::LastAnswer();
     }
 
+    if (answer.Size() == 0)
+    {
+        return false;
+    }
+
     int num_commas = NumberSymbols(answer.c_str(), ',');
 
     if (num_commas < 1 || num_commas > 3)
