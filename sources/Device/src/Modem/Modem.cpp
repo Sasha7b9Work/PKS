@@ -101,11 +101,6 @@ namespace Modem
             {
                 buffer[pointer - 1] = '\0';
 
-                if (std::strcmp(buffer, "OK") == 0)
-                {
-                    int i = 0;
-                }
-
                 if (num_answers < MAX_ANSWERS)
                 {
                     answers[num_answers++].Set(buffer);
@@ -242,11 +237,6 @@ void Modem::CallbackOnErrorSIM800()
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    if (symbol == 0)
-    {
-        int i = 0;
-    }
-
     Answer::Push(symbol);
 }
 
