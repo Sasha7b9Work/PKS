@@ -4,7 +4,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Modem/Commands.h"
-#include "Modem/MQTT.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -42,6 +41,12 @@
     AT+HTTPINIT
     AT+HTTPPARA="CID",1
 */
+
+
+namespace MQTT
+{
+    void Connect();
+}
 
 
 namespace Modem

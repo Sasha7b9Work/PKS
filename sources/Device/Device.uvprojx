@@ -773,11 +773,6 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\MQTT.cpp</FilePath>
             </File>
-            <File>
-              <FileName>MQTT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\MQTT.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1598,11 +1593,6 @@
               <FileName>MQTT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\MQTT.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MQTT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\MQTT.h</FilePath>
             </File>
           </Files>
         </Group>

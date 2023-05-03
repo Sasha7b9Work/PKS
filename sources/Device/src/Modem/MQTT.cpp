@@ -1,6 +1,5 @@
 // 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/MQTT.h"
 #include "Modem/Modem.h"
 #include <cstring>
 
@@ -14,6 +13,8 @@ namespace Modem
 
 namespace MQTT
 {
+    void Connect();
+
     static const char MQTT_type[15] = "MQIsdp";         // тип протокола НЕ ТРОГАТЬ!
     static const char MQTT_CID[15] = "CITROEN";         // уникальное имя устройства в сети MQTT
     static const char MQTT_user[10] = "drive2ru";       // api.cloudmqtt.com > Details > User
