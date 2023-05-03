@@ -102,25 +102,22 @@ void SIM800::Update(const String &answer)
 
             if (num_commas > 0)
             {
-                if (PositionSymbol(answer, ':', 1) > 0)
+                int pos_comma1 = PositionSymbol(answer, ',', 1);
+
+                int pos_comma2 = (num_commas > 1) ? PositionSymbol(answer, ',', 2) : (int)answer.Size();
+
+                int stat = GetWord(answer, pos_comma1, pos_comma2).c_str()[0] & 0x0f;
+
+                if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
+                    stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
+                    stat == 3 ||    // Registration denied
+                    stat == 4)      // Unknown
                 {
-                    int pos_comma1 = PositionSymbol(answer, ',', 1);
-
-                    int pos_comma2 = (num_commas > 1) ? PositionSymbol(answer, ',', 2) : (int)answer.Size();
-
-                    int stat = GetWord(answer, pos_comma1, pos_comma2).c_str()[0] & 0x0f;
-
-                    if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
-                        stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
-                        stat == 3 ||    // Registration denied
-                        stat == 4)      // Unknown
-                    {
-//                        Reset();
-                    }
-                    else
-                    {
-                        state = State::WAIT_REGISTRATION;
-                    }
+                    //                        Reset();
+                }
+                else
+                {
+                    state = State::WAIT_REGISTRATION;
                 }
             }
         }
