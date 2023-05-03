@@ -4,9 +4,9 @@
 #include <cstring>
 
 
-namespace Modem
+namespace SIM800
 {
-    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
+    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 }
@@ -31,35 +31,35 @@ namespace MQTT
 
 void MQTT::Connect()
 {
-    Modem::Transmit("AT+CIPSEND");
-    Modem::TransmitUINT8(0x10);                                                              // маркер пакета на установку соединения
-    Modem::TransmitUINT(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12);
+    SIM800::Transmit("AT+CIPSEND");
+    SIM800::TransmitUINT8(0x10);                                                              // маркер пакета на установку соединения
+    SIM800::TransmitUINT(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12);
 
     // тип протокола
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT(std::strlen(MQTT_type));
-    Modem::Transmit(MQTT_type);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT(std::strlen(MQTT_type));
+    SIM800::Transmit(MQTT_type);
 
     // просто так нужно
-    Modem::TransmitUINT8(0x03);
-    Modem::TransmitUINT8(0xC2);
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT8(0x3C);
+    SIM800::TransmitUINT8(0x03);
+    SIM800::TransmitUINT8(0xC2);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT8(0x3C);
 
     // MQTT  идентификатор устройства
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT(std::strlen(MQTT_CID));
-    Modem::Transmit(MQTT_CID);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT(std::strlen(MQTT_CID));
+    SIM800::Transmit(MQTT_CID);
 
     // MQTT логин
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT(std::strlen(MQTT_user));
-    Modem::Transmit(MQTT_user);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT(std::strlen(MQTT_user));
+    SIM800::Transmit(MQTT_user);
 
     // MQTT пароль
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT(std::strlen(MQTT_pass));
-    Modem::Transmit(MQTT_pass);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT(std::strlen(MQTT_pass));
+    SIM800::Transmit(MQTT_pass);
 
     // пакет публикации
     PublishPacket("C5/status", "Подключено");
@@ -71,35 +71,35 @@ void MQTT::Connect()
     SubscribePacket("C5/settimer");
 
     // маркер завершения пакета
-    Modem::TransmitUINT8(0x1A);
+    SIM800::TransmitUINT8(0x1A);
 }
 
 
 void  MQTT::PublishPacket(const char MQTT_topic[15], const char MQTT_messege[15])
 {
-    Modem::TransmitUINT8(0x30);
-    Modem::TransmitUINT(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2);
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT(std::strlen(MQTT_topic));
-    Modem::Transmit(MQTT_topic); // топик
-    Modem::Transmit(MQTT_messege);
+    SIM800::TransmitUINT8(0x30);
+    SIM800::TransmitUINT(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT(std::strlen(MQTT_topic));
+    SIM800::Transmit(MQTT_topic); // топик
+    SIM800::Transmit(MQTT_messege);
 }
 
 
 void MQTT::SubscribePacket(const char MQTT_topic[15])
 {
     // сумма пакета
-    Modem::TransmitUINT8(0x82);
-    Modem::TransmitUINT(std::strlen(MQTT_topic) + 5);
+    SIM800::TransmitUINT8(0x82);
+    SIM800::TransmitUINT(std::strlen(MQTT_topic) + 5);
 
     // просто так нужно
-    Modem::TransmitUINT8(0);
-    Modem::TransmitUINT8(0x01);
-    Modem::TransmitUINT8(0);
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT8(0x01);
+    SIM800::TransmitUINT8(0);
 
     // топик
-    Modem::TransmitUINT(std::strlen(MQTT_topic));
-    Modem::Transmit(MQTT_topic);
+    SIM800::TransmitUINT(std::strlen(MQTT_topic));
+    SIM800::Transmit(MQTT_topic);
 
-    Modem::TransmitUINT8(0);
+    SIM800::TransmitUINT8(0);
 }

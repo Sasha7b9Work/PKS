@@ -10,19 +10,26 @@
 using namespace Parser;
 
 
-namespace Modem
+namespace SIM800
 {
+    extern const int MAX_LENGTH_ANSWERR = 128;
+    extern const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
+
+    bool LastAnswer(char[MAX_LENGTH_ANSWERR]);
+
+    String LastAnswer();
+
     uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
 }
 
 
-bool Modem::Command::RegistrationIsOk()
+bool Command::RegistrationIsOk()
 {
-    char answer[Modem::MAX_LENGTH_ANSWERR];
+    char answer[SIM800::MAX_LENGTH_ANSWERR];
 
-    Transmit("AT+CREG?");
+    SIM800::Transmit("AT+CREG?");
 
-    if (!LastAnswer(answer))
+    if (!SIM800::LastAnswer(answer))
     {
         return false;
     }
@@ -68,15 +75,15 @@ bool Modem::Command::RegistrationIsOk()
 }
 
 
-bool Modem::Command::ConnectToTCP()
+bool Command::ConnectToTCP()
 {
-    Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+    SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
 
     TimeMeterMS meter;
 
     while (meter.ElapsedTime() < 30000)
     {
-        String answer = Modem::LastAnswer();
+        String answer = SIM800::LastAnswer();
 
         int pos_space = PositionSymbol(answer.c_str(), ' ', 1);
 

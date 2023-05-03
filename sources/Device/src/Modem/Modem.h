@@ -3,21 +3,20 @@
 #include "Utils/String.h"
 
 
+namespace SIM800
+{
+    static const uint TIME_WAIT_ANSWER = 1500;
+}
+
+
 namespace Modem
 {
-    static const int MAX_LENGTH_ANSWERR = 128;
-    static const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
-
     void Init();
 
     void Update();
 
     // Есть обновление
     bool ExistUpdate();
-
-    bool LastAnswer(char [MAX_LENGTH_ANSWERR]);
-
-    String LastAnswer();
 
     void CallbackOnReceive(char);
 }
