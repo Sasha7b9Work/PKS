@@ -62,7 +62,7 @@ namespace Modem
             WAIT_1250_MS,           // Ожидать 1.25 сек после перевода GSM_PWRKEY в 0
             WAIT_5000_MS,           // Ожидать 5 секунд единицу на GSM_STATUS
             WAIT_REGISTRATION,      // Ожидание регистрации
-            RUNNING                 // Подключились, зарегистрировались, работаем
+            REGISTRATION_IS_OK      // Подключились, зарегистрировались, работаем
         };
     };
 
@@ -238,7 +238,7 @@ void Modem::Update()
             {
                 MQTT::Connect();
 
-                state = State::RUNNING;
+                state = State::REGISTRATION_IS_OK;
             }
         }
         else if (meter.ElapsedTime() > 30000)
@@ -247,15 +247,9 @@ void Modem::Update()
         }
         break;
 
-    case State::RUNNING:
+    case State::REGISTRATION_IS_OK:
         break;
     }
-}
-
-
-bool Modem::IsRunning()
-{
-    return state == State::RUNNING;
 }
 
 

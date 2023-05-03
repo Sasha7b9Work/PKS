@@ -12,9 +12,6 @@ namespace Modem
 
     void Update();
 
-    // true означает, что модем проинициализирован и готов к работе
-    bool IsRunning();
-
     // Возращает время до получения ответа
     uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
 
