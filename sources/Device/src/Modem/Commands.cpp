@@ -10,6 +10,12 @@
 using namespace Parser;
 
 
+namespace Modem
+{
+    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
+}
+
+
 bool Modem::Command::RegistrationIsOk()
 {
     char answer[Modem::MAX_LENGTH_ANSWERR];
