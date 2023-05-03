@@ -8,29 +8,19 @@ class String // -V690
 {
 public:
     explicit String();
-             String(const String &);
-    explicit String(char symbol);
-             String(pchar format, ...);
+//             String(const String &);
+             String(pchar);
     ~String();
 
-    void Set(pchar format, ...);
+    void Set(pchar);
 
     char *c_str() const { return buffer; };
 
     void Free();
 
-    void Append(pchar str);
-
-    void Append(pchar str, int numSymbols);
-
-    void Append(char symbol);
-    
-    // Удаляет numSymbols из начала строки
-    void RemoveFromBegin(int numSymbols);
-
-    void RemoveFromEnd();
-
     int Size() const;
+
+    bool IsEmpty() const { return Size() == 0; }
 
     char &operator[](int i) const;
 
@@ -40,9 +30,5 @@ public:
 
 private:
 
-    void Allocate(int size);
-
     char *buffer;
-
-    void ParseArguments(pchar format, std::va_list args);
 };

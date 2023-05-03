@@ -34,7 +34,11 @@ namespace SIM800
 
     static State::E state = State::START;
 
+    // Здесь хранится последнее принятое сообщение. Очищается перед вызовом Transmit()
     static String last_answer;
+
+    // Здесь хранится первый принятый ответ. Очищается перед вызвовом Transmit()
+    static String first_answer;
 
     // Возращает время до получения ответа
     void Transmit(pchar);
@@ -53,7 +57,11 @@ namespace SIM800
 
     void HandleNewAnswer(pchar);
 
+    // Возвращает последний принятый ответ. Перед передачей очищается
     String LastAnswer();
+
+    // Возвращает первый принятый ответ. Перед передачей очищается
+    String FirstAnswer();
 }
 
 
@@ -123,6 +131,7 @@ void SIM800::Update()
 void SIM800::Transmit(pchar message)
 {
     last_answer.Set("");
+    first_answer.Set("");
 
     HAL_USART_GPRS::Transmit(message);
 
@@ -178,10 +187,21 @@ bool SIM800::WaitAnswer(pchar answer, uint timeout)
 void SIM800::HandleNewAnswer(pchar answer)
 {
     last_answer.Set(answer);
+
+    if (first_answer.IsEmpty())
+    {
+        first_answer.Set(answer);
+    }
 }
 
 
 String SIM800::LastAnswer()
 {
     return last_answer;
+}
+
+
+String SIM800::FirstAnswer()
+{
+    return first_answer;
 }

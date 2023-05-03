@@ -17,6 +17,8 @@ namespace SIM800
 
     String LastAnswer();
 
+    String FirstAnswer();
+
     uint Transmit(pchar);
 }
 
@@ -27,11 +29,11 @@ bool Command::RegistrationIsOk()
 
     SIM800::Transmit("AT+CREG?");
 
-    String answer = SIM800::LastAnswer();
+    String answer = SIM800::FirstAnswer();
 
-    while (answer.Size() == 0 && meter.ElapsedTime() < 1500)
+    while (answer.IsEmpty() && meter.ElapsedTime() < 1500)
     {
-        answer = SIM800::LastAnswer();
+        answer = SIM800::FirstAnswer();
     }
 
     if (answer.Size() == 0)
