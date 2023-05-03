@@ -183,5 +183,5 @@ void SIM800::HandleNewAnswer(pchar answer)
 
 String SIM800::LastAnswer()
 {
-    return String(last_answer);
+    return last_answer;
 }
