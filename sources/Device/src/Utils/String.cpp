@@ -21,6 +21,13 @@ String::String(pchar text) : buffer(nullptr)
 
 void String::Set(pchar text)
 {
+    if (buffer && text[0] == '\0')
+    {
+        buffer[0] = '\0';
+
+        return;
+    }
+
     Free();
 
     buffer = (char *)std::malloc(std::strlen(text) + 1);

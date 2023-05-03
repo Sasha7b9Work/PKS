@@ -36,7 +36,7 @@ bool Command::RegistrationIsOk()
         answer = SIM800::FirstAnswer();
     }
 
-    if (answer.Size() == 0)
+    if (answer.IsEmpty())
     {
         return false;
     }
