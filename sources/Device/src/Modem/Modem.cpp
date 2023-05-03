@@ -206,6 +206,7 @@ void Modem::Update()
                 SIM800::Update(Answer::answers[i]);
                 Answer::answers[i].Set("");
             }
+            Answer::num_answers = 0;
         }
     }
 }
