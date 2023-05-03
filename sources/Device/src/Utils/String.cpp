@@ -147,12 +147,6 @@ void String::Free()
 }
 
 
-char *String::c_str() const
-{
-    return buffer;
-}
-
-
 void String::Allocate(int size)
 {
     std::free(buffer);

@@ -15,51 +15,51 @@ namespace SIM800
     extern const int MAX_LENGTH_ANSWERR = 128;
     extern const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
 
-    bool LastAnswer(char[MAX_LENGTH_ANSWERR]);
-
     String LastAnswer();
 
-    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER_DEFAULT);
+    uint Transmit(pchar);
 }
 
 
 bool Command::RegistrationIsOk()
 {
-    char answer[SIM800::MAX_LENGTH_ANSWERR];
+    TimeMeterMS meter;
 
     SIM800::Transmit("AT+CREG?");
 
-    if (!SIM800::LastAnswer(answer))
+    String answer = SIM800::LastAnswer();
+
+    while (answer.Size() == 0 && meter.ElapsedTime() < 1500)
     {
-        return false;
+        answer = SIM800::LastAnswer();
     }
 
-    int num_commas = NumberSymbols(answer, ',');
+    int num_commas = NumberSymbols(answer.c_str(), ',');
 
     if (num_commas < 1 || num_commas > 3)
     {
         return false;
     }
 
-    int pos_colon = PositionSymbol(answer, ':', 1);
+    int pos_colon = PositionSymbol(answer.c_str(), ':', 1);
 
     if (pos_colon < 0)
     {
         return false;
     }
 
-    int pos_comma1 = PositionSymbol(answer, ',', 1);
+    int pos_comma1 = PositionSymbol(answer.c_str(), ',', 1);
 
-    int pos_comma2 = (int)std::strlen(answer);
+    int pos_comma2 = (int)std::strlen(answer.c_str());
 
     if (num_commas > 1)
     {
-        pos_comma2 = PositionSymbol(answer, ',', 2);
+        pos_comma2 = PositionSymbol(answer.c_str(), ',', 2);
     }
 
     char word[32];
 
-    GetWord(answer, word, pos_comma1, pos_comma2);
+    GetWord(answer.c_str(), word, pos_comma1, pos_comma2);
 
     int stat = word[0] & 0x0f;
 

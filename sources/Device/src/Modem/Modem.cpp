@@ -45,17 +45,9 @@
 
 namespace SIM800
 {
-    void CallbackOnReceive(char);
-
-    // Возращает время до получения ответа
-    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER);
-    void TransmitUINT8(uint8);
-    void TransmitUINT(uint);
-
-    // Передаёт сообщение и возвращает true, если принят ответ answer
-    bool TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout = TIME_WAIT_ANSWER);
-
     void Update();
+
+    void HandleNewAnswer(pchar);
 }
 
 
@@ -76,6 +68,41 @@ namespace Modem
     };
 
     static State::E state = State::IDLE;
+
+    const int MAX_LENGTH_ANSWERR = 128;
+
+    namespace Answer
+    {
+        static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
+        static int pointer = 0;
+
+        static void Push(char symbol)
+        {
+            if (symbol == 0x0a)
+            {
+                return;
+            }
+
+            if (pointer == MAX_LENGTH_ANSWERR - 1)
+            {
+                pointer = 0;
+            }
+
+            if (symbol == 0x0d && pointer == 0)
+            {
+                return;
+            }
+
+            buffer[pointer++] = symbol;
+
+            if (symbol == 0x0d)
+            {
+                buffer[pointer - 1] = '\0';
+                SIM800::HandleNewAnswer(buffer);
+                pointer = 0;
+            }
+        }
+    }
 
     namespace GSM_PG
     {
@@ -191,7 +218,7 @@ void Modem::CallbackOnErrorSIM800()
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    SIM800::CallbackOnReceive(symbol);
+    Answer::Push(symbol);
 }
 
 

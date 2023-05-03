@@ -15,7 +15,7 @@ public:
 
     void Set(pchar format, ...);
 
-    char *c_str() const;
+    char *c_str() const { return buffer; };
 
     void Free();
 

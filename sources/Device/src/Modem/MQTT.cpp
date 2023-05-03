@@ -6,7 +6,7 @@
 
 namespace SIM800
 {
-    uint Transmit(pchar, uint timeout = TIME_WAIT_ANSWER);
+    uint Transmit(pchar);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 }
