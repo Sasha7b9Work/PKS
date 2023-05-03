@@ -82,6 +82,10 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_ATE0:
+        if (answer.Size() != 0)
+        {
+            int i = 0;
+        }
         if (answer == "OK")
         {
             SIM800::Transmit("AT+GSMBUSY=1");
