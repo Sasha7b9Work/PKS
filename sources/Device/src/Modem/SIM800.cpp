@@ -133,7 +133,7 @@ void SIM800::Update(const String &answer)
                         stat == 3 ||    // Registration denied
                         stat == 4)      // Unknown
                     {
-                        Reset();
+//                        Reset();
                     }
                     else
                     {
