@@ -110,7 +110,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_CREG:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > 30000)
         {
             Reset();
         }
