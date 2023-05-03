@@ -45,9 +45,7 @@
 
 namespace SIM800
 {
-    void Update();
-
-    void HandleNewAnswer(pchar);
+    void Update(const String &);
 }
 
 
@@ -73,6 +71,10 @@ namespace Modem
 
     namespace Answer
     {
+        static const int MAX_ANSWERS = 10;
+        static String answers[MAX_ANSWERS];
+        static int num_answers = 0;
+
         static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
         static int pointer = 0;
 
@@ -99,12 +101,11 @@ namespace Modem
             {
                 buffer[pointer - 1] = '\0';
 
-                if (std::strcmp(buffer, "OK") != 0)
+                if (num_answers < MAX_ANSWERS)
                 {
-                    int i = 0;
+                    answers[num_answers++].Set(buffer);
                 }
 
-                SIM800::HandleNewAnswer(buffer);
                 pointer = 0;
             }
         }
@@ -194,7 +195,18 @@ void Modem::Update()
         break;
 
     case State::HARDWARE_IS_OK:
-        SIM800::Update();
+        if (Answer::num_answers == 0)
+        {
+            SIM800::Update(String(""));
+        }
+        else
+        {
+            for (int i = 0; i < Answer::num_answers; i++)
+            {
+                SIM800::Update(Answer::answers[i]);
+                Answer::answers[i].Set("");
+            }
+        }
     }
 }
 

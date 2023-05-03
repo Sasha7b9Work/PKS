@@ -26,6 +26,7 @@ namespace SIM800
         enum E
         {
             START,
+            WAIT_ATE0,
             WAIT_REGISTRATION,
 
             RUNNING
@@ -48,14 +49,12 @@ namespace SIM800
     // Передаёт сообщение и возвращает true, если принят ответ answer
     bool TransmitAndWaitAnswer(pchar message, pchar answer, uint timeout = TIME_WAIT_ANSWER);
 
-    void Update();
+    void Update(const String &);
 
     // Ожидает ответа. Возвращает true, если ответ получен
     static bool WaitAnswer(pchar, uint timeout = TIME_WAIT_ANSWER);
 
     static void Reset();
-
-    void HandleNewAnswer(pchar);
 
     // Возвращает последний принятый ответ. Перед передачей очищается
     String LastAnswer();
@@ -65,7 +64,7 @@ namespace SIM800
 }
 
 
-void SIM800::Update()
+void SIM800::Update(const String &answer)
 {
     static TimeMeterMS meter;
 
@@ -75,13 +74,26 @@ void SIM800::Update()
         SIM800::Transmit("ATE0");
         if (SIM800::TransmitAndWaitAnswer("AT+GSMBUSY=1", "OK"))
         {
-            state = State::WAIT_REGISTRATION;
+            state = State::WAIT_ATE0;
             meter.Reset();
         }
         else
         {
             Reset();
         }
+        break;
+
+    case State::WAIT_ATE0:
+
+        if (answer == "OK")
+        {
+            state = State::WAIT_REGISTRATION;
+        }
+        else if (meter.ElapsedTime() > 1000)
+        {
+            Reset();
+        }
+
         break;
 
     case State::WAIT_REGISTRATION:
@@ -185,17 +197,6 @@ bool SIM800::WaitAnswer(pchar answer, uint timeout)
     }
 
     return false;
-}
-
-
-void SIM800::HandleNewAnswer(pchar answer)
-{
-    last_answer.Set(answer);
-
-    if (first_answer.IsEmpty())
-    {
-        first_answer.Set(answer);
-    }
 }
 
 

@@ -8,7 +8,7 @@ class String // -V690
 {
 public:
     explicit String();
-             String(pchar);
+    explicit String(pchar);
              String(const String &);
     ~String();
 
@@ -32,7 +32,7 @@ public:
     {
         Set(rhs.c_str());
 
-        return *this;
+        return String(*this);
     }
 
 private:
