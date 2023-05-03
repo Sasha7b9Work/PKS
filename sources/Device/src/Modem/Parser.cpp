@@ -23,6 +23,12 @@ int Parser::NumberSymbols(pchar string, char symbol)
 }
 
 
+int Parser::NumberSymbols(const String &string, char symbol)
+{
+    return NumberSymbols(string.c_str(), symbol);
+}
+
+
 int Parser::PositionSymbol(pchar string, char symbol, int num)
 {
     int size = (int)std::strlen(string);
@@ -41,6 +47,12 @@ int Parser::PositionSymbol(pchar string, char symbol, int num)
     }
 
     return -1;
+}
+
+
+int Parser::PositionSymbol(const String &string, char symbol, int num)
+{
+    return PositionSymbol(string.c_str(), symbol, num);
 }
 
 
@@ -65,4 +77,12 @@ pchar Parser::GetWord(pchar string, char out[32], int pos_start, int pos_end)
     }
 
     return out;
+}
+
+
+String Parser::GetWord(const String &string, int pos_start, int pos_end)
+{
+    char word[32];
+
+    return String(GetWord(string.c_str(), word, pos_start, pos_end));
 }

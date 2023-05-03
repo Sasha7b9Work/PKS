@@ -9,4 +9,7 @@ namespace Command
 
     // Попытка приконнектиться к 
     bool ConnectToTCP();
+
+    // Ожидать статус status. true - дождались, false - нет 
+    bool WaitCIPSTATUS(pchar status);
 }

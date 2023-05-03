@@ -87,7 +87,11 @@ void SIM800::Update()
     case State::WAIT_REGISTRATION:
         if (Command::RegistrationIsOk())
         {
-            if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
+            if (!Command::WaitCIPSTATUS("IP INITIAL"))
+            {
+                Reset();
+            }
+            else if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
             {
                 Reset();
             }

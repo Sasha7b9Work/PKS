@@ -29,7 +29,7 @@ bool Command::RegistrationIsOk()
 
     SIM800::Transmit("AT+CREG?");
 
-    String answer = SIM800::FirstAnswer();
+    String answer;
 
     int num_commas = 0;
 
@@ -110,6 +110,37 @@ bool Command::ConnectToTCP()
 
                 return result;
             }
+        }
+    }
+
+    return false;
+}
+
+
+bool Command::WaitCIPSTATUS(pchar value)
+{
+    SIM800::Transmit("AT+CIPSTATUS");
+
+    TimeMeterMS meter;
+
+    String answer;
+
+    while (meter.ElapsedTime() < 10000)
+    {
+        answer = SIM800::LastAnswer();
+
+        if (NumberSymbols(answer, ':') < 1)
+        {
+            continue;
+        }
+
+        int pos_colon = PositionSymbol(answer, ':', 1);
+
+        String status = GetWord(answer, pos_colon, answer.Size());
+
+        if (status == value)
+        {
+            return true;
         }
     }
 
