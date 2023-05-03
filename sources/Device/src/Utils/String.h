@@ -8,7 +8,6 @@ class String // -V690
 {
 public:
     explicit String();
-//             String(const String &);
              String(pchar);
     ~String();
 

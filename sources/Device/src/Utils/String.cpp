@@ -13,19 +13,6 @@ String::String() : buffer(nullptr)
 }
 
 
-//String::String(const String &rhs) : buffer(nullptr)
-//{
-//    Set("");
-//
-//    Allocate(static_cast<int>(std::strlen(rhs.c_str()) + 1));
-//
-//    if(buffer != nullptr)
-//    {
-//        std::strcpy(buffer, rhs.c_str());
-//    }
-//}
-
-
 String::String(pchar text) : buffer(nullptr)
 {
     Set(text);
