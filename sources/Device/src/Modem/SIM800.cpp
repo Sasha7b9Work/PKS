@@ -122,6 +122,8 @@ void SIM800::Update()
 
 void SIM800::Transmit(pchar message)
 {
+    last_answer.Set("");
+
     HAL_USART_GPRS::Transmit(message);
 
     static const char end_message[2] = { 0x0d, 0 };
