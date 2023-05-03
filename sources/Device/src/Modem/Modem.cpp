@@ -80,7 +80,7 @@ namespace Modem
 
         static void Push(char symbol)
         {
-            if (symbol == 0x0a)
+            if (symbol == 0x0a || symbol == 0x00)
             {
                 return;
             }
