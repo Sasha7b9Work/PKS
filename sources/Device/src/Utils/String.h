@@ -28,6 +28,13 @@ public:
 
     bool operator!=(pchar) const;
 
+    String operator=(const String &rhs)
+    {
+        Set(rhs.c_str());
+
+        return *this;
+    }
+
 private:
 
     char *buffer;
