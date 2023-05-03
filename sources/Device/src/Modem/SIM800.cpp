@@ -83,29 +83,29 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_ATE0:
-        if (answer == "OK")
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+GSMBUSY=1");
             state = State::WAIT_GSMBUSY;
             meter.Reset();
         }
-        else if (meter.ElapsedTime() > 10000)
-        {
-            Reset();
-        }
 
         break;
 
     case State::WAIT_GSMBUSY:
-        if (answer == "OK")
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+CREG?");
             state = State::WAIT_CREG;
             meter.Reset();
-        }
-        else if (meter.ElapsedTime() > 1000)
-        {
-            Reset();
         }
         break;
 
