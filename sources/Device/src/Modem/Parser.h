@@ -5,6 +5,10 @@
 
 namespace Parser
 {
+    // Возвращает num-ое слово. Разделителями являются ':', ' ', ','. Если слово в кавычках, то кавычки опускаются
+    // Нумерация начинается с 1
+    String GetWord(const String &, int num);
+
     int NumberSymbols(pchar, char);
     int NumberSymbols(const String &, char);
 

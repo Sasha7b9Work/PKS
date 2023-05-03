@@ -4,6 +4,12 @@
 #include <cstring>
 
 
+namespace Parser
+{
+    static int NumSeparators(const String &, int pos[10]);
+}
+
+
 int Parser::NumberSymbols(pchar string, char symbol)
 {
     int result = 0;
@@ -85,4 +91,47 @@ String Parser::GetWord(const String &string, int pos_start, int pos_end)
     char word[32];
 
     return String(GetWord(string.c_str(), word, pos_start, pos_end));
+}
+
+
+String Parser::GetWord(const String &string, int num)
+{
+    int pos[10];
+
+    int num_sep = NumSeparators(string, pos);
+
+    if (num_sep < num)
+    {
+        return String("");
+    }
+
+    if (num == 1)
+    {
+        return GetWord(string, -1, pos[0]);
+    }
+
+    return GetWord(string, pos[num - 2], pos[num - 1]);
+}
+
+
+int Parser::NumSeparators(const String &string, int pos[10])
+{
+    int size = string.Size();
+
+    char *p = string.c_str();
+
+    int num_sep = 0;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (*p == ' ' || *p == ',' || *p == ':')
+        {
+            pos[num_sep++] = i;
+        }
+        p++;
+    }
+
+    pos[num_sep++] = size;
+
+    return num_sep;
 }
