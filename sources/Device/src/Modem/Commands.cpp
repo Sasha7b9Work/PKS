@@ -15,10 +15,6 @@ namespace SIM800
     extern const int MAX_LENGTH_ANSWERR = 128;
     extern const uint TIME_WAIT_ANSWER_DEFAULT = 1500;
 
-    String LastAnswer();
-
-    String FirstAnswer();
-
     uint Transmit(pchar);
 }
 
@@ -35,7 +31,7 @@ bool Command::RegistrationIsOk()
 
     while (meter.ElapsedTime() < 10000)
     {
-        answer = SIM800::LastAnswer();
+//        answer = SIM800::LastAnswer();
 
         num_commas = NumberSymbols(answer.c_str(), ',');
 
@@ -87,7 +83,9 @@ bool Command::ConnectToTCP()
 
     while (meter.ElapsedTime() < 30000)
     {
-        String answer = SIM800::LastAnswer();
+//        String answer = SIM800::LastAnswer();
+
+        String answer;
 
         int pos_space = PositionSymbol(answer.c_str(), ' ', 1);
 
@@ -127,7 +125,7 @@ bool Command::WaitCIPSTATUS(pchar value)
 
     while (meter.ElapsedTime() < 10000)
     {
-        answer = SIM800::LastAnswer();
+//        answer = SIM800::LastAnswer();
 
         if (NumberSymbols(answer, ':') < 1)
         {
