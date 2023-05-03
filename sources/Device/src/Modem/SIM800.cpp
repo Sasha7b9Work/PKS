@@ -27,6 +27,7 @@ namespace SIM800
         {
             START,
             WAIT_ATE0,
+            WAIT_GSMBUSY,
             WAIT_REGISTRATION,
 
             RUNNING
@@ -84,7 +85,20 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_ATE0:
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+GSMBUSY=1");
+            state = State::WAIT_GSMBUSY;
+            meter.Reset();
+        }
+        else if (meter.ElapsedTime() > 1000)
+        {
+            Reset();
+        }
 
+        break;
+
+    case State::WAIT_GSMBUSY:
         if (answer == "OK")
         {
             state = State::WAIT_REGISTRATION;
@@ -93,7 +107,6 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-
         break;
 
     case State::WAIT_REGISTRATION:
