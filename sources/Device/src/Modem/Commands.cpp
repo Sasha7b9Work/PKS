@@ -31,21 +31,18 @@ bool Command::RegistrationIsOk()
 
     String answer = SIM800::FirstAnswer();
 
-    while (answer.IsEmpty() && meter.ElapsedTime() < 1500)
-    {
-        answer = SIM800::FirstAnswer();
-    }
+    int num_commas = 0;
 
-    if (answer.IsEmpty())
+    while (meter.ElapsedTime() < 1500)
     {
-        return false;
-    }
+        answer = SIM800::LastAnswer();
 
-    int num_commas = NumberSymbols(answer.c_str(), ',');
+        num_commas = NumberSymbols(answer.c_str(), ',');
 
-    if (num_commas < 1 || num_commas > 3)
-    {
-        return false;
+        if (num_commas > 0)
+        {
+            break;
+        }
     }
 
     int pos_colon = PositionSymbol(answer.c_str(), ':', 1);
