@@ -73,15 +73,7 @@ void SIM800::Update(const String &answer)
     {
     case State::START:
         SIM800::Transmit("ATE0");
-        if (SIM800::TransmitAndWaitAnswer("AT+GSMBUSY=1", "OK"))
-        {
-            state = State::WAIT_ATE0;
-            meter.Reset();
-        }
-        else
-        {
-            Reset();
-        }
+        state = State::WAIT_ATE0;
         break;
 
     case State::WAIT_ATE0:
