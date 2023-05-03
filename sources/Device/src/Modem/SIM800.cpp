@@ -4,7 +4,11 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Commands.h"
+#include "Modem/Parser.h"
 #include <cstring>
+
+
+using namespace Parser;
 
 
 namespace Modem
@@ -28,6 +32,7 @@ namespace SIM800
             START,
             WAIT_ATE0,
             WAIT_GSMBUSY,
+            WAIT_CREG,
             WAIT_REGISTRATION,
 
             RUNNING
@@ -93,11 +98,48 @@ void SIM800::Update(const String &answer)
     case State::WAIT_GSMBUSY:
         if (answer == "OK")
         {
-            state = State::WAIT_REGISTRATION;
+            SIM800::Transmit("AT+CREG?");
+            state = State::WAIT_CREG;
+            meter.Reset();
         }
         else if (meter.ElapsedTime() > 1000)
         {
             Reset();
+        }
+        break;
+
+    case State::WAIT_CREG:
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else
+        {
+            int num_commas = NumberSymbols(answer, ',');
+
+            if (num_commas > 0)
+            {
+                if (PositionSymbol(answer, ':', 1) > 0)
+                {
+                    int pos_comma1 = PositionSymbol(answer, ',', 1);
+
+                    int pos_comma2 = (num_commas > 1) ? PositionSymbol(answer, ',', 2) : (int)answer.Size();
+
+                    int stat = GetWord(answer, pos_comma1, pos_comma2).c_str()[0] & 0x0f;
+
+                    if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
+                        stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
+                        stat == 3 ||    // Registration denied
+                        stat == 4)      // Unknown
+                    {
+                        Reset();
+                    }
+                    else
+                    {
+                        state = State::WAIT_REGISTRATION;
+                    }
+                }
+            }
         }
         break;
 
