@@ -9,6 +9,7 @@ class String // -V690
 public:
     explicit String();
              String(pchar);
+             String(const String &);
     ~String();
 
     void Set(pchar);

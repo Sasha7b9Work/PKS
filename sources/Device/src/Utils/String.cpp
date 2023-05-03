@@ -19,6 +19,12 @@ String::String(pchar text) : buffer(nullptr)
 }
 
 
+String::String(const String &text) : buffer(nullptr)
+{
+    Set(text.c_str());
+}
+
+
 void String::Set(pchar text)
 {
     if (buffer && text[0] == '\0')
