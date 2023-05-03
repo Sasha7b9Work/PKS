@@ -6,6 +6,7 @@
 #include "Modem/Commands.h"
 #include <gd32f30x.h>
 #include <cstring>
+#include "Modem/Parser.h"
 
 
 /*
@@ -100,6 +101,13 @@ namespace Modem
             if (symbol == 0x0d)
             {
                 buffer[pointer - 1] = '\0';
+
+                String string(buffer);
+
+                if (Parser::GetWord(string, 1) == "STATE")
+                {
+                    int i = 0;
+                }
 
                 if (num_answers < MAX_ANSWERS)
                 {
