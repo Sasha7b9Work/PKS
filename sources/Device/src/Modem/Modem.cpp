@@ -98,6 +98,12 @@ namespace Modem
             if (symbol == 0x0d)
             {
                 buffer[pointer - 1] = '\0';
+
+                if (std::strcmp(buffer, "OK") != 0)
+                {
+                    int i = 0;
+                }
+
                 SIM800::HandleNewAnswer(buffer);
                 pointer = 0;
             }
