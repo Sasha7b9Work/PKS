@@ -33,7 +33,7 @@ bool Command::RegistrationIsOk()
 
     int num_commas = 0;
 
-    while (meter.ElapsedTime() < 1500)
+    while (meter.ElapsedTime() < 10000)
     {
         answer = SIM800::LastAnswer();
 
