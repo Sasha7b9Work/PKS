@@ -1,4 +1,4 @@
-﻿// 2023/5/3 11:29:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2023/5/3 11:29:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
@@ -121,12 +121,6 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_INITIAL:
-
-        if (GetWord(answer, 2) != "")
-        {
-            int i = 0;
-        }
-
         if (meter.ElapsedTime() > 10000)
         {
             Reset();
@@ -146,11 +140,6 @@ void SIM800::Update(const String &answer)
         }
         else
         {
-            if (answer.Size() != 0)
-            {
-                int i = 0;
-            }
-
             if (GetWord(answer, 1) == "OK")
             {
                 SIM800::Transmit("AT+CIPSTATUS");
