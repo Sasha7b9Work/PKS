@@ -125,6 +125,7 @@ String Parser::GetWord(const String &string, int num)
                 if (!in_word)
                 {
                     current_word++;
+                    in_word = true;
                     if (current_word == num)
                     {
                         pos_start = p - string.c_str() - 1;
