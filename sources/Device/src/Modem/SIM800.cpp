@@ -100,25 +100,20 @@ void SIM800::Update(const String &answer)
         }
         else
         {
-            if (answer.Size() != 0)
+            if (GetWord(answer, 1) == "+CREG")
             {
-                String word = GetWord(answer, 3);
+                int stat = GetWord(answer, 3).c_str()[0] & 0x0f;
 
-                if (word.Size() != 0)
+                if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
+                    stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
+                    stat == 3 ||    // Registration denied
+                    stat == 4)      // Unknown
                 {
-                    int stat = word.c_str()[0] & 0x0f;
-
-                    if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
-                        stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
-                        stat == 3 ||    // Registration denied
-                        stat == 4)      // Unknown
-                    {
-                        SIM800::Transmit("AT+CREG?");
-                    }
-                    else
-                    {
-                        state = State::WAIT_IP_INITIAL;
-                    }
+                    SIM800::Transmit("AT+CREG?");
+                }
+                else
+                {
+                    state = State::WAIT_IP_INITIAL;
                 }
             }
         }
