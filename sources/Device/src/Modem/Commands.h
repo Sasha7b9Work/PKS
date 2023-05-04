@@ -4,12 +4,6 @@
 
 namespace Command
 {
-    // Возвращает true, если произошла регистрация в сети
-    bool RegistrationIsOk();
-
     // Попытка приконнектиться к 
     bool ConnectToTCP();
-
-    // Ожидать статус status. true - дождались, false - нет 
-    bool WaitCIPSTATUS(pchar status);
 }

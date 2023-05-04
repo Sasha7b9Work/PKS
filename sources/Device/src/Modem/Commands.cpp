@@ -19,62 +19,6 @@ namespace SIM800
 }
 
 
-bool Command::RegistrationIsOk()
-{
-    TimeMeterMS meter;
-
-    SIM800::Transmit("AT+CREG?");
-
-    String answer;
-
-    int num_commas = 0;
-
-    while (meter.ElapsedTime() < 10000)
-    {
-//        answer = SIM800::LastAnswer();
-
-        num_commas = NumberSymbols(answer.c_str(), ',');
-
-        if (num_commas > 0)
-        {
-            break;
-        }
-    }
-
-    int pos_colon = PositionSymbol(answer.c_str(), ':', 1);
-
-    if (pos_colon < 0)
-    {
-        return false;
-    }
-
-    int pos_comma1 = PositionSymbol(answer.c_str(), ',', 1);
-
-    int pos_comma2 = (int)std::strlen(answer.c_str());
-
-    if (num_commas > 1)
-    {
-        pos_comma2 = PositionSymbol(answer.c_str(), ',', 2);
-    }
-
-    char word[32];
-
-    GetWord(answer.c_str(), word, pos_comma1, pos_comma2);
-
-    int stat = word[0] & 0x0f;
-
-    if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
-        stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
-        stat == 3 ||    // Registration denied
-        stat == 4)      // Unknown
-    {
-        return false;
-    }
-
-    return true;
-}
-
-
 bool Command::ConnectToTCP()
 {
     SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
@@ -108,37 +52,6 @@ bool Command::ConnectToTCP()
 
                 return result;
             }
-        }
-    }
-
-    return false;
-}
-
-
-bool Command::WaitCIPSTATUS(pchar value)
-{
-    SIM800::Transmit("AT+CIPSTATUS");
-
-    TimeMeterMS meter;
-
-    String answer;
-
-    while (meter.ElapsedTime() < 10000)
-    {
-//        answer = SIM800::LastAnswer();
-
-        if (NumberSymbols(answer, ':') < 1)
-        {
-            continue;
-        }
-
-        int pos_colon = PositionSymbol(answer, ':', 1);
-
-        String status = GetWord(answer, pos_colon, answer.Size());
-
-        if (status == value)
-        {
-            return true;
         }
     }
 

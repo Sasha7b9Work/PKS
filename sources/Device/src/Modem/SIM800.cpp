@@ -161,10 +161,6 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_REGISTRATION:
-        if (!Command::WaitCIPSTATUS("IP INITIAL"))
-        {
-            Reset();
-        }
         //            else if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
         //            {
         //                Reset();
