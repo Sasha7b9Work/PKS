@@ -74,10 +74,10 @@ void MQTT::Update(const String &answer)
             SIM800::Transmit(MQTT_type);
 
             // просто так нужно
-            SIM800::TransmitUINT8(0x04);
-            SIM800::TransmitUINT8(0xC0);
+            SIM800::TransmitUINT8(0x03);
+            SIM800::TransmitUINT8(0xC2);
             SIM800::TransmitUINT8(0x00);
-            SIM800::TransmitUINT8(0x28);
+            SIM800::TransmitUINT8(0x3c);
 
             // MQTT  идентификатор устройства
             SIM800::TransmitUINT8(0x00);
