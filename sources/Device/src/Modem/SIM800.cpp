@@ -179,7 +179,7 @@ void SIM800::Update(const String &answer)
         }
         else if (GetWord(answer, 1) == "OK")
         {
-            state = State::WAIT_IP_START;
+            state = State::WAIT_IP_GPRSACT;
             meter.Reset();
             SIM800::Transmit("AT+CIPSTATUS");
         }
