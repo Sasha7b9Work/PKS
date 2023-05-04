@@ -1,6 +1,7 @@
 // 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/Modem.h"
+#include "Hardware/Timer.h"
 #include <cstring>
 
 
@@ -14,7 +15,18 @@ namespace SIM800
 
 namespace MQTT
 {
-    void Connect();
+    struct State
+    {
+        enum E
+        {
+            IDLE,
+            WAIT_RESPONSE_CIPSEND   // Ждеём приглашения ">"
+        };
+    };
+
+    static State::E state = State::IDLE;
+
+    void Update(const String &);
 
     static const char MQTT_type[15] = "MQIsdp";         // тип протокола НЕ ТРОГАТЬ!
     static const char MQTT_CID[15] = "CITROEN";         // уникальное имя устройства в сети MQTT
@@ -26,52 +38,80 @@ namespace MQTT
 
     // пакет подписки на топик
     static void SubscribePacket(const char MQTT_topic[15]);
+
+    static void Reset();
 }
 
 
-void MQTT::Connect()
+void MQTT::Update(const String &answer)
 {
-    SIM800::Transmit("AT+CIPSEND");
-    SIM800::TransmitUINT8(0x10);                                                              // маркер пакета на установку соединения
-    SIM800::TransmitUINT(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12);
+    const uint DEFAULT_TIME = 10000;
 
-    // тип протокола
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT(std::strlen(MQTT_type));
-    SIM800::Transmit(MQTT_type);
+    TimeMeterMS meter;
 
-    // просто так нужно
-    SIM800::TransmitUINT8(0x03);
-    SIM800::TransmitUINT8(0xC2);
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT8(0x3C);
+    switch (state)
+    {
+    case State::IDLE:
+        SIM800::Transmit("AT+CIPSEND");
+        meter.Reset();
+        break;
 
-    // MQTT  идентификатор устройства
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT(std::strlen(MQTT_CID));
-    SIM800::Transmit(MQTT_CID);
+    case State::WAIT_RESPONSE_CIPSEND:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if (answer == ">")
+        {
+            SIM800::TransmitUINT8(0x10);                                                              // маркер пакета на установку соединения
+            SIM800::TransmitUINT(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12);
 
-    // MQTT логин
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT(std::strlen(MQTT_user));
-    SIM800::Transmit(MQTT_user);
+            // тип протокола
+            SIM800::TransmitUINT8(0);
+            SIM800::TransmitUINT(std::strlen(MQTT_type));
+            SIM800::Transmit(MQTT_type);
 
-    // MQTT пароль
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT(std::strlen(MQTT_pass));
-    SIM800::Transmit(MQTT_pass);
+            // просто так нужно
+            SIM800::TransmitUINT8(0x03);
+            SIM800::TransmitUINT8(0xC2);
+            SIM800::TransmitUINT8(0);
+            SIM800::TransmitUINT8(0x3C);
 
-//    // пакет публикации
-//    PublishPacket("C5/status", "Подключено");
-//
-//    // пакет подписки на присылаемые команды
-//    SubscribePacket("C5/comand");
-//
-//    // пакет подписки на присылаемые значения таймера
-//    SubscribePacket("C5/settimer");
+            // MQTT  идентификатор устройства
+            SIM800::TransmitUINT8(0);
+            SIM800::TransmitUINT(std::strlen(MQTT_CID));
+            SIM800::Transmit(MQTT_CID);
 
-    // маркер завершения пакета
-    SIM800::TransmitUINT8(0x1A);
+            // MQTT логин
+            SIM800::TransmitUINT8(0);
+            SIM800::TransmitUINT(std::strlen(MQTT_user));
+            SIM800::Transmit(MQTT_user);
+
+            // MQTT пароль
+            SIM800::TransmitUINT8(0);
+            SIM800::TransmitUINT(std::strlen(MQTT_pass));
+            SIM800::Transmit(MQTT_pass);
+
+            //    // пакет публикации
+            //    PublishPacket("C5/status", "Подключено");
+            //
+            //    // пакет подписки на присылаемые команды
+            //    SubscribePacket("C5/comand");
+            //
+            //    // пакет подписки на присылаемые значения таймера
+            //    SubscribePacket("C5/settimer");
+
+                // маркер завершения пакета
+            SIM800::TransmitUINT8(0x1A);
+        }
+        break;
+    }
+}
+
+
+void MQTT::Reset()
+{
+
 }
 
 

@@ -18,7 +18,7 @@ namespace Modem
 
 namespace MQTT
 {
-    void Connect();
+    void Update(const String &);
 }
 
 
@@ -41,8 +41,7 @@ namespace SIM800
             WAIT_IP_STATUS,
             WAIT_TCP_CONNECT,
             WAIT_CIPHEAD,
-            BEGINT_MQTT,
-            RUNNING_MQTT
+            RUNNING_MQTT,
         };
     };
 
@@ -278,10 +277,10 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else if(answer == "OK")
+        else if (answer == "OK")
         {
             meter.Reset();
-            state = State::BEGINT_MQTT;
+            state = State::RUNNING_MQTT;
         }
         else if (answer == "ERROR")
         {
@@ -290,12 +289,8 @@ void SIM800::Update(const String &answer)
 
         break;
 
-    case State::BEGINT_MQTT:
-        MQTT::Connect();
-        state = State::RUNNING_MQTT;
-        break;
-
     case State::RUNNING_MQTT:
+        MQTT::Update(answer);
         break;
     }
 }
