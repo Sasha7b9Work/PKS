@@ -104,16 +104,14 @@ void SIM800::Update(const String &answer)
             {
                 int stat = GetWord(answer, 3).c_str()[0] & 0x0f;
 
-                if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
-                    stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
-                    stat == 3 ||    // Registration denied
-                    stat == 4)      // Unknown
+                if (stat == 1 ||    // Registered, home network
+                    stat == 5)      // Registered, roaming
                 {
-                    SIM800::Transmit("AT+CREG?");
+                    state = State::WAIT_IP_INITIAL;
                 }
                 else
                 {
-                    state = State::WAIT_IP_INITIAL;
+                    SIM800::Transmit("AT+CREG?");
                 }
             }
         }
