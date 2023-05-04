@@ -55,11 +55,34 @@ namespace SIM800
     void Update(const String &);
 
     static void Reset();
+
+    static bool ProcessUnsolicited(const String &);
+}
+
+
+bool SIM800::ProcessUnsolicited(const String &answer)
+{
+    if (answer == "CLOSED")
+    {
+        Reset();
+        return true;
+    }
+    else if (answer == "SEND OK")
+    {
+        return true;
+    }
+
+    return false;
 }
 
 
 void SIM800::Update(const String &answer)
 {
+    if (ProcessUnsolicited(answer))
+    {
+        return;
+    }
+
     const uint DEFAULT_TIME = 10000;
 
     static TimeMeterMS meter;
