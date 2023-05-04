@@ -37,6 +37,8 @@ namespace SIM800
             WAIT_CSTT,
             WAIT_IP_START,
             WAIT_CIICR,
+            WAIT_IP_GPRSACT,
+            WAIT_CIFSR,
 
             WAIT_REGISTRATION,
 
@@ -59,6 +61,8 @@ namespace SIM800
 
 void SIM800::Update(const String &answer)
 {
+    const uint DEFAULT_TIME = 10000;
+
     static TimeMeterMS meter;
 
     switch (state)
@@ -70,7 +74,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_ATE0:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
@@ -84,7 +88,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_GSMBUSY:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
@@ -123,7 +127,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_INITIAL:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
@@ -136,7 +140,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_CSTT:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
@@ -156,7 +160,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_START:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
@@ -169,15 +173,52 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_CIICR:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
         else if (GetWord(answer, 1) == "OK")
         {
-            Reset();
+            state = State::WAIT_IP_START;
+            meter.Reset();
+            SIM800::Transmit("AT+CIPSTATUS");
         }
         break;
+
+    case State::WAIT_IP_GPRSACT:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if (GetWord(answer, 3) == "GPRSACT")
+        {
+            state = State::WAIT_CIFSR;
+            meter.Reset();
+            SIM800::Transmit("AT+CIFSR");
+        }
+        break;
+
+    case State::WAIT_CIFSR:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else
+        {
+            if (GetWord(answer, 1) == "OK")
+            {
+                int i = 0;
+            }
+            else
+            {
+                int i = 0;
+            }
+        }
+
+        break;
+
+
+
 
     case State::WAIT_REGISTRATION:
         //            else if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
