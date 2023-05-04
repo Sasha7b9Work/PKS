@@ -8,6 +8,7 @@
 namespace SIM800
 {
     uint Transmit(pchar);
+    void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 }
@@ -71,7 +72,7 @@ void MQTT::Update(const String &answer)
             // тип протокола
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_type));
-            SIM800::Transmit(MQTT_type);
+            SIM800::TransmitRAW(MQTT_type);
 
             // просто так нужно
             SIM800::TransmitUINT8(0x03);
@@ -82,17 +83,17 @@ void MQTT::Update(const String &answer)
             // MQTT  идентификатор устройства
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_CID));
-            SIM800::Transmit(MQTT_CID);
+            SIM800::TransmitRAW(MQTT_CID);
 
             // MQTT логин
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_user));
-//            SIM800::Transmit(MQTT_user);
+            SIM800::TransmitRAW(MQTT_user);
 
             // MQTT пароль
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
-//            SIM800::Transmit(MQTT_pass);
+            SIM800::TransmitRAW(MQTT_pass);
 
             //    // пакет публикации
             //    PublishPacket("C5/status", "ѕодключено");

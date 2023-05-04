@@ -49,6 +49,8 @@ namespace SIM800
 
     // Возращает время до получения ответа
     void Transmit(pchar);
+    // Передать без завершающего 0x0d
+    void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
     void TransmitUINT(uint);
 
@@ -307,6 +309,12 @@ void SIM800::Transmit(pchar message)
     static const char end_message[2] = { 0x0d, 0 };
 
     HAL_USART_GPRS::Transmit(end_message);
+}
+
+
+void SIM800::TransmitRAW(pchar message)
+{
+    HAL_USART_GPRS::Transmit(message);
 }
 
 

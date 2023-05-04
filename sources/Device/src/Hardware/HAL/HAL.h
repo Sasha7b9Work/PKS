@@ -52,6 +52,7 @@ namespace HAL_SPI
 namespace HAL_USART_GPRS
 {
     void Init();
+    // Передать с завершающм 0x0d
     void Transmit(pchar);
     void Transmit(void *, int);
     void CallbackOnReceive(char);
