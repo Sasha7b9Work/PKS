@@ -34,7 +34,8 @@ namespace SIM800
             WAIT_GSMBUSY,
             WAIT_CREG,
             WAIT_IP_INITIAL,
-
+            WAIT_CSTT,
+            WAIT_IP_START,
             WAIT_REGISTRATION,
 
             RUNNING
@@ -107,7 +108,9 @@ void SIM800::Update(const String &answer)
                 if (stat == 1 ||    // Registered, home network
                     stat == 5)      // Registered, roaming
                 {
+                    SIM800::Transmit("AT+CIPSTATUS");
                     state = State::WAIT_IP_INITIAL;
+                    meter.Reset();
                 }
                 else
                 {
@@ -118,8 +121,43 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_INITIAL:
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else if (GetWord(answer, 3) == "INITIAL")
+        {
+            SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
+            state = State::WAIT_CSTT;
+            meter.Reset();
+        }
+        break;
 
+    case State::WAIT_CSTT:
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else
+        {
+            if (GetWord(answer, 1) == "OK")
+            {
+                SIM800::Transmit("AT+CIPSTATUS");
+                state = State::WAIT_IP_START;
+                meter.Reset();
+            }
+            else if (GetWord(answer, 1) == "ERROR")
+            {
+                Reset();
+            }
+        }
+        break;
 
+    case State::WAIT_IP_START:
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
         break;
 
     case State::WAIT_REGISTRATION:
