@@ -41,7 +41,7 @@ namespace SIM800
             WAIT_IP_STATUS,
             WAIT_TCP_CONNECT,
             BEGINT_MQTT,
-            RUNNING
+            RUNNING_MQTT
         };
     };
 
@@ -267,7 +267,8 @@ void SIM800::Update(const String &answer)
         Reset();
         break;
 
-    case State::RUNNING:
+    case State::RUNNING_MQTT:
+        Reset();
         break;
     }
 }
