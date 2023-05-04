@@ -121,6 +121,12 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_INITIAL:
+
+        if (GetWord(answer, 2) != 0)
+        {
+            int i = 0;
+        }
+
         if (meter.ElapsedTime() > 10000)
         {
             Reset();
