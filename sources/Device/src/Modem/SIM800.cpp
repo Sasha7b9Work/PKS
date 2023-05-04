@@ -287,11 +287,11 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::BEGINT_MQTT:
-//        MQTT::Connect();
+        MQTT::Connect();
+        state = State::RUNNING_MQTT;
         break;
 
     case State::RUNNING_MQTT:
-        Reset();
         break;
     }
 }
