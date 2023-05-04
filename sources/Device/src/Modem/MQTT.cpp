@@ -68,7 +68,8 @@ void MQTT::Update(const String &answer)
             SIM800::TransmitUINT(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12 + 4);
 
             // тип протокола
-            SIM800::TransmitUINT8(0);
+            SIM800::TransmitUINT8(0x00);
+            SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_type));
             SIM800::Transmit(MQTT_type);
 
@@ -80,15 +81,18 @@ void MQTT::Update(const String &answer)
 
             // MQTT  идентификатор устройства
             SIM800::TransmitUINT8(0x00);
+            SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_CID));
             SIM800::Transmit(MQTT_CID);
 
             // MQTT логин
             SIM800::TransmitUINT8(0x00);
+            SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_user));
             SIM800::Transmit(MQTT_user);
 
             // MQTT пароль
+            SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
             SIM800::Transmit(MQTT_pass);
