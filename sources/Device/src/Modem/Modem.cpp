@@ -239,12 +239,12 @@ void Modem::CallbackOnErrorSIM800()
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    Answer::Push(symbol);
+
     if (symbol == '>')
     {
-        int i = 0;
+        Answer::Push(0x0d);
     }
-
-    Answer::Push(symbol);
 }
 
 
