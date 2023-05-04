@@ -239,6 +239,11 @@ void Modem::CallbackOnErrorSIM800()
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    if (symbol == '>')
+    {
+        int i = 0;
+    }
+
     Answer::Push(symbol);
 }
 
