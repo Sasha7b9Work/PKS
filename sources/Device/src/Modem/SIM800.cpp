@@ -40,6 +40,7 @@ namespace SIM800
             WAIT_CIFSR,
             WAIT_IP_STATUS,
             WAIT_TCP_CONNECT,
+            WAIT_CIPHEAD,
             BEGINT_MQTT,
             RUNNING_MQTT
         };
@@ -258,13 +259,31 @@ void SIM800::Update(const String &answer)
         }
         else if (GetWord(answer, 1) == "ALREADY" || GetWord(answer, 2) == "OK")
         {
-            state = State::BEGINT_MQTT;
+            state = State::WAIT_CIPHEAD;
             meter.Reset();
+            SIM800::Transmit("AT+CIPHEAD=1");
         }
         else if (GetWord(answer, 2) == "FAIL")
         {
             Reset();
         }
+        break;
+
+    case State::WAIT_CIPHEAD:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if(answer == "OK")
+        {
+            meter.Reset();
+            state = State::BEGINT_MQTT;
+        }
+        else if (answer == "ERROR")
+        {
+            Reset();
+        }
+
         break;
 
     case State::BEGINT_MQTT:
