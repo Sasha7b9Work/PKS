@@ -89,13 +89,13 @@ void MQTT::Update(const String &answer)
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_user));
-            SIM800::Transmit(MQTT_user);
+//            SIM800::Transmit(MQTT_user);
 
             // MQTT пароль
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
-            SIM800::Transmit(MQTT_pass);
+//            SIM800::Transmit(MQTT_pass);
 
             //    // пакет публикации
             //    PublishPacket("C5/status", "Подключено");
