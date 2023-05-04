@@ -33,6 +33,8 @@ namespace SIM800
             WAIT_ATE0,
             WAIT_GSMBUSY,
             WAIT_CREG,
+            WAIT_IP_INITIAL,
+
             WAIT_REGISTRATION,
 
             RUNNING
@@ -100,7 +102,7 @@ void SIM800::Update(const String &answer)
         {
             if (answer.Size() != 0)
             {
-                int stat = GetWord(answer, 2).c_str()[0];
+                int stat = GetWord(answer, 2).c_str()[0] & 0x0f;
 
                 if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
                     stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
@@ -111,47 +113,49 @@ void SIM800::Update(const String &answer)
                 }
                 else
                 {
-                    state = State::WAIT_REGISTRATION;
+                    state = State::WAIT_IP_INITIAL;
                 }
             }
         }
         break;
 
+    case State::WAIT_IP_INITIAL:
+
+
+        break;
+
     case State::WAIT_REGISTRATION:
-        if (Command::RegistrationIsOk())
+        if (!Command::WaitCIPSTATUS("IP INITIAL"))
         {
-            if (!Command::WaitCIPSTATUS("IP INITIAL"))
-            {
-                Reset();
-            }
-//            else if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
-//            {
-//                Reset();
-//            }
+            Reset();
+        }
+        //            else if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
+        //            {
+        //                Reset();
+        //            }
 
-            TimeMeterMS().Wait(5000);
+        TimeMeterMS().Wait(5000);
 
-//            if (!SIM800::TransmitAndWaitAnswer("AT+CIICR", "OK"))
-//            {
-//                Reset();
-//            }
+        //            if (!SIM800::TransmitAndWaitAnswer("AT+CIICR", "OK"))
+        //            {
+        //                Reset();
+        //            }
 
-            TimeMeterMS().Wait(5000);
+        TimeMeterMS().Wait(5000);
 
-            SIM800::Transmit("AT+CIFSR");
+        SIM800::Transmit("AT+CIFSR");
 
-            TimeMeterMS().Wait(5000);
+        TimeMeterMS().Wait(5000);
 
-            if (!Command::ConnectToTCP())
-            {
-                Reset();
-            }
-            else
-            {
-                MQTT::Connect();
+        if (!Command::ConnectToTCP())
+        {
+            Reset();
+        }
+        else
+        {
+            MQTT::Connect();
 
-                state = State::RUNNING;
-            }
+            state = State::RUNNING;
         }
         else if (meter.ElapsedTime() > 30000)
         {
