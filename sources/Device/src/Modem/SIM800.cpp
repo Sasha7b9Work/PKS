@@ -68,6 +68,10 @@ bool SIM800::ProcessUnsolicited(const String &answer)
         Reset();
         return true;
     }
+    else if (answer == "SEND FAIL")
+    {
+        return true;
+    }
     else if (answer == "SEND OK")
     {
         return true;
