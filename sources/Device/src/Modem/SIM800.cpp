@@ -315,7 +315,10 @@ void SIM800::TransmitUINT8(uint8 byte)
 
 void SIM800::TransmitUINT(uint value)
 {
-    HAL_USART_GPRS::Transmit(&value, 4);
+    TransmitUINT8((uint8)(value >> 24));
+    TransmitUINT8((uint8)(value >> 16));
+    TransmitUINT8((uint8)(value >> 8));
+    TransmitUINT8((uint8)value);
 }
 
 
