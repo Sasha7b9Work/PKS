@@ -54,6 +54,7 @@ void MQTT::Update(const String &answer)
     case State::IDLE:
         SIM800::Transmit("AT+CIPSEND");
         meter.Reset();
+        state = State::WAIT_RESPONSE_CIPSEND;
         break;
 
     case State::WAIT_RESPONSE_CIPSEND:
