@@ -79,7 +79,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         return true;
     }
-    else if (answer == ">")
+    else if (answer.c_str()[0] == '>')
     {
         return false;
     }
