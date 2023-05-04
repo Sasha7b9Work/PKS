@@ -122,7 +122,7 @@ void SIM800::Update(const String &answer)
 
     case State::WAIT_IP_INITIAL:
 
-        if (GetWord(answer, 2) != 0)
+        if (GetWord(answer, 2) != "")
         {
             int i = 0;
         }
