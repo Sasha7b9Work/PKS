@@ -157,7 +157,7 @@ void SIM800::Update(const String &answer)
 
             state = State::RUNNING;
         }
-        else if (meter.ElapsedTime() > 30000)
+        if (meter.ElapsedTime() > 30000)
         {
             Reset();
         }
