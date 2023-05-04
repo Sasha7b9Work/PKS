@@ -36,6 +36,8 @@ namespace SIM800
             WAIT_IP_INITIAL,
             WAIT_CSTT,
             WAIT_IP_START,
+            WAIT_CIICR,
+
             WAIT_REGISTRATION,
 
             RUNNING
@@ -142,9 +144,9 @@ void SIM800::Update(const String &answer)
         {
             if (GetWord(answer, 1) == "OK")
             {
-                SIM800::Transmit("AT+CIPSTATUS");
                 state = State::WAIT_IP_START;
                 meter.Reset();
+                SIM800::Transmit("AT+CIPSTATUS");
             }
             else if (GetWord(answer, 1) == "ERROR")
             {
@@ -155,6 +157,23 @@ void SIM800::Update(const String &answer)
 
     case State::WAIT_IP_START:
         if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else if (GetWord(answer, 3) == "START")
+        {
+            state = State::WAIT_CIICR;
+            meter.Reset();
+            SIM800::Transmit("AT+CIICR");
+        }
+        break;
+
+    case State::WAIT_CIICR:
+        if (meter.ElapsedTime() > 10000)
+        {
+            Reset();
+        }
+        else if (GetWord(answer, 1) == "OK")
         {
             Reset();
         }
