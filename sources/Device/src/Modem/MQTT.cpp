@@ -61,14 +61,14 @@ void MQTT::Connect()
     SIM800::TransmitUINT(std::strlen(MQTT_pass));
     SIM800::Transmit(MQTT_pass);
 
-    // пакет публикации
-    PublishPacket("C5/status", "Подключено");
-
-    // пакет подписки на присылаемые команды
-    SubscribePacket("C5/comand");
-
-    // пакет подписки на присылаемые значения таймера
-    SubscribePacket("C5/settimer");
+//    // пакет публикации
+//    PublishPacket("C5/status", "Подключено");
+//
+//    // пакет подписки на присылаемые команды
+//    SubscribePacket("C5/comand");
+//
+//    // пакет подписки на присылаемые значения таймера
+//    SubscribePacket("C5/settimer");
 
     // маркер завершения пакета
     SIM800::TransmitUINT8(0x1A);
