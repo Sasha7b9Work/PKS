@@ -140,6 +140,11 @@ void SIM800::Update(const String &answer)
         }
         else
         {
+            if (answer.Size() != 0)
+            {
+                int i = 0;
+            }
+
             if (GetWord(answer, 1) == "OK")
             {
                 SIM800::Transmit("AT+CIPSTATUS");
