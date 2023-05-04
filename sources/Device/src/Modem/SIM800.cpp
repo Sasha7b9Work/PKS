@@ -3,7 +3,6 @@
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
-#include "Modem/Commands.h"
 #include "Modem/Parser.h"
 #include <cstring>
 
@@ -39,9 +38,9 @@ namespace SIM800
             WAIT_CIICR,
             WAIT_IP_GPRSACT,
             WAIT_CIFSR,
-
-            WAIT_REGISTRATION,
-
+            WAIT_IP_STATUS,
+            WAIT_TCP_CONNECT,
+            BEGINT_MQTT,
             RUNNING
         };
     };
@@ -203,56 +202,46 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else
+        else if (GetWord(answer, 1) != "OK")
         {
-            if (GetWord(answer, 1) == "OK")
-            {
-                int i = 0;
-            }
-            else
-            {
-                int i = 0;
-            }
+            // Здесь получаем IP-адрес
+            state = State::WAIT_IP_STATUS;
+            meter.Reset();
+            SIM800::Transmit("AT+CIPSTATUS");
         }
-
         break;
 
-
-
-
-    case State::WAIT_REGISTRATION:
-        //            else if (!SIM800::TransmitAndWaitAnswer("AT+CSTT=\"internet\",\"\",\"\"", "OK"))
-        //            {
-        //                Reset();
-        //            }
-
-        TimeMeterMS().Wait(5000);
-
-        //            if (!SIM800::TransmitAndWaitAnswer("AT+CIICR", "OK"))
-        //            {
-        //                Reset();
-        //            }
-
-        TimeMeterMS().Wait(5000);
-
-        SIM800::Transmit("AT+CIFSR");
-
-        TimeMeterMS().Wait(5000);
-
-        if (!Command::ConnectToTCP())
+    case State::WAIT_IP_STATUS:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
-        else
+        else if (GetWord(answer, 3) == "STATUS")
         {
-            MQTT::Connect();
-
-            state = State::RUNNING;
+            state = State::WAIT_TCP_CONNECT;
+            meter.Reset();
+            SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
         }
-        if (meter.ElapsedTime() > 30000)
+        break;
+
+    case State::WAIT_TCP_CONNECT:
+        if (meter.ElapsedTime() > 160000)
         {
             Reset();
         }
+        else if (GetWord(answer, 1) == "ALREADY" || GetWord(answer, 2) == "OK")
+        {
+            state = State::BEGINT_MQTT;
+            meter.Reset();
+        }
+        else if (GetWord(answer, 2) == "FAIL")
+        {
+            Reset();
+        }
+        break;
+
+    case State::BEGINT_MQTT:
+        Reset();
         break;
 
     case State::RUNNING:
