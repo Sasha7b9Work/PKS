@@ -98,18 +98,21 @@ void SIM800::Update(const String &answer)
         }
         else
         {
-            int stat = GetWord(answer, 2).c_str()[0];
+            if (answer.Size() != 0)
+            {
+                int stat = GetWord(answer, 2).c_str()[0];
 
-            if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
-                stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
-                stat == 3 ||    // Registration denied
-                stat == 4)      // Unknown
-            {
-                //                        Reset();
-            }
-            else
-            {
-                state = State::WAIT_REGISTRATION;
+                if (stat == 0 ||    // Not registered, MT is not currently searching a new operator to register to
+                    stat == 2 ||    // Not registered, but MT is currently searching a new operator to register to
+                    stat == 3 ||    // Registration denied
+                    stat == 4)      // Unknown
+                {
+                    SIM800::Transmit("AT+CREG?");
+                }
+                else
+                {
+                    state = State::WAIT_REGISTRATION;
+                }
             }
         }
         break;

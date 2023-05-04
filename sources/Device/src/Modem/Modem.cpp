@@ -104,11 +104,6 @@ namespace Modem
 
                 String string(buffer);
 
-                if (Parser::GetWord(string, 1) == "STATE")
-                {
-                    int i = 0;
-                }
-
                 if (num_answers < MAX_ANSWERS)
                 {
                     answers[num_answers++].Set(buffer);
