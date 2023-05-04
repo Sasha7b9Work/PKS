@@ -71,6 +71,10 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         return true;
     }
+    else if (Parser::GetWord(answer, 1) == "+IPD")
+    {
+        return true;
+    }
 
     return false;
 }
@@ -264,7 +268,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::BEGINT_MQTT:
-        Reset();
+        MQTT::Connect();
         break;
 
     case State::RUNNING_MQTT:
