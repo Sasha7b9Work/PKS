@@ -6,7 +6,7 @@
 
 namespace Parser
 {
-    static int NumSeparators(const String &, int pos[10]);
+    int NumSeparators(const String &, int pos[10]);
 }
 
 
@@ -96,21 +96,63 @@ String Parser::GetWord(const String &string, int pos_start, int pos_end)
 
 String Parser::GetWord(const String &string, int num)
 {
-    int pos[10];
-
-    int num_sep = NumSeparators(string, pos);
-
-    if (num_sep < num)
-    {
-        return String("");
-    }
+    int pos_start = 0;
+    int pos_end = 0;
 
     if (num == 1)
     {
-        return GetWord(string, -1, pos[0]);
+        pos_start = -1;
+    }
+    else
+    {
+        char *p = string.c_str();
+
+        int current_word = 1;
+
+        bool in_word = (*p != ' ') && (*p != ',') && (*p != ':');
+
+        while (current_word < num && *p)
+        {
+            if (*p == ' ' || *p == ',' || *p == ':')
+            {
+                if (in_word)
+                {
+                    in_word = false;
+                }
+            }
+            else
+            {
+                if (!in_word)
+                {
+                    current_word++;
+                    if (current_word == num)
+                    {
+                        pos_start = p - string.c_str() - 1;
+                        break;
+                    }
+                }
+            }
+
+            p++;
+        }
+
+        if (current_word != num)
+        {
+            return String("");
+        }
     }
 
-    return GetWord(string, pos[num - 2], pos[num - 1]);
+    pos_end = pos_start + 1;
+
+    char *p = string.c_str() + pos_end;
+
+    while (*p != '\0' && *p != ' ' && *p != ',' && *p != ':')
+    {
+        pos_end++;
+        p++;
+    }
+
+    return GetWord(string, pos_start, pos_end);
 }
 
 
