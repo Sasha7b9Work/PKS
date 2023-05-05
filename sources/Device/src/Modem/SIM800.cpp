@@ -58,7 +58,7 @@ namespace SIM800
 
     void Update(const String &);
 
-    static void Reset();
+    void Reset();
 
     static bool ProcessUnsolicited(const String &);
 
