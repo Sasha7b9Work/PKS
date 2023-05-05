@@ -186,6 +186,7 @@ void MQTT::Reset()
 void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 {
     SIM800::TransmitUINT8(0x30);
+    TimeMeterMS().Wait(100);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
     SIM800::TransmitUINT8(0);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
