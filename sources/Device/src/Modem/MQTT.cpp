@@ -178,9 +178,9 @@ void MQTT::SendMeasure(pchar name, float value)
     sprintf(buffer, "%.2f", value);
     for (uint i = 0; i < std::strlen(buffer); i++)
     {
-        if (buffer[i] == '.')
+        if (buffer[i] == ',')
         {
-            buffer[i] = ',';
+            buffer[i] = '.';
         }
     }
     PublishPacket(name, buffer);
