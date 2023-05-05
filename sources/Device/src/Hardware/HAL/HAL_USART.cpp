@@ -39,14 +39,6 @@ void HAL_USART_GPRS::Transmit(void *buffer, int size)
 {
     uint8 *data = (uint8 *)buffer;
 
-    if (in_trace)
-    {
-        for (int i = 0; i < size; i++)
-        {
-            buffer_trace[pointer_trace++] = data[i];
-        }
-    }
-
     for (int i = 0; i < size; i++)
     {
         usart_data_transmit(USART_GPRS_ADDR, (uint16)*data++);
