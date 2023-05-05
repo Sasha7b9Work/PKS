@@ -178,9 +178,9 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
     measure = meas;
 
-//    need_measure = true;
-//
-//    SIM800::Transmit("AT+CIPSEND");
+    need_measure = true;
+
+    SIM800::Transmit("AT+CIPSEND");
 }
 
 
