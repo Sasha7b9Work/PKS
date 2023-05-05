@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
+#include "Hardware/HAL/HAL.h"
 #include <cstring>
 #include <stdlib.h>
 #include <stdio.h>
@@ -150,6 +151,8 @@ void MQTT::Update(const String &answer)
             {
                 char buffer[32];
 
+                HAL_USART_GPRS::BeginTrace();
+
                 sprintf(buffer, "%d", (int)measure.measures[0].voltage);
                 PublishPacket("base/state/voltage_a", buffer);
 
@@ -167,6 +170,8 @@ void MQTT::Update(const String &answer)
 //
 //                sprintf(buffer, "%d", (int)measure.measures[2].current);
 //                PublishPacket("base/state/current_c", buffer);
+
+                HAL_USART_GPRS::EndTrace();
 
                 SIM800::TransmitUINT8(0x1A);
 
