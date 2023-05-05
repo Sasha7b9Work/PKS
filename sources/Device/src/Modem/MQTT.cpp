@@ -82,8 +82,8 @@ void MQTT::Update(const String &answer)
         if (answer == ">")
         {
             SIM800::TransmitUINT8(0x10);   // маркер пакета на установку соединения
-            SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 14));
-//            SIM800::TransmitUINT8(0x22);
+            SIM800::TransmitUINT8(0x1c);
+//            SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 14));
 
             // тип протокола
             SIM800::TransmitUINT8(0x00);
@@ -91,21 +91,13 @@ void MQTT::Update(const String &answer)
             SIM800::TransmitRAW(MQTT_type);
 
             // просто так нужно
-            SIM800::TransmitUINT8(0x05);    // версия протокола
-            SIM800::TransmitUINT8(0x00);    // connect flag
+            SIM800::TransmitUINT8(0x04);    // версия протокола
+            SIM800::TransmitUINT8(0x02);    // connect flag
             SIM800::TransmitUINT8(0x00);    // \ keep alive 
             SIM800::TransmitUINT8(0x3c);    // /
 
-            SIM800::TransmitUINT8(0x05);    // property lenth
-            SIM800::TransmitUINT8(0x11);    // 
-            SIM800::TransmitUINT8(0x00);    // \ 
-            SIM800::TransmitUINT8(0x00);    // | sexxion expiry interval
-            SIM800::TransmitUINT8(0x00);    // |
-            SIM800::TransmitUINT8(0x00);    // /
-
-            // MQTT  идентификатор устройства
-            SIM800::TransmitUINT8(0x00);
-            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_CID));
+            SIM800::TransmitUINT8(0x00);    // property lenth
+            SIM800::TransmitUINT8(0x10);    // 
             SIM800::TransmitRAW(MQTT_CID);
 
 //            // MQTT логин
