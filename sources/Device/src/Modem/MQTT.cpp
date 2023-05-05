@@ -140,7 +140,7 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
-//                SIM800::TransmitUINT8(0x1A);
+                SIM800::TransmitUINT8(0x1A);
 //                PublishPacket("state/text", "12345");
 //                PublishPacket("base/state/voltage_c", "25235");
                 need_measure = false;
@@ -165,7 +165,7 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
     need_measure = true;
 
-//    SIM800::Transmit("AT+CIPSEND");
+    SIM800::Transmit("AT+CIPSEND");
 }
 
 
