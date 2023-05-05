@@ -32,6 +32,11 @@ namespace MQTT
     // Если nned_ping == true, то посылаем команду пинга
     static bool need_ping = false;
 
+    static FullMeasure measure;
+
+    // Если true - надо передавать измерение
+    static bool need_measure = false;
+
     void Update(const String &);
 
 //    static const char MQTT_type[15] = "MQIsdp";             // тип протокола НЕ ТРОГАТЬ!
@@ -131,12 +136,19 @@ void MQTT::Update(const String &answer)
             need_ping = true;
         }
 
-        if (answer == ">" && need_ping)
+        if (answer == ">")
         {
-            SIM800::TransmitUINT8(0xC0);
-            SIM800::TransmitUINT8(0x00);
-            SIM800::TransmitUINT8(0x1A);
-            need_ping = false;
+            if (need_measure)
+            {
+                need_measure = false;
+            }
+            else if(need_ping)
+            {
+                SIM800::TransmitUINT8(0xC0);
+                SIM800::TransmitUINT8(0x00);
+                SIM800::TransmitUINT8(0x1A);
+                need_ping = false;
+            }
         }
 
         break;
@@ -144,9 +156,13 @@ void MQTT::Update(const String &answer)
 }
 
 
-void MQTT::SendMeasure(const FullMeasure &measure)
+void MQTT::SendMeasure(const FullMeasure &meas)
 {
+    measure = meas;
 
+    need_measure = true;
+
+    SIM800::Transmit("AT+CIPSEND");
 }
 
 
