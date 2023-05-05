@@ -135,8 +135,8 @@ void MQTT::Update(const String &answer)
         if (meterPing.ElapsedTime() > 20000)
         {
             meterPing.Reset();
-            SIM800::Transmit("AT+CIPSEND");
-            need_ping = true;
+//            SIM800::Transmit("AT+CIPSEND");
+//            need_ping = true;
         }
 
         if (answer == ">")
