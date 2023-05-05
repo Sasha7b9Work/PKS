@@ -56,6 +56,9 @@ namespace HAL_USART_GPRS
     void Transmit(pchar);
     void Transmit(void *, int);
     void CallbackOnReceive(char);
+
+    void BeginTrace();
+    void EndTrace();
 }
 
 
