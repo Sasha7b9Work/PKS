@@ -115,7 +115,7 @@ void MQTT::Update(const String &answer)
 //            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
 //            SIM800::TransmitRAW(MQTT_pass);
 
-//            PublishPacket("base/state/voltage_c", "12.24");
+            PublishPacket("base/state/voltage_c", "12.24");
 
 // маркер завершения пакета
             SIM800::TransmitUINT8(0x1A);
@@ -178,9 +178,9 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
     measure = meas;
 
-    need_measure = true;
-
-    SIM800::Transmit("AT+CIPSEND");
+//    need_measure = true;
+//
+//    SIM800::Transmit("AT+CIPSEND");
 }
 
 
@@ -199,7 +199,7 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic); // топик 
     SIM800::Transmit(MQTT_messege);
-    SIM800::TransmitUINT8(0x1A);
+//    SIM800::TransmitUINT8(0x1A);
 }
 
 
