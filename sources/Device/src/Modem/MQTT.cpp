@@ -10,6 +10,7 @@ namespace SIM800
     uint Transmit(pchar);
     void TransmitUINT8(uint8);
     void TransmitRAW(pchar);
+    void Reset();
 }
 
 
@@ -54,6 +55,11 @@ namespace MQTT
     void Reset();
 
     void SendMeasure(const FullMeasure &);
+
+    void CallbackOnReceiveData();
+
+    // —брасываетс€ каждый раз при поступлении данынх
+    static TimeMeterMS meterLastData;
 }
 
 
@@ -116,11 +122,18 @@ void MQTT::Update(const String &answer)
 
             state = State::RUNNING;
 
+            meterLastData.Reset();
+
             meterPing.Reset();
         }
         break;
 
     case State::RUNNING:
+
+        if (meterLastData.ElapsedTime() > 30000)
+        {
+            SIM800::Reset();
+        }
 
         if (meterPing.ElapsedTime() > 20000)
         {
@@ -204,4 +217,10 @@ void MQTT::SubscribePacket(const char MQTT_topic[15])
     SIM800::Transmit(MQTT_topic);
 
     SIM800::TransmitUINT8(0);
+}
+
+
+void MQTT::CallbackOnReceiveData()
+{
+    meterLastData.Reset();
 }
