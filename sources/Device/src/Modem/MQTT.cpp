@@ -146,7 +146,8 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
-                PublishPacket("base/state/voltage_c", "12.24");
+//                PublishPacket("base/state/voltage_c", "12.24");
+                PublishPacket("state/text", "message1");
 //                PublishPacket("base/state/voltage_c", "25235");
                 need_measure = false;
             }
