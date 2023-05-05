@@ -107,6 +107,8 @@ void MQTT::Update(const String &answer)
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_CID));
             SIM800::TransmitRAW(MQTT_CID);
 
+            PublishPacket("base/state/voltage_a", "777");
+
 //            // MQTT логин
 //            SIM800::TransmitUINT8(0x00);
 //            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_user));
