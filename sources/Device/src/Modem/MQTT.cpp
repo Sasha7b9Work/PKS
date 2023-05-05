@@ -20,11 +20,17 @@ namespace MQTT
         enum E
         {
             IDLE,
-            WAIT_RESPONSE_CIPSEND   // Ждеём приглашения ">"
+            WAIT_RESPONSE_CIPSEND,      // Ждеём приглашения ">"
+            RUNNING
         };
     };
 
     static State::E state = State::IDLE;
+
+    static TimeMeterMS meterPing;
+
+    // Если nned_ping == true, то посылаем команду пинга
+    static bool need_ping = false;
 
     void Update(const String &);
 
@@ -49,6 +55,23 @@ void MQTT::Update(const String &answer)
     const uint DEFAULT_TIME = 10000;
 
     TimeMeterMS meter;
+
+    if (meterPing.ElapsedTime() > 20000)
+    {
+        meter.Reset();
+
+        SIM800::Transmit("AT+CIPSEND");
+
+        need_ping = true;
+    }
+
+    if (answer == ">" && need_ping)
+    {
+        SIM800::TransmitUINT8(0xC0);
+        SIM800::TransmitUINT8(0x00);
+        need_ping = false;
+        return;
+    }
 
     switch (state)
     {
@@ -113,7 +136,12 @@ void MQTT::Update(const String &answer)
 
                 // маркер завершения пакета
             SIM800::TransmitUINT8(0x1A);
+
+            state = State::RUNNING;
         }
+        break;
+
+    case State::RUNNING:
         break;
     }
 }
