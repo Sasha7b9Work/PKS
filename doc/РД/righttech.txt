@@ -5,3 +5,6 @@ HJGPzUS9hb_Uds2
 https://github.com/martinhol221/SIM800L_MQTT/blob/master/Mqtt_SIM800L_Autostart.ino
 
 https://rightech.io/developers/introductions/
+
+
+mosquitto_pub -h dev.rightech.io -i mqtt-pks3-r0rk8m -t base/state/voltage_c -m 12
