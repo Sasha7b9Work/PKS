@@ -139,6 +139,7 @@ void MQTT::Update(const String &answer)
         {
             SIM800::TransmitUINT8(0xC0);
             SIM800::TransmitUINT8(0x00);
+            SIM800::TransmitUINT8(0x1A);
             need_ping = false;
         }
 
