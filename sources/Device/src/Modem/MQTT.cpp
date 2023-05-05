@@ -63,6 +63,8 @@ namespace MQTT
 
     // Сбрасывается каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
+
+    static void SendMeasure(pchar name, float value);
 }
 
 
@@ -141,27 +143,14 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
-                char buffer[32];
-
                 HAL_USART_GPRS::BeginTrace();
 
-                sprintf(buffer, "%.1f", measure.measures[0].voltage);
-                PublishPacket("base/state/voltage_a", buffer);
-
-                sprintf(buffer, "%.1f", measure.measures[1].voltage);
-                PublishPacket("base/state/voltage_b", buffer);
-
-                sprintf(buffer, "%.1f", measure.measures[2].voltage);
-                PublishPacket("base/state/voltage_c", buffer);
-
-                sprintf(buffer, "%.1f", measure.measures[0].current);
-                PublishPacket("base/state/current_a", buffer);
-
-                sprintf(buffer, "%.1f", measure.measures[1].current);
-                PublishPacket("base/state/current_b", buffer);
-
-                sprintf(buffer, "%.1f", measure.measures[2].current);
-                PublishPacket("base/state/current_c", buffer);
+                SendMeasure("base/state/voltage_a", measure.measures[0].voltage);
+                SendMeasure("base/state/voltage_b", measure.measures[1].voltage);
+                SendMeasure("base/state/voltage_c", measure.measures[2].voltage);
+                SendMeasure("base/state/current_a", measure.measures[0].current);
+                SendMeasure("base/state/current_b", measure.measures[1].current);
+                SendMeasure("base/state/current_c", measure.measures[2].current);
 
                 HAL_USART_GPRS::EndTrace();
 
@@ -180,6 +169,21 @@ void MQTT::Update(const String &answer)
 
         break;
     }
+}
+
+
+void MQTT::SendMeasure(pchar name, float value)
+{
+    char buffer[32];
+    sprintf(buffer, "%5.1f", value);
+    for (uint i = 0; i < std::strlen(buffer); i++)
+    {
+        if (buffer[i] == ',')
+        {
+            buffer[i] = '.';
+        }
+    }
+    PublishPacket(name, buffer);
 }
 
 
