@@ -66,7 +66,6 @@ void MQTT::Update(const String &answer)
         else if (answer == ">")
         {
             SIM800::TransmitUINT8(0x10);   // маркер пакета на установку соединения
-            SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12 + 6));
 
             // тип протокола
