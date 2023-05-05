@@ -140,6 +140,8 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
+                PublishPacket("base/state/voltage_b", "12345");
+                PublishPacket("base/state/voltage_c", "25235");
                 need_measure = false;
             }
             else if(need_ping)
