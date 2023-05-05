@@ -109,7 +109,7 @@ void MQTT::Update(const String &answer)
 //            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
 //            SIM800::TransmitRAW(MQTT_pass);
 
-            PublishPacket("/base/state/voltage_c", "12.24");
+            PublishPacket("base/state/voltage_c", "12.24");
             // маркер завершения пакета
             SIM800::TransmitUINT8(0x1A);
 
