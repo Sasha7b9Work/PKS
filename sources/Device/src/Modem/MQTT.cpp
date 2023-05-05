@@ -1,4 +1,4 @@
-// 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+п»ї// 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
@@ -21,7 +21,7 @@ namespace MQTT
         enum E
         {
             IDLE,
-            WAIT_RESPONSE_CIPSEND,      // Ждеём приглашения ">"
+            WAIT_RESPONSE_CIPSEND,      // Р–РґРµС‘Рј РїСЂРёРіР»Р°С€РµРЅРёСЏ ">"
             RUNNING
         };
     };
@@ -30,26 +30,26 @@ namespace MQTT
 
     static TimeMeterMS meterPing;
 
-    // Если nned_ping == true, то посылаем команду пинга
+    // Р•СЃР»Рё nned_ping == true, С‚Рѕ РїРѕСЃС‹Р»Р°РµРј РєРѕРјР°РЅРґСѓ РїРёРЅРіР°
     static bool need_ping = false;
 
     static FullMeasure measure;
 
-    // Если true - надо передавать измерение
+    // Р•СЃР»Рё true - РЅР°РґРѕ РїРµСЂРµРґР°РІР°С‚СЊ РёР·РјРµСЂРµРЅРёРµ
     static bool need_measure = false;
 
     void Update(const String &);
 
-//    static const char MQTT_type[15] = "MQIsdp";             // тип протокола НЕ ТРОГАТЬ!
+//    static const char MQTT_type[15] = "MQIsdp";             // С‚РёРї РїСЂРѕС‚РѕРєРѕР»Р° РќР• РўР РћР“РђРўР¬!
     static const char *MQTT_type = "MQTT";
-    static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
+    static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ СѓСЃС‚СЂРѕР№СЃС‚РІР° РІ СЃРµС‚Рё MQTT
     static const char *MQTT_user = "";                   // api.cloudmqtt.com > Details > User
     static const char *MQTT_pass = "";                   // api.cloudmqtt.com > Details > Password
 
-    // пакет на публикацию
+    // РїР°РєРµС‚ РЅР° РїСѓР±Р»РёРєР°С†РёСЋ
     static void PublishPacket(const char *MQTT_topic, const char *MQTT_messege);
 
-    // пакет подписки на топик
+    // РїР°РєРµС‚ РїРѕРґРїРёСЃРєРё РЅР° С‚РѕРїРёРє
     static void SubscribePacket(const char MQTT_topic[15]);
 
     void Reset();
@@ -58,7 +58,7 @@ namespace MQTT
 
     void CallbackOnReceiveData();
 
-    // Сбрасывается каждый раз при поступлении данынх
+    // РЎР±СЂР°СЃС‹РІР°РµС‚СЃСЏ РєР°Р¶РґС‹Р№ СЂР°Р· РїСЂРё РїРѕСЃС‚СѓРїР»РµРЅРёРё РґР°РЅС‹РЅС…
     static TimeMeterMS meterLastData;
 }
 
@@ -78,17 +78,17 @@ void MQTT::Update(const String &answer)
     case State::WAIT_RESPONSE_CIPSEND:
         if (answer == ">")
         {
-            SIM800::TransmitUINT8(0x10);   // маркер пакета на установку соединения
+            SIM800::TransmitUINT8(0x10);   // РјР°СЂРєРµСЂ РїР°РєРµС‚Р° РЅР° СѓСЃС‚Р°РЅРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ
             SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 14));
 //            SIM800::TransmitUINT8(0x22);
 
-            // тип протокола
+            // С‚РёРї РїСЂРѕС‚РѕРєРѕР»Р°
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_type));
             SIM800::TransmitRAW(MQTT_type);
 
-            // просто так нужно
-            SIM800::TransmitUINT8(0x05);    // версия протокола
+            // РїСЂРѕСЃС‚Рѕ С‚Р°Рє РЅСѓР¶РЅРѕ
+            SIM800::TransmitUINT8(0x05);    // РІРµСЂСЃРёСЏ РїСЂРѕС‚РѕРєРѕР»Р°
             SIM800::TransmitUINT8(0x00);    // connect flag
             SIM800::TransmitUINT8(0x00);    // \ keep alive 
             SIM800::TransmitUINT8(0x3c);    // /
@@ -100,24 +100,24 @@ void MQTT::Update(const String &answer)
             SIM800::TransmitUINT8(0x00);    // |
             SIM800::TransmitUINT8(0x00);    // /
 
-            // MQTT  идентификатор устройства
+            // MQTT  РёРґРµРЅС‚РёС„РёРєР°С‚РѕСЂ СѓСЃС‚СЂРѕР№СЃС‚РІР°
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_CID));
             SIM800::TransmitRAW(MQTT_CID);
 
-//            // MQTT логин
+//            // MQTT Р»РѕРіРёРЅ
 //            SIM800::TransmitUINT8(0x00);
 //            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_user));
 //            SIM800::TransmitRAW(MQTT_user);
 //
-//            // MQTT пароль
+//            // MQTT РїР°СЂРѕР»СЊ
 //            SIM800::TransmitUINT8(0x00);
 //            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
 //            SIM800::TransmitRAW(MQTT_pass);
 
 //            PublishPacket("base/state/voltage_c", "12.24");
 
-// маркер завершения пакета
+// РјР°СЂРєРµСЂ Р·Р°РІРµСЂС€РµРЅРёСЏ РїР°РєРµС‚Р°
             SIM800::TransmitUINT8(0x1A);
 
             state = State::RUNNING;
@@ -197,7 +197,7 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
     SIM800::TransmitUINT8(0);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
-    SIM800::Transmit(MQTT_topic); // топик
+    SIM800::Transmit(MQTT_topic); // С‚РѕРїРёРє 
     SIM800::Transmit(MQTT_messege);
     SIM800::TransmitUINT8(0x1A);
 }
@@ -205,16 +205,16 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 
 void MQTT::SubscribePacket(const char MQTT_topic[15])
 {
-    // сумма пакета
+    // СЃСѓРјРјР° РїР°РєРµС‚Р°
     SIM800::TransmitUINT8(0x82);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + 5));
 
-    // просто так нужно
+    // РїСЂРѕСЃС‚Рѕ С‚Р°Рє РЅСѓР¶РЅРѕ
     SIM800::TransmitUINT8(0);
     SIM800::TransmitUINT8(0x01);
     SIM800::TransmitUINT8(0);
 
-    // топик
+    // С‚РѕРїРёРє
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic);
 
