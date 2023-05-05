@@ -1,6 +1,7 @@
 ﻿// 2023/03/16 16:31:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Utils/String.h"
+#include "Measurer/Measurer.h"
 
 
 namespace SIM800
@@ -19,4 +20,6 @@ namespace Modem
     bool ExistUpdate();
 
     void CallbackOnReceive(char);
+
+    void SendMeasure(const FullMeasure &);
 }

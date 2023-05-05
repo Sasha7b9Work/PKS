@@ -46,6 +46,7 @@
 namespace SIM800
 {
     void Update(const String &);
+    void SendMeasure(const FullMeasure &);
 }
 
 
@@ -265,4 +266,10 @@ void Modem::GSM_PG::ToInPullDown()
 bool Modem::GSM_PG::ReadInput()
 {
     return gpio_input_bit_get(GPIOE, GPIO_PIN_2) == SET;
+}
+
+
+void Modem::SendMeasure(const FullMeasure &measure)
+{
+    SIM800::SendMeasure(measure);
 }

@@ -47,13 +47,13 @@ namespace MQTT
     static void SubscribePacket(const char MQTT_topic[15]);
 
     static void Reset();
+
+    void SendMeasure(const FullMeasure &);
 }
 
 
 void MQTT::Update(const String &answer)
 {
-    const uint DEFAULT_TIME = 10000;
-
     TimeMeterMS meter;
 
     switch (state)
@@ -141,6 +141,12 @@ void MQTT::Update(const String &answer)
 
         break;
     }
+}
+
+
+void MQTT::SendMeasure(const FullMeasure &measure)
+{
+
 }
 
 

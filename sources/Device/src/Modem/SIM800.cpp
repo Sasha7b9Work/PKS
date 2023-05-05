@@ -19,6 +19,7 @@ namespace Modem
 namespace MQTT
 {
     void Update(const String &);
+    void SendMeasure(const FullMeasure &);
 }
 
 
@@ -58,6 +59,8 @@ namespace SIM800
     static void Reset();
 
     static bool ProcessUnsolicited(const String &);
+
+    void SendMeasure(const FullMeasure &);
 }
 
 
@@ -327,4 +330,10 @@ void SIM800::Reset()
 {
     state = State::START;
     Modem::CallbackOnErrorSIM800();
+}
+
+
+void SIM800::SendMeasure(const FullMeasure &measure)
+{
+    MQTT::SendMeasure(measure);
 }
