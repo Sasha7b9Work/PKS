@@ -140,7 +140,7 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
-//                PublishPacket("base/state/voltage_b", "12345");
+                PublishPacket("base/state/voltage_b", "12345");
 //                PublishPacket("base/state/voltage_c", "25235");
                 need_measure = false;
             }
@@ -182,6 +182,7 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic); // топик
     SIM800::Transmit(MQTT_messege);
+    SIM800::TransmitUINT8(0x1A);
 }
 
 
