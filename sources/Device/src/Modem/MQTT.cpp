@@ -46,7 +46,7 @@ namespace MQTT
     static const char *MQTT_pass = "";                   // api.cloudmqtt.com > Details > Password
 
     // пакет на публикацию
-    static void PublishPacket(const char MQTT_topic[15], const char MQTT_messege[15]);
+    static void PublishPacket(const char *MQTT_topic, const char *MQTT_messege);
 
     // пакет подписки на топик
     static void SubscribePacket(const char MQTT_topic[15]);
@@ -174,12 +174,12 @@ void MQTT::Reset()
 }
 
 
-void  MQTT::PublishPacket(const char MQTT_topic[15], const char MQTT_messege[15])
+void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 {
     SIM800::TransmitUINT8(0x30);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
-//    SIM800::TransmitUINT8(0);
-//    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
+    SIM800::TransmitUINT8(0);
+    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic); // топик
     SIM800::Transmit(MQTT_messege);
 }
