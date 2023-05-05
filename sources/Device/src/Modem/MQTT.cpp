@@ -178,8 +178,8 @@ void  MQTT::PublishPacket(const char MQTT_topic[15], const char MQTT_messege[15]
 {
     SIM800::TransmitUINT8(0x30);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
+//    SIM800::TransmitUINT8(0);
+//    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic); // топик
     SIM800::Transmit(MQTT_messege);
 }
