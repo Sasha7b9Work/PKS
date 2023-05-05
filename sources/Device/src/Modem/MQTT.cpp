@@ -187,7 +187,7 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 {
     static TimeMeterMS meterLastMeasure;
 
-    if (meterLastMeasure.ElapsedTime() < 1000)
+    if (meterLastMeasure.ElapsedTime() < 5000)
     {
         return;
     }
