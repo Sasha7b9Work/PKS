@@ -148,9 +148,9 @@ void MQTT::Update(const String &answer)
                 SendMeasure("base/state/voltage_a", measure.measures[0].voltage);
                 SendMeasure("base/state/voltage_b", measure.measures[1].voltage);
                 SendMeasure("base/state/voltage_c", measure.measures[2].voltage);
-                SendMeasure("base/state/current_a", measure.measures[0].current);
-                SendMeasure("base/state/current_b", measure.measures[1].current);
-                SendMeasure("base/state/current_c", measure.measures[2].current);
+                SendMeasure("base/state/current_a", measure.measures[0].current * 1000.0f);
+                SendMeasure("base/state/current_b", measure.measures[1].current * 1000.0f);
+                SendMeasure("base/state/current_c", measure.measures[2].current * 1000.0f);
 
                 HAL_USART_GPRS::EndTrace();
 
@@ -175,7 +175,7 @@ void MQTT::Update(const String &answer)
 void MQTT::SendMeasure(pchar name, float value)
 {
     char buffer[32];
-    sprintf(buffer, "%.2f", value);
+    sprintf(buffer, "%d", (int)value);
     for (uint i = 0; i < std::strlen(buffer); i++)
     {
         if (buffer[i] == ',')
