@@ -145,22 +145,22 @@ void MQTT::Update(const String &answer)
 
                 HAL_USART_GPRS::BeginTrace();
 
-                sprintf(buffer, "%d", (int)measure.measures[0].voltage);
+                sprintf(buffer, "%.1f", measure.measures[0].voltage);
                 PublishPacket("base/state/voltage_a", buffer);
 
-                sprintf(buffer, "%d", (int)measure.measures[1].voltage);
+                sprintf(buffer, "%.1f", measure.measures[1].voltage);
                 PublishPacket("base/state/voltage_b", buffer);
 
-                sprintf(buffer, "%d", (int)measure.measures[2].voltage);
+                sprintf(buffer, "%.1f", measure.measures[2].voltage);
                 PublishPacket("base/state/voltage_c", buffer);
 
-                sprintf(buffer, "%d", (int)measure.measures[0].current);
+                sprintf(buffer, "%.1f", measure.measures[0].current);
                 PublishPacket("base/state/current_a", buffer);
 
-                sprintf(buffer, "%d", (int)measure.measures[1].current);
+                sprintf(buffer, "%.1f", measure.measures[1].current);
                 PublishPacket("base/state/current_b", buffer);
 
-                sprintf(buffer, "%d", (int)measure.measures[2].current);
+                sprintf(buffer, "%.1f", measure.measures[2].current);
                 PublishPacket("base/state/current_c", buffer);
 
                 HAL_USART_GPRS::EndTrace();
