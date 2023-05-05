@@ -109,16 +109,8 @@ void MQTT::Update(const String &answer)
 //            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
 //            SIM800::TransmitRAW(MQTT_pass);
 
-            //    // пакет публикации
-            //    PublishPacket("C5/status", "Подключено");
-            //
-            //    // пакет подписки на присылаемые команды
-            //    SubscribePacket("C5/comand");
-            //
-            //    // пакет подписки на присылаемые значения таймера
-            //    SubscribePacket("C5/settimer");
-
-                // маркер завершения пакета
+            PublishPacket("/base/state/voltage_c", "12.24");
+            // маркер завершения пакета
             SIM800::TransmitUINT8(0x1A);
 
             state = State::RUNNING;
@@ -171,9 +163,9 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
     measure = meas;
 
-    need_measure = true;
+//    need_measure = true;
 
-    SIM800::Transmit("AT+CIPSEND");
+//    SIM800::Transmit("AT+CIPSEND");
 }
 
 
