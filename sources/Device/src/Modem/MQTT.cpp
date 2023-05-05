@@ -29,10 +29,10 @@ namespace MQTT
     void Update(const String &);
 
 //    static const char MQTT_type[15] = "MQIsdp";             // тип протокола НЕ ТРОГАТЬ!
-    static const char MQTT_type[15] = "MQTT";
-    static const char MQTT_CID[17] = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
-    static const char MQTT_user[10] = "";                   // api.cloudmqtt.com > Details > User
-    static const char MQTT_pass[15] = "";                   // api.cloudmqtt.com > Details > Password
+    static const char *MQTT_type = "MQTT";
+    static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
+    static const char *MQTT_user = "";                   // api.cloudmqtt.com > Details > User
+    static const char *MQTT_pass = "";                   // api.cloudmqtt.com > Details > Password
 
     // пакет на публикацию
     static void PublishPacket(const char MQTT_topic[15], const char MQTT_messege[15]);
