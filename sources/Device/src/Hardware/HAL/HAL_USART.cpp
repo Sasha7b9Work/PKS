@@ -16,6 +16,7 @@ namespace HAL_USART_GPRS
 
 void HAL_USART_GPRS::BeginTrace()
 {
+    pointer_trace = 0;
     in_trace = true;
     pointer_trace = pointer_trace;
 }
