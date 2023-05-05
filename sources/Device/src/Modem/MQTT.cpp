@@ -192,6 +192,16 @@ void MQTT::Reset()
 
 void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 {
+//    0000   04 27 58 55 4e 58 a4 97 b1 e4 8a 95 08 00 45 00   .'XUNX........E.
+//    0010   00 42 b2 ac 40 00 80 06 4c df 64 7d cc e9 59 6c.B..@...L.d}..Yl
+//    0020   70 57 2c a0 07 5b 03 b6 e5 2e cb aa 6d 2f 50 18   pW, ..[......m / P.
+//    0030   01 00 34 62 00 00 30 18  
+
+//  00
+//  14
+//  62 61 73 65 2f 73 74 61 74 65 2f 76 6f 6c 74 61 67 65 5f 63 base/state/voltage_c
+//  31 32                                                       12
+
     SIM800::TransmitUINT8(0x30);
     TimeMeterMS().Wait(100);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
