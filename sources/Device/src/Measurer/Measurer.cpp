@@ -3,6 +3,7 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include "Utils/SoftwareGenerator.h"
+#include "Modem/Modem.h"
 #include <cmath>
 
 
@@ -142,6 +143,8 @@ FullMeasure Measurer::Calculate()
     }
 
     result.measures[2].Calculate(voltC, currentC);
+
+    Modem::SendMeasure(result);
 
     FullMeasure limitsVoltageC;
     PhaseMeasure().CalculateLimits(voltC, &limitsVoltageC);
