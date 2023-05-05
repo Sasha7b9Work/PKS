@@ -84,6 +84,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     else if (Parser::GetWord(answer, 1) == "+IPD")
     {
         MQTT::CallbackOnReceiveData();
+        char *buffer = answer.c_str();
         return true;
     }
     else if (answer.c_str()[0] == '>')
