@@ -65,14 +65,6 @@ void MQTT::Update(const String &answer)
         need_ping = true;
     }
 
-    if (answer == ">" && need_ping)
-    {
-        SIM800::TransmitUINT8(0xC0);
-        SIM800::TransmitUINT8(0x00);
-        need_ping = false;
-        return;
-    }
-
     switch (state)
     {
     case State::IDLE:
@@ -142,6 +134,14 @@ void MQTT::Update(const String &answer)
         break;
 
     case State::RUNNING:
+
+        if (answer == ">" && need_ping)
+        {
+            SIM800::TransmitUINT8(0xC0);
+            SIM800::TransmitUINT8(0x00);
+            need_ping = false;
+        }
+
         break;
     }
 }
