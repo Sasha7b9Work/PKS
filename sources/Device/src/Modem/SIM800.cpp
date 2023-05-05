@@ -20,6 +20,7 @@ namespace MQTT
 {
     void Update(const String &);
     void SendMeasure(const FullMeasure &);
+    void Reset();
 }
 
 
@@ -339,6 +340,7 @@ void SIM800::Reset()
 {
     state = State::START;
     Modem::CallbackOnErrorSIM800();
+    MQTT::Reset();
 }
 
 
