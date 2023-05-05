@@ -8,9 +8,8 @@
 namespace SIM800
 {
     uint Transmit(pchar);
-    void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
-    void TransmitUINT(uint);
+    void TransmitRAW(pchar);
 }
 
 
@@ -66,8 +65,9 @@ void MQTT::Update(const String &answer)
         }
         else if (answer == ">")
         {
-            SIM800::TransmitUINT8(0x10);                                                              // маркер пакета на установку соединения
-            SIM800::TransmitUINT(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12 + 5);
+            SIM800::TransmitUINT8(0x10);   // маркер пакета на установку соединения
+            SIM800::TransmitUINT8(0x00);
+            SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(MQTT_user) + std::strlen(MQTT_pass) + 12 + 5));
 
             // тип протокола
             SIM800::TransmitUINT8(0x00);
@@ -127,9 +127,9 @@ void MQTT::Reset()
 void  MQTT::PublishPacket(const char MQTT_topic[15], const char MQTT_messege[15])
 {
     SIM800::TransmitUINT8(0x30);
-    SIM800::TransmitUINT(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2);
+    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
     SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT(std::strlen(MQTT_topic));
+    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic); // топик
     SIM800::Transmit(MQTT_messege);
 }
@@ -139,7 +139,7 @@ void MQTT::SubscribePacket(const char MQTT_topic[15])
 {
     // сумма пакета
     SIM800::TransmitUINT8(0x82);
-    SIM800::TransmitUINT(std::strlen(MQTT_topic) + 5);
+    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + 5));
 
     // просто так нужно
     SIM800::TransmitUINT8(0);
@@ -147,7 +147,7 @@ void MQTT::SubscribePacket(const char MQTT_topic[15])
     SIM800::TransmitUINT8(0);
 
     // топик
-    SIM800::TransmitUINT(std::strlen(MQTT_topic));
+    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit(MQTT_topic);
 
     SIM800::TransmitUINT8(0);

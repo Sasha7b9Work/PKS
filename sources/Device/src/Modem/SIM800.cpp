@@ -52,7 +52,6 @@ namespace SIM800
     // Передать без завершающего 0x0d
     void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
-    void TransmitUINT(uint);
 
     void Update(const String &);
 
@@ -321,15 +320,6 @@ void SIM800::TransmitRAW(pchar message)
 void SIM800::TransmitUINT8(uint8 byte)
 {
     HAL_USART_GPRS::Transmit(&byte, 1);
-}
-
-
-void SIM800::TransmitUINT(uint value)
-{
-    TransmitUINT8((uint8)(value >> 24));
-    TransmitUINT8((uint8)(value >> 16));
-    TransmitUINT8((uint8)(value >> 8));
-    TransmitUINT8((uint8)value);
 }
 
 
