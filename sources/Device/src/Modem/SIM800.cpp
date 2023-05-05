@@ -66,6 +66,14 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(const String &answer)
 {
+    // Для отстчёта когда получены последние данные
+    static TimeMeterMS meterLastData;
+
+    if (meterLastData.ElapsedTime() > 30000)
+    {
+        Reset();
+    }
+
     if (answer == "CLOSED")
     {
         Reset();
@@ -81,6 +89,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     }
     else if (Parser::GetWord(answer, 1) == "+IPD")
     {
+        meterLastData.Reset();
         return true;
     }
     else if (answer.c_str()[0] == '>')
