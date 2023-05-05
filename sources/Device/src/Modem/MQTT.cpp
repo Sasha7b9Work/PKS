@@ -175,7 +175,7 @@ void MQTT::Update(const String &answer)
 void MQTT::SendMeasure(pchar name, float value)
 {
     char buffer[32];
-    sprintf(buffer, "%5.1f", value);
+    sprintf(buffer, "%d", (int)value);
     for (uint i = 0; i < std::strlen(buffer); i++)
     {
         if (buffer[i] == ',')
