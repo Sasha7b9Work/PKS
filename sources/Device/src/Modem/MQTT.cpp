@@ -3,6 +3,7 @@
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include <cstring>
+#include <cstdlib>
 
 
 namespace SIM800
@@ -146,9 +147,18 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
-                PublishPacket("base/state/voltage_c", "12");
-//                PublishPacket("base/state/text", "message1");
-//                PublishPacket("base/state/voltage_c", "25235");
+                char buffer[32];
+
+                PublishPacket("base/state/voltage_a", std::itoa((int)measure.measures[0].voltage, buffer, 10));
+                PublishPacket("base/state/voltage_b", std::itoa((int)measure.measures[1].voltage, buffer, 10));
+                PublishPacket("base/state/voltage_c", std::itoa((int)measure.measures[2].voltage, buffer, 10));
+
+                PublishPacket("base/state/current_a", std::itoa((int)measure.measures[0].current, buffer, 10));
+                PublishPacket("base/state/current_b", std::itoa((int)measure.measures[1].current, buffer, 10));
+                PublishPacket("base/state/current_c", std::itoa((int)measure.measures[2].current, buffer, 10));
+
+                SIM800::TransmitUINT8(0x1A);
+
                 need_measure = false;
             }
             else if(need_ping)
@@ -192,34 +202,12 @@ void MQTT::Reset()
 
 void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 {
-//    0000   04 27 58 55 4e 58 a4 97 b1 e4 8a 95 08 00 45 00   .'XUNX........E.
-//    0010   00 42 b2 ac 40 00 80 06 4c df 64 7d cc e9 59 6c.B..@...L.d}..Yl
-//    0020   70 57 2c a0 07 5b 03 b6 e5 2e cb aa 6d 2f 50 18   pW, ..[......m / P.
-//    0030   01 00 34 62 00 00 30 18 00 14 62 61 73 65 2f 73   ..4b..0...base / s
-//    0040   74 61 74 65 2f 76 6f 6c 74 61 67 65 5f 63 31 32   tate / voltage_c12
-
-
-//    0000   04 27 58 55 4e 58 a4 97 b1 e4 8a 95 08 00 45 00   .'XUNX........E.
-//    0010   00 42 b2 ac 40 00 80 06 4c df 64 7d cc e9 59 6c.B..@...L.d}..Yl
-//    0020   70 57 2c a0 07 5b 03 b6 e5 2e cb aa 6d 2f 50 18   pW, ..[......m / P.
-//    0030   01 00 34 62 00 00    
-    
-//  30
-//  18
-//  00
-//  14
-//  62 61 73 65 2f 73 74 61 74 65 2f 76 6f 6c 74 61 67 65 5f 63 base/state/voltage_c
-//  31 32                                                       12
-
     SIM800::TransmitUINT8(0x30);
-    TimeMeterMS().Wait(100);
-//    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
-    SIM800::TransmitUINT8(0x18);
+    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
     SIM800::TransmitUINT8(0);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
-    SIM800::Transmit(MQTT_topic); // топик 
-    SIM800::Transmit(MQTT_messege);
-    SIM800::TransmitUINT8(0x1A);
+    SIM800::TransmitRAW(MQTT_topic);
+    SIM800::TransmitRAW(MQTT_messege);
 }
 
 
@@ -236,7 +224,7 @@ void MQTT::SubscribePacket(const char MQTT_topic[15])
 
     // топик
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
-    SIM800::Transmit(MQTT_topic);
+    SIM800::TransmitRAW(MQTT_topic);
 
     SIM800::TransmitUINT8(0);
 }

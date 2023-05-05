@@ -4,5 +4,7 @@ namespace std
 {
 
     #include "stdlib.h"
+    
+    char *itoa(int num, char *str, int radix);
 
 }
