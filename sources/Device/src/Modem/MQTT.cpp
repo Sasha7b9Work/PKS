@@ -150,23 +150,23 @@ void MQTT::Update(const String &answer)
             {
                 char buffer[32];
 
-                sprintf(buffer, "%f", measure.measures[0].voltage);
+                sprintf(buffer, "%d", (int)measure.measures[0].voltage);
                 PublishPacket("base/state/voltage_a", buffer);
 
-                sprintf(buffer, "%f", measure.measures[1].voltage);
-                PublishPacket("base/state/voltage_b", buffer);
-
-                sprintf(buffer, "%f", measure.measures[2].voltage);
-                PublishPacket("base/state/voltage_c", buffer);
-
-                sprintf(buffer, "%f", measure.measures[0].current);
-                PublishPacket("base/state/current_a", buffer);
-
-                sprintf(buffer, "%f", measure.measures[1].current);
-                PublishPacket("base/state/current_b", buffer);
-
-                sprintf(buffer, "%f", measure.measures[2].current);
-                PublishPacket("base/state/current_c", buffer);
+//                sprintf(buffer, "%d", (int)measure.measures[1].voltage);
+//                PublishPacket("base/state/voltage_b", buffer);
+//
+//                sprintf(buffer, "%d", (int)measure.measures[2].voltage);
+//                PublishPacket("base/state/voltage_c", buffer);
+//
+//                sprintf(buffer, "%d", (int)measure.measures[0].current);
+//                PublishPacket("base/state/current_a", buffer);
+//
+//                sprintf(buffer, "%d", (int)measure.measures[1].current);
+//                PublishPacket("base/state/current_b", buffer);
+//
+//                sprintf(buffer, "%d", (int)measure.measures[2].current);
+//                PublishPacket("base/state/current_c", buffer);
 
                 SIM800::TransmitUINT8(0x1A);
 
