@@ -129,7 +129,7 @@ void MQTT::Update(const String &answer)
 
         if (meterLastData.ElapsedTime() > 30000)
         {
-            SIM800::Reset();
+//            SIM800::Reset();
         }
 
         if (meterPing.ElapsedTime() > 20000)
