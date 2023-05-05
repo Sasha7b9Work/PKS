@@ -161,6 +161,15 @@ void MQTT::Update(const String &answer)
 
 void MQTT::SendMeasure(const FullMeasure &meas)
 {
+    static TimeMeterMS meterLastMeasure;
+
+    if (meterLastMeasure.ElapsedTime() < 5000)
+    {
+        return;
+    }
+
+    meterLastMeasure.Reset();
+
     measure = meas;
 
     need_measure = true;
