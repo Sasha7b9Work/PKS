@@ -56,15 +56,6 @@ void MQTT::Update(const String &answer)
 
     TimeMeterMS meter;
 
-//    if (meterPing.ElapsedTime() > 20000)
-//    {
-//        meter.Reset();
-//
-//        SIM800::Transmit("AT+CIPSEND");
-//
-//        need_ping = true;
-//    }
-
     switch (state)
     {
     case State::IDLE:
@@ -130,10 +121,19 @@ void MQTT::Update(const String &answer)
             SIM800::TransmitUINT8(0x1A);
 
             state = State::RUNNING;
+
+            meterPing.Reset();
         }
         break;
 
     case State::RUNNING:
+
+        if (meterPing.ElapsedTime() > 20000)
+        {
+            meter.Reset();
+            SIM800::Transmit("AT+CIPSEND");
+            need_ping = true;
+        }
 
         if (answer == ">" && need_ping)
         {
