@@ -6,32 +6,6 @@
 #include <cstring>
 
 
-namespace HAL_USART_GPRS
-{
-    uint8 buffer_trace[32];
-    int pointer_trace = 0;
-    bool in_trace = false;
-}
-
-
-void HAL_USART_GPRS::BeginTrace()
-{
-    pointer_trace = 0;
-    in_trace = true;
-    pointer_trace = pointer_trace;
-}
-
-
-void HAL_USART_GPRS::EndTrace()
-{
-    in_trace = false;
-
-    uint8 *trace = buffer_trace;
-
-    pointer_trace = pointer_trace;
-}
-
-
 void HAL_USART_GPRS::Init()
 {
     pinUSART_GPRS_TX.Init();

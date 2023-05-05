@@ -143,16 +143,12 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
-                HAL_USART_GPRS::BeginTrace();
-
                 SendMeasure("base/state/voltage_a", measure.measures[0].voltage);
                 SendMeasure("base/state/voltage_b", measure.measures[1].voltage);
                 SendMeasure("base/state/voltage_c", measure.measures[2].voltage);
                 SendMeasure("base/state/current_a", measure.measures[0].current * 1000.0f);
                 SendMeasure("base/state/current_b", measure.measures[1].current * 1000.0f);
                 SendMeasure("base/state/current_c", measure.measures[2].current * 1000.0f);
-
-                HAL_USART_GPRS::EndTrace();
 
                 SIM800::TransmitUINT8(0x1A);
 
