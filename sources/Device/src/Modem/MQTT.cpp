@@ -143,6 +143,13 @@ void MQTT::Update(const String &answer)
         {
             if (need_measure)
             {
+                static int counter = 0;
+
+                char buffer[32];
+                sprintf(buffer, "%d", counter++);
+
+                PublishPacket("base/state/counter", buffer);
+
                 SendMeasure("base/state/voltage_a", measure.measures[0].voltage);
                 SendMeasure("base/state/voltage_b", measure.measures[1].voltage);
                 SendMeasure("base/state/voltage_c", measure.measures[2].voltage);
