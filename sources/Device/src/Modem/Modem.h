@@ -24,4 +24,19 @@ namespace Modem
     void SendMeasure(const FullMeasure &);
 
     void SendGP(int num, bool state);
+
+    namespace Mode
+    {
+        // Возвращает true, если напряжение подано
+        bool Power();
+
+        // Возвращает true, если зарегистрирован в сети
+        bool Registered();
+
+        // Возвращает true, если подключён к MQTT
+        bool ConnectedToMQTT();
+
+        // Уровень сигнала от 0 до 10
+        int LevelSignal();
+    }
 }

@@ -49,8 +49,6 @@ namespace MQTT
 //    static const char MQTT_type[15] = "MQIsdp";             // тип протокола НЕ ТРОГАТЬ!
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
-    static const char *MQTT_user = "";                   // api.cloudmqtt.com > Details > User
-    static const char *MQTT_pass = "";                   // api.cloudmqtt.com > Details > Password
 
     // пакет на публикацию
     static void PublishPacket(const char *MQTT_topic, const char *MQTT_messege);
@@ -66,6 +64,9 @@ namespace MQTT
 
     void SendMeasure(const FullMeasure &);
     void SendGP(int num, bool state);
+
+    // Присоединён к серверу MQTT
+    bool IsConnected();
 }
 
 
@@ -190,6 +191,12 @@ void MQTT::Update(const String &answer)
 
         break;
     }
+}
+
+
+bool MQTT::IsConnected()
+{
+    return (state == State::RUNNING);
 }
 
 

@@ -64,6 +64,10 @@ namespace SIM800
     static bool ProcessUnsolicited(const String &);
 
     void SendMeasure(const FullMeasure &);
+
+    bool IsRegistered();
+
+    int LevelSignal();
 }
 
 
@@ -307,6 +311,18 @@ void SIM800::Update(const String &answer)
         MQTT::Update(answer);
         break;
     }
+}
+
+
+bool SIM800::IsRegistered()
+{
+    return (state >= State::WAIT_IP_INITIAL);
+}
+
+
+int SIM800::LevelSignal()
+{
+    return 0;
 }
 
 

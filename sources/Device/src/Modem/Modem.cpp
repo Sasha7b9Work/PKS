@@ -46,6 +46,8 @@
 namespace SIM800
 {
     void Update(const String &);
+    bool IsRegistered();
+    int LevelSignal();
 }
 
 
@@ -53,6 +55,7 @@ namespace MQTT
 {
     void SendMeasure(const FullMeasure &);
     void SendGP(int num, bool state);
+    bool IsConnected();
 }
 
 
@@ -218,6 +221,30 @@ void Modem::Update()
             Answer::num_answers = 0;
         }
     }
+}
+
+
+bool Modem::Mode::Power()
+{
+    return (state == State::HARDWARE_IS_OK);
+}
+
+
+bool Modem::Mode::Registered()
+{
+    return SIM800::IsRegistered();
+}
+
+
+bool Modem::Mode::ConnectedToMQTT()
+{
+    return MQTT::IsConnected();
+}
+
+
+int Modem::Mode::LevelSignal()
+{
+    return SIM800::LevelSignal();
 }
 
 
