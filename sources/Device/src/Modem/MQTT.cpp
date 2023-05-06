@@ -4,7 +4,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
-#include <stdlib.h>
+#include <cstdlib>
 #include <stdio.h>
 
 
@@ -160,7 +160,8 @@ void MQTT::Update(const String &answer)
             }
             if (need_measure)
             {
-                static int counter = 0;
+                static int counter = (int)std::rand();
+                   ;
 
                 char buffer[32];
                 sprintf(buffer, "%d", counter++);
