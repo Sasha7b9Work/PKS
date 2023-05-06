@@ -144,7 +144,23 @@ void MQTT::Update(const String &answer)
 
         if (answer == ">")
         {
-            if (need_measure)
+            if (need_gp[0] || need_gp[1] || need_gp[2])
+            {
+                char name[20] = "base/state/gp0";
+
+                for (int i = 0; i < 3; i++)
+                {
+                    if (need_gp[i])
+                    {
+                        name[13] = (char)((i + 1) | 0x30);
+
+                        PublishPacket(name, need_gp[i] ? "1" : "0");
+                    }
+                }
+
+                SIM800::TransmitUINT8(0x1A);
+            }
+            else if (need_measure)
             {
                 static int counter = 0;
 
@@ -163,22 +179,6 @@ void MQTT::Update(const String &answer)
                 SIM800::TransmitUINT8(0x1A);
 
                 need_measure = false;
-            }
-            else if (need_gp[0] || need_gp[1] || need_gp[2])
-            {
-                char name[20] = "base/state/gp0";
-
-                for (int i = 0; i < 3; i++)
-                {
-                    if (need_gp[i])
-                    {
-                        name[13] = (char)((i + 1) | 0x30);
-
-                        PublishPacket(name, need_gp[i] ? "1" : "0");
-                    }
-                }
-
-                SIM800::TransmitUINT8(0x1A);
             }
             else if(need_ping)
             {
