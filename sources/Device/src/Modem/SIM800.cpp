@@ -67,7 +67,11 @@ namespace SIM800
 
     bool IsRegistered();
 
-    int LevelSignal();
+    String LevelSignal();
+
+    static TimeMeterMS meterCSQ;
+
+    static String levelSignal("0");
 }
 
 
@@ -77,6 +81,10 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         Reset();
         return true;
+    }
+    else if (Parser::GetWord(answer, 1) == "+CSQ")
+    {
+        levelSignal = Parser::GetWord(answer, 2);
     }
     else if (answer == "SEND FAIL")
     {
@@ -119,6 +127,7 @@ void SIM800::Update(const String &answer)
         SIM800::Transmit("ATE0");
         state = State::WAIT_ATE0;
         meter.Reset();
+        levelSignal.Set("0");
         break;
 
     case State::WAIT_ATE0:
@@ -309,6 +318,11 @@ void SIM800::Update(const String &answer)
 
     case State::RUNNING_MQTT:
         MQTT::Update(answer);
+        if (meterCSQ.ElapsedTime() > 5000)
+        {
+            meterCSQ.Reset();
+            SIM800::Transmit("AT+CSQ");
+        }
         break;
     }
 }
@@ -320,9 +334,9 @@ bool SIM800::IsRegistered()
 }
 
 
-int SIM800::LevelSignal()
+String SIM800::LevelSignal()
 {
-    return 0;
+    return levelSignal;
 }
 
 

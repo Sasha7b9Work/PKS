@@ -3,6 +3,7 @@
 #include "Display/Display.h"
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 #include "Measurer/Measurer.h"
+#include "Modem/Modem.h"
 #include <cstring>
 #include <cstdio>
 
@@ -50,6 +51,23 @@ void Display::Update()
         WriteAmpere(i);
     }
 
+    if (Modem::Mode::Power())
+    {
+        WriteString(5, 5, "Ï");
+    }
+
+    if (Modem::Mode::Registered())
+    {
+        WriteString(40, 5, "Ð");
+    }
+
+    if (Modem::Mode::ConnectedToMQTT())
+    {
+        WriteString(80, 5, "Ì");
+
+        WriteString(120, 5, Modem::Mode::LevelSignal().c_str());
+    }
+
     SSD1306::WriteBuffer(buffer);
 }
 
@@ -62,7 +80,7 @@ void Display::WriteVoltage(int i)
 
     std::sprintf(message, "%4.1f", measure.measures[i].voltage);
 
-    WriteString(10, 10 + i * 20, message);
+    WriteString(10, 20 + i * 15, message);
 }
 
 

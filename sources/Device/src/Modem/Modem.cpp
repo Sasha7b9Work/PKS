@@ -47,7 +47,7 @@ namespace SIM800
 {
     void Update(const String &);
     bool IsRegistered();
-    int LevelSignal();
+    String LevelSignal();
 }
 
 
@@ -242,7 +242,7 @@ bool Modem::Mode::ConnectedToMQTT()
 }
 
 
-int Modem::Mode::LevelSignal()
+String Modem::Mode::LevelSignal()
 {
     return SIM800::LevelSignal();
 }

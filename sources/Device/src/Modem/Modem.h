@@ -37,6 +37,6 @@ namespace Modem
         bool ConnectedToMQTT();
 
         // Уровень сигнала от 0 до 10
-        int LevelSignal();
+        String LevelSignal();
     }
 }
