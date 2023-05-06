@@ -123,6 +123,8 @@ void MQTT::Update(const String &answer)
             meterLastData.Reset();
 
             meterPing.Reset();
+
+            HAL_PINS::SendState();
         }
         break;
 
@@ -237,6 +239,11 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
 void MQTT::SendGP(int num, bool is_low)
 {
+    if (state != State::RUNNING)
+    {
+        return;
+    }
+
     gp[num - 1] = is_low;
 
     bool need_request = !need_gp[0] && !need_gp[1] && !need_gp[2];

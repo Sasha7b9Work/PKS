@@ -4,7 +4,11 @@
 
 namespace HAL_PINS
 {
+    void Init();
+
     void Update();
+
+    void SendState();
 }
 
 

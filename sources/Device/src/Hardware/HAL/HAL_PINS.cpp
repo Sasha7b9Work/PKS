@@ -129,39 +129,48 @@ private:
 };
 
 
-void HAL_PINS::Update()
+static ObservedPin pinsGP[3] =
 {
-    static ObservedPin pinGP1(GPIOC, GPIO_PIN_2);
-    static ObservedPin pinGP2(GPIOC, GPIO_PIN_1);
-    static ObservedPin pinGP3(GPIOC, GPIO_PIN_0);
+    ObservedPin(GPIOC, GPIO_PIN_2),
+    ObservedPin(GPIOC, GPIO_PIN_1),
+    ObservedPin(GPIOC, GPIO_PIN_0)
+};
 
-    static bool first = true;
 
-    if (first)
-    {
-        first = false;
-
-        pinGP1.Init();
-        pinGP2.Init();
-        pinGP3.Init();
-
-        Modem::SendGP(1, !pinGP1.IsHi());
-        Modem::SendGP(2, !pinGP2.IsHi());
-        Modem::SendGP(3, !pinGP3.IsHi());
-    }
-
-    ObservedPin *pins[3] = { &pinGP1, &pinGP2, &pinGP3 };
-
+void HAL_PINS::Init()
+{
     for (int i = 0; i < 3; i++)
     {
-        pins[i]->IsHi();
+        pinsGP[i].Init();
+    }
+}
 
-        if (pins[i]->IsSwitched())
+
+void HAL_PINS::Update()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        pinsGP[i].IsHi();
+
+        if (pinsGP[i].IsSwitched())
         {
-            Modem::SendGP(i + 1, !pins[i]->GetState());
+            Modem::SendGP(i + 1, !pinsGP[i].GetState());
 
-            pins[i]->ResetSwitch();
+            pinsGP[i].ResetSwitch();
         }
+    }
+}
+
+
+void HAL_PINS::SendState()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        pinsGP[i].IsHi();
+
+        Modem::SendGP(i + 1, !pinsGP[i].GetState());
+
+        pinsGP[i].ResetSwitch();
     }
 }
 
