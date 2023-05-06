@@ -139,6 +139,8 @@ void HAL_PINS::Update()
 
     if (first)
     {
+        first = false;
+
         pinGP1.Init();
         pinGP2.Init();
         pinGP3.Init();
