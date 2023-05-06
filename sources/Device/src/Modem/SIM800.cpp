@@ -20,6 +20,7 @@ namespace MQTT
 {
     void Update(const String &);
     void SendMeasure(const FullMeasure &);
+    void SendGP(int num, bool state);
     void Reset();
     void CallbackOnReceiveData();
 }

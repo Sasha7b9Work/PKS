@@ -38,6 +38,9 @@ namespace MQTT
 
     static FullMeasure measure;
 
+    static bool gp[3] = { false, false, false };
+    static bool need_gp[3] = { false, false, false };
+
     // Если true - надо передавать измерение
     static bool need_measure = false;
 
@@ -52,12 +55,7 @@ namespace MQTT
     // пакет на публикацию
     static void PublishPacket(const char *MQTT_topic, const char *MQTT_messege);
 
-    // пакет подписки на топик
-    static void SubscribePacket(const char MQTT_topic[15]);
-
     void Reset();
-
-    void SendMeasure(const FullMeasure &);
 
     void CallbackOnReceiveData();
 
@@ -65,6 +63,9 @@ namespace MQTT
     static TimeMeterMS meterLastData;
 
     static void SendMeasure(pchar name, float value);
+
+    void SendMeasure(const FullMeasure &);
+    void SendGP(int num, bool state);
 }
 
 
@@ -161,6 +162,22 @@ void MQTT::Update(const String &answer)
 
                 need_measure = false;
             }
+            else if (need_gp[0] || need_gp[1] || need_gp[2])
+            {
+                char name[20] = "base/state/gp0";
+
+                for (int i = 0; i < 3; i++)
+                {
+                    if (need_gp[i])
+                    {
+                        name[13] = (char)((i + 1) | 0x30);
+
+                        PublishPacket(name, need_gp[i] ? "True" : "False");
+                    }
+                }
+
+                SIM800::TransmitUINT8(0x1A);
+            }
             else if(need_ping)
             {
                 SIM800::TransmitUINT8(0xC0);
@@ -192,6 +209,11 @@ void MQTT::SendMeasure(pchar name, float value)
 
 void MQTT::SendMeasure(const FullMeasure &meas)
 {
+    if (state != State::RUNNING)
+    {
+        return;
+    }
+
     static TimeMeterMS meterLastMeasure;
 
     if (meterLastMeasure.ElapsedTime() < 60000)
@@ -209,6 +231,21 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 }
 
 
+void MQTT::SendGP(int num, bool is_low)
+{
+    gp[num - 1] = is_low;
+
+    bool need_request = !need_gp[0] && !need_gp[1] && !need_gp[2];
+
+    need_gp[num - 1] = true;
+
+    if (need_request)
+    {
+        SIM800::Transmit("AT+CIPSEND");
+    }
+}
+
+
 void MQTT::Reset()
 {
     state = State::IDLE;
@@ -223,25 +260,6 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::TransmitRAW(MQTT_topic);
     SIM800::TransmitRAW(MQTT_messege);
-}
-
-
-void MQTT::SubscribePacket(const char MQTT_topic[15])
-{
-    // сумма пакета
-    SIM800::TransmitUINT8(0x82);
-    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + 5));
-
-    // просто так нужно
-    SIM800::TransmitUINT8(0);
-    SIM800::TransmitUINT8(0x01);
-    SIM800::TransmitUINT8(0);
-
-    // топик
-    SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
-    SIM800::TransmitRAW(MQTT_topic);
-
-    SIM800::TransmitUINT8(0);
 }
 
 

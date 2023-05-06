@@ -46,7 +46,13 @@
 namespace SIM800
 {
     void Update(const String &);
+}
+
+
+namespace MQTT
+{
     void SendMeasure(const FullMeasure &);
+    void SendGP(int num, bool state);
 }
 
 
@@ -271,5 +277,11 @@ bool Modem::GSM_PG::ReadInput()
 
 void Modem::SendMeasure(const FullMeasure &measure)
 {
-    SIM800::SendMeasure(measure);
+    MQTT::SendMeasure(measure);
+}
+
+
+void Modem::SendGP(int num, bool is_low)
+{
+    MQTT::SendGP(num, is_low);
 }
