@@ -162,8 +162,7 @@ void MQTT::Update(const String &answer)
             }
             if (need_measure)
             {
-                static int counter = (int)std::rand();
-                   ;
+                static int counter = 0;
 
                 char buffer[32];
                 sprintf(buffer, "%d", counter++);
@@ -218,10 +217,14 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
     static TimeMeterMS meterLastMeasure;
 
-    if (meterLastMeasure.ElapsedTime() < 5000)
+    static bool first = true;
+
+    if (meterLastMeasure.ElapsedTime() < 5000 && !first)
     {
         return;
     }
+
+    first = false;
 
     meterLastMeasure.Reset();
 

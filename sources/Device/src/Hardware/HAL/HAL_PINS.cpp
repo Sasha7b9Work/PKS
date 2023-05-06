@@ -150,20 +150,6 @@ void HAL_PINS::Init()
 
 void HAL_PINS::Update()
 {
-    static TimeMeterMS meter;
-
-    if (meter.ElapsedTime() < 1000)
-    {
-        return;
-    }
-
-    meter.Reset();
-
-    for (int i = 0; i < 3; i++)
-    {
-        Modem::SendGP(i + 1, (std::rand() % 2) == 1);
-    }
-
     for (int i = 0; i < 3; i++)
     {
         pinsGP[i].IsHi();
