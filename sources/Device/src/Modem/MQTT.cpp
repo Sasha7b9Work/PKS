@@ -172,7 +172,7 @@ void MQTT::Update(const String &answer)
                     {
                         name[13] = (char)((i + 1) | 0x30);
 
-                        PublishPacket(name, need_gp[i] ? "True" : "False");
+                        PublishPacket(name, need_gp[i] ? "1" : "0");
                     }
                 }
 
@@ -216,10 +216,14 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 
     static TimeMeterMS meterLastMeasure;
 
-    if (meterLastMeasure.ElapsedTime() < 60000)
+    static bool first = true;
+
+    if (meterLastMeasure.ElapsedTime() < 60000 && !first)
     {
         return;
     }
+
+    first = false;
 
     meterLastMeasure.Reset();
 
