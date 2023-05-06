@@ -1,6 +1,7 @@
 // 2023/04/05 23:37:15 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL_PINS.h"
+#include "Modem/Modem.h"
 #include <gd32f30x.h>
 
 
@@ -67,7 +68,6 @@ PinOUT pinOutKMC7(GPIOD, GPIO_PIN_13);
 PinOUT pinOutKMC8(GPIOD, GPIO_PIN_14);
 PinOUT pinOutKMC9(GPIOD, GPIO_PIN_15);
 
-
 PinIN pinInKMA1(GPIOE, GPIO_PIN_9);
 PinIN pinInKMA2(GPIOE, GPIO_PIN_8);
 PinIN pinInKMA3(GPIOE, GPIO_PIN_7);
@@ -95,6 +95,77 @@ PinIN pinInKMC6(GPIOD, GPIO_PIN_12);
 PinIN pinInKMC7(GPIOD, GPIO_PIN_13);
 PinIN pinInKMC8(GPIOD, GPIO_PIN_14);
 PinIN pinInKMC9(GPIOD, GPIO_PIN_15);
+
+
+void HAL_PINS::Init()
+{
+}
+
+
+void HAL_PINS::Update()
+{
+    struct ObservedPin : public PinIN
+    {
+        ObservedPin(uint _port, uint _pin) : PinIN(_port, _pin), state(false) { }
+
+        bool IsHi()
+        {
+            prev_state = state;
+            state = PinIN::IsHi();
+            return state;
+        }
+
+        bool IsSwitched() const
+        {
+            return state != prev_state;
+        }
+
+        void ResetSwitch()
+        {
+            prev_state = state;
+        }
+
+        bool GetState() const
+        {
+            return state;
+        }
+
+    private:
+        bool state;
+        bool prev_state;
+    };
+
+    ObservedPin pinGP1(GPIOC, GPIO_PIN_2);
+    ObservedPin pinGP2(GPIOC, GPIO_PIN_1);
+    ObservedPin pinGP3(GPIOC, GPIO_PIN_0);
+
+    static bool first = true;
+
+    if (first)
+    {
+        pinGP1.Init();
+        pinGP2.Init();
+        pinGP3.Init();
+
+        Modem::SendGP(1, pinGP1.IsHi());
+        Modem::SendGP(2, pinGP2.IsHi());
+        Modem::SendGP(3, pinGP3.IsHi());
+    }
+
+    ObservedPin *pins[3] = { &pinGP1, &pinGP2, &pinGP3 };
+
+    for (int i = 0; i < 3; i++)
+    {
+        pins[i]->IsHi();
+
+        if (pins[i]->IsSwitched())
+        {
+            Modem::SendGP(i + 1, pins[i]->GetState());
+
+            pins[i]->ResetSwitch();
+        }
+    }
+}
 
 
 void PinADC::Init()

@@ -2,6 +2,14 @@
 #pragma once
 
 
+namespace HAL_PINS
+{
+    void Init();
+
+    void Update();
+}
+
+
 struct PinADC
 {
     PinADC(uint _port, uint _pin, uint8 _channel) : port(_port), pin(_pin), channel(_channel) { }

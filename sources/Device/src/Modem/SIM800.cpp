@@ -85,6 +85,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         MQTT::CallbackOnReceiveData();
         char *buffer = answer.c_str();
+        buffer = buffer;
         return true;
     }
     else if (answer.c_str()[0] == '>')

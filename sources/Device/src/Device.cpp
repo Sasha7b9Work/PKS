@@ -45,6 +45,8 @@ void Device::Update()
     Updater::Update();
 
     Modem::Update();
+
+    HAL_PINS::Update();
 }
 
 

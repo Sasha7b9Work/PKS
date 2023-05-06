@@ -22,4 +22,6 @@ namespace Modem
     void CallbackOnReceive(char);
 
     void SendMeasure(const FullMeasure &);
+
+    void SendGP(int num, bool state);
 }
