@@ -157,10 +157,8 @@ void MQTT::Update(const String &answer)
                         PublishPacket(name, need_gp[i] ? "1" : "0");
                     }
                 }
-
-                SIM800::TransmitUINT8(0x1A);
             }
-            else if (need_measure)
+            if (need_measure)
             {
                 static int counter = 0;
 
@@ -176,17 +174,16 @@ void MQTT::Update(const String &answer)
                 SendMeasure("base/state/current_b", measure.measures[1].current * 1000.0f);
                 SendMeasure("base/state/current_c", measure.measures[2].current * 1000.0f);
 
-                SIM800::TransmitUINT8(0x1A);
-
                 need_measure = false;
             }
-            else if(need_ping)
+            if(need_ping)
             {
                 SIM800::TransmitUINT8(0xC0);
                 SIM800::TransmitUINT8(0x00);
-                SIM800::TransmitUINT8(0x1A);
                 need_ping = false;
             }
+
+            SIM800::TransmitUINT8(0x1A);
         }
 
         break;

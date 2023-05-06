@@ -2,7 +2,9 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL_PINS.h"
 #include "Modem/Modem.h"
+#include "Hardware/Timer.h"
 #include <gd32f30x.h>
+#include <cstdlib>
 
 
 PinADC pinVolt1(GPIOA, GPIO_PIN_0, ADC_CHANNEL_0);
@@ -148,6 +150,20 @@ void HAL_PINS::Init()
 
 void HAL_PINS::Update()
 {
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() < 1000)
+    {
+        return;
+    }
+
+    meter.Reset();
+
+    for (int i = 0; i < 3; i++)
+    {
+        Modem::SendGP(i + 1, (std::rand() % 2) == 1);
+    }
+
     for (int i = 0; i < 3; i++)
     {
         pinsGP[i].IsHi();
