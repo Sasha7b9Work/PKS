@@ -155,6 +155,8 @@ void MQTT::Update(const String &answer)
                         name[13] = (char)((i + 1) | 0x30);
 
                         PublishPacket(name, need_gp[i] ? "1" : "0");
+
+                        need_gp[i] = false;
                     }
                 }
             }
