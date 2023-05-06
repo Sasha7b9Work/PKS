@@ -47,8 +47,6 @@ void HAL::Init()
     
     HAL_RTC::Init();
 
-    HAL_PINS::Init();
-
 #ifdef ENABLE_LOG
     HAL_USART_LOG::Init();
 #endif

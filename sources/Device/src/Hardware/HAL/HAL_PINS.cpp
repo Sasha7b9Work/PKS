@@ -97,47 +97,43 @@ PinIN pinInKMC8(GPIOD, GPIO_PIN_14);
 PinIN pinInKMC9(GPIOD, GPIO_PIN_15);
 
 
-void HAL_PINS::Init()
+struct ObservedPin : public PinIN
 {
-}
+    ObservedPin(uint _port, uint _pin) : PinIN(_port, _pin), state(false) { }
+
+    bool IsHi()
+    {
+        prev_state = state;
+        state = PinIN::IsHi();
+        return state;
+    }
+
+    bool IsSwitched() const
+    {
+        return state != prev_state;
+    }
+
+    void ResetSwitch()
+    {
+        prev_state = state;
+    }
+
+    bool GetState() const
+    {
+        return state;
+    }
+
+private:
+    bool state;
+    bool prev_state;
+};
 
 
 void HAL_PINS::Update()
 {
-    struct ObservedPin : public PinIN
-    {
-        ObservedPin(uint _port, uint _pin) : PinIN(_port, _pin), state(false) { }
-
-        bool IsHi()
-        {
-            prev_state = state;
-            state = PinIN::IsHi();
-            return state;
-        }
-
-        bool IsSwitched() const
-        {
-            return state != prev_state;
-        }
-
-        void ResetSwitch()
-        {
-            prev_state = state;
-        }
-
-        bool GetState() const
-        {
-            return state;
-        }
-
-    private:
-        bool state;
-        bool prev_state;
-    };
-
-    ObservedPin pinGP1(GPIOC, GPIO_PIN_2);
-    ObservedPin pinGP2(GPIOC, GPIO_PIN_1);
-    ObservedPin pinGP3(GPIOC, GPIO_PIN_0);
+    static ObservedPin pinGP1(GPIOC, GPIO_PIN_2);
+    static ObservedPin pinGP2(GPIOC, GPIO_PIN_1);
+    static ObservedPin pinGP3(GPIOC, GPIO_PIN_0);
 
     static bool first = true;
 
@@ -147,9 +143,9 @@ void HAL_PINS::Update()
         pinGP2.Init();
         pinGP3.Init();
 
-        Modem::SendGP(1, pinGP1.IsHi());
-        Modem::SendGP(2, pinGP2.IsHi());
-        Modem::SendGP(3, pinGP3.IsHi());
+        Modem::SendGP(1, !pinGP1.IsHi());
+        Modem::SendGP(2, !pinGP2.IsHi());
+        Modem::SendGP(3, !pinGP3.IsHi());
     }
 
     ObservedPin *pins[3] = { &pinGP1, &pinGP2, &pinGP3 };
@@ -160,7 +156,7 @@ void HAL_PINS::Update()
 
         if (pins[i]->IsSwitched())
         {
-            Modem::SendGP(i + 1, pins[i]->GetState());
+            Modem::SendGP(i + 1, !pins[i]->GetState());
 
             pins[i]->ResetSwitch();
         }
