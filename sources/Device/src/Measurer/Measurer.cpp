@@ -135,6 +135,8 @@ FullMeasure Measurer::Calculate()
 
 float Sample::ToVoltage() const
 {
+    // Vadc_p-p = Vrms_in / 5000 * 16 * 2 * sqrt(2)
+
     return ((float)rel - (float)ZERO) * VoltsInSample();
 }
 
@@ -153,7 +155,10 @@ float Sample::AmplitudeCurrent() const
 
 float Sample::AmplitudeVoltage() const
 {
-    return 830.0f * 2.0f;
+    // Vadc_max = Vin_max / 5000 * 16 * 2
+    // Vadc_max * 5000 / 16 / 2 = Vin_max
+    // Vin_max = Vadc_max * 5000 / 16 / 2 = 3.3 * 5000 / 16 / 2
+    return 515.625f * 2.0f;
 }
 
 
