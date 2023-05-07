@@ -53,17 +53,17 @@ void Display::Update()
 
     if (Modem::Mode::Power())
     {
-        WriteString(5, 5, "œ");
+        WriteString(5, 5, "œ»“");
     }
 
     if (Modem::Mode::Registered())
     {
-        WriteString(40, 5, "–");
+        WriteString(40, 5, "–≈√");
     }
 
     if (Modem::Mode::ConnectedToMQTT())
     {
-        WriteString(80, 5, "Ã");
+        WriteString(80, 5, "Ã ˛““");
 
         WriteString(120, 5, Modem::Mode::LevelSignal().c_str());
     }
