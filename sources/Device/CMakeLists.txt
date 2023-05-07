@@ -18,6 +18,8 @@ add_definitions(-DGD32F30X_HD)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
+# add_compile_options(/wd5264) # воспринимать такое сообщение как ошибку
+
 add_compile_options(/wd4013)
 add_compile_options(/wd4131)
 add_compile_options(/wd4201)
@@ -28,6 +30,7 @@ add_compile_options(/wd4820)    # 'xxx': '4' bytes padding added after data memb
 add_compile_options(/wd5027)    # move assignment operator was implicitly defined as deleted
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
 add_compile_options(/wd5220)    # a non-static data member with a volatile qualified type no longer implies
+add_compile_options(/wd5264)
 add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum class' over 'enum' (Enum.3)
 
 

@@ -724,14 +724,14 @@
               <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
             </File>
             <File>
-              <FileName>Contactor.cpp</FileName>
+              <FileName>Contactors.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Contactor.cpp</FilePath>
+              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
             </File>
             <File>
-              <FileName>Contactor.h</FileName>
+              <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Contactor.h</FilePath>
+              <FilePath>.\src\Measurer\Contactors.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1540,14 +1540,14 @@
               <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
             </File>
             <File>
-              <FileName>Contactor.cpp</FileName>
+              <FileName>Contactors.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Contactor.cpp</FilePath>
+              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
             </File>
             <File>
-              <FileName>Contactor.h</FileName>
+              <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Contactor.h</FilePath>
+              <FilePath>.\src\Measurer\Contactors.h</FilePath>
             </File>
           </Files>
         </Group>

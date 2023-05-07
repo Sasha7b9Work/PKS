@@ -3,7 +3,7 @@
 #include "Measurer/Measurer.h"
 
 
-namespace Contactor
+namespace Contactors
 {
     void Init();
 

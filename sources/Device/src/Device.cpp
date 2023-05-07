@@ -9,7 +9,7 @@
 #include "Test.h"
 #include "Utils/Updater.h"
 #include "Hardware/Timer.h"
-#include "Measurer/Contactor.h"
+#include "Measurer/Contactors.h"
 #include "Hardware/Modules/M25P80/M25P80.h"
 #include <gd32f30x_rcu.h>
 
@@ -23,10 +23,12 @@ namespace Device
 void Device::Init()
 {
     HAL::Init();
+    
+    Contactors::Init();
 
     Modem::Init();
 
-    Contactor::Init();
+    Contactors::Init();
 
     FlashDisk::Init();
 
@@ -40,7 +42,7 @@ void Device::Update()
 
     Display::Update();
 
-    Contactor::Update(Measurer::Measure5Sec());
+    Contactors::Update(Measurer::Measure5Sec());
 
     Updater::Update();
 

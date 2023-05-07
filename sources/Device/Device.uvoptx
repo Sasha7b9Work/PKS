@@ -1134,7 +1134,7 @@
 
   <Group>
     <GroupName>Measurer</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1181,8 +1181,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Measurer\Contactor.cpp</PathWithFileName>
-      <FilenameWithoutPath>Contactor.cpp</FilenameWithoutPath>
+      <PathWithFileName>.\src\Measurer\Contactors.cpp</PathWithFileName>
+      <FilenameWithoutPath>Contactors.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1193,8 +1193,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Measurer\Contactor.h</PathWithFileName>
-      <FilenameWithoutPath>Contactor.h</FilenameWithoutPath>
+      <PathWithFileName>.\src\Measurer\Contactors.h</PathWithFileName>
+      <FilenameWithoutPath>Contactors.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1202,7 +1202,7 @@
 
   <Group>
     <GroupName>Modem</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

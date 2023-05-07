@@ -1,11 +1,11 @@
 ﻿// 2023/04/09 14:55:08 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Measurer/Contactor.h"
+#include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
 
 
-namespace Contactor
+namespace Contactors
 {
     enum E
     {
@@ -97,42 +97,48 @@ namespace Contactor
     static void UpdatePhase(Phase::E, const PhaseMeasure &);
 
     // Состояние контакторов
-    struct State
+    namespace Stage
     {
-        enum E
-        {
-            Less190,    // Менее 190 В
-            Less200,
-            Less210,
-            Less220,
-            Normal,
-            Over240,
-            Over250,
-            Over260,
-            Over270,    // Более 270 В
-            Count
-        };
-    };
+        static const int LESS_190 = -4;
+        static const int LESS_200 = -3;
+        static const int LESS_210 = -2;
+        static const int LESS_220 = -1;
+        static const int TRANSIT = 0;
+        static const int ABOVE_240 = 1;
+        static const int ABOVE_250 = 2;
+        static const int ABOVE_260 = 3;
+        static const int ABOVE_270 = 4;
 
-    static State::E state[3] = { State::Normal, State::Normal, State::Normal };
+        static const int MIN = LESS_190;
+        static const int MAX = ABOVE_270;
 
-    static void SetState(Phase::E, State::E);
+        static int current[3] = { 0, 0, 0 };
 
-    // Изменить состояние контакторов на delta шагов
-    static void ChangeState(Phase::E, int delta);
-}
+        static void Set(Phase::E, int stage);
 
-
-void Contactor::Init()
-{
-    for (int i = 0; i < Cout; i++)
-    {
-        pins[i]->Init();
+        // Изменить состояние контакторов на delta шагов
+        static void Change(Phase::E, int delta);
     }
 }
 
 
-void Contactor::Update(const FullMeasure &measure)
+void Contactors::Init()
+{
+    for (int i = 0; i < Cout; i++)
+    {
+        pins[i]->Init();
+
+        pins[i]->SetState(true);
+    }
+
+    for (int phase = 0; phase < 3; phase++)
+    {
+        Stage::Set((Phase::E)phase, 0);
+    }
+}
+
+
+void Contactors::Update(const FullMeasure &measure)
 {
     for (int i = 0; i < 3; i++)
     {
@@ -141,7 +147,7 @@ void Contactor::Update(const FullMeasure &measure)
 }
 
 
-void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
+void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 {
     if (measure.voltage < 220.0f)
     {
@@ -149,7 +155,7 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
         int num_steps = (int)(delta / 10.0f + 1.0f);
 
-        ChangeState(phase, -num_steps);
+        Stage::Change(phase, -num_steps);
     }
 
     if (measure.voltage > 240.0f)
@@ -158,70 +164,70 @@ void Contactor::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
         int num_steps = (int)(delta / 10.0f + 1.0f);
 
-        ChangeState(phase, num_steps);
+        Stage::Change(phase, num_steps);
     }
 }
 
 
-void Contactor::ChangeState(Phase::E phase, int delta)
+void Contactors::Stage::Change(Phase::E phase, int delta)
 {
-    int new_state = (int)state[phase] + delta;
+    int new_state = (int)current[phase] + delta;
 
-    if (new_state < 0)
+    if (new_state < MIN)
     {
-        new_state = 0;
+        new_state = MIN;
     }
-    else if (new_state >= State::Count)
+    else if (new_state >= MAX)
     {
-        new_state = (int)(State::Count - 1);
+        new_state = MAX;
     }
 
-    SetState(phase, (State::E)new_state);
+    Set(phase, new_state);
 }
 
 
-void Contactor::SetState(Phase::E phase, State::E new_state)
+void Contactors::Stage::Set(Phase::E phase, int new_state)
 {
-    if (new_state == state[phase])
+    if (new_state == current[phase])
     {
         return;
     }
 
-    state[phase] = new_state;
+    current[phase] = new_state;
 
-    if (new_state == State::Less190)
+    if (new_state == -4)
     {
 
     }
-    else if (new_state == State::Less200)
+    else if (new_state == -3)
     {
 
     }
-    else if (new_state == State::Less210)
+    else if (new_state == -2)
     {
 
     }
-    else if (new_state == State::Less220)
+    else if (new_state == -1)
     {
 
     }
-    else if (new_state == State::Normal)
+    else if (new_state == 0)
     {
 
     }
-    else if (new_state == State::Over240)
+    else if (new_state == 1)
     {
 
     }
-    else if (new_state == State::Over250)
+    else if (new_state == 2)
     {
 
     }
-    else if (new_state == State::Over260)
+    else if (new_state == 3)
     {
 
     }
-    else if (new_state == State::Over270)
+    else if (new_state == 4)
     {
 
     }
