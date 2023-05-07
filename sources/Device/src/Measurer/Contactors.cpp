@@ -8,94 +8,21 @@
 
 namespace Contactors
 {
-    enum E
+    struct Contactor
     {
-        MX0,
-        MX1,
-        MX2,
-        MX3,
-        MX4,
-        KMA1,
-        KMA2,
-        KMA3,
-        KMA4,
-        KMA5,
-        KMA6,
-        KMA7,
-        KMA8,
-        KMA9,
-        KMB1,
-        KMB2,
-        KMB3,
-        KMB4,
-        KMB5,
-        KMB6,
-        KMB7,
-        KMB8,
-        KMB9,
-        KMC1,
-        KMC2,
-        KMC3,
-        KMC4,
-        KMC5,
-        KMC6,
-        KMC7,
-        KMC8,
-        KMC9,
-        Cout
+        PinOUT &pin;
+        bool    enabled;
+        void Init();
+        void Enable();
+        void Disable();
     };
 
-    static PinOUT *pins[Cout] =
+    static Contactor contactors[3][10] =
     {
-        &pinOutMX0,
-        &pinOutMX1,
-        &pinOutMX2,
-        &pinOutMX3,
-        &pinOutMX4,
-        &pinOutKMA1,
-        &pinOutKMA2,
-        &pinOutKMA3,
-        &pinOutKMA4,
-        &pinOutKMA5,
-        &pinOutKMA6,
-        &pinOutKMA7,
-        &pinOutKMA8,
-        &pinOutKMA9,
-        &pinOutKMB1,
-        &pinOutKMB2,
-        &pinOutKMB3,
-        &pinOutKMB4,
-        &pinOutKMB5,
-        &pinOutKMB6,
-        &pinOutKMB7,
-        &pinOutKMB8,
-        &pinOutKMB9,
-        &pinOutKMC1,
-        &pinOutKMC2,
-        &pinOutKMC3,
-        &pinOutKMC4,
-        &pinOutKMC5,
-        &pinOutKMC6,
-        &pinOutKMC7,
-        &pinOutKMC8,
-        &pinOutKMC9
+        {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
+        {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
+        {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
     };
-
-    struct PinOUT *pinsKM[3][10] =
-    {
-        {nullptr, &pinOutKMA1, &pinOutKMA2, &pinOutKMA3, &pinOutKMA4, &pinOutKMA5, &pinOutKMA6, &pinOutKMA7, &pinOutKMA8, &pinOutKMA9},
-        {nullptr, &pinOutKMB1, &pinOutKMB2, &pinOutKMB3, &pinOutKMB4, &pinOutKMB5, &pinOutKMB6, &pinOutKMB7, &pinOutKMB8, &pinOutKMB9},
-        {nullptr, &pinOutKMC1, &pinOutKMC2, &pinOutKMC3, &pinOutKMC4, &pinOutKMC5, &pinOutKMC6, &pinOutKMC7, &pinOutKMC8, &pinOutKMC9}
-    };
-
-    struct PinIN *pinsInKM[3][10] =
-    {
-        {nullptr, &pinInKMA1, &pinInKMA2, &pinInKMA3, &pinInKMA4, &pinInKMA5, &pinInKMA6, &pinInKMA7, &pinInKMA8, &pinInKMA9},
-        {nullptr, &pinInKMB1, &pinInKMB2, &pinInKMB3, &pinInKMB4, &pinInKMB5, &pinInKMB6, &pinInKMB7, &pinInKMB8, &pinInKMB9},
-        {nullptr, &pinInKMC1, &pinInKMC2, &pinInKMC3, &pinInKMC4, &pinInKMC5, &pinInKMC6, &pinInKMC7, &pinInKMC8, &pinInKMC9}
-    };
-
-    static void UpdatePhase(Phase::E, const PhaseMeasure &);
 
     // Состояние контакторов
     namespace Stage
@@ -124,21 +51,19 @@ namespace Contactors
     static void Enable(int contactor, Phase::E);
 
     static void Disable(int contactor, Phase::E);
+
+    static void UpdatePhase(Phase::E, const PhaseMeasure &);
 }
 
 
 void Contactors::Init()
 {
-    for (int i = 0; i < Cout; i++)
-    {
-        pins[i]->Init();
-
-        pins[i]->SetState(true);
-    }
-
     for (int phase = 0; phase < 3; phase++)
     {
-        Stage::Set((Phase::E)phase, 0);
+        for (int i = 1; i < 9; i++)
+        {
+            contactors[phase][i].Init();
+        }
     }
 }
 
@@ -258,13 +183,49 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
 }
 
 
-void Contactors::Enable(int, Phase::E)
+void Contactors::Enable(int num, Phase::E phase)
 {
-
+    contactors[phase][num].Enable();
 }
 
 
-void Contactors::Disable(int, Phase::E)
+void Contactors::Disable(int num, Phase::E phase)
 {
+    contactors[phase][num].Disable();
+}
 
+
+void Contactors::Contactor::Init()
+{
+    pin.Init();
+
+    enabled = false;
+
+    pin.Set();
+}
+
+
+void Contactors::Contactor::Enable()
+{
+    if (!enabled)
+    {
+        enabled = true;
+
+        pin.Reset();
+
+        TimeMeterMS().Wait(100);
+    }
+}
+
+
+void Contactors::Contactor::Disable()
+{
+    if (enabled)
+    {
+        enabled = false;
+
+        pin.Set();
+
+        TimeMeterMS().Wait(100);
+    }
 }
