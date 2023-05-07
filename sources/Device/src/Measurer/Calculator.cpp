@@ -9,22 +9,20 @@ struct Averager
     static void Clear()
     {
         pointer = 0;
+
+        for (int i = 0; i < NUMBER; i++)
+        {
+            values[i] = 0.0f;
+        }
     }
 
     static void Push(float value)
     {
-        if (pointer < NUMBER)
-        {
-            values[pointer++] = value;
-        }
-        else
-        {
-            for (int i = 1; i < NUMBER; i++)
-            {
-                values[i - 1] = values[i];
-            }
+        values[pointer++] = value;
 
-            values[NUMBER - 1] = value;
+        if (pointer == NUMBER)
+        {
+            pointer = 0;
         }
     }
 
@@ -32,17 +30,17 @@ struct Averager
     {
         float sum = 0.0f;
 
-        for (int i = 0; i < pointer; i++)
+        for (int i = 0; i < NUMBER; i++)
         {
             sum += values[i];
         }
 
-        return sum / (float)pointer;
+        return sum / (float)NUMBER;
     }
 
 private:
 
-    static const int NUMBER = 100;
+    static const int NUMBER = 3;
 
     static float values[NUMBER];
 
