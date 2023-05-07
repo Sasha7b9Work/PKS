@@ -4,6 +4,54 @@
 #include <math.h>
 
 
+struct Averager
+{
+    static void Clear()
+    {
+        pointer = 0;
+    }
+
+    static void Push(float value)
+    {
+        if (pointer < NUMBER)
+        {
+            values[pointer++] = value;
+        }
+        else
+        {
+            for (int i = 1; i < NUMBER; i++)
+            {
+                values[i - 1] = values[i];
+            }
+
+            values[NUMBER - 1] = value;
+        }
+    }
+
+    static float Pop()
+    {
+        float sum = 0.0f;
+
+        for (int i = 0; i < pointer; i++)
+        {
+            sum += values[i];
+        }
+
+        return sum / (float)pointer;
+    }
+
+private:
+
+    static const int NUMBER = 3;
+
+    static float values[NUMBER];
+
+    static int pointer;
+};
+
+int Averager::pointer = 0;
+float Averager::values[Averager::NUMBER];
+
 namespace Calculator
 {
     static int CalculatePeriod(const Sample samples[NUM_SAMPLES]);
@@ -18,9 +66,13 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
 
     float currentRMS = 0.0f;
 
+    Averager::Clear();
+
     for (int i = 0; i < period; i++)
     {
-        float value = samplesAmpers[i].ToCurrent();
+        Averager::Push(samplesAmpers[i].ToCurrent());
+
+        float value = Averager::Pop();
 
         currentRMS += value * value;
     }
@@ -34,9 +86,13 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
     float max = -1e30f;
     float min = 1e30f;
 
+    Averager::Clear();
+
     for (int i = 0; i < period; i++)
     {
-        float value = samplesVolts[i].ToVoltage();
+        Averager::Push(samplesVolts[i].ToVoltage());
+
+        float value = Averager::Pop();
 
         if (value < min)
         {
