@@ -6,7 +6,7 @@
 
 struct Averager
 {
-    static void Clear()
+    static void _Clear()
     {
         pointer = 0;
 
@@ -16,7 +16,7 @@ struct Averager
         }
     }
 
-    static void Push(float value)
+    static void _Push(float value)
     {
         values[pointer++] = value;
 
@@ -26,7 +26,7 @@ struct Averager
         }
     }
 
-    static float Pop()
+    static float _Pop()
     {
         float sum = 0.0f;
 
@@ -64,13 +64,9 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
 
     float currentRMS = 0.0f;
 
-    Averager::Clear();
-
     for (int i = 0; i < period; i++)
     {
-        Averager::Push(samplesAmpers[i].ToCurrent());
-
-        float value = Averager::Pop();
+        float value = samplesAmpers[i].ToCurrent();
 
         currentRMS += value * value;
     }
@@ -84,13 +80,9 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
     float max = -1e30f;
     float min = 1e30f;
 
-    Averager::Clear();
-
     for (int i = 0; i < period; i++)
     {
-        Averager::Push(samplesVolts[i].ToVoltage());
-
-        float value = Averager::Pop();
+        float value = samplesVolts[i].ToVoltage();
 
         if (value < min)
         {
@@ -106,6 +98,11 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
     }
 
     voltage = sqrtf(voltsRMS / (float)period);
+
+    if (voltage < 20.0f)
+    {
+        voltage = 0.0f;
+    }
 }
 
 
