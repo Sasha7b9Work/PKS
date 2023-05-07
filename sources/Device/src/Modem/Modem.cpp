@@ -252,7 +252,7 @@ void Modem::Init()
 {
     pinGSM_PWR.Init();
     pinGSM_PWRKEY.Init();
-    pinGSM_STATUS.Init();
+    pinGSM_STATUS.Init(GPIO_MODE_IPD);
 
     pinGSM_PWR.Set();
     pinGSM_PWRKEY.Set();

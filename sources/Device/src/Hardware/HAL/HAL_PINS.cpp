@@ -143,7 +143,7 @@ void HAL_PINS::Init()
 {
     for (int i = 0; i < 3; i++)
     {
-        pinsGP[i].Init();
+        pinsGP[i].Init(GPIO_MODE_IPU);
     }
 }
 
@@ -225,9 +225,9 @@ void PinOUT::SetState(bool state)
 }
 
 
-void PinIN::Init()
+void PinIN::Init(uint input_mode)
 {
-    gpio_init(port, GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, pin);
+    gpio_init(port, input_mode, GPIO_OSPEED_50MHZ, pin);
 }
 
 

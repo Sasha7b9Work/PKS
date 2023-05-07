@@ -70,7 +70,7 @@ private:
 struct PinIN
 {
     PinIN(uint _port, uint _pin) : port(_port), pin(_pin) { }
-    void Init();
+    void Init(uint input_mode);
     bool IsLow();
     bool IsHi();
 private:
