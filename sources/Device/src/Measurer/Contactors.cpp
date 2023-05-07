@@ -3,6 +3,7 @@
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
+#include "Hardware/Timer.h"
 
 
 namespace Contactors
@@ -119,6 +120,10 @@ namespace Contactors
         // Изменить состояние контакторов на delta шагов
         static void Change(Phase::E, int delta);
     }
+
+    static void Enable(int contactor, Phase::E);
+
+    static void Disable(int contactor, Phase::E);
 }
 
 
@@ -195,40 +200,71 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
 
     current[phase] = new_state;
 
-    if (new_state == -4)
-    {
+    Enable(2, phase);
+    Enable(3, phase);
+    Disable(1, phase);
+    Disable(2, phase);
+    TimeMeterMS().Wait(5000);
+    Disable(3, phase);
 
-    }
-    else if (new_state == -3)
+    if (new_state == TRANSIT)
     {
+        Disable(4, phase);
+        Disable(5, phase);
+        Disable(6, phase);
+        Disable(7, phase);
 
+        return;
     }
-    else if (new_state == -2)
+
+    if (new_state == -4 || new_state == 4)
     {
-
+        Enable(4, phase);
+        Enable(5, phase);
+        Enable(6, phase);
+        Enable(7, phase);
+        Enable(8, phase);
     }
-    else if (new_state == -1)
+    else if (new_state == -3 || new_state == 3)
     {
-
+        Disable(4, phase);
+        Enable(5, phase);
+        Enable(6, phase);
+        Enable(7, phase);
     }
-    else if (new_state == 0)
+    else if (new_state == -2 || new_state == 2)
     {
-
+        Disable(4, phase);
+        Disable(5, phase);
+        Enable(6, phase);
+        Enable(7, phase);
     }
-    else if (new_state == 1)
+    else if (new_state == -1 || new_state == 1)
     {
-
+        Disable(4, phase);
+        Disable(5, phase);
+        Disable(6, phase);
+        Disable(7, phase);
     }
-    else if (new_state == 2)
-    {
 
-    }
-    else if (new_state == 3)
-    {
+    new_state > 0 ? Disable(8, phase) : Enable(8, phase);
 
-    }
-    else if (new_state == 4)
-    {
+    Enable(2, phase);
+    Enable(3, phase);
+    Enable(1, phase);
+    Disable(2, phase);
+    TimeMeterMS().Wait(5000);
+    Disable(3, phase);
+}
 
-    }
+
+void Contactors::Enable(int, Phase::E)
+{
+
+}
+
+
+void Contactors::Disable(int, Phase::E)
+{
+
 }
