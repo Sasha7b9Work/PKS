@@ -42,7 +42,7 @@ struct Averager
 
 private:
 
-    static const int NUMBER = 3;
+    static const int NUMBER = 10;
 
     static float values[NUMBER];
 
