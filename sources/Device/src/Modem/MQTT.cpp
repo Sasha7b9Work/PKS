@@ -203,7 +203,7 @@ bool MQTT::IsConnected()
 void MQTT::SendMeasure(pchar name, float value)
 {
     char buffer[32];
-    sprintf(buffer, "%d", (int)value);
+    sprintf(buffer, "%d", (int)(value + 0.5f));
     for (uint i = 0; i < std::strlen(buffer); i++)
     {
         if (buffer[i] == ',')
