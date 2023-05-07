@@ -123,8 +123,8 @@ FullMeasure Measurer::Calculate()
 
     Modem::SendMeasure(result);
 
-    FullMeasure limitsVoltageC;
-    PhaseMeasure().CalculateLimits(voltC, &limitsVoltageC);
+    FullMeasure limitsVoltageA;
+    PhaseMeasure().CalculateLimits(voltA, &limitsVoltageA);
 
     FullMeasure limitsAmpersC;
     PhaseMeasure().CalculateLimits(currentC, &limitsAmpersC);
