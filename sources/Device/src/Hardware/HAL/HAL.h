@@ -49,6 +49,13 @@ namespace HAL_SPI
 }
 
 
+// Таймер для опроса состояния контакторов
+namespace HAL_TIM1
+{
+    void Init();
+}
+
+
 namespace HAL_USART_GPRS
 {
     void Init();
@@ -117,6 +124,8 @@ extern "C" {
     void ADC0_1_IRQHandler(void);
 
     void UART3_IRQHandler(void);
+
+    void TIMER1_IRQHandler(void);
 
 #ifdef __cplusplus
 }
