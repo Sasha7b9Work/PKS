@@ -28,6 +28,8 @@ TIMER1 channel0 duty cycle = (2000 / 4000) * 100% = 50%
     /* auto-reload preload enable */
     timer_auto_reload_shadow_enable(TIMER1);
 
+    timer_update_event_enable(TIMER1);
+
     /* auto-reload preload enable */
     timer_enable(TIMER1);
 }
