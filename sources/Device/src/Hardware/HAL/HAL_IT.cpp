@@ -142,6 +142,11 @@ extern "C" {
 
     }
 
+    void TIMER5_IRQHandler(void)
+    {
+
+    }
+
 #ifdef __cplusplus
 }
 #endif

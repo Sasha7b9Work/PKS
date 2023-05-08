@@ -37,6 +37,7 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_UART3);     // GPRS
     rcu_periph_clock_enable(RCU_AF);
     rcu_periph_clock_enable(RCU_TIMER1);    // Для опроса контакторв
+    rcu_periph_clock_enable(RCU_TIMER5);
 
     HAL_I2C::Init();
 

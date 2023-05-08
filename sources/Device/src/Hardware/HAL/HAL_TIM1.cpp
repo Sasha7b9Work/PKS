@@ -8,11 +8,11 @@ void HAL_TIM1::Init()
 {
     /* -----------------------------------------------------------------------
 TIMER2CLK is 2KHz
-TIMER1 channel0 duty cycle = (2000 / 4000) * 100% = 50%
+TIMER5 channel0 duty cycle = (2000 / 4000) * 100% = 50%
 ----------------------------------------------------------------------- */
     timer_parameter_struct timer_initpara;
 
-    timer_deinit(TIMER1);
+    timer_deinit(TIMER5);
 
     /* TIMER configuration */
     timer_initpara.prescaler = 5999;
@@ -24,13 +24,13 @@ TIMER1 channel0 duty cycle = (2000 / 4000) * 100% = 50%
 
     timer_struct_para_init(&timer_initpara);
 
-    timer_init(TIMER1, &timer_initpara);
+    timer_init(TIMER5, &timer_initpara);
 
     /* auto-reload preload enable */
-    timer_auto_reload_shadow_enable(TIMER1);
+    timer_auto_reload_shadow_enable(TIMER5);
 
-    timer_update_event_enable(TIMER1);
+    timer_update_event_enable(TIMER5);
 
     /* auto-reload preload enable */
-    timer_enable(TIMER1);
+    timer_enable(TIMER5);
 }
