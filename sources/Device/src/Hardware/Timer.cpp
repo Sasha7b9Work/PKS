@@ -3,6 +3,7 @@
 #include "Hardware/Timer.h"
 #include <gd32f30x.h>
 #include "Hardware/HAL/systick.h"
+#include "Modem/Modem.h"
 
 
 uint timer_counter = 0;
@@ -32,6 +33,7 @@ void TimeMeterMS::Wait(uint time)
 
     while (ElapsedTime() < end_time)
     {
+        Modem::Update();
     }
 }
 
