@@ -12,15 +12,13 @@ TIMER1 channel0 duty cycle = (2000 / 4000) * 100% = 50%
 ----------------------------------------------------------------------- */
     timer_parameter_struct timer_initpara;
 
-    rcu_periph_clock_enable(RCU_TIMER1);
-
     timer_deinit(TIMER1);
 
     /* TIMER configuration */
-    timer_initpara.prescaler = 59999;
+    timer_initpara.prescaler = 5999;
     timer_initpara.alignedmode = TIMER_COUNTER_EDGE;
     timer_initpara.counterdirection = TIMER_COUNTER_UP;
-    timer_initpara.period = 3999;
+    timer_initpara.period = 399;
     timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
 

@@ -27,8 +27,8 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_GPIOE);
     rcu_periph_clock_enable(RCU_GPIOF);
 
-    rcu_periph_clock_enable(RCU_ADC0);
-    rcu_periph_clock_enable(RCU_DMA0);
+    rcu_periph_clock_enable(RCU_ADC0);      // Сбор информации
+    rcu_periph_clock_enable(RCU_DMA0);      // Сбор информации
     rcu_periph_clock_enable(RCU_I2C0);      // Display
     rcu_periph_clock_enable(RCU_I2C1);
     rcu_periph_clock_enable(RCU_SPI2);      // Ext Flash
@@ -36,6 +36,7 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_USART1);    // Log
     rcu_periph_clock_enable(RCU_UART3);     // GPRS
     rcu_periph_clock_enable(RCU_AF);
+    rcu_periph_clock_enable(RCU_TIMER1);    // Для опроса контакторв
 
     HAL_I2C::Init();
 
