@@ -22,8 +22,6 @@ TIMER5 channel0 duty cycle = (2000 / 4000) * 100% = 50%
     timer_initpara.clockdivision = TIMER_CKDIV_DIV1;
     timer_initpara.repetitioncounter = 0;
 
-    timer_struct_para_init(&timer_initpara);
-
     timer_init(TIMER5, &timer_initpara);
 
     /* auto-reload preload enable */
