@@ -27,6 +27,8 @@ TIMER5 channel0 duty cycle = (2000 / 4000) * 100% = 50%
     /* auto-reload preload enable */
     timer_auto_reload_shadow_enable(TIMER5);
 
+    timer_interrupt_flag_clear(TIMER5, TIMER_INT_UP);
+
     timer_update_event_enable(TIMER5);
 
     timer_interrupt_enable(TIMER5, TIMER_INT_UP);
