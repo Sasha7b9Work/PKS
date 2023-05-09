@@ -12,7 +12,7 @@ namespace Contactors
 
     struct Contactor
     {
-        PinOUT &pin;
+        PinOUT *pin;
         bool    enabled;
         void Init();
         void Enable();
@@ -21,9 +21,9 @@ namespace Contactors
 
     static Contactor contactors[3][10] =
     {
-        {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
-        {{ pinKMB1 }, { pinKMB1 }, { pinKMB2 }, { pinKMB3 }, { pinKMB4 }, { pinKMB5 }, { pinKMB6 }, { pinKMB7 }, { pinKMB8 }, { pinKMB9 } },
-        {{ pinKMC1 }, { pinKMC1 }, { pinKMC2 }, { pinKMC3 }, { pinKMC4 }, { pinKMC5 }, { pinKMC6 }, { pinKMC7 }, { pinKMC8 }, { pinKMC9 } },
+        {{ &pinKMA1 }, { &pinKMA1 }, { &pinKMA2 }, { &pinKMA3 }, { &pinKMA4 }, { &pinKMA5 }, { &pinKMA6 }, { &pinKMA7 }, { &pinKMA8 }, { &pinKMA9 } },
+        {{ &pinKMB1 }, { &pinKMB1 }, { &pinKMB2 }, { &pinKMB3 }, { &pinKMB4 }, { &pinKMB5 }, { &pinKMB6 }, { &pinKMB7 }, { &pinKMB8 }, { &pinKMB9 } },
+        {{ &pinKMC1 }, { &pinKMC1 }, { &pinKMC2 }, { &pinKMC3 }, { &pinKMC4 }, { &pinKMC5 }, { &pinKMC6 }, { &pinKMC7 }, { &pinKMC8 }, { &pinKMC9 } },
     };
 
     // Состояние контакторов
@@ -207,11 +207,11 @@ void Contactors::Disable(int num, Phase::E phase)
 
 void Contactors::Contactor::Init()
 {
-    pin.Init();
+    pin->Init();
 
     enabled = false;
 
-    pin.Set();
+    pin->Set();
 }
 
 
@@ -221,7 +221,7 @@ void Contactors::Contactor::Enable()
     {
         enabled = true;
 
-        pin.Reset();
+        pin->Reset();
 
         TimeMeterMS().Wait(100);
     }
@@ -234,7 +234,7 @@ void Contactors::Contactor::Disable()
     {
         enabled = false;
 
-        pin.Set();
+        pin->Set();
 
         TimeMeterMS().Wait(100);
     }
