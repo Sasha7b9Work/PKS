@@ -8,7 +8,7 @@
 
 namespace Contactors
 {
-    static const uint TIME_WAIT_BIG = 1000;
+    static const uint TIME_WAIT_BIG = 1;
 
     struct Contactor
     {
