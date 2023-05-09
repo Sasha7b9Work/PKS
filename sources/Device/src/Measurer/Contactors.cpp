@@ -72,17 +72,10 @@ void Contactors::Init()
 
 void Contactors::Update(const FullMeasure &measure)
 {
-    UpdatePhase(Phase::A, measure.measures[Phase::A]);
-    UpdatePhase(Phase::A, measure.measures[Phase::A]);
-
-//    static int phase = 0;
-//
-//    UpdatePhase((Phase::E)phase++, measure.measures[(Phase::E)phase]);
-//
-//    if (phase == 3)
-//    {
-//        phase = 0;
-//    }
+    for (int i = 0; i < 3; i++)
+    {
+        UpdatePhase((Phase::E)i, measure.measures[i]);
+    }
 }
 
 
@@ -233,6 +226,8 @@ void Contactors::Contactor::Enable()
 
 void Contactors::Contactor::Disable()
 {
+    return;
+
     if (enabled)
     {
         enabled = false;
