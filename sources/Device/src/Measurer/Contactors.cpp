@@ -23,7 +23,7 @@ namespace Contactors
     {
         {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
         {{ pinKMB1 }, { pinKMB1 }, { pinKMB2 }, { pinKMB3 }, { pinKMB4 }, { pinKMB5 }, { pinKMB6 }, { pinKMB7 }, { pinKMB8 }, { pinKMB9 } },
-        {{ pinKMC1 }, { pinKMC1 }, { pinKMC2 }, { pinKMC3 }, { pinKMB4 }, { pinKMC5 }, { pinKMC6 }, { pinKMC7 }, { pinKMC8 }, { pinKMC9 } },
+        {{ pinKMC1 }, { pinKMC1 }, { pinKMC2 }, { pinKMC3 }, { pinKMC4 }, { pinKMC5 }, { pinKMC6 }, { pinKMC7 }, { pinKMC8 }, { pinKMC9 } },
     };
 
     // Состояние контакторов
@@ -62,7 +62,7 @@ void Contactors::Init()
 {
     for (int phase = 0; phase < 3; phase++)
     {
-        for (int i = 1; i < 9; i++)
+        for (int i = 1; i < 10; i++)
         {
             contactors[phase][i].Init();
         }
@@ -72,10 +72,7 @@ void Contactors::Init()
 
 void Contactors::Update(const FullMeasure &measure)
 {
-    for (int i = 0; i < 3; i++)
-    {
-        UpdatePhase((Phase::E)i, measure.measures[i]);
-    }
+    UpdatePhase(Phase::A, measure.measures[Phase::A]);
 }
 
 
