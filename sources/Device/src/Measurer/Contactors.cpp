@@ -8,6 +8,8 @@
 
 namespace Contactors
 {
+    static const uint TIME_WAIT_BIG = 1000;
+
     struct Contactor
     {
         PinOUT &pin;
@@ -133,7 +135,7 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
     Enable(3, phase);
     Disable(1, phase);
     Disable(2, phase);
-    TimeMeterMS().Wait(5000);
+    TimeMeterMS().Wait(TIME_WAIT_BIG);
     Disable(3, phase);
 
     if (new_state == TRANSIT)
@@ -182,7 +184,7 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
     Enable(3, phase);
     Enable(1, phase);
     Disable(2, phase);
-    TimeMeterMS().Wait(5000);
+    TimeMeterMS().Wait(TIME_WAIT_BIG);
     Disable(3, phase);
 }
 
