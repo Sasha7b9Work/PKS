@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
-#include <math.h>
+#include <cmath>
 
 
 namespace Calculator
@@ -20,10 +20,10 @@ namespace Calculator
         void Push(const FullMeasure &);
         void Reset();
         const uint time_average;
-        FullMeasure sum;                 // Здесь накапливаемые данные для следующего измерения
-        FullMeasure measure;                // Здесь последнее измеренное значение
+        FullMeasure sum;            // Здесь накапливаемые данные для следующего измерения
+        FullMeasure measure;        // Здесь последнее измеренное значение
         int counter[Phase::Count];
-        uint time_ready_measrue;            // В это время нужно делать новое измерение
+        uint time_ready_measrue;    // В это время нужно делать новое измерение
     };
 
     static Averager averager5Sec(5000);
@@ -106,7 +106,7 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
         currentRMS += value * value;
     }
 
-    current = sqrtf(currentRMS / (float)period);
+    current = std::sqrtf(currentRMS / (float)period);
 
     // Рассчитывем напряжение
 
@@ -132,7 +132,7 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
         voltsRMS += value * value;
     }
 
-    voltage = sqrtf(voltsRMS / (float)period);
+    voltage = std::sqrtf(voltsRMS / (float)period);
 
     if (voltage < 20.0f)
     {
