@@ -22,8 +22,8 @@ namespace Contactors
     static Contactor contactors[3][10] =
     {
         {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
-        {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
-        {{ pinKMA1 }, { pinKMA1 }, { pinKMA2 }, { pinKMA3 }, { pinKMA4 }, { pinKMA5 }, { pinKMA6 }, { pinKMA7 }, { pinKMA8 }, { pinKMA9 } },
+        {{ pinKMB1 }, { pinKMB1 }, { pinKMB2 }, { pinKMB3 }, { pinKMB4 }, { pinKMB5 }, { pinKMB6 }, { pinKMB7 }, { pinKMB8 }, { pinKMB9 } },
+        {{ pinKMC1 }, { pinKMC1 }, { pinKMC2 }, { pinKMC3 }, { pinKMB4 }, { pinKMC5 }, { pinKMC6 }, { pinKMC7 }, { pinKMC8 }, { pinKMC9 } },
     };
 
     // Состояние контакторов
