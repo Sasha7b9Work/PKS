@@ -38,6 +38,18 @@ void TimeMeterMS::Wait(uint time)
 }
 
 
+void TimeMeterMS::SetResponseTime(uint time)
+{
+    time_response = timer_counter + time;
+}
+
+
+bool TimeMeterMS::IsWorked() const
+{
+    return (time_response >= timer_counter);
+}
+
+
 void Timer::DelayMS(uint ms)
 {
     delay_1ms(ms);
