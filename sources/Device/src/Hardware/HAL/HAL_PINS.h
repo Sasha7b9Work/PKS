@@ -109,11 +109,14 @@ extern PinOUT pinGSM_PWR;
 extern PinOUT pinGSM_PWRKEY;
 extern PinIN  pinGSM_STATUS;
 
-extern PinOUT pinMX0;
-extern PinOUT pinMX1;
-extern PinOUT pinMX2;
-extern PinOUT pinMX3;
-extern PinOUT pinMX4;
+extern PinOUT pinMX0;   // \ 
+extern PinOUT pinMX1;   // |
+extern PinOUT pinMX2;   // | Выбор релея для опроса
+extern PinOUT pinMX3;   // |
+extern PinOUT pinMX4;   // /
+extern PinIN pinP1;     // \ Чтение состояния реле 
+extern PinIN pinP2;     // /
+
 extern PinOUT pinKMA1;
 extern PinOUT pinKMA2;
 extern PinOUT pinKMA3;

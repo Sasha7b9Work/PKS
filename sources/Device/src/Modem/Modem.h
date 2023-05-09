@@ -21,9 +21,14 @@ namespace Modem
 
     void CallbackOnReceive(char);
 
-    void SendMeasure(const FullMeasure &);
+    namespace Send
+    {
+        void Measure(const FullMeasure &);
 
-    void SendGP(int num, bool state);
+        void GP(int num, bool state);
+
+        void Contactors(const String &);
+    }
 
     namespace Mode
     {

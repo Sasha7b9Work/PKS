@@ -5,6 +5,9 @@
 #include "Hardware/HAL/systick.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
+#include "Modem/Modem.h"
+#include <gd32f30x.h>
+#include <cstring>
 
 
 namespace Contactors
@@ -101,6 +104,23 @@ namespace Contactors
 
     // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
     bool IsBusy(Phase::E phase);
+
+    // Устанавливает адрес на линиях MX
+    static void SetAddressMX(uint);
+
+    // Возвращает состояние реле, выбранного установленным ранее адресом по SetAddressMX()
+    static bool StateRele();
+
+    // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
+    static bool ReleIsBusy(uint address);
+
+    static const int NUM_CONTACTORS = 27;
+
+    // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
+    static bool state_contactor[NUM_CONTACTORS];
+
+    // Отослать состояние всех реле
+    static void SendStateRelays();
 }
 
 
@@ -119,6 +139,15 @@ void Contactors::Init()
             contactors[phase][i].Init();
         }
     }
+
+    pinMX0.Init();
+    pinMX1.Init();
+    pinMX2.Init();
+    pinMX3.Init();
+    pinMX4.Init();
+
+    pinP1.Init(GPIO_MODE_IPU);
+    pinP2.Init(GPIO_MODE_IPU);
 }
 
 
@@ -374,5 +403,110 @@ void Contactors::Contactor::Disable()
 
 void Contactors::VerifyCondition()
 {
+    static TimeMeterMS meter;
 
+    if (meter.ElapsedTime() < 1)
+    {
+        return;
+    }
+
+    meter.Reset();
+
+    static bool first = true;
+
+    static uint address = 0;
+
+    if (first)
+    {
+        SetAddressMX(address);
+        first = false;
+    }
+    else
+    {
+        state_contactor[address] = ReleIsBusy(address) ? true : StateRele();
+
+        address = Math::CircularIncrease(address, 0U, (uint)NUM_CONTACTORS);
+
+        SetAddressMX(address);
+
+        if (address == 0)   // Опросили все реле, будем посылать результат
+        {
+            SendStateRelays();
+        }
+    }
+}
+
+
+void Contactors::SetAddressMX(uint address)
+{
+    pinMX0.SetState((address & 1) != 0);
+    pinMX1.SetState((address & 2) != 0);
+    pinMX2.SetState((address & 4) != 0);
+    pinMX3.SetState((address & 8) != 0);
+    pinMX4.SetState((address & 16) == 0);
+}
+
+
+bool Contactors::StateRele()
+{
+    bool p1 = pinP1.IsHi();
+    bool p2 = pinP2.IsHi();
+
+    return (p1 && !p2) || (!p1 && p2);
+}
+
+
+bool Contactors::ReleIsBusy(uint address)
+{
+    if (address < 9)
+    {
+        return Contactors::IsBusy(Phase::A);
+    }
+    else if (address < 18)
+    {
+        return Contactors::IsBusy(Phase::B);
+    }
+
+    return Contactors::IsBusy(Phase::C);
+}
+
+
+void Contactors::SendStateRelays()
+{
+    static const char *const names[27] =
+    {
+        "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"
+        "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
+        "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"
+    };
+
+    static const uint SIZE_BUFFER = 32;
+
+    char buffer[SIZE_BUFFER] = { '\0' };
+
+    for (int i = 0; i < NUM_CONTACTORS; i++)
+    {
+        if (state_contactor[i] == false)
+        {
+            if (std::strlen(buffer) != 0)
+            {
+                std::strcat(buffer, " ");
+            }
+            std::strcat(buffer, names[i]);
+
+            if (std::strlen(buffer) + std::strlen(names[0] + 1) > SIZE_BUFFER)
+            {
+                i = NUM_CONTACTORS;
+            }
+        }
+    }
+
+    if (std::strlen(buffer) == 0)
+    {
+        Modem::Send::Contactors(String("Ok"));
+    }
+    else
+    {
+        Modem::Send::Contactors(String(buffer));
+    }
 }

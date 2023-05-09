@@ -28,8 +28,6 @@ void Device::Init()
 
     Modem::Init();
 
-    Contactors::Init();
-
     FlashDisk::Init();
 
     Display::Init();

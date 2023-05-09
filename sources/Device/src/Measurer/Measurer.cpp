@@ -51,7 +51,7 @@ void Measurer::Update()
     {
         measure = Calculate();
 
-        Modem::SendMeasure(measure);
+        Modem::Send::Measure(measure);
 
         measure5Sec = Calculator::Average5Sec(measure);
 

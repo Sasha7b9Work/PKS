@@ -37,11 +37,15 @@ PinOUT pinGSM_PWR(GPIOD, GPIO_PIN_2);
 PinOUT pinGSM_PWRKEY(GPIOD, GPIO_PIN_0);
 PinIN  pinGSM_STATUS(GPIOD, GPIO_PIN_1);
 
-PinOUT pinOutMX0(GPIOA, GPIO_PIN_8);
-PinOUT pinOutMX1(GPIOA, GPIO_PIN_9);
-PinOUT pinOutMX2(GPIOA, GPIO_PIN_10);
-PinOUT pinOutMX3(GPIOA, GPIO_PIN_11);
-PinOUT pinOutMX4(GPIOA, GPIO_PIN_12);
+PinOUT pinMX0(GPIOA, GPIO_PIN_8);
+PinOUT pinMX1(GPIOA, GPIO_PIN_9);
+PinOUT pinMX2(GPIOA, GPIO_PIN_10);
+PinOUT pinMX3(GPIOA, GPIO_PIN_11);
+PinOUT pinMX4(GPIOA, GPIO_PIN_12);
+
+PinIN pinP1(GPIOE, GPIO_PIN_4);
+PinIN pinP2(GPIOE, GPIO_PIN_3);
+
 PinOUT pinKMA1(GPIOE, GPIO_PIN_9);
 PinOUT pinKMA2(GPIOE, GPIO_PIN_8);
 PinOUT pinKMA3(GPIOE, GPIO_PIN_7);
@@ -127,7 +131,7 @@ void HAL_PINS::Update()
 
         if (pinsGP[i].IsSwitched())
         {
-            Modem::SendGP(i + 1, !pinsGP[i].GetState());
+            Modem::Send::GP(i + 1, !pinsGP[i].GetState());
 
             pinsGP[i].ResetSwitch();
         }
@@ -141,7 +145,7 @@ void HAL_PINS::SendState()
     {
         pinsGP[i].IsHi();
 
-        Modem::SendGP(i + 1, !pinsGP[i].GetState());
+        Modem::Send::GP(i + 1, !pinsGP[i].GetState());
 
         pinsGP[i].ResetSwitch();
     }

@@ -36,17 +36,8 @@ namespace MQTT
     // Если nned_ping == true, то посылаем команду пинга
     static bool need_ping = false;
 
-    static FullMeasure measure;
-
-    static bool gp[3] = { false, false, false };
-    static bool need_gp[3] = { false, false, false };
-
-    // Если true - надо передавать измерение
-    static bool need_measure = false;
-
     void Update(const String &);
 
-//    static const char MQTT_type[15] = "MQIsdp";             // тип протокола НЕ ТРОГАТЬ!
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
 
@@ -57,13 +48,21 @@ namespace MQTT
 
     void CallbackOnReceiveData();
 
-    // Сбрасывается каждый раз при поступлении данынх
-    static TimeMeterMS meterLastData;
-
-    static void SendMeasure(pchar name, float value);
-
-    void SendMeasure(const FullMeasure &);
-    void SendGP(int num, bool state);
+    namespace Send
+    {
+        // Сбрасывается каждый раз при поступлении данынх
+        static TimeMeterMS meterLastData;
+        static void Measure(pchar name, float value);
+        void Measure(const FullMeasure &);
+        void GP(int num, bool state);
+        void Contactors(const String &);
+        static bool gp[3] = { false, false, false };
+        static bool need_gp[3] = { false, false, false };
+        // Если true - надо передавать измерение
+        static bool need_measure = false;
+        static FullMeasure measure;
+        static String contactors("");               // Если пустая строка, то передавать не нужно
+    }
 
     // Присоединён к серверу MQTT
     bool IsConnected();
@@ -121,7 +120,7 @@ void MQTT::Update(const String &answer)
 
             state = State::RUNNING;
 
-            meterLastData.Reset();
+            Send::meterLastData.Reset();
 
             meterPing.Reset();
 
@@ -131,7 +130,7 @@ void MQTT::Update(const String &answer)
 
     case State::RUNNING:
 
-        if (meterLastData.ElapsedTime() > 30000)
+        if (Send::meterLastData.ElapsedTime() > 30000)
         {
 //            SIM800::Reset();
         }
@@ -145,23 +144,28 @@ void MQTT::Update(const String &answer)
 
         if (answer == ">")
         {
-            if (need_gp[0] || need_gp[1] || need_gp[2])
+            if (Send::contactors.Size() != 0)
+            {
+                PublishPacket("/base/state/bad_contactors", Send::contactors.c_str());
+                Send::contactors.Set("");
+            }
+            if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
             {
                 char name[20] = "base/state/gp0";
 
                 for (int i = 0; i < 3; i++)
                 {
-                    if (need_gp[i])
+                    if (Send::need_gp[i])
                     {
                         name[13] = (char)((i + 1) | 0x30);
 
-                        PublishPacket(name, gp[i] ? "1" : "0");
+                        PublishPacket(name, Send::gp[i] ? "1" : "0");
 
-                        need_gp[i] = false;
+                        Send::need_gp[i] = false;
                     }
                 }
             }
-            if (need_measure)
+            if (Send::need_measure)
             {
                 static int counter = 0;
 
@@ -170,25 +174,25 @@ void MQTT::Update(const String &answer)
 
                 PublishPacket("base/state/counter", buffer);
 
-                if (!measure.is_bad[0])
+                if (!Send::measure.is_bad[0])
                 {
-                    SendMeasure("base/state/voltage_a", measure.measures[0].voltage);
-                    SendMeasure("base/state/current_a", measure.measures[0].current * 1000.0f);
+                    Send::Measure("base/state/voltage_a", Send::measure.measures[0].voltage);
+                    Send::Measure("base/state/current_a", Send::measure.measures[0].current * 1000.0f);
                 }
 
-                if (!measure.is_bad[1])
+                if (!Send::measure.is_bad[1])
                 {
-                    SendMeasure("base/state/voltage_b", measure.measures[1].voltage);
-                    SendMeasure("base/state/current_b", measure.measures[1].current * 1000.0f);
+                    Send::Measure("base/state/voltage_b", Send::measure.measures[1].voltage);
+                    Send::Measure("base/state/current_b", Send::measure.measures[1].current * 1000.0f);
                 }
 
-                if (!measure.is_bad[2])
+                if (!Send::measure.is_bad[2])
                 {
-                    SendMeasure("base/state/voltage_c", measure.measures[2].voltage);
-                    SendMeasure("base/state/current_c", measure.measures[2].current * 1000.0f);
+                    Send::Measure("base/state/voltage_c", Send::measure.measures[2].voltage);
+                    Send::Measure("base/state/current_c", Send::measure.measures[2].current * 1000.0f);
                 }
 
-                need_measure = false;
+                Send::need_measure = false;
             }
             if(need_ping)
             {
@@ -211,7 +215,7 @@ bool MQTT::IsConnected()
 }
 
 
-void MQTT::SendMeasure(pchar name, float value)
+void MQTT::Send::Measure(pchar name, float value)
 {
     char buffer[32];
     sprintf(buffer, "%d", (int)(value + 0.5f));
@@ -226,7 +230,7 @@ void MQTT::SendMeasure(pchar name, float value)
 }
 
 
-void MQTT::SendMeasure(const FullMeasure &meas)
+void MQTT::Send::Measure(const FullMeasure &meas)
 {
     if (state != State::RUNNING)
     {
@@ -254,7 +258,27 @@ void MQTT::SendMeasure(const FullMeasure &meas)
 }
 
 
-void MQTT::SendGP(int num, bool is_low)
+void MQTT::Send::Contactors(const String &message)
+{
+    static TimeMeterMS meterLastMessage;
+
+    if (state != State::RUNNING)
+    {
+        return;
+    }
+
+    contactors = message;
+
+    if (meterLastMessage.ElapsedTime() < 60000)
+    {
+        return;
+    }
+
+    SIM800::Transmit("AT+CIPSEND");
+}
+
+
+void MQTT::Send::GP(int num, bool is_low)
 {
     if (state != State::RUNNING)
     {
@@ -293,5 +317,5 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 
 void MQTT::CallbackOnReceiveData()
 {
-    meterLastData.Reset();
+    Send::meterLastData.Reset();
 }

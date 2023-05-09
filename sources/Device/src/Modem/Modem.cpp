@@ -53,9 +53,14 @@ namespace SIM800
 
 namespace MQTT
 {
-    void SendMeasure(const FullMeasure &);
-    void SendGP(int num, bool state);
     bool IsConnected();
+
+    namespace Send
+    {
+        void Measure(const FullMeasure &);
+        void GP(int num, bool state);
+        void Contactors(const String &);
+    }
 }
 
 
@@ -302,13 +307,19 @@ bool Modem::GSM_PG::ReadInput()
 }
 
 
-void Modem::SendMeasure(const FullMeasure &measure)
+void Modem::Send::Measure(const FullMeasure &measure)
 {
-    MQTT::SendMeasure(measure);
+    MQTT::Send::Measure(measure);
 }
 
 
-void Modem::SendGP(int num, bool is_low)
+void Modem::Send::GP(int num, bool is_low)
 {
-    MQTT::SendGP(num, is_low);
+    MQTT::Send::GP(num, is_low);
+}
+
+
+void Modem::Send::Contactors(const String &contactors)
+{
+    MQTT::Send::Contactors(contactors);
 }
