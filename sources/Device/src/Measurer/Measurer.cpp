@@ -7,6 +7,12 @@
 #include <cmath>
 
 
+namespace Contactors
+{
+    bool IsBusy(Phase::E phase);
+}
+
+
 namespace Measurer
 {
     static struct FullMeasure measure;
@@ -22,6 +28,9 @@ namespace Measurer
     static Sample currentB[NUM_SAMPLES];
     static Sample currentC[NUM_SAMPLES];
 
+    // Сюда пишем true, если в начале чтения данных контакторы находятся в неустановившемся положении
+    static bool bad_in_begin[Phase::Count] = { false, false, false };
+
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 
     static FullMeasure Calculate();
@@ -34,7 +43,16 @@ void Measurer::Update()
 {
     if (BuffersFull())
     {
+        bool is_bad[Phase::Count] = { Contactors::IsBusy(Phase::A), Contactors::IsBusy(Phase::B), Contactors::IsBusy(Phase::C) };
+
         measure = Calculate();
+
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            measure.measures[i].is_bad = (is_bad[i] || bad_in_begin[i]);
+        }
+
+        Modem::SendMeasure(measure);
 
         Calculate5Sec(measure);
 
@@ -43,6 +61,11 @@ void Measurer::Update()
         LOG_WRITE("%f V", measure.measures[0].voltage);
 
         pos_adc_value = 0;
+
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            bad_in_begin[i] = Contactors::IsBusy((Phase::E)i);
+        }
     }
 }
 
@@ -120,14 +143,6 @@ FullMeasure Measurer::Calculate()
     result.measures[1].Calculate(voltB, currentB);
 
     result.measures[2].Calculate(voltC, currentC);
-
-    Modem::SendMeasure(result);
-
-    FullMeasure limitsVoltageA;
-    PhaseMeasure().CalculateLimits(voltA, &limitsVoltageA);
-
-    FullMeasure limitsAmpersC;
-    PhaseMeasure().CalculateLimits(currentC, &limitsAmpersC);
 
     return result;
 }

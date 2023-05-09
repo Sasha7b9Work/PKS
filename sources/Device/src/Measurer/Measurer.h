@@ -54,6 +54,8 @@ struct PhaseMeasure
 {
     float voltage;
     float current;
+    // Если == true, то это измерение нельзя использовать
+    bool is_bad;
 
     void Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES]);
 

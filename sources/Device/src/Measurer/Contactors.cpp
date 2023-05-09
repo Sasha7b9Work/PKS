@@ -104,6 +104,12 @@ namespace Contactors
 }
 
 
+bool Contactors::IsBusy(Phase::E phase)
+{
+    return State::current[phase] != State::IDLE;
+}
+
+
 void Contactors::Init()
 {
     for (int phase = 0; phase < 3; phase++)
