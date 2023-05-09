@@ -1,6 +1,7 @@
 // 2023/03/16 16:53:18 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Measurer/Measurer.h"
+#include "Hardware/Timer.h"
 #include <math.h>
 
 
@@ -10,10 +11,19 @@ namespace Calculator
 
     struct Averager
     {
-        Averager(uint time) : time_average(time) { }
+        Averager(uint time) : time_average(time)
+        {
+            Reset();
+        }
         FullMeasure Calculate(const FullMeasure &);
     private:
+        void Push(const FullMeasure &);
+        void Reset();
         const uint time_average;
+        FullMeasure sum;                 // Здесь накапливаемые данные для следующего измерения
+        FullMeasure measure;                // Здесь последнее измеренное значение
+        int counter[Phase::Count];
+        uint time_ready_measrue;            // В это время нужно делать новое измерение
     };
 
     static Averager averager5Sec(5000);
@@ -28,6 +38,56 @@ namespace Calculator
     {
         return averager1Min.Calculate(measure);
     }
+}
+
+
+FullMeasure Calculator::Averager::Calculate(const FullMeasure &meas)
+{
+    Push(meas);
+
+    if (Timer::TimeMS() >= time_ready_measrue)
+    {
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            if (counter[i] != 0)
+            {
+                measure.measures[i].voltage = sum.measures[i].voltage / (float)counter[i];
+                measure.measures[i].current = sum.measures[i].current / (float)counter[i];
+            }
+        }
+
+        Reset();
+    }
+
+    return measure;
+}
+
+
+void Calculator::Averager::Push(const FullMeasure &meas)
+{
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        if (!meas.is_bad[i])
+        {
+            sum.measures[i].voltage += meas.measures[i].voltage;
+            sum.measures[i].current += meas.measures[i].current;
+            counter[i]++;
+        }
+    }
+}
+
+
+void Calculator::Averager::Reset()
+{
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        counter[i] = 0;
+        sum.measures[i].current = 0.0f;
+        sum.measures[i].current = 0.0f;
+        measure.is_bad[i] = false;
+    }
+
+    time_ready_measrue = Timer::TimeMS() + time_average;
 }
 
 
