@@ -372,7 +372,7 @@ void Contactors::Contactor::Disable()
 }
 
 
-void Contactors::CallbackOnTimerVerivy()
+void Contactors::VerifyCondition()
 {
 
 }

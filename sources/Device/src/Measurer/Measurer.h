@@ -91,6 +91,6 @@ namespace Measurer
 
 namespace Contactors
 {
-    // Эта функция вызывакется по таймеру каждую мс для проверки состояния контакторов
-    void CallbackOnTimerVerivy();
+    // Проверить состояние очередного вывода. Вызывается в глвном цикле
+    void VerifyCondition();
 }

@@ -51,8 +51,6 @@ void HAL::Init()
 
     HAL_PINS::Init();
 
-    HAL_TIM1::Init();
-
 #ifdef ENABLE_LOG
     HAL_USART_LOG::Init();
 #endif

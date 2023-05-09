@@ -49,6 +49,8 @@ void Device::Update()
     Modem::Update();
 
     HAL_PINS::Update();
+
+    Contactors::VerifyCondition();
 }
 
 

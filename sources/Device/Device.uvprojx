@@ -613,11 +613,6 @@
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
             </File>
-            <File>
-              <FileName>HAL_TIM1.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_TIM1.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1433,11 +1428,6 @@
               <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_TIM1.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_TIM1.cpp</FilePath>
             </File>
           </Files>
         </Group>

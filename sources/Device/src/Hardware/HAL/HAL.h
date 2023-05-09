@@ -125,9 +125,6 @@ extern "C" {
 
     void UART3_IRQHandler(void);
 
-    void TIMER1_IRQHandler(void);
-    void TIMER5_IRQHandler(void);
-
 #ifdef __cplusplus
 }
 #endif
