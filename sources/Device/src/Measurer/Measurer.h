@@ -87,10 +87,6 @@ namespace Measurer
     FullMeasure Measure5Sec();
 
     FullMeasure Measure1Min();
-
-    // Если измерения не можем производить (идёт переключение контакторов), отлкючаем его вручную
-    void DisableMeasure(Phase::E);
-    void EnableMeasure(Phase::E);
 }
 
 

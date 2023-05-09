@@ -43,7 +43,14 @@ namespace Contactors
             STAGE_1_1,
             STAGE_1_2,
             STAGE_1_3,
-            POLARITY_STAGE
+            POLARITY_LEVEL,
+            TRANSIT_EXIT_1,
+            TRANSIT_EXIT_2,
+            TRANSIT_EXIT_3,
+            TRANSIT_EXIT_4,
+            TRANSIT_EXIT_5,
+            TRANSIT_EXIT_6,
+            END
         };
 
         static E current[3];
@@ -84,11 +91,6 @@ namespace Contactors
         static const int MAX = ABOVE_270;
 
         static int current[3] = { 0, 0, 0 };
-
-        static void Set(Phase::E, int stage);
-
-        // Изменить состояние контакторов на delta шагов
-        static void Change(Phase::E, int delta);
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
@@ -96,6 +98,9 @@ namespace Contactors
     static void Disable(int contactor, Phase::E, State::E next, TimeMeterMS &);
 
     static void UpdatePhase(Phase::E, const PhaseMeasure &);
+
+    // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
+    bool IsBusy(Phase::E phase);
 }
 
 
@@ -122,11 +127,78 @@ void Contactors::Update(const FullMeasure &measure)
 
 void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 {
+    /*
+    if (new_state == current[phase])
+    {
+        return;
+    }
+    
+    current[phase] = new_state;
+    
+    Enable(2, phase);
+    Enable(3, phase);                       // TRANSIT_EN_1
+    Disable(1, phase);                      // TRANSIT_EN_2
+    Disable(2, phase);                      // TRANSIT_EN_3
+    TimeMeterMS().Wait(TIME_WAIT_BIG);      // TRANSIT_EN_4
+    Disable(3, phase);                      // TRANSIT_EN_5
+    
+    if (new_state == TRANSIT)               // TRANSIT_EN_6
+    {
+        Disable(4, phase);
+        Disable(5, phase);                  // TRANSIT_DIS_1
+        Disable(6, phase);                  // TRANSIT_DIS_2
+        Disable(7, phase);                  // TRANSIT_DIS_3
+        Disable(8, phase);                  // TRANSIT_DIS_4
+    
+        return;                             // TRANSIT_DIS_5
+    }
+    
+    if (new_state == -4 || new_state == 4)
+    {
+        Enable(4, phase);
+        Enable(5, phase);                   // STAGE_4_1
+        Enable(6, phase);                   // STAGE_4_2
+        Enable(7, phase);                   // STAGE_4_3
+    }
+    else if (new_state == -3 || new_state == 3)
+    {
+        Disable(4, phase);
+        Enable(5, phase);                   // STAGE_3_1
+        Enable(6, phase);                   // STAGE_3_2
+        Enable(7, phase);                   // STAGE_3_3
+    }
+    else if (new_state == -2 || new_state == 2)
+    {
+        Disable(4, phase);
+        Disable(5, phase);                  // STAGE_2_1
+        Enable(6, phase);                   // STAGE_2_2
+        Enable(7, phase);                   // STAGE_2_3
+    }
+    else if (new_state == -1 || new_state == 1)
+    {
+        Disable(4, phase);
+        Disable(5, phase);                  // STAGE_1_1
+        Disable(6, phase);                  // STAGE_1_2
+        Disable(7, phase);                  // STAGE_1_3
+    }
+    
+    new_state > 0 ? Disable(8, phase) : Enable(8, phase);       // POLARITY_LEVEL
+    
+    Enable(2, phase);                   // TRANSIT_EXIT_1
+    Enable(3, phase);                   // TRANSIT_EXIT_2
+    Enable(1, phase);                   // TRANSIT_EXIT_3
+    Disable(2, phase);                  // TRANSIT_EXIT_4
+    TimeMeterMS().Wait(TIME_WAIT_BIG);  // TRANSIT_EXIT_5
+    Disable(3, phase)                   // TRANSIT_EXIT_6
+    return;                             // TRANSIT_EXIT_7
+    */
+
+
 #define ENABLE_RELE(num, state)  { Enable(num, phase, state, meter[phase]);  break; }
 #define DISABLE_RELE(num, state) { Disable(num, phase, state, meter[phase]); break; }
 
-#define IF_ENABLE_RELE(num, state)  if(meter[phase].IsWorked()) { ENABLE_RELE(num, state); }
-#define IF_DISABLE_RELE(num, state) if(meter[phase].IsWorked()) { DISABLE_RELE(num, state); }
+#define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsWorked()) { ENABLE_RELE(num, state); }
+#define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsWorked()) { DISABLE_RELE(num, state); }
 
     static TimeMeterMS meter[3];
 
@@ -163,140 +235,82 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
     
             Level::current[phase] = new_stage;
 
-            Measurer::DisableMeasure(phase);
-    
             ENABLE_RELE(2, State::TRANSIT_EN_1);
         }
-        break;
 
-    case State::TRANSIT_EN_1:   IF_ENABLE_RELE(3, State::TRANSIT_EN_2);
-    case State::TRANSIT_EN_2:   IF_DISABLE_RELE(1, State::TRANSIT_EN_3);
-    case State::TRANSIT_EN_3:   IF_DISABLE_RELE(2, State::TRANSIT_EN_3);
+    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);
+    case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);
+    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_3);
     case State::TRANSIT_EN_4:       
         if (meter[phase].IsWorked()) { meter[phase].SetResponseTime(TIME_WAIT_BIG); State::current[phase] = State::TRANSIT_EN_5; } break;
 
-    case State::TRANSIT_EN_5:   DISABLE_RELE(3, State::TRANSIT_EN_6);
+    case State::TRANSIT_EN_5:
+        if (meter[phase].IsWorked()) { DISABLE_RELE(3, State::TRANSIT_EN_6); } break;
 
     case State::TRANSIT_EN_6:
-        if (Level::current[phase] == Level::TRANSIT) { DISABLE_RELE(4, State::TRANSIT_DIS_1); }
-        else if (Level::current[phase] == -4 || Level::current[phase] == 4) { ENABLE_RELE(4, State::STAGE_4_1);  }
-        else if (Level::current[phase] == -3 || Level::current[phase] == 3) { DISABLE_RELE(4, State::STAGE_3_1); }
-        else if (Level::current[phase] == -2 || Level::current[phase] == 2) { DISABLE_RELE(4, State::STAGE_2_1); }
-        else if (Level::current[phase] == -1 || Level::current[phase] == 1) { DISABLE_RELE(4, State::STAGE_1_1); }
-        else
+        if (meter[phase].IsWorked())
         {
-            State::current[phase] = State::POLARITY_STAGE;
+            if (Level::current[phase] == Level::TRANSIT) { DISABLE_RELE(4, State::TRANSIT_DIS_1); }
+            else if (Level::current[phase] == -4 || Level::current[phase] == 4) { ENABLE_RELE(4, State::STAGE_4_1); }
+            else if (Level::current[phase] == -3 || Level::current[phase] == 3) { DISABLE_RELE(4, State::STAGE_3_1); }
+            else if (Level::current[phase] == -2 || Level::current[phase] == 2) { DISABLE_RELE(4, State::STAGE_2_1); }
+            else if (Level::current[phase] == -1 || Level::current[phase] == 1) { DISABLE_RELE(4, State::STAGE_1_1); }
+            else
+            {
+                State::current[phase] = State::POLARITY_LEVEL;
+            }
         }
         break;
 
-    case State::TRANSIT_DIS_1:
-        if (meter[phase].IsWorked())    Disable(5, phase, State::TRANSIT_DIS_2, meter[phase]);    break;
-
-    case State::TRANSIT_DIS_2:
-        if (meter[phase].IsWorked())     Disable(6, phase, State::TRANSIT_DIS_3, meter[phase]);     break;
-
-    case State::TRANSIT_DIS_3:
-        if (meter[phase].IsWorked())     Disable(7, phase, State::TRANSIT_DIS_4, meter[phase]);      break;
-
-    case State::TRANSIT_DIS_4:
-        if (meter[phase].IsWorked())  Disable(8, phase, State::TRANSIT_DIS_5, meter[phase]);        break;
-
+    case State::TRANSIT_DIS_1:  WAIT_DISABLE_RELE(5, State::TRANSIT_DIS_2);
+    case State::TRANSIT_DIS_2:  WAIT_DISABLE_RELE(6, State::TRANSIT_DIS_3);
+    case State::TRANSIT_DIS_3:  WAIT_DISABLE_RELE(7, State::TRANSIT_DIS_4);
+    case State::TRANSIT_DIS_4:  WAIT_DISABLE_RELE(8, State::TRANSIT_DIS_5);
     case State::TRANSIT_DIS_5:
+        if (meter[phase].IsWorked())  State::current[phase] = State::IDLE;  break;
 
-    case State::STAGE_4_1:
+    case State::STAGE_4_1:      WAIT_ENABLE_RELE(5, State::STAGE_4_2);
+    case State::STAGE_4_2:      WAIT_ENABLE_RELE(6, State::STAGE_4_3);
+    case State::STAGE_4_3:      WAIT_ENABLE_RELE(7, State::POLARITY_LEVEL);
 
+    case State::STAGE_3_1:      WAIT_DISABLE_RELE(5, State::STAGE_3_2);
+    case State::STAGE_3_2:      WAIT_ENABLE_RELE(6, State::STAGE_3_3);
+    case State::STAGE_3_3:      WAIT_ENABLE_RELE(7, State::POLARITY_LEVEL);
+
+    case State::STAGE_2_1:      WAIT_DISABLE_RELE(5, State::STAGE_2_2);
+    case State::STAGE_2_2:      WAIT_ENABLE_RELE(6, State::STAGE_2_3);
+    case State::STAGE_2_3:      WAIT_ENABLE_RELE(7, State::POLARITY_LEVEL);
+
+    case State::STAGE_1_1:      WAIT_DISABLE_RELE(5, State::STAGE_1_2);
+    case State::STAGE_1_2:      WAIT_DISABLE_RELE(6, State::STAGE_1_3);
+    case State::STAGE_1_3:      WAIT_DISABLE_RELE(7, State::POLARITY_LEVEL);
+
+    case State::POLARITY_LEVEL:
+        if (meter[phase].IsWorked())
+        {
+            if (Level::current[phase] > 0) { DISABLE_RELE(8, State::TRANSIT_EXIT_1) } else { ENABLE_RELE(8, State::TRANSIT_EXIT_1); }
+        }
         break;
+    case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2);
+    case State::TRANSIT_EXIT_2:     WAIT_ENABLE_RELE(3, State::TRANSIT_EXIT_3);
+    case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4);
+    case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5);
+    case State::TRANSIT_EXIT_5:
+        if (meter[phase].IsWorked())
+        {
+            meter[phase].SetResponseTime(TIME_WAIT_BIG);
+            State::current[phase] = State::TRANSIT_EXIT_6;
+        }
+        break;
+    case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END);
 
-    case State::STAGE_4_2:
-
+    case State::END:
+        if (meter[phase].IsWorked())
+        {
+            State::current[phase] = State::IDLE;
+        }
         break;
     }
-}
-
-
-void Contactors::Level::Change(Phase::E phase, int delta)
-{
-    int new_state = (int)current[phase] + delta;
-
-    if (new_state < MIN)
-    {
-        new_state = MIN;
-    }
-    else if (new_state >= MAX)
-    {
-        new_state = MAX;
-    }
-
-    Set(phase, new_state);
-}
-
-
-void Contactors::Level::Set(Phase::E phase, int new_state)
-{
-    if (new_state == current[phase])
-    {
-        return;
-    }
-
-    current[phase] = new_state;
-
-    /*
-    Enable(2, phase);
-    Enable(3, phase);                       // TRANSIT_EN_1
-    Disable(1, phase);                      // TRANSIT_EN_2
-    Disable(2, phase);                      // TRANSIT_EN_3
-    TimeMeterMS().Wait(TIME_WAIT_BIG);      // TRANSIT_EN_4
-    Disable(3, phase);                      // TRANSIT_EN_5
-
-    if (new_state == TRANSIT)               // TRANSIT_EN_6
-    {
-        Disable(4, phase);
-        Disable(5, phase);                  // TRANSIT_DIS_1
-        Disable(6, phase);                  // TRANSIT_DIS_2
-        Disable(7, phase);                  // TRANSIT_DIS_3
-        Disable(8, phase);                  // TRANSIT_DIS_4
-
-        return;                             // TRANSIT_DIS_5
-    }
-
-    if (new_state == -4 || new_state == 4)
-    {
-        Enable(4, phase);
-        Enable(5, phase);                   // STAGE_4_1
-        Enable(6, phase);                   // STAGE_4_2
-        Enable(7, phase);                   // STAGE_4_3
-    }
-    else if (new_state == -3 || new_state == 3)
-    {
-        Disable(4, phase);
-        Enable(5, phase);                   // STAGE_3_1
-        Enable(6, phase);                   // STAGE_3_2
-        Enable(7, phase);                   // STAGE_3_3
-    }
-    else if (new_state == -2 || new_state == 2)
-    {
-        Disable(4, phase);
-        Disable(5, phase);                  // STAGE_2_1
-        Enable(6, phase);                   // STAGE_2_2
-        Enable(7, phase);                   // STAGE_2_3
-    }
-    else if (new_state == -1 || new_state == 1)
-    {
-        Disable(4, phase);
-        Disable(5, phase);                  // STAGE_1_1
-        Disable(6, phase);                  // STAGE_1_2
-        Disable(7, phase);                  // STAGE_1_3
-    }
-
-    new_state > 0 ? Disable(8, phase) : Enable(8, phase);       // POLARITY_STAGE
-
-    Enable(2, phase);
-    Enable(3, phase);
-    Enable(1, phase);
-    Disable(2, phase);
-    TimeMeterMS().Wait(TIME_WAIT_BIG);
-    Disable(3, phase);
-    */
 }
 
 
