@@ -1,4 +1,4 @@
-﻿// 2023/04/09 14:55:08 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2023/04/09 14:55:08 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
@@ -101,6 +101,8 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
 void Contactors::Stage::Change(Phase::E phase, int delta)
 {
+    HAL_TIM1::Disable();
+
     int new_state = (int)current[phase] + delta;
 
     if (new_state < MIN)
@@ -113,6 +115,8 @@ void Contactors::Stage::Change(Phase::E phase, int delta)
     }
 
     Set(phase, new_state);
+
+    HAL_TIM1::Enable();
 }
 
 
@@ -228,4 +232,10 @@ void Contactors::Contactor::Disable()
 
         TimeMeterMS().Wait(100);
     }
+}
+
+
+void Contactors::CallbackOnTimerVerivy()
+{
+
 }

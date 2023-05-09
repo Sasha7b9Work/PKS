@@ -88,3 +88,10 @@ namespace Measurer
 
     FullMeasure Measure1Min();
 }
+
+
+namespace Contactors
+{
+    // Эта функция вызывакется по таймеру каждую мс для проверки состояния контакторов
+    void CallbackOnTimerVerivy();
+}

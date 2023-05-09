@@ -144,7 +144,9 @@ extern "C" {
 
     void TIMER5_IRQHandler(void)
     {
+        Contactors::CallbackOnTimerVerivy();
 
+        timer_interrupt_flag_clear(TIMER4, TIMER_INT_FLAG_UP);
     }
 
 #ifdef __cplusplus

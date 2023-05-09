@@ -36,3 +36,15 @@ TIMER5 channel0 duty cycle = (2000 / 4000) * 100% = 50%
     /* auto-reload preload enable */
     timer_enable(TIMER5);
 }
+
+
+void HAL_TIM1::Disable()
+{
+    timer_disable(TIMER5);
+}
+
+
+void HAL_TIM1::Enable()
+{
+    timer_enable(TIMER5);
+}
