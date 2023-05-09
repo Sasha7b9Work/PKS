@@ -37,15 +37,11 @@ namespace Measurer
 }
 
 
-namespace Averager5Sec
+namespace Calculator
 {
-    FullMeasure Calculate(const FullMeasure &);
-}
+    FullMeasure Average5Sec(const FullMeasure &);
 
-
-namespace Averager1Min
-{
-    FullMeasure Calculate(const FullMeasure &);
+    FullMeasure Average1Min(const FullMeasure &);
 }
 
 
@@ -57,9 +53,9 @@ void Measurer::Update()
 
         Modem::SendMeasure(measure);
 
-        measure5Sec = Averager5Sec::Calculate(measure);
+        measure5Sec = Calculator::Average5Sec(measure);
 
-        measure1Min = Averager1Min::Calculate(measure);
+        measure1Min = Calculator::Average1Min(measure);
 
         for (int i = 0; i < Phase::Count; i++)
         {

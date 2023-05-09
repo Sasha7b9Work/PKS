@@ -7,6 +7,27 @@
 namespace Calculator
 {
     static int CalculatePeriod(const Sample samples[NUM_SAMPLES]);
+
+    struct Averager
+    {
+        Averager(uint time) : time_average(time) { }
+        FullMeasure Calculate(const FullMeasure &);
+    private:
+        const uint time_average;
+    };
+
+    static Averager averager5Sec(5000);
+    static Averager averager1Min(60000);
+
+    FullMeasure Average5Sec(const FullMeasure &measure)
+    {
+        return averager5Sec.Calculate(measure);
+    }
+
+    FullMeasure Average1Min(const FullMeasure &measure)
+    {
+        return averager1Min.Calculate(measure);
+    }
 }
 
 
