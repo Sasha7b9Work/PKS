@@ -4,11 +4,26 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
 #include "Hardware/Timer.h"
+#include "Utils/Math.h"
 
 
 namespace Contactors
 {
-    static const uint TIME_WAIT_BIG = 1;
+    static const uint TIME_WAIT_BIG = 5000;
+    static const uint TIME_WAIT_SMALL = 100;
+
+    struct State
+    {
+        static Phase::E phase;
+        static PinOUT *pin;
+
+        enum E
+        {
+            IDLE
+        };
+    };
+
+    static State::E state = State::IDLE;
 
     struct Contactor
     {
@@ -81,22 +96,42 @@ void Contactors::Update(const FullMeasure &measure)
 
 void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 {
-    if (measure.voltage < 220.0f)
+    static int new_state = 0;
+    static float delta = 0.0f;
+    static int num_steps = 0;
+
+    switch (state)
     {
-        float delta = 220.0f - measure.voltage;
+    case State::IDLE:
+        if (measure.voltage < 220.0f)
+        {
+            delta = 220.0f - measure.voltage;
 
-        int num_steps = (int)(delta / 10.0f + 1.0f);
+            num_steps = -(int)(delta / 10.0f + 1.0f);
+        }
+        else if (measure.voltage > 240.0f)
+        {
+            delta = measure.voltage - 240.0f;
 
-        Stage::Change(phase, -num_steps);
-    }
+            num_steps = (int)(delta / 10.0f + 1.0f);
+        }
+        else
+        {
+            break;
+        }
 
-    if (measure.voltage > 240.0f)
-    {
-        float delta = measure.voltage - 240.0f;
+        HAL_TIM1::Disable();
 
-        int num_steps = (int)(delta / 10.0f + 1.0f);
+        new_state = Math::Limitation(Stage::current[phase] + num_steps, Stage::MIN, Stage::MAX);
 
-        Stage::Change(phase, num_steps);
+        if (new_state == Stage::current[phase])
+        {
+            break;
+        }
+
+        Stage::current[phase] = new_state;
+
+        break;
     }
 }
 
@@ -144,6 +179,7 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
         Disable(5, phase);
         Disable(6, phase);
         Disable(7, phase);
+        Disable(8, phase);
 
         return;
     }
@@ -154,7 +190,6 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
         Enable(5, phase);
         Enable(6, phase);
         Enable(7, phase);
-        Enable(8, phase);
     }
     else if (new_state == -3 || new_state == 3)
     {
@@ -191,16 +226,12 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
 
 void Contactors::Enable(int num, Phase::E phase)
 {
-    return;
-
     contactors[phase][num].Enable();
 }
 
 
 void Contactors::Disable(int num, Phase::E phase)
 {
-    return;
-
     contactors[phase][num].Disable();
 }
 

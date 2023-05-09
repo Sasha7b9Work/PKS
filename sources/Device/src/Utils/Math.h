@@ -11,4 +11,20 @@ namespace Math
 
         return (result < max) ? result : min;
     }
+
+    template<class T>
+    T Limitation(T value, T min, T max)
+    {
+        if (value < min)
+        {
+            return min;
+        }
+
+        if (value > max)
+        {
+            return max;
+        }
+
+        return value;
+    }
 }
