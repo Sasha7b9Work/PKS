@@ -191,12 +191,16 @@ void Contactors::Stage::Set(Phase::E phase, int new_state)
 
 void Contactors::Enable(int num, Phase::E phase)
 {
+    return;
+
     contactors[phase][num].Enable();
 }
 
 
 void Contactors::Disable(int num, Phase::E phase)
 {
+    return;
+
     contactors[phase][num].Disable();
 }
 
@@ -226,8 +230,6 @@ void Contactors::Contactor::Enable()
 
 void Contactors::Contactor::Disable()
 {
-    return;
-
     if (enabled)
     {
         enabled = false;
