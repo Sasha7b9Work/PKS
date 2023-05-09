@@ -494,7 +494,7 @@ void Contactors::SendStateRelays()
             }
             std::strcat(buffer, names[i]);
 
-            if (std::strlen(buffer) + std::strlen(names[0] + 1) > SIZE_BUFFER)
+            if (std::strlen(buffer) + std::strlen(names[0] + 2) > SIZE_BUFFER)
             {
                 i = NUM_CONTACTORS;
             }
