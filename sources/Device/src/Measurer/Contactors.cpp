@@ -122,6 +122,12 @@ void Contactors::Update(const FullMeasure &measure)
 
 void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 {
+#define ENABLE_RELE(num, state)  { Enable(num, phase, state, meter[phase]);  break; }
+#define DISABLE_RELE(num, state) { Disable(num, phase, state, meter[phase]); break; }
+
+#define IF_ENABLE_RELE(num, state)  if(meter[phase].IsWorked()) { ENABLE_RELE(num, state); }
+#define IF_DISABLE_RELE(num, state) if(meter[phase].IsWorked()) { DISABLE_RELE(num, state); }
+
     static TimeMeterMS meter[3];
 
     switch (State::current[phase])
@@ -159,47 +165,28 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
             Measurer::DisableMeasure(phase);
     
-            Enable(2, phase, State::TRANSIT_EN_1, meter[phase]);
+            ENABLE_RELE(2, State::TRANSIT_EN_1);
         }
         break;
 
-#define DISABLE_RELE(num, state)    if (meter[phase].IsWorked())        Enable(num, phase, state, meter[phase]);        break;
-
-    case State::TRANSIT_EN_1:       DISABLE_RELE(3, State::TRANSIT_EN_2);
-    case State::TRANSIT_EN_2:       DISABLE_RELE(1, State::TRANSIT_EN_3);
-    case State::TRANSIT_EN_3:
-        if (meter[phase].IsWorked())         Disable(2, phase, State::TRANSIT_EN_3, meter[phase]);      break;
-
-    case State::TRANSIT_EN_4:
+    case State::TRANSIT_EN_1:   IF_ENABLE_RELE(3, State::TRANSIT_EN_2);
+    case State::TRANSIT_EN_2:   IF_DISABLE_RELE(1, State::TRANSIT_EN_3);
+    case State::TRANSIT_EN_3:   IF_DISABLE_RELE(2, State::TRANSIT_EN_3);
+    case State::TRANSIT_EN_4:       
         if (meter[phase].IsWorked()) { meter[phase].SetResponseTime(TIME_WAIT_BIG); State::current[phase] = State::TRANSIT_EN_5; } break;
 
-    case State::TRANSIT_EN_5:
-        if (meter[phase].IsWorked())  Disable(3, phase, State::TRANSIT_EN_6, meter[phase]);             break;
+    case State::TRANSIT_EN_5:   DISABLE_RELE(3, State::TRANSIT_EN_6);
 
     case State::TRANSIT_EN_6:
-        if (Level::current[phase] == Level::TRANSIT)
+        if (Level::current[phase] == Level::TRANSIT) { DISABLE_RELE(4, State::TRANSIT_DIS_1); }
+        else if (Level::current[phase] == -4 || Level::current[phase] == 4) { ENABLE_RELE(4, State::STAGE_4_1);  }
+        else if (Level::current[phase] == -3 || Level::current[phase] == 3) { DISABLE_RELE(4, State::STAGE_3_1); }
+        else if (Level::current[phase] == -2 || Level::current[phase] == 2) { DISABLE_RELE(4, State::STAGE_2_1); }
+        else if (Level::current[phase] == -1 || Level::current[phase] == 1) { DISABLE_RELE(4, State::STAGE_1_1); }
+        else
         {
-            Disable(4, phase, State::TRANSIT_DIS_1, meter[phase]);
+            State::current[phase] = State::POLARITY_STAGE;
         }
-        if (Level::current[phase] == -4 || Level::current[phase] == 4)
-        {
-            Enable(4, phase, State::STAGE_4_1, meter[phase]);
-        }
-        else if (Level::current[phase] == -3 || Level::current[phase] == 3)
-        {
-            Disable(4, phase, State::STAGE_3_1, meter[phase]);
-        }
-        else if (Level::current[phase] == -2 || Level::current[phase] == 2)
-        {
-            Disable(4, phase, State::STAGE_2_1, meter[phase]);
-        }
-        else if (Level::current[phase] == -1 || Level::current[phase] == 1)
-        {
-            Disable(4, phase, State::STAGE_1_1, meter[phase]);
-        }
-
-        State::current[phase] = State::POLARITY_STAGE;
-
         break;
 
     case State::TRANSIT_DIS_1:
