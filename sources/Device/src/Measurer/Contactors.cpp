@@ -30,13 +30,13 @@ namespace Contactors
     namespace Stage
     {
         static const int LESS_190 = -4;
-        static const int LESS_200 = -3;
-        static const int LESS_210 = -2;
-        static const int LESS_220 = -1;
+//        static const int LESS_200 = -3;
+//        static const int LESS_210 = -2;
+//        static const int LESS_220 = -1;
         static const int TRANSIT = 0;
-        static const int ABOVE_240 = 1;
-        static const int ABOVE_250 = 2;
-        static const int ABOVE_260 = 3;
+//        static const int ABOVE_240 = 1;
+//        static const int ABOVE_250 = 2;
+//        static const int ABOVE_260 = 3;
         static const int ABOVE_270 = 4;
 
         static const int MIN = LESS_190;
@@ -72,9 +72,14 @@ void Contactors::Init()
 
 void Contactors::Update(const FullMeasure &measure)
 {
-    UpdatePhase(Phase::A, measure.measures[Phase::A]);
-    UpdatePhase(Phase::B, measure.measures[Phase::B]);
-    UpdatePhase(Phase::C, measure.measures[Phase::C]);
+    static int phase = 0;
+
+    UpdatePhase((Phase::E)phase++, measure.measures[(Phase::E)phase]);
+
+    if (phase == 3)
+    {
+        phase = 0;
+    }
 }
 
 
