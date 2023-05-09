@@ -72,14 +72,17 @@ void Contactors::Init()
 
 void Contactors::Update(const FullMeasure &measure)
 {
-    static int phase = 0;
+    UpdatePhase(Phase::A, measure.measures[Phase::A]);
+    UpdatePhase(Phase::A, measure.measures[Phase::A]);
 
-    UpdatePhase((Phase::E)phase++, measure.measures[(Phase::E)phase]);
-
-    if (phase == 3)
-    {
-        phase = 0;
-    }
+//    static int phase = 0;
+//
+//    UpdatePhase((Phase::E)phase++, measure.measures[(Phase::E)phase]);
+//
+//    if (phase == 3)
+//    {
+//        phase = 0;
+//    }
 }
 
 
