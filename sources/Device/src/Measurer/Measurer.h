@@ -54,8 +54,8 @@ struct PhaseMeasure
 {
     float voltage;
     float current;
-    // Если == true, то это измерение нельзя использовать
-    bool is_bad;
+
+    PhaseMeasure() : voltage(0.0f), current(0.0f) { }
 
     void Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES]);
 
@@ -65,7 +65,10 @@ struct PhaseMeasure
 
 struct FullMeasure
 {
-    PhaseMeasure measures[3];
+    PhaseMeasure measures[Phase::Count];
+
+    // Если == true, то это измерение нельзя использовать
+    bool is_bad[Phase::Count];
 };
 
 

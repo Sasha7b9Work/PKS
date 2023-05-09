@@ -53,19 +53,7 @@ void Measurer::Update()
 {
     if (BuffersFull())
     {
-        bool is_bad[Phase::Count] = { Contactors::IsBusy(Phase::A), Contactors::IsBusy(Phase::B), Contactors::IsBusy(Phase::C) };
-
-        FullMeasure meas = Calculate();
-
-        for (int i = 0; i < Phase::Count; i++)
-        {
-            meas.measures[i].is_bad = (is_bad[i] || bad_in_begin[i]);
-
-            if (!meas.measures[i].is_bad)
-            {
-                measure.measures[i] = meas.measures[i];
-            }
-        }
+        measure = Calculate();
 
         Modem::SendMeasure(measure);
 
@@ -73,14 +61,12 @@ void Measurer::Update()
 
         measure1Min = Averager1Min::Calculate(measure);
 
-        LOG_WRITE("%f V", measure.measures[0].voltage);
-
-        pos_adc_value = 0;
-
         for (int i = 0; i < Phase::Count; i++)
         {
             bad_in_begin[i] = Contactors::IsBusy((Phase::E)i);
         }
+
+        pos_adc_value = 0;
     }
 }
 
@@ -151,13 +137,23 @@ bool Measurer::BuffersFull()
 
 FullMeasure Measurer::Calculate()
 {
+    bool is_bad[Phase::Count] = { Contactors::IsBusy(Phase::A), Contactors::IsBusy(Phase::B), Contactors::IsBusy(Phase::C) };
+
     FullMeasure result;
 
     result.measures[0].Calculate(voltA, currentA);
-
     result.measures[1].Calculate(voltB, currentB);
-
     result.measures[2].Calculate(voltC, currentC);
+
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        result.is_bad[i] = (is_bad[i] || bad_in_begin[i]);
+
+        if (result.is_bad[i])
+        {
+            result.measures[i] = measure.measures[i];
+        }
+    }
 
     return result;
 }
