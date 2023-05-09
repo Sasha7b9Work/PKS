@@ -4,52 +4,6 @@
 #include <math.h>
 
 
-struct Averager
-{
-    static void _Clear()
-    {
-        pointer = 0;
-
-        for (int i = 0; i < NUMBER; i++)
-        {
-            values[i] = 0.0f;
-        }
-    }
-
-    static void _Push(float value)
-    {
-        values[pointer++] = value;
-
-        if (pointer == NUMBER)
-        {
-            pointer = 0;
-        }
-    }
-
-    static float _Pop()
-    {
-        float sum = 0.0f;
-
-        for (int i = 0; i < NUMBER; i++)
-        {
-            sum += values[i];
-        }
-
-        return sum / (float)NUMBER;
-    }
-
-private:
-
-    static const int NUMBER = 3;
-
-    static float values[NUMBER];
-
-    static int pointer;
-};
-
-int Averager::pointer = 0;
-float Averager::values[Averager::NUMBER];
-
 namespace Calculator
 {
     static int CalculatePeriod(const Sample samples[NUM_SAMPLES]);

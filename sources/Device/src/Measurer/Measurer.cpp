@@ -34,8 +34,18 @@ namespace Measurer
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 
     static FullMeasure Calculate();
-    static void Calculate5Sec(const FullMeasure &);
-    static void Calculate1Min(const FullMeasure &);
+}
+
+
+namespace Averager5Sec
+{
+    FullMeasure Calculate(const FullMeasure &);
+}
+
+
+namespace Averager1Min
+{
+    FullMeasure Calculate(const FullMeasure &);
 }
 
 
@@ -45,18 +55,23 @@ void Measurer::Update()
     {
         bool is_bad[Phase::Count] = { Contactors::IsBusy(Phase::A), Contactors::IsBusy(Phase::B), Contactors::IsBusy(Phase::C) };
 
-        measure = Calculate();
+        FullMeasure meas = Calculate();
 
         for (int i = 0; i < Phase::Count; i++)
         {
-            measure.measures[i].is_bad = (is_bad[i] || bad_in_begin[i]);
+            meas.measures[i].is_bad = (is_bad[i] || bad_in_begin[i]);
+
+            if (!meas.measures[i].is_bad)
+            {
+                measure.measures[i] = meas.measures[i];
+            }
         }
 
         Modem::SendMeasure(measure);
 
-        Calculate5Sec(measure);
+        measure5Sec = Averager5Sec::Calculate(measure);
 
-        Calculate1Min(measure);
+        measure1Min = Averager1Min::Calculate(measure);
 
         LOG_WRITE("%f V", measure.measures[0].voltage);
 
@@ -186,84 +201,4 @@ void Sample::FromVoltage(float level)
 void Sample::FromCurrent(float level)
 {
     rel = (uint16)(level / AmpersInSample() + ZERO);
-}
-
-
-void Measurer::Calculate5Sec(const FullMeasure &meas)
-{
-    static TimeMeterMS meter;
-
-    static int counter = 0;
-
-    static FullMeasure result;
-
-    if (meter.ElapsedTime() >= 5000)
-    {
-        result.Average(counter);
-
-        measure5Sec = result;
-
-        result.Clear();
-
-        meter.Reset();
-
-        counter = 0;
-    }
-
-    result.AppendMeasure(meas);
-}
-
-
-void Measurer::Calculate1Min(const FullMeasure &meas)
-{
-    static TimeMeterMS meter;
-
-    static int counter = 0;
-
-    static FullMeasure result;
-
-    if (meter.ElapsedTime() >= 1000 * 60)
-    {
-        result.Average(counter);
-
-        measure1Min = result;
-
-        result.Clear();
-
-        meter.Reset();
-
-        counter = 0;
-    }
-
-    result.AppendMeasure(meas);
-}
-
-
-void FullMeasure::Clear()
-{
-    for (int i = 0; i < 3; i++)
-    {
-        measures[i].voltage = 0.0f;
-        measures[i].current = 0.0f;
-    }
-}
-
-
-void FullMeasure::AppendMeasure(const FullMeasure &meas)
-{
-    for (int i = 0; i < 3; i++)
-    {
-        measures[i].voltage += meas.measures[i].voltage;
-        measures[i].current += meas.measures[i].current;
-    }
-}
-
-
-void FullMeasure::Average(int number)
-{
-    for (int i = 0; i < 3; i++)
-    {
-        measures[i].voltage /= (float)number;
-        measures[i].current /= (float)number;
-    }
 }

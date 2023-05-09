@@ -66,12 +66,6 @@ struct PhaseMeasure
 struct FullMeasure
 {
     PhaseMeasure measures[3];
-
-    void Clear();
-
-    void AppendMeasure(const FullMeasure &);
-
-    void Average(int number);
 };
 
 
