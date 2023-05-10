@@ -55,14 +55,14 @@ namespace MQTT
         static void Measure(pchar name, float value);
         void Measure(const FullMeasure &);
         void GP(int num, bool state);
-        void Contactors(const bool[27]);
+        void Contactors(const bool[NUM_PINS_MX]);
         static bool gp[3] = { false, false, false };
         static bool need_gp[3] = { false, false, false };
         // Если true - надо передавать измерение
         static bool need_measure = false;
         static FullMeasure measure;
-        static bool state_contactors[27];               // Состояние каждого контактора
-        static bool need_send_state_contactors[27] =    // true, если нужно передавать состояние конактора
+        static bool state_contactors[NUM_PINS_MX];               // Состояние каждого контактора
+        static bool need_send_state_contactors[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
         {
             true, true, true, true, true, true, true, true, true,
             true, true, true, true, true, true, true, true, true,
@@ -164,7 +164,7 @@ void MQTT::Update(const String &answer)
                     Send::need_send_all_contactors = false;
                 }
 
-                static const char *const names[27] =
+                static const char *const names[NUM_PINS_MX] =
                 {
                     "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
                     "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
@@ -173,12 +173,19 @@ void MQTT::Update(const String &answer)
 
                 char buffer[100];
 
-                for (int i = 0; i < 27; i++)
+                for (int i = 0; i < NUM_PINS_MX; i++)
                 {
                     if (Send::need_send_state_contactors[i])
                     {
-                        std::sprintf(buffer, "/base/cont/KM%s", names[i]);
-                        PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
+                        if (i == 27)
+                        {
+                            PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "0" : "1");
+                        }
+                        else
+                        {
+                            std::sprintf(buffer, "/base/cont/KM%s", names[i]);
+                            PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
+                        }
                         Send::need_send_state_contactors[i] = false;
                     }
                 }
@@ -292,7 +299,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 }
 
 
-void MQTT::Send::Contactors(const bool st_contactors[27])
+void MQTT::Send::Contactors(const bool st_contactors[NUM_PINS_MX])
 {
     if (state != State::RUNNING)
     {
@@ -303,7 +310,7 @@ void MQTT::Send::Contactors(const bool st_contactors[27])
 
     bool connectos_ok = true;
 
-    for (int i = 0; i < 27; i++)
+    for (int i = 0; i < NUM_PINS_MX; i++)
     {
         bool new_state = st_contactors[i];
 

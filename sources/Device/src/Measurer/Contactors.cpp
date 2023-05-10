@@ -115,10 +115,8 @@ namespace Contactors
     // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
     static bool ReleIsBusy(uint address);
 
-    static const int NUM_CONTACTORS = 27;
-
     // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
-    static bool state_contactor[NUM_CONTACTORS];
+    static bool state_contactor[NUM_PINS_MX];
 
     // Отослать состояние всех реле
     static void SendStateRelays();
@@ -426,9 +424,19 @@ void Contactors::VerifyCondition()
     {
         state_contactor[address] = ReleIsBusy(address) ? true : StateRele();
 
-        address = Math::CircularIncrease(address, 0U, (uint)NUM_CONTACTORS);
+        address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
+
+        if (address == 27)
+        {
+            address = 31;
+        };
 
         SetAddressMX(address);
+
+        if (address == 31)
+        {
+            address = 27;
+        }
 
         if (address == 0)   // Опросили все реле, будем посылать результат
         {

@@ -27,7 +27,7 @@ namespace Modem
 
         void GP(int num, bool state);
 
-        void Contactors(const bool[27]);
+        void Contactors(const bool[NUM_PINS_MX]);
     }
 
     namespace Mode

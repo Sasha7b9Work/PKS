@@ -13,6 +13,8 @@
 #define SAMPLES_ON_PERIOD ((float)NUM_SAMPLES / NUM_PERIODS)    // Точек на периодв
 
 
+#define NUM_PINS_MX 28          // Количество опрашиваемых по MX пинов
+
 struct Phase
 {
     enum E
