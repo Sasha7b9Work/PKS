@@ -179,7 +179,7 @@ void MQTT::Update(const String &answer)
                     {
                         if (i == 27)
                         {
-                            PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "0" : "1");
+                            PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "1" : "0");
                         }
                         else
                         {

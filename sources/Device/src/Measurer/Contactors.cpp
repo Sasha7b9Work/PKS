@@ -424,6 +424,11 @@ void Contactors::VerifyCondition()
     {
         state_contactor[address] = ReleIsBusy(address) ? true : StateRele();
 
+        if (address == 27)
+        {
+            state_contactor[address] = !pinP2.IsHi();
+        }
+
         address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
 
         if (address == 27)
