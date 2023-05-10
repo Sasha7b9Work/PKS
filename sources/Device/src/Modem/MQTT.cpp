@@ -300,9 +300,11 @@ void MQTT::Send::Contactors(const bool st_contactors[27])
 
     for (int i = 0; i < 27; i++)
     {
-        if (st_contactors[i] != state_contactors[i])
+        bool new_state = (std::rand() % 2) == 0;
+
+        if (new_state != state_contactors[i])
         {
-            state_contactors[i] = st_contactors[i];
+            state_contactors[i] = new_state;
             need_send_state_contactors[i] = true;
             need_request = true;
         }
