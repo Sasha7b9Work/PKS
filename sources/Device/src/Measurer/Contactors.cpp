@@ -473,6 +473,10 @@ bool Contactors::ReleIsBusy(uint address)
 
 void Contactors::SendStateRelays()
 {
+    Modem::Send::Contactors(state_contactor);
+
+    return;
+
     static const char *const names[27] =
     {
         "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"
