@@ -157,8 +157,8 @@ void MQTT::Update(const String &answer)
         {
             if (Send::contactors.Size() != 0)
             {
-                PublishPacket("/base/state/bad_contactors", Send::contactors.c_str());
-                Send::contactors.Set("");
+//                PublishPacket("/base/state/bad_contactors", Send::contactors.c_str());
+//                Send::contactors.Set("");
             }
             if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
             {
@@ -254,7 +254,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
     static bool first = true;
 
-    if (meterLastMeasure.ElapsedTime() < 60000 && !first)
+    if (meterLastMeasure.ElapsedTime() < 5000 && !first)
     {
         return;
     }
