@@ -59,7 +59,6 @@ namespace MQTT
     {
         void Measure(const FullMeasure &);
         void GP(int num, bool state);
-        void Contactors(const String &);
         void Contactors(const bool[27]);
     }
 }
@@ -317,12 +316,6 @@ void Modem::Send::Measure(const FullMeasure &measure)
 void Modem::Send::GP(int num, bool is_low)
 {
     MQTT::Send::GP(num, is_low);
-}
-
-
-void Modem::Send::Contactors(const String &contactors)
-{
-    MQTT::Send::Contactors(contactors);
 }
 
 

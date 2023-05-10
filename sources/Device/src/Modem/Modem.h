@@ -27,8 +27,6 @@ namespace Modem
 
         void GP(int num, bool state);
 
-        void Contactors(const String &);
-
         void Contactors(const bool[27]);
     }
 

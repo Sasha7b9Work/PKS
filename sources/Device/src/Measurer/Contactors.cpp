@@ -474,43 +474,4 @@ bool Contactors::ReleIsBusy(uint address)
 void Contactors::SendStateRelays()
 {
     Modem::Send::Contactors(state_contactor);
-
-    return;
-
-    static const char *const names[27] =
-    {
-        "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9"
-        "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
-        "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"
-    };
-
-    static const uint SIZE_BUFFER = 32;
-
-    char buffer[SIZE_BUFFER] = { '\0' };
-
-    for (int i = 0; i < NUM_CONTACTORS; i++)
-    {
-        if (state_contactor[i] == false)
-        {
-            if (std::strlen(buffer) != 0)
-            {
-                std::strcat(buffer, " ");
-            }
-            std::strcat(buffer, names[i]);
-
-            if (std::strlen(buffer) + std::strlen(names[0] + 2) > SIZE_BUFFER)
-            {
-                i = NUM_CONTACTORS;
-            }
-        }
-    }
-
-    if (std::strlen(buffer) == 0)
-    {
-        Modem::Send::Contactors(String("Ok"));
-    }
-    else
-    {
-        Modem::Send::Contactors(String(buffer));
-    }
 }

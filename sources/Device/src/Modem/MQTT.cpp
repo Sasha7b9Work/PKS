@@ -55,25 +55,23 @@ namespace MQTT
         static void Measure(pchar name, float value);
         void Measure(const FullMeasure &);
         void GP(int num, bool state);
-        void Contactors(const String &);
         void Contactors(const bool[27]);
         static bool gp[3] = { false, false, false };
         static bool need_gp[3] = { false, false, false };
         // Если true - надо передавать измерение
         static bool need_measure = false;
         static FullMeasure measure;
-        static String contactors("");               // Если пустая строка, то передавать не нужно
-        static bool state_contactors[27];
-        static bool need_state_contactors = false;
+        static bool state_contactors[27];               // Состояние каждого контактора
+        static bool need_send_state_contactors[27] =   // true, если нужно передавать состояние конактора
+        {
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true
+        };
 
-        static bool sended_request = false;
         static void SendRequest()
         {
-//            if (!sended_request)
-            {
-                SIM800::Transmit("AT+CIPSEND");
-                sended_request = true;
-            }
+            SIM800::Transmit("AT+CIPSEND");
         }
     }
 
@@ -157,19 +155,14 @@ void MQTT::Update(const String &answer)
 
         if (answer == ">")
         {
-            if (Send::contactors.Size() != 0)
-            {
-//                PublishPacket("/base/state/bad_contactors", Send::contactors.c_str());
-//                Send::contactors.Set("");
-            }
-            if (Send::need_state_contactors)
-            {
-                Send::need_state_contactors = false;
-
-                PublishPacket("/base/cont/KMA1", Send::state_contactors[0] ? "1" : "0");
-                PublishPacket("/base/cont/KMA2", Send::state_contactors[1] ? "1" : "0");
-                PublishPacket("/base/cont/KMA3", Send::state_contactors[2] ? "1" : "0");
-            }
+//            if (Send::need_state_contactors)
+//            {
+//                Send::need_state_contactors = false;
+//
+//                PublishPacket("/base/cont/KMA1", Send::state_contactors[0] ? "1" : "0");
+//                PublishPacket("/base/cont/KMA2", Send::state_contactors[1] ? "1" : "0");
+//                PublishPacket("/base/cont/KMA3", Send::state_contactors[2] ? "1" : "0");
+//            }
             if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
             {
                 char name[20] = "base/state/gp0";
@@ -221,8 +214,6 @@ void MQTT::Update(const String &answer)
                 SIM800::TransmitUINT8(0x00);
                 need_ping = false;
             }
-
-            Send::sended_request = false;
 
             SIM800::TransmitUINT8(0x1A);
         }
@@ -281,28 +272,6 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 }
 
 
-void MQTT::Send::Contactors(const String &message)
-{
-    static TimeMeterMS meter;
-
-    contactors = message;
-
-    if (state != State::RUNNING)
-    {
-        return;
-    }
-
-    if (meter.ElapsedTime() < 60000)
-    {
-        return;
-    }
-
-    meter.Reset();
-
-    SendRequest();
-}
-
-
 void MQTT::Send::Contactors(const bool st_contactors[27])
 {
     static TimeMeterMS meter;
@@ -320,8 +289,6 @@ void MQTT::Send::Contactors(const bool st_contactors[27])
     meter.Reset();
 
     SendRequest();
-
-    need_state_contactors = true;
 }
 
 
