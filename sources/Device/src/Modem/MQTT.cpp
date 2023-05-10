@@ -335,7 +335,10 @@ void MQTT::Send::Contactors(const bool st_contactors[27])
 
         need_send_all_contactors = true;
 
-        SendRequest();
+        if (state == State::RUNNING)
+        {
+            SendRequest();
+        }
     }
 }
 
