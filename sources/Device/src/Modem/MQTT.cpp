@@ -62,6 +62,17 @@ namespace MQTT
         static bool need_measure = false;
         static FullMeasure measure;
         static String contactors("");               // Если пустая строка, то передавать не нужно
+
+
+        static bool sended_request = false;
+        static void SendRequest()
+        {
+            if (!sended_request)
+            {
+                SIM800::Transmit("AT+CIPSEND");
+                sended_request = true;
+            }
+        }
     }
 
     // Присоединён к серверу MQTT
@@ -201,6 +212,8 @@ void MQTT::Update(const String &answer)
                 need_ping = false;
             }
 
+            Send::sended_request = false;
+
             SIM800::TransmitUINT8(0x1A);
         }
 
@@ -254,7 +267,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
     need_measure = true;
 
-    SIM800::Transmit("AT+CIPSEND");
+    SendRequest();
 }
 
 
@@ -276,7 +289,7 @@ void MQTT::Send::Contactors(const String &message)
 
     meter.Reset();
 
-    SIM800::Transmit("AT+CIPSEND");
+    SendRequest();
 }
 
 
@@ -295,7 +308,7 @@ void MQTT::Send::GP(int num, bool is_low)
 
     if (need_request)
     {
-        SIM800::Transmit("AT+CIPSEND");
+        SendRequest();
     }
 }
 
