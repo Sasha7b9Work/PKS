@@ -294,6 +294,15 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
 void MQTT::Send::Contactors(const bool st_contactors[27])
 {
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() < 5000)
+    {
+        return;
+    }
+
+    meter.Reset();
+
     bool need_request = false;
 
     bool connectos_ok = true;
