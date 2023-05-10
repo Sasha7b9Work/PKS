@@ -309,7 +309,12 @@ void MQTT::Send::Contactors(const bool st_contactors[27])
 
     for (int i = 0; i < 27; i++)
     {
-        bool new_state = (std::rand() % 2) == 0;
+        bool new_state = st_contactors[i];
+
+        if (i == 0)
+        {
+            new_state = (std::rand() % 2) == 0;
+        }
 
         if (new_state != state_contactors[i])
         {
