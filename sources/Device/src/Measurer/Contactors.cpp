@@ -8,6 +8,7 @@
 #include "Modem/Modem.h"
 #include <gd32f30x.h>
 #include <cstring>
+#include <cstdlib>
 
 
 namespace Contactors
@@ -473,5 +474,14 @@ bool Contactors::ReleIsBusy(uint address)
 
 void Contactors::SendStateRelays()
 {
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() > 1000)
+    {
+        meter.Reset();
+
+        state_contactor[std::rand() % 27] = (std::rand() % 2) == 0;
+    }
+
     Modem::Send::Contactors(state_contactor);
 }
