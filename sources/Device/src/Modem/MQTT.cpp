@@ -5,7 +5,7 @@
 #include "Hardware/HAL/HAL.h"
 #include <cstring>
 #include <cstdlib>
-#include <stdio.h>
+#include <cstdio>
 
 
 namespace SIM800
@@ -62,12 +62,14 @@ namespace MQTT
         static bool need_measure = false;
         static FullMeasure measure;
         static bool state_contactors[27];               // Состояние каждого контактора
-        static bool need_send_state_contactors[27] =   // true, если нужно передавать состояние конактора
+        static bool need_send_state_contactors[27] =    // true, если нужно передавать состояние конактора
         {
             true, true, true, true, true, true, true, true, true,
             true, true, true, true, true, true, true, true, true,
             true, true, true, true, true, true, true, true, true
         };
+        static bool all_connectos_ok = true;            // false, если хоть один контактор неисправен
+        static bool need_send_all_contactors = true;    // true, если нужно передавать all_connectos_ok
 
         static void SendRequest()
         {
@@ -155,14 +157,32 @@ void MQTT::Update(const String &answer)
 
         if (answer == ">")
         {
-//            if (Send::need_state_contactors)
-//            {
-//                Send::need_state_contactors = false;
-//
-//                PublishPacket("/base/cont/KMA1", Send::state_contactors[0] ? "1" : "0");
-//                PublishPacket("/base/cont/KMA2", Send::state_contactors[1] ? "1" : "0");
-//                PublishPacket("/base/cont/KMA3", Send::state_contactors[2] ? "1" : "0");
-//            }
+            {
+                if (Send::need_send_all_contactors)
+                {
+                    PublishPacket("/base/state/state_contactors", Send::all_connectos_ok ? "1" : "0");
+                    Send::need_send_all_contactors = false;
+                }
+
+                static const char *const names[27] =
+                {
+                    "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
+                    "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
+                    "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"
+                };
+
+                char buffer[100];
+
+                for (int i = 0; i < 27; i++)
+                {
+                    if (Send::need_send_state_contactors[i])
+                    {
+                        std::sprintf(buffer, "/base/cont/KM%s", names[i]);
+                        PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
+                        Send::need_send_state_contactors[i] = false;
+                    }
+                }
+            }
             if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
             {
                 char name[20] = "base/state/gp0";
@@ -184,7 +204,7 @@ void MQTT::Update(const String &answer)
                 static int counter = 0;
 
                 char buffer[32];
-                sprintf(buffer, "%d", counter++);
+                std::sprintf(buffer, "%d", counter++);
 
                 PublishPacket("base/state/counter", buffer);
 
@@ -232,7 +252,7 @@ bool MQTT::IsConnected()
 void MQTT::Send::Measure(pchar name, float value)
 {
     char buffer[32];
-    sprintf(buffer, "%d", (int)(value + 0.5f));
+    std::sprintf(buffer, "%d", (int)(value + 0.5f));
     for (uint i = 0; i < std::strlen(buffer); i++)
     {
         if (buffer[i] == ',')
@@ -274,21 +294,33 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
 void MQTT::Send::Contactors(const bool st_contactors[27])
 {
-    static TimeMeterMS meter;
+    bool need_request = false;
+
+    bool connectos_ok = true;
 
     for (int i = 0; i < 27; i++)
     {
-        state_contactors[i] = st_contactors[i];
+        if (st_contactors[i] != state_contactors[i])
+        {
+            state_contactors[i] = st_contactors[i];
+            need_send_state_contactors[i] = true;
+            need_request = true;
+        }
+
+        if (!state_contactors[i])
+        {
+            connectos_ok = false;
+        }
     }
 
-    if (meter.ElapsedTime() < 60000)
+    if (need_request)
     {
-        return;
+        all_connectos_ok = connectos_ok;
+
+        need_send_all_contactors = true;
+
+        SendRequest();
     }
-
-    meter.Reset();
-
-    SendRequest();
 }
 
 
