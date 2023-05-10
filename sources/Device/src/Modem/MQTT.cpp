@@ -301,12 +301,12 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
 void MQTT::Send::Contactors(const bool st_contactors[NUM_PINS_MX])
 {
-    if (state != State::RUNNING)
-    {
-        return;
-    }
+    static bool need_request = false;
 
-    bool need_request = false;
+    if (state == State::RUNNING)
+    {
+        need_request = false;
+    }
 
     bool connectos_ok = true;
 
@@ -327,6 +327,11 @@ void MQTT::Send::Contactors(const bool st_contactors[NUM_PINS_MX])
         {
             connectos_ok = false;
         }
+    }
+
+    if (state != State::RUNNING)
+    {
+        return;
     }
 
     if (need_request)
