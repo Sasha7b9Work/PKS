@@ -117,9 +117,6 @@ namespace Contactors
 
     // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
     static bool state_contactor[NUM_PINS_MX];
-
-    // Отослать состояние всех реле
-    static void SendStateRelays();
 }
 
 
@@ -424,14 +421,14 @@ void Contactors::VerifyCondition()
     {
         state_contactor[address] = ReleIsBusy(address) ? true : StateRele();
 
-        if (address == 27)
+        if (address == 27)                          // Был выставлен адрес P2 = 31
         {
             state_contactor[address] = !pinP2.IsHi();
         }
 
         address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
 
-        if (address == 27)
+        if (address == 27)                          // 28-й элемент массива - адрес пина P2 для контроля напряжения 100В
         {
             address = 31;
         };
@@ -445,7 +442,7 @@ void Contactors::VerifyCondition()
 
         if (address == 0)   // Опросили все реле, будем посылать результат
         {
-            SendStateRelays();
+            Modem::Send::Contactors(state_contactor);
         }
     }
 }
@@ -482,10 +479,4 @@ bool Contactors::ReleIsBusy(uint address)
     }
 
     return Contactors::IsBusy(Phase::C);
-}
-
-
-void Contactors::SendStateRelays()
-{
-    Modem::Send::Contactors(state_contactor);
 }
