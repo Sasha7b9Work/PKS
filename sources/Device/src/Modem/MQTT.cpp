@@ -330,7 +330,12 @@ void MQTT::Send::Contactors(const bool st_contactors[27])
 
         if (state == State::RUNNING)
         {
-            SendRequest();
+            static TimeMeterMS meter;
+            if (meter.ElapsedTime() > 1000)
+            {
+                meter.Reset();
+                SendRequest();
+            }
         }
     }
 }
