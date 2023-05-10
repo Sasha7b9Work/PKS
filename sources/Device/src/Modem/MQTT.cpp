@@ -260,19 +260,21 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
 void MQTT::Send::Contactors(const String &message)
 {
-    static TimeMeterMS meterLastMessage;
+    static TimeMeterMS meter;
+
+    contactors = message;
 
     if (state != State::RUNNING)
     {
         return;
     }
 
-    contactors = message;
-
-    if (meterLastMessage.ElapsedTime() < 60000)
+    if (meter.ElapsedTime() < 60000)
     {
         return;
     }
+
+    meter.Reset();
 
     SIM800::Transmit("AT+CIPSEND");
 }
