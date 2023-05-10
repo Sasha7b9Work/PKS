@@ -69,7 +69,7 @@ namespace MQTT
         static bool sended_request = false;
         static void SendRequest()
         {
-            if (!sended_request)
+//            if (!sended_request)
             {
                 SIM800::Transmit("AT+CIPSEND");
                 sended_request = true;
