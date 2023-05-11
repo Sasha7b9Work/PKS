@@ -59,7 +59,8 @@ namespace MQTT
     {
         void Measure(const FullMeasure &);
         void GP(int num, bool state);
-        void Contactors(const bool[NUM_PINS_MX]);
+        void StateContactors(const bool[NUM_PINS_MX]);
+        void LevelContactors(int[Phase::Count]);
     }
 }
 
@@ -319,7 +320,13 @@ void Modem::Send::GP(int num, bool is_low)
 }
 
 
-void Modem::Send::Contactors(const bool state_contactors[NUM_PINS_MX])
+void Modem::Send::StateContactors(const bool state_contactors[NUM_PINS_MX])
 {
-    MQTT::Send::Contactors(state_contactors);
+    MQTT::Send::StateContactors(state_contactors);
+}
+
+
+void Modem::Send::LevelContactors(int level[Phase::Count])
+{
+
 }

@@ -342,6 +342,8 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
         }
         break;
     }
+
+    Modem::Send::LevelContactors(Level::current);
 }
 
 
@@ -442,7 +444,7 @@ void Contactors::VerifyCondition()
 
         if (address == 0)   // Опросили все реле, будем посылать результат
         {
-            Modem::Send::Contactors(state_contactor);
+            Modem::Send::StateContactors(state_contactor);
         }
     }
 }

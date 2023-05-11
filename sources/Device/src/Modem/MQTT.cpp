@@ -50,17 +50,19 @@ namespace MQTT
 
     namespace Send
     {
-        // Сбрасывается каждый раз при поступлении данынх
-        static TimeMeterMS meterLastData;
-        static void Measure(pchar name, float value);
+        //------------------------------------------------------------------------
         void Measure(const FullMeasure &);
+        static FullMeasure measure;
+
+        //--------------------------------------------------------------------------
         void GP(int num, bool state);
-        void Contactors(const bool[NUM_PINS_MX]);
         static bool gp[3] = { false, false, false };
         static bool need_gp[3] = { false, false, false };
+
+        //--------------------------------------------------------------------------
+        void StateContactors(const bool[NUM_PINS_MX]);
         // Если true - надо передавать измерение
         static bool need_measure = false;
-        static FullMeasure measure;
         static bool state_contactors[NUM_PINS_MX];               // Состояние каждого контактора
         static bool need_send_state_contactors[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
         {
@@ -70,6 +72,16 @@ namespace MQTT
         };
         static bool all_connectos_ok = true;            // false, если хоть один контактор неисправен
         static bool need_send_all_contactors = true;    // true, если нужно передавать all_connectos_ok
+
+        //------------------------------------------------------------------------------
+        void LevelContactors(int[Phase::Count]);
+        static int level_contactor[Phase::Count] = { 0, 0, 0 };
+        static bool need_level_contactor[Phase::Count] = { true, true, true };
+
+        // Сбрасывается каждый раз при поступлении данынх
+        static TimeMeterMS meterLastData;
+
+        static void Measure(pchar name, float value);
 
         static void SendRequest()
         {
@@ -157,6 +169,23 @@ void MQTT::Update(const String &answer)
 
         if (answer == ">")
         {
+            {
+                static const char *const names[Phase::Count] = { "A", "B", "C" };
+
+                char buffer_name[32];
+                char buffer_value[32];
+
+                for (int i = 0; i < Phase::Count; i++)
+                {
+                    if (Send::need_level_contactor[i])
+                    {
+                        Send::need_level_contactor[i] = false;
+                        std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
+                        std::sprintf(buffer_value, "d", Send::level_contactor[i]);
+                        PublishPacket(buffer_name, buffer_value);
+                    }
+                }
+            }
             {
                 if (Send::need_send_all_contactors)
                 {
@@ -299,7 +328,25 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 }
 
 
-void MQTT::Send::Contactors(const bool st_contactors[NUM_PINS_MX])
+void MQTT::Send::LevelContactors(int level[Phase::Count])
+{
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        if (level[i] != Send::level_contactor[i])
+        {
+            Send::level_contactor[i] = level[i];
+            Send::need_level_contactor[i] = true;
+        }
+    }
+
+    if (state == State::RUNNING)
+    {
+        SendRequest();
+    }
+}
+
+
+void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
 {
     static bool need_request = false;
 
