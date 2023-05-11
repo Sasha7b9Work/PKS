@@ -85,7 +85,10 @@ namespace MQTT
 
         static void SendRequest()
         {
-            SIM800::Transmit("AT+CIPSEND");
+            if (state == State::RUNNING)
+            {
+                SIM800::Transmit("AT+CIPSEND");
+            }
         }
     }
 
@@ -181,7 +184,7 @@ void MQTT::Update(const String &answer)
                     {
                         Send::need_level_contactor[i] = false;
                         std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
-                        std::sprintf(buffer_value, "%d", Send::level_contactor[i]);
+                        std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
                         PublishPacket(buffer_name, buffer_value);
                     }
                 }
@@ -330,16 +333,19 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
 void MQTT::Send::LevelContactors(int level[Phase::Count])
 {
+    bool need_request = false;
+
     for (int i = 0; i < Phase::Count; i++)
     {
         if (level[i] != Send::level_contactor[i])
         {
             Send::level_contactor[i] = level[i];
             Send::need_level_contactor[i] = true;
+            need_request = true;
         }
     }
 
-    if (state == State::RUNNING)
+    if (need_request && state == State::RUNNING)
     {
         SendRequest();
     }
