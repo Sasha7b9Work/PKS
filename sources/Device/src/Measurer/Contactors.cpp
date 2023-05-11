@@ -151,7 +151,10 @@ void Contactors::Update(const FullMeasure &measure)
 {
     for (int i = 0; i < 3; i++)
     {
-        UpdatePhase((Phase::E)i, measure.measures[i]);
+        if (measure.is_good[i])
+        {
+            UpdatePhase((Phase::E)i, measure.measures[i]);
+        }
     }
 }
 
@@ -237,34 +240,43 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
     {
     case State::IDLE:
         {
-            int new_stage = 0;
-            float delta = 0.0f;
-            int num_steps = 0;
-            if (measure.voltage < 220.0f)
+            float inU = measure.voltage + (float)Level::current[phase] * 10.0f;
+            int new_level = 0;
+
+            if (inU < 160.5f)
             {
-                delta = 220.0f - measure.voltage;
-    
-                num_steps = -(int)(delta / 10.0f + 1.0f);
-            }
-            else if (measure.voltage > 240.0f)
-            {
-                delta = measure.voltage - 240.0f;
-    
-                num_steps = (int)(delta / 10.0f + 1.0f);
+                new_level = 0;
             }
             else
             {
-                break;
+                float delta = 0.0f;
+                int num_steps = 0;
+                if (measure.voltage < 220.0f)
+                {
+                    delta = 220.0f - measure.voltage;
+
+                    num_steps = -(int)(delta / 10.0f + 1.0f);
+                }
+                else if (measure.voltage > 240.0f)
+                {
+                    delta = measure.voltage - 240.0f;
+
+                    num_steps = (int)(delta / 10.0f + 1.0f);
+                }
+                else
+                {
+                    break;
+                }
+
+                new_level = Math::Limitation(Level::current[phase] + num_steps, Level::MIN, Level::MAX);
             }
     
-            new_stage = Math::Limitation(Level::current[phase] + num_steps, Level::MIN, Level::MAX);
-    
-            if (new_stage == Level::current[phase])
+            if (new_level == Level::current[phase])
             {
                 break;
             }
     
-            Level::current[phase] = new_stage;
+            Level::current[phase] = new_level;
 
             ENABLE_RELE(2, State::TRANSIT_EN_1);
         }

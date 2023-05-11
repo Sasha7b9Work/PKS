@@ -54,6 +54,7 @@ FullMeasure Calculator::Averager::Calculate(const FullMeasure &meas)
                 measure.measures[i].voltage = sum.measures[i].voltage / (float)counter[i];
                 measure.measures[i].current = sum.measures[i].current / (float)counter[i];
             }
+            measure.is_good[i] = (counter[i] != 0);
         }
 
         Reset();
@@ -67,7 +68,7 @@ void Calculator::Averager::Push(const FullMeasure &meas)
 {
     for (int i = 0; i < Phase::Count; i++)
     {
-        if (!meas.is_bad[i])
+        if (meas.is_good[i])
         {
             sum.measures[i].voltage += meas.measures[i].voltage;
             sum.measures[i].current += meas.measures[i].current;
@@ -84,7 +85,7 @@ void Calculator::Averager::Reset()
         counter[i] = 0;
         sum.measures[i].voltage = 0.0f;
         sum.measures[i].current = 0.0f;
-        measure.is_bad[i] = false;
+        measure.is_good[i] = false;
     }
 
     time_ready_measrue = Timer::TimeMS() + time_average;
@@ -138,8 +139,6 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
     {
         voltage = 0.0f;
     }
-
-    voltage += 10.0f;
 }
 
 

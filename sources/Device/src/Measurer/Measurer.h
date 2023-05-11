@@ -70,7 +70,7 @@ struct FullMeasure
     PhaseMeasure measures[Phase::Count];
 
     // Если == true, то это измерение нельзя использовать
-    bool is_bad[Phase::Count];
+    bool is_good[Phase::Count];
 };
 
 

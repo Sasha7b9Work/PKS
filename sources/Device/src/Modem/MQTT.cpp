@@ -247,19 +247,19 @@ void MQTT::Update(const String &answer)
 
                 PublishPacket("base/state/counter", buffer);
 
-                if (!Send::measure.is_bad[0])
+                if (Send::measure.is_good[0])
                 {
                     Send::Measure("base/state/voltage_a", Send::measure.measures[0].voltage);
                     Send::Measure("base/state/current_a", Send::measure.measures[0].current * 1000.0f);
                 }
 
-                if (!Send::measure.is_bad[1])
+                if (!Send::measure.is_good[1])
                 {
                     Send::Measure("base/state/voltage_b", Send::measure.measures[1].voltage);
                     Send::Measure("base/state/current_b", Send::measure.measures[1].current * 1000.0f);
                 }
 
-                if (!Send::measure.is_bad[2])
+                if (!Send::measure.is_good[2])
                 {
                     Send::Measure("base/state/voltage_c", Send::measure.measures[2].voltage);
                     Send::Measure("base/state/current_c", Send::measure.measures[2].current * 1000.0f);
