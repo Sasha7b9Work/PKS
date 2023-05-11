@@ -181,7 +181,7 @@ void MQTT::Update(const String &answer)
                     {
                         Send::need_level_contactor[i] = false;
                         std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
-                        std::sprintf(buffer_value, "d", Send::level_contactor[i]);
+                        std::sprintf(buffer_value, "%d", Send::level_contactor[i]);
                         PublishPacket(buffer_name, buffer_value);
                     }
                 }
