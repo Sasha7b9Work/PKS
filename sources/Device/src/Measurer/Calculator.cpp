@@ -45,6 +45,8 @@ FullMeasure Calculator::Averager::Calculate(const FullMeasure &meas)
 {
     Push(meas);
 
+    FullMeasure result = measure;
+
     if (Timer::TimeMS() >= time_ready_measrue)
     {
         for (int i = 0; i < Phase::Count; i++)
@@ -57,10 +59,12 @@ FullMeasure Calculator::Averager::Calculate(const FullMeasure &meas)
             measure.is_good[i] = (counter[i] != 0);
         }
 
+        result = measure;
+
         Reset();
     }
 
-    return measure;
+    return result;
 }
 
 
