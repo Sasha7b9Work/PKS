@@ -271,7 +271,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
     case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);
     case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);
-    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_3);
+    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);
     case State::TRANSIT_EN_4:       
         if (meter[phase].IsWorked()) { meter[phase].SetResponseTime(TIME_WAIT_BIG); State::current[phase] = State::TRANSIT_EN_5; } break;
 
@@ -463,7 +463,7 @@ bool Contactors::StateRele()
     bool p1 = pinP1.IsHi();
     bool p2 = pinP2.IsHi();
 
-    return (p1 && !p2) || (!p1 && p2);
+    return !((p1 && !p2) || (!p1 && p2));
 }
 
 
