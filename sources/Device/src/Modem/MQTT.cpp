@@ -314,7 +314,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
     static bool first = true;
 
-    if (meter.ElapsedTime() < 60000 && !first)
+    if (meter.ElapsedTime() < 5000 && !first)
     {
         return;
     }
