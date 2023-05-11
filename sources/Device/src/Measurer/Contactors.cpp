@@ -463,7 +463,7 @@ bool Contactors::StateRele()
     bool p1 = pinP1.IsHi();
     bool p2 = pinP2.IsHi();
 
-    return !((p1 && !p2) || (!p1 && p2));
+    return ((p1 && !p2) || (!p1 && p2));
 }
 
 
