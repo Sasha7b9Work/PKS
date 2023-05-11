@@ -463,6 +463,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_wwdgt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -612,6 +617,11 @@
               <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_WWDGT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_WWDGT.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1279,6 +1289,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_wwdgt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1428,6 +1443,11 @@
               <FileName>HAL_RTC.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_WWDGT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_WWDGT.cpp</FilePath>
             </File>
           </Files>
         </Group>

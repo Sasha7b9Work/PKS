@@ -138,6 +138,8 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
     {
         voltage = 0.0f;
     }
+
+    voltage += 10.0f;
 }
 
 

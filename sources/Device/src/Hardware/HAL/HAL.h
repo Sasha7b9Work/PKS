@@ -96,6 +96,14 @@ namespace HAL_RTC
 }
 
 
+namespace HAL_WWDGT
+{
+    void Init();
+
+    void Update();
+}
+
+
 
 #ifdef __cplusplus
 extern "C" {
@@ -124,6 +132,8 @@ extern "C" {
     void ADC0_1_IRQHandler(void);
 
     void UART3_IRQHandler(void);
+
+    void WWDGT_IRQHandler(void);
 
 #ifdef __cplusplus
 }

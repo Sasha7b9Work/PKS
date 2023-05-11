@@ -51,6 +51,8 @@ void HAL::Init()
 
     HAL_PINS::Init();
 
+//  HAL_WWDGT::Init();
+
 #ifdef ENABLE_LOG
     HAL_USART_LOG::Init();
 #endif
