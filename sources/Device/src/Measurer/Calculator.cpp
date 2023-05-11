@@ -82,7 +82,7 @@ void Calculator::Averager::Reset()
     for (int i = 0; i < Phase::Count; i++)
     {
         counter[i] = 0;
-        sum.measures[i].current = 0.0f;
+        sum.measures[i].voltage = 0.0f;
         sum.measures[i].current = 0.0f;
         measure.is_bad[i] = false;
     }
