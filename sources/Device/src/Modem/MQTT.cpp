@@ -310,18 +310,18 @@ void MQTT::Send::Measure(const FullMeasure &meas)
         return;
     }
 
-    static TimeMeterMS meterLastMeasure;
+    static TimeMeterMS meter;
 
     static bool first = true;
 
-    if (meterLastMeasure.ElapsedTime() < 60000 && !first)
+    if (meter.ElapsedTime() < 60000 && !first)
     {
         return;
     }
 
     first = false;
 
-    meterLastMeasure.Reset();
+    meter.Reset();
 
     measure = meas;
 
