@@ -144,7 +144,10 @@ FullMeasure Measurer::Calculate()
     for (int i = 0; i < Phase::Count; i++)
     {
         result.is_good[i] = (!is_bad[i] && !bad_in_begin[i]);
-        result.measures[i] = measure.measures[i];
+        if (!result.is_good[i])
+        {
+            result.measures[i] = measure.measures[i];
+        }
     }
 
     return result;
