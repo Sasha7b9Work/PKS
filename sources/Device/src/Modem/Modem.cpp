@@ -326,7 +326,7 @@ void Modem::Send::StateContactors(const bool state_contactors[NUM_PINS_MX])
 }
 
 
-void Modem::Send::LevelContactors(int level[Phase::Count])
+void Modem::Send::LevelContactors(int levels[Phase::Count])
 {
-
+    MQTT::Send::LevelContactors(levels);
 }
