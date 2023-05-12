@@ -441,7 +441,9 @@ void Contactors::VerifyCondition()
     {
         if (!ReleIsBusy(address))
         {
-            state_contactor[address] = StateRele();
+            bool state = StateRele();
+
+            state_contactor[address] = state;
         }
 
         if (address == 27)                          // Был выставлен адрес P2 = 31
