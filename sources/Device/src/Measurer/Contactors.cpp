@@ -444,8 +444,6 @@ void Contactors::VerifyCondition()
             state_contactor[address] = StateRele();
         }
 
-        state_contactor[address] = ReleIsBusy(address) ? true : StateRele();
-
         if (address == 27)                          // Был выставлен адрес P2 = 31
         {
             state_contactor[address] = !pinP2.IsHi();
