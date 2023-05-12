@@ -116,7 +116,13 @@ namespace Contactors
     static bool ReleIsBusy(uint address);
 
     // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
-    static bool state_contactor[NUM_PINS_MX];
+    static bool state_contactor[NUM_PINS_MX] =
+    {
+        false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false,
+        false, false, false, false, false, false, false, false, false,
+        false
+    };
 }
 
 
@@ -433,6 +439,11 @@ void Contactors::VerifyCondition()
     }
     else
     {
+        if (!ReleIsBusy(address))
+        {
+            state_contactor[address] = StateRele();
+        }
+
         state_contactor[address] = ReleIsBusy(address) ? true : StateRele();
 
         if (address == 27)                          // Был выставлен адрес P2 = 31

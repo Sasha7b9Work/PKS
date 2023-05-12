@@ -67,7 +67,8 @@ namespace MQTT
         {
             false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false
+            false, false, false, false, false, false, false, false, false,
+            false
         };
         static bool all_connectos_ok = true;            // false, если хоть один контактор неисправен
         static bool need_send_all_contactors = true;    // true, если нужно передавать all_connectos_ok
