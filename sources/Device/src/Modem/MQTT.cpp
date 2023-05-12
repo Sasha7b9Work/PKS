@@ -53,6 +53,7 @@ namespace MQTT
         //------------------------------------------------------------------------
         void Measure(const FullMeasure &);
         static FullMeasure measure;
+        static bool need_measure = false;           // Если true - надо передавать измерение
 
         //--------------------------------------------------------------------------
         void GP(int num, bool state);
@@ -61,14 +62,12 @@ namespace MQTT
 
         //--------------------------------------------------------------------------
         void StateContactors(const bool[NUM_PINS_MX]);
-        // Если true - надо передавать измерение
-        static bool need_measure = false;
         static bool state_contactors[NUM_PINS_MX];               // Состояние каждого контактора
         static bool need_send_state_contactors[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
         {
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true
+            false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false
         };
         static bool all_connectos_ok = true;            // false, если хоть один контактор неисправен
         static bool need_send_all_contactors = true;    // true, если нужно передавать all_connectos_ok
