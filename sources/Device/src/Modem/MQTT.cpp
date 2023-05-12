@@ -62,13 +62,19 @@ namespace MQTT
 
         //--------------------------------------------------------------------------
         void StateContactors(const bool[NUM_PINS_MX]);
-        static bool state_contactors[NUM_PINS_MX];               // Состояние каждого контактора
-        static bool need_send_state_contactors[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
+        static bool state_contactors[NUM_PINS_MX] =              // Состояние каждого контактора
         {
             false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false,
             false, false, false, false, false, false, false, false, false,
             false
+        };
+        static bool need_send_state_contactors[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
+        {
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
+            true
         };
         static bool all_connectos_ok = true;            // false, если хоть один контактор неисправен
         static bool need_send_all_contactors = true;    // true, если нужно передавать all_connectos_ok
