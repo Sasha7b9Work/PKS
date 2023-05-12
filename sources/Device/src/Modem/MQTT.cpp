@@ -76,8 +76,6 @@ namespace MQTT
             true, true, true, true, true, true, true, true, true,
             true
         };
-        static bool all_connectos_ok = true;            // false, если хоть один контактор неисправен
-        static bool need_send_all_contactors = true;    // true, если нужно передавать all_connectos_ok
 
         //------------------------------------------------------------------------------
         void LevelContactors(int[Phase::Count]);
@@ -196,12 +194,6 @@ void MQTT::Update(const String &answer)
                 }
             }
             {
-                if (Send::need_send_all_contactors)
-                {
-                    PublishPacket("/base/state/state_contactors", Send::all_connectos_ok ? "1" : "0");
-                    Send::need_send_all_contactors = false;
-                }
-
                 static const char *const names[NUM_PINS_MX] =
                 {
                     "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
@@ -211,6 +203,9 @@ void MQTT::Update(const String &answer)
 
                 char buffer[100];
 
+                bool sended = false;
+                bool all_is_ok = true;
+
                 for (int i = 0; i < NUM_PINS_MX; i++)
                 {
                     if (Send::need_send_state_contactors[i])
@@ -218,14 +213,24 @@ void MQTT::Update(const String &answer)
                         if (i == 27)
                         {
                             PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "1" : "0");
+                            sended = true;
                         }
                         else
                         {
                             std::sprintf(buffer, "/base/cont/KM%s", names[i]);
                             PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
+                            sended = true;
                         }
                         Send::need_send_state_contactors[i] = false;
                     }
+                    if (!Send::state_contactors[i])
+                    {
+                        all_is_ok = false;
+                    }
+                }
+                if (sended)
+                {
+                    PublishPacket("/base/state/state_contactors", all_is_ok ? "1" : "0");
                 }
             }
             if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
@@ -367,24 +372,15 @@ void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
         need_request = false;
     }
 
-    bool connectos_ok = true;
-
     for (int i = 0; i < NUM_PINS_MX; i++)
     {
         bool new_state = st_contactors[i];
-
-//        new_state = (std::rand() % 2) == 0;
 
         if (new_state != state_contactors[i])
         {
             state_contactors[i] = new_state;
             need_send_state_contactors[i] = true;
             need_request = true;
-        }
-
-        if (!state_contactors[i])
-        {
-            connectos_ok = false;
         }
     }
 
@@ -395,10 +391,6 @@ void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
 
     if (need_request)
     {
-        all_connectos_ok = connectos_ok;
-
-        need_send_all_contactors = true;
-
         if (state == State::RUNNING)
         {
             static TimeMeterMS meter;
