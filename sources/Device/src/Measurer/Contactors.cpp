@@ -101,7 +101,7 @@ namespace Contactors
 
     static void Disable(int contactor, Phase::E, State::E next, TimeMeterMS &);
 
-    static void UpdatePhase(Phase::E, const PhaseMeasure &);
+    static void UpdatePhase(Phase::E, const PhaseMeasure &, bool good);
 
     // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
     bool IsBusy(Phase::E phase);
@@ -157,15 +157,12 @@ void Contactors::Update(const FullMeasure &measure)
 {
     for (int i = 0; i < 3; i++)
     {
-//        if (measure.is_good[i])
-        {
-            UpdatePhase((Phase::E)i, measure.measures[i]);
-        }
+        UpdatePhase((Phase::E)i, measure.measures[i], measure.is_good[i]);
     }
 }
 
 
-void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
+void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool is_good)
 {
     /*
     if (new_state == current[phase])
@@ -242,7 +239,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
     static TimeMeterMS meter[3];
 
-    if(phase == Phase::A)
+    if(phase == Phase::C)
     {
         int i = 0;
     }
@@ -251,9 +248,14 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
     {
     case State::IDLE:
         {
-            if(phase == Phase::A)
+            if(phase == Phase::C)
             {
                 int i = 0;
+            }
+
+            if (!is_good)
+            {
+                break;
             }
             
             float inU = measure.voltage + (float)Level::current[phase] * 10.0f;
