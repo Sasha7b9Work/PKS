@@ -157,7 +157,7 @@ void Contactors::Update(const FullMeasure &measure)
 {
     for (int i = 0; i < 3; i++)
     {
-        if (measure.is_good[i])
+//        if (measure.is_good[i])
         {
             UpdatePhase((Phase::E)i, measure.measures[i]);
         }
@@ -242,10 +242,20 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure)
 
     static TimeMeterMS meter[3];
 
+    if(phase == Phase::A)
+    {
+        int i = 0;
+    }
+
     switch (State::current[phase])
     {
     case State::IDLE:
         {
+            if(phase == Phase::A)
+            {
+                int i = 0;
+            }
+            
             float inU = measure.voltage + (float)Level::current[phase] * 10.0f;
             int new_level = 0;
 
@@ -391,7 +401,7 @@ void Contactors::Contactor::Init()
 
     enabled = false;
 
-    pin->Set();
+    pin->Reset();
 }
 
 
@@ -401,7 +411,7 @@ void Contactors::Contactor::Enable()
     {
         enabled = true;
 
-        pin->Reset();
+        pin->Set();
     }
 }
 
@@ -412,7 +422,7 @@ void Contactors::Contactor::Disable()
     {
         enabled = false;
 
-        pin->Set();
+        pin->Reset();
     }
 }
 
