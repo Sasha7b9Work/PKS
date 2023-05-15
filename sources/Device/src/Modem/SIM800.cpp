@@ -78,6 +78,10 @@ bool SIM800::ProcessUnsolicited(const String &answer)
         Reset();
         return true;
     }
+    else if (Parser::GetWord(answer, 1) == "/update")
+    {
+        int i = 0;
+    }
     else if (Parser::GetWord(answer, 1) == "+CSQ")
     {
         levelSignal = Parser::GetWord(answer, 2);
