@@ -73,16 +73,23 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(const String &answer)
 {
+    String first_word = Parser::GetWord(answer, 1);
+
+    if (first_word.Size())
+    {
+        int i = 0;
+    }
+
     if (answer == "CLOSED")
     {
         Reset();
         return true;
     }
-    else if (Parser::GetWord(answer, 1) == "/update")
+    else if (first_word == "/update")
     {
         int i = 0;
     }
-    else if (Parser::GetWord(answer, 1) == "+CSQ")
+    else if (first_word == "+CSQ")
     {
         levelSignal = Parser::GetWord(answer, 2);
     }
@@ -94,7 +101,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         return true;
     }
-    else if (Parser::GetWord(answer, 1) == "+IPD")
+    else if (first_word == "+IPD")
     {
         MQTT::CallbackOnReceiveData();
         char *buffer = answer.c_str();
