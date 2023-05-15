@@ -75,11 +75,6 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 {
     String first_word = Parser::GetWord(answer, 1);
 
-    if (first_word.Size())
-    {
-        int i = 0;
-    }
-
     if (answer == "CLOSED")
     {
         Reset();
@@ -111,6 +106,13 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     else if (answer.c_str()[0] == '>')
     {
         return false;
+    }
+    else
+    {
+        if (first_word.Size())
+        {
+            int i = 0;
+        }
     }
 
     return false;
