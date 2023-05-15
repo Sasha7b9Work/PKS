@@ -3,6 +3,7 @@
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/Parser.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -46,7 +47,7 @@ namespace MQTT
 
     void Reset();
 
-    void CallbackOnReceiveData();
+    void CallbackOnReceiveData(const String &);
 
     namespace Send
     {
@@ -441,7 +442,11 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 }
 
 
-void MQTT::CallbackOnReceiveData()
+void MQTT::CallbackOnReceiveData(const String &answer)
 {
+    String word = Parser::GetWord(answer, 2);
+    char *buffer = word.c_str();
+    buffer = buffer;
+
     Send::meterLastData.Reset();
 }

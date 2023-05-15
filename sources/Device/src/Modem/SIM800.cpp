@@ -20,7 +20,7 @@ namespace MQTT
 {
     void Update(const String &);
     void Reset();
-    void CallbackOnReceiveData();
+    void CallbackOnReceiveData(const String &);
 }
 
 
@@ -98,7 +98,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     }
     else if (first_word == "+IPD")
     {
-        MQTT::CallbackOnReceiveData();
+        MQTT::CallbackOnReceiveData(answer);
         char *buffer = answer.c_str();
         buffer = buffer;
         return true;
