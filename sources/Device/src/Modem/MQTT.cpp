@@ -444,15 +444,5 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 
 void MQTT::CallbackOnReceiveData(const String &answer)
 {
-    String address = Parser::GetWordInQuotes(answer, 0);
-    String login = Parser::GetWordInQuotes(answer, 1);
-    String password = Parser::GetWordInQuotes(answer, 2);
-    String firmware = Parser::GetWordInQuotes(answer, 3);
-
-    if (firmware.Size())
-    {
-        int i = 0;
-    }
-
     Send::meterLastData.Reset();
 }

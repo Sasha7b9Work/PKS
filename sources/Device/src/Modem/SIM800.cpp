@@ -5,6 +5,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
 #include <cstring>
+#include <cstdio>
 
 
 using namespace Parser;
@@ -44,6 +45,15 @@ namespace SIM800
             WAIT_TCP_CONNECT,
             WAIT_CIPHEAD,
             RUNNING_MQTT,
+            UPDATE_NEED_FTPCID,         // Находимся в состоянии обновления
+            UPDATE_NEED_FTPSERV,        // Имя сервера
+            UPDATE_NEED_FTPUN,          // Имя пользователя
+            UPDATE_NEED_FTPPW,          // Пароль
+            UPDATE_NEED_FTPGETPATH,     // Папка с файлом
+            UPDATE_NEED_FTPGETNAME,     // Имя файла
+            UPDATE_NEED_FTPGET,         // Подключение к серверу
+            UPDATE_NEED_FTPGET_BYTES,   // Запрос на получение данных
+            UPDATE_GET_BYTES            // Получение данных
         };
     };
 
@@ -68,6 +78,11 @@ namespace SIM800
     static TimeMeterMS meterCSQ;
 
     static String levelSignal("0");
+
+    String address;
+    String login;
+    String password;
+    String firmware;
 }
 
 
@@ -98,9 +113,20 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     }
     else if (first_word == "+IPD")
     {
-        MQTT::CallbackOnReceiveData(answer);
-        char *buffer = answer.c_str();
-        buffer = buffer;
+        address = Parser::GetWordInQuotes(answer, 0);
+        login = Parser::GetWordInQuotes(answer, 1);
+        password = Parser::GetWordInQuotes(answer, 2);
+        firmware = Parser::GetWordInQuotes(answer, 3);
+
+        if (firmware.Size())
+        {
+            state = State::UPDATE_NEED_FTPCID;
+            return true;
+        }
+        else
+        {
+            MQTT::CallbackOnReceiveData(answer);
+        }
         return true;
     }
     else if (answer.c_str()[0] == '>')
@@ -343,6 +369,120 @@ void SIM800::Update(const String &answer)
         {
             meterCSQ.Reset();
             SIM800::Transmit("AT+CSQ");
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPCID:
+        SIM800::Transmit("AT+FTPCID=1");
+        meter.Reset();
+        state = State::UPDATE_NEED_FTPSERV;
+        break;
+
+    case State::UPDATE_NEED_FTPSERV:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            char _address[64];
+            std::sprintf(_address, "AT+FTPSERV=\"%s\"", address.c_str());
+            SIM800::Transmit(_address);
+            state = State::UPDATE_NEED_FTPUN;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPUN:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            char _login[64];
+            std::sprintf(_login, "AT+FTPUN=\"%s\"", login.c_str());
+            SIM800::Transmit(_login);
+            state = State::UPDATE_NEED_FTPPW;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPPW:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            char _password[64];
+            std::sprintf(_password, "AT+FTPPW=\"%s\"", password.c_str());
+            SIM800::Transmit(_password);
+            state = State::UPDATE_NEED_FTPGETPATH;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPGETPATH:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPGETPATH=\"/root/\"");
+            state = State::UPDATE_NEED_FTPGETNAME;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPGETNAME:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPGETNAME=\"Meter.bin\"");
+            state = State::UPDATE_NEED_FTPGET;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPGET:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPGET=1");
+            state = State::UPDATE_NEED_FTPGET_BYTES;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPGET_BYTES:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "+FTPGET=1,1")
+        {
+            SIM800::Transmit("AT+FTPGET=2,100");
+            state = State::UPDATE_GET_BYTES;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_GET_BYTES:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (Parser::GetWord(answer, 1) == "+FTPGET")
+        {
+            int i = 0;
         }
         break;
     }
