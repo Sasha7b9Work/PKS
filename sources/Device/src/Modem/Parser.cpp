@@ -128,11 +128,16 @@ String Parser::GetWordInQuotes(const String &string, int num)
 
     if (pos_quote1 >= 0 && pos_quote2 >= 0)
     {
-        char data[32];
+        char data[64];
 
-        std::memcpy(data, buffer + pos_quote1 + 1, (uint)(pos_quote2 - pos_quote1));
+        char *pointer = data;
 
-        data[pos_quote2 - pos_quote1] = '\0';
+        for (int i = pos_quote1 + 1; i < pos_quote2 - pos_quote1; i++)
+        {
+            *pointer++ = buffer[i];
+        }
+
+        *pointer = '\0';
 
         return String(data);
     }
