@@ -94,6 +94,53 @@ String Parser::GetWord(const String &string, int pos_start, int pos_end)
 }
 
 
+String Parser::GetWordInQuotes(const String &string, int num)
+{
+    int size = string.Size();
+    char *buffer = string.c_str();
+
+    int quote1 = num * 2;
+
+    int pos_quote1 = -1;
+    int pos_quote2 = -2;
+
+    for (int i = 0; i < size; i++)
+    {
+        if (buffer[i] == '\"')
+        {
+            if (quote1 == 0)
+            {
+                pos_quote1 = i;
+                break;
+            }
+            pos_quote1--;
+        }
+    }
+
+    for (int i = pos_quote1 + 1; i < size; i++)
+    {
+        if (buffer[i] == '\"')
+        {
+            pos_quote2 = i;
+            break;
+        }
+    }
+
+    if (pos_quote1 >= 0 && pos_quote2 >= 0)
+    {
+        char data[32];
+
+        std::memcpy(data, buffer + pos_quote2 + 1, (uint)(pos_quote2 - pos_quote1));
+
+        data[pos_quote2 - pos_quote1] = '\0';
+
+        return String(data);
+    }
+
+    return String("");
+}
+
+
 String Parser::GetWord(const String &string, int num)
 {
     int pos_start = 0;
