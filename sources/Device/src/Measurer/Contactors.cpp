@@ -239,7 +239,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
     static TimeMeterMS meter[3];
 
-    if(phase == Phase::C)
+    if(phase == Phase::A)
     {
         int i = 0;
     }
@@ -248,7 +248,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     {
     case State::IDLE:
         {
-            if(phase == Phase::C)
+            if(phase == Phase::A)
             {
                 int i = 0;
             }
@@ -261,7 +261,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             float inU = measure.voltage + (float)Level::current[phase] * 10.0f;
             int new_level = 0;
             
-            if(phase == Phase::C)
+            if(phase == Phase::A)
             {
                 int i = 0;
             }
