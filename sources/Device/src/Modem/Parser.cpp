@@ -161,11 +161,11 @@ String Parser::GetWord(const String &string, int num)
 
         int current_word = 1;
 
-        bool in_word = (*p != ' ') && (*p != ',') && (*p != ':');
+        bool in_word = (*p != ' ') && (*p != ',') && (*p != ':') && (*p != '=');
 
         while (current_word < num && *p)
         {
-            if (*p == ' ' || *p == ',' || *p == ':')
+            if (*p == ' ' || *p == ',' || *p == ':' || *p == '=')
             {
                 if (in_word)
                 {

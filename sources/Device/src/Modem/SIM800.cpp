@@ -453,7 +453,7 @@ void SIM800::Update(const String &answer)
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             state = State::RUNNING_MQTT;
-        }
+        } 
         if (answer == "OK")
         {
             SIM800::Transmit("AT+FTPGET=1");
@@ -467,7 +467,7 @@ void SIM800::Update(const String &answer)
         {
             state = State::RUNNING_MQTT;
         }
-        if (answer == "+FTPGET=1,1")
+        if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
             SIM800::Transmit("AT+FTPGET=2,100");
             state = State::UPDATE_GET_BYTES;
