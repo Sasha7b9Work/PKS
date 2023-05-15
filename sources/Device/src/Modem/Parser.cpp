@@ -113,7 +113,7 @@ String Parser::GetWordInQuotes(const String &string, int num)
                 pos_quote1 = i;
                 break;
             }
-            pos_quote1--;
+            quote1--;
         }
     }
 
