@@ -482,7 +482,7 @@ void SIM800::Update(const String &answer)
         }
         if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
-            int i = 0;
+            state = State::RUNNING_MQTT;
         }
         break;
     }
