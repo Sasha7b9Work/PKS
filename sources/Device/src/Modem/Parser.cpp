@@ -130,7 +130,7 @@ String Parser::GetWordInQuotes(const String &string, int num)
     {
         char data[32];
 
-        std::memcpy(data, buffer + pos_quote2 + 1, (uint)(pos_quote2 - pos_quote1));
+        std::memcpy(data, buffer + pos_quote1 + 1, (uint)(pos_quote2 - pos_quote1));
 
         data[pos_quote2 - pos_quote1] = '\0';
 
