@@ -445,6 +445,8 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 void MQTT::CallbackOnReceiveData(const String &answer)
 {
     String word = Parser::GetWord(answer, 2);
+    int size = word.Size();
+    size = size;
     char *buffer = word.c_str();
     buffer = buffer;
 
