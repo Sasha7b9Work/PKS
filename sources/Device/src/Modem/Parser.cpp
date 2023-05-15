@@ -132,7 +132,7 @@ String Parser::GetWordInQuotes(const String &string, int num)
 
         char *pointer = data;
 
-        for (int i = pos_quote1 + 1; i < pos_quote2 - pos_quote1; i++)
+        for (int i = pos_quote1 + 1; i < pos_quote2; i++)
         {
             *pointer++ = buffer[i];
         }
