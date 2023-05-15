@@ -107,6 +107,18 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         return false;
     }
+    else if (first_word == "OK")
+    {
+        return false;
+    }
+    else if (first_word == "ERROR")
+    {
+        return false;
+    }
+    else if (first_word == "CONNECT")
+    {
+        return false;
+    }
     else
     {
         if (first_word.Size())
