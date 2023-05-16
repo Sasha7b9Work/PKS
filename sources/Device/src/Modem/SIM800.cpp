@@ -7,6 +7,13 @@
 #include <cstring>
 #include <cstdio>
 
+/*
+*        FTP-сервер
+*   s92153gg.beget.tech/files
+*   s92153gg_1
+*   Qwerty123
+*/
+
 
 using namespace Parser;
 
