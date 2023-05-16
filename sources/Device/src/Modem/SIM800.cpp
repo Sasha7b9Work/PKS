@@ -508,10 +508,17 @@ void SIM800::Update(const String &answer)
         {
             int i = 0;
         }
-        else if (answer == "+FTPGET: 1,1")
+        else if (GetWord(answer, 1) == "+FTPGET")
         {
-            SIM800::Transmit("AT+FTPGET=2,100");
-            state = State::UPDATE_GET_BYTES;
+            if (answer == "+FTPGET: 1,1")
+            {
+                SIM800::Transmit("AT+FTPGET=2,100");
+                state = State::UPDATE_GET_BYTES;
+            }
+            else
+            {
+                SIM800::Transmit("AT+FTPGET=1");
+            }
             meter.Reset();
         }
         else if (answer.Size())
