@@ -127,6 +127,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
         if (firmware.Size())
         {
             state = State::UPDATE_NEED_SAPBR_3_GPRS;
+            in_state_update = true;
             return true;
         }
         else
