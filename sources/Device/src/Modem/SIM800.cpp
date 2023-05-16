@@ -85,6 +85,11 @@ namespace SIM800
 
     static String levelSignal("0");
 
+    void SetStateRunningMQTT()
+    {
+        state = State::RUNNING_MQTT;
+    }
+
     String address;
     String login;
     String password;
@@ -358,7 +363,7 @@ void SIM800::Update(const String &answer)
         else if (answer == "OK")
         {
             meter.Reset();
-            state = State::RUNNING_MQTT;
+            SetStateRunningMQTT();
         }
         else if (answer == "ERROR")
         {
@@ -583,7 +588,7 @@ void SIM800::Update(const String &answer)
         }
         if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
-            state = State::RUNNING_MQTT;
+            SetStateRunningMQTT();
         }
         break;
     }
