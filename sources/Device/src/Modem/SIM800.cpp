@@ -27,6 +27,8 @@ namespace MQTT
 
 namespace SIM800
 {
+    static bool in_state_update = false;
+
     struct State
     {
         enum E
@@ -365,6 +367,12 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::RUNNING_MQTT:
+
+        if (in_state_update)
+        {
+            int i = 0;
+        }
+
         MQTT::Update(answer);
         if (meterCSQ.ElapsedTime() > 5000)
         {
