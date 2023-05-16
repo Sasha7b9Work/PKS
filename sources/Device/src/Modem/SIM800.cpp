@@ -417,7 +417,7 @@ void SIM800::Update(const String &answer)
         if (answer == "OK")
         {
             state = State::UPDATE_NEED_FTPUN;
-            SIM800::Transmit("AT+FTPPORT?");
+            SIM800::Transmit("AT+FTPPORT=22");
             meter.Reset();
         }
         break;
@@ -427,7 +427,7 @@ void SIM800::Update(const String &answer)
         {
             state = State::RUNNING_MQTT;
         }
-        if (GetWord(answer, 1) == "+FTPPORT")
+        if (answer == "OK")
         {
             char _login[64];
             std::sprintf(_login, "AT+FTPUN=\"%s\"", login.c_str());
