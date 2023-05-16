@@ -145,12 +145,9 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     {
         return false;
     }
-    else
+    else if(first_word == "+FTPGET")
     {
-        if (first_word.Size())
-        {
-            int i = 0;
-        }
+        return false;
     }
 
     return false;
@@ -463,7 +460,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::UPDATE_NEED_FTPGET_BYTES:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (meter.ElapsedTime() > 75000)
         {
             state = State::RUNNING_MQTT;
         }
@@ -480,7 +477,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::UPDATE_GET_BYTES:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (meter.ElapsedTime() > 75000)
         {
             state = State::RUNNING_MQTT;
         }
