@@ -374,7 +374,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::UPDATE_NEED_SAPBR_3_GPRS:
-        SIM800::Transmit("AT+SAPBR=3,1,\"Contype\",\"GPRS\"");
+        SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
         meter.Reset();
         state = State::UPDATE_NEED_SAPBR_3_APN;
         break;
@@ -386,7 +386,7 @@ void SIM800::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"CMWAP\"");
+            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"CMNET\"");
             state = State::UPDATE_NEED_SAPBR_1_1;
             meter.Reset();
         }
