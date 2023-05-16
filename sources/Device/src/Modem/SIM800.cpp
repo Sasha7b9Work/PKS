@@ -110,10 +110,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 
     if (answer == "CLOSED")
     {
-        if (!in_state_update)
-        {
-            Reset();
-        }
+        Reset();
         return true;
     }
     else if (first_word == "/update")
