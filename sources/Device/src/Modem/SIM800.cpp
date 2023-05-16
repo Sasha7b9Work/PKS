@@ -482,15 +482,27 @@ void SIM800::Update(const String &answer)
         {
             state = State::RUNNING_MQTT;
         }
-        if (answer.Size())
+        if (answer == "OK")
         {
             int i = 0;
         }
-        if (Parser::GetWord(answer, 1) == "+FTPGET")
+        else if (answer == "ERROR")
+        {
+            int i = 0;
+        }
+        else if (answer == ">")
+        {
+            int i = 0;
+        }
+        else if (answer == "+FTPGET: 1,1")
         {
             SIM800::Transmit("AT+FTPGET=2,100");
             state = State::UPDATE_GET_BYTES;
             meter.Reset();
+        }
+        else if (answer.Size())
+        {
+            int i = 0;
         }
         break;
 
