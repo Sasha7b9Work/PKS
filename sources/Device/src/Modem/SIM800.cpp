@@ -380,7 +380,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::UPDATE_NEED_SAPBR_3_APN:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (meter.ElapsedTime() > 85000)
         {
             state = State::RUNNING_MQTT;
         }
@@ -397,7 +397,7 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::UPDATE_NEED_SAPBR_1_1:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (meter.ElapsedTime() > 85000)
         {
             state = State::RUNNING_MQTT;
         }
