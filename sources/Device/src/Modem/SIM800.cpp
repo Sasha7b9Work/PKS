@@ -381,6 +381,10 @@ void SIM800::Update(const String &answer)
         {
             state = State::RUNNING_MQTT;
         }
+        if (answer.Size() > 2)
+        {
+            int i = 0;
+        }
         if (answer == "OK")
         {
             SIM800::Transmit("AT+FTPCID=1");
