@@ -187,6 +187,18 @@ void SIM800::Update(const String &answer)
 
     static TimeMeterMS meter;
 
+    if (state >= State::RUNNING_MQTT)
+    {
+        MQTT::Update(answer);
+        if (meterCSQ.ElapsedTime() > 5000)
+        {
+            meterCSQ.Reset();
+            SIM800::Transmit("AT+CSQ");
+        }
+
+        return;
+    }
+
     switch (state)
     {
     case State::START:
@@ -380,21 +392,6 @@ void SIM800::Update(const String &answer)
             Reset();
         }
 
-        break;
-
-    case State::RUNNING_MQTT:
-
-        if (in_state_update)
-        {
-            int i = 0;
-        }
-
-        MQTT::Update(answer);
-        if (meterCSQ.ElapsedTime() > 5000)
-        {
-            meterCSQ.Reset();
-            SIM800::Transmit("AT+CSQ");
-        }
         break;
 
     case State::UPDATE_NEED_SAPBR_3_GPRS:
