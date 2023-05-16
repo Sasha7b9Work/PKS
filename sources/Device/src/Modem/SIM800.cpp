@@ -467,6 +467,10 @@ void SIM800::Update(const String &answer)
         {
             state = State::RUNNING_MQTT;
         }
+        if (answer.Size())
+        {
+            int i = 0;
+        }
         if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
             SIM800::Transmit("AT+FTPGET=2,100");
