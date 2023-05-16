@@ -27,7 +27,7 @@ namespace MQTT
 
 namespace SIM800
 {
-    static bool in_state_update = false;
+    static bool in_state_update = false;            // true, если находимся в состоянии обновления
 
     struct State
     {
@@ -103,7 +103,10 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 
     if (answer == "CLOSED")
     {
-        Reset();
+        if (!in_state_update)
+        {
+            Reset();
+        }
         return true;
     }
     else if (first_word == "/update")
