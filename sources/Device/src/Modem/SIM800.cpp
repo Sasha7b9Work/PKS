@@ -45,7 +45,9 @@ namespace SIM800
             WAIT_TCP_CONNECT,
             WAIT_CIPHEAD,
             RUNNING_MQTT,
-            UPDATE_NEED_SAPBR,
+            UPDATE_NEED_SAPBR_3_GPRS,
+            UPDATE_NEED_SAPBR_3_APN,
+            UPDATE_NEED_SAPBR_1_1,
             UPDATE_NEED_FTPCID,         // Находимся в состоянии обновления
             UPDATE_NEED_FTPSERV,        // Имя сервера
             UPDATE_NEED_FTPPORT,
@@ -122,7 +124,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 
         if (firmware.Size())
         {
-            state = State::UPDATE_NEED_SAPBR;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
             return true;
         }
         else
@@ -371,10 +373,36 @@ void SIM800::Update(const String &answer)
         }
         break;
 
-    case State::UPDATE_NEED_SAPBR:
-        SIM800::Transmit("AT+SAPBR=1,1");
+    case State::UPDATE_NEED_SAPBR_3_GPRS:
+        SIM800::Transmit("AT+SAPBR=3,1,\"Contype\",\"GPRS\"");
         meter.Reset();
-        state = State::UPDATE_NEED_FTPCID;
+        state = State::UPDATE_NEED_SAPBR_3_APN;
+        break;
+
+    case State::UPDATE_NEED_SAPBR_3_APN:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"CMWAP\"");
+            state = State::UPDATE_NEED_SAPBR_1_1;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_SAPBR_1_1:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=1,1");
+            state = State::UPDATE_NEED_FTPCID;
+            meter.Reset();
+        }
         break;
 
     case State::UPDATE_NEED_FTPCID:
