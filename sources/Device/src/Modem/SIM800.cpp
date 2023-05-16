@@ -477,7 +477,7 @@ void SIM800::Update(const String &answer)
         if (answer == "OK")
         {
             state = State::UPDATE_NEED_FTPUN;
-            SIM800::Transmit("AT+FTPPORT=22");
+            SIM800::Transmit("AT+FTPPORT=21");
             meter.Reset();
         }
         break;
@@ -519,7 +519,7 @@ void SIM800::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+FTPGETPATH=\"/root/\"");
+            SIM800::Transmit("AT+FTPGETPATH=\"/\"");
             state = State::UPDATE_NEED_FTPGETNAME;
             meter.Reset();
         }
@@ -532,7 +532,7 @@ void SIM800::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+FTPGETNAME=\"Meter.bin\"");
+            SIM800::Transmit("AT+FTPGETNAME=\"sample.txt\"");
             state = State::UPDATE_NEED_FTPGET;
             meter.Reset();
         }
