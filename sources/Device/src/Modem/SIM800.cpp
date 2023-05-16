@@ -45,6 +45,7 @@ namespace SIM800
             WAIT_TCP_CONNECT,
             WAIT_CIPHEAD,
             RUNNING_MQTT,
+            UPDATE_NEED_SAPBR,
             UPDATE_NEED_FTPCID,         // Находимся в состоянии обновления
             UPDATE_NEED_FTPSERV,        // Имя сервера
             UPDATE_NEED_FTPUN,          // Имя пользователя
@@ -120,7 +121,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 
         if (firmware.Size())
         {
-            state = State::UPDATE_NEED_FTPCID;
+            state = State::UPDATE_NEED_SAPBR;
             return true;
         }
         else
@@ -369,10 +370,23 @@ void SIM800::Update(const String &answer)
         }
         break;
 
-    case State::UPDATE_NEED_FTPCID:
-        SIM800::Transmit("AT+FTPCID=1");
+    case State::UPDATE_NEED_SAPBR:
+        SIM800::Transmit("AT+SAPBR=1,1");
         meter.Reset();
-        state = State::UPDATE_NEED_FTPSERV;
+        state = State::UPDATE_NEED_FTPCID;
+        break;
+
+    case State::UPDATE_NEED_FTPCID:
+        if (meter.ElapsedTime() > 85000)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPCID=1");
+            meter.Reset();
+            state = State::UPDATE_NEED_FTPSERV;
+        }
         break;
 
     case State::UPDATE_NEED_FTPSERV:
