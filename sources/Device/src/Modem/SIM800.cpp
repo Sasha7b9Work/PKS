@@ -391,7 +391,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_SAPBR_3_APN:
         if (meter.ElapsedTime() > 85000)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -408,7 +408,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_SAPBR_1_1:
         if (meter.ElapsedTime() > 85000)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -425,7 +425,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPCID:
         if (meter.ElapsedTime() > 85000)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer.Size() > 2)
         {
@@ -442,7 +442,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPSERV:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -457,7 +457,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPPORT:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -470,7 +470,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPUN:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -485,7 +485,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPPW:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -500,7 +500,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPGETPATH:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -513,7 +513,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPGETNAME:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -526,7 +526,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPGET:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         } 
         if (answer == "OK")
         {
@@ -539,7 +539,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_NEED_FTPGET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer == "OK")
         {
@@ -575,7 +575,7 @@ void SIM800::Update(const String &answer)
     case State::UPDATE_GET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
-            state = State::RUNNING_MQTT;
+            state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
         if (answer.Size())
         {
