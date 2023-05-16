@@ -48,6 +48,7 @@ namespace SIM800
             UPDATE_NEED_SAPBR,
             UPDATE_NEED_FTPCID,         // Находимся в состоянии обновления
             UPDATE_NEED_FTPSERV,        // Имя сервера
+            UPDATE_NEED_FTPPORT,
             UPDATE_NEED_FTPUN,          // Имя пользователя
             UPDATE_NEED_FTPPW,          // Пароль
             UPDATE_NEED_FTPGETPATH,     // Папка с файлом
@@ -403,7 +404,20 @@ void SIM800::Update(const String &answer)
             char _address[64];
             std::sprintf(_address, "AT+FTPSERV=\"%s\"", address.c_str());
             SIM800::Transmit(_address);
+            state = State::UPDATE_NEED_FTPPORT;
+            meter.Reset();
+        }
+        break;
+
+    case State::UPDATE_NEED_FTPPORT:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::RUNNING_MQTT;
+        }
+        if (answer == "OK")
+        {
             state = State::UPDATE_NEED_FTPUN;
+            SIM800::Transmit("AT+FTPPORT?");
             meter.Reset();
         }
         break;
@@ -413,7 +427,7 @@ void SIM800::Update(const String &answer)
         {
             state = State::RUNNING_MQTT;
         }
-        if (answer == "OK")
+        if (GetWord(answer, 1) == "+FTPPORT")
         {
             char _login[64];
             std::sprintf(_login, "AT+FTPUN=\"%s\"", login.c_str());
