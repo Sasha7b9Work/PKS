@@ -407,6 +407,10 @@ void SIM800::Update(const String &answer)
             state = State::UPDATE_NEED_FTPCID;
             meter.Reset();
         }
+        else if (answer.Size())
+        {
+            int i = 0;
+        }
         break;
 
     case State::UPDATE_NEED_FTPCID:
