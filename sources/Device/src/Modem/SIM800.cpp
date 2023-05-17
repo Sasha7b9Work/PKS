@@ -404,7 +404,7 @@ void SIM800::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"CMNET\"");
+            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
             state = State::UPDATE_NEED_SAPBR_1_1;
             meter.Reset();
         }
@@ -513,7 +513,7 @@ void SIM800::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+FTPGETPATH=\"/\"");
+            SIM800::Transmit("AT+FTPGETPATH=\"/files/\"");
             state = State::UPDATE_NEED_FTPGETNAME;
             meter.Reset();
         }
