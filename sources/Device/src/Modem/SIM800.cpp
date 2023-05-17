@@ -315,15 +315,13 @@ void SIM800::Update(const String &answer)
 
     case State::RUNNING_MQTT:
 
-        if (!Updater::Update(answer))
-        {
-            MQTT::Update(answer);
+        Updater::Update(answer);
+        MQTT::Update(answer);
 
-            if (meterCSQ.ElapsedTime() > 5000)
-            {
-                meterCSQ.Reset();
-                SIM800::Transmit("AT+CSQ");
-            }
+        if (meterCSQ.ElapsedTime() > 5000)
+        {
+            meterCSQ.Reset();
+            SIM800::Transmit("AT+CSQ");
         }
 
         break;

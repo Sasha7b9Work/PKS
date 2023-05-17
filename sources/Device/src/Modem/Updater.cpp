@@ -54,6 +54,11 @@ namespace Updater
 
     bool Update(const String &);
 
+    static void Reset()
+    {
+        state = State::NEED_SAPBR_3_GPRS;
+    }
+
     void JumpToBootloader();
 
     void LoadFirmware();
@@ -115,7 +120,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_SAPBR_3_APN:
         if (meter.ElapsedTime() > 85000)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -128,7 +133,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_SAPBR_1_1:
         if (meter.ElapsedTime() > 85000)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -141,7 +146,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPCID:
         if (meter.ElapsedTime() > 85000)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -154,7 +159,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPSERV:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -169,7 +174,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPPORT:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -182,7 +187,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPUN:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -197,7 +202,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPPW:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -212,7 +217,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPGETPATH:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -225,7 +230,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPGETNAME:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -238,7 +243,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPGET:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (answer == "OK")
         {
@@ -251,7 +256,7 @@ bool Updater::Update(const String &answer)
     case State::NEED_FTPGET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         else if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
@@ -262,7 +267,7 @@ bool Updater::Update(const String &answer)
             }
             else
             {
-                SIM800::Transmit("AT+FTPGET=1");
+                Reset();
             }
             meter.Reset();
         }
@@ -271,7 +276,7 @@ bool Updater::Update(const String &answer)
     case State::GET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
-            state = State::NEED_SAPBR_3_GPRS;
+            Reset();
         }
         if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
