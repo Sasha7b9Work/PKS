@@ -91,7 +91,14 @@ bool Updater::Update(const String &answer)
             password = Parser::GetWordInQuotes(answer, 2);
             firmware = Parser::GetWordInQuotes(answer, 3);
 
-            state = State::NEED_SAPBR_3_GPRS;
+            if (firmware.Size())
+            {
+                state = State::NEED_SAPBR_3_GPRS;
+            }
+            else
+            {
+                return false;
+            }
         }
         else
         {
