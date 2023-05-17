@@ -442,7 +442,7 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 }
 
 
-void MQTT::CallbackOnReceiveData(const String &answer)
+void MQTT::CallbackOnReceiveData(const String &)
 {
     Send::meterLastData.Reset();
 }

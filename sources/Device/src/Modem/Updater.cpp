@@ -1,6 +1,5 @@
 ﻿// 2023/04/05 12:25:03 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Utils/Updater.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
 #include <gd32f30x.h>
@@ -8,6 +7,8 @@
 
 namespace Updater
 {
+    void Update();
+
     static void JumpToBootloader();
 
     static void LoadFirmware();

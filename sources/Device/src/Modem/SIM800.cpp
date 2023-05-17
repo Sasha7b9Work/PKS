@@ -24,6 +24,12 @@ namespace Modem
 }
 
 
+namespace Updater
+{
+    void Update();
+}
+
+
 namespace MQTT
 {
     void Update(const String &);
@@ -34,8 +40,6 @@ namespace MQTT
 
 namespace SIM800
 {
-    static bool in_state_update = false;            // true, если находимся в состоянии обновления
-
     struct State
     {
         enum E
@@ -113,10 +117,6 @@ bool SIM800::ProcessUnsolicited(const String &answer)
         Reset();
         return true;
     }
-    else if (first_word == "/update")
-    {
-        int i = 0;
-    }
     else if (first_word == "+CSQ")
     {
         levelSignal = Parser::GetWord(answer, 2);
@@ -139,7 +139,6 @@ bool SIM800::ProcessUnsolicited(const String &answer)
         if (firmware.Size())
         {
             state = State::UPDATE_NEED_SAPBR_3_GPRS;
-            in_state_update = true;
             return true;
         }
         else
@@ -147,26 +146,6 @@ bool SIM800::ProcessUnsolicited(const String &answer)
             MQTT::CallbackOnReceiveData(answer);
         }
         return true;
-    }
-    else if (answer.c_str()[0] == '>')
-    {
-        return false;
-    }
-    else if (first_word == "OK")
-    {
-        return false;
-    }
-    else if (first_word == "ERROR")
-    {
-        return false;
-    }
-    else if (first_word == "CONNECT")
-    {
-        return false;
-    }
-    else if(first_word == "+FTPGET")
-    {
-        return false;
     }
 
     return false;
@@ -183,18 +162,6 @@ void SIM800::Update(const String &answer)
     const uint DEFAULT_TIME = 10000;
 
     static TimeMeterMS meter;
-
-    if (state >= State::RUNNING_MQTT)
-    {
-        MQTT::Update(answer);
-        if (meterCSQ.ElapsedTime() > 5000)
-        {
-            meterCSQ.Reset();
-            SIM800::Transmit("AT+CSQ");
-        }
-
-        return;
-    }
 
     switch (state)
     {
@@ -391,6 +358,17 @@ void SIM800::Update(const String &answer)
 
         break;
 
+    case State::RUNNING_MQTT:
+        MQTT::Update(answer);
+
+        if (meterCSQ.ElapsedTime() > 5000)
+        {
+            meterCSQ.Reset();
+            SIM800::Transmit("AT+CSQ");
+        }
+
+        return;
+
     case State::UPDATE_NEED_SAPBR_3_GPRS:
         SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
         meter.Reset();
@@ -408,10 +386,6 @@ void SIM800::Update(const String &answer)
             state = State::UPDATE_NEED_SAPBR_1_1;
             meter.Reset();
         }
-        else if (answer.Size())
-        {
-            int i = 0;
-        }
         break;
 
     case State::UPDATE_NEED_SAPBR_1_1:
@@ -425,20 +399,12 @@ void SIM800::Update(const String &answer)
             state = State::UPDATE_NEED_FTPCID;
             meter.Reset();
         }
-        else if (answer.Size())
-        {
-            int i = 0;
-        }
         break;
 
     case State::UPDATE_NEED_FTPCID:
         if (meter.ElapsedTime() > 85000)
         {
             state = State::UPDATE_NEED_SAPBR_3_GPRS;
-        }
-        if (answer.Size() > 2)
-        {
-            int i = 0;
         }
         if (answer == "OK")
         {
@@ -550,18 +516,6 @@ void SIM800::Update(const String &answer)
         {
             state = State::UPDATE_NEED_SAPBR_3_GPRS;
         }
-        if (answer == "OK")
-        {
-            int i = 0;
-        }
-        else if (answer == "ERROR")
-        {
-            int i = 0;
-        }
-        else if (answer == ">")
-        {
-            int i = 0;
-        }
         else if (GetWord(answer, 1) == "+FTPGET")
         {
             if (answer == "+FTPGET: 1,1")
@@ -575,20 +529,12 @@ void SIM800::Update(const String &answer)
             }
             meter.Reset();
         }
-        else if (answer.Size())
-        {
-            int i = 0;
-        }
         break;
 
     case State::UPDATE_GET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
             state = State::UPDATE_NEED_SAPBR_3_GPRS;
-        }
-        if (answer.Size())
-        {
-            int i = 0;
         }
         if (Parser::GetWord(answer, 1) == "+FTPGET")
         {

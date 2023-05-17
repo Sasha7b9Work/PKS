@@ -15,7 +15,7 @@ void Font::SetType(TypeFont::E _type)
 }
 
 
-int Font::GetBit(uint8 symbol, int row, int col)
+int Font::GetBit(uint8, int, int)
 {
     return 0;
 }

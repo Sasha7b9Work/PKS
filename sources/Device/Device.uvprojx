@@ -778,21 +778,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Updater.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Updater.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
           <Files>
-            <File>
-              <FileName>Updater.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Updater.h</FilePath>
-            </File>
-            <File>
-              <FileName>Updater.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Updater.cpp</FilePath>
-            </File>
             <File>
               <FileName>SoftwareGenerator.cpp</FileName>
               <FileType>8</FileType>
@@ -1604,21 +1599,16 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Updater.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Updater.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
           <Files>
-            <File>
-              <FileName>Updater.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\Updater.h</FilePath>
-            </File>
-            <File>
-              <FileName>Updater.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\Updater.cpp</FilePath>
-            </File>
             <File>
               <FileName>SoftwareGenerator.cpp</FileName>
               <FileType>8</FileType>

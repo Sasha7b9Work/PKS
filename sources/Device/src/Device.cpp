@@ -7,7 +7,6 @@
 #include "Measurer/Measurer.h"
 #include "FlashDisk/FlashDisk.h"
 #include "Test.h"
-#include "Utils/Updater.h"
 #include "Hardware/Timer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/Modules/M25P80/M25P80.h"
@@ -41,8 +40,6 @@ void Device::Update()
     Display::Update();
 
     Contactors::Update(Measurer::Measure5Sec());
-
-    Updater::Update();
 
     Modem::Update();
 
