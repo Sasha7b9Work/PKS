@@ -2,16 +2,61 @@
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
+#include "Modem/Parser.h"
 #include <gd32f30x.h>
+#include <cstdio>
+
+
+/*
+*   *** FTP-сервер ***
+*   s92153gg.beget.tech/files
+*   s92153gg_1
+*   Qwerty123
+*/
+
+
+namespace SIM800
+{
+    void Transmit(pchar);
+}
 
 
 namespace Updater
 {
-    void Update();
+    struct State
+    {
+        enum E
+        {
+            IDLE,
+            NEED_SAPBR_3_GPRS,
+            NEED_SAPBR_3_APN,
+            NEED_SAPBR_1_1,
+            NEED_FTPCID,         // Находимся в состоянии обновления
+            NEED_FTPSERV,        // Имя сервера
+            NEED_FTPPORT,
+            NEED_FTPUN,          // Имя пользователя
+            NEED_FTPPW,          // Пароль
+            NEED_FTPGETPATH,     // Папка с файлом
+            NEED_FTPGETNAME,     // Имя файла
+            NEED_FTPGET,         // Подключение к серверу
+            NEED_FTPGET_BYTES,   // Запрос на получение данных
+            GET_BYTES            // Получение данных
+        };
+    };
 
-    static void JumpToBootloader();
+    static State::E state = State::IDLE;
 
-    static void LoadFirmware();
+    static String address;
+    static String login;
+    static String password;
+    static String firmware;
+
+    bool Update(const String &);
+
+    void JumpToBootloader();
+
+    void LoadFirmware();
 
     // Сохранить часть прошивки 
     static void SaveParthFirmware(int part, uint8 data[2048]);
@@ -22,13 +67,223 @@ namespace Updater
     static void GetPartFirmware(int, uint8[2048]);
 }
 
+
+bool Updater::Update(const String &answer)
+{
+//    if (Modem::ExistUpdate())
+//    {
+//        LoadFirmware();
+//
+//        JumpToBootloader();
+//    }
+
+    const uint DEFAULT_TIME = 10000;
+
+    static TimeMeterMS meter;
+
+    switch (state)
+    {
+    case State::IDLE:
+        if (Parser::GetWord(answer, 1) == "+IPD")
+        {
+            address = Parser::GetWordInQuotes(answer, 0);
+            login = Parser::GetWordInQuotes(answer, 1);
+            password = Parser::GetWordInQuotes(answer, 2);
+            firmware = Parser::GetWordInQuotes(answer, 3);
+
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        else
+        {
+            return false;
+        }
+        break;
+
+    case State::NEED_SAPBR_3_GPRS:
+        SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
+        meter.Reset();
+        state = State::NEED_SAPBR_3_APN;
+        break;
+
+    case State::NEED_SAPBR_3_APN:
+        if (meter.ElapsedTime() > 85000)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
+            state = State::NEED_SAPBR_1_1;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_SAPBR_1_1:
+        if (meter.ElapsedTime() > 85000)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=1,1");
+            state = State::NEED_FTPCID;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPCID:
+        if (meter.ElapsedTime() > 85000)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPCID=1");
+            meter.Reset();
+            state = State::NEED_FTPSERV;
+        }
+        break;
+
+    case State::NEED_FTPSERV:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            char _address[64];
+            std::sprintf(_address, "AT+FTPSERV=\"%s\"", address.c_str());
+            SIM800::Transmit(_address);
+            state = State::NEED_FTPPORT;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPPORT:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            state = State::NEED_FTPUN;
+            SIM800::Transmit("AT+FTPPORT=21");
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPUN:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            char _login[64];
+            std::sprintf(_login, "AT+FTPUN=\"%s\"", login.c_str());
+            SIM800::Transmit(_login);
+            state = State::NEED_FTPPW;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPPW:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            char _password[64];
+            std::sprintf(_password, "AT+FTPPW=\"%s\"", password.c_str());
+            SIM800::Transmit(_password);
+            state = State::NEED_FTPGETPATH;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPGETPATH:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPGETPATH=\"/files/\"");
+            state = State::NEED_FTPGETNAME;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPGETNAME:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPGETNAME=\"sample.txt\"");
+            state = State::NEED_FTPGET;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPGET:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+FTPGET=1");
+            state = State::NEED_FTPGET_BYTES;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_FTPGET_BYTES:
+        if (meter.ElapsedTime() > 75000)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        else if (Parser::GetWord(answer, 1) == "+FTPGET")
+        {
+            if (answer == "+FTPGET: 1,1")
+            {
+                SIM800::Transmit("AT+FTPGET=2,100");
+                state = State::GET_BYTES;
+            }
+            else
+            {
+                SIM800::Transmit("AT+FTPGET=1");
+            }
+            meter.Reset();
+        }
+        break;
+
+    case State::GET_BYTES:
+        if (meter.ElapsedTime() > 75000)
+        {
+            state = State::NEED_SAPBR_3_GPRS;
+        }
+        if (Parser::GetWord(answer, 1) == "+FTPGET")
+        {
+            state = State::IDLE;
+        }
+        break;
+    }
+
+    return true;
+}
+
+
 int Updater::GetSizeFirmware()
 {
     return 0;
 }
 
 
-void Updater::GetPartFirmware(int , uint8 [2048])
+void Updater::GetPartFirmware(int, uint8[2048])
 {
 
 }
@@ -59,17 +314,6 @@ void Updater::LoadFirmware()
         size -= 2048;
 
         part++;
-    }
-}
-
-
-void Updater::Update()
-{
-    if (Modem::ExistUpdate())
-    {
-        LoadFirmware();
-
-        JumpToBootloader();
     }
 }
 

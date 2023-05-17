@@ -329,7 +329,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::POLARITY_LEVEL:
         if (meter[phase].IsWorked())
         {
-            if (Level::current[phase] > 0) { DISABLE_RELE(9, State::TRANSIT_EXIT_1) } else { ENABLE_RELE(9, State::TRANSIT_EXIT_1); }
+            if (Level::current[phase] > 0) {  ENABLE_RELE(9, State::TRANSIT_EXIT_1) } else { DISABLE_RELE(9, State::TRANSIT_EXIT_1); }
         }
         break;
     case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2);
