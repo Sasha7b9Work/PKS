@@ -99,6 +99,8 @@ bool Updater::Update(const String &answer)
             if (firmware.Size())
             {
                 state = State::NEED_SAPBR_3_GPRS;
+                SIM800::Transmit("AT+CIPCLOSE=1");
+                meter.Reset();
             }
             else
             {
@@ -112,9 +114,16 @@ bool Updater::Update(const String &answer)
         break;
 
     case State::NEED_SAPBR_3_GPRS:
-        SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
-        meter.Reset();
-        state = State::NEED_SAPBR_3_APN;
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        if (answer == "CLOSE OK")
+        {
+            SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
+            meter.Reset();
+            state = State::NEED_SAPBR_3_APN;
+        }
         break;
 
     case State::NEED_SAPBR_3_APN:
