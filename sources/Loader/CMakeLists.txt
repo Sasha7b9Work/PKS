@@ -30,7 +30,8 @@ file(GLOB GD32F3                ../common/GD32F30x_Library/Firmware/GD32F30x_sta
 file(GLOB SRC                   src/*.*)
 file(GLOB HARDWARE              ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS        src/Hardware/CMSIS/*.*)
-file(GLOB HARDWARE_HAL          src/Hardware/HAL/*.*)
+file(GLOB HARDWARE_HAL          src/Hardware/HAL/*.*
+                                ../common/Hardware/HAL/HAL_PINS.*)
 file(GLOB MEASURER              src/Measurer/*.*
                                 ../common/Measurer/Calculator.*)
 file(GLOB MODEM                 src/Modem/*.*)

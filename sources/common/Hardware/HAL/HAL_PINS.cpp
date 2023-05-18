@@ -111,6 +111,56 @@ private:
 };
 
 
+static ObservedPin pinsGP[3] =
+{
+    ObservedPin(GPIOC, GPIO_PIN_2),
+    ObservedPin(GPIOC, GPIO_PIN_1),
+    ObservedPin(GPIOC, GPIO_PIN_0)
+};
+
+
+void HAL_PINS::Init()
+{
+    for (int i = 0; i < 3; i++)
+    {
+        pinsGP[i].Init(GPIO_MODE_IPU);
+    }
+}
+
+
+void HAL_PINS::Update()
+{
+#ifdef DEVICE
+    for (int i = 0; i < 3; i++)
+    {
+        pinsGP[i].IsHi();
+
+        if (pinsGP[i].IsSwitched())
+        {
+            Modem::Send::GP(i + 1, !pinsGP[i].GetState());
+
+            pinsGP[i].ResetSwitch();
+        }
+    }
+#endif
+}
+
+
+void HAL_PINS::SendState()
+{
+#ifdef DEVICE
+    for (int i = 0; i < 3; i++)
+    {
+        pinsGP[i].IsHi();
+
+        Modem::Send::GP(i + 1, !pinsGP[i].GetState());
+
+        pinsGP[i].ResetSwitch();
+    }
+#endif
+}
+
+
 void PinADC::Init()
 {
     gpio_init(port, GPIO_MODE_AIN, GPIO_OSPEED_MAX, pin);

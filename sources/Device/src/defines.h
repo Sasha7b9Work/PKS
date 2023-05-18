@@ -11,6 +11,9 @@ typedef const char *pchar;
 typedef unsigned char uchar;
 
 
+#define DEVICE
+
+
 // Версия, которая у меня, недоработанная
 #define OLD_VERSION
 

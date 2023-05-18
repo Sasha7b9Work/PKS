@@ -10,6 +10,8 @@ typedef const char *pchar;
 typedef unsigned char uchar;
 
 
+#define ENABLE_LOG
+
 // Раскомментировать для 5-ступеньчатой версии
 #define FIVE_STEPS_VERSION
 

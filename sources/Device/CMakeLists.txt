@@ -43,7 +43,8 @@ file(GLOB FLASHDISK                src/FlashDisk/*.*)
 file(GLOB HARDWARE                 src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS           src/Hardware/CMSIS/*.*)
-file(GLOB HARDWARE_HAL             src/Hardware/HAL/*.*)
+file(GLOB HARDWARE_HAL             src/Hardware/HAL/*.*
+                                   ../common/Hardware/HAL/HAL_PINS.*)
 file(GLOB HARDWARE_MODULES_SSD1306 src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80  src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 src/Measurer/*.*

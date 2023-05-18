@@ -575,19 +575,19 @@
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
             <File>
+              <FileName>HAL_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
+            </File>
+            <File>
               <FileName>HAL_PINS.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
+              <FilePath>..\common\Hardware\HAL\HAL_PINS.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USART.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
+              <FilePath>..\common\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1017,7 +1017,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_HAL_DRIVER, GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include;..\common</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -1252,19 +1252,19 @@
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
             </File>
             <File>
+              <FileName>HAL_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
+            </File>
+            <File>
               <FileName>HAL_PINS.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
+              <FilePath>..\common\Hardware\HAL\HAL_PINS.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USART.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
+              <FilePath>..\common\Hardware\HAL\HAL_PINS.h</FilePath>
             </File>
           </Files>
         </Group>
