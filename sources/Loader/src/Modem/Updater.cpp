@@ -113,16 +113,16 @@ void Updater::Update(const String &answer)
         break;
 
     case State::NEED_SAPBR_1_1:
-//        if (meter.ElapsedTime() > 85000)
-//        {
-//            Reset(meter);
-//        }
-//        if (answer == "OK")
-//        {
-//            SIM800::Transmit("AT+SAPBR=1,1");
-//            state = State::NEED_FTPCID;
-//            meter.Reset();
-//        }
+        if (meter.ElapsedTime() > 85000)
+        {
+            Reset(meter);
+        }
+        if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=1,1");
+            state = State::NEED_FTPCID;
+            meter.Reset();
+        }
         break;
 
     case State::NEED_FTPCID:
