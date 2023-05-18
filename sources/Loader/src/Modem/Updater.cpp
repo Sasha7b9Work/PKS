@@ -78,7 +78,7 @@ namespace Updater
     static String login("s92153gg_1");
     static String password("Qwerty123!");
     static String firmware("sampl.txt");
-    static String directory("/files/");
+    static String directory("/");
 
     void Update(const String &);
 
