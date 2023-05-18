@@ -185,14 +185,18 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else if (GetWord(answer, 1) != "ERROR")
+        else if (answer.Size() == 0)
+        {
+            int i = 0;
+        }
+        else if (answer != "ERROR")
         {
             // Здесь получаем IP-адрес
             state = State::WAIT_IP_STATUS;
             meter.Reset();
             SIM800::Transmit("AT+CIPSTATUS");
         }
-        else if (answer.Size())
+        else
         {
             int i = 0;
         }
