@@ -49,10 +49,11 @@ namespace Updater
 
     static State::E state = State::IDLE;
 
-    static String address;
-    static String login;
-    static String password;
-    static String firmware;
+    static String address("s92153gg.beget.tech");
+    static String login("s92153gg_1");
+    static String password("Qwerty123");
+    static String firmware("sample.txt");
+    static String directory("/files");
 
     void Update(const String &);
 
@@ -82,13 +83,6 @@ bool Updater::IsCompleted()
 
 void Updater::Update(const String &answer)
 {
-//    if (Modem::ExistUpdate())
-//    {
-//        LoadFirmware();
-//
-//        JumpToBootloader();
-//    }
-
     const uint DEFAULT_TIME = 10000;
 
     static TimeMeterMS meter;
@@ -96,33 +90,13 @@ void Updater::Update(const String &answer)
     switch (state)
     {
     case State::IDLE:
-        if (Parser::GetWord(answer, 1) == "+IPD")
-        {
-            address = Parser::GetWordInQuotes(answer, 0);
-            login = Parser::GetWordInQuotes(answer, 1);
-            password = Parser::GetWordInQuotes(answer, 2);
-            firmware = Parser::GetWordInQuotes(answer, 3);
-
-            if (firmware.Size())
-            {
-                state = State::NEED_SAPBR_3_GPRS;
-                SIM800::Transmit("AT+CIPCLOSE=1");
-                meter.Reset();
-            }
-        }
+        state = State::NEED_SAPBR_3_GPRS;
         break;
 
     case State::NEED_SAPBR_3_GPRS:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset(meter);
-        }
-        if (answer == "CLOSE OK")
-        {
-            SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
-            meter.Reset();
-            state = State::NEED_SAPBR_3_APN;
-        }
+        SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
+        meter.Reset();
+        state = State::NEED_SAPBR_3_APN;
         break;
 
     case State::NEED_SAPBR_3_APN:
@@ -229,7 +203,9 @@ void Updater::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+FTPGETPATH=\"/files/\"");
+            char _directory[64];
+            std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory.c_str());
+            SIM800::Transmit(_directory);
             state = State::NEED_FTPGETNAME;
             meter.Reset();
         }
@@ -242,7 +218,9 @@ void Updater::Update(const String &answer)
         }
         if (answer == "OK")
         {
-            SIM800::Transmit("AT+FTPGETNAME=\"sample.txt\"");
+            char _firmware[64];
+            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", firmware.c_str());
+            SIM800::Transmit(_firmware);
             state = State::NEED_FTPGET;
             meter.Reset();
         }

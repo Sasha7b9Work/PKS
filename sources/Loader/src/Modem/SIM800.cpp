@@ -84,7 +84,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     }
     else if (first_word == "+IPD")
     {
-        return true;
+        return false;
     }
 
     return false;
