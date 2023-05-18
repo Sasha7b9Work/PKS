@@ -148,22 +148,22 @@ void Updater::Update(const String &answer)
             char _address[64];
             std::sprintf(_address, "AT+FTPSERV=\"%s\"", address.c_str());
             SIM800::Transmit(_address);
-            state = State::NEED_FTPPORT;
+            state = State::NEED_FTPUN;
             meter.Reset();
         }
         break;
 
     case State::NEED_FTPPORT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset(meter);
-        }
-        if (answer == "OK")
-        {
-            state = State::NEED_FTPUN;
-            SIM800::Transmit("AT+FTPPORT=21");
-            meter.Reset();
-        }
+//        if (meter.ElapsedTime() > DEFAULT_TIME)
+//        {
+//            Reset(meter);
+//        }
+//        if (answer == "OK")
+//        {
+//            state = State::NEED_FTPUN;
+//            SIM800::Transmit("AT+FTPPORT=21");
+//            meter.Reset();
+//        }
         break;
 
     case State::NEED_FTPUN:
