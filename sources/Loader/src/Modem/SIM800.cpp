@@ -11,12 +11,6 @@
 using namespace Parser;
 
 
-namespace Modem
-{
-    void CallbackOnErrorSIM800();
-}
-
-
 namespace Updater
 {
     void Update(const String &);
@@ -48,8 +42,6 @@ namespace SIM800
 
     void Update(const String &);
 
-    void Reset();
-
     static bool ProcessUnsolicited(const String &);
 
     bool IsRegistered();
@@ -68,7 +60,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 
     if (answer == "CLOSED")
     {
-        Reset();
+        Modem::Reset();
         return true;
     }
     else if (first_word == "+CSQ")
@@ -115,7 +107,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_ATE0:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Reset();
+            Modem::Reset();
         }
         else if (answer == "OK")
         {
@@ -128,7 +120,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_GSMBUSY:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Reset();
+            Modem::Reset();
         }
         else if (answer == "OK")
         {
@@ -141,7 +133,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_CREG:
         if (meter.ElapsedTime() > 30000)
         {
-            Reset();
+            Modem::Reset();
         }
         else
         {
@@ -168,7 +160,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_IP_INITIAL:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Reset();
+            Modem::Reset();
         }
         else if (GetWord(answer, 3) == "INITIAL")
         {
@@ -182,7 +174,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_CGATT:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Reset();
+            Modem::Reset();
         }
         else if (answer == "OK")
         {
@@ -222,11 +214,4 @@ void SIM800::TransmitRAW(pchar message)
 void SIM800::TransmitUINT8(uint8 byte)
 {
     HAL_USART_GPRS::Transmit(&byte, 1);
-}
-
-
-void SIM800::Reset()
-{
-    state = State::START;
-    Modem::CallbackOnErrorSIM800();
 }

@@ -18,6 +18,9 @@ namespace Modem
 
     void CallbackOnReceive(char);
 
+    // В случае возникновения в машине состояний Modem, SIM800 или Updater вызывать
+    void Reset();
+
     namespace Mode
     {
         // Возвращает true, если напряжение подано

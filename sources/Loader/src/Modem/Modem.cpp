@@ -127,9 +127,6 @@ namespace Modem
 
         static bool ReadInput();
     }
-
-    // После любой необработанной ошибки SIM800 вызывать эту функцию
-    void CallbackOnErrorSIM800();
 }
 
 
@@ -243,7 +240,7 @@ void Modem::Init()
 }
 
 
-void Modem::CallbackOnErrorSIM800()
+void Modem::Reset()
 {
     state = State::IDLE;
     Answer::Reset();
