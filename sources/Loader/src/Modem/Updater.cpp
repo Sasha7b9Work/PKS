@@ -12,7 +12,7 @@
 /*
 *   *** FTP-сервер ***
 *   s92153gg.beget.tech/files
-*   s92153gg_1
+*   s92153gg_1!
 *   Qwerty123
 */
 
@@ -51,7 +51,7 @@ namespace Updater
 
     static String address("s92153gg.beget.tech");
     static String login("s92153gg_1");
-    static String password("Qwerty123");
+    static String password("Qwerty123!");
     static String firmware("sample.txt");
     static String directory("/files");
 
