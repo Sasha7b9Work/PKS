@@ -34,6 +34,8 @@ namespace SIM800
             WAIT_ANSWER_GSMBUSY,
             WAIT_ANSWER_CREG,
             WAIT_IP_INITIAL,
+            WAIT_CIFSR,
+            WAIT_IP_STATUS,
 
             RUNNING_UPDATER
         };
@@ -166,16 +168,42 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_INITIAL:
-    {
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
-        int i = 0;
-    }
+        else if (GetWord(answer, 3) == "INITIAL")
+        {
+            state = State::WAIT_CIFSR;
+            meter.Reset();
+            SIM800::Transmit("AT+CIFSR");
+        }
         break;
 
+    case State::WAIT_CIFSR:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if (GetWord(answer, 1) != "OK")
+        {
+            // Здесь получаем IP-адрес
+            state = State::WAIT_IP_STATUS;
+            meter.Reset();
+            SIM800::Transmit("AT+CIPSTATUS");
+        }
+        break;
 
+    case State::WAIT_IP_STATUS:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if (GetWord(answer, 3) == "STATUS")
+        {
+            state = State::RUNNING_UPDATER;
+        }
+        break;
 
     case State::RUNNING_UPDATER:
         Updater::Update(answer);

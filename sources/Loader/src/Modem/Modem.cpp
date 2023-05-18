@@ -80,6 +80,12 @@ namespace Modem
         static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
         static int pointer = 0;
 
+        static void Reset()
+        {
+            pointer = 0;
+            num_answers = 0;
+        }
+
         static void Push(char symbol)
         {
             if (symbol == 0x0a || symbol == 0x00)
@@ -240,6 +246,7 @@ void Modem::Init()
 void Modem::CallbackOnErrorSIM800()
 {
     state = State::IDLE;
+    Answer::Reset();
 }
 
 
