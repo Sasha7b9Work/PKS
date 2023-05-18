@@ -1,0 +1,31 @@
+// 2023/04/05 16:54:20 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+#pragma once
+
+
+namespace Timer
+{
+    uint TimeMS();
+
+    void DelayMS(uint ms);
+}
+
+
+struct TimeMeterMS
+{
+    TimeMeterMS()
+    {
+        Reset();
+    }
+    void Reset();
+    uint ElapsedTime();
+    void Wait(uint);
+
+    // Теймер "сработает" через time ms (Значение IsWorked() будет true)
+    void SetResponseTime(uint time);
+    // Вернёт true, когда закончится промежуток time из функции SetResponseTime
+    bool IsWorked() const;
+private:
+    uint time_reset;
+    // После этого времени нужно вернуть true в IsWorked()
+    uint time_response;
+};

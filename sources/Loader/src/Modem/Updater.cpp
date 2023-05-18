@@ -1,4 +1,4 @@
-﻿// 2023/04/05 12:25:03 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2023/04/05 12:25:03 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
@@ -59,8 +59,6 @@ namespace Updater
         meter.Reset();
         state = State::NEED_SAPBR_3_GPRS;
     }
-
-    void JumpToBootloader();
 
     void LoadFirmware();
 
@@ -337,30 +335,4 @@ void Updater::LoadFirmware()
 
         part++;
     }
-}
-
-
-#ifdef GUI
-#else
-    //set Main Stack value
-    __asm void MSR_MSP(uint)
-    {
-    #ifndef WIN32
-        MSR MSP, r0
-        BX r14
-    #endif
-    }
-#endif
-
-
-void Updater::JumpToBootloader()
-{
-    typedef void (*iapfun)(void);
-    iapfun  jump2app;
-
-    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_BOOTLOADER + 4); //-V566
-#ifndef GUI
-    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_BOOTLOADER);                        //initialize app pointer //-V566
-#endif
-    jump2app();                                                                 //jump to app
 }

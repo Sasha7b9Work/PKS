@@ -31,21 +31,26 @@ add_compile_options(/wd5220)    # a non-static data member with a volatile quali
 add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum class' over 'enum' (Enum.3)
 
 
-file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*
-                                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Source/*.*)
-file(GLOB SRC                      src/*.*)
-file(GLOB HARDWARE                 src/Hardware/*.*)
-file(GLOB HARDWARE_CMSIS           src/Hardware/CMSIS/*.*)
-file(GLOB HARDWARE_HAL             src/Hardware/HAL/*.*)
+file(GLOB GD32F3                ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*
+                                ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Source/*.*)
+file(GLOB SRC                   src/*.*)
+file(GLOB HARDWARE              src/Hardware/*.*)
+file(GLOB HARDWARE_CMSIS        src/Hardware/CMSIS/*.*)
+file(GLOB HARDWARE_HAL          src/Hardware/HAL/*.*)
+file(GLOB MEASURER              src/Measurer/*.*)
+file(GLOB MODEM                 src/Modem/*.*)
+file(GLOB UTILS                 src/Utils/*.*)
 
-source_group(GD32F3                   FILES ${GD32F3})
-source_group(src                      FILES ${SRC})
-source_group(Hardware                 FILES ${HARDWARE})
-source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
-source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
+source_group(GD32F3             FILES ${GD32F3})
+source_group(src                FILES ${SRC})
+source_group(Hardware           FILES ${HARDWARE})
+source_group(Hardware/CMSIS     FILES ${HARDWARE_CMSIS})
+source_group(Hardware/HAL       FILES ${HARDWARE_HAL})
+source_group(Measurer           FILES ${MEASURER})
+source_group(Modem              FILES ${MODEM})
+source_group(Utils              FILES ${UTILS})
 
-set_source_files_properties(${GD32F3} ${HARDWARE_CMSIS}
-                            PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties(${GD32F3} ${HARDWARE_CMSIS}  PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}
             ${GD32F3}
@@ -53,4 +58,7 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
+            ${MEASURER}
+            ${MODEM}
+            ${UTILS}
             )

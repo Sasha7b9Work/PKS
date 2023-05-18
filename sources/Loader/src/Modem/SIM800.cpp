@@ -17,6 +17,12 @@ namespace Modem
 }
 
 
+namespace Updater
+{
+    bool Update(const String &);
+}
+
+
 namespace MQTT
 {
     void Update(const String &);
@@ -309,6 +315,7 @@ void SIM800::Update(const String &answer)
 
     case State::RUNNING_MQTT:
 
+        Updater::Update(answer);
         MQTT::Update(answer);
 
         if (meterCSQ.ElapsedTime() > 5000)

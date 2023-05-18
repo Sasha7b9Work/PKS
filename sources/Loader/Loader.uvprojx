@@ -454,6 +454,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fmc.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -468,6 +473,41 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Loader.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Loader.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Loader.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Loader.h</FilePath>
+            </File>
+            <File>
+              <FileName>Log.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware</GroupName>
+          <Files>
+            <File>
+              <FileName>Timer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Timer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -523,6 +563,106 @@
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactors.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Contactors.h</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Parser.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\SIM800.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Updater.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Updater.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils</GroupName>
+          <Files>
+            <File>
+              <FileName>Math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Math.h</FilePath>
+            </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -976,6 +1116,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fmc.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_usart.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -990,6 +1135,41 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\main.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Loader.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Loader.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Loader.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Loader.h</FilePath>
+            </File>
+            <File>
+              <FileName>Log.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Log.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Log.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Log.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Hardware</GroupName>
+          <Files>
+            <File>
+              <FileName>Timer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Timer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Timer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Timer.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1045,6 +1225,106 @@
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_PINS.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactors.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Contactors.h</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem</GroupName>
+          <Files>
+            <File>
+              <FileName>Modem.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Modem.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Parser.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\SIM800.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Updater.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\Updater.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Utils</GroupName>
+          <Files>
+            <File>
+              <FileName>Math.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\Math.h</FilePath>
+            </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Utils\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>

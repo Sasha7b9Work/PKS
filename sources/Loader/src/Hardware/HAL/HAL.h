@@ -1,5 +1,6 @@
 ﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Hardware/HAL/HAL_PINS.h"
 
 
 namespace HAL
@@ -25,6 +26,23 @@ namespace HAL_ROM
 
     // address должен быть кратен 4, size должен быть кратен 4
     void WriteData(uint address, uint8 *data, int size);
+}
+
+
+namespace HAL_USART_GPRS
+{
+    void Init();
+    // Передать с завершающм 0x0d
+    void Transmit(pchar);
+    void Transmit(void *, int);
+    void CallbackOnReceive(char);
+}
+
+
+namespace HAL_USART_LOG
+{
+    void Init();
+    void Transmit(pchar);
 }
 
 

@@ -485,11 +485,6 @@
               <FilePath>.\src\Device.h</FilePath>
             </File>
             <File>
-              <FileName>Test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Test.h</FilePath>
-            </File>
-            <File>
               <FileName>Device.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Device.cpp</FilePath>
@@ -498,11 +493,6 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Test.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Test.cpp</FilePath>
             </File>
             <File>
               <FileName>Log.cpp</FileName>
@@ -779,26 +769,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
             </File>
-            <File>
-              <FileName>Updater.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Updater.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
           <Files>
-            <File>
-              <FileName>SoftwareGenerator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\SoftwareGenerator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SoftwareGenerator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\SoftwareGenerator.h</FilePath>
-            </File>
             <File>
               <FileName>Buffer.cpp</FileName>
               <FileType>8</FileType>
@@ -1307,11 +1282,6 @@
               <FilePath>.\src\Device.h</FilePath>
             </File>
             <File>
-              <FileName>Test.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Test.h</FilePath>
-            </File>
-            <File>
               <FileName>Device.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Device.cpp</FilePath>
@@ -1320,11 +1290,6 @@
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\main.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Test.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Test.cpp</FilePath>
             </File>
             <File>
               <FileName>Log.cpp</FileName>
@@ -1601,26 +1566,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
             </File>
-            <File>
-              <FileName>Updater.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Updater.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
           <GroupName>Utils</GroupName>
           <Files>
-            <File>
-              <FileName>SoftwareGenerator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Utils\SoftwareGenerator.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SoftwareGenerator.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Utils\SoftwareGenerator.h</FilePath>
-            </File>
             <File>
               <FileName>Buffer.cpp</FileName>
               <FileType>8</FileType>

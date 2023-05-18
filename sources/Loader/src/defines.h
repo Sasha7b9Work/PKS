@@ -1,4 +1,4 @@
-// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 
 typedef unsigned char uint8;
@@ -8,6 +8,10 @@ typedef signed short int16;
 typedef unsigned int uint;
 typedef const char *pchar;
 typedef unsigned char uchar;
+
+
+// Раскомментировать для 5-ступеньчатой версии
+#define FIVE_STEPS_VERSION
 
 
 #ifndef WIN32
@@ -55,3 +59,6 @@ union BitSet32
   (((uint8)((uint)bits / 010000000) % 010) << 7)))
 
 #define BINARY_U8( bits ) _bitset(0##bits)
+
+
+#include "Log.h"

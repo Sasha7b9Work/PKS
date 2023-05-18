@@ -6,7 +6,6 @@
 #include "Display/Display.h"
 #include "Measurer/Measurer.h"
 #include "FlashDisk/FlashDisk.h"
-#include "Test.h"
 #include "Hardware/Timer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/Modules/M25P80/M25P80.h"
