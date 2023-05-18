@@ -117,6 +117,14 @@ extern "C" {
         delay_decrement();
     }
 
+    void UART3_IRQHandler(void)
+    {
+        if (RESET != usart_interrupt_flag_get(USART_GPRS_ADDR, USART_INT_FLAG_RBNE)) {
+
+            HAL_USART_GPRS::CallbackOnReceive((char)usart_data_receive(USART_GPRS_ADDR));
+        }
+    }
+
 #ifdef __cplusplus
 }
 #endif

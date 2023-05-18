@@ -70,6 +70,8 @@ extern "C" {
     /* this function handles SysTick exception */
     void SysTick_Handler(void);
 
+    void UART3_IRQHandler(void);
+
 #ifdef __cplusplus
 }
 #endif
