@@ -10,6 +10,7 @@ include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/_VS_KEIL/std_includes
                     ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
                     ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
+                    ../common/
                     src/Hardware/HAL/
                     src/
                     )
@@ -39,14 +40,16 @@ file(GLOB SRC                      src/*.*)
 file(GLOB DISPLAY                  src/Display/*.*)
 file(GLOB DISPLAY_FONT             src/Display/Font/*.*)
 file(GLOB FLASHDISK                src/FlashDisk/*.*)
-file(GLOB HARDWARE                 src/Hardware/*.*)
+file(GLOB HARDWARE                 src/Hardware/*.*
+                                   ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS           src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL             src/Hardware/HAL/*.*)
 file(GLOB HARDWARE_MODULES_SSD1306 src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80  src/Hardware/Modules/M25P80/*.*)
-file(GLOB MEASURER                 src/Measurer/*.*)
+file(GLOB MEASURER                 src/Measurer/*.*
+                                   ../common/Measurer/Calculator.*)
 file(GLOB MODEM                    src/Modem/*.*)
-file(GLOB UTILS                    src/Utils/*.*)
+file(GLOB UTILS                    ../common/Utils/*.*)
 
 source_group(GD32F3                   FILES ${GD32F3})
 source_group(src                      FILES ${SRC})

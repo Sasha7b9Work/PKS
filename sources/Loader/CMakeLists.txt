@@ -10,6 +10,7 @@ include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/_VS_KEIL/std_includes/
                     ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
                     ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
+                    ../common/
                     src/Hardware/HAL/
                     src/
                     )
@@ -27,12 +28,14 @@ add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for me
 file(GLOB GD32F3                ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*
                                 ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Source/*.*)
 file(GLOB SRC                   src/*.*)
-file(GLOB HARDWARE              src/Hardware/*.*)
+file(GLOB HARDWARE              ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS        src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL          src/Hardware/HAL/*.*)
-file(GLOB MEASURER              src/Measurer/*.*)
+file(GLOB MEASURER              src/Measurer/*.*
+                                ../common/Measurer/Calculator.*)
 file(GLOB MODEM                 src/Modem/*.*)
-file(GLOB UTILS                 src/Utils/*.*)
+file(GLOB UTILS                 ../common/Utils/Math.*
+                                ../common/Utils/String.*)
 
 source_group(GD32F3             FILES ${GD32F3})
 source_group(src                FILES ${SRC})

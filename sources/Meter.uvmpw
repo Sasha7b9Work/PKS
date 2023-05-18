@@ -9,7 +9,6 @@
 
   <project>
     <PathAndName>.\Device\Device.uvprojx</PathAndName>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
   <project>

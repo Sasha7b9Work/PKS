@@ -4,11 +4,14 @@
 #include "Modem/Updater.h"
 #include "Application.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/Modem.h"
 
 
 void Loader::Init()
 {
     HAL::Init();
+
+    Modem::Init();
 }
 
 

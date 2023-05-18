@@ -340,7 +340,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include</IncludePath>
+              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include;..\common</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -512,12 +512,12 @@
             <File>
               <FileName>Timer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Timer.cpp</FilePath>
+              <FilePath>..\common\Hardware\Timer.cpp</FilePath>
             </File>
             <File>
               <FileName>Timer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Timer.h</FilePath>
+              <FilePath>..\common\Hardware\Timer.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -715,11 +715,6 @@
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
             <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
@@ -733,6 +728,11 @@
               <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Contactors.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -777,27 +777,27 @@
             <File>
               <FileName>Buffer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Utils\Buffer.cpp</FilePath>
+              <FilePath>..\common\Utils\Buffer.cpp</FilePath>
             </File>
             <File>
               <FileName>Buffer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Buffer.h</FilePath>
+              <FilePath>..\common\Utils\Buffer.h</FilePath>
             </File>
             <File>
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Math.h</FilePath>
+              <FilePath>..\common\Utils\Math.h</FilePath>
             </File>
             <File>
               <FileName>String.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Utils\String.cpp</FilePath>
+              <FilePath>..\common\Utils\String.cpp</FilePath>
             </File>
             <File>
               <FileName>String.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\String.h</FilePath>
+              <FilePath>..\common\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1309,12 +1309,12 @@
             <File>
               <FileName>Timer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Timer.cpp</FilePath>
+              <FilePath>..\common\Hardware\Timer.cpp</FilePath>
             </File>
             <File>
               <FileName>Timer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Timer.h</FilePath>
+              <FilePath>..\common\Hardware\Timer.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1512,11 +1512,6 @@
               <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
             <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
@@ -1530,6 +1525,11 @@
               <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Measurer\Contactors.h</FilePath>
+            </File>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1574,27 +1574,27 @@
             <File>
               <FileName>Buffer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Utils\Buffer.cpp</FilePath>
+              <FilePath>..\common\Utils\Buffer.cpp</FilePath>
             </File>
             <File>
               <FileName>Buffer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Buffer.h</FilePath>
+              <FilePath>..\common\Utils\Buffer.h</FilePath>
             </File>
             <File>
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\Math.h</FilePath>
+              <FilePath>..\common\Utils\Math.h</FilePath>
             </File>
             <File>
               <FileName>String.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Utils\String.cpp</FilePath>
+              <FilePath>..\common\Utils\String.cpp</FilePath>
             </File>
             <File>
               <FileName>String.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Utils\String.h</FilePath>
+              <FilePath>..\common\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>
