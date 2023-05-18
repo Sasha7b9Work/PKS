@@ -33,6 +33,7 @@ namespace SIM800
             WAIT_ANSWER_ATE0,
             WAIT_ANSWER_GSMBUSY,
             WAIT_ANSWER_CREG,
+            WAIT_ANSWER_CGATT,
             WAIT_IP_INITIAL,
             RUNNING_UPDATER
         };
@@ -170,6 +171,19 @@ void SIM800::Update(const String &answer)
             Reset();
         }
         else if (GetWord(answer, 3) == "INITIAL")
+        {
+            SIM800::Transmit("AT+CGATT=1");
+            state = State::WAIT_ANSWER_CGATT;
+            meter.Reset();
+        }
+        break;
+
+    case State::WAIT_ANSWER_CGATT:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if (answer == "OK")
         {
             state = State::RUNNING_UPDATER;
         }
