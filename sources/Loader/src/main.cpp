@@ -1,14 +1,10 @@
 // 2023/04/05 10:13:53 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
+#include "Application.h"
 #include <gd32f30x.h>
 
 
-static void JumpToApplication();
-
-
-int main()
-{
 //    HAL::Init();
 //
 //    for (int page = 50; page < 100; page++)
@@ -25,27 +21,9 @@ int main()
 //        }
 //    }
 
-    JumpToApplication();
-}
 
 
-//set Main Stack value
-__asm void MSR_MSP(uint)
+int main()
 {
-#ifndef WIN32
-    MSR MSP, r0
-        BX r14
-#endif
-}
-
-
-static void JumpToApplication()
-{
-    typedef void (*iapfun)(void);
-    iapfun  jump2app;
-
-    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_APPLICATION + 4); //-V566
-    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_APPLICATION);                        //initialize app pointer //-V566
-    nvic_vector_table_set(HAL_ROM::ADDR_BASE, 0);
-    jump2app();                                                                 //jump to app
+    Application::Run();
 }

@@ -161,24 +161,6 @@ namespace Contactors
 
     // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
     bool IsBusy(Phase::E phase);
-
-    // Устанавливает адрес на линиях MX
-    static void SetAddressMX(uint);
-
-    // Возвращает состояние реле, выбранного установленным ранее адресом по SetAddressMX()
-    static bool StateRele();
-
-    // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
-    static bool ReleIsBusy(uint address);
-
-    // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
-    static bool state_contactor[NUM_PINS_MX] =
-    {
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false,
-        false
-    };
 }
 
 
@@ -404,89 +386,4 @@ void Contactors::Contactor::Disable()
 
         pin->Reset();
     }
-}
-
-
-void Contactors::VerifyCondition()
-{
-    static TimeMeterMS meter;
-
-    if (meter.ElapsedTime() < 1)
-    {
-        return;
-    }
-
-    meter.Reset();
-
-    static bool first = true;
-
-    static uint address = 0;
-
-    if (first)
-    {
-        SetAddressMX(address);
-        first = false;
-    }
-    else
-    {
-        if (!ReleIsBusy(address))
-        {
-            bool state = StateRele();
-
-            state_contactor[address] = state;
-        }
-
-        if (address == 27)                          // Был выставлен адрес P2 = 31
-        {
-            state_contactor[address] = !pinP2.IsHi();
-        }
-
-        address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
-
-        if (address == 27)                          // 28-й элемент массива - адрес пина P2 для контроля напряжения 100В
-        {
-            address = 31;
-        };
-
-        SetAddressMX(address);
-
-        if (address == 31)
-        {
-            address = 27;
-        }
-    }
-}
-
-
-void Contactors::SetAddressMX(uint address)
-{
-    pinMX0.SetState((address & 1) != 0);
-    pinMX1.SetState((address & 2) != 0);
-    pinMX2.SetState((address & 4) != 0);
-    pinMX3.SetState((address & 8) != 0);
-    pinMX4.SetState((address & 16) == 0);
-}
-
-
-bool Contactors::StateRele()
-{
-    bool p1 = pinP1.IsHi();
-    bool p2 = pinP2.IsHi();
-
-    return ((p1 && !p2) || (!p1 && p2));
-}
-
-
-bool Contactors::ReleIsBusy(uint address)
-{
-    if (address < 9)
-    {
-        return Contactors::IsBusy(Phase::A);
-    }
-    else if (address < 18)
-    {
-        return Contactors::IsBusy(Phase::B);
-    }
-
-    return Contactors::IsBusy(Phase::C);
 }

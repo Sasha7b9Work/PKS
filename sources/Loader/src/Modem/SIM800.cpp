@@ -23,14 +23,6 @@ namespace Updater
 }
 
 
-namespace MQTT
-{
-    void Update(const String &);
-    void Reset();
-    void CallbackOnReceiveData(const String &);
-}
-
-
 namespace SIM800
 {
     struct State
@@ -100,7 +92,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     }
     else if (first_word == "+IPD")
     {
-        MQTT::CallbackOnReceiveData(answer);
+        return false;
     }
 
     return false;
@@ -316,7 +308,6 @@ void SIM800::Update(const String &answer)
     case State::RUNNING_MQTT:
 
         Updater::Update(answer);
-        MQTT::Update(answer);
 
         if (meterCSQ.ElapsedTime() > 5000)
         {
@@ -367,5 +358,4 @@ void SIM800::Reset()
 {
     state = State::START;
     Modem::CallbackOnErrorSIM800();
-    MQTT::Reset();
 }

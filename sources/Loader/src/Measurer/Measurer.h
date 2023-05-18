@@ -89,10 +89,3 @@ namespace Measurer
 
     FullMeasure Measure1Min();
 }
-
-
-namespace Contactors
-{
-    // Проверить состояние очередного вывода. Вызывается в глвном цикле
-    void VerifyCondition();
-}
