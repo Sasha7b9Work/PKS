@@ -103,8 +103,6 @@ namespace Modem
             {
                 buffer[pointer - 1] = '\0';
 
-                String string(buffer);
-
                 if (num_answers < MAX_ANSWERS)
                 {
                     answers[num_answers++].Set(buffer);
