@@ -77,7 +77,7 @@ namespace Updater
     static String address("s92153gg.beget.tech");
     static String login("s92153gg_1");
     static String password("Qwerty123!");
-    static String firmware("sampl.txt");
+    static String firmware("sample.txt");
     static String directory("/");
 
     void Update(const String &);
