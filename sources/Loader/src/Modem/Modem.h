@@ -23,9 +23,6 @@ namespace Modem
         // Возвращает true, если напряжение подано
         bool Power();
 
-        // Возвращает true, если зарегистрирован в сети
-        bool Registered();
-
         // Уровень сигнала от 0 до 10
         String LevelSignal();
     }

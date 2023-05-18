@@ -222,12 +222,6 @@ bool Modem::Mode::Power()
 }
 
 
-bool Modem::Mode::Registered()
-{
-    return SIM800::IsRegistered();
-}
-
-
 String Modem::Mode::LevelSignal()
 {
     return SIM800::LevelSignal();

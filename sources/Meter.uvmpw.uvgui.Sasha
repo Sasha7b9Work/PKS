@@ -1784,9 +1784,9 @@
       <ActiveTab>0</ActiveTab>
       <Doc>
         <Name>&lt;1&gt;..\common\Hardware\HAL\HAL_PINS.cpp</Name>
-        <ColumnNumber>5</ColumnNumber>
+        <ColumnNumber>35</ColumnNumber>
         <TopLine>74</TopLine>
-        <CurrentLine>96</CurrentLine>
+        <CurrentLine>117</CurrentLine>
         <Folding>1</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>

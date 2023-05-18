@@ -30,19 +30,12 @@ namespace SIM800
         enum E
         {
             START,
-            WAIT_ATE0,
-            WAIT_GSMBUSY,
-            WAIT_CREG,
+            WAIT_ANSWER_ATE0,
+            WAIT_ANSWER_GSMBUSY,
+            WAIT_ANSWER_CREG,
             WAIT_IP_INITIAL,
-            WAIT_CSTT,
-            WAIT_IP_START,
-            WAIT_CIICR,
-            WAIT_IP_GPRSACT,
-            WAIT_CIFSR,
-            WAIT_IP_STATUS,
-            WAIT_TCP_CONNECT,
-            WAIT_CIPHEAD,
-            RUNNING_MQTT
+
+            RUNNING_UPDATER
         };
     };
 
@@ -114,39 +107,38 @@ void SIM800::Update(const String &answer)
     {
     case State::START:
         SIM800::Transmit("ATE0");
-        state = State::WAIT_ATE0;
+        state = State::WAIT_ANSWER_ATE0;
         meter.Reset();
         levelSignal.Set("0");
         break;
 
-    case State::WAIT_ATE0:
+    case State::WAIT_ANSWER_ATE0:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
-        else if (answer == "OK")
+        if (answer == "OK")
         {
             SIM800::Transmit("AT+GSMBUSY=1");
-            state = State::WAIT_GSMBUSY;
+            state = State::WAIT_ANSWER_GSMBUSY;
             meter.Reset();
         }
-
         break;
 
-    case State::WAIT_GSMBUSY:
+    case State::WAIT_ANSWER_GSMBUSY:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
-        else if (answer == "OK")
+        if (answer == "OK")
         {
-            SIM800::Transmit("AT+CREG?");
-            state = State::WAIT_CREG;
+            SIM800::Transmit("AT+CREG?");                                       // CREG?
+            state = State::WAIT_ANSWER_CREG;
             meter.Reset();
         }
         break;
 
-    case State::WAIT_CREG:
+    case State::WAIT_ANSWER_CREG:
         if (meter.ElapsedTime() > 30000)
         {
             Reset();
@@ -157,8 +149,8 @@ void SIM800::Update(const String &answer)
             {
                 int stat = GetWord(answer, 3).c_str()[0] & 0x0f;
 
-                if (stat == 1 ||    // Registered, home network
-                    stat == 5)      // Registered, roaming
+                if (stat == 1 ||        // Registered, home network
+                    stat == 5)          // Registered, roaming
                 {
                     SIM800::Transmit("AT+CIPSTATUS");
                     state = State::WAIT_IP_INITIAL;
@@ -173,156 +165,21 @@ void SIM800::Update(const String &answer)
         break;
 
     case State::WAIT_IP_INITIAL:
+    {
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
-        else if (GetWord(answer, 3) == "INITIAL")
-        {
-            SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
-            state = State::WAIT_CSTT;
-            meter.Reset();
-        }
+        int i = 0;
+    }
         break;
 
-    case State::WAIT_CSTT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else
-        {
-            if (GetWord(answer, 1) == "OK")
-            {
-                state = State::WAIT_IP_START;
-                meter.Reset();
-                SIM800::Transmit("AT+CIPSTATUS");
-            }
-            else if (GetWord(answer, 1) == "ERROR")
-            {
-                Reset();
-            }
-        }
-        break;
 
-    case State::WAIT_IP_START:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (GetWord(answer, 3) == "START")
-        {
-            state = State::WAIT_CIICR;
-            meter.Reset();
-            SIM800::Transmit("AT+CIICR");
-        }
-        break;
 
-    case State::WAIT_CIICR:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (GetWord(answer, 1) == "OK")
-        {
-            state = State::WAIT_IP_GPRSACT;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPSTATUS");
-        }
-        break;
-
-    case State::WAIT_IP_GPRSACT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (GetWord(answer, 3) == "GPRSACT")
-        {
-            state = State::WAIT_CIFSR;
-            meter.Reset();
-            SIM800::Transmit("AT+CIFSR");
-        }
-        break;
-
-    case State::WAIT_CIFSR:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (GetWord(answer, 1) != "OK")
-        {
-            // Здесь получаем IP-адрес
-            state = State::WAIT_IP_STATUS;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPSTATUS");
-        }
-        break;
-
-    case State::WAIT_IP_STATUS:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (GetWord(answer, 3) == "STATUS")
-        {
-            state = State::WAIT_TCP_CONNECT;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
-        }
-        break;
-
-    case State::WAIT_TCP_CONNECT:
-        if (meter.ElapsedTime() > 160000)
-        {
-            Reset();
-        }
-        else if (GetWord(answer, 1) == "ALREADY" || GetWord(answer, 2) == "OK")
-        {
-            state = State::WAIT_CIPHEAD;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPHEAD=1");
-        }
-        else if (GetWord(answer, 2) == "FAIL")
-        {
-            Reset();
-        }
-        break;
-
-    case State::WAIT_CIPHEAD:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (answer == "OK")
-        {
-            meter.Reset();
-            state = State::RUNNING_MQTT;
-        }
-        else if (answer == "ERROR")
-        {
-            Reset();
-        }
-
-        break;
-
-    case State::RUNNING_MQTT:
-
+    case State::RUNNING_UPDATER:
         Updater::Update(answer);
-
-        if (meterCSQ.ElapsedTime() > 5000)
-        {
-            meterCSQ.Reset();
-            SIM800::Transmit("AT+CSQ");
-        }
-
         break;
     }
-}
-
-
-bool SIM800::IsRegistered()
-{
-    return (state >= State::WAIT_IP_INITIAL);
 }
 
 
