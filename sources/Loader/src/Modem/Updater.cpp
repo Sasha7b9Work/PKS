@@ -17,6 +17,29 @@
 */
 
 
+/*
+
+AT+CREG?
+AT+CIPSTATUS
++INITIAL
+AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"
+AT+SAPBR=3,1,\"APN\",\"internet\"
+AT+SAPBR=3,1,\"USER\",\"\"
+AT+SAPBR=3,1,\"PWD\",\"\"
+AT+SAPBR=1,1
+AT+FTPCID=1
+AT+FTPSERV=\"%s\"", address
+AT+FTPUN=\"%s\"", login
+AT+FTPPW=\"%s\"", password
+AT+FTPGETPATH=\"%s\"", directory
+AT+FTPGETNAME=\"%s\"", firmware
+AT+FTPGET=1
+
+
+
+*/
+
+
 namespace SIM800
 {
     void Transmit(pchar);
@@ -54,7 +77,7 @@ namespace Updater
     static String address("s92153gg.beget.tech");
     static String login("s92153gg_1");
     static String password("Qwerty123!");
-    static String firmware("sample.txt");
+    static String firmware("sampl.txt");
     static String directory("/files/");
 
     void Update(const String &);
