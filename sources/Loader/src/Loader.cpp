@@ -17,8 +17,6 @@ void Loader::Init()
 
 void Loader::Update()
 {
-    Application::Run();
-
     Modem::Update();
 
     if (Updater::IsCompleted())
