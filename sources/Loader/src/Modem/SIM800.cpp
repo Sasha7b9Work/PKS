@@ -117,7 +117,7 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+GSMBUSY=1");
             state = State::WAIT_ANSWER_GSMBUSY;
