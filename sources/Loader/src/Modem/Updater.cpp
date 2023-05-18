@@ -32,6 +32,8 @@ namespace Updater
             IDLE,
             NEED_SAPBR_3_GPRS,
             NEED_SAPBR_3_APN,
+            NEED_SAPBR_3_USER,
+            NEED_SAPBR_3_PWD,
             NEED_SAPBR_1_1,
             NEED_FTPCID,        // Находимся в состоянии обновления
             NEED_FTPSERV,       // Имя сервера
@@ -104,12 +106,39 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
-            state = State::NEED_FTPCID;
+            state = State::NEED_SAPBR_3_USER;
             meter.Reset();
         }
+        break;
+
+    case State::NEED_SAPBR_3_USER:
+        if (meter.ElapsedTime() > 85000)
+        {
+            Reset(meter);
+        }
+        else if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=3,1,\"USER\",\"\"");
+            state = State::NEED_SAPBR_3_PWD;
+            meter.Reset();
+        }
+        break;
+
+    case State::NEED_SAPBR_3_PWD:
+        if (meter.ElapsedTime() > 85000)
+        {
+            Reset(meter);
+        }
+        else if (answer == "OK")
+        {
+            SIM800::Transmit("AT+SAPBR=3,1,\"PWD\",\"\"");
+            state = State::NEED_SAPBR_1_1;
+            meter.Reset();
+        }
+
         break;
 
     case State::NEED_SAPBR_1_1:
@@ -117,7 +146,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+SAPBR=1,1");
             state = State::NEED_FTPCID;
@@ -130,7 +159,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+FTPCID=1");
             meter.Reset();
@@ -143,7 +172,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             char _address[64];
             std::sprintf(_address, "AT+FTPSERV=\"%s\"", address.c_str());
@@ -158,7 +187,7 @@ void Updater::Update(const String &answer)
 //        {
 //            Reset(meter);
 //        }
-//        if (answer == "OK")
+//        else if (answer == "OK")
 //        {
 //            state = State::NEED_FTPUN;
 //            SIM800::Transmit("AT+FTPPORT=21");
@@ -171,7 +200,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             char _login[64];
             std::sprintf(_login, "AT+FTPUN=\"%s\"", login.c_str());
@@ -186,7 +215,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             char _password[64];
             std::sprintf(_password, "AT+FTPPW=\"%s\"", password.c_str());
@@ -201,7 +230,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             char _directory[64];
             std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory.c_str());
@@ -216,7 +245,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             char _firmware[64];
             std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", firmware.c_str());
@@ -231,7 +260,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (answer == "OK")
+        else if (answer == "OK")
         {
             SIM800::Transmit("AT+FTPGET=1");
             state = State::NEED_FTPGET_BYTES;
@@ -264,7 +293,7 @@ void Updater::Update(const String &answer)
         {
             Reset(meter);
         }
-        if (Parser::GetWord(answer, 1) == "+FTPGET")
+        else if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
             state = State::IDLE;
         }
