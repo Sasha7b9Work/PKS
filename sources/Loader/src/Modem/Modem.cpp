@@ -245,12 +245,6 @@ void Modem::Init()
 }
 
 
-bool Modem::ExistUpdate()
-{
-    return false;
-}
-
-
 void Modem::CallbackOnErrorSIM800()
 {
     state = State::IDLE;

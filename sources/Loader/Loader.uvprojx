@@ -654,6 +654,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\Modem\Updater.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Updater.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Updater.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1325,6 +1330,11 @@
               <FileName>Updater.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\Updater.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Updater.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Updater.h</FilePath>
             </File>
           </Files>
         </Group>

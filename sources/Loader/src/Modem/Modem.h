@@ -16,9 +16,6 @@ namespace Modem
 
     void Update();
 
-    // Есть обновление
-    bool ExistUpdate();
-
     void CallbackOnReceive(char);
 
     namespace Mode

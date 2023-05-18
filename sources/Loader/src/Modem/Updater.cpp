@@ -4,6 +4,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
+#include "Modem/Updater.h"
 #include <gd32f30x.h>
 #include <cstdio>
 
@@ -32,16 +33,17 @@ namespace Updater
             NEED_SAPBR_3_GPRS,
             NEED_SAPBR_3_APN,
             NEED_SAPBR_1_1,
-            NEED_FTPCID,         // Находимся в состоянии обновления
-            NEED_FTPSERV,        // Имя сервера
+            NEED_FTPCID,        // Находимся в состоянии обновления
+            NEED_FTPSERV,       // Имя сервера
             NEED_FTPPORT,
-            NEED_FTPUN,          // Имя пользователя
-            NEED_FTPPW,          // Пароль
-            NEED_FTPGETPATH,     // Папка с файлом
-            NEED_FTPGETNAME,     // Имя файла
-            NEED_FTPGET,         // Подключение к серверу
-            NEED_FTPGET_BYTES,   // Запрос на получение данных
-            GET_BYTES            // Получение данных
+            NEED_FTPUN,         // Имя пользователя
+            NEED_FTPPW,         // Пароль
+            NEED_FTPGETPATH,    // Папка с файлом
+            NEED_FTPGETNAME,    // Имя файла
+            NEED_FTPGET,        // Подключение к серверу
+            NEED_FTPGET_BYTES,  // Запрос на получение данных
+            GET_BYTES,          // Получение данных
+            COMPLETED           // В этом состоянии находися, если обновление завершено или не требуется
         };
     };
 
@@ -52,7 +54,7 @@ namespace Updater
     static String password;
     static String firmware;
 
-    bool Update(const String &);
+    void Update(const String &);
 
     static void Reset(TimeMeterMS &meter)
     {
@@ -72,7 +74,13 @@ namespace Updater
 }
 
 
-bool Updater::Update(const String &answer)
+bool Updater::IsCompleted()
+{
+    return state == State::COMPLETED;
+}
+
+
+void Updater::Update(const String &answer)
 {
 //    if (Modem::ExistUpdate())
 //    {
@@ -101,14 +109,6 @@ bool Updater::Update(const String &answer)
                 SIM800::Transmit("AT+CIPCLOSE=1");
                 meter.Reset();
             }
-            else
-            {
-                return false;
-            }
-        }
-        else
-        {
-            return false;
         }
         break;
 
@@ -291,9 +291,10 @@ bool Updater::Update(const String &answer)
             state = State::IDLE;
         }
         break;
-    }
 
-    return true;
+    case State::COMPLETED:
+        break;
+    }
 }
 
 

@@ -19,7 +19,7 @@ namespace Modem
 
 namespace Updater
 {
-    bool Update(const String &);
+    void Update(const String &);
 }
 
 

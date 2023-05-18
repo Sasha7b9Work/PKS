@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Application.h"
+#include "Loader.h"
 #include <gd32f30x.h>
 
 
@@ -22,8 +23,15 @@
 //    }
 
 
-
 int main()
 {
-    Application::Run();
+
+    Loader::Init();
+
+    while (true)
+    {
+        Loader::Update();
+    }
+
+//    Application::Run();
 }
