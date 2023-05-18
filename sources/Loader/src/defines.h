@@ -15,6 +15,9 @@ typedef unsigned char uchar;
 // Раскомментировать для 5-ступеньчатой версии
 #define FIVE_STEPS_VERSION
 
+// Версия, которая у меня, недоработанная
+#define OLD_VERSION
+
 
 #ifndef WIN32
     #define nullptr 0 //-V1059
