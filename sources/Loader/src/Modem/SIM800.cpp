@@ -85,7 +85,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
     }
     else if (first_word == "+IPD")
     {
-        return false;
+        return true;
     }
 
     return false;
@@ -159,7 +159,6 @@ void SIM800::Update(const String &answer)
                 else
                 {
                     SIM800::Transmit("AT+CREG?");
-                    meter.Reset();
                 }
             }
         }
