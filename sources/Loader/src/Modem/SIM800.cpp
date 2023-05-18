@@ -172,9 +172,10 @@ void SIM800::Update(const String &answer)
         }
         else if (GetWord(answer, 3) == "INITIAL")
         {
-            SIM800::Transmit("AT+CGATT=1");
-            state = State::WAIT_ANSWER_CGATT;
-            meter.Reset();
+//            SIM800::Transmit("AT+CGATT=1");
+//            state = State::WAIT_ANSWER_CGATT;
+//            meter.Reset();
+            state = State::RUNNING_UPDATER;
         }
         break;
 
