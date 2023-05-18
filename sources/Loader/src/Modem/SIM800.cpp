@@ -145,6 +145,7 @@ void SIM800::Update(const String &answer)
         }
         else
         {
+            Timer::DelayMS(1);
             if (GetWord(answer, 1) == "+CREG")
             {
                 int stat = GetWord(answer, 3).c_str()[0] & 0x0f;
