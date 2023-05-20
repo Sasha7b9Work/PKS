@@ -129,10 +129,8 @@ namespace Updater
                 }
                 else if (symbol == 0x0d)
                 {
-                    if (buffer[pointer++] = 0)
-                    {
-                        received_command = true;
-                    }
+                    buffer[pointer++] = 0;
+                    received_command = true;
                 }
                 else
                 {
