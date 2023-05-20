@@ -117,6 +117,8 @@ namespace Updater
         int pointer_data = 0;             // Столько байт уже принято
         char buffer_data[SIZE_DATA_BUFFER];
 
+        bool received_FTPGET_1_0 = false;       // Признако того, что FTPGET 1,0 получено
+        
         int num_commands = 0;
 
         void Reset()
@@ -128,7 +130,7 @@ namespace Updater
             received_data = false;
 
             need_bytes = 0;
-
+            
             num_commands = 0;
         }
 
