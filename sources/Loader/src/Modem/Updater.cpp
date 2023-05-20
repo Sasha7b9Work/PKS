@@ -104,6 +104,15 @@ namespace Updater
         Modem::Reset();
     }
 
+    static uint source_crc = 0;         // Здесь хранится контрольная сумма из файла
+    static int received_bytes = 0;      // Количество байт, считанных из файла
+    static uint crc = 0;                // Подсчитанная crc
+
+    static uint Hash(uint hash, char byte)
+    {
+        return (uint8)byte + (hash << 6) + (hash << 16) - hash;
+    }
+
     namespace HandlerFTP
     {
         static const int SIZE_DATA_BUFFER = 64;
@@ -436,20 +445,19 @@ void Updater::Update(pchar answer)
         }
         else if (HandlerFTP::requested_bytes_received)
         {
-            uint crc = 0;
-            memcpy(&crc, HandlerFTP::buffer_data, 4);
+            memcpy(&source_crc, HandlerFTP::buffer_data, 4);
 
             state = State::GET_BYTES_FIRMWARE;
             meter.Reset();
             HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
             HandlerFTP::received_FTPGET_1_0 = false;
+            crc = 0;
+            received_bytes = 0;
         }
         break;
 
     case State::GET_BYTES_FIRMWARE:
         {
-            static int received_bytes = 0;
-
             if (meter.ElapsedTime() > 75000)
             {
                 Reset();
@@ -460,15 +468,27 @@ void Updater::Update(pchar answer)
                 {
                     received_bytes += HandlerFTP::pointer_data;
                     received_bytes = received_bytes;
-                }
-                else if (HandlerFTP::requested_bytes_received)
-                {
-                    if (received_bytes > 27000)
+                    for (int i = 0; i < HandlerFTP::pointer_data; i++)
+                    {
+                        crc += Hash(crc, HandlerFTP::buffer_data[i]);
+                    }
+
+                    if (crc == source_crc)
                     {
                         int i = 0;
                     }
-
+                    else
+                    {
+                        int i = 0;
+                    }
+                }
+                else if (HandlerFTP::requested_bytes_received)
+                {
                     received_bytes += HandlerFTP::pointer_data;
+                    for (int i = 0; i < HandlerFTP::buffer_data[i]; i++)
+                    {
+                        crc += Hash(crc, HandlerFTP::buffer_data[i]);
+                    }
                     HandlerFTP::pointer_data = 0;
                     meter.Reset();
                     HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
