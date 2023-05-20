@@ -171,7 +171,7 @@ namespace Updater
                         static int counter = 0;
                         counter++;
 
-                        if (counter == 6)
+                        if (counter == 16)
                         {
                             int i = 0;
                         }
