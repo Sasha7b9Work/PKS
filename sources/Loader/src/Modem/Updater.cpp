@@ -159,7 +159,7 @@ namespace Updater
 
                         pchar first_word = GetWord(buffer_command, 1);
 
-                        if (strcmp(first_word, "+FTPGET"))
+                        if (strcmp(first_word, "+FTPGET") == 0)
                         {
                             pchar second_word = GetWord(buffer_command, 2);
 
@@ -167,7 +167,7 @@ namespace Updater
                             {
                                 received_FTPGET_1_0 = true;
                             }
-                            else if ((second_word[0] & 0x0f) == 2)
+                            else if (second_word[0] == '2')
                             {
                                 pchar num_readed_bytes = GetWord(buffer_command, 3);
 
