@@ -128,7 +128,6 @@ namespace Updater
             pointer_data = 0;
             need_bytes = 0;
 
-            received_FTPGET_1_0 = false;
             requested_bytes_received = false;
         }
 
@@ -443,6 +442,7 @@ void Updater::Update(pchar answer)
             state = State::GET_BYTES_FIRMWARE;
             meter.Reset();
             HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
+            HandlerFTP::received_FTPGET_1_0 = false;
         }
         break;
 
