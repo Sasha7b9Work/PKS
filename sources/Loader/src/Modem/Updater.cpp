@@ -119,8 +119,6 @@ namespace Updater
 
         bool received_FTPGET_1_0 = false;       // Признако того, что FTPGET 1,0 получено
         
-        int num_commands = 0;
-
         void Reset()
         {
             pointer_command = 0;
@@ -130,8 +128,8 @@ namespace Updater
             received_data = false;
 
             need_bytes = 0;
-            
-            num_commands = 0;
+
+            received_FTPGET_1_0 = false;
         }
 
         void AppendByte(char symbol)
@@ -159,41 +157,30 @@ namespace Updater
                     {
                         buffer_command[pointer_command++] = 0;
 
-//                        pchar first_word = GetWord(buffer_command, 1);
+                        pchar first_word = GetWord(buffer_command, 1);
 
-                        pchar num_readed_bytes = GetWord(buffer_command, 3);
+                        if (strcmp(first_word, "+FTPGET"))
+                        {
+                            pchar second_word = GetWord(buffer_command, 2);
 
-                        need_bytes = atoi(num_readed_bytes);
+                            if ((second_word[0] & 0x0f) == 1)
+                            {
+                                received_FTPGET_1_0 = true;
+                            }
+                            else if ((second_word[0] & 0x0f) == 2)
+                            {
+                                pchar num_readed_bytes = GetWord(buffer_command, 3);
 
-                        if (num_commands == 0)
-                        {
-                            int i = 0;
-                        }
-                        else if (num_commands == 1)
-                        {
-                            int i = 0;
-                        }
-                        else if (num_commands == 2)
-                        {
-                            int i = 0;
-                        }
-                        else if (num_commands == 3)
-                        {
-                            int i = 0;
-                        }
-                        else if (num_commands == 4)
-                        {
-                            int i = 0;
-                        }
+                                need_bytes = atoi(num_readed_bytes);
 
-                        received_command = need_bytes > 0;
+                                received_command = need_bytes > 0;
 
-                        if (!received_command)
-                        {
-                            pointer_command = 0;
+                                if (!received_command)
+                                {
+                                    pointer_command = 0;
+                                }
+                            }
                         }
-
-                        num_commands++;
                     }
                 }
                 else
@@ -408,6 +395,11 @@ void Updater::Update(pchar answer)
         if (meter.ElapsedTime() > 75000)
         {
             Reset();
+        }
+
+        if (HandlerGetBytesFTP::received_FTPGET_1_0)
+        {
+            int i = 0;
         }
 
         break;
