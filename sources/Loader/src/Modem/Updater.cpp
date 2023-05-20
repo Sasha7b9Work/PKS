@@ -69,7 +69,8 @@ namespace Updater
             NEED_SET_NAME_FIRMWARE,     // Установить имя файла с версией
             NEED_REQUEST_CONNECT,       // Запрос на соединение
             NEED_WAIT_CONNECT,          // Ждём ответа на файл версии
-            GET_BYTES_VER,              // Получение файла версии
+            GET_BYTES_VER,              // Получение байтов версии
+            GET_BYTES_CRC,              // Получение байтов контрольной суммы
 
             COMPLETED                   // В этом состоянии находися, если обновление завершено или не требуется
         };
@@ -175,7 +176,9 @@ namespace Updater
                                 pchar third_word = GetWord(buffer_command, 3);
                                 if (third_word[0] == '1')
                                 {
-                                    SIM800::Transmit("AT+FTPGET=2,4");
+                                    char buffer[32];
+                                    sprintf(buffer, "AT+FTPGET=2,%d", need_bytes);
+                                    SIM800::Transmit(buffer);
                                     pointer_command = 0;
                                 }
                                 else
@@ -418,13 +421,29 @@ void Updater::Update(pchar answer)
             int version = 0;
             memcpy(&version, HandlerFTP::buffer_data, 4);
 
+            // \todo здесь сверяем нужную версию с уже имеющейся
+
+            state = State::GET_BYTES_CRC;
+            meter.Reset();
+            HandlerFTP::ReceiveBytes(4);
+        }
+        break;
+
+    case State::GET_BYTES_CRC:
+        if (meter.ElapsedTime() > 75000)
+        {
+            Reset();
+        }
+        else if (HandlerFTP::requested_bytes_received)
+        {
+            uint crc = 0;
+            memcpy(&crc, HandlerFTP::buffer_data, 4);
+
             while (true)
             {
-                version = version;
+                crc = crc;
             }
-            // \todo здесь сверяем нужную версию с уже имеющейся
         }
-
         break;
 
     case State::COMPLETED:
