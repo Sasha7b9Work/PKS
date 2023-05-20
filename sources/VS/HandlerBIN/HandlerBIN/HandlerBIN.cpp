@@ -1,4 +1,4 @@
-// 2023/05/20 09:08:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+﻿// 2023/05/20 09:08:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -18,13 +18,13 @@ int main(int argc, char *argv[])
     ofstream out_crc;
     ofstream out_ver;
 
-    if (argc < 2)
+    if (argc < 2)       // Запускаем из студии
     {
         input.open("../../../Device/Meter.bin", ios_base::in | ios_base::binary);
         out_crc.open("../../../Device/Meter.crc", ios_base::out | ios_base::trunc);
         out_ver.open("../../../Device/Meter.ver", ios_base::out | ios_base::trunc);
     }
-    else
+    else                // Запускаем из каталога *.bin с именем входного файла
     {
         string input_name(argv[1]);
 
@@ -57,6 +57,25 @@ int main(int argc, char *argv[])
     out_crc << hash;
 
     out_crc.close();
+
+    ifstream input_ver;             // *.h - файл с версией ПО
+
+    if (argc < 2)
+    {
+        input_ver.open("../../../common/common_defines.h", ios_base::in);
+    }
+    else
+    {
+        input_ver.open("../common/common_defines.h", ios_base::in);
+    }
+
+    string line;
+
+    input_ver >> line;
+    input_ver >> line;
+    input_ver >> line;
+
+    out_ver << line;
 
     out_ver.close();
 }
@@ -91,6 +110,5 @@ void ReplaceExtension(string &name, const char *ext)
     for (size_t i = 0; i < std::strlen(ext); i++)
     {
         name.push_back(ext[i]);
-        return;
     }
 }
