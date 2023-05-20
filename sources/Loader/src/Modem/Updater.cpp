@@ -151,13 +151,13 @@ namespace Updater
                 {
                     if (pointer_command)
                     {
+                        buffer_command[pointer_command++] = 0;
+                        received_command = true;
+
                         if (received_data)
                         {
                             int i = 0;
                         }
-
-                        buffer_command[pointer_command++] = 0;
-                        received_command = true;
 
                         pchar num_readed_bytes = GetWord(buffer_command, 3);
 
