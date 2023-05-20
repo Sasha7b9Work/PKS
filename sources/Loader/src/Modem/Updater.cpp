@@ -293,7 +293,6 @@ void Updater::Update(const String &answer)
             {
                 Reset();
             }
-            meter.Reset();
         }
         break;
 
