@@ -8,6 +8,8 @@ namespace Updater
     // Возвращает true, если Updater отработал (загружено обновление либо обновление не требуется)
     bool IsCompleted();
 
-    // Эта функция вызывается при получении новых байт из файла на FTP-сервере
-    void CallbackOnNewBytesFromFTP(uint8 *bytes, int number);
+    void CallbackByteFromFTP(char);
+
+    // Если true - принимаем байты из ftp-сервера
+    bool InModeReceiveDataFromFTP();
 }

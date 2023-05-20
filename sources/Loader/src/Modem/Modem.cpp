@@ -119,15 +119,6 @@ namespace Modem
                     answers[num_answers++].Set(buffer);
                 }
 
-                if (GetWord(answers[num_answers - 1], 1) == "+FTPGET")
-                {
-                    if (GetWord(answers[num_answers - 1], 2) == "2")
-                    {
-                        String number_bytes = GetWord(answers[num_answers - 1], 3);
-                        number_bytes = number_bytes;
-                    }
-                }
-
                 pointer = 0;
             }
         }
@@ -262,11 +253,18 @@ void Modem::Reset()
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    Answer::Push(symbol);
-
-    if (symbol == '>')
+    if (Updater::InModeReceiveDataFromFTP())
     {
-        Answer::Push(0x0d);
+        Updater::CallbackByteFromFTP(symbol);
+    }
+    else
+    {
+        Answer::Push(symbol);
+
+        if (symbol == '>')
+        {
+            Answer::Push(0x0d);
+        }
     }
 }
 

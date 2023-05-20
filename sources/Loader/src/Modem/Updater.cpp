@@ -101,6 +101,35 @@ namespace Updater
         state = State::IDLE;
         Modem::Reset();
     }
+
+    namespace HandlerGetBytesFTP
+    {
+        int pointer = 0;
+        bool received_command = false;
+
+        char buffer[32];
+
+        void Reset()
+        {
+            pointer = 0;
+            received_command = false;
+        }
+
+        void AppendByte(char symbol)
+        {
+            if (received_command)
+            {
+
+            }
+            else
+            {
+                if (pointer == 0)
+                {
+                    int i = 0;
+                }
+            }
+        }
+    }
 }
 
 
@@ -291,8 +320,9 @@ void Updater::Update(const String &answer)
         {
             if (answer == "+FTPGET: 1,1")
             {
-                SIM800::Transmit("AT+FTPGET=2,128");
                 state = State::GET_BYTES_VER;
+                HandlerGetBytesFTP::Reset();
+                SIM800::Transmit("AT+FTPGET=2,128");
             }
             else
             {
@@ -315,6 +345,18 @@ void Updater::Update(const String &answer)
     case State::COMPLETED:
         break;
     }
+}
+
+
+void Updater::CallbackByteFromFTP(char symbol)
+{
+    HandlerGetBytesFTP::AppendByte(symbol);
+}
+
+
+bool Updater::InModeReceiveDataFromFTP()
+{
+    return state == State::GET_BYTES_VER;
 }
 
 
