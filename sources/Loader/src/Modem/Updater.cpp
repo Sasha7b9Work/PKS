@@ -108,13 +108,12 @@ namespace Updater
     {
         static const int SIZE_DATA_BUFFER = 64;
 
-        bool received_command = false;      // Если true, то команда принята, принимаем байты данных
+        bool received_command = false;          // Если true, то команда принята, принимаем байты данных
         int pointer_command = 0;
         char buffer_command[32];
 
-        int need_bytes = 0;                 // Столько байт должно быть принято
-        bool received_data = false;
-        int pointer_data = 0;             // Столько байт уже принято
+        int need_bytes = 0;                     // Столько байт должно быть принято
+        int pointer_data = 0;                   // Столько байт уже принято
         char buffer_data[SIZE_DATA_BUFFER];
 
         bool received_FTPGET_1_0 = false;       // Признако того, что FTPGET 1,0 получено
@@ -125,8 +124,6 @@ namespace Updater
             received_command = false;
 
             pointer_data = 0;
-            received_data = false;
-
             need_bytes = 0;
 
             received_FTPGET_1_0 = false;
@@ -140,7 +137,6 @@ namespace Updater
 
                 if (pointer_data == need_bytes)
                 {
-                    received_data = true;
                     received_command = false;
                     pointer_command = 0;
                 }
