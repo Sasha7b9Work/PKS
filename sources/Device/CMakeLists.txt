@@ -36,7 +36,8 @@ add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum
 
 
 file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
-file(GLOB SRC                      src/*.*)
+file(GLOB SRC                      src/*.*
+                                   ../common/*.*)
 file(GLOB DISPLAY                  src/Display/*.*)
 file(GLOB DISPLAY_FONT             src/Display/Font/*.*)
 file(GLOB FLASHDISK                src/FlashDisk/*.*)

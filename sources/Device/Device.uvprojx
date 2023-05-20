@@ -504,6 +504,11 @@
               <FileType>5</FileType>
               <FilePath>.\src\Log.h</FilePath>
             </File>
+            <File>
+              <FileName>common_defines.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\common_defines.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1300,6 +1305,11 @@
               <FileName>Log.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Log.h</FilePath>
+            </File>
+            <File>
+              <FileName>common_defines.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\common_defines.h</FilePath>
             </File>
           </Files>
         </Group>
