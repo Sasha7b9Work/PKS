@@ -181,6 +181,10 @@ namespace Updater
                                 }
                             }
                         }
+                        else
+                        {
+                            received_command = false;
+                        }
                     }
                 }
                 else
