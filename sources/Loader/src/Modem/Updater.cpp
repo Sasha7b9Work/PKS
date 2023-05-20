@@ -163,7 +163,7 @@ namespace Updater
                         {
                             pchar second_word = GetWord(buffer_command, 2);
 
-                            if ((second_word[0] & 0x0f) == 1)
+                            if (second_word[0] == '1')
                             {
                                 received_FTPGET_1_0 = true;
                             }
