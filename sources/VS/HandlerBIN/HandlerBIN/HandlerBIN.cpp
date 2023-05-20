@@ -1,20 +1,96 @@
-// HandlerBIN.cpp : This file contains the 'main' function. Program execution begins and ends there.
-//
-
+// 2023/05/20 09:08:27 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include <iostream>
+#include <fstream>
+#include <string>
 
-int main()
+
+using namespace std;
+
+
+static unsigned int Hash(unsigned int, char);
+static void ReplaceExtension(string &name, const char *ext);
+
+
+int main(int argc, char *argv[])
 {
-    std::cout << "Hello World!\n";
+    fstream input;
+
+    ofstream out_crc;
+    ofstream out_ver;
+
+    if (argc < 2)
+    {
+        input.open("../../../Device/Meter.bin", ios_base::in | ios_base::binary);
+        out_crc.open("../../../Device/Meter.crc", ios_base::out | ios_base::trunc);
+        out_ver.open("../../../Device/Meter.ver", ios_base::out | ios_base::trunc);
+    }
+    else
+    {
+        string input_name(argv[1]);
+
+        input.open(input_name, ios_base::in | ios_base::binary);
+
+        string crc_name(input_name);
+
+        ReplaceExtension(crc_name, "crc");
+
+        out_crc.open(crc_name, ios_base::out | ios_base::trunc);
+
+        string ver_name(input_name);
+
+        ReplaceExtension(ver_name, "ver");
+
+        out_ver.open(ver_name, ios_base::out | ios_base::trunc);
+    }
+
+    char byte = 0;
+
+    unsigned int hash = 0;
+
+    while (input.read(&byte, sizeof(byte)))
+    {
+        hash = Hash(hash, byte);
+    }
+
+    input.close();
+
+    out_crc << hash;
+
+    out_crc.close();
+
+    out_ver.close();
 }
 
-// Run program: Ctrl + F5 or Debug > Start Without Debugging menu
-// Debug program: F5 or Debug > Start Debugging menu
 
-// Tips for Getting Started: 
-//   1. Use the Solution Explorer window to add/manage files
-//   2. Use the Team Explorer window to connect to source control
-//   3. Use the Output window to see build output and other messages
-//   4. Use the Error List window to view errors
-//   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
-//   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+unsigned int Hash(unsigned int hash, char byte)
+{
+    return (unsigned char)byte + (hash << 6) + (hash << 16) - hash;
+}
+
+
+void ReplaceExtension(string &name, const char *ext)
+{
+    for (size_t i = 0; i < name.size(); i++)
+    {
+        if (name[i] == '.')
+        {
+            while (name[name.size() - 1] != '.')
+            {
+                name.pop_back();
+            }
+
+            break;
+        }
+    }
+
+    if (name[name.size() - 1] != '.')
+    {
+        name.push_back('.');
+    }
+
+    for (size_t i = 0; i < std::strlen(ext); i++)
+    {
+        name.push_back(ext[i]);
+        return;
+    }
+}
