@@ -334,7 +334,7 @@ void Updater::Update(pchar answer)
             {
                 state = State::GET_BYTES_VER;
                 HandlerGetBytesFTP::Reset();
-                SIM800::Transmit("AT+FTPGET=2,1");
+                SIM800::Transmit("AT+FTPGET=2,128");
             }
             else
             {
