@@ -110,7 +110,7 @@ namespace Updater
 
     static uint Hash(uint hash, char byte)
     {
-        return (uint8)byte + (uint)(hash << 6) + (uint)(hash << 16) - hash;
+        return (uint8)byte + (hash << 6) + (hash << 16) - hash;
     }
 
     namespace HandlerFTP
@@ -470,7 +470,7 @@ void Updater::Update(pchar answer)
                     received_bytes = received_bytes;
                     for (int i = 0; i < HandlerFTP::pointer_data; i++)
                     {
-                        crc += Hash(crc, HandlerFTP::buffer_data[i]);
+                        crc = Hash(crc, HandlerFTP::buffer_data[i]);
                     }
 
                     if (crc == source_crc)
@@ -487,7 +487,7 @@ void Updater::Update(pchar answer)
                     received_bytes += HandlerFTP::pointer_data;
                     for (int i = 0; i < HandlerFTP::pointer_data; i++)
                     {
-                        crc += Hash(crc, HandlerFTP::buffer_data[i]);
+                        crc = Hash(crc, HandlerFTP::buffer_data[i]);
                     }
                     HandlerFTP::pointer_data = 0;
                     meter.Reset();
