@@ -190,6 +190,7 @@ namespace Updater
                                 if (third_word[0] == '1')
                                 {
                                     SIM800::Transmit("AT+FTPGET=2,4");
+                                    pointer_command = 0;
                                 }
                                 else
                                 {
