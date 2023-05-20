@@ -25,7 +25,6 @@
 
 int main()
 {
-
     Loader::Init();
 
     while (true)
