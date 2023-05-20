@@ -1,6 +1,5 @@
 *.dbgconf
-*.crc
-*.ver
+*.frm
 
 archive.zip
 

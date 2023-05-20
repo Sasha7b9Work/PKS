@@ -2,46 +2,27 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <cstdlib>
 
 
 using namespace std;
 
 
 static unsigned int Hash(unsigned int, char);
-static void ReplaceExtension(string &name, const char *ext);
 
 
 int main(int argc, char *argv[])
 {
     fstream input;
 
-    ofstream out_crc;
-    ofstream out_ver;
+    const char *file_name = "../../../Device/Meter.bin";        // Запускаем из студии
 
-    if (argc < 2)       // Запускаем из студии
+    if (argc > 1)
     {
-        input.open("../../../Device/Meter.bin", ios_base::in | ios_base::binary);
-        out_crc.open("../../../Device/Meter.crc", ios_base::out | ios_base::trunc);
-        out_ver.open("../../../Device/Meter.ver", ios_base::out | ios_base::trunc);
+        file_name = argv[1];                                    // Запускаем из каталога *.bin с именем входного файла
     }
-    else                // Запускаем из каталога *.bin с именем входного файла
-    {
-        string input_name(argv[1]);
 
-        input.open(input_name, ios_base::in | ios_base::binary);
-
-        string crc_name(input_name);
-
-        ReplaceExtension(crc_name, "crc");
-
-        out_crc.open(crc_name, ios_base::out | ios_base::trunc);
-
-        string ver_name(input_name);
-
-        ReplaceExtension(ver_name, "ver");
-
-        out_ver.open(ver_name, ios_base::out | ios_base::trunc);
-    }
+    input.open(file_name, ios_base::in | ios_base::binary);
 
     char byte = 0;
 
@@ -53,10 +34,6 @@ int main(int argc, char *argv[])
     }
 
     input.close();
-
-    out_crc << hash;
-
-    out_crc.close();
 
     ifstream input_ver;             // *.h - файл с версией ПО
 
@@ -75,40 +52,27 @@ int main(int argc, char *argv[])
     input_ver >> line;
     input_ver >> line;
 
-    out_ver << line;
+    input_ver.close();
 
-    out_ver.close();
+    int version = atoi(line.c_str());
+
+    ofstream out_file;
+    out_file.open("Meter.frm", ios_base::out | ios_base::binary | ios_base::trunc);
+
+    out_file.write((const char *)&version, 4);
+
+    out_file.write((const char *)&hash, 4);
+
+    input.open(file_name, ios_base::in | ios_base::binary);
+
+    while (input.read(&byte, sizeof(byte)))
+    {
+        out_file.write(&byte, 1);
+    }
 }
 
 
 unsigned int Hash(unsigned int hash, char byte)
 {
     return (unsigned char)byte + (hash << 6) + (hash << 16) - hash;
-}
-
-
-void ReplaceExtension(string &name, const char *ext)
-{
-    for (size_t i = 0; i < name.size(); i++)
-    {
-        if (name[i] == '.')
-        {
-            while (name[name.size() - 1] != '.')
-            {
-                name.pop_back();
-            }
-
-            break;
-        }
-    }
-
-    if (name[name.size() - 1] != '.')
-    {
-        name.push_back('.');
-    }
-
-    for (size_t i = 0; i < std::strlen(ext); i++)
-    {
-        name.push_back(ext[i]);
-    }
 }
