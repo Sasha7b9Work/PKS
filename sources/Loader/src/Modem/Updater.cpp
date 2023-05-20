@@ -132,25 +132,22 @@ namespace Updater
         {
             if (received_command)
             {
-                if (pointer_data)                               // Первым байтом придёт 0x0a, нужно его отбросить
-                {
-                    buffer_data[pointer_data++] = symbol;
+                buffer_data[pointer_data++] = symbol;
 
-                    if (pointer_data == need_bytes)
-                    {
-                        received_data = true;
-                        received_command = false;
-                        pointer_command = 0;
-                    }
+                if (pointer_data == need_bytes)
+                {
+                    received_data = true;
+                    received_command = false;
+                    pointer_command = 0;
                 }
             }
             else
             {
-                if (symbol == 0x0a)
+                if (symbol == 0x0d)
                 {
 
                 }
-                else if (symbol == 0x0d)
+                else if (symbol == 0x0a)
                 {
                     if (pointer_command)
                     {
