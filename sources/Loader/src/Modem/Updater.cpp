@@ -133,6 +133,11 @@ namespace Updater
             requested_bytes_received = false;
 
             full_pointer = 0;
+
+            for (int i = 0; i < 256; i++)
+            {
+                full_buffer[i] = 0;
+            }
         }
 
         void AppendByte(char symbol)
@@ -166,7 +171,7 @@ namespace Updater
                         static int counter = 0;
                         counter++;
 
-                        if (counter == 5)
+                        if (counter == 6)
                         {
                             int i = 0;
                         }
