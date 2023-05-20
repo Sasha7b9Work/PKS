@@ -415,25 +415,14 @@ void Updater::Update(pchar answer)
         }
         else if (HandlerFTP::requested_bytes_received)
         {
-            char buffer[32];
-
-            char *pointer = buffer;
-
-            for (int i = 0; i < HandlerFTP::pointer_data; i++)
-            {
-                *pointer++ = HandlerFTP::buffer_data[i];
-            }
-
-            pointer = '\0';
-
-            int version = atoi(buffer);
-            version = version;
+            int version = 0;
+            memcpy(&version, HandlerFTP::buffer_data, 4);
 
             while (true)
             {
+                version = version;
             }
-
-            // \todo здесь сверяем нужную версию с уже имеющейся    
+            // \todo здесь сверяем нужную версию с уже имеющейся
         }
 
         break;
