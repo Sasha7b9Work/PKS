@@ -156,6 +156,8 @@ namespace Updater
                     int i = 0;
                 }
             }
+
+            pointer++;
         }
     }
 }
