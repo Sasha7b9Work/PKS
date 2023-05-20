@@ -81,10 +81,3 @@ void delay_decrement(void)
         delay--;
     }
 }
-
-
-int __io_putchar(int ch)
-{
-    ITM_SendChar(ch);
-    return ch;
-}

@@ -5,7 +5,6 @@
 #include "Application.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
-#include <stdio.h>
 
 
 void Loader::Init()
@@ -18,8 +17,6 @@ void Loader::Init()
 
 void Loader::Update()
 {
-    std::printf("test");
-
     Modem::Update();
 
     if (Updater::IsCompleted())

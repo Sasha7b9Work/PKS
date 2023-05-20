@@ -159,6 +159,8 @@ namespace Updater
                     {
                         buffer_command[pointer_command++] = 0;
 
+//                        pchar first_word = GetWord(buffer_command, 1);
+
                         pchar num_readed_bytes = GetWord(buffer_command, 3);
 
                         need_bytes = atoi(num_readed_bytes);
