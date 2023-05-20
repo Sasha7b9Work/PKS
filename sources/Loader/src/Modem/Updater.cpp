@@ -69,7 +69,11 @@ namespace Updater
             NEED_SET_NAME_VER,      // Установить имя файла с версией
             NEED_REQUEST_VER,       // Запрос на чтение файла версии
             NEED_WAIT_ANSWER_VER,   // Ждём ответа на файл версии
-            GET_BYTES_VER,          // Получение данных
+            GET_BYTES_VER,          // Получение файла версии
+
+            NEED_REQUEST_CRC,       // Запрос на чтение файла контрольной суммы
+            NEED_WAIT_ANSWER_CRC,   // Ждём ответа на файл контрольной суммы
+            GET_BYTES_CRC,          // Получение файла контрольной суммы
 
             COMPLETED               // В этом состоянии находися, если обновление завершено или не требуется
         };
@@ -351,10 +355,10 @@ void Updater::Update(pchar answer)
         }
         else if (strcmp(answer, "OK") == 0)
         {
-            char _firmware[64];
-            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_ver);
-            SIM800::Transmit(_firmware);
             state = State::NEED_REQUEST_VER;
+            char _version[64];
+            std::sprintf(_version, "AT+FTPGETNAME=\"%s\"", file_ver);
+            SIM800::Transmit(_version);
             meter.Reset();
         }
         break;
@@ -364,7 +368,7 @@ void Updater::Update(pchar answer)
         {
             Reset();
         }
-        else if (strcmp(answer, "OK"))
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+FTPGET=1");
             state = State::NEED_WAIT_ANSWER_VER;
@@ -397,12 +401,82 @@ void Updater::Update(pchar answer)
         {
             Reset();
         }
+        else if (HandlerGetBytesFTP::received_FTPGET_1_0)
+        {
+            if (HandlerGetBytesFTP::pointer_data == HandlerGetBytesFTP::need_bytes)
+            {
+                char buffer[32];
 
-        if (HandlerGetBytesFTP::received_FTPGET_1_0)
+                char *pointer = buffer;
+
+                for (int i = 0; i < HandlerGetBytesFTP::pointer_data; i++)
+                {
+                    *pointer++ = HandlerGetBytesFTP::buffer_data[i];
+                }
+
+                pointer = '\0';
+
+                // \todo здесь сверяем нужную версию с уже имеющейся    
+
+
+                state = State::NEED_REQUEST_CRC;
+                char _crc[64];
+                sprintf(_crc, "AT+FTPGETNAME=\"%s\"", file_crc);
+                SIM800::Transmit(_crc);
+                meter.Reset();
+            }
+            else
+            {
+                SIM800::Transmit("AT+FTPGET=1");
+                state = State::NEED_WAIT_ANSWER_VER;
+                meter.Reset();
+            }
+        }
+
+        break;
+
+    case State::NEED_REQUEST_CRC:
+        if (meter.ElapsedTime() > DEFAULT_TIME)
+        {
+            Reset();
+        }
+        else if (strcmp(answer, "OK") == 0)
+        {
+            state = State::NEED_WAIT_ANSWER_CRC;
+            meter.Reset();
+            SIM800::Transmit("AT+FTPGET=1");
+        }
+        break;
+
+    case State::NEED_WAIT_ANSWER_CRC:
+        if (meter.ElapsedTime() > 75000)
+        {
+            Reset();
+        }
+        else if (strcmp(GetWord(answer, 1), "+FTPGET") == 0)
+        {
+            if (strcmp(answer, "+FTPGET: 1,1") == 0)
+            {
+                state = State::GET_BYTES_CRC;
+                HandlerGetBytesFTP::Reset();
+                SIM800::Transmit("AT+FTPGET=2,64");
+            }
+            else
+            {
+                Reset();
+            }
+        }
+        break;
+
+    case State::GET_BYTES_CRC:
+        if (meter.ElapsedTime() > 75000)
+        {
+            Reset();
+        }
+        else if (HandlerGetBytesFTP::received_FTPGET_1_0)
         {
             int i = 0;
         }
-
         break;
 
     case State::COMPLETED:
