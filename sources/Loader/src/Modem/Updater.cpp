@@ -58,16 +58,18 @@ namespace Updater
             NEED_SAPBR_3_USER,
             NEED_SAPBR_3_PWD,
             NEED_SAPBR_1_1,
-            NEED_FTPCID,        // Находимся в состоянии обновления
-            NEED_FTPSERV,       // Имя сервера
-            NEED_FTPUN,         // Имя пользователя
-            NEED_FTPPW,         // Пароль
-            NEED_FTPGETPATH,    // Папка с файлом
-            NEED_FTPGETNAME,    // Имя файла
-            NEED_FTPGET,        // Подключение к серверу
-            NEED_FTPGET_BYTES,  // Запрос на получение данных
-            GET_BYTES,          // Получение данных
-            COMPLETED           // В этом состоянии находися, если обновление завершено или не требуется
+            NEED_FTPCID,            // Находимся в состоянии обновления
+            NEED_FTPSERV,           // Имя сервера
+            NEED_FTPUN,             // Имя пользователя
+            NEED_FTPPW,             // Пароль
+            NEED_FTPGETPATH,        // Папка с файлом
+
+            NEED_SET_NAME_VER,      // Установить имя файла с версией
+            NEED_REQUEST_VER,       // Запрос на чтение файла версии
+            NEED_WAIT_ANSWER_VER,   // Ждём ответа на файл версии
+            GET_BYTES_VER,          // Получение данных
+
+            COMPLETED               // В этом состоянии находися, если обновление завершено или не требуется
         };
     };
 
@@ -76,7 +78,9 @@ namespace Updater
     static String address("s92153gg.beget.tech");
     static String login("s92153gg_1");
     static String password("Qwerty123!");
-    static String firmware("sample.txt");
+    static String file_firmware("Meter.bin");
+    static String file_crc("Meter.crc");
+    static String file_ver("Meter.ver");
     static String directory("/");
 
     void Update(const String &);
@@ -244,12 +248,12 @@ void Updater::Update(const String &answer)
             char _directory[64];
             std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory.c_str());
             SIM800::Transmit(_directory);
-            state = State::NEED_FTPGETNAME;
+            state = State::NEED_SET_NAME_VER;
             meter.Reset();
         }
         break;
 
-    case State::NEED_FTPGETNAME:
+    case State::NEED_SET_NAME_VER:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
@@ -257,14 +261,14 @@ void Updater::Update(const String &answer)
         else if (answer == "OK")
         {
             char _firmware[64];
-            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", firmware.c_str());
+            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_firmware.c_str());
             SIM800::Transmit(_firmware);
-            state = State::NEED_FTPGET;
+            state = State::NEED_REQUEST_VER;
             meter.Reset();
         }
         break;
 
-    case State::NEED_FTPGET:
+    case State::NEED_REQUEST_VER:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
@@ -272,12 +276,12 @@ void Updater::Update(const String &answer)
         else if (answer == "OK")
         {
             SIM800::Transmit("AT+FTPGET=1");
-            state = State::NEED_FTPGET_BYTES;
+            state = State::NEED_WAIT_ANSWER_VER;
             meter.Reset();
         }
         break;
 
-    case State::NEED_FTPGET_BYTES:
+    case State::NEED_WAIT_ANSWER_VER:
         if (meter.ElapsedTime() > 75000)
         {
             Reset();
@@ -287,7 +291,7 @@ void Updater::Update(const String &answer)
             if (answer == "+FTPGET: 1,1")
             {
                 SIM800::Transmit("AT+FTPGET=2,100");
-                state = State::GET_BYTES;
+                state = State::GET_BYTES_VER;
             }
             else
             {
@@ -296,7 +300,7 @@ void Updater::Update(const String &answer)
         }
         break;
 
-    case State::GET_BYTES:
+    case State::GET_BYTES_VER:
         if (meter.ElapsedTime() > 75000)
         {
             Reset();
