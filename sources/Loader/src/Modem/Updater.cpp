@@ -189,7 +189,7 @@ namespace Updater
 
                                 bytes_from_FTP = atoi(num_readed_bytes);
 
-                                received_command = need_bytes > 0;
+                                received_command = bytes_from_FTP > 0;
 
                                 if (!received_command)
                                 {
