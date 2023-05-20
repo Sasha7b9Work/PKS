@@ -60,7 +60,6 @@ namespace Updater
             NEED_SAPBR_1_1,
             NEED_FTPCID,        // Находимся в состоянии обновления
             NEED_FTPSERV,       // Имя сервера
-            NEED_FTPPORT,
             NEED_FTPUN,         // Имя пользователя
             NEED_FTPPW,         // Пароль
             NEED_FTPGETPATH,    // Папка с файлом
@@ -91,6 +90,12 @@ namespace Updater
 
     // Получить часть прошивки
     static void GetPartFirmware(int, uint8[2048]);
+
+    static void Reset()
+    {
+        state = State::IDLE;
+        Modem::Reset();
+    }
 }
 
 
@@ -121,7 +126,7 @@ void Updater::Update(const String &answer)
     case State::NEED_SAPBR_3_APN:
         if (meter.ElapsedTime() > 85000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -134,7 +139,7 @@ void Updater::Update(const String &answer)
     case State::NEED_SAPBR_3_USER:
         if (meter.ElapsedTime() > 85000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -147,7 +152,7 @@ void Updater::Update(const String &answer)
     case State::NEED_SAPBR_3_PWD:
         if (meter.ElapsedTime() > 85000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -161,7 +166,7 @@ void Updater::Update(const String &answer)
     case State::NEED_SAPBR_1_1:
         if (meter.ElapsedTime() > 85000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -174,7 +179,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPCID:
         if (meter.ElapsedTime() > 85000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -187,7 +192,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPSERV:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -199,23 +204,10 @@ void Updater::Update(const String &answer)
         }
         break;
 
-    case State::NEED_FTPPORT:
-//        if (meter.ElapsedTime() > DEFAULT_TIME)
-//        {
-//            Reset(meter);
-//        }
-//        else if (answer == "OK")
-//        {
-//            state = State::NEED_FTPUN;
-//            SIM800::Transmit("AT+FTPPORT=21");
-//            meter.Reset();
-//        }
-        break;
-
     case State::NEED_FTPUN:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -230,7 +222,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPPW:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -245,7 +237,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPGETPATH:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -260,7 +252,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPGETNAME:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -275,7 +267,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPGET:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -288,7 +280,7 @@ void Updater::Update(const String &answer)
     case State::NEED_FTPGET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
@@ -299,7 +291,7 @@ void Updater::Update(const String &answer)
             }
             else
             {
-                Modem::Reset();
+                Reset();
             }
             meter.Reset();
         }
@@ -308,7 +300,7 @@ void Updater::Update(const String &answer)
     case State::GET_BYTES:
         if (meter.ElapsedTime() > 75000)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (Parser::GetWord(answer, 1) == "+FTPGET")
         {

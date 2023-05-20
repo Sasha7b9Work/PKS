@@ -51,6 +51,12 @@ namespace SIM800
     static TimeMeterMS meterCSQ;
 
     static String levelSignal("0");
+
+    static void Reset()
+    {
+        state = State::START;
+        Modem::Reset();
+    }
 }
 
 
@@ -60,7 +66,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 
     if (answer == "CLOSED")
     {
-        Modem::Reset();
+        Reset();
         return true;
     }
     else if (first_word == "+CSQ")
@@ -107,7 +113,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_ATE0:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -120,7 +126,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_GSMBUSY:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
@@ -133,7 +139,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_CREG:
         if (meter.ElapsedTime() > 30000)
         {
-            Modem::Reset();
+            Reset();
         }
         else
         {
@@ -160,13 +166,10 @@ void SIM800::Update(const String &answer)
     case State::WAIT_IP_INITIAL:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (GetWord(answer, 3) == "INITIAL")
         {
-//            SIM800::Transmit("AT+CGATT=1");
-//            state = State::WAIT_ANSWER_CGATT;
-//            meter.Reset();
             state = State::RUNNING_UPDATER;
         }
         break;
@@ -174,7 +177,7 @@ void SIM800::Update(const String &answer)
     case State::WAIT_ANSWER_CGATT:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
-            Modem::Reset();
+            Reset();
         }
         else if (answer == "OK")
         {
