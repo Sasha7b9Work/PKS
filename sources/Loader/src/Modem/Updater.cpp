@@ -78,10 +78,11 @@ namespace Updater
     static String address("s92153gg.beget.tech");
     static String login("s92153gg_1");
     static String password("Qwerty123!");
+    static String directory("/");
+
     static String file_firmware("Meter.bin");
     static String file_crc("Meter.crc");
     static String file_ver("Meter.ver");
-    static String directory("/");
 
     void Update(const String &);
 
@@ -261,7 +262,7 @@ void Updater::Update(const String &answer)
         else if (answer == "OK")
         {
             char _firmware[64];
-            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_firmware.c_str());
+            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_ver.c_str());
             SIM800::Transmit(_firmware);
             state = State::NEED_REQUEST_VER;
             meter.Reset();
