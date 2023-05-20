@@ -147,7 +147,7 @@ namespace Updater
             {
                 buffer_data[pointer_data++] = symbol;
 
-                if (pointer_data == need_bytes)
+                if (pointer_data == bytes_from_FTP)
                 {
                     received_command = false;
                     pointer_command = 0;
