@@ -200,6 +200,10 @@ namespace Updater
                                 {
                                     pointer_command = 0;
                                 }
+                                else
+                                {
+                                    int i = 0;
+                                }
                             }
                         }
                         else
