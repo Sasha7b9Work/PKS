@@ -71,6 +71,7 @@ namespace Updater
             NEED_WAIT_CONNECT,          // Ждём ответа на файл версии
             GET_BYTES_VER,              // Получение байтов версии
             GET_BYTES_CRC,              // Получение байтов контрольной суммы
+            GET_BYTES_FIRMWARE,         // Получение байтов прошивки
 
             COMPLETED                   // В этом состоянии находися, если обновление завершено или не требуется
         };
@@ -439,9 +440,36 @@ void Updater::Update(pchar answer)
             uint crc = 0;
             memcpy(&crc, HandlerFTP::buffer_data, 4);
 
-            while (true)
+            state = State::GET_BYTES_CRC;
+            meter.Reset();
+            HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
+        }
+        break;
+
+    case State::GET_BYTES_FIRMWARE:
+        if (meter.ElapsedTime() > 75000)
+        {
+            Reset();
+        }
+        else
+        {
+            static int received_bytes = 0;
+
+            if (HandlerFTP::requested_bytes_received)
             {
-                crc = crc;
+                if (received_bytes > 100)
+                {
+                    int i = 0;
+                }
+
+                received_bytes += HandlerFTP::pointer_data;
+                meter.Reset();
+                HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
+            }
+            if (HandlerFTP::received_FTPGET_1_0)
+            {
+                received_bytes += HandlerFTP::pointer_data;
+                received_bytes = received_bytes;
             }
         }
         break;
@@ -460,7 +488,7 @@ void Updater::CallbackByteFromFTP(char symbol)
 
 bool Updater::InModeReceiveDataFromFTP()
 {
-    return state == State::GET_BYTES_VER || state == State::GET_BYTES_CRC;
+    return state == State::GET_BYTES_VER || state == State::GET_BYTES_CRC || state == State::GET_BYTES_FIRMWARE;
 }
 
 
