@@ -66,16 +66,12 @@ namespace Updater
             NEED_FTPPW,             // Пароль
             NEED_FTPGETPATH,        // Папка с файлом
 
-            NEED_SET_NAME_VER,      // Установить имя файла с версией
-            NEED_REQUEST_VER,       // Запрос на чтение файла версии
-            NEED_WAIT_ANSWER_VER,   // Ждём ответа на файл версии
-            GET_BYTES_VER,          // Получение файла версии
+            NEED_SET_NAME_FIRMWARE,     // Установить имя файла с версией
+            NEED_REQUEST_CONNECT,       // Запрос на соединение
+            NEED_WAIT_CONNECT,          // Ждём ответа на файл версии
+            GET_BYTES_VER,              // Получение файла версии
 
-            NEED_REQUEST_CRC,       // Запрос на чтение файла контрольной суммы
-            NEED_WAIT_ANSWER_CRC,   // Ждём ответа на файл контрольной суммы
-            GET_BYTES_CRC,          // Получение файла контрольной суммы
-
-            COMPLETED               // В этом состоянии находися, если обновление завершено или не требуется
+            COMPLETED                   // В этом состоянии находися, если обновление завершено или не требуется
         };
     };
 
@@ -86,9 +82,7 @@ namespace Updater
     static pchar password("Qwerty123!");
     static pchar directory("/");
 
-    static pchar file_firmware("Meter.bin");
-    static pchar file_crc("Meter.crc");
-    static pchar file_ver("Meter.ver");
+    static pchar file_firmware("Meter.frm");
 
     void Update(const pchar);
 
@@ -120,7 +114,8 @@ namespace Updater
         int pointer_data = 0;                   // Столько байт уже принято
         char buffer_data[SIZE_DATA_BUFFER];
 
-        bool received_FTPGET_1_0 = false;       // Признако того, что FTPGET 1,0 получено
+        bool requested_bytes_received = false;  // Признак того, что запрошенные байты получены
+        bool received_FTPGET_1_0 = false;       // Признак того, что все байты файла получены
         
         void Reset()
         {
@@ -131,6 +126,7 @@ namespace Updater
             need_bytes = 0;
 
             received_FTPGET_1_0 = false;
+            requested_bytes_received = false;
         }
 
         void AppendByte(char symbol)
@@ -143,6 +139,7 @@ namespace Updater
                 {
                     received_command = false;
                     pointer_command = 0;
+                    requested_bytes_received = true;
                 }
             }
             else
@@ -343,27 +340,27 @@ void Updater::Update(pchar answer)
             char _directory[64];
             std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory);
             SIM800::Transmit(_directory);
-            state = State::NEED_SET_NAME_VER;
+            state = State::NEED_SET_NAME_FIRMWARE;
             meter.Reset();
         }
         break;
 
-    case State::NEED_SET_NAME_VER:
+    case State::NEED_SET_NAME_FIRMWARE:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
         }
         else if (strcmp(answer, "OK") == 0)
         {
-            state = State::NEED_REQUEST_VER;
-            char _version[64];
-            std::sprintf(_version, "AT+FTPGETNAME=\"%s\"", file_ver);
-            SIM800::Transmit(_version);
+            state = State::NEED_REQUEST_CONNECT;
+            char _firmware[64];
+            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_firmware);
+            SIM800::Transmit(_firmware);
             meter.Reset();
         }
         break;
 
-    case State::NEED_REQUEST_VER:
+    case State::NEED_REQUEST_CONNECT:
         if (meter.ElapsedTime() > DEFAULT_TIME)
         {
             Reset();
@@ -371,12 +368,12 @@ void Updater::Update(pchar answer)
         else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+FTPGET=1");
-            state = State::NEED_WAIT_ANSWER_VER;
+            state = State::NEED_WAIT_CONNECT;
             meter.Reset();
         }
         break;
 
-    case State::NEED_WAIT_ANSWER_VER:
+    case State::NEED_WAIT_CONNECT:
         if (meter.ElapsedTime() > 75000)
         {
             Reset();
@@ -387,11 +384,7 @@ void Updater::Update(pchar answer)
             {
                 state = State::GET_BYTES_VER;
                 HandlerGetBytesFTP::Reset();
-                SIM800::Transmit("AT+FTPGET=2,64");
-            }
-            else
-            {
-                Reset();
+                SIM800::Transmit("AT+FTPGET=2,4");
             }
         }
         break;
@@ -401,83 +394,25 @@ void Updater::Update(pchar answer)
         {
             Reset();
         }
-        else if (HandlerGetBytesFTP::received_FTPGET_1_0)
+        else if (HandlerGetBytesFTP::requested_bytes_received)
         {
-            if (HandlerGetBytesFTP::pointer_data == HandlerGetBytesFTP::need_bytes)
+            char buffer[32];
+
+            char *pointer = buffer;
+
+            for (int i = 0; i < HandlerGetBytesFTP::pointer_data; i++)
             {
-                char buffer[32];
-
-                char *pointer = buffer;
-
-                for (int i = 0; i < HandlerGetBytesFTP::pointer_data; i++)
-                {
-                    *pointer++ = HandlerGetBytesFTP::buffer_data[i];
-                }
-
-                pointer = '\0';
-
-                // \todo здесь сверяем нужную версию с уже имеющейся    
-
-
-                state = State::NEED_REQUEST_CRC;
-                char _crc[64];
-                sprintf(_crc, "AT+FTPGETNAME=\"%s\"", file_crc);
-                SIM800::Transmit(_crc);
-                meter.Reset();
+                *pointer++ = HandlerGetBytesFTP::buffer_data[i];
             }
-            else
-            {
-                SIM800::Transmit("AT+FTPGET=1");
-                state = State::NEED_WAIT_ANSWER_VER;
-                meter.Reset();
-            }
+
+            pointer = '\0';
+
+            int version = atoi(buffer);
+            version = version;
+
+            // \todo здесь сверяем нужную версию с уже имеющейся    
         }
 
-        break;
-
-    case State::NEED_REQUEST_CRC:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            state = State::NEED_WAIT_ANSWER_CRC;
-            meter.Reset();
-            SIM800::Transmit("AT+FTPGET=1");
-        }
-        break;
-
-    case State::NEED_WAIT_ANSWER_CRC:
-        if (meter.ElapsedTime() > 75000)
-        {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 1), "+FTPGET") == 0)
-        {
-            if (strcmp(answer, "+FTPGET: 1,1") == 0)
-            {
-                state = State::GET_BYTES_CRC;
-                HandlerGetBytesFTP::Reset();
-                meter.Reset();
-                SIM800::Transmit("AT+FTPGET=2,64");
-            }
-            else
-            {
-                Reset();
-            }
-        }
-        break;
-
-    case State::GET_BYTES_CRC:
-        if (meter.ElapsedTime() > 75000)
-        {
-            Reset();
-        }
-        else if (HandlerGetBytesFTP::received_FTPGET_1_0)
-        {
-            int i = 0;
-        }
         break;
 
     case State::COMPLETED:
@@ -494,7 +429,7 @@ void Updater::CallbackByteFromFTP(char symbol)
 
 bool Updater::InModeReceiveDataFromFTP()
 {
-    return state == State::GET_BYTES_VER || state == State::GET_BYTES_CRC;
+    return state == State::GET_BYTES_VER;
 }
 
 
