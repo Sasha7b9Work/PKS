@@ -184,6 +184,7 @@ namespace Updater
                         else
                         {
                             received_command = false;
+                            pointer_command = 0;
                         }
                     }
                 }
