@@ -105,7 +105,7 @@ namespace Updater
     namespace HandlerGetBytesFTP
     {
         int pointer = 0;
-        bool received_command = false;
+        bool received_command = false;      // Если true, то команда принята, принимаем байты данных
 
         char buffer[32];
 
@@ -123,41 +123,22 @@ namespace Updater
             }
             else
             {
-                if (pointer == 0)
+                if (symbol == 0x0a)
                 {
-                    int i = 0;
+
                 }
-                else if (pointer == 1)
+                else if (symbol == 0x0d)
                 {
-                    int i = 0;
+                    if (buffer[pointer++] = 0)
+                    {
+                        received_command = true;
+                    }
                 }
-                else if (pointer == 2)
+                else
                 {
-                    int i = 0;
-                }
-                else if (pointer == 3)
-                {
-                    int i = 0;
-                }
-                else if (pointer == 4)
-                {
-                    int i = 0;
-                }
-                else if (pointer == 5)
-                {
-                    int i = 0;
-                }
-                else if (pointer == 6)
-                {
-                    int i = 0;
-                }
-                else if (pointer == 7)
-                {
-                    int i = 0;
+                    buffer[pointer++] = symbol;
                 }
             }
-
-            pointer++;
         }
     }
 }
