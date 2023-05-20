@@ -384,6 +384,7 @@ void Updater::Update(pchar answer)
             {
                 state = State::GET_BYTES_VER;
                 HandlerGetBytesFTP::Reset();
+                meter.Reset();
                 SIM800::Transmit("AT+FTPGET=2,4");
             }
         }
