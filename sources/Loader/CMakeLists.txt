@@ -35,9 +35,9 @@ file(GLOB HARDWARE_HAL          src/Hardware/HAL/*.*
                                 ../common/Hardware/HAL/HAL_PINS.*)
 file(GLOB MEASURER              src/Measurer/*.*
                                 ../common/Measurer/Calculator.*)
-file(GLOB MODEM                 src/Modem/*.*)
-file(GLOB UTILS                 ../common/Utils/Math.*
-                                ../common/Utils/String.*)
+file(GLOB MODEM                 src/Modem/*.*
+                                ../common/Modem/Parser.*)
+file(GLOB UTILS                 ../common/Utils/Math.*)
 
 source_group(GD32F3             FILES ${GD32F3})
 source_group(src                FILES ${SRC})

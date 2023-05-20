@@ -9,11 +9,12 @@
 
 
 using namespace Parser;
+using namespace std;
 
 
 namespace Updater
 {
-    void Update(const String &);
+    void Update(pchar);
 }
 
 
@@ -40,17 +41,17 @@ namespace SIM800
     void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
 
-    void Update(const String &);
+    void Update(pchar);
 
-    static bool ProcessUnsolicited(const String &);
+    static bool ProcessUnsolicited(pchar);
 
     bool IsRegistered();
 
-    String LevelSignal();
+    pchar LevelSignal();
 
     static TimeMeterMS meterCSQ;
 
-    static String levelSignal("0");
+    static char levelSignal[16] = { '0', '\0' };
 
     static void Reset()
     {
@@ -60,28 +61,29 @@ namespace SIM800
 }
 
 
-bool SIM800::ProcessUnsolicited(const String &answer)
+bool SIM800::ProcessUnsolicited(pchar answer)
 {
-    String first_word = Parser::GetWord(answer, 1);
+    pchar first_word = Parser::GetWord(answer, 1);
 
-    if (answer == "CLOSED")
+    if (strcmp(answer, "CLOSED") == 0)
     {
         Reset();
         return true;
     }
-    else if (first_word == "+CSQ")
+    else if (strcmp(first_word, "+CSQ") == 0)
     {
-        levelSignal = Parser::GetWord(answer, 2);
+        strcpy(levelSignal, Parser::GetWord(answer, 2));
+        return true;
     }
-    else if (answer == "SEND FAIL")
+    else if (strcmp(answer, "SEND FAIL") == 0)
     {
         return true;
     }
-    else if (answer == "SEND OK")
+    else if (strcmp(answer, "SEND OK") == 0)
     {
         return true;
     }
-    else if (first_word == "+IPD")
+    else if (strcmp(first_word, "+IPD") == 0)
     {
         return false;
     }
@@ -90,7 +92,7 @@ bool SIM800::ProcessUnsolicited(const String &answer)
 }
 
 
-void SIM800::Update(const String &answer)
+void SIM800::Update(pchar answer)
 {
     if (ProcessUnsolicited(answer))
     {
@@ -107,7 +109,7 @@ void SIM800::Update(const String &answer)
         SIM800::Transmit("ATE0");
         state = State::WAIT_ANSWER_ATE0;
         meter.Reset();
-        levelSignal.Set("0");
+        strcpy(levelSignal, "0");
         break;
 
     case State::WAIT_ANSWER_ATE0:
@@ -115,7 +117,7 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+GSMBUSY=1");
             state = State::WAIT_ANSWER_GSMBUSY;
@@ -128,7 +130,7 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+CREG?");                                       // CREG?
             state = State::WAIT_ANSWER_CREG;
@@ -144,9 +146,9 @@ void SIM800::Update(const String &answer)
         else
         {
             Timer::DelayMS(1);
-            if (GetWord(answer, 1) == "+CREG")
+            if (strcmp(GetWord(answer, 1), "+CREG") == 0)
             {
-                int stat = GetWord(answer, 3).c_str()[0] & 0x0f;
+                int stat = GetWord(answer, 3)[0] & 0x0f;
 
                 if (stat == 1 ||        // Registered, home network
                     stat == 5)          // Registered, roaming
@@ -168,7 +170,7 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else if (GetWord(answer, 3) == "INITIAL")
+        else if (strcmp(GetWord(answer, 3), "INITIAL") == 0)
         {
             state = State::RUNNING_UPDATER;
         }
@@ -179,7 +181,7 @@ void SIM800::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             state = State::RUNNING_UPDATER;
         }
@@ -192,7 +194,7 @@ void SIM800::Update(const String &answer)
 }
 
 
-String SIM800::LevelSignal()
+pchar SIM800::LevelSignal()
 {
     return levelSignal;
 }

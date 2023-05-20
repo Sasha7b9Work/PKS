@@ -16,7 +16,7 @@ namespace Display
 
     void DrawPixel(int x, int y, int color);
 
-    char WriteString(int x, int y, char *str);
+    char WriteString(int x, int y, pchar str);
 
     char WriteChar(char ch);
 }

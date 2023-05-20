@@ -9,6 +9,9 @@
 #include <cstdio>
 
 
+using namespace std;
+
+
 namespace SIM800
 {
     uint Transmit(pchar);
@@ -37,7 +40,7 @@ namespace MQTT
     // Если nned_ping == true, то посылаем команду пинга
     static bool need_ping = false;
 
-    void Update(const String &);
+    void Update(pchar);
 
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
@@ -47,7 +50,7 @@ namespace MQTT
 
     void Reset();
 
-    void CallbackOnReceiveData(const String &);
+    void CallbackOnReceiveData(pchar);
 
     namespace Send
     {
@@ -102,7 +105,7 @@ namespace MQTT
 }
 
 
-void MQTT::Update(const String &answer)
+void MQTT::Update(pchar answer)
 {
     TimeMeterMS meter;
 
@@ -115,7 +118,7 @@ void MQTT::Update(const String &answer)
         break;
 
     case State::WAIT_RESPONSE_CIPSEND:
-        if (answer == ">")
+        if (strcmp(answer, ">") == 0)
         {
             SIM800::TransmitUINT8(0x10);   // маркер пакета на установку соединения
             SIM800::TransmitUINT8(0x1c);
@@ -175,7 +178,7 @@ void MQTT::Update(const String &answer)
 //            need_ping = true;
         }
 
-        if (answer == ">")
+        if (strcmp(answer, ">") == 0)
         {
             {
                 static const char *const names[Phase::Count] = { "A", "B", "C" };
@@ -442,7 +445,7 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 }
 
 
-void MQTT::CallbackOnReceiveData(const String &)
+void MQTT::CallbackOnReceiveData(pchar)
 {
     Send::meterLastData.Reset();
 }

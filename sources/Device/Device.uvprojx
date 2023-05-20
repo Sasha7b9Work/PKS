@@ -755,16 +755,6 @@
               <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
             <File>
-              <FileName>Parser.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Parser.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Parser.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\Parser.h</FilePath>
-            </File>
-            <File>
               <FileName>MQTT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\MQTT.cpp</FilePath>
@@ -773,6 +763,16 @@
               <FileName>SIM800.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Parser.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -793,16 +793,6 @@
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Math.h</FilePath>
-            </File>
-            <File>
-              <FileName>String.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Utils\String.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>String.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1557,16 +1547,6 @@
               <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
             <File>
-              <FileName>Parser.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Parser.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Parser.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\Parser.h</FilePath>
-            </File>
-            <File>
               <FileName>MQTT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\MQTT.cpp</FilePath>
@@ -1575,6 +1555,16 @@
               <FileName>SIM800.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Parser.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1595,16 +1585,6 @@
               <FileName>Math.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Math.h</FilePath>
-            </File>
-            <File>
-              <FileName>String.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Utils\String.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>String.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>

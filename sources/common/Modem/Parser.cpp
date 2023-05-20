@@ -4,9 +4,12 @@
 #include <cstring>
 
 
+using namespace std;
+
+
 namespace Parser
 {
-    int NumSeparators(const String &, int pos[10]);
+    int NumSeparators(pchar, int pos[10]);
 }
 
 
@@ -26,12 +29,6 @@ int Parser::NumberSymbols(pchar string, char symbol)
     }
 
     return result;
-}
-
-
-int Parser::NumberSymbols(const String &string, char symbol)
-{
-    return NumberSymbols(string.c_str(), symbol);
 }
 
 
@@ -56,14 +53,10 @@ int Parser::PositionSymbol(pchar string, char symbol, int num)
 }
 
 
-int Parser::PositionSymbol(const String &string, char symbol, int num)
+pchar Parser::GetWord(pchar string, int pos_start, int pos_end)
 {
-    return PositionSymbol(string.c_str(), symbol, num);
-}
+    static char out[32];
 
-
-pchar Parser::GetWord(pchar string, char out[32], int pos_start, int pos_end)
-{
     if (pos_end - pos_start <= 0)
     {
         LOG_WRITE("Wrong arguments");
@@ -86,18 +79,12 @@ pchar Parser::GetWord(pchar string, char out[32], int pos_start, int pos_end)
 }
 
 
-String Parser::GetWord(const String &string, int pos_start, int pos_end)
+pchar Parser::GetWordInQuotes(pchar string, int num)
 {
-    char word[32];
+    static char out[64];
 
-    return String(GetWord(string.c_str(), word, pos_start, pos_end));
-}
-
-
-String Parser::GetWordInQuotes(const String &string, int num)
-{
-    int size = string.Size();
-    char *buffer = string.c_str();
+    int size = (int)strlen(string);
+    const char *buffer = string;
 
     int quote1 = num * 2;
 
@@ -128,9 +115,7 @@ String Parser::GetWordInQuotes(const String &string, int num)
 
     if (pos_quote1 >= 0 && pos_quote2 >= 0)
     {
-        char data[64];
-
-        char *pointer = data;
+        char *pointer = out;
 
         for (int i = pos_quote1 + 1; i < pos_quote2; i++)
         {
@@ -139,14 +124,14 @@ String Parser::GetWordInQuotes(const String &string, int num)
 
         *pointer = '\0';
 
-        return String(data);
+        return out;
     }
 
-    return String("");
+    return "";
 }
 
 
-String Parser::GetWord(const String &string, int num)
+pchar Parser::GetWord(pchar string, int num)
 {
     int pos_start = 0;
     int pos_end = 0;
@@ -157,7 +142,7 @@ String Parser::GetWord(const String &string, int num)
     }
     else
     {
-        char *p = string.c_str();
+        const char *p = string;
 
         int current_word = 1;
 
@@ -180,7 +165,7 @@ String Parser::GetWord(const String &string, int num)
                     in_word = true;
                     if (current_word == num)
                     {
-                        pos_start = p - string.c_str() - 1;
+                        pos_start = p - string - 1;
                         break;
                     }
                 }
@@ -191,13 +176,13 @@ String Parser::GetWord(const String &string, int num)
 
         if (current_word != num)
         {
-            return String("");
+            return "";
         }
     }
 
     pos_end = pos_start + 1;
 
-    char *p = string.c_str() + pos_end;
+    const char *p = string + pos_end;
 
     while (*p != '\0' && *p != ' ' && *p != ',' && *p != ':')
     {
@@ -209,11 +194,11 @@ String Parser::GetWord(const String &string, int num)
 }
 
 
-int Parser::NumSeparators(const String &string, int pos[10])
+int Parser::NumSeparators(pchar string, int pos[10])
 {
-    int size = string.Size();
+    int size = (int)strlen(string);
 
-    char *p = string.c_str();
+    const char *p = string;
 
     int num_sep = 0;
 

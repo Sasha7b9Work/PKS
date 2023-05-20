@@ -32,21 +32,15 @@
         GSM_PWRKEY = 1
 */
 
-/*
-    AT+SAPBR=3,1,"APN","internet"
-    AT+SAPBR=3,1,"USER",""
-    AT+SAPBR=3,1,"PWD",""
-    AT+SAPBR=1,1
-    AT+HTTPINIT
-    AT+HTTPPARA="CID",1
-*/
+
+using namespace std;
 
 
 namespace SIM800
 {
-    void Update(const String &);
+    void Update(pchar);
     bool IsRegistered();
-    String LevelSignal();
+    pchar LevelSignal();
 }
 
 
@@ -82,12 +76,12 @@ namespace Modem
 
     static State::E state = State::IDLE;
 
-    const int MAX_LENGTH_ANSWERR = 128;
+    const int MAX_LENGTH_ANSWERR = 64;
 
     namespace Answer
     {
         static const int MAX_ANSWERS = 10;
-        static String answers[MAX_ANSWERS];
+        static char answers[MAX_ANSWERS][MAX_LENGTH_ANSWERR];
         static int num_answers = 0;
 
         static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
@@ -116,11 +110,9 @@ namespace Modem
             {
                 buffer[pointer - 1] = '\0';
 
-                String string(buffer);
-
                 if (num_answers < MAX_ANSWERS)
                 {
-                    answers[num_answers++].Set(buffer);
+                    strcpy(answers[num_answers++], buffer);
                 }
 
                 pointer = 0;
@@ -214,14 +206,14 @@ void Modem::Update()
     case State::HARDWARE_IS_OK:
         if (Answer::num_answers == 0)
         {
-            SIM800::Update(String(""));
+            SIM800::Update("");
         }
         else
         {
             for (int i = 0; i < Answer::num_answers; i++)
             {
                 SIM800::Update(Answer::answers[i]);
-                Answer::answers[i].Set("");
+                Answer::answers[i][0] = '\0';
             }
             Answer::num_answers = 0;
         }
@@ -247,7 +239,7 @@ bool Modem::Mode::ConnectedToMQTT()
 }
 
 
-String Modem::Mode::LevelSignal()
+pchar Modem::Mode::LevelSignal()
 {
     return SIM800::LevelSignal();
 }

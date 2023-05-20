@@ -7,6 +7,7 @@
 #include "Modem/Updater.h"
 #include <gd32f30x.h>
 #include <cstdio>
+#include <cstring>
 
 
 /*
@@ -18,7 +19,6 @@
 
 
 /*
-
 AT+CREG?
 AT+CIPSTATUS
 +INITIAL
@@ -34,10 +34,10 @@ AT+FTPPW=\"%s\"", password
 AT+FTPGETPATH=\"%s\"", directory
 AT+FTPGETNAME=\"%s\"", firmware
 AT+FTPGET=1
-
-
-
 */
+
+
+using namespace std;
 
 
 namespace SIM800
@@ -75,16 +75,16 @@ namespace Updater
 
     static State::E state = State::IDLE;
 
-    static String address("s92153gg.beget.tech");
-    static String login("s92153gg_1");
-    static String password("Qwerty123!");
-    static String directory("/");
+    static pchar address("s92153gg.beget.tech");
+    static pchar login("s92153gg_1");
+    static pchar password("Qwerty123!");
+    static pchar directory("/");
 
-    static String file_firmware("Meter.bin");
-    static String file_crc("Meter.crc");
-    static String file_ver("Meter.ver");
+    static pchar file_firmware("Meter.bin");
+    static pchar file_crc("Meter.crc");
+    static pchar file_ver("Meter.ver");
 
-    void Update(const String &);
+    void Update(const pchar);
 
     void LoadFirmware();
 
@@ -151,7 +151,7 @@ bool Updater::IsCompleted()
 }
 
 
-void Updater::Update(const String &answer)
+void Updater::Update(pchar answer)
 {
     const uint DEFAULT_TIME = 10000;
 
@@ -174,7 +174,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
             state = State::NEED_SAPBR_3_USER;
@@ -187,7 +187,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+SAPBR=3,1,\"USER\",\"\"");
             state = State::NEED_SAPBR_3_PWD;
@@ -200,7 +200,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+SAPBR=3,1,\"PWD\",\"\"");
             state = State::NEED_SAPBR_1_1;
@@ -214,7 +214,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+SAPBR=1,1");
             state = State::NEED_FTPCID;
@@ -227,7 +227,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             SIM800::Transmit("AT+FTPCID=1");
             meter.Reset();
@@ -240,10 +240,10 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             char _address[64];
-            std::sprintf(_address, "AT+FTPSERV=\"%s\"", address.c_str());
+            std::sprintf(_address, "AT+FTPSERV=\"%s\"", address);
             SIM800::Transmit(_address);
             state = State::NEED_FTPUN;
             meter.Reset();
@@ -255,10 +255,10 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             char _login[64];
-            std::sprintf(_login, "AT+FTPUN=\"%s\"", login.c_str());
+            std::sprintf(_login, "AT+FTPUN=\"%s\"", login);
             SIM800::Transmit(_login);
             state = State::NEED_FTPPW;
             meter.Reset();
@@ -270,10 +270,10 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             char _password[64];
-            std::sprintf(_password, "AT+FTPPW=\"%s\"", password.c_str());
+            std::sprintf(_password, "AT+FTPPW=\"%s\"", password);
             SIM800::Transmit(_password);
             state = State::NEED_FTPGETPATH;
             meter.Reset();
@@ -285,10 +285,10 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             char _directory[64];
-            std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory.c_str());
+            std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory);
             SIM800::Transmit(_directory);
             state = State::NEED_SET_NAME_VER;
             meter.Reset();
@@ -300,10 +300,10 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK") == 0)
         {
             char _firmware[64];
-            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_ver.c_str());
+            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_ver);
             SIM800::Transmit(_firmware);
             state = State::NEED_REQUEST_VER;
             meter.Reset();
@@ -315,7 +315,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (answer == "OK")
+        else if (strcmp(answer, "OK"))
         {
             SIM800::Transmit("AT+FTPGET=1");
             state = State::NEED_WAIT_ANSWER_VER;
@@ -328,9 +328,9 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (Parser::GetWord(answer, 1) == "+FTPGET")
+        else if (strcmp(Parser::GetWord(answer, 1), "+FTPGET") == 0)
         {
-            if (answer == "+FTPGET: 1,1")
+            if (strcmp(answer, "+FTPGET: 1,1") == 0)
             {
                 state = State::GET_BYTES_VER;
                 HandlerGetBytesFTP::Reset();
@@ -348,7 +348,7 @@ void Updater::Update(const String &answer)
         {
             Reset();
         }
-        else if (Parser::GetWord(answer, 1) == "+FTPGET")
+        else if (strcmp(Parser::GetWord(answer, 1), "+FTPGET") == 0)
         {
             int i = 0;
         }

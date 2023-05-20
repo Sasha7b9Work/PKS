@@ -50,7 +50,8 @@ file(GLOB HARDWARE_MODULES_SSD1306 src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80  src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 src/Measurer/*.*
                                    ../common/Measurer/Calculator.*)
-file(GLOB MODEM                    src/Modem/*.*)
+file(GLOB MODEM                    src/Modem/*.*
+                                   ../common/Modem/Parser.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
 
 source_group(GD32F3                   FILES ${GD32F3})

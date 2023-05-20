@@ -1,6 +1,5 @@
 ﻿// 2023/03/16 16:31:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
-#include "Utils/String.h"
 #include "Measurer/Measurer.h"
 
 
@@ -27,6 +26,6 @@ namespace Modem
         bool Power();
 
         // Уровень сигнала от 0 до 10
-        String LevelSignal();
+        pchar LevelSignal();
     }
 }

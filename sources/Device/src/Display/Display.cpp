@@ -65,7 +65,7 @@ void Display::Update()
     {
         WriteString(80, 5, "Ã ˛““");
 
-        WriteString(120, 5, Modem::Mode::LevelSignal().c_str());
+        WriteString(120, 5, Modem::Mode::LevelSignal());
     }
 
     SSD1306::WriteBuffer(buffer);
@@ -121,7 +121,7 @@ void Display::DrawPixel(int x, int y, int color)
 }
 
 
-char Display::WriteString(int x, int y, char *str)
+char Display::WriteString(int x, int y, pchar str)
 {
     cursorX = x;
     cursorY = y;
