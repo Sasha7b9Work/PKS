@@ -194,6 +194,11 @@ namespace Updater
 
                                 need_bytes = atoi(num_readed_bytes);
 
+                                if (need_bytes == 0)
+                                {
+                                    SIM800::Transmit("AT+FTPGET=2,4");
+                                }
+
                                 received_command = need_bytes > 0;
 
                                 if (!received_command)
