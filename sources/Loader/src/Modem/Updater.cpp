@@ -117,6 +117,8 @@ namespace Updater
         int pointer_data = 0;             // Столько байт уже принято
         char buffer_data[SIZE_DATA_BUFFER];
 
+        int num_commands = 0;
+
         void Reset()
         {
             pointer_command = 0;
@@ -126,6 +128,8 @@ namespace Updater
             received_data = false;
 
             need_bytes = 0;
+
+            num_commands = 0;
         }
 
         void AppendByte(char symbol)
@@ -162,6 +166,29 @@ namespace Updater
                         pchar num_readed_bytes = GetWord(buffer_command, 3);
 
                         need_bytes = atoi(num_readed_bytes);
+
+                        if (num_commands == 0)
+                        {
+                            int i = 0;
+                        }
+                        else if (num_commands == 1)
+                        {
+                            int i = 0;
+                        }
+                        else if (num_commands == 2)
+                        {
+                            int i = 0;
+                        }
+                        else if (num_commands == 3)
+                        {
+                            int i = 0;
+                        }
+                        else if (num_commands == 4)
+                        {
+                            int i = 0;
+                        }
+
+                        num_commands++;
                     }
                 }
                 else
