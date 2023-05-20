@@ -460,7 +460,7 @@ void Updater::CallbackByteFromFTP(char symbol)
 
 bool Updater::InModeReceiveDataFromFTP()
 {
-    return state == State::GET_BYTES_VER;
+    return state == State::GET_BYTES_VER || state == State::GET_BYTES_CRC;
 }
 
 
