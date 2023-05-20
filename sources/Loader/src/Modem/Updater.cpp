@@ -110,7 +110,7 @@ namespace Updater
 
     static uint Hash(uint hash, char byte)
     {
-        return (uint8)byte + (hash << 6) + (hash << 16) - hash;
+        return (uint8)byte + (uint)(hash << 6) + (uint)(hash << 16) - hash;
     }
 
     namespace HandlerFTP
