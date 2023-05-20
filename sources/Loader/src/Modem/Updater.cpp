@@ -102,12 +102,8 @@ namespace Updater
         Modem::Reset();
     }
 
-    namespace HandlerGetBytesFTP
+    namespace HandlerFTP
     {
-        int full_pointer = 0;
-        char full_buffer[256];
-
-
         static const int SIZE_DATA_BUFFER = 64;
 
         bool received_command = false;          // Если true, то команда принята, принимаем байты данных
@@ -115,6 +111,7 @@ namespace Updater
         char buffer_command[32];
 
         int need_bytes = 0;                     // Столько байт должно быть принято
+        int bytes_from_FTP = 0;                 // Столько FTP согласен отдать
         int pointer_data = 0;                   // Столько байт уже принято
         char buffer_data[SIZE_DATA_BUFFER];
 
@@ -131,22 +128,19 @@ namespace Updater
 
             received_FTPGET_1_0 = false;
             requested_bytes_received = false;
+        }
 
-            full_pointer = 0;
-
-            for (int i = 0; i < 256; i++)
-            {
-                full_buffer[i] = 0;
-            }
+        void ReceiveBytes(int num_bytes)
+        {
+            Reset();
+            need_bytes = num_bytes;
+            char buffer[32];
+            sprintf(buffer, "AT+FTPGET=2,%d", need_bytes);
+            SIM800::Transmit(buffer);
         }
 
         void AppendByte(char symbol)
         {
-            if (full_pointer < 256)
-            {
-                full_buffer[full_pointer++] = symbol;
-            }
-
             if (received_command)
             {
                 buffer_data[pointer_data++] = symbol;
@@ -168,14 +162,6 @@ namespace Updater
                 {
                     if (pointer_command)
                     {
-                        static int counter = 0;
-                        counter++;
-
-                        if (counter == 10)
-                        {
-                            int i = 0;
-                        }
-
                         buffer_command[pointer_command++] = 0;
 
                         pchar first_word = GetWord(buffer_command, 1);
@@ -201,17 +187,13 @@ namespace Updater
                             {
                                 pchar num_readed_bytes = GetWord(buffer_command, 3);
 
-                                need_bytes = atoi(num_readed_bytes);
+                                bytes_from_FTP = atoi(num_readed_bytes);
 
                                 received_command = need_bytes > 0;
 
                                 if (!received_command)
                                 {
                                     pointer_command = 0;
-                                }
-                                else
-                                {
-                                    int i = 0;
                                 }
                             }
                         }
@@ -420,9 +402,8 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "+FTPGET: 1,1") == 0)
             {
                 state = State::GET_BYTES_VER;
-                HandlerGetBytesFTP::Reset();
                 meter.Reset();
-                SIM800::Transmit("AT+FTPGET=2,4");
+                HandlerFTP::ReceiveBytes(4);
             }
         }
         break;
@@ -432,21 +413,25 @@ void Updater::Update(pchar answer)
         {
             Reset();
         }
-        else if (HandlerGetBytesFTP::requested_bytes_received)
+        else if (HandlerFTP::requested_bytes_received)
         {
             char buffer[32];
 
             char *pointer = buffer;
 
-            for (int i = 0; i < HandlerGetBytesFTP::pointer_data; i++)
+            for (int i = 0; i < HandlerFTP::pointer_data; i++)
             {
-                *pointer++ = HandlerGetBytesFTP::buffer_data[i];
+                *pointer++ = HandlerFTP::buffer_data[i];
             }
 
             pointer = '\0';
 
             int version = atoi(buffer);
             version = version;
+
+            while (true)
+            {
+            }
 
             // \todo здесь сверяем нужную версию с уже имеющейся    
         }
@@ -461,7 +446,7 @@ void Updater::Update(pchar answer)
 
 void Updater::CallbackByteFromFTP(char symbol)
 {
-    HandlerGetBytesFTP::AppendByte(symbol);
+    HandlerFTP::AppendByte(symbol);
 }
 
 
