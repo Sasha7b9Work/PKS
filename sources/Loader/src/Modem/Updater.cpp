@@ -485,7 +485,7 @@ void Updater::Update(pchar answer)
                 else if (HandlerFTP::requested_bytes_received)
                 {
                     received_bytes += HandlerFTP::pointer_data;
-                    for (int i = 0; i < HandlerFTP::buffer_data[i]; i++)
+                    for (int i = 0; i < HandlerFTP::pointer_data; i++)
                     {
                         crc += Hash(crc, HandlerFTP::buffer_data[i]);
                     }
