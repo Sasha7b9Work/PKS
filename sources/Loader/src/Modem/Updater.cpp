@@ -156,12 +156,6 @@ namespace Updater
                     if (pointer_command)
                     {
                         buffer_command[pointer_command++] = 0;
-                        received_command = true;
-
-                        if (received_data)
-                        {
-                            int i = 0;
-                        }
 
                         pchar num_readed_bytes = GetWord(buffer_command, 3);
 
@@ -186,6 +180,13 @@ namespace Updater
                         else if (num_commands == 4)
                         {
                             int i = 0;
+                        }
+
+                        received_command = need_bytes > 0;
+
+                        if (!received_command)
+                        {
+                            pointer_command = 0;
                         }
 
                         num_commands++;
