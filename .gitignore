@@ -1,4 +1,6 @@
 *.dbgconf
+*.crc
+*.ver
 
 archive.zip
 
