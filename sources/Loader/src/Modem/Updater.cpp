@@ -104,6 +104,10 @@ namespace Updater
 
     namespace HandlerGetBytesFTP
     {
+        int full_pointer = 0;
+        char full_buffer[256];
+
+
         static const int SIZE_DATA_BUFFER = 64;
 
         bool received_command = false;          // Если true, то команда принята, принимаем байты данных
@@ -127,10 +131,17 @@ namespace Updater
 
             received_FTPGET_1_0 = false;
             requested_bytes_received = false;
+
+            full_pointer = 0;
         }
 
         void AppendByte(char symbol)
         {
+            if (full_pointer < 256)
+            {
+                full_buffer[full_pointer++] = symbol;
+            }
+
             if (received_command)
             {
                 buffer_data[pointer_data++] = symbol;
@@ -152,6 +163,14 @@ namespace Updater
                 {
                     if (pointer_command)
                     {
+                        static int counter = 0;
+                        counter++;
+
+                        if (counter == 5)
+                        {
+                            int i = 0;
+                        }
+
                         buffer_command[pointer_command++] = 0;
 
                         pchar first_word = GetWord(buffer_command, 1);
