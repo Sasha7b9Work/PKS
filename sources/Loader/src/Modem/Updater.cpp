@@ -291,7 +291,7 @@ void Updater::Update(const String &answer)
         {
             if (answer == "+FTPGET: 1,1")
             {
-                SIM800::Transmit("AT+FTPGET=2,100");
+                SIM800::Transmit("AT+FTPGET=2,128");
                 state = State::GET_BYTES_VER;
             }
             else
@@ -308,7 +308,7 @@ void Updater::Update(const String &answer)
         }
         else if (Parser::GetWord(answer, 1) == "+FTPGET")
         {
-            state = State::IDLE;
+            int i = 0;
         }
         break;
 

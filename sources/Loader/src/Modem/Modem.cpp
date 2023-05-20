@@ -3,9 +3,11 @@
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include "Modem/Parser.h"
+#include "Modem/Updater.h"
 #include <gd32f30x.h>
 #include <cstring>
-#include "Modem/Parser.h"
+#include <cstdlib>
 
 
 /*
@@ -41,6 +43,9 @@
     AT+HTTPINIT
     AT+HTTPPARA="CID",1
 */
+
+
+using namespace Parser;
 
 
 namespace SIM800
@@ -112,6 +117,15 @@ namespace Modem
                 if (num_answers < MAX_ANSWERS)
                 {
                     answers[num_answers++].Set(buffer);
+                }
+
+                if (GetWord(answers[num_answers - 1], 1) == "+FTPGET")
+                {
+                    if (GetWord(answers[num_answers - 1], 2) == "2")
+                    {
+                        String number_bytes = GetWord(answers[num_answers - 1], 3);
+                        number_bytes = number_bytes;
+                    }
                 }
 
                 pointer = 0;
