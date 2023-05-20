@@ -440,7 +440,7 @@ void Updater::Update(pchar answer)
             uint crc = 0;
             memcpy(&crc, HandlerFTP::buffer_data, 4);
 
-            state = State::GET_BYTES_CRC;
+            state = State::GET_BYTES_FIRMWARE;
             meter.Reset();
             HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
         }
