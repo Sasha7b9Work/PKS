@@ -171,7 +171,7 @@ namespace Updater
                         static int counter = 0;
                         counter++;
 
-                        if (counter == 16)
+                        if (counter == 10)
                         {
                             int i = 0;
                         }
@@ -186,18 +186,21 @@ namespace Updater
 
                             if (second_word[0] == '1')
                             {
-                                received_FTPGET_1_0 = true;
+                                pchar third_word = GetWord(buffer_command, 3);
+                                if (third_word[0] == '1')
+                                {
+                                    SIM800::Transmit("AT+FTPGET=2,4");
+                                }
+                                else
+                                {
+                                    received_FTPGET_1_0 = true;
+                                }
                             }
                             else if (second_word[0] == '2')
                             {
                                 pchar num_readed_bytes = GetWord(buffer_command, 3);
 
                                 need_bytes = atoi(num_readed_bytes);
-
-                                if (need_bytes == 0)
-                                {
-                                    SIM800::Transmit("AT+FTPGET=2,4");
-                                }
 
                                 received_command = need_bytes > 0;
 
