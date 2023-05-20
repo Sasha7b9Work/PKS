@@ -151,6 +151,11 @@ namespace Updater
                 {
                     if (pointer_command)
                     {
+                        if (received_data)
+                        {
+                            int i = 0;
+                        }
+
                         buffer_command[pointer_command++] = 0;
                         received_command = true;
 
