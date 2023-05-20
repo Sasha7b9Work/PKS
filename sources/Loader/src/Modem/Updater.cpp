@@ -127,6 +127,34 @@ namespace Updater
                 {
                     int i = 0;
                 }
+                else if (pointer == 1)
+                {
+                    int i = 0;
+                }
+                else if (pointer == 2)
+                {
+                    int i = 0;
+                }
+                else if (pointer == 3)
+                {
+                    int i = 0;
+                }
+                else if (pointer == 4)
+                {
+                    int i = 0;
+                }
+                else if (pointer == 5)
+                {
+                    int i = 0;
+                }
+                else if (pointer == 6)
+                {
+                    int i = 0;
+                }
+                else if (pointer == 7)
+                {
+                    int i = 0;
+                }
             }
         }
     }
