@@ -104,6 +104,26 @@ namespace Updater
         Modem::Reset();
     }
 
+    static TimeMeterMS state_meter;
+
+    static void SetState(State::E _state)
+    {
+        state = _state;
+        state_meter.Reset();
+    }
+
+    static bool MeterIsRunning(uint time)
+    {
+        if (state_meter.ElapsedTime() < time)
+        {
+            return true;
+        }
+
+        Reset();
+
+        return false;
+    }
+
     static int version = 0;
     static uint source_crc = 0;         // Здесь хранится контрольная сумма из файла
     static int received_bytes = 0;      // Количество байт, считанных из файла
@@ -237,8 +257,6 @@ void Updater::Update(pchar answer)
 {
     const uint DEFAULT_TIME = 10000;
 
-    static TimeMeterMS meter;
-
     switch (state)
     {
     case State::IDLE:
@@ -246,224 +264,190 @@ void Updater::Update(pchar answer)
         break;
 
     case State::NEED_SAPBR_3_GPRS:
+        SetState(State::NEED_SAPBR_3_APN);
         SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
-        meter.Reset();
-        state = State::NEED_SAPBR_3_APN;
         break;
 
     case State::NEED_SAPBR_3_APN:
-        if (meter.ElapsedTime() > 85000)
+        if (MeterIsRunning(85000))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
-            state = State::NEED_SAPBR_3_USER;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_SAPBR_3_USER);
+                SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
+            }
         }
         break;
 
     case State::NEED_SAPBR_3_USER:
-        if (meter.ElapsedTime() > 85000)
+        if (MeterIsRunning(85000))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+SAPBR=3,1,\"USER\",\"\"");
-            state = State::NEED_SAPBR_3_PWD;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_SAPBR_3_PWD);
+                SIM800::Transmit("AT+SAPBR=3,1,\"USER\",\"\"");
+            }
         }
         break;
 
     case State::NEED_SAPBR_3_PWD:
-        if (meter.ElapsedTime() > 85000)
+        if (MeterIsRunning(85000))
         {
-            Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_SAPBR_1_1);
+                SIM800::Transmit("AT+SAPBR=3,1,\"PWD\",\"\"");
+            }
         }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+SAPBR=3,1,\"PWD\",\"\"");
-            state = State::NEED_SAPBR_1_1;
-            meter.Reset();
-        }
-
         break;
 
     case State::NEED_SAPBR_1_1:
-        if (meter.ElapsedTime() > 85000)
+        if (MeterIsRunning(85000))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+SAPBR=1,1");
-            state = State::NEED_FTPCID;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_FTPCID);
+                SIM800::Transmit("AT+SAPBR=1,1");
+            }
         }
         break;
 
     case State::NEED_FTPCID:
-        if (meter.ElapsedTime() > 85000)
+        if (MeterIsRunning(85000))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+FTPCID=1");
-            meter.Reset();
-            state = State::NEED_FTPSERV;
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_FTPSERV);
+                SIM800::Transmit("AT+FTPCID=1");
+            }
         }
         break;
 
     case State::NEED_FTPSERV:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            char _address[64];
-            std::sprintf(_address, "AT+FTPSERV=\"%s\"", address);
-            SIM800::Transmit(_address);
-            state = State::NEED_FTPUN;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_FTPUN);
+                char _address[64];
+                std::sprintf(_address, "AT+FTPSERV=\"%s\"", address);
+                SIM800::Transmit(_address);
+            }
         }
         break;
 
     case State::NEED_FTPUN:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            char _login[64];
-            std::sprintf(_login, "AT+FTPUN=\"%s\"", login);
-            SIM800::Transmit(_login);
-            state = State::NEED_FTPPW;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_FTPPW);
+                char _login[64];
+                std::sprintf(_login, "AT+FTPUN=\"%s\"", login);
+                SIM800::Transmit(_login);
+            }
         }
         break;
 
     case State::NEED_FTPPW:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            char _password[64];
-            std::sprintf(_password, "AT+FTPPW=\"%s\"", password);
-            SIM800::Transmit(_password);
-            state = State::NEED_FTPGETPATH;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_FTPGETPATH);
+                char _password[64];
+                std::sprintf(_password, "AT+FTPPW=\"%s\"", password);
+                SIM800::Transmit(_password);
+            }
         }
         break;
 
     case State::NEED_FTPGETPATH:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            char _directory[64];
-            std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory);
-            SIM800::Transmit(_directory);
-            state = State::NEED_SET_NAME_FIRMWARE;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_SET_NAME_FIRMWARE);
+                char _directory[64];
+                std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory);
+                SIM800::Transmit(_directory);
+            }
         }
         break;
 
     case State::NEED_SET_NAME_FIRMWARE:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            state = State::NEED_REQUEST_CONNECT;
-            char _firmware[64];
-            std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_firmware);
-            SIM800::Transmit(_firmware);
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_REQUEST_CONNECT);
+                char _firmware[64];
+                std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_firmware);
+                SIM800::Transmit(_firmware);
+            }
         }
         break;
 
     case State::NEED_REQUEST_CONNECT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+FTPGET=1");
-            state = State::NEED_WAIT_CONNECT;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                SetState(State::NEED_WAIT_CONNECT);
+                SIM800::Transmit("AT+FTPGET=1");
+            }
         }
         break;
 
     case State::NEED_WAIT_CONNECT:
-        if (meter.ElapsedTime() > 75000)
+        if (MeterIsRunning(75000))
         {
-            Reset();
-        }
-        else if (strcmp(Parser::GetWord(answer, 1), "+FTPGET") == 0)
-        {
-            if (strcmp(answer, "+FTPGET: 1,1") == 0)
+            if (strcmp(Parser::GetWord(answer, 1), "+FTPGET") == 0)
             {
-                state = State::GET_BYTES_VER;
-                meter.Reset();
-                crc = 0;
-                received_bytes = 0;
-                version = 0;
-                HandlerFTP::ReceiveBytes(4);
+                if (strcmp(answer, "+FTPGET: 1,1") == 0)
+                {
+                    SetState(State::GET_BYTES_VER);
+                    crc = 0;
+                    received_bytes = 0;
+                    version = 0;
+                    HandlerFTP::ReceiveBytes(4);
+                }
             }
         }
         break;
 
     case State::GET_BYTES_VER:
-        if (meter.ElapsedTime() > 75000)
+        if (MeterIsRunning(75000))
         {
-            Reset();
-        }
-        else if (HandlerFTP::requested_bytes_received)
-        {
-            memcpy(&version, HandlerFTP::buffer_data, 4);
+            if (HandlerFTP::requested_bytes_received)
+            {
+                memcpy(&version, HandlerFTP::buffer_data, 4);
 
-            // \todo здесь сверяем нужную версию с уже имеющейся
+                // \todo здесь сверяем нужную версию с уже имеющейся
 
-            state = State::GET_BYTES_CRC;
-            meter.Reset();
-            HandlerFTP::ReceiveBytes(4);
+                SetState(State::GET_BYTES_CRC);
+                HandlerFTP::ReceiveBytes(4);
+            }
         }
         break;
 
     case State::GET_BYTES_CRC:
-        if (meter.ElapsedTime() > 75000)
+        if (MeterIsRunning(75000))
         {
-            Reset();
-        }
-        else if (HandlerFTP::requested_bytes_received)
-        {
-            memcpy(&source_crc, HandlerFTP::buffer_data, 4);
+            if (HandlerFTP::requested_bytes_received)
+            {
+                memcpy(&source_crc, HandlerFTP::buffer_data, 4);
 
-            state = State::GET_BYTES_FIRMWARE;
-            meter.Reset();
-            HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
-            HandlerFTP::received_FTPGET_1_0 = false;
+                SetState(State::GET_BYTES_FIRMWARE);
+                HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
+                HandlerFTP::received_FTPGET_1_0 = false;
+            }
         }
         break;
 
     case State::GET_BYTES_FIRMWARE:
         {
-            if (meter.ElapsedTime() > 75000)
-            {
-                Reset();
-            }
-            else
+            if(MeterIsRunning(75000))
             {
                 if (HandlerFTP::received_FTPGET_1_0)
                 {
@@ -491,7 +475,7 @@ void Updater::Update(pchar answer)
                         crc = Hash(crc, HandlerFTP::buffer_data[i]);
                     }
                     HandlerFTP::pointer_data = 0;
-                    meter.Reset();
+                    state_meter.Reset();
                     HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
                 }
             }
