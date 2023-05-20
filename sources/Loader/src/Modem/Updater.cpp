@@ -104,6 +104,7 @@ namespace Updater
         Modem::Reset();
     }
 
+    static int version = 0;
     static uint source_crc = 0;         // Здесь хранится контрольная сумма из файла
     static int received_bytes = 0;      // Количество байт, считанных из файла
     static uint crc = 0;                // Подсчитанная crc
@@ -415,6 +416,9 @@ void Updater::Update(pchar answer)
             {
                 state = State::GET_BYTES_VER;
                 meter.Reset();
+                crc = 0;
+                received_bytes = 0;
+                version = 0;
                 HandlerFTP::ReceiveBytes(4);
             }
         }
@@ -427,7 +431,6 @@ void Updater::Update(pchar answer)
         }
         else if (HandlerFTP::requested_bytes_received)
         {
-            int version = 0;
             memcpy(&version, HandlerFTP::buffer_data, 4);
 
             // \todo здесь сверяем нужную версию с уже имеющейся
@@ -451,8 +454,6 @@ void Updater::Update(pchar answer)
             meter.Reset();
             HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
             HandlerFTP::received_FTPGET_1_0 = false;
-            crc = 0;
-            received_bytes = 0;
         }
         break;
 
