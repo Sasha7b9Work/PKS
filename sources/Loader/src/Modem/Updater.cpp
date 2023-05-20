@@ -8,6 +8,7 @@
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
+#include <cstdlib>
 
 
 /*
@@ -37,6 +38,7 @@ AT+FTPGET=1
 */
 
 
+using namespace Parser;
 using namespace std;
 
 
@@ -104,22 +106,40 @@ namespace Updater
 
     namespace HandlerGetBytesFTP
     {
-        int pointer = 0;
-        bool received_command = false;      // Если true, то команда принята, принимаем байты данных
+        static const int SIZE_DATA_BUFFER = 64;
 
-        char buffer[32];
+        bool received_command = false;      // Если true, то команда принята, принимаем байты данных
+        int pointer_command = 0;
+        char buffer_command[32];
+
+        int need_bytes = 0;                 // Столько байт должно быть принято
+        bool received_data = false;
+        int pointer_data = 0;             // Столько байт уже принято
+        char buffer_data[SIZE_DATA_BUFFER];
 
         void Reset()
         {
-            pointer = 0;
+            pointer_command = 0;
             received_command = false;
+
+            pointer_data = 0;
+            received_data = false;
+
+            need_bytes = 0;
         }
 
         void AppendByte(char symbol)
         {
             if (received_command)
             {
+                buffer_data[pointer_data++] = symbol;
 
+                if (pointer_data == need_bytes)
+                {
+                    received_data = true;
+                    received_command = false;
+                    pointer_command = 0;
+                }
             }
             else
             {
@@ -129,15 +149,19 @@ namespace Updater
                 }
                 else if (symbol == 0x0d)
                 {
-                    if (pointer)
+                    if (pointer_command)
                     {
-                        buffer[pointer++] = 0;
+                        buffer_command[pointer_command++] = 0;
                         received_command = true;
+
+                        pchar num_readed_bytes = GetWord(buffer_command, 3);
+
+                        need_bytes = atoi(num_readed_bytes);
                     }
                 }
                 else
                 {
-                    buffer[pointer++] = symbol;
+                    buffer_command[pointer_command++] = symbol;
                 }
             }
         }
@@ -334,7 +358,7 @@ void Updater::Update(pchar answer)
             {
                 state = State::GET_BYTES_VER;
                 HandlerGetBytesFTP::Reset();
-                SIM800::Transmit("AT+FTPGET=2,128");
+                SIM800::Transmit("AT+FTPGET=2,64");
             }
             else
             {
@@ -348,10 +372,7 @@ void Updater::Update(pchar answer)
         {
             Reset();
         }
-        else if (strcmp(Parser::GetWord(answer, 1), "+FTPGET") == 0)
-        {
-            int i = 0;
-        }
+
         break;
 
     case State::COMPLETED:
