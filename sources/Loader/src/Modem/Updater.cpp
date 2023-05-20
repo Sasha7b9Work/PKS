@@ -456,7 +456,12 @@ void Updater::Update(pchar answer)
             }
             else
             {
-                if (HandlerFTP::requested_bytes_received)
+                if (HandlerFTP::received_FTPGET_1_0)
+                {
+                    received_bytes += HandlerFTP::pointer_data;
+                    received_bytes = received_bytes;
+                }
+                else if (HandlerFTP::requested_bytes_received)
                 {
                     if (received_bytes > 27000)
                     {
@@ -464,13 +469,9 @@ void Updater::Update(pchar answer)
                     }
 
                     received_bytes += HandlerFTP::pointer_data;
+                    HandlerFTP::pointer_data = 0;
                     meter.Reset();
                     HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
-                }
-                if (HandlerFTP::received_FTPGET_1_0)
-                {
-                    received_bytes += HandlerFTP::pointer_data;
-                    received_bytes = received_bytes;
                 }
             }
         }
