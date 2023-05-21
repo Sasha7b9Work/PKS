@@ -293,20 +293,9 @@ void Updater::Update(pchar answer)
                     version = 0;
                     ReaderFTP::ReceiveBytes(4);
                 }
-                else
+                else if(strcmp(answer, "+FTPGET: 1,77") == 0)           // Если нет файла на сервере  (77 == Operate error)
                 {
-                    int i = 0;
-                }
-            }
-            else if (strcmp(answer, "OK") == 0)
-            {
-
-            }
-            else 
-            {
-                if (answer[0] != '\0')
-                {
-                    int i = 0;
+                    state = State::COMPLETED;
                 }
             }
         }
