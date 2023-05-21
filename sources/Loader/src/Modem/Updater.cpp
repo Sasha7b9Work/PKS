@@ -352,7 +352,7 @@ void Updater::Update(pchar answer)
                     while (need_bytes >= ReaderFTP::SIZE_DATA_BUFFER)
                     {
                         Programmer::WriteBytes((char *)addr, ReaderFTP::SIZE_DATA_BUFFER);
-                        addr -= ReaderFTP::SIZE_DATA_BUFFER;
+                        addr += ReaderFTP::SIZE_DATA_BUFFER;
                         need_bytes -= ReaderFTP::SIZE_DATA_BUFFER;
                     }
 
