@@ -210,6 +210,22 @@ void SIM800::Transmit(pchar message)
 }
 
 
+void SIM800::Transmit(pchar format, pchar param)
+{
+    char buffer[64];
+    std::sprintf(buffer, (char *)format, param);
+    Transmit(buffer);
+}
+
+
+void SIM800::Transmit(pchar format, int param)
+{
+    char buffer[64];
+    std::sprintf(buffer, (char *)format, param);
+    Transmit(buffer);
+}
+
+
 void SIM800::TransmitRAW(pchar message)
 {
     HAL_USART_GPRS::Transmit(message);

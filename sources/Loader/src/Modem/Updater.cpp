@@ -211,9 +211,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPUN);
-                char _address[64];
-                std::sprintf(_address, "AT+FTPSERV=\"%s\"", address);
-                SIM800::Transmit(_address);
+                SIM800::Transmit("AT+FTPSERV=\"%s\"", address);
             }
         }
         break;
@@ -224,9 +222,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPPW);
-                char _login[64];
-                std::sprintf(_login, "AT+FTPUN=\"%s\"", login);
-                SIM800::Transmit(_login);
+                SIM800::Transmit("AT+FTPUN=\"%s\"", login);
             }
         }
         break;
@@ -237,9 +233,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPGETPATH);
-                char _password[64];
-                std::sprintf(_password, "AT+FTPPW=\"%s\"", password);
-                SIM800::Transmit(_password);
+                SIM800::Transmit("AT+FTPPW=\"%s\"", password);
             }
         }
         break;
@@ -250,9 +244,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_SET_NAME_FIRMWARE);
-                char _directory[64];
-                std::sprintf(_directory, "AT+FTPGETPATH=\"%s\"", directory);
-                SIM800::Transmit(_directory);
+                SIM800::Transmit("AT+FTPGETPATH=\"%s\"", directory);
             }
         }
         break;
@@ -263,9 +255,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_REQUEST_CONNECT);
-                char _firmware[64];
-                std::sprintf(_firmware, "AT+FTPGETNAME=\"%s\"", file_firmware);
-                SIM800::Transmit(_firmware);
+                SIM800::Transmit("AT+FTPGETNAME=\"%s\"", file_firmware);
             }
         }
         break;

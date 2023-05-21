@@ -5,4 +5,8 @@
 namespace SIM800
 {
     void Transmit(pchar);
+
+    void Transmit(pchar format, pchar);
+
+    void Transmit(pchar format, int);
 }
