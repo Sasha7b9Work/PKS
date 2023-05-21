@@ -47,9 +47,19 @@ namespace SIM800
             WAIT_CIPHEAD,
             RUNNING_MQTT
         };
+
+        static void Set(E);
     };
 
     static State::E state = State::START;
+
+    static TimeMeterMS state_meter;
+
+    void State::Set(E new_state)
+    {
+        state_meter.Reset();
+        state = new_state;
+    }
 
     void Transmit(pchar);
     // Передать без завершающего 0x0d
@@ -69,6 +79,18 @@ namespace SIM800
     static TimeMeterMS meterCSQ;
 
     static char levelSignal[16] = { '0', '\0' };
+
+    static bool MeterIsRunning(uint time)
+    {
+        if (state_meter.ElapsedTime() <= time)
+        {
+            return true;
+        }
+
+        Reset();
+
+        return false;
+    }
 }
 
 
@@ -81,7 +103,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         Reset();
         return true;
     }
-    else if (strcmp(first_word, "+CSQ") == 0)
+    else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
         strcpy(levelSignal, GetWord(answer, 2));
         return true;
@@ -112,50 +134,38 @@ void SIM800::Update(pchar answer)
 
     const uint DEFAULT_TIME = 10000;
 
-    static TimeMeterMS meter;
-
     switch (state)
     {
     case State::START:
         SIM800::Transmit("ATE0");
-        state = State::WAIT_ATE0;
-        meter.Reset();
+        State::Set(State::WAIT_ATE0);
         strcpy(levelSignal, "0");
         break;
 
     case State::WAIT_ATE0:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_GSMBUSY);
+                SIM800::Transmit("AT+GSMBUSY=1");
+            }
         }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+GSMBUSY=1");
-            state = State::WAIT_GSMBUSY;
-            meter.Reset();
-        }
-
         break;
 
     case State::WAIT_GSMBUSY:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+CREG?");
-            state = State::WAIT_CREG;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_CREG);
+                SIM800::Transmit("AT+CREG?");
+            }
         }
         break;
 
     case State::WAIT_CREG:
-        if (meter.ElapsedTime() > 30000)
-        {
-            Reset();
-        }
-        else
+        if (MeterIsRunning(30000))
         {
             if (strcmp(GetWord(answer, 1), "+CREG") == 0)
             {
@@ -164,9 +174,8 @@ void SIM800::Update(pchar answer)
                 if (stat == 1 ||    // Registered, home network
                     stat == 5)      // Registered, roaming
                 {
+                    State::Set(State::WAIT_IP_INITIAL);
                     SIM800::Transmit("AT+CIPSTATUS");
-                    state = State::WAIT_IP_INITIAL;
-                    meter.Reset();
                 }
                 else
                 {
@@ -177,29 +186,22 @@ void SIM800::Update(pchar answer)
         break;
 
     case State::WAIT_IP_INITIAL:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 3), "INITIAL") == 0)
-        {
-            SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
-            state = State::WAIT_CSTT;
-            meter.Reset();
+            if (strcmp(GetWord(answer, 3), "INITIAL") == 0)
+            {
+                State::Set(State::WAIT_CSTT);
+                SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
+            }
         }
         break;
 
     case State::WAIT_CSTT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else
+        if (MeterIsRunning(DEFAULT_TIME))
         {
             if (strcmp(GetWord(answer, 1), "OK") == 0)
             {
-                state = State::WAIT_IP_START;
-                meter.Reset();
+                State::Set(State::WAIT_IP_START);
                 SIM800::Transmit("AT+CIPSTATUS");
             }
             else if (strcmp(GetWord(answer, 1), "ERROR") == 0)
@@ -210,104 +212,89 @@ void SIM800::Update(pchar answer)
         break;
 
     case State::WAIT_IP_START:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 3), "START") == 0)
-        {
-            state = State::WAIT_CIICR;
-            meter.Reset();
-            SIM800::Transmit("AT+CIICR");
+            if (strcmp(GetWord(answer, 3), "START") == 0)
+            {
+                State::Set(State::WAIT_CIICR);
+                SIM800::Transmit("AT+CIICR");
+            }
         }
         break;
 
     case State::WAIT_CIICR:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 1), "OK") == 0)
-        {
-            state = State::WAIT_IP_GPRSACT;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPSTATUS");
+            if (strcmp(GetWord(answer, 1), "OK") == 0)
+            {
+                State::Set(State::WAIT_IP_GPRSACT);
+                SIM800::Transmit("AT+CIPSTATUS");
+            }
         }
         break;
 
     case State::WAIT_IP_GPRSACT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 3), "GPRSACT") == 0)
-        {
-            state = State::WAIT_CIFSR;
-            meter.Reset();
-            SIM800::Transmit("AT+CIFSR");
+            if (strcmp(GetWord(answer, 3), "GPRSACT") == 0)
+            {
+                State::Set(State::WAIT_CIFSR);
+                SIM800::Transmit("AT+CIFSR");
+            }
         }
         break;
 
     case State::WAIT_CIFSR:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 1), "OK") != 0)
-        {
-            // Здесь получаем IP-адрес
-            state = State::WAIT_IP_STATUS;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPSTATUS");
+            if (strcmp(GetWord(answer, 1), "OK") != 0)
+            {
+                // Здесь получаем IP-адрес
+                State::Set(State::WAIT_IP_STATUS);
+                SIM800::Transmit("AT+CIPSTATUS");
+            }
         }
         break;
 
     case State::WAIT_IP_STATUS:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 3), "STATUS") == 0)
-        {
-            state = State::WAIT_TCP_CONNECT;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+            if (strcmp(GetWord(answer, 3), "STATUS") == 0)
+            {
+                State::Set(State::WAIT_TCP_CONNECT);
+                SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+            }
         }
         break;
 
     case State::WAIT_TCP_CONNECT:
-        if (meter.ElapsedTime() > 160000)
+        if (MeterIsRunning(160000))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 1), "ALREADY") == 0 ||
-            strcmp(GetWord(answer, 2), "OK") == 0)
-        {
-            state = State::WAIT_CIPHEAD;
-            meter.Reset();
-            SIM800::Transmit("AT+CIPHEAD=1");
-        }
-        else if (strcmp(GetWord(answer, 2), "FAIL") == 0)
-        {
-            Reset();
+            if (strcmp(GetWord(answer, 1), "ALREADY") == 0 ||
+                strcmp(GetWord(answer, 2), "OK") == 0)
+            {
+                State::Set(State::WAIT_CIPHEAD);
+                SIM800::Transmit("AT+CIPHEAD=1");
+            }
+            else if (strcmp(GetWord(answer, 2), "FAIL") == 0)
+            {
+                Reset();
+            }
         }
         break;
 
     case State::WAIT_CIPHEAD:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::RUNNING_MQTT);
+            }
+            else if (strcmp(answer, "ERROR") == 0)
+            {
+                Reset();
+            }
         }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            meter.Reset();
-            state = State::RUNNING_MQTT;
-        }
-        else if (strcmp(answer, "ERROR") == 0)
-        {
-            Reset();
-        }
-
         break;
 
     case State::RUNNING_MQTT:
