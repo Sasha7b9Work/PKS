@@ -335,11 +335,37 @@ void Updater::Update(pchar answer)
             {
                 Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
 
-                crc = Programmer::CalculateCRC(HAL_ROM::ADDR_STORAGE, Programmer::WrittenBytes());
+                Programmer::CloseSession();
+
+                int written_bytes = Programmer::WrittenBytes();
+
+                crc = Programmer::CalculateCRC(HAL_ROM::ADDR_STORAGE, written_bytes);
 
                 if (crc == source_crc)
                 {
-                    int i = 0;
+                    int need_bytes = written_bytes;
+
+                    Programmer::Prepare(HAL_ROM::ADDR_APPLICATION);
+
+                    uint addr = HAL_ROM::ADDR_STORAGE;
+
+                    while (need_bytes >= ReaderFTP::SIZE_DATA_BUFFER)
+                    {
+                        Programmer::WriteBytes((char *)addr, ReaderFTP::SIZE_DATA_BUFFER);
+                        addr -= ReaderFTP::SIZE_DATA_BUFFER;
+                        need_bytes -= ReaderFTP::SIZE_DATA_BUFFER;
+                    }
+
+                    uint new_crc = Programmer::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes);
+
+                    if (new_crc == source_crc)
+                    {
+                        int i = 0;
+                    }
+                    else
+                    {
+                        int i = 0;
+                    }
                 }
                 else
                 {
