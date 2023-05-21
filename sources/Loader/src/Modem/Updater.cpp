@@ -451,28 +451,10 @@ void Updater::Update(pchar answer)
             if (HandlerFTP::received_FTPGET_1_0)
             {
                 received_bytes += HandlerFTP::pointer_data;
-                received_bytes = received_bytes;
-                for (int i = 0; i < HandlerFTP::pointer_data; i++)
-                {
-                    crc = Hash(crc, HandlerFTP::buffer_data[i]);
-                }
-
-                if (crc == source_crc)
-                {
-                    int i = 0;
-                }
-                else
-                {
-                    int i = 0;
-                }
             }
             else if (HandlerFTP::requested_bytes_received)
             {
                 received_bytes += HandlerFTP::pointer_data;
-                for (int i = 0; i < HandlerFTP::pointer_data; i++)
-                {
-                    crc = Hash(crc, HandlerFTP::buffer_data[i]);
-                }
                 HandlerFTP::pointer_data = 0;
                 state_meter.Reset();
                 HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
