@@ -293,6 +293,17 @@ void Updater::Update(pchar answer)
                     version = 0;
                     ReaderFTP::ReceiveBytes(4);
                 }
+                else
+                {
+                    int i = 0;
+                }
+            }
+            else
+            {
+                if (answer[0] != '\0')
+                {
+                    int i = 0;
+                }
             }
         }
         break;
@@ -343,38 +354,16 @@ void Updater::Update(pchar answer)
 
                 if (crc == source_crc)
                 {
-                    int need_bytes = written_bytes;
-
-                    Programmer::Prepare(HAL_ROM::ADDR_APPLICATION);
-
-                    uint addr = HAL_ROM::ADDR_STORAGE;
-
-                    while (need_bytes >= ReaderFTP::SIZE_DATA_BUFFER)
                     {
-                        Programmer::WriteBytes((char *)addr, ReaderFTP::SIZE_DATA_BUFFER);
-                        addr += ReaderFTP::SIZE_DATA_BUFFER;
-                        need_bytes -= ReaderFTP::SIZE_DATA_BUFFER;
-                    }
+                        Programmer::CopyFirmware();
 
-                    if (need_bytes)
-                    {
-                        Programmer::WriteBytes((char *)addr, need_bytes);
-                    }
+                    } while (source_crc != Programmer::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes));
 
-                    uint new_crc = Programmer::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes);
-
-                    if (new_crc == source_crc)
-                    {
-                        int i = 0;
-                    }
-                    else
-                    {
-                        int i = 0;
-                    }
+                    state = State::COMPLETED;
                 }
                 else
                 {
-                    int i = 0;
+                    Reset();
                 }
             }
             else if (ReaderFTP::requested_bytes_received)

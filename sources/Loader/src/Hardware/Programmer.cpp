@@ -119,3 +119,25 @@ uint Programmer::CalculateCRC(uint addr, int size)
 
     return crc;
 }
+
+
+void Programmer::CopyFirmware()
+{
+    int need_bytes = written_bytes;
+
+    Programmer::Prepare(HAL_ROM::ADDR_APPLICATION);
+
+    uint addr = HAL_ROM::ADDR_STORAGE;
+
+    while (need_bytes >= ReaderFTP::SIZE_DATA_BUFFER)
+    {
+        Programmer::WriteBytes((char *)addr, ReaderFTP::SIZE_DATA_BUFFER);
+        addr += ReaderFTP::SIZE_DATA_BUFFER;
+        need_bytes -= ReaderFTP::SIZE_DATA_BUFFER;
+    }
+
+    if (need_bytes)
+    {
+        Programmer::WriteBytes((char *)addr, need_bytes);
+    }
+}

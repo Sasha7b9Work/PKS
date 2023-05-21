@@ -18,4 +18,6 @@ namespace Programmer
     int WrittenBytes();
 
     uint CalculateCRC(uint address, int size);
+
+    void CopyFirmware();
 }
