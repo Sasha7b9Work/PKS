@@ -348,7 +348,20 @@ void Updater::Update(pchar answer)
             }
             else if (ReaderFTP::requested_bytes_received)
             {
-                Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
+//                Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
+
+                if (ReaderFTP::pointer_data > 20)
+                {
+                    int pointer = (int)(ReaderFTP::pointer_data / 2 + (std::rand() % 4));
+
+                    Programmer::WriteBytes(ReaderFTP::buffer_data, pointer);
+
+                    Programmer::WriteBytes(ReaderFTP::buffer_data + pointer, ReaderFTP::pointer_data - pointer);
+                }
+                else
+                {
+                    Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
+                }
 
                 state_meter.Reset();
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
