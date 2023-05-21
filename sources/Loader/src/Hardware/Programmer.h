@@ -6,4 +6,14 @@ namespace Programmer
 {
     // Подгтовка к программированию - стирание памяти
     void Prepare();
+
+    // С этого адреса будет начинаться запись
+    void SetStartAddress(uint);
+
+    void WriteBytes(void *data, int size);
+
+    // Столько байт уже записано
+    int WrittenBytes();
+
+    uint CalculateCRC(uint address, int size);
 }

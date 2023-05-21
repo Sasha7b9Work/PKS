@@ -85,16 +85,6 @@ namespace Updater
 
     void Update(const pchar);
 
-    void LoadFirmware();
-
-    // Сохранить часть прошивки 
-    static void SaveParthFirmware(int part, uint8 data[2048]);
-
-    static int GetSizeFirmware();
-
-    // Получить часть прошивки
-    static void GetPartFirmware(int, uint8[2048]);
-
     static void Reset()
     {
         state = State::IDLE;
@@ -136,6 +126,18 @@ namespace Updater
 bool Updater::IsCompleted()
 {
     return state == State::COMPLETED;
+}
+
+
+void Updater::CallbackByteFromFTP(char symbol)
+{
+    ReaderFTP::AppendByte(symbol);
+}
+
+
+bool Updater::InModeReceiveDataFromFTP()
+{
+    return state == State::GET_BYTES_VER || state == State::GET_BYTES_CRC || state == State::GET_BYTES_FIRMWARE;
 }
 
 
@@ -352,58 +354,5 @@ void Updater::Update(pchar answer)
 
     case State::COMPLETED:
         break;
-    }
-}
-
-
-void Updater::CallbackByteFromFTP(char symbol)
-{
-    ReaderFTP::AppendByte(symbol);
-}
-
-
-bool Updater::InModeReceiveDataFromFTP()
-{
-    return state == State::GET_BYTES_VER || state == State::GET_BYTES_CRC || state == State::GET_BYTES_FIRMWARE;
-}
-
-
-int Updater::GetSizeFirmware()
-{
-    return 0;
-}
-
-
-void Updater::GetPartFirmware(int, uint8[2048])
-{
-
-}
-
-
-void Updater::SaveParthFirmware(int part, uint8 data[2048])
-{
-    HAL_ROM::ErasePage(part + 50);
-
-    HAL_ROM::WriteData(HAL_ROM::ADDR_SAVED_FIRMWARE + part * HAL_ROM::SIZE_PAGE, data, 2048);
-}
-
-
-void Updater::LoadFirmware()
-{
-    int size = GetSizeFirmware();
-
-    uint8 data[2048];
-
-    int part = 0;
-
-    while (size > 0)
-    {
-        GetPartFirmware(part, data);
-
-        SaveParthFirmware(part, data);
-
-        size -= 2048;
-
-        part++;
     }
 }

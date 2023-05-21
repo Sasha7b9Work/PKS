@@ -29,7 +29,7 @@ file(GLOB GD32F3                ../common/GD32F30x_Library/Firmware/GD32F30x_sta
                                 ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Source/*.*)
 file(GLOB SRC                   src/*.*
                                 ../common/*.*)
-file(GLOB HARDWARE                        Hardware/*.*
+file(GLOB HARDWARE                    src/Hardware/*.*
                                 ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS              src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                src/Hardware/HAL/*.*
