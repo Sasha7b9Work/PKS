@@ -298,7 +298,11 @@ void Updater::Update(pchar answer)
                     int i = 0;
                 }
             }
-            else
+            else if (strcmp(answer, "OK") == 0)
+            {
+
+            }
+            else 
             {
                 if (answer[0] != '\0')
                 {
