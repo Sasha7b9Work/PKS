@@ -23,7 +23,7 @@ namespace Programmer
     {
         HAL_ROM::WriteData(address, (uint8 *)data, size);
         address += size;
-        written_bytes += num_bytes;
+        written_bytes += size;
     }
 }
 
