@@ -5,11 +5,8 @@
 
 namespace Programmer
 {
-    // Подгтовка к программированию - стирание памяти
-    void Prepare();
-
-    // С этого адреса будет начинаться запись
-    void SetStartAddress(uint);
+    // Подгтовка к программированию - стирание памяти c адреса
+    void Prepare(uint address);
 
     // size - реальный размер находящихся в буфере данных
     void WriteBytes(char [ReaderFTP::SIZE_DATA_BUFFER], int size);

@@ -28,11 +28,11 @@ namespace Programmer
 }
 
 
-void Programmer::Prepare()
+void Programmer::Prepare(uint start_address)
 {
     const int num_pages = HAL_ROM::MAX_SIZE_STORAGE / HAL_ROM::SIZE_PAGE;
 
-    int page = (HAL_ROM::ADDR_STORAGE - HAL_ROM::ADDR_FLASH) / HAL_ROM::SIZE_PAGE;
+    const int page = (int)((start_address - HAL_ROM::ADDR_FLASH) / HAL_ROM::SIZE_PAGE);
 
     for (int i = 0; i < num_pages; i++)
     {
@@ -41,11 +41,7 @@ void Programmer::Prepare()
             HAL_ROM::ErasePage(page + i);
         }
     }
-}
 
-
-void Programmer::SetStartAddress(uint start_address)
-{
     address = start_address;
     written_bytes = 0;
     num_bytes = 0;
@@ -54,6 +50,11 @@ void Programmer::SetStartAddress(uint start_address)
 
 void Programmer::WriteBytes(char data[ReaderFTP::SIZE_DATA_BUFFER], int size)
 {
+    if (size == 0)
+    {
+        return;
+    }
+
     std::memcpy(&bytes[num_bytes], data, (uint)size);
 
     num_bytes += size;

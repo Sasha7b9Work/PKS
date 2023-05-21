@@ -113,7 +113,6 @@ namespace Updater
 
     static int version = 0;
     static uint source_crc = 0;         // Здесь хранится контрольная сумма из файла
-    static int received_bytes = 0;      // Количество байт, считанных из файла
     static uint crc = 0;                // Подсчитанная crc
 }
 
@@ -291,7 +290,6 @@ void Updater::Update(pchar answer)
                 {
                     SetState(State::GET_BYTES_VER);
                     crc = 0;
-                    received_bytes = 0;
                     version = 0;
                     ReaderFTP::ReceiveBytes(4);
                 }
@@ -321,7 +319,7 @@ void Updater::Update(pchar answer)
             {
                 memcpy(&source_crc, ReaderFTP::buffer_data, 4);
 
-                Programmer::Prepare();
+                Programmer::Prepare(HAL_ROM::ADDR_STORAGE);
 
                 SetState(State::GET_BYTES_FIRMWARE);
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
@@ -335,12 +333,23 @@ void Updater::Update(pchar answer)
         {
             if (ReaderFTP::received_FTPGET_1_0)
             {
-                received_bytes += ReaderFTP::pointer_data;
+                Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
+
+                crc = Programmer::CalculateCRC(HAL_ROM::ADDR_STORAGE, Programmer::WrittenBytes());
+
+                if (crc == source_crc)
+                {
+                    int i = 0;
+                }
+                else
+                {
+                    int i = 0;
+                }
             }
             else if (ReaderFTP::requested_bytes_received)
             {
-                received_bytes += ReaderFTP::pointer_data;
-                ReaderFTP::pointer_data = 0;
+                Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
+
                 state_meter.Reset();
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
             }
