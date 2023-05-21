@@ -12,12 +12,18 @@ namespace HAL
 
 namespace HAL_ROM
 {
-    static const uint ADDR_BASE   = 0x0800c800U;
+    // С этого адреса расположено приложение
+    static const uint ADDR_APPLICATION = 0x0800c800U;
+    static const uint MAX_SIZE_APPLICATION = 1024 * 76;
+
+    // В это место записывается новая прошивка перед заменой старой на неё
+    static const uint ADDR_STORAGE = 0x0801f800U;
+    static const uint MAX_SIZE_STORAGE = 1024 * 76;
 
     static const uint SIZE_PAGE = 2 * 1024;
-    static const uint ADDR_APPLICATION = ADDR_BASE;
-    static const uint ADDR_SAVED_FIRMWARE = ADDR_BASE + 50 * SIZE_PAGE;
-    static const uint ADDR_BOOTLOADER = ADDR_BASE + 100 * SIZE_PAGE;
+
+    // Отсюда начинается отсчёт страниц
+    static const uint ADDR_FLASH = (uint)0x08000000U;
 
     // num_sector от 0 до 127. Каждый сектор занимает 2 кБ
     void ErasePage(int num_page);

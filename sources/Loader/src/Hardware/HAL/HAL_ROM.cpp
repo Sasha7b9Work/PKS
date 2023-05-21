@@ -4,9 +4,6 @@
 #include <gd32f30x.h>
 
 
-#define PAGE_SIZE (2 * 1024)
-
-
 void HAL_ROM::ErasePage(int num_page)
 {
     fmc_unlock();
@@ -15,7 +12,7 @@ void HAL_ROM::ErasePage(int num_page)
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
     fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
 
-    fmc_page_erase(FLASH_BASE + num_page * PAGE_SIZE);
+    fmc_page_erase(FLASH_BASE + num_page * SIZE_PAGE);
 
     fmc_flag_clear(FMC_FLAG_BANK0_END);
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
@@ -27,7 +24,7 @@ void HAL_ROM::ErasePage(int num_page)
 
 bool HAL_ROM::PageIsEmpty(int num_page)
 {
-    uint *start = (uint *)(ADDR_BASE + num_page * SIZE_PAGE);
+    uint *start = (uint *)(FLASH_BASE + num_page * SIZE_PAGE);
 
     uint *end = start + SIZE_PAGE;
 

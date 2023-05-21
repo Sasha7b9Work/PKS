@@ -25,7 +25,7 @@ void Application::Run()
 
     jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_APPLICATION + 4); //-V566
     MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_APPLICATION);                        //initialize app pointer //-V566
-    nvic_vector_table_set(HAL_ROM::ADDR_BASE, 0);
+    nvic_vector_table_set(HAL_ROM::ADDR_APPLICATION, 0);
     jump2app();                                                                 //jump to app
 }
 

@@ -1,5 +1,6 @@
 ﻿// 2023/05/21 10:21:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Modem/ReaderFTP.h"
 
 
 namespace Programmer
@@ -10,7 +11,11 @@ namespace Programmer
     // С этого адреса будет начинаться запись
     void SetStartAddress(uint);
 
-    void WriteBytes(void *data, int size);
+    // size - реальный размер находящихся в буфере данных
+    void WriteBytes(char [ReaderFTP::SIZE_DATA_BUFFER], int size);
+
+    // Нужно вызывать эту функцию после записи всех байт, чтобы записать буфер
+    void CloseSession();
 
     // Столько байт уже записано
     int WrittenBytes();

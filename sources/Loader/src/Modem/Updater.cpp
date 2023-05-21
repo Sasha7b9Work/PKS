@@ -115,11 +115,6 @@ namespace Updater
     static uint source_crc = 0;         // Здесь хранится контрольная сумма из файла
     static int received_bytes = 0;      // Количество байт, считанных из файла
     static uint crc = 0;                // Подсчитанная crc
-
-    static uint Hash(uint hash, char byte)
-    {
-        return (uint8)byte + (hash << 6) + (hash << 16) - hash;
-    }
 }
 
 
