@@ -29,13 +29,43 @@ namespace SIM800
             WAIT_ANSWER_ATE0,
             WAIT_ANSWER_GSMBUSY,
             WAIT_ANSWER_CREG,
-            WAIT_ANSWER_CGATT,
             WAIT_IP_INITIAL,
             RUNNING_UPDATER
         };
+
+        static TimeMeterMS meter;
+
+        static void Set(E);
     };
 
+    TimeMeterMS State::meter;
+
     static State::E state = State::START;
+
+    void State::Set(E new_state)
+    {
+        state = new_state;
+        meter.Reset();
+    }
+
+    static void Reset()
+    {
+        state = State::START;
+        Modem::Reset();
+    }
+
+    static bool MeterIsRunning(uint time)
+    {
+        if (State::meter.ElapsedTime() <= time)
+        {
+            return true;
+        }
+
+        Reset();
+
+        return false;
+    }
+
 
     // Передать без завершающего 0x0d
     void TransmitRAW(pchar);
@@ -52,12 +82,6 @@ namespace SIM800
     static TimeMeterMS meterCSQ;
 
     static char levelSignal[16] = { '0', '\0' };
-
-    static void Reset()
-    {
-        state = State::START;
-        Modem::Reset();
-    }
 }
 
 
@@ -101,49 +125,38 @@ void SIM800::Update(pchar answer)
 
     const uint DEFAULT_TIME = 10000;
 
-    static TimeMeterMS meter;
-
     switch (state)
     {
     case State::START:
         SIM800::Transmit("ATE0");
-        state = State::WAIT_ANSWER_ATE0;
-        meter.Reset();
+        State::Set(State::WAIT_ANSWER_ATE0);
         strcpy(levelSignal, "0");
         break;
 
     case State::WAIT_ANSWER_ATE0:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+GSMBUSY=1");
-            state = State::WAIT_ANSWER_GSMBUSY;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_ANSWER_GSMBUSY);
+                SIM800::Transmit("AT+GSMBUSY=1");
+            }
         }
         break;
 
     case State::WAIT_ANSWER_GSMBUSY:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            SIM800::Transmit("AT+CREG?");                                       // CREG?
-            state = State::WAIT_ANSWER_CREG;
-            meter.Reset();
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_ANSWER_CREG);
+                SIM800::Transmit("AT+CREG?");                                       // CREG?
+            }
         }
         break;
 
     case State::WAIT_ANSWER_CREG:
-        if (meter.ElapsedTime() > 30000)
-        {
-            Reset();
-        }
-        else
+        if(MeterIsRunning(30000))
         {
             Timer::DelayMS(1);
             if (strcmp(GetWord(answer, 1), "+CREG") == 0)
@@ -153,9 +166,8 @@ void SIM800::Update(pchar answer)
                 if (stat == 1 ||        // Registered, home network
                     stat == 5)          // Registered, roaming
                 {
+                    State::Set(State::WAIT_IP_INITIAL);
                     SIM800::Transmit("AT+CIPSTATUS");
-                    state = State::WAIT_IP_INITIAL;
-                    meter.Reset();
                 }
                 else
                 {
@@ -166,24 +178,12 @@ void SIM800::Update(pchar answer)
         break;
 
     case State::WAIT_IP_INITIAL:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Reset();
-        }
-        else if (strcmp(GetWord(answer, 3), "INITIAL") == 0)
-        {
-            state = State::RUNNING_UPDATER;
-        }
-        break;
-
-    case State::WAIT_ANSWER_CGATT:
-        if (meter.ElapsedTime() > DEFAULT_TIME)
-        {
-            Reset();
-        }
-        else if (strcmp(answer, "OK") == 0)
-        {
-            state = State::RUNNING_UPDATER;
+            if (strcmp(GetWord(answer, 3), "INITIAL") == 0)
+            {
+                state = State::RUNNING_UPDATER;
+            }
         }
         break;
 
