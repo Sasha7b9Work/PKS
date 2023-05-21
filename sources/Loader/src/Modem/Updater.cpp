@@ -324,6 +324,8 @@ void Updater::Update(pchar answer)
             {
                 memcpy(&source_crc, ReaderFTP::buffer_data, 4);
 
+                Programmer::Prepare();
+
                 SetState(State::GET_BYTES_FIRMWARE);
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
                 ReaderFTP::received_FTPGET_1_0 = false;
@@ -337,8 +339,6 @@ void Updater::Update(pchar answer)
             if (ReaderFTP::received_FTPGET_1_0)
             {
                 received_bytes += ReaderFTP::pointer_data;
-
-                Programmer::Prepare();
             }
             else if (ReaderFTP::requested_bytes_received)
             {
