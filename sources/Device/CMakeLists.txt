@@ -36,21 +36,21 @@ add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum
 
 
 file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
-file(GLOB SRC                      src/*.*
+file(GLOB SRC                            src/*.*
                                    ../common/*.*)
-file(GLOB DISPLAY                  src/Display/*.*)
-file(GLOB DISPLAY_FONT             src/Display/Font/*.*)
-file(GLOB FLASHDISK                src/FlashDisk/*.*)
-file(GLOB HARDWARE                 src/Hardware/*.*
+file(GLOB DISPLAY                        src/Display/*.*)
+file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
+file(GLOB FLASHDISK                      src/FlashDisk/*.*)
+file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
-file(GLOB HARDWARE_CMSIS           src/Hardware/CMSIS/*.*)
-file(GLOB HARDWARE_HAL             src/Hardware/HAL/*.*
+file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
+file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/HAL_PINS.*)
-file(GLOB HARDWARE_MODULES_SSD1306 src/Hardware/Modules/SSD1306/*.*)
-file(GLOB HARDWARE_MODULES_M25P80  src/Hardware/Modules/M25P80/*.*)
-file(GLOB MEASURER                 src/Measurer/*.*
+file(GLOB HARDWARE_MODULES_SSD1306       src/Hardware/Modules/SSD1306/*.*)
+file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
+file(GLOB MEASURER                       src/Measurer/*.*
                                    ../common/Measurer/Calculator.*)
-file(GLOB MODEM                    src/Modem/*.*
+file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/Parser.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
 

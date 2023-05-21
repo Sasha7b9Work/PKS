@@ -29,13 +29,14 @@ file(GLOB GD32F3                ../common/GD32F30x_Library/Firmware/GD32F30x_sta
                                 ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Source/*.*)
 file(GLOB SRC                   src/*.*
                                 ../common/*.*)
-file(GLOB HARDWARE              ../common/Hardware/*.*)
-file(GLOB HARDWARE_CMSIS        src/Hardware/CMSIS/*.*)
-file(GLOB HARDWARE_HAL          src/Hardware/HAL/*.*
+file(GLOB HARDWARE                        Hardware/*.*
+                                ../common/Hardware/*.*)
+file(GLOB HARDWARE_CMSIS              src/Hardware/CMSIS/*.*)
+file(GLOB HARDWARE_HAL                src/Hardware/HAL/*.*
                                 ../common/Hardware/HAL/HAL_PINS.*)
-file(GLOB MEASURER              src/Measurer/*.*
+file(GLOB MEASURER                    src/Measurer/*.*
                                 ../common/Measurer/Calculator.*)
-file(GLOB MODEM                 src/Modem/*.*
+file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*)
 file(GLOB UTILS                 ../common/Utils/Math.*)
 

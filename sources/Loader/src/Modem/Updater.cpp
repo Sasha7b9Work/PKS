@@ -5,6 +5,7 @@
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
 #include "Modem/Updater.h"
+#include "Hardware/Programmer.h"
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
@@ -451,6 +452,8 @@ void Updater::Update(pchar answer)
             if (HandlerFTP::received_FTPGET_1_0)
             {
                 received_bytes += HandlerFTP::pointer_data;
+
+                Programmer::Prepare();
             }
             else if (HandlerFTP::requested_bytes_received)
             {
