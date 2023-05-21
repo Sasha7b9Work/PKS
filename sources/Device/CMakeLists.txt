@@ -19,20 +19,14 @@ add_definitions(-DGD32F30X_HD)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
-# add_compile_options(/wd5264) # воспринимать такое сообщение как ошибку
 
-add_compile_options(/wd4013)
-add_compile_options(/wd4131)
-add_compile_options(/wd4201)
+add_compile_options(/wd4201)    # nonstandard extension used: nameless struct/union
 add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
 add_compile_options(/wd4623)    # default constructor was implicitly defined as deleted
 add_compile_options(/wd4626)    # assignment operator was implicitly defined as deleted
 add_compile_options(/wd4820)    # 'xxx': '4' bytes padding added after data member 'yyy'
 add_compile_options(/wd5027)    # move assignment operator was implicitly defined as deleted
 add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
-add_compile_options(/wd5220)    # a non-static data member with a volatile qualified type no longer implies
-add_compile_options(/wd5264)
-add_compile_options(/wd26812)   # The enum type %type% is unscoped. Prefer 'enum class' over 'enum' (Enum.3)
 
 
 file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
@@ -68,7 +62,7 @@ source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
 source_group(Utils                    FILES ${UTILS})
 
-set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
+set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} src/Hardware/HAL/systick.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}
