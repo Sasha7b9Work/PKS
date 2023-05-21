@@ -6,6 +6,8 @@
 #include "Modem/Parser.h"
 #include "Modem/Updater.h"
 #include "Hardware/Programmer.h"
+#include "Modem/ReaderFTP.h"
+#include "Modem/SIM800.h"
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
@@ -41,12 +43,6 @@ AT+FTPGET=1
 
 using namespace Parser;
 using namespace std;
-
-
-namespace SIM800
-{
-    void Transmit(pchar);
-}
 
 
 namespace Updater
@@ -133,117 +129,6 @@ namespace Updater
     static uint Hash(uint hash, char byte)
     {
         return (uint8)byte + (hash << 6) + (hash << 16) - hash;
-    }
-
-    namespace HandlerFTP
-    {
-        static const int SIZE_DATA_BUFFER = 64;
-
-        bool received_command = false;          // Если true, то команда принята, принимаем байты данных
-        int pointer_command = 0;
-        char buffer_command[32];
-
-        int need_bytes = 0;                     // Столько байт должно быть принято
-        int bytes_from_FTP = 0;                 // Столько FTP согласен отдать
-        int pointer_data = 0;                   // Столько байт уже принято
-        char buffer_data[SIZE_DATA_BUFFER];
-
-        bool requested_bytes_received = false;  // Признак того, что запрошенные байты получены
-        bool received_FTPGET_1_0 = false;       // Признак того, что все байты файла получены
-        
-        void Reset()
-        {
-            pointer_command = 0;
-            received_command = false;
-
-            pointer_data = 0;
-            need_bytes = 0;
-
-            requested_bytes_received = false;
-        }
-
-        void ReceiveBytes(int num_bytes)
-        {
-            Reset();
-            need_bytes = num_bytes;
-            char buffer[32];
-            sprintf(buffer, "AT+FTPGET=2,%d", need_bytes);
-            SIM800::Transmit(buffer);
-        }
-
-        void AppendByte(char symbol)
-        {
-            if (received_command)
-            {
-                buffer_data[pointer_data++] = symbol;
-
-                if (pointer_data == bytes_from_FTP)
-                {
-                    received_command = false;
-                    pointer_command = 0;
-                    requested_bytes_received = true;
-                }
-            }
-            else
-            {
-                if (symbol == 0x0d)
-                {
-
-                }
-                else if (symbol == 0x0a)
-                {
-                    if (pointer_command)
-                    {
-                        buffer_command[pointer_command++] = 0;
-
-                        pchar first_word = GetWord(buffer_command, 1);
-
-                        if (strcmp(first_word, "+FTPGET") == 0)
-                        {
-                            pchar second_word = GetWord(buffer_command, 2);
-
-                            if (second_word[0] == '1')
-                            {
-                                pchar third_word = GetWord(buffer_command, 3);
-                                if (third_word[0] == '1')
-                                {
-                                    char buffer[32];
-                                    sprintf(buffer, "AT+FTPGET=2,%d", need_bytes);
-                                    SIM800::Transmit(buffer);
-                                    pointer_command = 0;
-                                }
-                                else
-                                {
-                                    received_FTPGET_1_0 = true;
-                                }
-                            }
-                            else if (second_word[0] == '2')
-                            {
-                                pchar num_readed_bytes = GetWord(buffer_command, 3);
-
-                                bytes_from_FTP = atoi(num_readed_bytes);
-
-                                received_command = bytes_from_FTP > 0;
-
-                                if (!received_command)
-                                {
-                                    pointer_command = 0;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            received_command = false;
-                            pointer_command = 0;
-                        }
-                    }
-                }
-                else
-                {
-                    buffer_command[pointer_command++] = symbol;
-                }
-            }
-        }
     }
 }
 
@@ -411,7 +296,7 @@ void Updater::Update(pchar answer)
                     crc = 0;
                     received_bytes = 0;
                     version = 0;
-                    HandlerFTP::ReceiveBytes(4);
+                    ReaderFTP::ReceiveBytes(4);
                 }
             }
         }
@@ -420,14 +305,14 @@ void Updater::Update(pchar answer)
     case State::GET_BYTES_VER:
         if (MeterIsRunning(75000))
         {
-            if (HandlerFTP::requested_bytes_received)
+            if (ReaderFTP::requested_bytes_received)
             {
-                memcpy(&version, HandlerFTP::buffer_data, 4);
+                memcpy(&version, ReaderFTP::buffer_data, 4);
 
                 // \todo здесь сверяем нужную версию с уже имеющейся
 
                 SetState(State::GET_BYTES_CRC);
-                HandlerFTP::ReceiveBytes(4);
+                ReaderFTP::ReceiveBytes(4);
             }
         }
         break;
@@ -435,13 +320,13 @@ void Updater::Update(pchar answer)
     case State::GET_BYTES_CRC:
         if (MeterIsRunning(75000))
         {
-            if (HandlerFTP::requested_bytes_received)
+            if (ReaderFTP::requested_bytes_received)
             {
-                memcpy(&source_crc, HandlerFTP::buffer_data, 4);
+                memcpy(&source_crc, ReaderFTP::buffer_data, 4);
 
                 SetState(State::GET_BYTES_FIRMWARE);
-                HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
-                HandlerFTP::received_FTPGET_1_0 = false;
+                ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
+                ReaderFTP::received_FTPGET_1_0 = false;
             }
         }
         break;
@@ -449,18 +334,18 @@ void Updater::Update(pchar answer)
     case State::GET_BYTES_FIRMWARE:
         if (MeterIsRunning(75000))
         {
-            if (HandlerFTP::received_FTPGET_1_0)
+            if (ReaderFTP::received_FTPGET_1_0)
             {
-                received_bytes += HandlerFTP::pointer_data;
+                received_bytes += ReaderFTP::pointer_data;
 
                 Programmer::Prepare();
             }
-            else if (HandlerFTP::requested_bytes_received)
+            else if (ReaderFTP::requested_bytes_received)
             {
-                received_bytes += HandlerFTP::pointer_data;
-                HandlerFTP::pointer_data = 0;
+                received_bytes += ReaderFTP::pointer_data;
+                ReaderFTP::pointer_data = 0;
                 state_meter.Reset();
-                HandlerFTP::ReceiveBytes(HandlerFTP::SIZE_DATA_BUFFER);
+                ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
             }
         }
         break;
@@ -473,7 +358,7 @@ void Updater::Update(pchar answer)
 
 void Updater::CallbackByteFromFTP(char symbol)
 {
-    HandlerFTP::AppendByte(symbol);
+    ReaderFTP::AppendByte(symbol);
 }
 
 

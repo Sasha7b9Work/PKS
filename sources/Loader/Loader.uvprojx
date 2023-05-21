@@ -674,6 +674,21 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Parser.cpp</FilePath>
             </File>
+            <File>
+              <FileName>ReaderFTP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\ReaderFTP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ReaderFTP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\ReaderFTP.h</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\SIM800.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -4,6 +4,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
+#include "Modem/SIM800.h"
 #include <cstring>
 #include <cstdio>
 
@@ -36,7 +37,6 @@ namespace SIM800
 
     static State::E state = State::START;
 
-    void Transmit(pchar);
     // Передать без завершающего 0x0d
     void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
