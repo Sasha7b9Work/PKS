@@ -356,6 +356,11 @@ void Updater::Update(pchar answer)
                         need_bytes -= ReaderFTP::SIZE_DATA_BUFFER;
                     }
 
+                    if (need_bytes)
+                    {
+                        Programmer::WriteBytes((char *)addr, need_bytes);
+                    }
+
                     uint new_crc = Programmer::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes);
 
                     if (new_crc == source_crc)
