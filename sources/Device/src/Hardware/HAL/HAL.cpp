@@ -38,6 +38,15 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_AF);
     rcu_periph_clock_enable(RCU_TIMER1);    // Для опроса контакторв
     rcu_periph_clock_enable(RCU_TIMER5);
+
+    /* check if the system has resumed from WWDGT reset */
+    if (RESET != rcu_flag_get(RCU_FLAG_WWDGTRST)) {
+        /* clear the WWDGTRST flag */
+        rcu_all_reset_flag_clear();
+
+        while (1);
+    }
+
     rcu_periph_clock_enable(RCU_WWDGT);
 
     HAL_I2C::Init();
