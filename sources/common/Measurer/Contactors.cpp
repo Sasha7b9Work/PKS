@@ -153,8 +153,8 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
 #define CHANGE_RELE(num, state, enabled) if(enabled) ENABLE_RELE(num, state) else DISABLE_RELE(num, state)
 
-#define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsWorked()) { ENABLE_RELE(num, state); }
-#define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsWorked()) { DISABLE_RELE(num, state); }
+#define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsFinished()) { ENABLE_RELE(num, state); }
+#define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsFinished()) { DISABLE_RELE(num, state); }
 
     static TimeMeterMS meter[3];
 
@@ -217,17 +217,17 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);      break;
     case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);      break;
     case State::TRANSIT_EN_4:       
-        if (meter[phase].IsWorked())
+        if (meter[phase].IsFinished())
         {
             time1 = Timer::TimeMS();
             time1 = time1;
-            meter[phase].SetResponseTime(TIME_WAIT_BIG);
+            meter[phase].SetResponseTime(TIME_WAIT_SMALL);
             State::current[phase] = State::TRANSIT_EN_5;
         }
         break;
 
     case State::TRANSIT_EN_5:
-        if (meter[phase].IsWorked())
+        if (meter[phase].IsFinished())
         {
             time2 = Timer::TimeMS();
             time2 = time2;
@@ -236,7 +236,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         break;
 
     case State::TRANSIT_EN_6:
-        if (meter[phase].IsWorked())
+        if (meter[phase].IsFinished())
         {
             static const bool states[6][5] =
             {
@@ -261,7 +261,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         break;
 
     case State::POLARITY_LEVEL:
-        if (meter[phase].IsWorked())
+        if (meter[phase].IsFinished())
         {
             if (Level::current[phase] == 0)
             {
@@ -285,7 +285,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4);     break;
     case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5);    break;
     case State::TRANSIT_EXIT_5:
-        if (meter[phase].IsWorked())
+        if (meter[phase].IsFinished())
         {
             meter[phase].SetResponseTime(TIME_WAIT_BIG);
             State::current[phase] = State::TRANSIT_EXIT_6;
@@ -294,7 +294,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END);       break;
 
     case State::END:
-        if (meter[phase].IsWorked())
+        if (meter[phase].IsFinished())
         {
             State::current[phase] = State::IDLE;
         }
