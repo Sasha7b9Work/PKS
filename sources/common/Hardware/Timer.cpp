@@ -46,7 +46,7 @@ void TimeMeterMS::SetResponseTime(uint time)
 
 bool TimeMeterMS::IsFinished() const
 {
-    return (time_response >= timer_counter);
+    return (timer_counter >= time_response);
 }
 
 
