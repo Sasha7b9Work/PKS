@@ -254,10 +254,10 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             else if (Level::current[phase] > 0) {  ENABLE_RELE(9, State::TRANSIT_EXIT_1) } else { DISABLE_RELE(9, State::TRANSIT_EXIT_1); }
         }
         break;
-    case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2);
-    case State::TRANSIT_EXIT_2:     WAIT_ENABLE_RELE(3, State::TRANSIT_EXIT_3);
-    case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4);
-    case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5);
+    case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2);     break;
+    case State::TRANSIT_EXIT_2:     WAIT_ENABLE_RELE(3, State::TRANSIT_EXIT_3);     break;
+    case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4);     break;
+    case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5);    break;
     case State::TRANSIT_EXIT_5:
         if (meter[phase].IsWorked())
         {
@@ -265,7 +265,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             State::current[phase] = State::TRANSIT_EXIT_6;
         }
         break;
-    case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END);
+    case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END);       break;
 
     case State::END:
         if (meter[phase].IsWorked())
