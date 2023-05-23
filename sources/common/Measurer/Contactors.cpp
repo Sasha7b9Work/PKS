@@ -158,9 +158,6 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
     static TimeMeterMS meter[3];
 
-    static uint time1 = 0;
-    static uint time2 = 0;
-
     switch (State::current[phase])
     {
     case State::IDLE:
@@ -219,12 +216,6 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_4:
         if (meter[phase].IsFinished())
         {
-            if (phase == Phase::A)
-            {
-                int i = 0;
-            }
-            time1 = Timer::TimeMS();
-            time1 = time1;
             meter[phase].SetResponseTime(TIME_WAIT_BIG);
             State::current[phase] = State::TRANSIT_EN_5;
         }
@@ -233,12 +224,6 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_5:
         if (meter[phase].IsFinished())
         {
-            if (phase == Phase::A)
-            {
-                int i = 0;
-            }
-            time2 = Timer::TimeMS();
-            time2 = time2;
             DISABLE_RELE(3, State::TRANSIT_EN_6);
         }
         break;
