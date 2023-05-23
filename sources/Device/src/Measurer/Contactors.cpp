@@ -101,6 +101,10 @@ namespace Contactors
             TRANSIT_DIS_2,
             TRANSIT_DIS_3,
             TRANSIT_DIS_4,
+#ifdef FIVE_STEPS_VERSION
+            STAGE_5_1,
+            STAGE_5_2,
+#endif
             STAGE_4_1,
             STAGE_4_2,
             STAGE_3_1,
@@ -143,12 +147,21 @@ namespace Contactors
     // Состояние контакторов
     namespace Level
     {
-        static const int LESS_190 = -4;
-        static const int TRANSIT = 0;
-        static const int ABOVE_270 = 4;
+#ifdef FOUR_STEPS_VERSION
+        static const int LESS_180 = -4;
+        static const int ABOVE_280 = 4;
+        static const int MIN = LESS_180;
+        static const int MAX = ABOVE_280;
+#endif
 
-        static const int MIN = LESS_190;
-        static const int MAX = ABOVE_270;
+#ifdef FIVE_STEPS_VERSION
+        static const int LESS_170 = -5;
+        static const int ABOVE_290 = 5;
+        static const int MIN = LESS_170;
+        static const int MAX = ABOVE_290;
+#endif
+
+        static const int TRANSIT = 0;
 
         static int current[3] = { 0, 0, 0 };
     }
@@ -220,14 +233,8 @@ void Contactors::Update(const FullMeasure &measure)
 
 void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool is_good)
 {
-    //  KM8 -> KM9
-    //  KM -> KM8
-    //  KM -> KM7
-    //  KM -> KM6
-    //  KM -> KM5
-
-#define ENABLE_RELE(num, state)  { Enable(num, phase, state, meter[phase]);  break; }
-#define DISABLE_RELE(num, state) { Disable(num, phase, state, meter[phase]); break; }
+#define ENABLE_RELE(num, state)  { Enable(num, phase, state, meter[phase]); }
+#define DISABLE_RELE(num, state) { Disable(num, phase, state, meter[phase]); }
 
 #define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsWorked()) { ENABLE_RELE(num, state); }
 #define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsWorked()) { DISABLE_RELE(num, state); }
@@ -284,9 +291,11 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             ENABLE_RELE(2, State::TRANSIT_EN_1);
         }
 
-    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);
-    case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);
-    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);
+        break;
+
+    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);       break;
+    case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);      break;
+    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);      break;
     case State::TRANSIT_EN_4:       
         if (meter[phase].IsWorked()) { meter[phase].SetResponseTime(TIME_WAIT_BIG); State::current[phase] = State::TRANSIT_EN_5; } break;
 
@@ -296,7 +305,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_6:
         if (meter[phase].IsWorked())
         {
-            if (Level::current[phase] == Level::TRANSIT) { DISABLE_RELE(5, State::TRANSIT_DIS_1); }
+            if (Level::current[phase] == Level::TRANSIT)                        { DISABLE_RELE(5, State::TRANSIT_DIS_1); }
             else if (Level::current[phase] == -4 || Level::current[phase] == 4) { ENABLE_RELE(6, State::STAGE_4_1); }
             else if (Level::current[phase] == -3 || Level::current[phase] == 3) { ENABLE_RELE(6, State::STAGE_3_1); }
             else if (Level::current[phase] == -2 || Level::current[phase] == 2) { DISABLE_RELE(6, State::STAGE_2_1); }
