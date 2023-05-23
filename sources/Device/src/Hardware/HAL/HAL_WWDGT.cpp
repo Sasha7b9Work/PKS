@@ -6,6 +6,7 @@
 
 void HAL_WWDGT::Init()
 {
+    wwdgt_deinit();
     wwdgt_config(127, 127, WWDGT_CFG_PSC_DIV8);
     wwdgt_enable();
     wwdgt_interrupt_enable();
