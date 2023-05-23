@@ -43,8 +43,6 @@ void HAL::Init()
     if (RESET != rcu_flag_get(RCU_FLAG_WWDGTRST)) {
         /* clear the WWDGTRST flag */
         rcu_all_reset_flag_clear();
-
-        while (1);
     }
 
     rcu_periph_clock_enable(RCU_WWDGT);
