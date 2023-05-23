@@ -715,29 +715,29 @@
           <GroupName>Measurer</GroupName>
           <Files>
             <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.cpp</FileName>
+              <FileName>Calculator.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
+              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
             </File>
             <File>
               <FileName>Contactors.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
+              <FilePath>..\common\Measurer\Contactors.cpp</FilePath>
             </File>
             <File>
               <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Contactors.h</FilePath>
+              <FilePath>..\common\Measurer\Contactors.h</FilePath>
             </File>
             <File>
-              <FileName>Calculator.cpp</FileName>
+              <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
+              <FilePath>..\common\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Measurer\Measurer.h</FilePath>
             </File>
           </Files>
         </Group>

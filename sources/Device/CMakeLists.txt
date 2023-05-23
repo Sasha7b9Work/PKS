@@ -42,8 +42,7 @@ file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/HAL_PINS.*)
 file(GLOB HARDWARE_MODULES_SSD1306       src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
-file(GLOB MEASURER                       src/Measurer/*.*
-                                   ../common/Measurer/Calculator.*)
+file(GLOB MEASURER                 ../common/Measurer/Calculator.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/Parser.*)
 file(GLOB UTILS                    ../common/Utils/*.*)

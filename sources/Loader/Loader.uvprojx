@@ -607,36 +607,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Measurer</GroupName>
-          <Files>
-            <File>
-              <FileName>Contactors.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Contactors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Contactors.h</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Measurer.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Calculator.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Modem</GroupName>
           <Files>
             <File>

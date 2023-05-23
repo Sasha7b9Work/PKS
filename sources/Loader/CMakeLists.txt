@@ -34,8 +34,6 @@ file(GLOB HARDWARE                    src/Hardware/*.*
 file(GLOB HARDWARE_CMSIS              src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                src/Hardware/HAL/*.*
                                 ../common/Hardware/HAL/HAL_PINS.*)
-file(GLOB MEASURER                    src/Measurer/*.*
-                                ../common/Measurer/Calculator.*)
 file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*)
 file(GLOB UTILS                 ../common/Utils/Math.*)
@@ -45,7 +43,6 @@ source_group(src                FILES ${SRC})
 source_group(Hardware           FILES ${HARDWARE})
 source_group(Hardware/CMSIS     FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL       FILES ${HARDWARE_HAL})
-source_group(Measurer           FILES ${MEASURER})
 source_group(Modem              FILES ${MODEM})
 source_group(Utils              FILES ${UTILS})
 
@@ -58,7 +55,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${MEASURER}
             ${MODEM}
             ${UTILS}
             )
