@@ -216,7 +216,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);       break;
     case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);      break;
     case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);      break;
-    case State::TRANSIT_EN_4:       
+    case State::TRANSIT_EN_4:
         if (meter[phase].IsFinished())
         {
             if (phase == Phase::A)
@@ -225,7 +225,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             }
             time1 = Timer::TimeMS();
             time1 = time1;
-            meter[phase].SetResponseTime(TIME_WAIT_SMALL);
+            meter[phase].SetResponseTime(TIME_WAIT_BIG);
             State::current[phase] = State::TRANSIT_EN_5;
         }
         break;
