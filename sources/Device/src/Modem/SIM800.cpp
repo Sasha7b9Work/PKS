@@ -99,7 +99,19 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 {
     pchar first_word = GetWord(answer, 1);
 
-    if (strcmp(answer, "CLOSED") == 0)
+    if (strcmp(first_word, "/update") == 0)
+    {
+        int i = 0;
+    }
+    else if (strcmp(GetWord(answer, 2), "/update") == 0)
+    {
+        int i = 0;
+    }
+    else if (strcmp(GetWord(answer, 3), "/update") == 0)
+    {
+        int i = 0;
+    }
+    else if (strcmp(answer, "CLOSED") == 0)
     {
         Reset();
         return true;
