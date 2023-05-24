@@ -133,6 +133,14 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         MQTT::CallbackOnReceiveData(answer);
     }
+    else if (strcmp(answer, "ATE0") == 0)
+    {
+        return false;
+    }
+    else if (strcmp(answer, "OK") == 0)
+    {
+        return false;
+    }
     else
     {
         if (answer[0] != '\0')
