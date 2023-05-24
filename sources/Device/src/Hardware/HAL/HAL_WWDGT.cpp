@@ -6,10 +6,8 @@
 
 void HAL_WWDGT::Init()
 {
-    /* configure FWDGT counter clock: 40KHz(IRC40K) / 64 = 0.625 KHz */
-    fwdgt_config(0xFFF, FWDGT_PSC_DIV16);
+    fwdgt_config(0xFFF, FWDGT_PSC_DIV16);                               // 16000 мс
 
-    /* After 1.6 seconds to generate a reset */
     fwdgt_enable();
 }
 
