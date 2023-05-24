@@ -39,9 +39,8 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_TIMER1);    // Для опроса контакторв
     rcu_periph_clock_enable(RCU_TIMER5);
 
-    /* check if the system has resumed from WWDGT reset */
-    if (RESET != rcu_flag_get(RCU_FLAG_WWDGTRST)) {
-        /* clear the WWDGTRST flag */
+    if (RESET != rcu_flag_get(RCU_FLAG_FWDGTRST)) {
+        /* clear the FWDGT reset flag */
         rcu_all_reset_flag_clear();
     }
 
@@ -59,7 +58,7 @@ void HAL::Init()
 
     HAL_PINS::Init();
 
-//    HAL_WWDGT::Init();
+    HAL_WWDGT::Init();
 
 #ifdef ENABLE_LOG
     HAL_USART_LOG::Init();
