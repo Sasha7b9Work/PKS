@@ -7,7 +7,7 @@
 void HAL_WWDGT::Init()
 {
     wwdgt_deinit();
-    wwdgt_config(127, 80, WWDGT_CFG_PSC_DIV8);
+    wwdgt_config(120, 120, WWDGT_CFG_PSC_DIV8);
     wwdgt_enable();
 }
 
