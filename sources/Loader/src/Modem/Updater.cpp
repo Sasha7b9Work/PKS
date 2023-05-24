@@ -8,6 +8,7 @@
 #include "Hardware/Programmer.h"
 #include "Modem/ReaderFTP.h"
 #include "Modem/SIM800.h"
+#include "Application.h"
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
