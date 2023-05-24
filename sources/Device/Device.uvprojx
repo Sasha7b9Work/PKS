@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -361,7 +362,7 @@
             </VariousControls>
           </Aads>
           <LDads>
-            <umfTarg>0</umfTarg>
+            <umfTarg>1</umfTarg>
             <Ropi>0</Ropi>
             <Rwpi>0</Rwpi>
             <noStLib>0</noStLib>
@@ -467,6 +468,16 @@
               <FileName>gd32f30x_wwdgt.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_wwdgt.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_fwdgt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fwdgt.c</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_fwdgt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include\gd32f30x_fwdgt.h</FilePath>
             </File>
           </Files>
         </Group>

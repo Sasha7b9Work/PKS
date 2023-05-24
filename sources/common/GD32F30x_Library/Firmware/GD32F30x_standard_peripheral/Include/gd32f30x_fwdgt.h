@@ -40,6 +40,10 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifdef __cplusplus
+ extern "C" {
+#endif
+
 /* FWDGT definitions */
 #define FWDGT                       FWDGT_BASE                                /*!< FWDGT base address */
 
@@ -110,5 +114,9 @@ ErrStatus fwdgt_config(uint16_t reload_value, uint8_t prescaler_div);
 
 /* get flag state of FWDGT */
 FlagStatus fwdgt_flag_get(uint16_t flag);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* GD32F30X_FWDGT_H */

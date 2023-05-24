@@ -13,11 +13,11 @@ namespace HAL
 namespace HAL_ROM
 {
     // С этого адреса расположено приложение
-    static const uint ADDR_APPLICATION = 0x0800c800U;
+    static const uint ADDR_APPLICATION = 0x08000000U;
     static const uint MAX_SIZE_APPLICATION = 1024 * 76;
 
     // В это место записывается новая прошивка перед заменой старой на неё
-    static const uint ADDR_STORAGE = 0x0801f800U;
+    static const uint ADDR_STORAGE = 0x8013000U;
     static const uint MAX_SIZE_STORAGE = 1024 * 76;
 
     static const uint SIZE_PAGE = 2 * 1024;

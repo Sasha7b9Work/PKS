@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\Device\src\Hardware</LastAddFilePath>
+    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -40,7 +40,7 @@
       <WinId>1506</WinId>
       <ViewName>Symbols</ViewName>
       <UserString></UserString>
-      <TableColWidths>70 70 70</TableColWidths>
+      <TableColWidths>106 106 106</TableColWidths>
     </View>
     <View>
       <WinId>1936</WinId>
@@ -101,10 +101,10 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>326</Top>
-        <Left>692</Left>
-        <Right>1699</Right>
-        <Bottom>1062</Bottom>
+        <Top>305</Top>
+        <Left>-98</Left>
+        <Right>594</Right>
+        <Bottom>1259</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>

@@ -19,7 +19,7 @@ namespace Bootloader
 
 void Bootloader::Run()
 {
-    const uint ADDR_BOOTLOADER = 0x08000000U;
+    const uint ADDR_BOOTLOADER = 0x08026000U;
 
     typedef void (*iapfun)(void);
     iapfun  jump2app;
