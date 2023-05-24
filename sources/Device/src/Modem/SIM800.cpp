@@ -119,12 +119,13 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
-        if (strcmp(GetWord(answer, 3), "/reset") == 0)
+        if (strcmp(GetWord(answer, 2), "4") == 0)
         {
-            Bootloader::Run();
+            MQTT::CallbackOnReceiveData(answer);
         }
         else
         {
+            Bootloader::Run();
             MQTT::CallbackOnReceiveData(answer);
         }
     }
