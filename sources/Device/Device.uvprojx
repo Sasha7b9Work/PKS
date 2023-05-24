@@ -625,11 +625,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_WWDGT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_WWDGT.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_PINS.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_PINS.cpp</FilePath>
@@ -638,6 +633,11 @@
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_FWDGT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\HAL\HAL_FWDGT.cpp</FilePath>
             </File>
           </Files>
         </Group>

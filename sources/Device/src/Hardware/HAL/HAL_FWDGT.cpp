@@ -4,15 +4,15 @@
 #include <gd32f30x.h>
 
 
-void HAL_WWDGT::Init()
+void HAL_FWDGT::Init()
 {
-    fwdgt_config(0xFFF, FWDGT_PSC_DIV16);                               // 16000 мс
+    fwdgt_config(0xFFF, FWDGT_PSC_DIV4);    // 400 мс
 
     fwdgt_enable();
 }
 
 
-void HAL_WWDGT::Update()
+void HAL_FWDGT::Update()
 {
     fwdgt_counter_reload();
 }

@@ -96,7 +96,7 @@ namespace HAL_RTC
 }
 
 
-namespace HAL_WWDGT
+namespace HAL_FWDGT
 {
     void Init();
 
