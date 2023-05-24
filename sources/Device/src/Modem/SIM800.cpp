@@ -153,6 +153,10 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         return false;
     }
+    else if (strcmp(answer, "RDY") == 0)
+    {
+        return true;
+    }
     else
     {
         if (answer[0] != '\0')
