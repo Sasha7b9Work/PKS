@@ -149,6 +149,10 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         return false;
     }
+    else if (strcmp(answer, "+CREG: 0,0") == 0)
+    {
+        return false;
+    }
     else
     {
         if (answer[0] != '\0')
