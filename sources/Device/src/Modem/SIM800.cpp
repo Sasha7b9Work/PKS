@@ -153,6 +153,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         if (answer[0] != '\0')
         {
+            GetWord(answer, 1);
             int i = 0;
         }
     }
