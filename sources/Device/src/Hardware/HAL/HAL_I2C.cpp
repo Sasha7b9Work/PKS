@@ -13,7 +13,7 @@
 namespace HAL_I2C
 {
     static void WaitFlagYes(i2c_flag_enum);
-    static void WaitFlagNo(i2c_flag_enum);
+    static bool WaitFlagNo(i2c_flag_enum);
 }
 
 
@@ -31,17 +31,19 @@ void HAL_I2C::WaitFlagYes(i2c_flag_enum flag)
 }
 
 
-void HAL_I2C::WaitFlagNo(i2c_flag_enum flag)
+bool HAL_I2C::WaitFlagNo(i2c_flag_enum flag)
 {
     TimeMeterMS meter;
 
     while (!i2c_flag_get(I2C_ADDR, flag))
     {
-        if (meter.ElapsedTime() > 100)
+        if (meter.ElapsedTime() > 2)
         {
-            break;
+            return false;
         }
     }
+
+    return true;
 }
 
 
@@ -64,7 +66,7 @@ void HAL_I2C::Init()
 }
 
 
-void HAL_I2C::Write(uint8 command, uint8 *data, int size)
+bool HAL_I2C::Write(uint8 command, uint8 *data, int size)
 {
     TimeMeterMS meter;
 
@@ -95,13 +97,20 @@ void HAL_I2C::Write(uint8 command, uint8 *data, int size)
     /* wait until the TBE bit is set */
     WaitFlagNo(I2C_FLAG_TBE);
 
+    bool result = true;
+
     /* send array of data */
     for (int i = 0; i < size; i++)
     {
         i2c_data_transmit(I2C_ADDR, *data++);
 
         /* wait until the TBE bit is set */
-        WaitFlagNo(I2C_FLAG_TBE);
+        if (!WaitFlagNo(I2C_FLAG_TBE))
+        {
+            result = false;
+
+            break;
+        }
     }
 
     /* send a stop condition to I2C bus */
@@ -110,12 +119,16 @@ void HAL_I2C::Write(uint8 command, uint8 *data, int size)
     /* wait until stop condition generate */
     while (I2C_CTL0(I2C_ADDR) & 0x0200)
     {
-        if (meter.ElapsedTime() > 100)
+        if (meter.ElapsedTime() > 2)
         {
+            result = false;
+
             break;
         }
     }
 
     /* Enable Acknowledge */
     i2c_ack_config(I2C_ADDR, I2C_ACK_ENABLE);
+
+    return result;
 }

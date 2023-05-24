@@ -13,13 +13,16 @@ namespace SSD1306
     static const uint8 COMMAND        = 0x00;   // Continuation bit=1, D/C=0; 1000 0000
     static const uint8 DATA           = 0x40;   // Continuation bit=1, D/C=1; 1100 0000
 
-    static void SendCommand(uint8);
+    static bool SendCommand(uint8);
 }
 
 
 void SSD1306::Init()
 {
-    SendCommand(0xAE); // Set display OFF
+    if (!SendCommand(0xAE)) // Set display OFF
+    {
+        return;
+    }
 
     SendCommand(0xD4); // Set Display Clock Divide Ratio / OSC Frequency
     SendCommand(0x80); // Display Clock Divide Ratio / OSC Frequency 
@@ -66,7 +69,10 @@ void SSD1306::WriteBuffer(uint8 buffer[1024])
     //  * 128px  ==  16 pages
     for (uint8 i = 0; i < Display::HEIGHT / 8; i++)
     {
-        SendCommand((uint8)(0xB0 + i)); // Set the current RAM page address.
+        if (!SendCommand((uint8)(0xB0 + i))) // Set the current RAM page address.
+        {
+            break;
+        }
         SendCommand((uint8)(0x00));
         SendCommand((uint8)(0x10));
 
@@ -75,7 +81,7 @@ void SSD1306::WriteBuffer(uint8 buffer[1024])
 }
 
 
-void SSD1306::SendCommand(uint8 command)
+bool SSD1306::SendCommand(uint8 command)
 {
-    HAL_I2C::Write(COMMAND, &command, 1);
+    return HAL_I2C::Write(COMMAND, &command, 1);
 }
