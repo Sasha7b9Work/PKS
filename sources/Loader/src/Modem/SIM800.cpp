@@ -5,6 +5,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
 #include "Modem/SIM800.h"
+#include "Application.h"
 #include <cstring>
 #include <cstdio>
 
@@ -52,6 +53,7 @@ namespace SIM800
     {
         state = State::START;
         Modem::Reset();
+        Application::Run();
     }
 
     static bool MeterIsRunning(uint time)

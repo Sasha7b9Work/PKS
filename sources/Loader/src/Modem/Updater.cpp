@@ -89,6 +89,7 @@ namespace Updater
     {
         state = State::IDLE;
         Modem::Reset();
+        Application::Run();
     }
 
     static TimeMeterMS state_meter;

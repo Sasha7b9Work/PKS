@@ -31,7 +31,8 @@ add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for me
 
 file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
 file(GLOB SRC                            src/*.*
-                                   ../common/*.*)
+                                   ../common/*.h
+                                   ../common/*.cpp)
 file(GLOB DISPLAY                        src/Display/*.*)
 file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
 file(GLOB FLASHDISK                      src/FlashDisk/*.*)
