@@ -135,7 +135,10 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else
     {
-        int i = 0;
+        if (answer[0] != '\0')
+        {
+            int i = 0;
+        }
     }
 
     return false;
