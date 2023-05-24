@@ -12,7 +12,7 @@ namespace Application
     {
 #ifndef WIN32
         MSR MSP, r0
-            BX r14
+        BX r14
 #endif
     }
 }

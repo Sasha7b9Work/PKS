@@ -4,6 +4,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
+#include "Hardware/Bootloader.h"
 #include <cstring>
 #include <cstdio>
 
@@ -118,6 +119,11 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
+        if (strcmp(GetWord(answer, 2), "/reset") == 0)
+        {
+            Bootloader::Run();
+        }
+
         MQTT::CallbackOnReceiveData(answer);
     }
 
