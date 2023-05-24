@@ -184,7 +184,7 @@ pchar Parser::GetWord(pchar string, int num)
 
     const char *p = string + pos_end;
 
-    while (*p != '\0' && *p != ' ' && *p != ',' && *p != ':')
+    while (*p != '\0' && *p != ' ' && *p != ',' && *p != ':' && *p != '=')
     {
         pos_end++;
         p++;
