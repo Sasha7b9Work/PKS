@@ -131,15 +131,11 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
-        if (strcmp(GetWord(answer, 2), "4") == 0)
-        {
-            MQTT::CallbackOnReceiveData(answer);
-        }
-        else
-        {
-            Bootloader::Run();
-            MQTT::CallbackOnReceiveData(answer);
-        }
+        MQTT::CallbackOnReceiveData(answer);
+    }
+    else
+    {
+        int i = 0;
     }
 
     return false;
