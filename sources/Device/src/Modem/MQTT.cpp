@@ -190,11 +190,11 @@ void MQTT::Update(pchar answer)
             Send::SendAllToMQTT();
         }
 
-        if (Send::meter_counter.IsFinished())
-        {
-            Send::need_counter = true;
-            Send::SendRequest();
-        }
+//        if (Send::meter_counter.IsFinished())
+//        {
+//            Send::need_counter = true;
+//            Send::SendRequest();
+//        }
 
         break;
     }
