@@ -347,77 +347,77 @@ void MQTT::CallbackOnReceiveData(pchar)
 void MQTT::Send::SendAllToMQTT()
 {
     {
-//        static const char *const names[Phase::Count] = { "A", "B", "C" };
-//
-//        char buffer_name[32];
-//        char buffer_value[32];
-//
-//        for (int i = 0; i < Phase::Count; i++)
-//        {
-//            if (Send::need_level_contactor[i])
-//            {
-//                Send::need_level_contactor[i] = false;
-//                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
-//                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
-//                PublishPacket(buffer_name, buffer_value);
-//            }
-//        }
+        static const char *const names[Phase::Count] = { "A", "B", "C" };
+
+        char buffer_name[32];
+        char buffer_value[32];
+
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            if (Send::need_level_contactor[i])
+            {
+                Send::need_level_contactor[i] = false;
+                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
+                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
+                PublishPacket(buffer_name, buffer_value);
+            }
+        }
     }
     {
-//        static const char *const names[NUM_PINS_MX] =
-//        {
-//            "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
-//            "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
-//            "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"
-//        };
-//
-//        char buffer[100];
-//
-//        bool sended = false;
-//        bool all_is_ok = true;
-//
-//        for (int i = 0; i < NUM_PINS_MX; i++)
-//        {
-//            if (Send::need_send_state_contactors[i])
-//            {
-//                if (i == 27)
-//                {
-//                    PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "1" : "0");
-//                    sended = true;
-//                }
-//                else
-//                {
-//                    std::sprintf(buffer, "/base/cont/KM%s", names[i]);
-//                    PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
-//                    sended = true;
-//                }
-//                Send::need_send_state_contactors[i] = false;
-//            }
-//            if (!Send::state_contactors[i])
-//            {
-//                all_is_ok = false;
-//            }
-//        }
-//        if (sended)
-//        {
-//            PublishPacket("/base/state/state_contactors", all_is_ok ? "1" : "0");
-//        }
+        static const char *const names[NUM_PINS_MX] =
+        {
+            "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
+            "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
+            "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"
+        };
+
+        char buffer[100];
+
+        bool sended = false;
+        bool all_is_ok = true;
+
+        for (int i = 0; i < NUM_PINS_MX; i++)
+        {
+            if (Send::need_send_state_contactors[i])
+            {
+                if (i == 27)
+                {
+                    PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "1" : "0");
+                    sended = true;
+                }
+                else
+                {
+                    std::sprintf(buffer, "/base/cont/KM%s", names[i]);
+                    PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
+                    sended = true;
+                }
+                Send::need_send_state_contactors[i] = false;
+            }
+            if (!Send::state_contactors[i])
+            {
+                all_is_ok = false;
+            }
+        }
+        if (sended)
+        {
+            PublishPacket("/base/state/state_contactors", all_is_ok ? "1" : "0");
+        }
     }
     if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
     {
-//        char name[20] = "base/state/gp0";
-//
-//        for (int i = 0; i < 3; i++)
-//        {
-//            if (Send::need_gp[i])
-//            {
-//                name[13] = (char)((i + 1) | 0x30);
-//
-//                PublishPacket(name, Send::gp[i] ? "1" : "0");
-//
-//                Send::need_gp[i] = false;
-//            }
-//        }
+        char name[20] = "base/state/gp0";
+
+        for (int i = 0; i < 3; i++)
+        {
+            if (Send::need_gp[i])
+            {
+                name[13] = (char)((i + 1) | 0x30);
+
+                PublishPacket(name, Send::gp[i] ? "1" : "0");
+
+                Send::need_gp[i] = false;
+            }
+        }
     }
     if (Send::need_measure)
     {
