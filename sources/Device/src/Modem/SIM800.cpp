@@ -97,17 +97,19 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
-    pchar first_word = GetWord(answer, 1);
+    char buffer[32];
+
+    pchar first_word = GetWord(answer, 1, buffer);
 
     if (strcmp(first_word, "/update") == 0)
     {
         int i = 0;
     }
-    else if (strcmp(GetWord(answer, 2), "/update") == 0)
+    else if (strcmp(GetWord(answer, 2, buffer), "/update") == 0)
     {
         int i = 0;
     }
-    else if (strcmp(GetWord(answer, 3), "/update") == 0)
+    else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
     {
         int i = 0;
     }
@@ -118,7 +120,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
-        strcpy(levelSignal, GetWord(answer, 2));
+        strcpy(levelSignal, GetWord(answer, 2, buffer));
         return true;
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
@@ -161,7 +163,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         if (answer[0] != '\0')
         {
-            GetWord(answer, 1);
+            GetWord(answer, 1, buffer);
             int i = 0;
         }
     }
@@ -178,6 +180,8 @@ void SIM800::Update(pchar answer)
     }
 
     const uint DEFAULT_TIME = 10000;
+
+    char buffer[32];
 
     switch (state)
     {
@@ -212,9 +216,9 @@ void SIM800::Update(pchar answer)
     case State::WAIT_CREG:
         if (MeterIsRunning(30000))
         {
-            if (strcmp(GetWord(answer, 1), "+CREG") == 0)
+            if (strcmp(GetWord(answer, 1, buffer), "+CREG") == 0)
             {
-                int stat = GetWord(answer, 3)[0] & 0x0f;
+                int stat = GetWord(answer, 3, buffer)[0] & 0x0f;
 
                 if (stat == 1 ||    // Registered, home network
                     stat == 5)      // Registered, roaming
@@ -233,7 +237,7 @@ void SIM800::Update(pchar answer)
     case State::WAIT_IP_INITIAL:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 3), "INITIAL") == 0)
+            if (strcmp(GetWord(answer, 3, buffer), "INITIAL") == 0)
             {
                 State::Set(State::WAIT_CSTT);
                 SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
@@ -244,12 +248,12 @@ void SIM800::Update(pchar answer)
     case State::WAIT_CSTT:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 1), "OK") == 0)
+            if (strcmp(GetWord(answer, 1, buffer), "OK") == 0)
             {
                 State::Set(State::WAIT_IP_START);
                 SIM800::Transmit("AT+CIPSTATUS");
             }
-            else if (strcmp(GetWord(answer, 1), "ERROR") == 0)
+            else if (strcmp(GetWord(answer, 1, buffer), "ERROR") == 0)
             {
                 Reset();
             }
@@ -259,7 +263,7 @@ void SIM800::Update(pchar answer)
     case State::WAIT_IP_START:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 3), "START") == 0)
+            if (strcmp(GetWord(answer, 3, buffer), "START") == 0)
             {
                 State::Set(State::WAIT_CIICR);
                 SIM800::Transmit("AT+CIICR");
@@ -270,7 +274,7 @@ void SIM800::Update(pchar answer)
     case State::WAIT_CIICR:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 1), "OK") == 0)
+            if (strcmp(GetWord(answer, 1, buffer), "OK") == 0)
             {
                 State::Set(State::WAIT_IP_GPRSACT);
                 SIM800::Transmit("AT+CIPSTATUS");
@@ -281,7 +285,7 @@ void SIM800::Update(pchar answer)
     case State::WAIT_IP_GPRSACT:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 3), "GPRSACT") == 0)
+            if (strcmp(GetWord(answer, 3, buffer), "GPRSACT") == 0)
             {
                 State::Set(State::WAIT_CIFSR);
                 SIM800::Transmit("AT+CIFSR");
@@ -292,7 +296,7 @@ void SIM800::Update(pchar answer)
     case State::WAIT_CIFSR:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 1), "OK") != 0)
+            if (strcmp(GetWord(answer, 1, buffer), "OK") != 0)
             {
                 // Здесь получаем IP-адрес
                 State::Set(State::WAIT_IP_STATUS);
@@ -304,7 +308,7 @@ void SIM800::Update(pchar answer)
     case State::WAIT_IP_STATUS:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            if (strcmp(GetWord(answer, 3), "STATUS") == 0)
+            if (strcmp(GetWord(answer, 3, buffer), "STATUS") == 0)
             {
                 State::Set(State::WAIT_TCP_CONNECT);
                 SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
@@ -315,13 +319,13 @@ void SIM800::Update(pchar answer)
     case State::WAIT_TCP_CONNECT:
         if (MeterIsRunning(160000))
         {
-            if (strcmp(GetWord(answer, 1), "ALREADY") == 0 ||
-                strcmp(GetWord(answer, 2), "OK") == 0)
+            if (strcmp(GetWord(answer, 1, buffer), "ALREADY") == 0 ||
+                strcmp(GetWord(answer, 2, buffer), "OK") == 0)
             {
                 State::Set(State::WAIT_CIPHEAD);
                 SIM800::Transmit("AT+CIPHEAD=1");
             }
-            else if (strcmp(GetWord(answer, 2), "FAIL") == 0)
+            else if (strcmp(GetWord(answer, 2, buffer), "FAIL") == 0)
             {
                 Reset();
             }

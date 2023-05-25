@@ -141,6 +141,8 @@ void Updater::Update(pchar answer)
 {
     const uint DEFAULT_TIME = 10000;
 
+    char buffer[32];
+
     switch (state)
     {
     case State::IDLE:
@@ -276,7 +278,7 @@ void Updater::Update(pchar answer)
     case State::NEED_WAIT_CONNECT:
         if (MeterIsRunning(75000))
         {
-            if (strcmp(Parser::GetWord(answer, 1), "+FTPGET") == 0)
+            if (strcmp(Parser::GetWord(answer, 1, buffer), "+FTPGET") == 0)
             {
                 if (strcmp(answer, "+FTPGET: 1,1") == 0)
                 {

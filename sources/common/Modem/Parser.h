@@ -6,8 +6,8 @@ namespace Parser
 {
     // Возвращает num-ое слово. Разделителями являются ':', ' ', ','. Если слово в кавычках, то кавычки опускаются
     // Нумерация начинается с 1
-    pchar GetWord(pchar, int num);
-    pchar GetWordInQuotes(pchar, int num);
+    pchar GetWord(pchar, int num, char out[32]);
+    pchar GetWordInQuotes(pchar, int num, char out[32]);
 
     int NumberSymbols(pchar, char);
 
@@ -16,5 +16,5 @@ namespace Parser
     int PositionSymbol(pchar, char symbol, int num);
 
     // Копирует в out символы, расположенные между позициями start и end
-    pchar GetWord(pchar, int start, int end);
+    pchar GetWord(pchar, int start, int end, char out[32]);
 }

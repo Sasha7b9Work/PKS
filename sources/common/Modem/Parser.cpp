@@ -53,10 +53,8 @@ int Parser::PositionSymbol(pchar string, char symbol, int num)
 }
 
 
-pchar Parser::GetWord(pchar string, int pos_start, int pos_end)
+pchar Parser::GetWord(pchar string, int pos_start, int pos_end, char out[32])
 {
-    static char out[32];
-
     if (pos_end - pos_start <= 0)
     {
         LOG_WRITE("Wrong arguments");
@@ -79,10 +77,8 @@ pchar Parser::GetWord(pchar string, int pos_start, int pos_end)
 }
 
 
-pchar Parser::GetWordInQuotes(pchar string, int num)
+pchar Parser::GetWordInQuotes(pchar string, int num, char out[32])
 {
-    static char out[64];
-
     int size = (int)strlen(string);
     const char *buffer = string;
 
@@ -131,7 +127,7 @@ pchar Parser::GetWordInQuotes(pchar string, int num)
 }
 
 
-pchar Parser::GetWord(pchar string, int num)
+pchar Parser::GetWord(pchar string, int num, char out[32])
 {
     int pos_start = 0;
     int pos_end = 0;
@@ -190,7 +186,7 @@ pchar Parser::GetWord(pchar string, int num)
         p++;
     }
 
-    return GetWord(string, pos_start, pos_end);
+    return GetWord(string, pos_start, pos_end, out);
 }
 
 
