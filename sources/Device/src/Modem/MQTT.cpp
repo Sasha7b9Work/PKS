@@ -190,11 +190,11 @@ void MQTT::Update(pchar answer)
             Send::SendAllToMQTT();
         }
 
-//        if (Send::meter_counter.IsFinished())
-//        {
-//            Send::need_counter = true;
-//            Send::SendRequest();
-//        }
+        if (Send::meter_counter.IsFinished())
+        {
+            Send::need_counter = true;
+            Send::SendRequest();
+        }
 
         break;
     }
@@ -438,6 +438,8 @@ void MQTT::Send::SendAllToMQTT()
         PublishPacket("/counter", buffer);
 
         meter_counter.SetResponseTime(10000);
+
+        Send::need_counter = false;
     }
     if (Send::need_measure)
     {
