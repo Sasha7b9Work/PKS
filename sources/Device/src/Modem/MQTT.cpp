@@ -4,7 +4,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
-#include "Modem/Sender.h"
+#include "Modem/Sender/Counter.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>

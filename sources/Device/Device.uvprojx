@@ -799,10 +799,15 @@
               <FileType>5</FileType>
               <FilePath>.\src\Modem\MQTT.h</FilePath>
             </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem/Sender</GroupName>
+          <Files>
             <File>
-              <FileName>Sender.h</FileName>
+              <FileName>Counter.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modem\Sender.h</FilePath>
+              <FilePath>.\src\Modem\Sender\Counter.h</FilePath>
             </File>
           </Files>
         </Group>

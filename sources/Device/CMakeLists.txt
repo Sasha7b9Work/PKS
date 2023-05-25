@@ -46,6 +46,7 @@ file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/Parser.*)
+file(GLOB MODEM_SENDER                   src/Modem/Sender/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
 
 source_group(GD32F3                   FILES ${GD32F3})
@@ -60,6 +61,7 @@ source_group(Hardware/Modules/SSD1306 FILES ${HARDWARE_MODULES_SSD1306})
 source_group(Hardware/Modules/M25P80  FILES ${HARDWARE_MODULES_M25P80})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
+source_group(Modem/Sender             FILES ${MODEM_SENDER})
 source_group(Utils                    FILES ${UTILS})
 
 set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} src/Hardware/HAL/systick.c
@@ -78,5 +80,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE_MODULES_M25P80}
             ${MEASURER}
             ${MODEM}
+            ${MODEM_SENDER}
             ${UTILS}
             )
