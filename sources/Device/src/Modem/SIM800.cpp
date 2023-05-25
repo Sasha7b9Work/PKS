@@ -97,9 +97,10 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
+    char first_word[32];
     char buffer[32];
 
-    pchar first_word = GetWord(answer, 1, buffer);
+    GetWord(answer, 1, first_word);
 
     if (strcmp(first_word, "/update") == 0)
     {
@@ -120,7 +121,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
-        strcpy(levelSignal, GetWord(answer, 2, buffer));
+        GetWord(answer, 2, levelSignal);
         return true;
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
