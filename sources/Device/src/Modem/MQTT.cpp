@@ -437,7 +437,7 @@ void MQTT::Send::SendAllToMQTT()
 
         PublishPacket("/counter", buffer);
 
-        meter_counter.SetResponseTime(1000);
+        meter_counter.SetResponseTime(10000);
     }
     if (Send::need_measure)
     {
