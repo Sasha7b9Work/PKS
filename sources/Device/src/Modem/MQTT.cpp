@@ -95,7 +95,7 @@ namespace MQTT
         {
             if (state == State::RUNNING)
             {
-                SIM800::Transmit("AT+CIPSEND");
+                // SIM800::Transmit("AT+CIPSEND");
             }
         }
 
