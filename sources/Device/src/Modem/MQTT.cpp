@@ -398,6 +398,9 @@ void MQTT::Send::SendAllToMQTT()
             }
         }
     }
+
+    Sender::Counter::OnSend();
+
     if (Send::need_measure)
     {
         if (Send::measure.is_good[0])
