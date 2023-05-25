@@ -4,6 +4,7 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
+#include "Modem/Sender.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -45,20 +46,12 @@ namespace MQTT
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
 
-    // пакет на публикацию
-    static void PublishPacket(const char *MQTT_topic, const char *MQTT_messege);
-
     void Reset();
 
     void CallbackOnReceiveData(pchar);
 
     namespace Send
     {
-        //------------------------------------------------------------------------- counter
-        static int counter = 0;
-        static bool need_counter = false;
-        static TimeMeterMS meter_counter;
-
         //------------------------------------------------------------------------
         void Measure(const FullMeasure &);
         static FullMeasure measure;
@@ -95,14 +88,6 @@ namespace MQTT
         static TimeMeterMS meterLastData;
 
         static void Measure(pchar name, float value);
-
-        static void SendRequest()
-        {
-            if (state == State::RUNNING)
-            {
-                SIM800::Transmit("AT+CIPSEND");
-            }
-        }
 
         static void SendAllToMQTT();
     }
@@ -177,11 +162,7 @@ void MQTT::Update(pchar answer)
             Send::SendAllToMQTT();
         }
 
-        if (Send::meter_counter.IsFinished())
-        {
-            Send::need_counter = true;
-            Send::SendRequest();
-        }
+        Sender::Counter::OnStateRunning();
 
         break;
     }
@@ -417,17 +398,6 @@ void MQTT::Send::SendAllToMQTT()
             }
         }
     }
-    if (Send::need_counter)
-    {
-        char buffer[32];
-        std::sprintf(buffer, "%d", counter++);
-
-        PublishPacket("/counter", buffer);
-
-        meter_counter.SetResponseTime(5000);
-
-        Send::need_counter = false;
-    }
     if (Send::need_measure)
     {
         if (Send::measure.is_good[0])
@@ -458,4 +428,13 @@ void MQTT::Send::SendAllToMQTT()
     }
 
     SIM800::TransmitUINT8(0x1A);
+}
+
+
+void MQTT::Send::SendRequest()
+{
+    if (state == State::RUNNING)
+    {
+        SIM800::Transmit("AT+CIPSEND");
+    }
 }

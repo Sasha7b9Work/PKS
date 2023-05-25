@@ -794,6 +794,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\Modem\Parser.h</FilePath>
             </File>
+            <File>
+              <FileName>MQTT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\MQTT.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Sender.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
