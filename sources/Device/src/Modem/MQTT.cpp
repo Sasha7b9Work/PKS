@@ -347,21 +347,21 @@ void MQTT::CallbackOnReceiveData(pchar)
 void MQTT::Send::SendAllToMQTT()
 {
     {
-        static const char *const names[Phase::Count] = { "A", "B", "C" };
-
-        char buffer_name[32];
-        char buffer_value[32];
-
-        for (int i = 0; i < Phase::Count; i++)
-        {
-            if (Send::need_level_contactor[i])
-            {
-                Send::need_level_contactor[i] = false;
-                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
-                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
-                PublishPacket(buffer_name, buffer_value);
-            }
-        }
+//        static const char *const names[Phase::Count] = { "A", "B", "C" };
+//
+//        char buffer_name[32];
+//        char buffer_value[32];
+//
+//        for (int i = 0; i < Phase::Count; i++)
+//        {
+//            if (Send::need_level_contactor[i])
+//            {
+//                Send::need_level_contactor[i] = false;
+//                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
+//                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
+//                PublishPacket(buffer_name, buffer_value);
+//            }
+//        }
     }
     {
         static const char *const names[NUM_PINS_MX] =
