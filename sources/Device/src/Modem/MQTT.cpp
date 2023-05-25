@@ -91,7 +91,7 @@ namespace MQTT
 
         static void Measure(pchar name, float value);
 
-        static void _SendRequest()
+        static void SendRequest()
         {
             if (state == State::RUNNING)
             {
@@ -222,7 +222,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
     static bool first = true;
 
-    if (meter.ElapsedTime() < 5000 && !first)
+    if (meter.ElapsedTime() < 60000 && !first)
     {
         return;
     }
@@ -235,7 +235,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
     need_measure = true;
 
-    _SendRequest();
+    SendRequest();
 }
 
 
@@ -255,7 +255,7 @@ void MQTT::Send::LevelContactors(int level[Phase::Count])
 
     if (need_request && state == State::RUNNING)
     {
-//        SendRequest();
+        SendRequest();
     }
 }
 
@@ -294,7 +294,7 @@ void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
             if (meter.ElapsedTime() > 1000)
             {
                 meter.Reset();
-//                SendRequest();
+                SendRequest();
             }
         }
     }
@@ -316,7 +316,7 @@ void MQTT::Send::GP(int num, bool is_low)
 
     if (need_request)
     {
-//        SendRequest();
+        SendRequest();
     }
 }
 
@@ -387,7 +387,7 @@ void MQTT::Send::SendAllToMQTT()
                 }
                 else
                 {
-                    std::sprintf(buffer, "/base/cont/KM%s", names[i]);
+                    std::sprintf(buffer, "/cont/KM%s", names[i]);
                     PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
                     sended = true;
                 }
@@ -405,13 +405,13 @@ void MQTT::Send::SendAllToMQTT()
     }
     if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
     {
-        char name[20] = "base/state/gp0";
+        char name[20] = "/gp/_0";
 
         for (int i = 0; i < 3; i++)
         {
             if (Send::need_gp[i])
             {
-                name[13] = (char)((i + 1) | 0x30);
+                name[6] = (char)((i + 1) | 0x30);
 
                 PublishPacket(name, Send::gp[i] ? "1" : "0");
 
@@ -426,24 +426,24 @@ void MQTT::Send::SendAllToMQTT()
         char buffer[32];
         std::sprintf(buffer, "%d", counter++);
 
-        PublishPacket("base/state/counter", buffer);
+        PublishPacket("/counter", buffer);
 
         if (Send::measure.is_good[0])
         {
-            Send::Measure("base/state/voltage_a", Send::measure.measures[0].voltage);
-            Send::Measure("base/state/current_a", Send::measure.measures[0].current * 1000.0f);
+            Send::Measure("/voltage/a", Send::measure.measures[0].voltage);
+            Send::Measure("/current/a", Send::measure.measures[0].current * 1000.0f);
         }
 
         if (Send::measure.is_good[1])
         {
-            Send::Measure("base/state/voltage_b", Send::measure.measures[1].voltage);
-            Send::Measure("base/state/current_b", Send::measure.measures[1].current * 1000.0f);
+            Send::Measure("/voltage/b", Send::measure.measures[1].voltage);
+            Send::Measure("/current/b", Send::measure.measures[1].current * 1000.0f);
         }
 
         if (Send::measure.is_good[2])
         {
-            Send::Measure("base/state/voltage_c", Send::measure.measures[2].voltage);
-            Send::Measure("base/state/current_c", Send::measure.measures[2].current * 1000.0f);
+            Send::Measure("/voltage/c", Send::measure.measures[2].voltage);
+            Send::Measure("/current/c", Send::measure.measures[2].current * 1000.0f);
         }
 
         Send::need_measure = false;
