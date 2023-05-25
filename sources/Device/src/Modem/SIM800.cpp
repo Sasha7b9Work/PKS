@@ -134,7 +134,14 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
-        MQTT::CallbackOnReceiveData(answer);
+        if (strcmp(GetWord(answer, 2, buffer), "2") == 0)
+        {
+            int i = 0;
+        }
+        else
+        {
+            MQTT::CallbackOnReceiveData(answer);
+        }
     }
     else if (strcmp(answer, "ATE0") == 0)
     {
@@ -149,10 +156,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         return false;
     }
     else if (strcmp(answer, "CONNECT OK") == 0)
-    {
-        return false;
-    }
-    else if (strcmp(answer, "+CREG: 0,0") == 0)
     {
         return false;
     }
