@@ -146,19 +146,6 @@ void MQTT::Update(pchar answer)
             SIM800::TransmitUINT8(0x10);    // 
             SIM800::TransmitRAW(MQTT_CID);
 
-//            // MQTT логин
-//            SIM800::TransmitUINT8(0x00);
-//            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_user));
-//            SIM800::TransmitRAW(MQTT_user);
-//
-//            // MQTT пароль
-//            SIM800::TransmitUINT8(0x00);
-//            SIM800::TransmitUINT8((uint8)std::strlen(MQTT_pass));
-//            SIM800::TransmitRAW(MQTT_pass);
-
-//            PublishPacket("base/state/voltage_c", "12.24");
-
-// маркер завершения пакета
             SIM800::TransmitUINT8(0x1A);
 
             state = State::RUNNING;
@@ -437,7 +424,7 @@ void MQTT::Send::SendAllToMQTT()
 
         PublishPacket("/counter", buffer);
 
-        meter_counter.SetResponseTime(10000);
+        meter_counter.SetResponseTime(5000);
 
         Send::need_counter = false;
     }
