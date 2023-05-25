@@ -54,6 +54,11 @@ namespace MQTT
 
     namespace Send
     {
+        //------------------------------------------------------------------------- counter
+        static int counter = 0;
+        static bool need_counter = false;
+        static TimeMeterMS meter_counter;
+
         //------------------------------------------------------------------------
         void Measure(const FullMeasure &);
         static FullMeasure measure;
@@ -183,6 +188,12 @@ void MQTT::Update(pchar answer)
         if (strcmp(answer, ">") == 0)
         {
             Send::SendAllToMQTT();
+        }
+
+        if (Send::meter_counter.IsFinished())
+        {
+            Send::need_counter = true;
+            Send::SendRequest();
         }
 
         break;
@@ -419,15 +430,17 @@ void MQTT::Send::SendAllToMQTT()
             }
         }
     }
-    if (Send::need_measure)
+    if (Send::need_counter)
     {
-        static int counter = 0;
-
         char buffer[32];
         std::sprintf(buffer, "%d", counter++);
 
         PublishPacket("/counter", buffer);
 
+        meter_counter.SetResponseTime(1000);
+    }
+    if (Send::need_measure)
+    {
         if (Send::measure.is_good[0])
         {
             Send::Measure("/voltage/a", Send::measure.measures[0].voltage);

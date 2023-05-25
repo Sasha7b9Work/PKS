@@ -18,6 +18,7 @@ uint Timer::TimeMS()
 void TimeMeterMS::Reset()
 {
     time_reset = timer_counter;
+    time_response = timer_counter;
 }
 
 
