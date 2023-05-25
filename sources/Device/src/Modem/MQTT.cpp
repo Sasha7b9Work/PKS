@@ -91,7 +91,7 @@ namespace MQTT
 
         static void Measure(pchar name, float value);
 
-        static void SendRequest()
+        static void _SendRequest()
         {
             if (state == State::RUNNING)
             {
@@ -235,7 +235,7 @@ void MQTT::Send::Measure(const FullMeasure &meas)
 
     need_measure = true;
 
-    SendRequest();
+    _SendRequest();
 }
 
 
@@ -255,7 +255,7 @@ void MQTT::Send::LevelContactors(int level[Phase::Count])
 
     if (need_request && state == State::RUNNING)
     {
-        SendRequest();
+//        SendRequest();
     }
 }
 
@@ -294,7 +294,7 @@ void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
             if (meter.ElapsedTime() > 1000)
             {
                 meter.Reset();
-                SendRequest();
+//                SendRequest();
             }
         }
     }
@@ -316,7 +316,7 @@ void MQTT::Send::GP(int num, bool is_low)
 
     if (need_request)
     {
-        SendRequest();
+//        SendRequest();
     }
 }
 
@@ -347,21 +347,21 @@ void MQTT::CallbackOnReceiveData(pchar)
 void MQTT::Send::SendAllToMQTT()
 {
     {
-//        static const char *const names[Phase::Count] = { "A", "B", "C" };
-//
-//        char buffer_name[32];
-//        char buffer_value[32];
-//
-//        for (int i = 0; i < Phase::Count; i++)
-//        {
-//            if (Send::need_level_contactor[i])
-//            {
-//                Send::need_level_contactor[i] = false;
-//                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
-//                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
-//                PublishPacket(buffer_name, buffer_value);
-//            }
-//        }
+        static const char *const names[Phase::Count] = { "A", "B", "C" };
+
+        char buffer_name[32];
+        char buffer_value[32];
+
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            if (Send::need_level_contactor[i])
+            {
+                Send::need_level_contactor[i] = false;
+                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
+                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
+                PublishPacket(buffer_name, buffer_value);
+            }
+        }
     }
     {
         static const char *const names[NUM_PINS_MX] =
