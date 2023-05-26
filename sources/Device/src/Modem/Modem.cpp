@@ -113,6 +113,10 @@ namespace Modem
                     SIM800::Update(answer.Data());
                     answer.RemoveFirst(i);
                 }
+                else
+                {
+                    SIM800::Update("");
+                }
             }
 
             main.mutex.Release();
