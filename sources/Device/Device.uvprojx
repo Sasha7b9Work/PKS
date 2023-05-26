@@ -833,6 +833,11 @@
               <FileType>5</FileType>
               <FilePath>..\common\Modem\Sender\ContactorsOK.h</FilePath>
             </File>
+            <File>
+              <FileName>Measure.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\Measure.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
