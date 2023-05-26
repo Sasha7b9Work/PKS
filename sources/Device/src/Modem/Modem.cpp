@@ -139,20 +139,13 @@ namespace Modem
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    if (InData::main.mutex.IsBusy())
-    {
-        InData::addit.Append(symbol);
-    }
-    else
-    {
-        if (InData::addit.Size())
-        {
-            InData::main.Append(InData::addit.Data(), InData::addit.Size());
+    InData::addit.Append(symbol);
 
-            InData::addit.Clear();
-        }
+    if (!InData::main.mutex.IsBusy())
+    {
+        InData::main.Append(InData::addit.Data(), InData::addit.Size());
 
-        InData::main.Append(symbol);
+        InData::addit.Clear();
     }
 }
 
