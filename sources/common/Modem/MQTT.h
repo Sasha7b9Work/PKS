@@ -4,6 +4,8 @@
 
 namespace MQTT
 {
+    void Update(pchar);
+
     void PublishPacket(const char *topic, const char *message);
 
     bool InStateRunning();

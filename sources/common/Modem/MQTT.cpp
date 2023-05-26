@@ -46,8 +46,6 @@ namespace MQTT
     // Если nned_ping == true, то посылаем команду пинга
     static bool need_ping = false;
 
-    void Update(pchar);
-
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
 

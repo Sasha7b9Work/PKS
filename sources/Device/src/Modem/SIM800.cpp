@@ -5,6 +5,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
 #include "Hardware/Bootloader.h"
+#include "Modem/MQTT.h"
 #include <cstring>
 #include <cstdio>
 
@@ -21,7 +22,6 @@ namespace Modem
 
 namespace MQTT
 {
-    void Update(pchar);
     void Reset();
     void CallbackOnReceiveData(pchar);
 }
