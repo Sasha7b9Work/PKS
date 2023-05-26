@@ -31,7 +31,7 @@ namespace Sender
                 char buffer[32];
                 std::sprintf(buffer, "%d", ++value);
 
-                MQTT::PublishPacket("/counter", buffer);
+                MQTT::Packet::Publish("/counter", buffer);
 
                 meter.SetResponseTime(5000);
             }

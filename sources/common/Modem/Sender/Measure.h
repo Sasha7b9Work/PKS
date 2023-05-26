@@ -50,7 +50,7 @@ namespace Sender
                     buffer[i] = '.';
                 }
             }
-            MQTT::PublishPacket(name, buffer);
+            MQTT::Packet::Publish(name, buffer);
         }
 
         inline void OnEventSend()

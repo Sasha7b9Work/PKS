@@ -21,6 +21,21 @@ using namespace std;
 
 namespace MQTT
 {
+    namespace Packet
+    {
+        static int counter = 0;
+
+        void Reset()
+        {
+            counter = 0;
+        }
+
+        int Count()
+        {
+            return counter;
+        }
+    }
+
     struct State
     {
         enum E
@@ -119,7 +134,14 @@ void MQTT::Update(pchar answer)
 //                need_ping = false;
 //            }
 
-            SIM800::TransmitUINT8(0x1A);
+            if (Packet::Count())
+            {
+                SIM800::TransmitUINT8(0x1A);
+            }
+            else
+            {
+                SIM800::TransmitUINT8(0x1B);        // ESC - отказ
+            }
         }
 
         Sender::Counter::OnStateRunning();
@@ -147,7 +169,7 @@ void MQTT::Reset()
 }
 
 
-void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
+void  MQTT::Packet::Publish(const char *MQTT_topic, const char *MQTT_messege)
 {
     SIM800::TransmitUINT8(0x30);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
@@ -155,6 +177,8 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::TransmitRAW(MQTT_topic);
     SIM800::TransmitRAW(MQTT_messege);
+
+    counter++;
 }
 
 

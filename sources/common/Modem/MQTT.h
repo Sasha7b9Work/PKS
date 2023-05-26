@@ -6,13 +6,21 @@ namespace MQTT
 {
     void Update(pchar);
 
-    void PublishPacket(const char *topic, const char *message);
-
     bool InStateRunning();
 
     void Reset();
 
     void CallbackOnReceiveData(pchar);
+
+    namespace Packet
+    {
+        void Reset();
+
+        // Столько пакетов было опубликовано после последнего Reset()
+        int Count();
+
+        void Publish(const char *topic, const char *message);
+    }
 
     namespace Send
     {

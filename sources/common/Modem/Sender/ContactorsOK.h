@@ -63,13 +63,13 @@ namespace Sender
                 {
                     if (i == 27)
                     {
-                        MQTT::PublishPacket("base/state/dc100v", value[i] ? "1" : "0");
+                        MQTT::Packet::Publish("base/state/dc100v", value[i] ? "1" : "0");
                         sended = true;
                     }
                     else
                     {
                         std::sprintf(buffer, "/cont/KM%s", names[i]);
-                        MQTT::PublishPacket(buffer, value[i] ? "1" : "0");
+                        MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
                         sended = true;
                     }
                     need[i] = false;
@@ -82,7 +82,7 @@ namespace Sender
             }
             if (sended)
             {
-                MQTT::PublishPacket("/base/state/state_contactors", all_is_ok ? "1" : "0");
+                MQTT::Packet::Publish("/base/state/state_contactors", all_is_ok ? "1" : "0");
             }
         }
     }

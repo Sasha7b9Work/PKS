@@ -41,7 +41,7 @@ namespace Sender
                     {
                         name[6] = (char)((i + 1) | 0x30);
 
-                        MQTT::PublishPacket(name, value[i] ? "1" : "0");
+                        MQTT::Packet::Publish(name, value[i] ? "1" : "0");
 
                         need[i] = false;
                     }
