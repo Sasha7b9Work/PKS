@@ -29,7 +29,7 @@ namespace Sender
                 need = false;
 
                 char buffer[32];
-                std::sprintf(buffer, "%d", value++);
+                std::sprintf(buffer, "%d", ++value);
 
                 MQTT::PublishPacket("/counter", buffer);
 
