@@ -164,6 +164,11 @@ namespace Modem
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    if (symbol == 0)
+    {
+        return;
+    }
+
     InData::addit.Append(symbol);
 
     if (!InData::_main.mutex.IsBusy())
