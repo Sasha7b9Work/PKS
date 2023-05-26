@@ -134,6 +134,26 @@ namespace Modem
 }
 
 
+void Modem::CallbackOnReceive(char symbol)
+{
+    if (InData::main.mutex.IsBusy())
+    {
+        InData::addit.Append(symbol);
+    }
+    else
+    {
+        if (InData::addit.Size())
+        {
+            InData::main.Append(InData::addit.Data(), InData::addit.Size());
+
+            InData::addit.Clear();
+        }
+
+        InData::main.Append(symbol);
+    }
+}
+
+
 void Modem::Update()
 {
     static TimeMeterMS meter;
@@ -248,26 +268,6 @@ bool Modem::ExistUpdate()
 void Modem::CallbackOnErrorSIM800()
 {
     state = State::IDLE;
-}
-
-
-void Modem::CallbackOnReceive(char symbol)
-{
-    if (InData::main.mutex.IsBusy())
-    {
-        InData::addit.Append(symbol);
-    }
-    else
-    {
-        if (InData::addit.Size())
-        {
-            InData::main.Append(InData::addit.Data(), InData::addit.Size());
-
-            InData::addit.Clear();
-        }
-
-        InData::main.Append(symbol);
-    }
 }
 
 
