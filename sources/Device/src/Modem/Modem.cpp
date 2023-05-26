@@ -94,7 +94,7 @@ namespace Modem
                         {
                             answer.Append('\0');
                             answer_exist = true;
-                            main.RemoveFirst(i);
+                            main.RemoveFirst(i + 1);
                             break;
                         }
                     }
@@ -103,7 +103,7 @@ namespace Modem
                         answer.Append('>');
                         answer.Append('\0');
                         answer_exist = true;
-                        main.RemoveFirst(i);
+                        main.RemoveFirst(i + 1);
                         break;
                     }
                     else
