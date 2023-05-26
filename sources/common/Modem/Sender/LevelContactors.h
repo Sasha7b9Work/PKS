@@ -17,7 +17,7 @@ namespace Sender
 
             for (int i = 0; i < Phase::Count; i++)
             {
-                if (level[i] != value[i])
+                if (level[i] + 10 != value[i])
                 {
                     value[i] = level[i] + 10;
                     need[i] = true;
