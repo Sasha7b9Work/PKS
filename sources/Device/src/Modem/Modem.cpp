@@ -5,6 +5,7 @@
 #include "Modem/SIM800.h"
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
+#include "Utils/Buffer.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -55,73 +56,66 @@ namespace Modem
 
     static State::E state = State::IDLE;
 
-    const int MAX_LENGTH_ANSWERR = 64;
-
-    namespace Answer
+    // Данные, получаемые от SIM800
+    namespace InData
     {
-        static const int MAX_ANSWERS = 10;
-        static char answers[MAX_ANSWERS][MAX_LENGTH_ANSWERR];
-        static int num_answers = 0;
+        static Buffer1024<char> main;
+        static Buffer1024<char> addit;
 
-        static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
-        static int pointer = 0;
-
-        static bool in_state_update = false;                // Находимся в состоянии обработки принятой информации, добавлять символы нельзя
-        static char thread_pointer = 0;
-        static char thread_buffer[MAX_LENGTH_ANSWERR];      // Эти символы пришли из прерывания во время Update(). Будут добавлены в следующем вызове Update()
-
-        static void AppendSymbol(char symbol)
+        void Update()
         {
-            if (symbol == 0x0a || symbol == 0x00)
-            {
-                return;
-            }
+            main.mutex.Try();
 
-            if (pointer == MAX_LENGTH_ANSWERR - 1)
-            {
-                pointer = 0;
-            }
-
-            if (symbol == 0x0d && pointer == 0)
-            {
-                return;
-            }
-
-            buffer[pointer++] = symbol;
-
-            if (symbol == 0x0d)
-            {
-                buffer[pointer - 1] = '\0';
-
-                if (num_answers < MAX_ANSWERS)
-                {
-                    strcpy(answers[num_answers++], buffer);
-                }
-
-                pointer = 0;
-            }
-        }
-
-        static void Push(char symbol)
-        {
-            AppendSymbol(symbol);
-        }
-
-        static void Update()
-        {
-            if (Answer::num_answers == 0)
+            if (main.Size() == 0)
             {
                 SIM800::Update("");
             }
             else
             {
-                for (int i = 0; i < Answer::num_answers; i++)
+                Buffer64<char> answer;
+
+                int i = 0;
+
+                for (; i < main.Size(); i++)
                 {
-                    SIM800::Update(Answer::answers[i]);
-                    Answer::answers[i][0] = '\0';
+                    char symbol = main[i];
+
+                    if (symbol == 0x0a)
+                    {
+                        continue;
+                    }
+                    else if (symbol == 0x0d)
+                    {
+                        if (answer.Size() == 0)
+                        {
+                            continue;
+                        }
+                        else
+                        {
+                            answer.Append('\0');
+                            break;
+                        }
+                    }
+                    else if (symbol == '>')
+                    {
+                        answer.Append('>');
+                        answer.Append('\0');
+                        break;
+                    }
+                    else
+                    {
+                        answer.Append(symbol);
+                    }
                 }
-                Answer::num_answers = 0;
+
+                if (answer[answer.Size()] == '\0')
+                {
+                    SIM800::Update(answer.Data());
+                    answer.RemoveFirst(i);
+                }
             }
+
+            main.mutex.Release();
         }
     }
 
@@ -206,7 +200,7 @@ void Modem::Update()
         break;
 
     case State::HARDWARE_IS_OK:
-        Answer::Update();
+        InData::Update();
         break;
     }
 }
@@ -255,11 +249,20 @@ void Modem::CallbackOnErrorSIM800()
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    Answer::Push(symbol);
-
-    if (symbol == '>')
+    if (InData::main.mutex.IsBusy())
     {
-        Answer::Push(0x0d);
+        InData::addit.Append(symbol);
+    }
+    else
+    {
+        if (InData::addit.Size())
+        {
+            InData::main.Append(InData::addit.Data(), InData::addit.Size());
+
+            InData::addit.Clear();
+        }
+
+        InData::main.Append(symbol);
     }
 }
 

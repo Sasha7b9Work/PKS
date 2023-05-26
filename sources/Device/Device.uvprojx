@@ -864,11 +864,6 @@
           <GroupName>Utils</GroupName>
           <Files>
             <File>
-              <FileName>Buffer.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Utils\Buffer.cpp</FilePath>
-            </File>
-            <File>
               <FileName>Buffer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Buffer.h</FilePath>
