@@ -809,21 +809,6 @@
           <GroupName>Modem/Sender</GroupName>
           <Files>
             <File>
-              <FileName>Counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Sender\Counter.h</FilePath>
-            </File>
-            <File>
-              <FileName>GP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Sender\GP.h</FilePath>
-            </File>
-            <File>
-              <FileName>LevelContactors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Sender\LevelContactors.h</FilePath>
-            </File>
-            <File>
               <FileName>Measure.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\Sender\Measure.h</FilePath>
@@ -834,9 +819,29 @@
               <FilePath>..\common\Modem\Sender\Measure.cpp</FilePath>
             </File>
             <File>
+              <FileName>LevelContactors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Sender\LevelContactors.h</FilePath>
+            </File>
+            <File>
               <FileName>LevelContactors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Sender\LevelContactors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>GP.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Sender\GP.h</FilePath>
+            </File>
+            <File>
+              <FileName>GP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\GP.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Counter.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Sender\Counter.h</FilePath>
             </File>
             <File>
               <FileName>Counter.cpp</FileName>
@@ -844,14 +849,14 @@
               <FilePath>..\common\Modem\Sender\Counter.cpp</FilePath>
             </File>
             <File>
-              <FileName>ContactorsIsOK.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\Sender\ContactorsIsOK.cpp</FilePath>
-            </File>
-            <File>
               <FileName>ContactorsIsOK.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\Sender\ContactorsIsOK.h</FilePath>
+            </File>
+            <File>
+              <FileName>ContactorsIsOK.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\ContactorsIsOK.cpp</FilePath>
             </File>
           </Files>
         </Group>

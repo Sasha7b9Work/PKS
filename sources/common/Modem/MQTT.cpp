@@ -123,17 +123,17 @@ void MQTT::Update(pchar answer)
 
             Sender::LevelContactors::OnEventSend();
 
-//            Sender::ContactorsIsOK::OnEventSend();
-//
-//            Sender::GP::OnEventSend();
-//
-//            if (need_ping)
-//            {
-//                SIM800::TransmitUINT8(0xC0);
-//                SIM800::TransmitUINT8(0x00);
-//                need_ping = false;
-//            }
-//
+            Sender::ContactorsIsOK::OnEventSend();
+
+            Sender::GP::OnEventSend();
+
+            if (need_ping)
+            {
+                SIM800::TransmitUINT8(0xC0);
+                SIM800::TransmitUINT8(0x00);
+                need_ping = false;
+            }
+
             SIM800::TransmitUINT8(0x1A);
         }
 
