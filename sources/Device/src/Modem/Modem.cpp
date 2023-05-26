@@ -57,6 +57,8 @@ namespace Modem
 
     const int MAX_LENGTH_ANSWERR = 64;
 
+    static bool inStateReadingAnswer = false;
+
     namespace Answer
     {
         static const int MAX_ANSWERS = 10;
@@ -180,6 +182,9 @@ void Modem::Update()
         break;
 
     case State::HARDWARE_IS_OK:
+
+        inStateReadingAnswer = true;
+
         if (Answer::num_answers == 0)
         {
             SIM800::Update("");
@@ -193,6 +198,8 @@ void Modem::Update()
             }
             Answer::num_answers = 0;
         }
+
+        inStateReadingAnswer = false;
     }
 }
 
