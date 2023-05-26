@@ -59,14 +59,23 @@ namespace Modem
     // Данные, получаемые от SIM800
     namespace InData
     {
-        static Buffer1024<char> main;
+        static Buffer1024<char> _main;
         static Buffer1024<char> addit;
 
         void Update()
         {
-            main.mutex.Try();
+            static Buffer1024<char> buffer;
 
-            if (main.Size() == 0)
+            _main.mutex.Try();
+
+            if (_main.Size())
+            {
+                buffer.Append(_main.Data(), _main.Size());
+            }
+
+            _main.mutex.Release();
+
+            if (buffer.Size() == 0)
             {
                 SIM800::Update("");
             }
@@ -77,9 +86,9 @@ namespace Modem
 
                 bool answer_exist = false;
 
-                for (int i = 0; i < main.Size(); i++)
+                for (int i = 0; i < buffer.Size(); i++)
                 {
-                    char symbol = main[i];
+                    char symbol = buffer[i];
 
                     if (symbol == 0x0a)
                     {
@@ -98,12 +107,12 @@ namespace Modem
 
                             if (counter == 3)
                             {
-                                int i = 0;
+                                int j = 0;
                             }
 
                             answer.Append('\0');
                             answer_exist = true;
-                            main.RemoveFirst(i + 1);
+                            buffer.RemoveFirst(i + 1);
                             break;
                         }
                     }
@@ -112,7 +121,7 @@ namespace Modem
                         answer.Append('>');
                         answer.Append('\0');
                         answer_exist = true;
-                        main.RemoveFirst(i + 1);
+                        buffer.RemoveFirst(i + 1);
                         break;
                     }
                     else
@@ -130,8 +139,6 @@ namespace Modem
                     SIM800::Update("");
                 }
             }
-
-            main.mutex.Release();
         }
     }
 
@@ -150,9 +157,9 @@ void Modem::CallbackOnReceive(char symbol)
 {
     InData::addit.Append(symbol);
 
-    if (!InData::main.mutex.IsBusy())
+    if (!InData::_main.mutex.IsBusy())
     {
-        InData::main.Append(InData::addit.Data(), InData::addit.Size());
+        InData::_main.Append(InData::addit.Data(), InData::addit.Size());
 
         InData::addit.Clear();
     }
