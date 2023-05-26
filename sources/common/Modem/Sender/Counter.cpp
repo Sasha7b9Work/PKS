@@ -14,6 +14,11 @@ namespace Sender
         static bool need = false;
         static TimeMeterMS meter;
 
+        void Reset()
+        {
+            value = 0;
+        }
+
         void OnStateRunning()
         {
             if (meter.IsFinished())

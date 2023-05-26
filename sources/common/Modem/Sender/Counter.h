@@ -6,6 +6,8 @@ namespace Sender
 {
     namespace Counter
     {
+        void Reset();
+
         void OnStateRunning();
 
         void OnEventSend();

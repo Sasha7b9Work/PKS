@@ -110,6 +110,8 @@ void MQTT::Update(pchar answer)
             meterPing.Reset();
 
             HAL_PINS::SendState();
+
+            Sender::Counter::Reset();
         }
         break;
 
