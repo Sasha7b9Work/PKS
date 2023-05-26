@@ -8,7 +8,7 @@
 #include "Modem/Sender/Counter.h"
 #include "Modem/Sender/Measure.h"
 #include "Modem/Sender/LevelContactors.h"
-#include "Modem/Sender/ContactorsOK.h"
+#include "Modem/Sender/ContactorsIsOK.h"
 #include "Modem/Sender/GP.h"
 #include "Modem/SIM800.h"
 #include <cstring>

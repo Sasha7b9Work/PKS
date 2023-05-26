@@ -829,11 +829,6 @@
               <FilePath>..\common\Modem\Sender\Measure.h</FilePath>
             </File>
             <File>
-              <FileName>ContactorsOK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Sender\ContactorsOK.h</FilePath>
-            </File>
-            <File>
               <FileName>Measure.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Sender\Measure.cpp</FilePath>
@@ -847,6 +842,16 @@
               <FileName>Counter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Sender\Counter.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ContactorsIsOK.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\ContactorsIsOK.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ContactorsIsOK.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Sender\ContactorsIsOK.h</FilePath>
             </File>
           </Files>
         </Group>

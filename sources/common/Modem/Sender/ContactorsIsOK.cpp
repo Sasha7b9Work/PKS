@@ -1,5 +1,7 @@
-// 2023/05/26 09:08:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// 2023/05/26 12:09:43 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "defines.h"
+#include "Modem/Sender/ContactorsIsOK.h"
 #include "Modem/MQTT.h"
 #include "Hardware/Timer.h"
 #include <cstdio>
@@ -24,7 +26,7 @@ namespace Sender
             true
         };
 
-        inline void Send(const bool state[NUM_PINS_MX])
+        void Send(const bool state[NUM_PINS_MX])
         {
             bool need_request = false;
 
@@ -44,7 +46,7 @@ namespace Sender
             }
         }
 
-        inline void OnEventSend()
+        void OnEventSend()
         {
             static const char *const names[NUM_PINS_MX] =
             {
