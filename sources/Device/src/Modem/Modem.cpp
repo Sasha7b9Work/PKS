@@ -71,6 +71,7 @@ namespace Modem
             if (_main.Size())
             {
                 buffer.Append(_main.Data(), _main.Size());
+                _main.Clear();
             }
 
             _main.mutex.Release();
