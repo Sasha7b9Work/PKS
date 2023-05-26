@@ -10,7 +10,6 @@ namespace Sender
     {
         static int value[Phase::Count] = { -10, -9, -8 };
         static bool need[Phase::Count] = { true, true, true };
-        static TimeMeterMS meter;
 
         inline void Send(const int level[Phase::Count])
         {
@@ -26,21 +25,18 @@ namespace Sender
                 }
             }
 
-            if (need_request)
+            static TimeMeterMS meter;
+
+            if (need_request && meter.IsFinished())
             {
                 MQTT::Send::SendRequest();
+
+                meter.SetResponseTime(500);
             }
         }
 
         inline void OnEventSend()
         {
-            if (!meter.IsFinished())
-            {
-                return;
-            }
-
-            meter.SetResponseTime(500);
-
             static const char *const names[Phase::Count] = { "A", "B", "C" };
 
             char buffer_name[32];
