@@ -43,8 +43,6 @@ namespace MQTT
 
     // Сбрасывается каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
-
-    static void SendAllToMQTT();
 }
 
 
@@ -114,12 +112,29 @@ void MQTT::Update(pchar answer)
 //            need_ping = true;
         }
 
+        Sender::Counter::OnStateRunning();
+
         if (strcmp(answer, ">") == 0)
         {
-            SendAllToMQTT();
-        }
+            Sender::LevelContactors::OnEventSend();
 
-        Sender::Counter::OnStateRunning();
+            Sender::ContactorsIsOK::OnEventSend();
+
+            Sender::GP::OnEventSend();
+
+            Sender::Counter::OnEventSend();
+
+            Sender::Measure::OnEventSend();
+
+            if (need_ping)
+            {
+                SIM800::TransmitUINT8(0xC0);
+                SIM800::TransmitUINT8(0x00);
+                need_ping = false;
+            }
+
+            SIM800::TransmitUINT8(0x1A);
+        }
 
         break;
     }
@@ -146,29 +161,6 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 void MQTT::CallbackOnReceiveData(pchar)
 {
     meterLastData.Reset();
-}
-
-
-void MQTT::SendAllToMQTT()
-{
-    Sender::LevelContactors::OnEventSend();
-
-    Sender::ContactorsIsOK::OnEventSend();
-
-    Sender::GP::OnEventSend();
-
-    Sender::Counter::OnEventSend();
-
-    Sender::Measure::OnEventSend();
-
-    if (need_ping)
-    {
-        SIM800::TransmitUINT8(0xC0);
-        SIM800::TransmitUINT8(0x00);
-        need_ping = false;
-    }
-
-    SIM800::TransmitUINT8(0x1A);
 }
 
 
