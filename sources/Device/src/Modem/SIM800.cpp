@@ -172,6 +172,9 @@ void SIM800::Update(pchar answer)
     else if (strcmp(answer, "+CREG: +CRE") == 0)
     {
     }
+    else if (strcmp(answer, "+RDY") == 0)
+    {
+    }
     else
     {
         int i = 0;
