@@ -55,13 +55,10 @@ namespace MQTT
 
     void CallbackOnReceiveData(pchar);
 
-    namespace Send
-    {
-        // Сбрасывается каждый раз при поступлении данынх
-        static TimeMeterMS meterLastData;
+    // Сбрасывается каждый раз при поступлении данынх
+    static TimeMeterMS meterLastData;
 
-        static void SendAllToMQTT();
-    }
+    static void SendAllToMQTT();
 }
 
 
@@ -109,7 +106,7 @@ void MQTT::Update(pchar answer)
 
             state = State::RUNNING;
 
-            Send::meterLastData.Reset();
+            meterLastData.Reset();
 
             meterPing.Reset();
 
@@ -119,7 +116,7 @@ void MQTT::Update(pchar answer)
 
     case State::RUNNING:
 
-        if (Send::meterLastData.ElapsedTime() > 30000)
+        if (meterLastData.ElapsedTime() > 30000)
         {
 //            SIM800::Reset();
         }
@@ -133,7 +130,7 @@ void MQTT::Update(pchar answer)
 
         if (strcmp(answer, ">") == 0)
         {
-            Send::SendAllToMQTT();
+            SendAllToMQTT();
         }
 
         Sender::Counter::OnStateRunning();
@@ -162,11 +159,11 @@ void  MQTT::PublishPacket(const char *MQTT_topic, const char *MQTT_messege)
 
 void MQTT::CallbackOnReceiveData(pchar)
 {
-    Send::meterLastData.Reset();
+    meterLastData.Reset();
 }
 
 
-void MQTT::Send::SendAllToMQTT()
+void MQTT::SendAllToMQTT()
 {
     Sender::LevelContactors::OnEventSend();
 
