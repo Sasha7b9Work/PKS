@@ -154,7 +154,7 @@ void MQTT::Update(pchar answer)
             Send::SendAllToMQTT();
         }
 
-//        Sender::Counter::OnStateRunning();
+        Sender::Counter::OnStateRunning();
 
         break;
     }
@@ -278,7 +278,7 @@ void MQTT::Send::SendAllToMQTT()
 
     Sender::GP::OnEventSend();
 
-//    Sender::Counter::OnEventSend();
+    Sender::Counter::OnEventSend();
 
     Sender::Measure::OnEventSend();
 
