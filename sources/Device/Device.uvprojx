@@ -843,6 +843,11 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Sender\LevelContactors.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Counter.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\Counter.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
