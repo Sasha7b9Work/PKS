@@ -6,6 +6,7 @@
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
 #include "Modem/Modem.h"
+#include "Modem/Sender/LevelContactors.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
@@ -294,7 +295,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         break;
     }
 
-    Modem::Send::LevelContactors(Level::current);
+    Sender::LevelContactors::Send(Level::current);
 }
 
 

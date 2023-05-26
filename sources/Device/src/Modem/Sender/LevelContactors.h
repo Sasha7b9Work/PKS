@@ -1,5 +1,7 @@
 // 2023/05/26 08:22:48 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
+#include "Modem/MQTT.h"
+#include <cstdio>
 
 
 namespace Sender

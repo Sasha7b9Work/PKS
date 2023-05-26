@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
-#include "Modem/Modem.h"
+#include "Modem/Sender/Measure.h"
 #include <cmath>
 
 
@@ -50,7 +50,7 @@ void Measurer::Update()
     {
         measure = Calculate();
 
-        Modem::Send::Measure(measure);
+        Sender::Measure::Send(measure);
 
         measure5Sec = Calculator::Average5Sec(measure);
 

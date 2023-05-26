@@ -4,8 +4,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
-#include "Modem/Sender/Measure.h"
-#include "Modem/Sender/LevelContactors.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -299,12 +297,6 @@ bool Modem::GSM_PG::ReadInput()
 }
 
 
-void Modem::Send::Measure(const FullMeasure &measure)
-{
-    Sender::Measure::Send(measure);
-}
-
-
 void Modem::Send::GP(int num, bool is_low)
 {
     MQTT::Send::GP(num, is_low);
@@ -314,10 +306,4 @@ void Modem::Send::GP(int num, bool is_low)
 void Modem::Send::StateContactors(const bool state_contactors[NUM_PINS_MX])
 {
     MQTT::Send::StateContactors(state_contactors);
-}
-
-
-void Modem::Send::LevelContactors(int levels[Phase::Count])
-{
-    Sender::LevelContactors::Send(levels);
 }

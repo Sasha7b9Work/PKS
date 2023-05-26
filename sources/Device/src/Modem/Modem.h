@@ -22,13 +22,9 @@ namespace Modem
 
     namespace Send
     {
-        void Measure(const FullMeasure &);
-
         void GP(int num, bool state);
 
         void StateContactors(const bool[NUM_PINS_MX]);
-
-        void LevelContactors(int [Phase::Count]);
     }
 
     namespace Mode
