@@ -93,6 +93,14 @@ namespace Modem
                         }
                         else
                         {
+                            static int counter = 0;
+                            counter++;
+
+                            if (counter == 3)
+                            {
+                                int i = 0;
+                            }
+
                             answer.Append('\0');
                             answer_exist = true;
                             main.RemoveFirst(i + 1);
