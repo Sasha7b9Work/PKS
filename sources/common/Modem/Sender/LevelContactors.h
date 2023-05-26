@@ -34,12 +34,12 @@ namespace Sender
 
         inline void OnEventSend()
         {
-            if (meter.ElapsedTime() < 1000)
+            if (!meter.IsFinished())
             {
                 return;
             }
 
-            meter.Reset();
+            meter.SetResponseTime(500);
 
             static const char *const names[Phase::Count] = { "A", "B", "C" };
 
