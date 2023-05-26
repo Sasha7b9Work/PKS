@@ -838,6 +838,11 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Sender\Measure.cpp</FilePath>
             </File>
+            <File>
+              <FileName>LevelContactors.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\LevelContactors.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

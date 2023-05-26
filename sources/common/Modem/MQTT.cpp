@@ -121,8 +121,8 @@ void MQTT::Update(pchar answer)
 
             Sender::Measure::OnEventSend();
 
-//            Sender::LevelContactors::OnEventSend();
-//
+            Sender::LevelContactors::OnEventSend();
+
 //            Sender::ContactorsIsOK::OnEventSend();
 //
 //            Sender::GP::OnEventSend();
@@ -134,14 +134,7 @@ void MQTT::Update(pchar answer)
 //                need_ping = false;
 //            }
 //
-            if (Packet::Count())
-            {
-                SIM800::TransmitUINT8(0x1A);
-            }
-            else
-            {
-                SIM800::TransmitUINT8(0x1B);        // ESC - отказ
-            }
+            SIM800::TransmitUINT8(0x1A);
         }
 
         Sender::Counter::OnStateRunning();

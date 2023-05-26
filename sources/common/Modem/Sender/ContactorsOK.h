@@ -2,6 +2,7 @@
 #pragma once
 #include "Modem/MQTT.h"
 #include "Hardware/Timer.h"
+#include <cstdio>
 
 
 namespace Sender
