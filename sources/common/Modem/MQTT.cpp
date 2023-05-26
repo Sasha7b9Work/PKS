@@ -136,7 +136,9 @@ void MQTT::Update(pchar answer)
                 need_ping = false;
             }
 
-            SIM800::TransmitUINT8(0x1A);
+            SIM800::TransmitUINT8(MQTT::Packet::Count() ? (uint8)0x1A : (uint8)0x1B);
+
+            MQTT::Packet::Reset();
         }
 
         Sender::Counter::OnStateRunning();
