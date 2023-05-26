@@ -10,6 +10,10 @@ namespace MQTT
 
     bool InStateRunning();
 
+    void Reset();
+
+    void CallbackOnReceiveData(pchar);
+
     namespace Send
     {
         // Послать запрос на передачу данных. После появления ">" отправить данные

@@ -20,13 +20,6 @@ namespace Modem
 }
 
 
-namespace MQTT
-{
-    void Reset();
-    void CallbackOnReceiveData(pchar);
-}
-
-
 namespace SIM800
 {
     struct State

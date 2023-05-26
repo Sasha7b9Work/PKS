@@ -49,10 +49,6 @@ namespace MQTT
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
 
-    void Reset();
-
-    void CallbackOnReceiveData(pchar);
-
     // Сбрасывается каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
 
