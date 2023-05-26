@@ -75,6 +75,7 @@ namespace Modem
                 Buffer64<char> answer;
 
                 int i = 0;
+                bool answer_exist = false;
 
                 for (; i < main.Size(); i++)
                 {
@@ -93,6 +94,7 @@ namespace Modem
                         else
                         {
                             answer.Append('\0');
+                            answer_exist = true;
                             break;
                         }
                     }
@@ -100,6 +102,7 @@ namespace Modem
                     {
                         answer.Append('>');
                         answer.Append('\0');
+                        answer_exist = true;
                         break;
                     }
                     else
@@ -108,7 +111,7 @@ namespace Modem
                     }
                 }
 
-                if (answer.Size() && answer[answer.Size()] == '\0')
+                if (answer_exist)
                 {
                     SIM800::Update(answer.Data());
                     main.RemoveFirst(i);
