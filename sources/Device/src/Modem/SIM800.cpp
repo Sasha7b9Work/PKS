@@ -163,6 +163,9 @@ void SIM800::Update(pchar answer)
     else if (strcmp(answer, "OK") == 0)
     {
     }
+    else if (strcmp(answer, "+CREG: 0,0") == 0)
+    {
+    }
     else
     {
         int i = 0;
