@@ -40,7 +40,7 @@ namespace Sender
             MQTT::Send::SendRequest();
         }
 
-        void SendMeasure(pchar name, float voltage)
+        static void SendMeasure(pchar name, float voltage)
         {
             char buffer[32];
             std::sprintf(buffer, "%d", (int)(voltage + 0.5f));

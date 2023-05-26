@@ -10,8 +10,6 @@ namespace Sender
     {
         void Send(const FullMeasure &meas);
 
-        void SendMeasure(pchar name, float voltage);
-
         void OnEventSend();
     }
 }
