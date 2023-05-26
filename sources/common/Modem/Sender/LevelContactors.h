@@ -11,15 +11,15 @@ namespace Sender
         static int value[Phase::Count] = { -10, -9, -8 };
         static bool need[Phase::Count] = { true, true, true };
 
-        inline void Send(int level[Phase::Count])
+        inline void Send(const int level[Phase::Count])
         {
             bool need_request = false;
 
             for (int i = 0; i < Phase::Count; i++)
             {
-                if (level[i] + 10 != value[i])
+                if (level[i] != value[i])
                 {
-                    value[i] = level[i] + 10;
+                    value[i] = level[i];
                     need[i] = true;
                     need_request = true;
                 }
