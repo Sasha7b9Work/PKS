@@ -10,6 +10,7 @@ namespace Sender
     {
         static int value[Phase::Count] = { -10, -9, -8 };
         static bool need[Phase::Count] = { true, true, true };
+        static TimeMeterMS meter;
 
         inline void Send(const int level[Phase::Count])
         {
@@ -33,6 +34,13 @@ namespace Sender
 
         inline void OnEventSend()
         {
+            if (meter.ElapsedTime() < 1000)
+            {
+                return;
+            }
+
+            meter.Reset();
+
             static const char *const names[Phase::Count] = { "A", "B", "C" };
 
             char buffer_name[32];
