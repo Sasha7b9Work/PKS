@@ -2,6 +2,7 @@
 #pragma once
 #include "Modem/MQTT.h"
 #include <cstdio>
+#include <cstring>
 
 
 namespace Sender

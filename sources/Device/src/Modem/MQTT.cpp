@@ -5,11 +5,11 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
+#include "Modem/Sender/Counter.h"
+#include "Modem/Sender/Measure.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
-#include "Modem/Sender/Counter.h"
-#include "Modem/Sender/Measure.h"
 
 
 using namespace std;

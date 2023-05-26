@@ -3,10 +3,10 @@
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
-#include <gd32f30x.h>
-#include <cstring>
 #include "Modem/Parser.h"
 #include "Modem/Sender/Measure.h"
+#include <gd32f30x.h>
+#include <cstring>
 
 
 /*
