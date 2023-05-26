@@ -1105,7 +1105,7 @@
 
   <Group>
     <GroupName>Modem</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1140,18 +1140,6 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Modem\MQTT.cpp</PathWithFileName>
-      <FilenameWithoutPath>MQTT.cpp</FilenameWithoutPath>
-      <RteFlg>0</RteFlg>
-      <bShared>0</bShared>
-    </File>
-    <File>
-      <GroupNumber>12</GroupNumber>
-      <FileNumber>69</FileNumber>
-      <FileType>8</FileType>
-      <tvExp>0</tvExp>
-      <tvExpOptDlg>0</tvExpOptDlg>
-      <bDave2>0</bDave2>
       <PathWithFileName>.\src\Modem\SIM800.cpp</PathWithFileName>
       <FilenameWithoutPath>SIM800.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
@@ -1159,7 +1147,7 @@
     </File>
     <File>
       <GroupNumber>12</GroupNumber>
-      <FileNumber>70</FileNumber>
+      <FileNumber>69</FileNumber>
       <FileType>8</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1171,7 +1159,7 @@
     </File>
     <File>
       <GroupNumber>12</GroupNumber>
-      <FileNumber>71</FileNumber>
+      <FileNumber>70</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
@@ -1183,12 +1171,24 @@
     </File>
     <File>
       <GroupNumber>12</GroupNumber>
+      <FileNumber>71</FileNumber>
+      <FileType>8</FileType>
+      <tvExp>0</tvExp>
+      <tvExpOptDlg>0</tvExpOptDlg>
+      <bDave2>0</bDave2>
+      <PathWithFileName>..\common\Modem\MQTT.cpp</PathWithFileName>
+      <FilenameWithoutPath>MQTT.cpp</FilenameWithoutPath>
+      <RteFlg>0</RteFlg>
+      <bShared>0</bShared>
+    </File>
+    <File>
+      <GroupNumber>12</GroupNumber>
       <FileNumber>72</FileNumber>
       <FileType>5</FileType>
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Modem\MQTT.h</PathWithFileName>
+      <PathWithFileName>..\common\Modem\MQTT.h</PathWithFileName>
       <FilenameWithoutPath>MQTT.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1197,7 +1197,7 @@
 
   <Group>
     <GroupName>Modem/Sender</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1208,7 +1208,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Modem\Sender\Counter.h</PathWithFileName>
+      <PathWithFileName>..\common\Modem\Sender\Counter.h</PathWithFileName>
       <FilenameWithoutPath>Counter.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1220,8 +1220,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Modem\Sender\Measure.h</PathWithFileName>
-      <FilenameWithoutPath>Measure.h</FilenameWithoutPath>
+      <PathWithFileName>..\common\Modem\Sender\GP.h</PathWithFileName>
+      <FilenameWithoutPath>GP.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -1232,7 +1232,7 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Modem\Sender\LevelContactors.h</PathWithFileName>
+      <PathWithFileName>..\common\Modem\Sender\LevelContactors.h</PathWithFileName>
       <FilenameWithoutPath>LevelContactors.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
@@ -1244,8 +1244,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>.\src\Modem\Sender\GP.h</PathWithFileName>
-      <FilenameWithoutPath>GP.h</FilenameWithoutPath>
+      <PathWithFileName>..\common\Modem\Sender\Measure.h</PathWithFileName>
+      <FilenameWithoutPath>Measure.h</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
