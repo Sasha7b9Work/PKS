@@ -108,7 +108,7 @@ namespace Modem
                     }
                 }
 
-                if (answer[answer.Size()] == '\0')
+                if (answer.Size() && answer[answer.Size()] == '\0')
                 {
                     SIM800::Update(answer.Data());
                     answer.RemoveFirst(i);
