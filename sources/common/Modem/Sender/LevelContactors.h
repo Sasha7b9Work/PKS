@@ -19,7 +19,7 @@ namespace Sender
             {
                 if (level[i] != value[i])
                 {
-                    value[i] = level[i];
+                    value[i] = level[i] + 10;
                     need[i] = true;
                     need_request = true;
                 }
