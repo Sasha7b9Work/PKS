@@ -20,6 +20,9 @@ namespace Modem
 
     void CallbackOnReceive(char);
 
+    // После любой необработанной ошибки SIM800 вызывать эту функцию
+    void CallbackOnErrorSIM800();
+
     namespace Mode
     {
         // Возвращает true, если напряжение подано

@@ -1,6 +1,7 @@
 // 2023/5/3 11:29:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/Modem.h"
+#include "Modem/SIM800.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
@@ -12,12 +13,6 @@
 
 using namespace Parser;
 using namespace std;
-
-
-namespace Modem
-{
-    void CallbackOnErrorSIM800();
-}
 
 
 namespace SIM800
@@ -55,20 +50,7 @@ namespace SIM800
         state = new_state;
     }
 
-    void Transmit(pchar);
-    // Передать без завершающего 0x0d
-    void TransmitRAW(pchar);
-    void TransmitUINT8(uint8);
-
-    void Update(pchar);
-
-    void Reset();
-
     static bool ProcessUnsolicited(pchar);
-
-    bool IsRegistered();
-
-    pchar LevelSignal();
 
     static TimeMeterMS meterCSQ;
 

@@ -10,21 +10,13 @@
 #include "Modem/Sender/LevelContactors.h"
 #include "Modem/Sender/ContactorsOK.h"
 #include "Modem/Sender/GP.h"
+#include "Modem/SIM800.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
 
 
 using namespace std;
-
-
-namespace SIM800
-{
-    uint Transmit(pchar);
-    void TransmitUINT8(uint8);
-    void TransmitRAW(pchar);
-    void Reset();
-}
 
 
 namespace MQTT

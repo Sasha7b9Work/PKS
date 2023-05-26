@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/SIM800.h"
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
 #include <gd32f30x.h>
@@ -34,14 +35,6 @@
 
 
 using namespace std;
-
-
-namespace SIM800
-{
-    void Update(pchar);
-    bool IsRegistered();
-    pchar LevelSignal();
-}
 
 
 namespace Modem
@@ -114,9 +107,6 @@ namespace Modem
 
         static bool ReadInput();
     }
-
-    // После любой необработанной ошибки SIM800 вызывать эту функцию
-    void CallbackOnErrorSIM800();
 }
 
 
