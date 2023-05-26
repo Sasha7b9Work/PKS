@@ -134,14 +134,14 @@ void MQTT::Update(pchar answer)
 //                need_ping = false;
 //            }
 //
-//            if (Packet::Count())
-//            {
-//                SIM800::TransmitUINT8(0x1A);
-//            }
-//            else
-//            {
-//                SIM800::TransmitUINT8(0x1B);        // ESC - отказ
-//            }
+            if (Packet::Count())
+            {
+                SIM800::TransmitUINT8(0x1A);
+            }
+            else
+            {
+                SIM800::TransmitUINT8(0x1B);        // ESC - отказ
+            }
         }
 
         Sender::Counter::OnStateRunning();
