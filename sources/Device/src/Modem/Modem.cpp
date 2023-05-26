@@ -5,6 +5,7 @@
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
 #include "Modem/Sender/Measure.h"
+#include "Modem/Sender/LevelContactors.h"
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -53,7 +54,6 @@ namespace MQTT
     {
         void GP(int num, bool state);
         void StateContactors(const bool[NUM_PINS_MX]);
-        void LevelContactors(int[Phase::Count]);
     }
 }
 
@@ -319,5 +319,5 @@ void Modem::Send::StateContactors(const bool state_contactors[NUM_PINS_MX])
 
 void Modem::Send::LevelContactors(int levels[Phase::Count])
 {
-    MQTT::Send::LevelContactors(levels);
+    Sender::LevelContactors::Send(levels);
 }

@@ -7,6 +7,7 @@
 #include "Modem/Parser.h"
 #include "Modem/Sender/Counter.h"
 #include "Modem/Sender/Measure.h"
+#include "Modem/Sender/LevelContactors.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -75,11 +76,6 @@ namespace MQTT
             true, true, true, true, true, true, true, true, true,
             true
         };
-
-        //------------------------------------------------------------------------------
-        void LevelContactors(int[Phase::Count]);
-        static int level_contactor[Phase::Count] = { 0, 0, 0 };
-        static bool need_level_contactor[Phase::Count] = { true, true, true };
 
         // Сбрасывается каждый раз при поступлении данынх
         static TimeMeterMS meterLastData;
@@ -176,27 +172,6 @@ bool MQTT::IsConnected()
 }
 
 
-void MQTT::Send::LevelContactors(int level[Phase::Count])
-{
-    bool need_request = false;
-
-    for (int i = 0; i < Phase::Count; i++)
-    {
-        if (level[i] != Send::level_contactor[i])
-        {
-            Send::level_contactor[i] = level[i];
-            Send::need_level_contactor[i] = true;
-            need_request = true;
-        }
-    }
-
-    if (need_request && state == State::RUNNING)
-    {
-        SendRequest();
-    }
-}
-
-
 void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
 {
     static bool need_request = false;
@@ -283,23 +258,8 @@ void MQTT::CallbackOnReceiveData(pchar)
 
 void MQTT::Send::SendAllToMQTT()
 {
-    {
-        static const char *const names[Phase::Count] = { "A", "B", "C" };
+    Sender::LevelContactors::OnEventSend();
 
-        char buffer_name[32];
-        char buffer_value[32];
-
-        for (int i = 0; i < Phase::Count; i++)
-        {
-            if (Send::need_level_contactor[i])
-            {
-                Send::need_level_contactor[i] = false;
-                std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
-                std::sprintf(buffer_value, "%d", -Send::level_contactor[i]);
-                PublishPacket(buffer_name, buffer_value);
-            }
-        }
-    }
     {
         static const char *const names[NUM_PINS_MX] =
         {

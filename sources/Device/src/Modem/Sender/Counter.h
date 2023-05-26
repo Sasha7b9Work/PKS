@@ -7,9 +7,9 @@ namespace Sender
 {
     namespace Counter
     {
-        int value = 0;
-        bool need = false;
-        TimeMeterMS meter;
+        static int value = 0;
+        static bool need = false;
+        static TimeMeterMS meter;
 
         void OnStateRunning()
         {
