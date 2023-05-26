@@ -6,6 +6,8 @@ namespace MQTT
 {
     void PublishPacket(const char *topic, const char *message);
 
+    bool InStateRunning();
+
     namespace Send
     {
         // Послать запрос на передачу данных. После появления ">" отправить данные

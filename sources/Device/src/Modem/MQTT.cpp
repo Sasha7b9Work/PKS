@@ -1,13 +1,15 @@
 // 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
+#include "Modem/MQTT.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
-#include "Modem/Sender/Counter.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+#include "Modem/Sender/Counter.h"
+#include "Modem/Sender/Measure.h"
 
 
 using namespace std;
@@ -52,11 +54,6 @@ namespace MQTT
 
     namespace Send
     {
-        //------------------------------------------------------------------------
-        void Measure(const FullMeasure &);
-        static FullMeasure measure;
-        static bool need_measure = false;           // Если true - надо передавать измерение
-
         //--------------------------------------------------------------------------
         void GP(int num, bool state);
         static bool gp[3] = { false, false, false };
@@ -87,13 +84,17 @@ namespace MQTT
         // Сбрасывается каждый раз при поступлении данынх
         static TimeMeterMS meterLastData;
 
-        static void Measure(pchar name, float value);
-
         static void SendAllToMQTT();
     }
 
     // Присоединён к серверу MQTT
     bool IsConnected();
+}
+
+
+bool MQTT::InStateRunning()
+{
+    return state == State::RUNNING;
 }
 
 
@@ -172,49 +173,6 @@ void MQTT::Update(pchar answer)
 bool MQTT::IsConnected()
 {
     return (state == State::RUNNING);
-}
-
-
-void MQTT::Send::Measure(pchar name, float value)
-{
-    char buffer[32];
-    std::sprintf(buffer, "%d", (int)(value + 0.5f));
-    for (uint i = 0; i < std::strlen(buffer); i++)
-    {
-        if (buffer[i] == ',')
-        {
-            buffer[i] = '.';
-        }
-    }
-    PublishPacket(name, buffer);
-}
-
-
-void MQTT::Send::Measure(const FullMeasure &meas)
-{
-    if (state != State::RUNNING)
-    {
-        return;
-    }
-
-    static TimeMeterMS meter;
-
-    static bool first = true;
-
-    if (meter.ElapsedTime() < 60000 && !first)
-    {
-        return;
-    }
-
-    first = false;
-
-    meter.Reset();
-
-    measure = meas;
-
-    need_measure = true;
-
-    SendRequest();
 }
 
 
@@ -399,30 +357,10 @@ void MQTT::Send::SendAllToMQTT()
         }
     }
 
-    Sender::Counter::OnSend();
+    Sender::Counter::OnEventSend();
 
-    if (Send::need_measure)
-    {
-        if (Send::measure.is_good[0])
-        {
-            Send::Measure("/voltage/a", Send::measure.measures[0].voltage);
-            Send::Measure("/current/a", Send::measure.measures[0].current * 1000.0f);
-        }
+    Sender::Measure::OnEventSend();
 
-        if (Send::measure.is_good[1])
-        {
-            Send::Measure("/voltage/b", Send::measure.measures[1].voltage);
-            Send::Measure("/current/b", Send::measure.measures[1].current * 1000.0f);
-        }
-
-        if (Send::measure.is_good[2])
-        {
-            Send::Measure("/voltage/c", Send::measure.measures[2].voltage);
-            Send::Measure("/current/c", Send::measure.measures[2].current * 1000.0f);
-        }
-
-        Send::need_measure = false;
-    }
     if (need_ping)
     {
         SIM800::TransmitUINT8(0xC0);

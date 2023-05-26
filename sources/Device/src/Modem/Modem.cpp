@@ -6,6 +6,7 @@
 #include <gd32f30x.h>
 #include <cstring>
 #include "Modem/Parser.h"
+#include "Modem/Sender/Measure.h"
 
 
 /*
@@ -50,7 +51,6 @@ namespace MQTT
 
     namespace Send
     {
-        void Measure(const FullMeasure &);
         void GP(int num, bool state);
         void StateContactors(const bool[NUM_PINS_MX]);
         void LevelContactors(int[Phase::Count]);
@@ -301,7 +301,7 @@ bool Modem::GSM_PG::ReadInput()
 
 void Modem::Send::Measure(const FullMeasure &measure)
 {
-    MQTT::Send::Measure(measure);
+    Sender::Measure::Send(measure);
 }
 
 
