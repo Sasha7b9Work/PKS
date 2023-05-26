@@ -13,21 +13,18 @@ namespace Sender
 
         inline void Send(const int level[Phase::Count])
         {
-            bool need_request = false;
-
             for (int i = 0; i < Phase::Count; i++)
             {
                 if (level[i] != value[i])
                 {
                     value[i] = level[i];
                     need[i] = true;
-                    need_request = true;
                 }
             }
 
             static TimeMeterMS meter;
 
-            if (need_request && meter.IsFinished())
+            if ((need[0] || need[1] || need[2]) && meter.IsFinished())
             {
                 MQTT::Send::SendRequest();
 
