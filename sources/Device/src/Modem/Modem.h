@@ -20,11 +20,6 @@ namespace Modem
 
     void CallbackOnReceive(char);
 
-    namespace Send
-    {
-        void StateContactors(const bool[NUM_PINS_MX]);
-    }
-
     namespace Mode
     {
         // Возвращает true, если напряжение подано
@@ -32,9 +27,6 @@ namespace Modem
 
         // Возвращает true, если зарегистрирован в сети
         bool Registered();
-
-        // Возвращает true, если подключён к MQTT
-        bool ConnectedToMQTT();
 
         // Уровень сигнала от 0 до 10
         pchar LevelSignal();

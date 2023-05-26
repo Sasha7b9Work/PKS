@@ -4,6 +4,7 @@
 #include "Hardware/Modules/SSD1306/SSD1306.h"
 #include "Measurer/Measurer.h"
 #include "Modem/Modem.h"
+#include "Modem/MQTT.h"
 #include <cstring>
 #include <cstdio>
 
@@ -61,7 +62,7 @@ void Display::Update()
         WriteString(40, 5, "–≈√");
     }
 
-    if (Modem::Mode::ConnectedToMQTT())
+    if (MQTT::InStateRunning())
     {
         WriteString(80, 5, "Ã ˛““");
 

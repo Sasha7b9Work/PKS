@@ -8,6 +8,7 @@
 #include "Modem/Sender/Counter.h"
 #include "Modem/Sender/Measure.h"
 #include "Modem/Sender/LevelContactors.h"
+#include "Modem/Sender/ContactorsOK.h"
 #include "Modem/Sender/GP.h"
 #include <cstring>
 #include <cstdlib>
@@ -56,30 +57,11 @@ namespace MQTT
 
     namespace Send
     {
-        void StateContactors(const bool[NUM_PINS_MX]);
-        static bool state_contactors[NUM_PINS_MX] =              // Состояние каждого контактора
-        {
-            false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false,
-            false
-        };
-        static bool need_send_state_contactors[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
-        {
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            true
-        };
-
         // Сбрасывается каждый раз при поступлении данынх
         static TimeMeterMS meterLastData;
 
         static void SendAllToMQTT();
     }
-
-    // Присоединён к серверу MQTT
-    bool IsConnected();
 }
 
 
@@ -161,53 +143,6 @@ void MQTT::Update(pchar answer)
 }
 
 
-bool MQTT::IsConnected()
-{
-    return (state == State::RUNNING);
-}
-
-
-void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
-{
-    static bool need_request = false;
-
-    if (state == State::RUNNING)
-    {
-        need_request = false;
-    }
-
-    for (int i = 0; i < NUM_PINS_MX; i++)
-    {
-        bool new_state = st_contactors[i];
-
-        if (new_state != state_contactors[i])
-        {
-            state_contactors[i] = new_state;
-            need_send_state_contactors[i] = true;
-            need_request = true;
-        }
-    }
-
-    if (state != State::RUNNING)
-    {
-        return;
-    }
-
-    if (need_request)
-    {
-        if (state == State::RUNNING)
-        {
-            static TimeMeterMS meter;
-            if (meter.ElapsedTime() > 1000)
-            {
-                meter.Reset();
-                SendRequest();
-            }
-        }
-    }
-}
-
-
 void MQTT::Reset()
 {
     state = State::IDLE;
@@ -235,46 +170,7 @@ void MQTT::Send::SendAllToMQTT()
 {
     Sender::LevelContactors::OnEventSend();
 
-    {
-        static const char *const names[NUM_PINS_MX] =
-        {
-            "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
-            "B1", "B2", "B3", "B4", "B5", "B6", "B7", "B8", "B9",
-            "C1", "C2", "C3", "C4", "C5", "C6", "C7", "C8", "C9"
-        };
-
-        char buffer[100];
-
-        bool sended = false;
-        bool all_is_ok = true;
-
-        for (int i = 0; i < NUM_PINS_MX; i++)
-        {
-            if (Send::need_send_state_contactors[i])
-            {
-                if (i == 27)
-                {
-                    PublishPacket("base/state/dc100v", Send::state_contactors[i] ? "1" : "0");
-                    sended = true;
-                }
-                else
-                {
-                    std::sprintf(buffer, "/cont/KM%s", names[i]);
-                    PublishPacket(buffer, Send::state_contactors[i] ? "1" : "0");
-                    sended = true;
-                }
-                Send::need_send_state_contactors[i] = false;
-            }
-            if (!Send::state_contactors[i])
-            {
-                all_is_ok = false;
-            }
-        }
-        if (sended)
-        {
-            PublishPacket("/base/state/state_contactors", all_is_ok ? "1" : "0");
-        }
-    }
+    Sender::ContactorsIsOK::OnEventSend();
 
     Sender::GP::OnEventSend();
 

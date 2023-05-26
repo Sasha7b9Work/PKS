@@ -44,17 +44,6 @@ namespace SIM800
 }
 
 
-namespace MQTT
-{
-    bool IsConnected();
-
-    namespace Send
-    {
-        void StateContactors(const bool[NUM_PINS_MX]);
-    }
-}
-
-
 namespace Modem
 {
     struct State
@@ -230,12 +219,6 @@ bool Modem::Mode::Registered()
 }
 
 
-bool Modem::Mode::ConnectedToMQTT()
-{
-    return MQTT::IsConnected();
-}
-
-
 pchar Modem::Mode::LevelSignal()
 {
     return SIM800::LevelSignal();
@@ -293,10 +276,4 @@ void Modem::GSM_PG::ToInPullDown()
 bool Modem::GSM_PG::ReadInput()
 {
     return gpio_input_bit_get(GPIOE, GPIO_PIN_2) == SET;
-}
-
-
-void Modem::Send::StateContactors(const bool state_contactors[NUM_PINS_MX])
-{
-    MQTT::Send::StateContactors(state_contactors);
 }

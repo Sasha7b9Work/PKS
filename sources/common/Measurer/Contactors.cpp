@@ -5,8 +5,8 @@
 #include "Hardware/HAL/systick.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
-#include "Modem/Modem.h"
 #include "Modem/Sender/LevelContactors.h"
+#include "Modem/Sender/ContactorsOK.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
@@ -401,7 +401,7 @@ void Contactors::VerifyCondition()
 
         if (address == 0)   // Опросили все реле, будем посылать результат
         {
-            Modem::Send::StateContactors(state_contactor);
+            Sender::ContactorsIsOK::Send(state_contactor);
         }
     }
 }
