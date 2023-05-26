@@ -114,7 +114,7 @@ namespace Modem
                             static int counter = 0;
                             counter++;
 
-                            if (counter == 3)
+                            if (counter > 20)
                             {
                                 int j = 0;
                             }
