@@ -8,7 +8,7 @@ namespace Sender
 {
     namespace LevelContactors
     {
-        static int value[Phase::Count] = { 0, 0, 0 };
+        static int value[Phase::Count] = { -10, -9, -8 };
         static bool need[Phase::Count] = { true, true, true };
 
         inline void Send(int level[Phase::Count])
