@@ -50,7 +50,6 @@ namespace MQTT
 
     namespace Send
     {
-        void GP(int num, bool state);
         void StateContactors(const bool[NUM_PINS_MX]);
     }
 }
@@ -294,12 +293,6 @@ void Modem::GSM_PG::ToInPullDown()
 bool Modem::GSM_PG::ReadInput()
 {
     return gpio_input_bit_get(GPIOE, GPIO_PIN_2) == SET;
-}
-
-
-void Modem::Send::GP(int num, bool is_low)
-{
-    MQTT::Send::GP(num, is_low);
 }
 
 

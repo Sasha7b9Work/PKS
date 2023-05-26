@@ -22,8 +22,6 @@ namespace Modem
 
     namespace Send
     {
-        void GP(int num, bool state);
-
         void StateContactors(const bool[NUM_PINS_MX]);
     }
 

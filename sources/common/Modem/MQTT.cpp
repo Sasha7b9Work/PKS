@@ -8,6 +8,7 @@
 #include "Modem/Sender/Counter.h"
 #include "Modem/Sender/Measure.h"
 #include "Modem/Sender/LevelContactors.h"
+#include "Modem/Sender/GP.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -55,12 +56,6 @@ namespace MQTT
 
     namespace Send
     {
-        //--------------------------------------------------------------------------
-        void GP(int num, bool state);
-        static bool gp[3] = { false, false, false };
-        static bool need_gp[3] = { false, false, false };
-
-        //--------------------------------------------------------------------------
         void StateContactors(const bool[NUM_PINS_MX]);
         static bool state_contactors[NUM_PINS_MX] =              // Состояние каждого контактора
         {
@@ -213,26 +208,6 @@ void MQTT::Send::StateContactors(const bool st_contactors[NUM_PINS_MX])
 }
 
 
-void MQTT::Send::GP(int num, bool is_low)
-{
-    if (state != State::RUNNING)
-    {
-        return;
-    }
-
-    gp[num - 1] = is_low;
-
-    bool need_request = !need_gp[0] && !need_gp[1] && !need_gp[2];
-
-    need_gp[num - 1] = true;
-
-    if (need_request)
-    {
-        SendRequest();
-    }
-}
-
-
 void MQTT::Reset()
 {
     state = State::IDLE;
@@ -300,22 +275,8 @@ void MQTT::Send::SendAllToMQTT()
             PublishPacket("/base/state/state_contactors", all_is_ok ? "1" : "0");
         }
     }
-    if (Send::need_gp[0] || Send::need_gp[1] || Send::need_gp[2])
-    {
-        char name[20] = "/gp/_0";
 
-        for (int i = 0; i < 3; i++)
-        {
-            if (Send::need_gp[i])
-            {
-                name[6] = (char)((i + 1) | 0x30);
-
-                PublishPacket(name, Send::gp[i] ? "1" : "0");
-
-                Send::need_gp[i] = false;
-            }
-        }
-    }
+    Sender::GP::OnEventSend();
 
     Sender::Counter::OnEventSend();
 

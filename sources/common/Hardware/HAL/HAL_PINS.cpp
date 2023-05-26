@@ -3,6 +3,7 @@
 #include "Hardware/HAL/HAL_PINS.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
+#include "Modem/Sender/GP.h"
 #include <gd32f30x.h>
 #include <cstdlib>
 
@@ -137,7 +138,7 @@ void HAL_PINS::Update()
 
         if (pinsGP[i].IsSwitched())
         {
-            Modem::Send::GP(i + 1, !pinsGP[i].GetState());
+            Sender::GP::Send(i + 1, !pinsGP[i].GetState());
 
             pinsGP[i].ResetSwitch();
         }
@@ -153,7 +154,7 @@ void HAL_PINS::SendState()
     {
         pinsGP[i].IsHi();
 
-        Modem::Send::GP(i + 1, !pinsGP[i].GetState());
+        Sender::GP::Send(i + 1, !pinsGP[i].GetState());
 
         pinsGP[i].ResetSwitch();
     }
