@@ -154,7 +154,10 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
 void SIM800::Update(pchar answer)
 {
-    if (strcmp(answer, "ATE0") == 0)
+    if (answer[0] == '\0')
+    {
+    }
+    else if (strcmp(answer, "ATE0") == 0)
     {
     }
     else
