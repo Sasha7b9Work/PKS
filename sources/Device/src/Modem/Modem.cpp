@@ -73,6 +73,7 @@ namespace Modem
             else
             {
                 Buffer64<char> answer;
+                answer.Clear();
 
                 bool answer_exist = false;
 
