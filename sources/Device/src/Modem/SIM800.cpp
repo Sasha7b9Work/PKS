@@ -154,6 +154,11 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
 void SIM800::Update(pchar answer)
 {
+    if (answer[0])
+    {
+        int i = 0;
+    }
+
     if (ProcessUnsolicited(answer))
     {
         return;
