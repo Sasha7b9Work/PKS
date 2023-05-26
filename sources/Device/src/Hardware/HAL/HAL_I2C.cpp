@@ -12,22 +12,24 @@
 
 namespace HAL_I2C
 {
-    static void WaitFlagYes(i2c_flag_enum);
+    static bool WaitFlagYes(i2c_flag_enum);
     static bool WaitFlagNo(i2c_flag_enum);
 }
 
 
-void HAL_I2C::WaitFlagYes(i2c_flag_enum flag)
+bool HAL_I2C::WaitFlagYes(i2c_flag_enum flag)
 {
     TimeMeterMS meter;
 
     while (i2c_flag_get(I2C_ADDR, flag))
     {
-        if (meter.ElapsedTime() > 100)
+        if (meter.ElapsedTime() > 2)
         {
-            break;
+            return false;
         }
     }
+
+    return true;
 }
 
 
@@ -71,13 +73,19 @@ bool HAL_I2C::Write(uint8 command, uint8 *data, int size)
     TimeMeterMS meter;
 
     /* wait until I2C bus is idle */
-    WaitFlagYes(I2C_FLAG_I2CBSY);
+    if (!WaitFlagYes(I2C_FLAG_I2CBSY))
+    {
+        return false;
+    }
 
     /* send a start condition to I2C bus */
     i2c_start_on_bus(I2C_ADDR);
 
     /* wait until SBSEND bit is set */
-    WaitFlagNo(I2C_FLAG_SBSEND);
+    if (!WaitFlagNo(I2C_FLAG_SBSEND))
+    {
+        return false;
+    }
 
     /* send slave address to I2C bus */
     i2c_master_addressing(I2C_ADDR, I2C_SLAVE_ADDRESS7, I2C_TRANSMITTER);

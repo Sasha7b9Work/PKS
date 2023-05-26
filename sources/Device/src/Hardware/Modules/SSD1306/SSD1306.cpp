@@ -76,7 +76,10 @@ void SSD1306::WriteBuffer(uint8 buffer[1024])
         SendCommand((uint8)(0x00));
         SendCommand((uint8)(0x10));
 
-        HAL_I2C::Write(DATA, &buffer[Display::WIDTH * i], Display::WIDTH);
+        if (!HAL_I2C::Write(DATA, &buffer[Display::WIDTH * i], Display::WIDTH))
+        {
+            break;
+        }
     };
 }
 
