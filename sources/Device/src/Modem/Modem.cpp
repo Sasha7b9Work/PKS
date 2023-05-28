@@ -62,10 +62,17 @@ namespace Modem
         static Buffer<char, 256> _main;
         static Buffer<char, 256> addit;
 
+        static Buffer<char, 256> buffer;
+
+        static void Clear()
+        {
+            _main.Clear();
+            addit.Clear();
+            buffer.Clear();
+        }
+
         void Update()
         {
-            static Buffer<char, 256> buffer;
-
             _main.mutex.Try();
 
             if (_main.Size())
@@ -280,9 +287,10 @@ bool Modem::ExistUpdate()
 }
 
 
-void Modem::CallbackOnErrorSIM800()
+void Modem::Reset()
 {
     state = State::IDLE;
+    InData::Clear();
 }
 
 
