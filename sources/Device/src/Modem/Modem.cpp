@@ -120,6 +120,14 @@ namespace Modem
                                 break;
                             }
                         }
+                        else if (symbol == '>')
+                        {
+                            answer.Append('>');
+                            answer.Append('\0');
+                            answer_exist = true;
+                            buffer.RemoveFirst(i + 1);
+                            break;
+                        }
                         else
                         {
                             answer.Append(symbol);
