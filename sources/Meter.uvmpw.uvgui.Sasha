@@ -1820,9 +1820,9 @@
       </Doc>
       <Doc>
         <Name>&lt;1&gt;.\src\Hardware\CMSIS\startup_gd32f30x_hd.s</Name>
-        <ColumnNumber>48</ColumnNumber>
+        <ColumnNumber>0</ColumnNumber>
         <TopLine>13</TopLine>
-        <CurrentLine>39</CurrentLine>
+        <CurrentLine>47</CurrentLine>
         <Folding>0</Folding>
         <ContractedFolders></ContractedFolders>
         <PaneID>0</PaneID>
