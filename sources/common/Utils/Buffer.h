@@ -35,6 +35,7 @@ public:
     {
         if (Size() + _size > capacity)
         {
+            LOG_WRITE("!!!buffer is full!!!");
         }
         else
         {
@@ -51,7 +52,7 @@ public:
         }
         else
         {
-            LOG_WRITE("buffer is full");
+            LOG_WRITE("!!!buffer is full!!!");
         }
     }
 
@@ -59,7 +60,7 @@ public:
     void RemoveFirst(int n)
     {
         std::memmove(buffer, buffer + n, n * sizeof(T));
-        size -= n;
+        size -= n * sizeof(T);
     }
 
     T &operator[](uint i)
