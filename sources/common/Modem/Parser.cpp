@@ -129,6 +129,8 @@ pchar Parser::GetWordInQuotes(pchar string, int num, char out[32])
 
 pchar Parser::GetWord(pchar string, int num, char out[32])
 {
+    out[0] = '\0';
+
     int pos_start = 0;
     int pos_end = 0;
 
