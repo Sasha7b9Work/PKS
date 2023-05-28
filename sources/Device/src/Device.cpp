@@ -30,24 +30,17 @@ void Device::Init()
 
 void Device::Update()
 {
-    char *buffer = log_buffer;
-
-    static int counter = 0;
-    counter++;
-
-    LOG_WRITE("%d", counter);
-
     HAL_FWDGT::Update();
 
-    Measurer::Update();
+//    Measurer::Update();
 
-    Display::Update();
+//    Display::Update();
 
-    Contactors::Update(Measurer::Measure5Sec());
+//    Contactors::Update(Measurer::Measure5Sec());
 
     Modem::Update();
 
-    HAL_PINS::Update();
+//    HAL_PINS::Update();
 
-    Contactors::VerifyCondition();
+//    Contactors::VerifyCondition();
 }
