@@ -121,8 +121,8 @@ void MQTT::Update(pchar answer)
         {
             Sender::Counter::OnEventSend();
 
-//            Sender::Measure::OnEventSend();
-//
+            Sender::Measure::OnEventSend();
+
 //            Sender::LevelContactors::OnEventSend();
 //
 //            Sender::ContactorsIsOK::OnEventSend();
