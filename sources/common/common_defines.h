@@ -1,6 +1,10 @@
 #define VERSION 4
 
 
+// Сообщения лога записываются в буфер
+#define SOFTWARE_LOG
+
+
 typedef unsigned char uint8;
 typedef signed char int8;
 typedef unsigned short uint16;

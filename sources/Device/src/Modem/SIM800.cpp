@@ -73,23 +73,10 @@ namespace SIM800
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
     char first_word[32];
-    char buffer[32];
 
     GetWord(answer, 1, first_word);
 
-    if (strcmp(first_word, "/update") == 0)
-    {
-        int i = 0;
-    }
-    else if (strcmp(GetWord(answer, 2, buffer), "/update") == 0)
-    {
-        int i = 0;
-    }
-    else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
-    {
-        int i = 0;
-    }
-    else if (strcmp(answer, "CLOSED") == 0)
+    if (strcmp(answer, "CLOSED") == 0)
     {
         Reset();
         return true;
@@ -109,14 +96,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
-        if (strcmp(GetWord(answer, 2, buffer), "4") == 0)
-        {
-            int i = 0;
-        }
-        else
-        {
-            int i = 0;
-        }
         MQTT::CallbackOnReceiveData(answer);
     }
     else if (strcmp(answer, "ATE0") == 0)
@@ -127,25 +106,9 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         return false;
     }
-    else if (strcmp(first_word, "+CREG") == 0)
-    {
-        return false;
-    }
     else if (strcmp(answer, "CONNECT OK") == 0)
     {
         return false;
-    }
-    else if (strcmp(answer, "RDY") == 0)
-    {
-        return true;
-    }
-    else
-    {
-        if (answer[0] != '\0')
-        {
-            GetWord(answer, 1, buffer);
-            int i = 0;
-        }
     }
 
     return false;
@@ -154,32 +117,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
 void SIM800::Update(pchar answer)
 {
-    if (answer[0] == '\0')
-    {
-    }
-    else if (strcmp(answer, "ATE0") == 0)
-    {
-    }
-    else if (strcmp(answer, "OK") == 0)
-    {
-    }
-    else if (strcmp(answer, "+CREG: 0,0") == 0)
-    {
-    }
-    else if (strcmp(answer, "+CR") == 0)
-    {
-    }
-    else if (strcmp(answer, "+CREG: +CRE") == 0)
-    {
-    }
-    else if (strcmp(answer, "RDY") == 0)
-    {
-    }
-    else
-    {
-        int i = 0;
-    }
-
     if (ProcessUnsolicited(answer))
     {
         return;

@@ -66,18 +66,10 @@ namespace Modem
         {
             static Buffer1024<char> buffer;
 
-            static int pointer = 0;
-            static char full_buffer[1024];
-
             _main.mutex.Try();
 
             if (_main.Size())
             {
-                for (int i = 0; i < _main.Size(); i++)
-                {
-                    full_buffer[pointer++] = _main[i];
-                }
-
                 buffer.Append(_main.Data(), _main.Size());
                 _main.Clear();
             }
@@ -111,14 +103,6 @@ namespace Modem
                         }
                         else
                         {
-                            static int counter = 0;
-                            counter++;
-
-                            if (counter > 20)
-                            {
-                                int j = 0;
-                            }
-
                             answer.Append('\0');
                             answer_exist = true;
                             buffer.RemoveFirst(i + 1);
