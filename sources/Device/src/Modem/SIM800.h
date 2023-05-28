@@ -2,6 +2,9 @@
 #pragma once
 
 
+#define SIM800_RESET()    SIM800::Reset(__FILE__, __LINE__)
+
+
 namespace SIM800
 {
     void Update(pchar);
@@ -18,5 +21,5 @@ namespace SIM800
 
     void TransmitUINT8(uint8);
 
-    void Reset();
+    void Reset(pchar file, int line);
 }
