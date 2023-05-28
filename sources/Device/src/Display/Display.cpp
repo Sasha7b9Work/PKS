@@ -47,29 +47,29 @@ void Display::Update()
 
     for (int i = 0; i < 3; i++)
     {
-        WriteVoltage(i);
+//        WriteVoltage(i);
 
-        WriteAmpere(i);
+//        WriteAmpere(i);
     }
+//
+//    if (Modem::Mode::Power())
+//    {
+//        WriteString(5, 5, "ÏÈÒ");
+//    }
 
-    if (Modem::Mode::Power())
-    {
-        WriteString(5, 5, "ÏÈÒ");
-    }
-
-    if (Modem::Mode::Registered())
-    {
-        WriteString(40, 5, "ÐÅÃ");
-    }
-
-    if (MQTT::InStateRunning())
-    {
-        WriteString(80, 5, "ÌÊþÒÒ");
-
-        WriteString(120, 5, Modem::Mode::LevelSignal());
-    }
-
-    SSD1306::WriteBuffer(buffer);
+//    if (Modem::Mode::Registered())
+//    {
+//        WriteString(40, 5, "ÐÅÃ");
+//    }
+//
+//    if (MQTT::InStateRunning())
+//    {
+//        WriteString(80, 5, "ÌÊþÒÒ");
+//
+//        WriteString(120, 5, Modem::Mode::LevelSignal());
+//    }
+//
+//    SSD1306::WriteBuffer(buffer);
 }
 
 

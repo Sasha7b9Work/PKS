@@ -32,17 +32,17 @@ void Device::Init()
 
 void Device::Update()
 {
-    HAL_FWDGT::Update();
+//    HAL_FWDGT::Update();
 
 //    Measurer::Update();
 
-//    Display::Update();
+    Display::Update();
 
-//    Contactors::Update(Measurer::Measure5Sec());
+//  Contactors::Update(Measurer::Measure5Sec());
 
     Modem::Update();
 
-//    HAL_PINS::Update();
+//  HAL_PINS::Update();
 
-//    Contactors::VerifyCondition();
+//  Contactors::VerifyCondition();
 }
