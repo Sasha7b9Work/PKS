@@ -165,13 +165,19 @@ void Modem::CallbackOnReceive(char symbol)
         return;
     }
 
-    InData::addit.Append(symbol);
-
     if (!InData::_main.mutex.IsBusy())
     {
-        InData::_main.Append(InData::addit.Data(), InData::addit.Size());
+        if (InData::addit.Size())
+        {
+            InData::_main.Append(InData::addit.Data(), InData::addit.Size());
+            InData::addit.Clear();
+        }
 
-        InData::addit.Clear();
+        InData::_main.Append(symbol);
+    }
+    else
+    {
+        InData::addit.Append(symbol);
     }
 }
 
