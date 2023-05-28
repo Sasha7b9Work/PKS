@@ -90,19 +90,3 @@ protected:
 
     T buffer[capacity];
 };
-
-
-template<class T>
-class Buffer64 : public Buffer<T, 64>
-{
-public:
-    Buffer64() : Buffer<T, 64>() { };
-};
-
-
-template<class T>
-class Buffer1024 : public Buffer<T, 1024>
-{
-public:
-    Buffer1024() : Buffer<T, 1024>() { };
-};

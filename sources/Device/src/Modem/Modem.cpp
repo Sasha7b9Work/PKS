@@ -59,12 +59,12 @@ namespace Modem
     // Данные, получаемые от SIM800
     namespace InData
     {
-        static Buffer1024<char> _main;
-        static Buffer1024<char> addit;
+        static Buffer<char, 256> _main;
+        static Buffer<char, 256> addit;
 
         void Update()
         {
-            static Buffer1024<char> buffer;
+            static Buffer<char, 256> buffer;
 
             _main.mutex.Try();
 
@@ -82,7 +82,7 @@ namespace Modem
             }
             else
             {
-                Buffer64<char> answer;
+                Buffer<char, 64> answer;
                 answer.Clear();
 
                 bool answer_exist = false;

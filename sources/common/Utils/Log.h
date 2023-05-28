@@ -12,4 +12,7 @@
 namespace Log
 {
     void Write(char *format, ...);
+
+
+
 };

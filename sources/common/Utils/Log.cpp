@@ -15,5 +15,11 @@ void Log::Write(char *format, ...)
     std::vsprintf(message, format, args);
     va_end(args);
 
+#ifdef SOFTWARE_LOG
+
+#else
+
     HAL_USART_LOG::Transmit(message);
+
+#endif
 }
