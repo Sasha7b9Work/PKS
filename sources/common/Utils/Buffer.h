@@ -49,6 +49,10 @@ public:
         {
             buffer[size++] = symbol;
         }
+        else
+        {
+            LOG_WRITE("buffer is full");
+        }
     }
 
     // Удалить первых n элементов
