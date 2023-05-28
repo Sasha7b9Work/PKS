@@ -26,6 +26,23 @@ void Log::Init()
 }
 
 
+void Log::ReceiveFromSIM800(char symbol)
+{
+#ifdef SOFTWARE_LOG
+
+    if (pointer < SIZE_BUFFER)
+    {
+        log_buffer[pointer++] = symbol;
+    }
+
+#else
+
+    HAL_USART_LOG::Transmit(symbol);
+
+#endif
+}
+
+
 void Log::Write(char *format, ...)
 {
     char message[100];

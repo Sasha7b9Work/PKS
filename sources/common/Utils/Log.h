@@ -20,4 +20,6 @@ namespace Log
     void Init();
 
     void Write(char *format, ...);
+
+    void ReceiveFromSIM800(char symbol);
 };
