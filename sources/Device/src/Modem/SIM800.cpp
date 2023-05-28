@@ -188,16 +188,10 @@ void SIM800::Update(pchar answer)
     case State::WAIT_IP_INITIAL:
         if (MeterIsRunning(DEFAULT_TIME))
         {
-            GetWord(answer, 3, buffer);
+            if (strcmp(GetWord(answer, 3, buffer), "INITIAL") == 0)
             {
-                if(buffer[0] && strlen(buffer) > 2)
-                {
-                    if (strcmp(buffer, "INITIAL") == 0)
-                    {
-                        State::Set(State::WAIT_CSTT);
-                        SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
-                    }
-                }
+                State::Set(State::WAIT_CSTT);
+                SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
             }
         }
         break;
