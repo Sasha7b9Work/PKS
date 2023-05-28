@@ -3,12 +3,6 @@
 #include "Measurer/Measurer.h"
 
 
-namespace SIM800
-{
-    static const uint TIME_WAIT_ANSWER = 1500;
-}
-
-
 namespace Modem
 {
     void Init();

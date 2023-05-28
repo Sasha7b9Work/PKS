@@ -293,8 +293,10 @@ bool Modem::ExistUpdate()
 }
 
 
-void Modem::Reset()
+void Modem::Reset(pchar file, int line)
 {
+    LOG_WRITE("Modem Reset() %s:%d", file, line);
+
     state = State::IDLE;
     InData::Clear();
 }

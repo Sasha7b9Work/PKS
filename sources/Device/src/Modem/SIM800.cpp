@@ -349,6 +349,6 @@ void SIM800::TransmitUINT8(uint8 byte)
 void SIM800::Reset()
 {
     state = State::START;
-    Modem::Reset();
+    MODEM_RESET();
     MQTT::Reset();
 }

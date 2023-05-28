@@ -3,10 +3,7 @@
 #include "Measurer/Measurer.h"
 
 
-namespace SIM800
-{
-    static const uint TIME_WAIT_ANSWER = 1500;
-}
+#define MODEM_RESET()  Modem::Reset(__FUNCTION__, __LINE__)
 
 
 namespace Modem
@@ -21,7 +18,7 @@ namespace Modem
     void CallbackOnReceive(char);
 
     // После любой необработанной ошибки SIM800 вызывать эту функцию
-    void Reset();
+    void Reset(pchar file, int line);
 
     namespace Mode
     {
