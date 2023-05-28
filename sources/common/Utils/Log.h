@@ -7,6 +7,7 @@
 #define LOG_FUNC_ENTER()    Log::Write("Enter:%s:%d", __FUNCTION__, __LINE__)
 #else
 #define LOG_WRITE(...)
+#define LOG_FUNC_ENTER()
 #endif
 
 
