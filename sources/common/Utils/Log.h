@@ -10,7 +10,7 @@
 
 
 #ifdef SOFTWARE_LOG
-    extern char log_buffer[16384];
+    extern char log_buffer[8192];
 #endif
 
 

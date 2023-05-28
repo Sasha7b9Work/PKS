@@ -12,7 +12,7 @@ using namespace std;
 
 namespace Log
 {
-    static const int SIZE_BUFFER = 16384;
+    static const int SIZE_BUFFER = 8192;
     static int pointer = 0;
 }
 
