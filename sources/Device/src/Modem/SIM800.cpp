@@ -301,11 +301,11 @@ void SIM800::Update(pchar answer)
 
         MQTT::Update(answer);
 
-        if (meterCSQ.ElapsedTime() > 5000)
-        {
-            meterCSQ.Reset();
-            SIM800::Transmit("AT+CSQ");
-        }
+//        if (meterCSQ.ElapsedTime() > 5000)
+//        {
+//            meterCSQ.Reset();
+//            SIM800::Transmit("AT+CSQ");
+//        }
 
         break;
     }
