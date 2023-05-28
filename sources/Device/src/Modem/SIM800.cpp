@@ -85,6 +85,14 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         int i = 0;
     }
+    else if(strcmp(answer, "Call Ready") == 0)
+    {
+        int i = 0;
+    }
+    else if(strcmp(answer, "SMS Ready") == 0)
+    {
+        int i = 0;
+    }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
         GetWord(answer, 2, levelSignal);

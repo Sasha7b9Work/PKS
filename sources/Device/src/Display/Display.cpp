@@ -47,9 +47,9 @@ void Display::Update()
 
     for (int i = 0; i < 3; i++)
     {
-        WriteVoltage(i);
-
-        WriteAmpere(i);
+//        WriteVoltage(i);
+//
+//        WriteAmpere(i);
     }
 //
 //    if (Modem::Mode::Power())
