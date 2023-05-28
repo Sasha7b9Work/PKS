@@ -199,6 +199,10 @@ void SIM800::Update(pchar answer)
                     SIM800::Transmit("AT+CREG?");
                 }
             }
+            else if (strcmp(answer, "SMS Ready") == 0)
+            {
+                SIM800::Transmit("AT+CREG?");
+            }
         }
         break;
 
