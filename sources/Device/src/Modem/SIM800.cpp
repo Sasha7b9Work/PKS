@@ -190,7 +190,7 @@ void SIM800::Update(pchar answer)
         {
             GetWord(answer, 3, buffer);
             {
-                if(buffer[0])
+                if(buffer[0] && strlen(buffer) > 2)
                 {
                     if (strcmp(buffer, "INITIAL") == 0)
                     {
