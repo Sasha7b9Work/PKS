@@ -36,7 +36,7 @@ void Device::Update()
 
 //    Measurer::Update();
 
-    Display::Update();
+//    Display::Update();
 
 //    Contactors::Update(Measurer::Measure5Sec());
 
