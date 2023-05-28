@@ -121,13 +121,13 @@ void MQTT::Update(pchar answer)
         {
             Sender::Counter::OnEventSend();
 
-//            Sender::Measure::OnEventSend();
+            Sender::Measure::OnEventSend();
 
-//            Sender::LevelContactors::OnEventSend();
+            Sender::LevelContactors::OnEventSend();
 
-//            Sender::ContactorsIsOK::OnEventSend();
+            Sender::ContactorsIsOK::OnEventSend();
 
-//            Sender::GP::OnEventSend();
+            Sender::GP::OnEventSend();
 
             if (need_ping)
             {
@@ -146,14 +146,14 @@ void MQTT::Update(pchar answer)
 
             if (meterLastData.ElapsedTime() > 30000)
             {
-                //            SIM800::Reset();
+//            SIM800::Reset();
             }
 
             if (meterPing.ElapsedTime() > 20000)
             {
                 meterPing.Reset();
-                //            SIM800::Transmit("AT+CIPSEND");
-                //            need_ping = true;
+//            SIM800::Transmit("AT+CIPSEND");
+//            need_ping = true;
             }
         }
 
