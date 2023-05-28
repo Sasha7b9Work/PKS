@@ -23,6 +23,7 @@ namespace SIM800
         {
             START,
             WAIT_ATE0,
+            WAIT_BAUDRADE,
             WAIT_GSMBUSY,
             WAIT_CREG,
             WAIT_IP_INITIAL,
@@ -147,6 +148,18 @@ void SIM800::Update(pchar answer)
         break;
 
     case State::WAIT_ATE0:
+        if (MeterIsRunning(DEFAULT_TIME))
+        {
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_BAUDRADE);
+                SIM800::Transmit("AT+IPR=115200");
+            }
+        }
+        break;
+
+    case State::WAIT_BAUDRADE:
+
         if (MeterIsRunning(DEFAULT_TIME))
         {
             if (strcmp(answer, "RDY") == 0)
