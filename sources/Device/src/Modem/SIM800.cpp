@@ -141,9 +141,15 @@ void SIM800::Update(pchar answer)
     switch (state)
     {
     case State::START:
-        SIM800::Transmit("ATE0");
-        State::Set(State::WAIT_ATE0);
-        strcpy(levelSignal, "0");
+        if (MeterIsRunning(DEFAULT_TIME))
+        {
+            if (strcmp(answer, "RDY") == 0)
+            {
+                SIM800::Transmit("ATE0");
+                State::Set(State::WAIT_ATE0);
+                strcpy(levelSignal, "0");
+            }
+        }
         break;
 
     case State::WAIT_ATE0:
