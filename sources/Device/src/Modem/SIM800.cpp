@@ -141,14 +141,16 @@ void SIM800::Update(pchar answer)
     switch (state)
     {
     case State::START:
-        if (MeterIsRunning(DEFAULT_TIME))
+        if (state_meter.ElapsedTime() > 20000)
         {
-            if (strcmp(answer, "RDY") == 0)
-            {
-                SIM800::Transmit("ATE0");
-                State::Set(State::WAIT_ATE0);
-                strcpy(levelSignal, "0");
-            }
+            state_meter.Reset();
+            Reset();
+        }
+        else if (strcmp(answer, "RDY") == 0)
+        {
+            SIM800::Transmit("ATE0");
+            State::Set(State::WAIT_ATE0);
+            strcpy(levelSignal, "0");
         }
         break;
 
