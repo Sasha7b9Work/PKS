@@ -25,7 +25,8 @@ namespace SIM800
             WAIT_ATE0,
             WAIT_BAUDRADE,
             WAIT_GSMBUSY,
-            WAIT_CREG,
+            WAIT_CREG_INIT,
+            WAIT_REGISTRATION,
             WAIT_IP_INITIAL,
             WAIT_CSTT,
             WAIT_IP_START,
@@ -175,13 +176,24 @@ void SIM800::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                State::Set(State::WAIT_CREG);
+                State::Set(State::WAIT_CREG_INIT);
+                SIM800::Transmit("AT+CREG=1");
+            }
+        }
+        break;
+
+    case State::WAIT_CREG_INIT:
+        if (MeterIsRunning(DEFAULT_TIME))
+        {
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_REGISTRATION);
                 SIM800::Transmit("AT+CREG?");
             }
         }
         break;
 
-    case State::WAIT_CREG:
+    case State::WAIT_REGISTRATION:
         if (MeterIsRunning(30000))
         {
             if (strcmp(GetWord(answer, 1, buffer), "+CREG") == 0)
