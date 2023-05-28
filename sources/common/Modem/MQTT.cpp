@@ -121,13 +121,13 @@ void MQTT::Update(pchar answer)
         {
             Sender::Counter::OnEventSend();
 
-            Sender::Measure::OnEventSend();
+//            Sender::Measure::OnEventSend();
 
-            Sender::LevelContactors::OnEventSend();
+//            Sender::LevelContactors::OnEventSend();
 
-            Sender::ContactorsIsOK::OnEventSend();
+//            Sender::ContactorsIsOK::OnEventSend();
 
-            Sender::GP::OnEventSend();
+//            Sender::GP::OnEventSend();
 
             if (need_ping)
             {
