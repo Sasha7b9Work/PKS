@@ -70,7 +70,7 @@ public:
             return buffer[i];
         }
 
-        static T null(0);
+        static char null(0);
 
         return null;
     }
