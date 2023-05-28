@@ -15,7 +15,7 @@ namespace Log
 
 #ifdef SOFTWARE_LOG
 
-    extern char buffer[1024];
+    extern char log_buffer[1024];
 
 #endif
 };

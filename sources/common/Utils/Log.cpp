@@ -14,7 +14,7 @@ namespace Log
 {
     static const int SIZE_BUFFER = 1024;
     static int pointer = 0;
-    char buffer[SIZE_BUFFER];
+    char log_buffer[SIZE_BUFFER];
 }
 
 
@@ -33,7 +33,7 @@ void Log::Write(char *format, ...)
 
     if (pointer + size < SIZE_BUFFER)
     {
-        memcpy(buffer + pointer, message, (uint)size);
+        memcpy(log_buffer + pointer, message, (uint)size);
         pointer += size;
     }
 
