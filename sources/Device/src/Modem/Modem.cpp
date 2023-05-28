@@ -93,8 +93,8 @@ namespace Modem
 
                 bool answer_exist = false;
 
-//                do
-//                {
+                do
+                {
                     answer.Clear();
                     answer_exist = false;
 
@@ -117,20 +117,8 @@ namespace Modem
                                 answer.Append('\0');
                                 answer_exist = true;
                                 buffer.RemoveFirst(i + 1);
-                                if (answer[0] == 'S' && answer[1] != 'M')
-                                {
-                                    i = i;
-                                }
                                 break;
                             }
-                        }
-                        else if (symbol == '>')
-                        {
-                            answer.Append('>');
-                            answer.Append('\0');
-                            answer_exist = true;
-                            buffer.RemoveFirst(i + 1);
-                            break;
                         }
                         else
                         {
@@ -140,7 +128,7 @@ namespace Modem
 
                     SIM800::Update(answer_exist ? answer.Data() : "");
 
-//                } while (answer_exist);
+                } while (answer_exist);
             }
         }
     }
