@@ -83,18 +83,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         Reset();
         return true;
     }
-    else if(strcmp(first_word, "+CPIN") == 0)
-    {
-        int i = 0;
-    }
-    else if(strcmp(answer, "Call Ready") == 0)
-    {
-        return true;
-    }
-    else if(strcmp(answer, "SMS Ready") == 0)
-    {
-        return true;
-    }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
         GetWord(answer, 2, levelSignal);
@@ -111,18 +99,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     else if (strcmp(first_word, "+IPD") == 0)
     {
         MQTT::CallbackOnReceiveData(answer);
-    }
-    else if (strcmp(answer, "ATE0") == 0)
-    {
-        return false;
-    }
-    else if (strcmp(answer, "OK") == 0)
-    {
-        return false;
-    }
-    else if (strcmp(answer, "CONNECT OK") == 0)
-    {
-        return false;
     }
 
     return false;
@@ -188,7 +164,6 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 State::Set(State::WAIT_REGISTRATION);
-//                SIM800::Transmit("AT+CREG?");
             }
         }
         break;
@@ -205,10 +180,6 @@ void SIM800::Update(pchar answer)
                 {
                     State::Set(State::WAIT_IP_INITIAL);
                     SIM800::Transmit("AT+CIPSTATUS");
-                }
-                else
-                {
-//                    SIM800::Transmit("AT+CREG?");
                 }
             }
         }
