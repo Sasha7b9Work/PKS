@@ -4,18 +4,18 @@
 #include <cstring>
 
 
-template<class T, int capacity>
+template<int capacity>
 class Buffer
 {
 public:
 
     Buffer() : size(0) {}; //-V730
 
-    T *Data() { return buffer; }
+    char *Data() { return buffer; }
 
-    const T *DataConst() const { return buffer; }
+    const char *DataConst() const { return buffer; }
 
-    T *Last()
+    char *Last()
     {
         return buffer + Size();
     }
@@ -44,7 +44,7 @@ public:
         }
     }
 
-    void Append(T symbol)
+    void Append(char symbol)
     {
         if (size < capacity)
         {
@@ -59,11 +59,11 @@ public:
     // Удалить первых n элементов
     void RemoveFirst(int n)
     {
-        std::memmove(buffer, buffer + n, n * sizeof(T));
-        size -= n * sizeof(T);
+        std::memmove(buffer, buffer + n, (uint)(size - n));
+        size -= n;
     }
 
-    T &operator[](uint i)
+    char &operator[](uint i)
     {
         if ((int)i >= 0 && (int)i < Size())
         {
@@ -75,14 +75,14 @@ public:
         return null;
     }
 
-    T &operator[](int i)
+    char &operator[](int i)
     {
         if (i >= 0 && i < Size())
         {
             return buffer[i];
         }
 
-        static T null(0);
+        static char null(0);
 
         return null;
     }
@@ -93,5 +93,5 @@ protected:
 
     int size;
 
-    T buffer[capacity];
+    char buffer[capacity];
 };
