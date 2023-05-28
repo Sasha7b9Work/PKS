@@ -20,6 +20,12 @@ namespace Log
 char log_buffer[Log::SIZE_BUFFER];
 
 
+void Log::Init()
+{
+    memset(log_buffer, 0, SIZE_BUFFER);
+}
+
+
 void Log::Write(char *format, ...)
 {
     char message[100];

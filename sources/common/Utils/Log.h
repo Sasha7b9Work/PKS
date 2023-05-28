@@ -16,5 +16,7 @@
 
 namespace Log
 {
+    void Init();
+
     void Write(char *format, ...);
 };
