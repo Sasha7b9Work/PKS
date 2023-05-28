@@ -148,6 +148,8 @@ namespace Modem
 
 void Modem::CallbackOnReceive(char symbol)
 {
+    Log::ReceiveFromSIM800(symbol);
+    
     if (symbol == 0)
     {
         return;
