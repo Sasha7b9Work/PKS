@@ -32,9 +32,9 @@ void Device::Update()
 {
 //    HAL_FWDGT::Update();
 
-    Measurer::Update();
+//    Measurer::Update();
 
-//    Display::Update();
+    Display::Update();
 
 //    Contactors::Update(Measurer::Measure5Sec());
 
