@@ -3,7 +3,7 @@
 #include "Measurer/Measurer.h"
 
 
-#define MODEM_RESET()  Modem::Reset(__FUNCTION__, __LINE__)
+#define MODEM_RESET()  Modem::Reset(__FILE__, __LINE__)
 
 
 namespace Modem
