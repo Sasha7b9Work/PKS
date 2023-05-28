@@ -4,6 +4,18 @@
 #include "Hardware/HAL/HAL.h"
 #include <cstdarg>
 #include <cstdio>
+#include <cstring>
+
+
+using namespace std;
+
+
+namespace Log
+{
+    static const int SIZE_BUFFER = 1024;
+    static int pointer = 0;
+    char buffer[SIZE_BUFFER];
+}
 
 
 void Log::Write(char *format, ...)
@@ -16,6 +28,14 @@ void Log::Write(char *format, ...)
     va_end(args);
 
 #ifdef SOFTWARE_LOG
+
+    int size = (int)strlen(message) + 1;
+
+    if (pointer + size < SIZE_BUFFER)
+    {
+        memcpy(buffer + pointer, message, (uint)size);
+        pointer += size;
+    }
 
 #else
 

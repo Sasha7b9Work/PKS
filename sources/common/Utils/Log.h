@@ -13,6 +13,9 @@ namespace Log
 {
     void Write(char *format, ...);
 
+#ifdef SOFTWARE_LOG
 
+    extern char buffer[1024];
 
+#endif
 };

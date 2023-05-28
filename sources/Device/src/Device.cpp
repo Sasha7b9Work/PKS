@@ -34,6 +34,13 @@ void Device::Init()
 
 void Device::Update()
 {
+    char *buffer = Log::buffer;
+
+    static int counter = 0;
+    counter++;
+
+    LOG_WRITE("%d", counter);
+
     HAL_FWDGT::Update();
 
     Measurer::Update();
