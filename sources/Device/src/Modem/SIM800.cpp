@@ -194,11 +194,11 @@ void SIM800::Update(pchar answer)
         break;
 
     case State::WAIT_REGISTRATION:
-        if (MeterIsRunning(30000))
+        if (MeterIsRunning(60000))
         {
             if (strcmp(GetWord(answer, 1, buffer), "+CREG") == 0)
             {
-                int stat = GetWord(answer, 3, buffer)[0] & 0x0f;
+                int stat = GetWord(answer, 2, buffer)[0] & 0x0f;
 
                 if (stat == 1 ||    // Registered, home network
                     stat == 5)      // Registered, roaming
@@ -208,7 +208,7 @@ void SIM800::Update(pchar answer)
                 }
                 else
                 {
-                    SIM800::Transmit("AT+CREG?");
+//                    SIM800::Transmit("AT+CREG?");
                 }
             }
         }
