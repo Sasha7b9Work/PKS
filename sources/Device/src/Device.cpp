@@ -16,6 +16,8 @@ void Device::Init()
 {
     Log::Init();
 
+    LOG_FUNC_ENTER();
+
     HAL::Init();
     
     Contactors::Init();
@@ -30,7 +32,7 @@ void Device::Init()
 
 void Device::Update()
 {
-//    HAL_FWDGT::Update();
+    HAL_FWDGT::Update();
 
 //    Measurer::Update();
 
