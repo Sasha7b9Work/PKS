@@ -39,7 +39,7 @@ void Log::Write(char *format, ...)
 
     int size = (int)strlen(message) + 1;
 
-    if (pointer + size < SIZE_BUFFER)
+    if (pointer + size < SIZE_BUFFER - 100)
     {
         memcpy(log_buffer + pointer, message, (uint)size);
         pointer += size;
