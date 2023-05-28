@@ -86,8 +86,8 @@ namespace Modem
 
                 bool answer_exist = false;
 
-                do
-                {
+//                do
+//                {
                     answer.Clear();
                     answer_exist = false;
 
@@ -129,7 +129,7 @@ namespace Modem
 
                     SIM800::Update(answer_exist ? answer.Data() : "");
 
-                } while (answer_exist);
+//                } while (answer_exist);
             }
         }
     }
