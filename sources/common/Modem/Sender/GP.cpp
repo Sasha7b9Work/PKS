@@ -34,7 +34,7 @@ namespace Sender
         {
             if (need[0] || need[1] || need[2])
             {
-                char name[20] = "/gp/_0";
+                char name[20] = "/base/state/gp0";
 
                 for (int i = 0; i < 3; i++)
                 {
