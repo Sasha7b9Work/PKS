@@ -30,10 +30,12 @@ void Log::ReceiveFromSIM800(char symbol)
 {
 #ifdef SOFTWARE_LOG
 
-    if (pointer < SIZE_BUFFER)
+    if (pointer >= SIZE_BUFFER)
     {
-        log_buffer[pointer++] = symbol;
+        Init();
     }
+
+    log_buffer[pointer++] = symbol;
 
 #else
 
@@ -56,11 +58,13 @@ void Log::Write(char *format, ...)
 
     int size = (int)strlen(message) + 1;
 
-    if (pointer + size < SIZE_BUFFER - 100)
+    if (pointer + size >= SIZE_BUFFER - 100)
     {
-        memcpy(log_buffer + pointer, message, (uint)size);
-        pointer += size;
+        Init();
     }
+
+    memcpy(log_buffer + pointer, message, (uint)size);
+    pointer += size;
 
 #else
 
