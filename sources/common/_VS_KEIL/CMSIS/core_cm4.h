@@ -19,6 +19,9 @@
 #define SCB_SCR_SLEEPDEEP_Pos               2U                                            /*!< SCB SCR: SLEEPDEEP Position */
 #define SCB_SCR_SLEEPDEEP_Msk              (1UL << SCB_SCR_SLEEPDEEP_Pos)                 /*!< SCB SCR: SLEEPDEEP Mask */
 
+inline void NVIC_SetPriority(IRQn_Type, uint32_t)
+{
+}
 
 typedef struct
 {

@@ -15,6 +15,8 @@ void HAL_USART_GPRS::Init()
 
     nvic_irq_enable(UART3_IRQn, 0, 0);
 
+    NVIC_SetPriority(UART3_IRQn, 0);
+
     usart_deinit(USART_GPRS_ADDR);
     usart_baudrate_set(USART_GPRS_ADDR, 115200);
     usart_parity_config(USART_GPRS_ADDR, USART_PM_NONE);
