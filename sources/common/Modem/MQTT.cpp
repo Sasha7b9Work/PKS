@@ -140,19 +140,21 @@ void MQTT::Update(pchar answer)
 
             MQTT::Packet::Reset();
         }
-
-        Sender::Counter::OnStateRunning();
-
-        if (meterLastData.ElapsedTime() > 30000)
+        else
         {
-//            SIM800::Reset();
-        }
+            Sender::Counter::OnStateRunning();
 
-        if (meterPing.ElapsedTime() > 20000)
-        {
-            meterPing.Reset();
-//            SIM800::Transmit("AT+CIPSEND");
-//            need_ping = true;
+            if (meterLastData.ElapsedTime() > 30000)
+            {
+                //            SIM800::Reset();
+            }
+
+            if (meterPing.ElapsedTime() > 20000)
+            {
+                meterPing.Reset();
+                //            SIM800::Transmit("AT+CIPSEND");
+                //            need_ping = true;
+            }
         }
 
         break;
