@@ -62,14 +62,14 @@ void Display::Update()
         WriteString(40, 5, "–≈√");
     }
 
-//    if (MQTT::InStateRunning())
-//    {
-//        WriteString(80, 5, "Ã ˛““");
-//
-//        WriteString(120, 5, Modem::Mode::LevelSignal());
-//    }
-//
-//    SSD1306::WriteBuffer(buffer);
+    if (MQTT::InStateRunning())
+    {
+        WriteString(80, 5, "Ã ˛““");
+
+        WriteString(120, 5, Modem::Mode::LevelSignal());
+    }
+
+    SSD1306::WriteBuffer(buffer);
 }
 
 
