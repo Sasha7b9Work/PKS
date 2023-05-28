@@ -88,11 +88,11 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if(strcmp(answer, "Call Ready") == 0)
     {
-        int i = 0;
+        return true;
     }
     else if(strcmp(answer, "SMS Ready") == 0)
     {
-        int i = 0;
+        return true;
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
@@ -198,10 +198,6 @@ void SIM800::Update(pchar answer)
                 {
                     SIM800::Transmit("AT+CREG?");
                 }
-            }
-            else if (strcmp(answer, "SMS Ready") == 0)
-            {
-                SIM800::Transmit("AT+CREG?");
             }
         }
         break;

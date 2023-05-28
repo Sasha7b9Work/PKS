@@ -51,17 +51,17 @@ void Display::Update()
 
         WriteAmpere(i);
     }
-//
-//    if (Modem::Mode::Power())
-//    {
-//        WriteString(5, 5, "охр");
-//    }
 
-//    if (Modem::Mode::Registered())
-//    {
-//        WriteString(40, 5, "пец");
-//    }
-//
+    if (Modem::Mode::Power())
+    {
+        WriteString(5, 5, "охр");
+    }
+
+    if (Modem::Mode::Registered())
+    {
+        WriteString(40, 5, "пец");
+    }
+
 //    if (MQTT::InStateRunning())
 //    {
 //        WriteString(80, 5, "лйЧрр");
