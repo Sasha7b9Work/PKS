@@ -107,6 +107,10 @@ namespace Modem
                             }
                             else
                             {
+                                if (answer[0] == 'S')
+                                {
+                                    i = i;
+                                }
                                 answer.Append('\0');
                                 answer_exist = true;
                                 buffer.RemoveFirst(i + 1);
