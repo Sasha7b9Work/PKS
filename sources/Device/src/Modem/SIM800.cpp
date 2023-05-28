@@ -188,7 +188,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 State::Set(State::WAIT_REGISTRATION);
-                SIM800::Transmit("AT+CREG?");
+//                SIM800::Transmit("AT+CREG?");
             }
         }
         break;
