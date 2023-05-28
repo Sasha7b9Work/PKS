@@ -9,13 +9,12 @@
 #endif
 
 
+#ifdef SOFTWARE_LOG
+    extern char log_buffer[16384];
+#endif
+
+
 namespace Log
 {
     void Write(char *format, ...);
-
-#ifdef SOFTWARE_LOG
-
-    extern char log_buffer[1024];
-
-#endif
 };

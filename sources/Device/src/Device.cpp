@@ -28,7 +28,7 @@ void Device::Init()
 
 void Device::Update()
 {
-    char *buffer = Log::log_buffer;
+    char *buffer = log_buffer;
 
     static int counter = 0;
     counter++;
