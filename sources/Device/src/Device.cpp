@@ -16,8 +16,6 @@ void Device::Init()
 {
     Log::Init();
 
-    LOG_FUNC_ENTER();
-
     HAL::Init();
     
     Contactors::Init();

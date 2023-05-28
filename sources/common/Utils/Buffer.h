@@ -35,7 +35,7 @@ public:
     {
         if (Size() + _size > capacity)
         {
-            LOG_WRITE("!!!buffer is full!!!");
+            LOG_ERROR("!!!buffer is full!!!");
         }
         else
         {
@@ -52,7 +52,7 @@ public:
         }
         else
         {
-            LOG_WRITE("!!!buffer is full!!!");
+            LOG_ERROR("!!!buffer is full!!!");
         }
     }
 

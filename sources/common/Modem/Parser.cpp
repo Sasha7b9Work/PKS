@@ -57,7 +57,7 @@ pchar Parser::GetWord(pchar string, int pos_start, int pos_end, char out[32])
 {
     if (pos_end - pos_start <= 0)
     {
-        LOG_WRITE("Wrong arguments");
+        LOG_ERROR("Wrong arguments");
 
         out[0] = '\0';
     }
