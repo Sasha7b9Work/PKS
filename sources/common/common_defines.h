@@ -4,7 +4,7 @@
 // Сообщения лога записываются в буфер
 #define SOFTWARE_LOG
 
-//#define ENABLE_LOG
+#define ENABLE_LOG
 
 // Раскомментировать для 5-ступенчатой версии
 //#define FIVE_STEPS_VERSION
