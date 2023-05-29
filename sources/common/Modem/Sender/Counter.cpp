@@ -40,7 +40,7 @@ namespace Sender
 
                 MQTT::Packet::Publish("base/state/counter", buffer);
 
-                meter.SetResponseTime(5000);
+                meter.SetResponseTime(60000);
             }
 
             return result;
