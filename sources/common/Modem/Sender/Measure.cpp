@@ -30,16 +30,7 @@ namespace Sender
 
         static void SendMeasure(pchar name, float voltage)
         {
-            char buffer[32];
-            std::sprintf(buffer, "%d", (int)(voltage + 0.5f));
-            for (uint i = 0; i < std::strlen(buffer); i++)
-            {
-                if (buffer[i] == ',')
-                {
-                    buffer[i] = '.';
-                }
-            }
-            MQTT::Packet::Publish(name, buffer);
+            MQTT::Packet::Publish(name, (int)(voltage + 0.5f));
         }
 
         bool SendToSIM800()

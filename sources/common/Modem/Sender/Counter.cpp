@@ -19,10 +19,7 @@ namespace Sender
 
         bool SendToSIM800()
         {
-            char buffer[32];
-            std::sprintf(buffer, "%d", value++);
-
-            MQTT::Packet::Publish("base/state/counter", buffer);
+            MQTT::Packet::Publish("base/state/counter", value++);
 
             return true;
         }

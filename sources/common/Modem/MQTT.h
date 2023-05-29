@@ -14,6 +14,8 @@ namespace MQTT
 
     namespace Packet
     {
-        void Publish(const char *topic, const char *message);
+        void Publish(pchar topic, pchar message);
+
+        void Publish(pchar topic, int);
     }
 }

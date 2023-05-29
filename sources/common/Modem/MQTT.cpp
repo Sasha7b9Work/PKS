@@ -11,6 +11,7 @@
 #include "Modem/Sender/ContactorsIsOK.h"
 #include "Modem/Sender/GP.h"
 #include "Modem/SIM800.h"
+#include "Modem/Sender/Sender.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -96,7 +97,7 @@ void MQTT::Update(pchar answer)
 
             HAL_PINS::SendState();
 
-            Sender::Counter::Reset();
+            Sender::Reset();
         }
         break;
 
@@ -173,7 +174,7 @@ void MQTT::Reset()
 }
 
 
-void  MQTT::Packet::Publish(const char *MQTT_topic, const char *MQTT_messege)
+void  MQTT::Packet::Publish(pchar MQTT_topic, pchar MQTT_messege)
 {
     SIM800::TransmitUINT8(0x30);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
@@ -181,6 +182,14 @@ void  MQTT::Packet::Publish(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::TransmitRAW(MQTT_topic);
     SIM800::TransmitRAW(MQTT_messege);
+}
+
+
+void MQTT::Packet::Publish(pchar topic, int value)
+{
+    char buffer[32];
+    sprintf(buffer, "%d", value);
+    Publish(topic, buffer);
 }
 
 
