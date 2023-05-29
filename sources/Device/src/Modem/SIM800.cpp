@@ -355,9 +355,8 @@ void SIM800::TransmitUINT8(uint8 byte)
 }
 
 
-void SIM800::Reset(pchar file, int line)
+void SIM800::Reset()
 {
-    LOG_WRITE("SIM800::Reset() %s:%d", file, line);
     state = State::START;
     MODEM_RESET();
     MQTT::Reset();
