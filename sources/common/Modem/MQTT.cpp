@@ -23,7 +23,7 @@ namespace MQTT
 {
     namespace Request
     {
-        static bool proceed_arrow = true;      // true, РµСЃР»Рё РѕР±СЂР°Р±РѕС‚Р°РЅР° РїРѕСЃР»РµРґРЅСЏСЏ СЃС‚СЂРµР»РѕС‡РєР°
+        static bool proceed_arrow = true;      // true, если обработана последняя стрелочка
 
         static void Close()
         {
@@ -36,7 +36,7 @@ namespace MQTT
         enum E
         {
             IDLE,
-            WAIT_RESPONSE_CIPSEND,      // Р–РґРµС‘Рј РїСЂРёРіР»Р°С€РµРЅРёСЏ ">"
+            WAIT_RESPONSE_CIPSEND,      // Ждеём приглашения ">"
             RUNNING
         };
     };
@@ -45,13 +45,13 @@ namespace MQTT
 
     static TimeMeterMS meterPing;
 
-    // Р•СЃР»Рё nned_ping == true, С‚Рѕ РїРѕСЃС‹Р»Р°РµРј РєРѕРјР°РЅРґСѓ РїРёРЅРіР°
+    // Если nned_ping == true, то посылаем команду пинга
     static bool need_ping = false;
 
     static const char *MQTT_type = "MQTT";
-    static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // СѓРЅРёРєР°Р»СЊРЅРѕРµ РёРјСЏ СѓСЃС‚СЂРѕР№СЃС‚РІР° РІ СЃРµС‚Рё MQTT
+    static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT
 
-    // РЎР±СЂР°СЃС‹РІР°РµС‚СЃСЏ РєР°Р¶РґС‹Р№ СЂР°Р· РїСЂРё РїРѕСЃС‚СѓРїР»РµРЅРёРё РґР°РЅС‹РЅС…
+    // Сбрасывается каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
 }
 
@@ -77,17 +77,17 @@ void MQTT::Update(pchar answer)
     case State::WAIT_RESPONSE_CIPSEND:
         if (strcmp(answer, ">") == 0)
         {
-            SIM800::TransmitUINT8(0x10);   // РјР°СЂРєРµСЂ РїР°РєРµС‚Р° РЅР° СѓСЃС‚Р°РЅРѕРІРєСѓ СЃРѕРµРґРёРЅРµРЅРёСЏ
+            SIM800::TransmitUINT8(0x10);   // маркер пакета на установку соединения
             SIM800::TransmitUINT8(0x1c);
 //            SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 14));
 
-            // С‚РёРї РїСЂРѕС‚РѕРєРѕР»Р°
+            // тип протокола
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_type));
             SIM800::TransmitRAW(MQTT_type);
 
-            // РїСЂРѕСЃС‚Рѕ С‚Р°Рє РЅСѓР¶РЅРѕ
-            SIM800::TransmitUINT8(0x04);    // РІРµСЂСЃРёСЏ РїСЂРѕС‚РѕРєРѕР»Р°
+            // просто так нужно
+            SIM800::TransmitUINT8(0x04);    // версия протокола
             SIM800::TransmitUINT8(0x02);    // connect flag
             SIM800::TransmitUINT8(0x00);    // \ keep alive 
             SIM800::TransmitUINT8(0x3c);    // /
@@ -184,7 +184,7 @@ void MQTT::Request::Send()
 {
     if (state == State::RUNNING)
     {
-        if (proceed_arrow)
+//        if (proceed_arrow)
         {
             SIM800::Transmit("AT+CIPSEND");
 
