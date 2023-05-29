@@ -12,6 +12,12 @@ void HAL_FWDGT::Init()
 }
 
 
+void HAL_FWDGT::DeInit()
+{
+
+}
+
+
 void HAL_FWDGT::Update()
 {
     fwdgt_counter_reload();
