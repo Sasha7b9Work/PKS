@@ -8,6 +8,6 @@ namespace Sender
     {
         void Send(int num, bool is_low);
 
-        void OnEventSend();
+        bool SendToSIM800();
     }
 }

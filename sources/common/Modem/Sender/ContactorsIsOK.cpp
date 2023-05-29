@@ -38,7 +38,7 @@ namespace Sender
             }
         }
 
-        void OnEventSend()
+        bool SendToSIM800()
         {
             static const char *const names[NUM_PINS_MX] =
             {
@@ -79,6 +79,8 @@ namespace Sender
             {
                 MQTT::Packet::Publish("base/state/state_contactors", all_is_ok ? "1" : "0");
             }
+
+            return sended;
         }
     }
 }

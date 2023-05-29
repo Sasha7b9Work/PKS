@@ -27,7 +27,7 @@ namespace Sender
             }
         }
 
-        bool OnEventSend()
+        bool SendToSIM800()
         {
             bool result = need;
 

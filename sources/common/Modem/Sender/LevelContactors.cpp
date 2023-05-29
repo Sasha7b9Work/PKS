@@ -25,7 +25,7 @@ namespace Sender
             }
         }
 
-        bool OnEventSend()
+        bool SendToSIM800()
         {
             static const char *const names[Phase::Count] = { "A", "B", "C" };
 

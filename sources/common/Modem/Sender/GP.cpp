@@ -23,9 +23,11 @@ namespace Sender
             need[num - 1] = true;
         }
 
-        void OnEventSend()
+        bool SendToSIM800()
         {
-            if (need[0] || need[1] || need[2])
+            bool need_send = need[0] || need[1] || need[2];
+
+            if (need_send)
             {
                 char name[20] = "/base/state/gp0";
 
@@ -41,6 +43,8 @@ namespace Sender
                     }
                 }
             }
+
+            return need_send;
         }
     }
 }

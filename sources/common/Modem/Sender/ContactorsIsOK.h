@@ -9,6 +9,6 @@ namespace Sender
     {
         void Send(const bool state[NUM_PINS_MX]);
 
-        void OnEventSend();
+        bool SendToSIM800();
     }
 }

@@ -9,6 +9,6 @@ namespace Sender
     {
         void Send(const int level[Phase::Count]);
 
-        bool OnEventSend();
+        bool SendToSIM800();
     }
 }

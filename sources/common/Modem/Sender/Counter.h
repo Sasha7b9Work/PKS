@@ -10,6 +10,6 @@ namespace Sender
 
         void OnStateRunning();
 
-        bool OnEventSend();
+        bool SendToSIM800();
     }
 }

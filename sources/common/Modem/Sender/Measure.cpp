@@ -52,7 +52,7 @@ namespace Sender
             MQTT::Packet::Publish(name, buffer);
         }
 
-        bool OnEventSend()
+        bool SendToSIM800()
         {
             bool result = need;
 

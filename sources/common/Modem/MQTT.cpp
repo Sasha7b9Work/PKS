@@ -106,25 +106,31 @@ void MQTT::Update(pchar answer)
         {
             bool sending = false;
 
-            if (Sender::Counter::OnEventSend())
+            if (Sender::Counter::SendToSIM800())
             {
                 sending = true;
             }
 
-            if (Sender::Measure::OnEventSend())
+            if (Sender::Measure::SendToSIM800())
             {
                 sending = true;
             }
 
-            if (Sender::LevelContactors::OnEventSend())
+            if (Sender::LevelContactors::SendToSIM800())
             {
                 sending = true;
             }
-//
-//            Sender::ContactorsIsOK::OnEventSend();
-//
-//            Sender::GP::OnEventSend();
-//
+
+            if (Sender::ContactorsIsOK::SendToSIM800())
+            {
+                sending = true;
+            }
+
+            if (Sender::GP::SendToSIM800())
+            {
+                sending = true;
+            }
+
 //            if (need_ping)
 //            {
 //                SIM800::TransmitUINT8(0xC0);
