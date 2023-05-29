@@ -51,7 +51,6 @@ namespace SIM800
 
     static void Reset()
     {
-        Application::Run();
         state = State::START;
         Modem::Reset();
     }
