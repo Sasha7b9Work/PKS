@@ -7,23 +7,25 @@
 
 namespace Sender
 {
-    static bool versionSW = false;
+    static bool versionSW_is_sended = false;
 }
 
 
 void Sender::Reset()
 {
     Counter::Reset();
+
+    versionSW_is_sended = false;
 }
 
 
 bool Sender::SendToSIM800()
 {
-    if (!versionSW)
+    if (!versionSW_is_sended)
     {
         MQTT::Packet::Publish("/versionSW", VERSION);
 
-        versionSW = true;
+        versionSW_is_sended = true;
 
         return true;
     }
