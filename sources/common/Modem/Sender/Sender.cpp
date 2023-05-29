@@ -41,12 +41,6 @@ bool Sender::SendToSIM800()
 
         MQTT::Packet::Publish("/test/string", "test");
 
-        static int counter = 0;
-        char buffer[32];
-        std::sprintf(buffer, "%d", counter++);
-
-        MQTT::Packet::Publish("/test/array", buffer);
-
         return true;
     }
 

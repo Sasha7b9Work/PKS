@@ -98,6 +98,17 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
+        char buffer[32];
+
+        if (strcmp(GetWord(answer, 2, buffer), "/update") == 0)
+        {
+            int i = 0;
+        }
+        else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
+        {
+            int i = 0;
+        }
+
         MQTT::CallbackOnReceiveData(answer);
     }
 
