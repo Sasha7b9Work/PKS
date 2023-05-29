@@ -112,6 +112,10 @@ bool SIM800::ProcessUnsolicited(pchar answer)
             char buf[32];
             strcpy(buf, answer);
             size = size;
+            char last = answer[18];
+            last = last;
+            char pred_last = answer[17];
+            pred_last = pred_last;
             int i = 0;
         }
         else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
