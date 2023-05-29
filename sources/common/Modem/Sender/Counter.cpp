@@ -10,7 +10,7 @@ namespace Sender
 {
     namespace Counter
     {
-        static int value = 0;
+        static int value = -1;
         static bool need = false;
         static TimeMeterMS meter;
 
@@ -36,7 +36,7 @@ namespace Sender
                 need = false;
 
                 char buffer[32];
-                std::sprintf(buffer, "%d", ++value);
+                std::sprintf(buffer, "%d", value++);
 
                 MQTT::Packet::Publish("base/state/counter", buffer);
 
