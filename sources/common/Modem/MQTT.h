@@ -14,11 +14,6 @@ namespace MQTT
 
     namespace Packet
     {
-        void Reset();
-
-        // Столько пакетов было опубликовано после последнего Reset()
-        int Count();
-
         void Publish(const char *topic, const char *message);
     }
 

@@ -21,18 +21,13 @@ using namespace std;
 
 namespace MQTT
 {
-    namespace Packet
+    namespace Request
     {
-        static int counter = 0;
+        static int number = 0;          // Количество запросов
 
-        void Reset()
+        static void Close()
         {
-            counter = 0;
-        }
-
-        int Count()
-        {
-            return counter;
+            number = 0;
         }
     }
 
@@ -136,9 +131,9 @@ void MQTT::Update(pchar answer)
 //                need_ping = false;
 //            }
 
-            SIM800::TransmitUINT8(MQTT::Packet::Count() ? (uint8)0x1A : (uint8)0x1B);
+            SIM800::TransmitUINT8((uint8)0x1A);
 
-            MQTT::Packet::Reset();
+            Request::Close();
         }
         else
         {
@@ -176,8 +171,6 @@ void  MQTT::Packet::Publish(const char *MQTT_topic, const char *MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::TransmitRAW(MQTT_topic);
     SIM800::TransmitRAW(MQTT_messege);
-
-    counter++;
 }
 
 
@@ -189,8 +182,10 @@ void MQTT::CallbackOnReceiveData(pchar)
 
 void MQTT::Request::Send()
 {
-    if (state == State::RUNNING)
+    if (state == State::RUNNING && number == 0)
     {
         SIM800::Transmit("AT+CIPSEND");
+
+        number++;
     }
 }
