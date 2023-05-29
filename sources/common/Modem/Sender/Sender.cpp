@@ -34,5 +34,14 @@ bool Sender::SendToSIM800()
         }
     }
 
+    if (meter.ElapsedTime() > 5000)
+    {
+        meter.Reset();
+
+        MQTT::Packet::Publish("/test/string", "test");
+
+        return true;
+    }
+
     return false;
 }
