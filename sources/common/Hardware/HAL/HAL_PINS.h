@@ -120,6 +120,7 @@ extern PinIN pinP2;     // /
 extern PinOUT pinKMA1;
 extern PinOUT pinKMA2;
 extern PinOUT pinKMA3;
+extern PinOUT pinKMA4;
 extern PinOUT pinKMA5;
 extern PinOUT pinKMA6;
 extern PinOUT pinKMA7;
@@ -128,6 +129,7 @@ extern PinOUT pinKMA9;
 extern PinOUT pinKMB1;
 extern PinOUT pinKMB2;
 extern PinOUT pinKMB3;
+extern PinOUT pinKMB4;
 extern PinOUT pinKMB5;
 extern PinOUT pinKMB6;
 extern PinOUT pinKMB7;
@@ -136,14 +138,9 @@ extern PinOUT pinKMB9;
 extern PinOUT pinKMC1;
 extern PinOUT pinKMC2;
 extern PinOUT pinKMC3;
+extern PinOUT pinKMC4;
 extern PinOUT pinKMC5;
 extern PinOUT pinKMC6;
 extern PinOUT pinKMC7;
 extern PinOUT pinKMC8;
 extern PinOUT pinKMC9;
-
-#ifdef FIVE_STEPS_VERSION
-extern PinOUT pinKMA4;
-extern PinOUT pinKMB4;
-extern PinOUT pinKMC4;
-#endif

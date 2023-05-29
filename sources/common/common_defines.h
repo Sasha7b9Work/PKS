@@ -7,10 +7,22 @@
 #define ENABLE_LOG
 
 // Раскомментировать для 5-ступенчатой версии
-#define FIVE_STEPS_VERSION
+//#define FIVE_STEPS_VERSION
 
 // Раскомментировать для 4-ступенчатой версии
-//#define FOUR_STEPS_VERSION
+#define FOUR_STEPS_VERSION
+
+#ifndef FIVE_STEPS_VERSION
+    #ifndef FOUR_STEPS_VERSION
+        #error Need device version
+    #endif
+#endif
+
+#ifdef FIVE_STEPS_VERSION
+    #ifdef FOUR_STEPS_VERSION
+        #error Define only one version
+    #endif
+#endif
 
 
 typedef unsigned char uint8;
