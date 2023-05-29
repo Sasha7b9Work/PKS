@@ -111,7 +111,10 @@ void MQTT::Update(pchar answer)
                 sending = true;
             }
 
-//            Sender::Measure::OnEventSend();
+            if (Sender::Measure::OnEventSend())
+            {
+                sending = true;
+            }
 
 //            Sender::LevelContactors::OnEventSend();
 //

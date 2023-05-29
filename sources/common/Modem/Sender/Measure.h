@@ -10,6 +10,6 @@ namespace Sender
     {
         void Send(const FullMeasure &meas);
 
-        void OnEventSend();
+        bool OnEventSend();
     }
 }
