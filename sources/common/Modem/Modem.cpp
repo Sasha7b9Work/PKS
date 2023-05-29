@@ -6,6 +6,9 @@
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
 #include "Utils/Buffer.h"
+#ifdef LOADER
+#include "Modem/Updater.h"
+#endif
 #include <gd32f30x.h>
 #include <cstring>
 
@@ -145,7 +148,15 @@ namespace Modem
 
 void Modem::CallbackOnReceive(char symbol)
 {
-    Log::ReceiveFromSIM800(symbol);
+#ifdef LOADER
+    if (Updater::InModeReceiveDataFromFTP())
+    {
+        Updater::CallbackByteFromFTP(symbol);
+        return;
+    }
+#endif
+
+//     Log::ReceiveFromSIM800(symbol);
     
     if (symbol == 0)
     {
