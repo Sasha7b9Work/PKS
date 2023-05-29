@@ -21,16 +21,6 @@ using namespace std;
 
 namespace MQTT
 {
-    namespace Request
-    {
-        static bool proceed_arrow = true;      // true, если обработана последняя стрелочка
-
-        static void Close()
-        {
-            proceed_arrow = true;
-        }
-    }
-
     struct State
     {
         enum E
@@ -132,8 +122,6 @@ void MQTT::Update(pchar answer)
 //            }
 
             SIM800::TransmitUINT8((uint8)0x1A);
-
-            Request::Close();
         }
         else
         {
@@ -184,11 +172,6 @@ void MQTT::Request::Send()
 {
     if (state == State::RUNNING)
     {
-//        if (proceed_arrow)
-        {
-            SIM800::Transmit("AT+CIPSEND");
-
-            proceed_arrow = false;
-        }
+        SIM800::Transmit("AT+CIPSEND");
     }
 }
