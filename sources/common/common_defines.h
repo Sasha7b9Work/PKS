@@ -6,6 +6,12 @@
 
 #define ENABLE_LOG
 
+// Раскомментировать для 5-ступенчатой версии
+#define FIVE_STEPS_VERSION
+
+// Раскомментировать для 4-ступенчатой версии
+//#define FOUR_STEPS_VERSION
+
 
 typedef unsigned char uint8;
 typedef signed char int8;
