@@ -54,7 +54,7 @@ bool MQTT::InStateRunning()
 
 void MQTT::Update(pchar answer)
 {
-    TimeMeterMS meter;
+    static TimeMeterMS meter;
 
     switch (state)
     {
