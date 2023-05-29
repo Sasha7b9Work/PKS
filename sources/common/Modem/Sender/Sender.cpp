@@ -21,14 +21,9 @@ void Sender::Reset()
 
 bool Sender::SendToSIM800()
 {
-    if (!versionSW_is_sended)
-    {
-        MQTT::Packet::Publish("/versionSW", VERSION);
+    MQTT::Packet::Publish("/versionSW", VERSION);
 
-        versionSW_is_sended = true;
+    versionSW_is_sended = true;
 
-        return true;
-    }
-
-    return false;
+    return true;
 }
