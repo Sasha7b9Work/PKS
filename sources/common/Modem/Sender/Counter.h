@@ -10,6 +10,6 @@ namespace Sender
 
         void OnStateRunning();
 
-        void OnEventSend();
+        bool OnEventSend();
     }
 }

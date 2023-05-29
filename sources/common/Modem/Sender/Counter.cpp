@@ -27,8 +27,10 @@ namespace Sender
             }
         }
 
-        void OnEventSend()
+        bool OnEventSend()
         {
+            bool result = need;
+
             if (need)
             {
                 need = false;
@@ -40,6 +42,8 @@ namespace Sender
 
                 meter.SetResponseTime(5000);
             }
+
+            return result;
         }
     }
 }

@@ -104,7 +104,12 @@ void MQTT::Update(pchar answer)
 
         if (strcmp(answer, ">") == 0)
         {
-            Sender::Counter::OnEventSend();
+            bool sending = false;
+
+            if (Sender::Counter::OnEventSend())
+            {
+                sending = true;
+            }
 
 //            Sender::Measure::OnEventSend();
 
@@ -121,7 +126,7 @@ void MQTT::Update(pchar answer)
 //                need_ping = false;
 //            }
 
-            SIM800::TransmitUINT8((uint8)0x1A);
+            SIM800::TransmitUINT8(sending ? (uint8)0x1A : (uint8)0x1B);
         }
         else
         {
