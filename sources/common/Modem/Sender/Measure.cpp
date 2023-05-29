@@ -12,26 +12,16 @@ namespace Sender
     {
         static FullMeasure value;
         static bool need = false;
+        static TimeMeterMS meter;
 
         void Send(const FullMeasure &meas)
         {
-            if (!MQTT::InStateRunning())
+            if (!meter.IsFinished())
             {
                 return;
             }
 
-            static TimeMeterMS meter;
-
-            static bool first = true;
-
-            if (meter.ElapsedTime() < 60000 && !first)
-            {
-                return;
-            }
-
-            first = false;
-
-            meter.Reset();
+            meter.SetResponseTime(60000);
 
             value = meas;
 
