@@ -20,14 +20,7 @@ namespace Sender
 
             value[num - 1] = is_low;
 
-            bool need_request = !need[0] && !need[1] && !need[2];
-
             need[num - 1] = true;
-
-            if (need_request)
-            {
-                MQTT::Request::Send();
-            }
         }
 
         void OnEventSend()

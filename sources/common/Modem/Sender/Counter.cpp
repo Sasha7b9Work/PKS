@@ -24,7 +24,6 @@ namespace Sender
             if (meter.IsFinished())
             {
                 need = true;
-                MQTT::Request::Send();
             }
         }
 

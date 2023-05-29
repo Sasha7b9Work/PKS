@@ -23,15 +23,6 @@ namespace Sender
                     need[i] = true;
                 }
             }
-
-            static TimeMeterMS meter;
-
-            if ((need[0] || need[1] || need[2]) && meter.IsFinished())
-            {
-                MQTT::Request::Send();
-
-                meter.SetResponseTime(500);
-            }
         }
 
         void OnEventSend()

@@ -28,21 +28,13 @@ namespace Sender
 
         void Send(const bool state[NUM_PINS_MX])
         {
-            bool need_request = false;
-
             for (int i = 0; i < NUM_PINS_MX; i++)
             {
                 if (state[i] != value[i])
                 {
                     value[i] = state[i];
                     need[i] = true;
-                    need_request = true;
                 }
-            }
-
-            if (need_request)
-            {
-                MQTT::Request::Send();
             }
         }
 
@@ -71,7 +63,7 @@ namespace Sender
                     }
                     else
                     {
-                        std::sprintf(buffer, "/cont/KM%s", names[i]);
+                        std::sprintf(buffer, "base/cont/KM%s", names[i]);
                         MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
                         sended = true;
                     }
@@ -85,7 +77,7 @@ namespace Sender
             }
             if (sended)
             {
-                MQTT::Packet::Publish("/base/state/state_contactors", all_is_ok ? "1" : "0");
+                MQTT::Packet::Publish("base/state/state_contactors", all_is_ok ? "1" : "0");
             }
         }
     }

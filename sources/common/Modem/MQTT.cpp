@@ -122,9 +122,16 @@ void MQTT::Update(pchar answer)
 //            }
 
             SIM800::TransmitUINT8((uint8)0x1A);
+
+            meter.Reset();
         }
         else
         {
+            if (meter.ElapsedTime() > 1000)
+            {
+                SIM800::Transmit("AT+CIPSEND");
+            }
+
             Sender::Counter::OnStateRunning();
 
             if (meterLastData.ElapsedTime() > 30000)
@@ -165,13 +172,4 @@ void  MQTT::Packet::Publish(const char *MQTT_topic, const char *MQTT_messege)
 void MQTT::CallbackOnReceiveData(pchar)
 {
     meterLastData.Reset();
-}
-
-
-void MQTT::Request::Send()
-{
-    if (state == State::RUNNING)
-    {
-        SIM800::Transmit("AT+CIPSEND");
-    }
 }

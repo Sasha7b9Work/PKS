@@ -36,8 +36,6 @@ namespace Sender
             value = meas;
 
             need = true;
-
-            MQTT::Request::Send();
         }
 
         static void SendMeasure(pchar name, float voltage)

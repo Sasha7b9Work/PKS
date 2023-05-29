@@ -16,10 +16,4 @@ namespace MQTT
     {
         void Publish(const char *topic, const char *message);
     }
-
-    namespace Request
-    {
-        // Послать запрос на передачу данных. После появления ">" отправить данные
-        void Send();
-    }
 }
