@@ -107,6 +107,8 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
         if (strcmp(GetWord(answer, 2, buffer), "13") == 0)
         {
+            char buf[32];
+            strcpy(buf, answer);
             int i = 0;
         }
         else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
