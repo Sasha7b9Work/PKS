@@ -107,6 +107,11 @@ void MQTT::Update(pchar answer)
         {
             bool sending = false;
 
+            if (Sender::SendToSIM800())
+            {
+                sending = true;
+            }
+
             if (Sender::Measure::SendToSIM800())
             {
                 sending = true;
