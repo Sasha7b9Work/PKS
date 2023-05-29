@@ -27,9 +27,11 @@ namespace SIM800
         enum E
         {
             START,
-            WAIT_ANSWER_ATE0,
-            WAIT_ANSWER_GSMBUSY,
-            WAIT_ANSWER_CREG,
+            WAIT_ATE0,
+            WAIT_BAUDRADE,
+            WAIT_GSMBUSY,
+            WAIT_CREG_INIT,
+            WAIT_REGISTRATION,
             WAIT_IP_INITIAL,
             RUNNING_UPDATER
         };
@@ -128,49 +130,66 @@ void SIM800::Update(pchar answer)
     {
     case State::START:
         SIM800::Transmit("ATE0");
-        State::Set(State::WAIT_ANSWER_ATE0);
+        State::Set(State::WAIT_ATE0);
         strcpy(levelSignal, "0");
         break;
 
-    case State::WAIT_ANSWER_ATE0:
+    case State::WAIT_ATE0:
         if (MeterIsRunning(DEFAULT_TIME))
         {
             if (strcmp(answer, "OK") == 0)
             {
-                State::Set(State::WAIT_ANSWER_GSMBUSY);
+                State::Set(State::WAIT_BAUDRADE);
+                SIM800::Transmit("AT+IPR=115200");
+            }
+        }
+        break;
+
+    case State::WAIT_BAUDRADE:
+
+        if (MeterIsRunning(DEFAULT_TIME))
+        {
+            if (strcmp(answer, "RDY") == 0)
+            {
+                State::Set(State::WAIT_GSMBUSY);
                 SIM800::Transmit("AT+GSMBUSY=1");
             }
         }
         break;
 
-    case State::WAIT_ANSWER_GSMBUSY:
+    case State::WAIT_GSMBUSY:
         if (MeterIsRunning(DEFAULT_TIME))
         {
             if (strcmp(answer, "OK") == 0)
             {
-                State::Set(State::WAIT_ANSWER_CREG);
-                SIM800::Transmit("AT+CREG?");                                       // CREG?
+                State::Set(State::WAIT_CREG_INIT);
+                SIM800::Transmit("AT+CREG=1");
             }
         }
         break;
 
-    case State::WAIT_ANSWER_CREG:
-        if(MeterIsRunning(30000))
+    case State::WAIT_CREG_INIT:
+        if (MeterIsRunning(DEFAULT_TIME))
         {
-            Timer::DelayMS(1);
+            if (strcmp(answer, "OK") == 0)
+            {
+                State::Set(State::WAIT_REGISTRATION);
+            }
+        }
+        break;
+
+    case State::WAIT_REGISTRATION:
+        if (MeterIsRunning(60000))
+        {
             if (strcmp(GetWord(answer, 1, buffer), "+CREG") == 0)
             {
-                int stat = GetWord(answer, 3, buffer)[0] & 0x0f;
+                int stat = GetWord(answer, 2, buffer)[0] & 0x0f;
 
-                if (stat == 1 ||        // Registered, home network
-                    stat == 5)          // Registered, roaming
+                if (stat == 1 ||    // Registered, home network
+                    stat == 5)      // Registered, roaming
                 {
                     State::Set(State::WAIT_IP_INITIAL);
                     SIM800::Transmit("AT+CIPSTATUS");
-                }
-                else
-                {
-                    SIM800::Transmit("AT+CREG?");
                 }
             }
         }
