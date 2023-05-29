@@ -4,6 +4,12 @@
 
 namespace SIM800
 {
+    void Update(pchar);
+
+    bool IsRegistered();
+
+    pchar LevelSignal();
+
     void Transmit(pchar);
 
     void Transmit(pchar format, pchar);

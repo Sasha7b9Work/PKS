@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\common\Modem\Sender</LastAddFilePath>
+    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\common\Modem</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -68,7 +68,7 @@
     </View>
     <View>
       <WinId>466</WinId>
-      <ViewName>Source Browser</ViewName>
+      <ViewName>Source Browser - *** Not Enabled ***</ViewName>
       <UserString>500</UserString>
       <TableColWidths>300</TableColWidths>
     </View>

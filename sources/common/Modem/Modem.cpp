@@ -2,20 +2,19 @@
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/SIM800.h"
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
-#include "Modem/Updater.h"
+#include "Utils/Buffer.h"
 #include <gd32f30x.h>
 #include <cstring>
-#include <cstdlib>
 
 
 /*
         5. РАБОТА С GSM МОДЕМОМ
     Устройство имеет GSM/GPRS модем Simcom SIM800C, служащий для передачи данных на сервер по GPRS и удаленного управления контроллером.
     Модем имеет собственный источник питания +4В, управляемый портом PD2 (GSM_PWR), 0 – питание включено, 1 – питание выключено.
-    Контроль питания модема осуществляется портом PE2 (GSM_PG). Данный порт является толерантным к 5В, поэтому подключен к цепи +4В без делителя.
-    Порядок включения модема.
+    Контроль питания модема осуществляется портом PE2 (GSM_PG). Данный порт является толерантным к 5В, поэтому подключен к цепи +4В без делителя.Порядок включения модема.
     1)  Выход GSM_PWR перевести в 1, тем самым обесточив модем.
     2)  Порт GSM_PG перевести в состояние выход 0. Необходимо убедиться, что конденсаторы фильтра питания модема разряжены и на цепи его питания
         нет остаточного напряжения, могущего привести его в неопределенное состояние или зависание. Резистор 1k в цепи станет нагрузкой для разряда конденсаторов.
@@ -35,26 +34,8 @@
         GSM_PWRKEY = 1
 */
 
-/*
-    AT+SAPBR=3,1,"APN","internet"
-    AT+SAPBR=3,1,"USER",""
-    AT+SAPBR=3,1,"PWD",""
-    AT+SAPBR=1,1
-    AT+HTTPINIT
-    AT+HTTPPARA="CID",1
-*/
 
-
-using namespace Parser;
 using namespace std;
-
-
-namespace SIM800
-{
-    void Update(pchar);
-    bool IsRegistered();
-    pchar LevelSignal();
-}
 
 
 namespace Modem
@@ -75,53 +56,79 @@ namespace Modem
 
     static State::E state = State::IDLE;
 
-    const int MAX_LENGTH_ANSWERR = 32;
-
-    namespace Answer
+    // Данные, получаемые от SIM800
+    namespace InData
     {
-        static const int MAX_ANSWERS = 10;
-        static char answers[MAX_ANSWERS][MAX_LENGTH_ANSWERR];
-        static int num_answers = 0;
+        static Buffer<256> main;
+        static Buffer<256> addit;
 
-        static char buffer[MAX_LENGTH_ANSWERR] = { '\0' };
-        static int pointer = 0;
-
-        static void Reset()
+        static void Clear()
         {
-            pointer = 0;
-            num_answers = 0;
+            main.Clear();
+            addit.Clear();
         }
 
-        static void Push(char symbol)
+        void Update()
         {
-            if (symbol == 0x0a || symbol == 0x00)
+            main.mutex.Try();
+
+            if (main.Size() == 0)
             {
-                return;
+                SIM800::Update("");
             }
-
-            if (pointer == MAX_LENGTH_ANSWERR - 1)
+            else
             {
-                pointer = 0;
-            }
+                Buffer<64> answer;
 
-            if (symbol == 0x0d && pointer == 0)
-            {
-                return;
-            }
+                bool answer_exist = false;
 
-            buffer[pointer++] = symbol;
-
-            if (symbol == 0x0d)
-            {
-                buffer[pointer - 1] = '\0';
-
-                if (num_answers < MAX_ANSWERS)
+                do
                 {
-                    strcpy(answers[num_answers++], buffer);
-                }
+                    answer.Clear();
+                    answer_exist = false;
 
-                pointer = 0;
+                    for (int i = 0; i < main.Size(); i++)
+                    {
+                        char symbol = main[i];
+
+                        if (symbol == 0x0a)
+                        {
+                            continue;
+                        }
+                        else if (symbol == 0x0d)
+                        {
+                            if (answer.Size() == 0)
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                answer.Append('\0');
+                                answer_exist = true;
+                                main.RemoveFirst(i + 1);
+                                break;
+                            }
+                        }
+                        else if (symbol == '>')
+                        {
+                            answer.Append('>');
+                            answer.Append('\0');
+                            answer_exist = true;
+                            main.RemoveFirst(i + 1);
+                            break;
+                        }
+                        else
+                        {
+                            answer.Append(symbol);
+                        }
+                    }
+
+                    SIM800::Update(answer_exist ? answer.Data() : "");
+
+                } while (answer_exist);
             }
+
+            main.mutex.Release();
         }
     }
 
@@ -132,6 +139,32 @@ namespace Modem
         static void ToInPullDown();
 
         static bool ReadInput();
+    }
+}
+
+
+void Modem::CallbackOnReceive(char symbol)
+{
+    Log::ReceiveFromSIM800(symbol);
+    
+    if (symbol == 0)
+    {
+        return;
+    }
+
+    if (!InData::main.mutex.IsBusy())
+    {
+        if (InData::addit.Size())
+        {
+            InData::main.Append(InData::addit.Data(), InData::addit.Size());
+            InData::addit.Clear();
+        }
+
+        InData::main.Append(symbol);
+    }
+    else
+    {
+        InData::addit.Append(symbol);
     }
 }
 
@@ -206,19 +239,8 @@ void Modem::Update()
         break;
 
     case State::HARDWARE_IS_OK:
-        if (Answer::num_answers == 0)
-        {
-            SIM800::Update("");
-        }
-        else
-        {
-            for (int i = 0; i < Answer::num_answers; i++)
-            {
-                SIM800::Update(Answer::answers[i]);
-                Answer::answers[i][0] = '\0';
-            }
-            Answer::num_answers = 0;
-        }
+        InData::Update();
+        break;
     }
 }
 
@@ -229,44 +251,27 @@ bool Modem::Mode::Power()
 }
 
 
-pchar Modem::Mode::LevelSignal()
-{
-    return SIM800::LevelSignal();
-}
-
-
 void Modem::Init()
 {
     pinGSM_PWR.Init();
-    pinGSM_PWRKEY.Init();pinGSM_STATUS.Init(GPIO_MODE_IPD);
+    pinGSM_PWRKEY.Init();
+    pinGSM_STATUS.Init(GPIO_MODE_IPD);
 
     pinGSM_PWR.Set();
     pinGSM_PWRKEY.Set();
 }
 
 
-void Modem::Reset()
+bool Modem::ExistUpdate()
 {
-    state = State::IDLE;
-    Answer::Reset();
+    return false;
 }
 
 
-void Modem::CallbackOnReceive(char symbol)
+void Modem::Reset()
 {
-    if (Updater::InModeReceiveDataFromFTP())
-    {
-        Updater::CallbackByteFromFTP(symbol);
-    }
-    else
-    {
-        Answer::Push(symbol);
-
-        if (symbol == '>')
-        {
-            Answer::Push(0x0d);
-        }
-    }
+    state = State::IDLE;
+    InData::Clear();
 }
 
 

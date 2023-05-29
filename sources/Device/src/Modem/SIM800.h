@@ -9,6 +9,7 @@ namespace SIM800
 {
     void Update(pchar);
 
+    // Возвращает true, если зарегистрирован в сети
     bool IsRegistered();
 
     pchar LevelSignal();

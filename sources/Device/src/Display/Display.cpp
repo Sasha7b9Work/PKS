@@ -5,6 +5,7 @@
 #include "Measurer/Measurer.h"
 #include "Modem/Modem.h"
 #include "Modem/MQTT.h"
+#include "Modem/SIM800.h"
 #include <cstring>
 #include <cstdio>
 
@@ -57,7 +58,7 @@ void Display::Update()
         WriteString(5, 5, "œ»“");
     }
 
-    if (Modem::Mode::Registered())
+    if (SIM800::IsRegistered())
     {
         WriteString(40, 5, "–≈√");
     }
@@ -66,7 +67,7 @@ void Display::Update()
     {
         WriteString(80, 5, "Ã ˛““");
 
-        WriteString(120, 5, Modem::Mode::LevelSignal());
+        WriteString(120, 5, SIM800::LevelSignal());
     }
 
     SSD1306::WriteBuffer(buffer);

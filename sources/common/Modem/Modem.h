@@ -3,23 +3,26 @@
 #include "Measurer/Measurer.h"
 
 
+#define MODEM_RESET()  Modem::Reset()
+
+
 namespace Modem
 {
     void Init();
 
     void Update();
 
+    // Есть обновление
+    bool ExistUpdate();
+
     void CallbackOnReceive(char);
 
-    // В случае возникновения в машине состояний Modem, SIM800 или Updater вызывать
+    // После любой необработанной ошибки SIM800 вызывать эту функцию
     void Reset();
 
     namespace Mode
     {
         // Возвращает true, если напряжение подано
         bool Power();
-
-        // Уровень сигнала от 0 до 10
-        pchar LevelSignal();
     }
 }

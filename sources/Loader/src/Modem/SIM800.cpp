@@ -73,13 +73,7 @@ namespace SIM800
     void TransmitRAW(pchar);
     void TransmitUINT8(uint8);
 
-    void Update(pchar);
-
     static bool ProcessUnsolicited(pchar);
-
-    bool IsRegistered();
-
-    pchar LevelSignal();
 
     static TimeMeterMS meterCSQ;
 
