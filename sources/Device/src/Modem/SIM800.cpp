@@ -104,11 +104,20 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         {
             int i = 0;
         }
-        else if (strcmp(GetWord(answer, 2, buffer), "/update") == 0)
+
+        if (strcmp(GetWord(answer, 2, buffer), "/update") == 0)
         {
             int i = 0;
         }
         else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
+        {
+            int i = 0;
+        }
+        else if (strcmp(GetWord(answer, 4, buffer), "/update") == 0)
+        {
+            int i = 0;
+        }
+        else if (strcmp(GetWord(answer, 5, buffer), "/update") == 0)
         {
             int i = 0;
         }
