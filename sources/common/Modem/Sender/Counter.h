@@ -8,8 +8,6 @@ namespace Sender
     {
         void Reset();
 
-        void OnStateRunning();
-
         bool SendToSIM800();
     }
 }

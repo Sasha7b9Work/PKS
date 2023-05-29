@@ -11,39 +11,20 @@ namespace Sender
     namespace Counter
     {
         static int value = -1;
-        static bool need = false;
-        static TimeMeterMS meter;
 
         void Reset()
         {
             value = 0;
         }
 
-        void OnStateRunning()
-        {
-            if (meter.IsFinished())
-            {
-                need = true;
-            }
-        }
-
         bool SendToSIM800()
         {
-            bool result = need;
+            char buffer[32];
+            std::sprintf(buffer, "%d", value++);
 
-            if (need)
-            {
-                need = false;
+            MQTT::Packet::Publish("base/state/counter", buffer);
 
-                char buffer[32];
-                std::sprintf(buffer, "%d", value++);
-
-                MQTT::Packet::Publish("base/state/counter", buffer);
-
-                meter.SetResponseTime(60000);
-            }
-
-            return result;
+            return true;
         }
     }
 }

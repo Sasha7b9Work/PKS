@@ -106,11 +106,6 @@ void MQTT::Update(pchar answer)
         {
             bool sending = false;
 
-            if (Sender::Counter::SendToSIM800())
-            {
-                sending = true;
-            }
-
             if (Sender::Measure::SendToSIM800())
             {
                 sending = true;
@@ -131,6 +126,11 @@ void MQTT::Update(pchar answer)
                 sending = true;
             }
 
+            if (sending)
+            {
+                Sender::Counter::SendToSIM800();
+            }
+
 //            if (need_ping)
 //            {
 //                SIM800::TransmitUINT8(0xC0);
@@ -148,8 +148,6 @@ void MQTT::Update(pchar answer)
 
                 meter.Reset();
             }
-
-            Sender::Counter::OnStateRunning();
 
             if (meterLastData.ElapsedTime() > 30000)
             {
