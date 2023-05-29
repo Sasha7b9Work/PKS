@@ -23,11 +23,11 @@ namespace MQTT
 {
     namespace Request
     {
-        static int number = 0;          // Количество запросов
+        static bool proceed_arrow = true;      // true, если обработана последняя стрелочка
 
         static void Close()
         {
-            number = 0;
+            proceed_arrow = true;
         }
     }
 
@@ -182,17 +182,13 @@ void MQTT::CallbackOnReceiveData(pchar)
 
 void MQTT::Request::Send()
 {
-    static TimeMeterMS meter;
-
     if (state == State::RUNNING)
     {
-        if (number == 0 || meter.ElapsedTime() > 1000)
+        if (proceed_arrow)
         {
-            meter.Reset();
-
             SIM800::Transmit("AT+CIPSEND");
 
-            number++;
+            proceed_arrow = false;
         }
     }
 }
