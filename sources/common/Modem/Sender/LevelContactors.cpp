@@ -39,7 +39,7 @@ namespace Sender
                 if (need[i])
                 {
                     need[i] = false;
-                    std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
+                    std::sprintf(buffer_name, "base/cont/level%s", names[i]);
                     std::sprintf(buffer_value, "%d", -value[i]);
                     MQTT::Packet::Publish(buffer_name, buffer_value);
                     result = true;
