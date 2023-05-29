@@ -4,6 +4,7 @@
 #include "Modem/Sender/Counter.h"
 #include "Modem/MQTT.h"
 #include "Hardware/Timer.h"
+#include <cstdio>
 
 
 namespace Sender
@@ -39,6 +40,12 @@ bool Sender::SendToSIM800()
         meter.Reset();
 
         MQTT::Packet::Publish("/test/string", "test");
+
+        static int counter = 0;
+        char buffer[32];
+        std::sprintf(buffer, "%d", counter++);
+
+        MQTT::Packet::Publish("/test/array", buffer);
 
         return true;
     }
