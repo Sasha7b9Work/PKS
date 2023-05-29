@@ -25,12 +25,14 @@ namespace Sender
             }
         }
 
-        void OnEventSend()
+        bool OnEventSend()
         {
             static const char *const names[Phase::Count] = { "A", "B", "C" };
 
             char buffer_name[32];
             char buffer_value[32];
+
+            bool result = false;
 
             for (int i = 0; i < Phase::Count; i++)
             {
@@ -40,8 +42,11 @@ namespace Sender
                     std::sprintf(buffer_name, "/base/cont/level%s", names[i]);
                     std::sprintf(buffer_value, "%d", -value[i]);
                     MQTT::Packet::Publish(buffer_name, buffer_value);
+                    result = true;
                 }
             }
+
+            return result;
         }
     }
 }

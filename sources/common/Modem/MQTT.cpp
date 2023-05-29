@@ -116,7 +116,10 @@ void MQTT::Update(pchar answer)
                 sending = true;
             }
 
-//            Sender::LevelContactors::OnEventSend();
+            if (Sender::LevelContactors::OnEventSend())
+            {
+                sending = true;
+            }
 //
 //            Sender::ContactorsIsOK::OnEventSend();
 //
