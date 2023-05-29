@@ -182,10 +182,17 @@ void MQTT::CallbackOnReceiveData(pchar)
 
 void MQTT::Request::Send()
 {
-    if (state == State::RUNNING && number == 0)
-    {
-        SIM800::Transmit("AT+CIPSEND");
+    static TimeMeterMS meter;
 
-        number++;
+    if (state == State::RUNNING)
+    {
+        if (number == 0 || meter.ElapsedTime() > 1000)
+        {
+            meter.Reset();
+
+            SIM800::Transmit("AT+CIPSEND");
+
+            number++;
+        }
     }
 }
