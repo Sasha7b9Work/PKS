@@ -74,8 +74,6 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
-    uint size = strlen(answer);
-
     char first_word[32];
 
     GetWord(answer, 1, first_word);
@@ -101,34 +99,12 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     else if (strcmp(first_word, "+IPD") == 0)
     {
         char buffer[32];
-
-        if (strcmp(GetWord(answer, 2, buffer), "4") != 0)
-        {
-            int i = 0;
-        }
-
         if (strcmp(GetWord(answer, 2, buffer), "13") == 0)
         {
-            char buf[32];
-            strcpy(buf, answer);
-            size = size;
-            char last = answer[18];
-            last = last;
-            char pred_last = answer[17];
-            pred_last = pred_last;
-            int i = 0;
-        }
-        else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
-        {
-            int i = 0;
-        }
-        else if (strcmp(GetWord(answer, 4, buffer), "/update") == 0)
-        {
-            int i = 0;
-        }
-        else if (strcmp(GetWord(answer, 5, buffer), "/update") == 0)
-        {
-            int i = 0;
+            if (answer[18] == 1 && answer[17] == 'e' && answer[16] == 't' && answer[15] == 'a')
+            {
+                Bootloader::Run();
+            }
         }
 
         MQTT::CallbackOnReceiveData(answer);
