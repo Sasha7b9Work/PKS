@@ -28,7 +28,7 @@ namespace Sender
 
             if ((need[0] || need[1] || need[2]) && meter.IsFinished())
             {
-                MQTT::Send::SendRequest();
+                MQTT::Request::Send();
 
                 meter.SetResponseTime(500);
             }

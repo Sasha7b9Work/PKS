@@ -187,7 +187,7 @@ void MQTT::CallbackOnReceiveData(pchar)
 }
 
 
-void MQTT::Send::SendRequest()
+void MQTT::Request::Send()
 {
     if (state == State::RUNNING)
     {

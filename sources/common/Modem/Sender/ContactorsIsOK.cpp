@@ -42,7 +42,7 @@ namespace Sender
 
             if (need_request)
             {
-                MQTT::Send::SendRequest();
+                MQTT::Request::Send();
             }
         }
 
