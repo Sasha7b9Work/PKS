@@ -122,8 +122,6 @@ void MQTT::Update(pchar answer)
 //            }
 
             SIM800::TransmitUINT8((uint8)0x1A);
-
-            meter.Reset();
         }
         else
         {
