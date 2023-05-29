@@ -848,6 +848,16 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Sender\ContactorsIsOK.cpp</FilePath>
             </File>
+            <File>
+              <FileName>Sender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Sender\Sender.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Sender\Sender.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
