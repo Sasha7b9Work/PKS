@@ -3,6 +3,7 @@
 #include "Modem/Sender/Sender.h"
 #include "Modem/Sender/Counter.h"
 #include "Modem/MQTT.h"
+#include "Hardware/Timer.h"
 
 
 namespace Sender
@@ -21,9 +22,17 @@ void Sender::Reset()
 
 bool Sender::SendToSIM800()
 {
-    MQTT::Packet::Publish("/versionSW", VERSION);
+    static TimeMeterMS meter;
 
-    versionSW_is_sended = true;
+    if (!versionSW_is_sended)
+    {
+        if (meter.ElapsedTime() > 3000)
+        {
+            MQTT::Packet::Publish("/versionSW", VERSION);
+            versionSW_is_sended = true;
+            return true;
+        }
+    }
 
-    return true;
+    return false;
 }
