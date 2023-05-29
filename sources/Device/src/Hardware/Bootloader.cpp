@@ -1,6 +1,7 @@
 // 2023/05/24 12:13:36 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/Bootloader.h"
+#include "Hardware/HAL/HAL.h"
 #include <gd32f30x.h>
 
 
@@ -19,6 +20,8 @@ namespace Bootloader
 
 void Bootloader::Run()
 {
+    HAL::DeInit();
+
     const uint ADDR_BOOTLOADER = 0x08026000U;
 
     typedef void (*iapfun)(void);

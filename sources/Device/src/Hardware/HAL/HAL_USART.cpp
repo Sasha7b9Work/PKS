@@ -31,6 +31,18 @@ void HAL_USART_GPRS::Init()
 }
 
 
+void HAL_USART_GPRS::DeInit()
+{
+    usart_disable(USART_GPRS_ADDR);
+
+    usart_interrupt_disable(USART_GPRS_ADDR, USART_INT_RBNE);
+
+    usart_deinit(USART_GPRS_ADDR);
+
+    nvic_irq_disable(UART3_IRQn);
+}
+
+
 void HAL_USART_GPRS::Transmit(pchar message)
 {
     Transmit((void *)message, (int)std::strlen(message));

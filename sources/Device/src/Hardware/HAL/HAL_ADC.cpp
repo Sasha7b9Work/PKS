@@ -153,3 +153,19 @@ void HAL_ADC::Init()
 
     adc_software_trigger_enable(ADC0, ADC_REGULAR_CHANNEL);
 }
+
+
+void HAL_ADC::DeInit()
+{
+    adc_disable(ADC0);
+
+    adc_interrupt_disable(ADC0, ADC_INT_EOC);
+
+    timer_disable(TIMER0);
+
+    timer_deinit(TIMER0);
+
+    dma_deinit(DMA0, DMA_CH0);
+
+    nvic_irq_enable(ADC0_1_IRQn, 0, 0);
+}

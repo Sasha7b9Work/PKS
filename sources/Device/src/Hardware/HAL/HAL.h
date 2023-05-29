@@ -19,6 +19,7 @@ struct PackedTime
 namespace HAL
 {
     void Init();
+    void DeInit();
     void ErrorHandler();
 }
 
@@ -26,6 +27,7 @@ namespace HAL
 namespace HAL_ADC
 {
     void Init();
+    void DeInit();
     // Вызывать, когда считаны новые значения
     void Callback();
 }
@@ -59,6 +61,7 @@ namespace HAL_TIM1
 namespace HAL_USART_GPRS
 {
     void Init();
+    void DeInit();
     // Передать с завершающм 0x0d
     void Transmit(pchar);
     void Transmit(char);
