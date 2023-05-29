@@ -59,31 +59,20 @@ namespace Modem
     // Данные, получаемые от SIM800
     namespace InData
     {
-        static Buffer<256> _main;
+        static Buffer<256> main;
         static Buffer<256> addit;
-
-        static Buffer<256> buffer;
 
         static void Clear()
         {
-            _main.Clear();
+            main.Clear();
             addit.Clear();
-            buffer.Clear();
         }
 
         void Update()
         {
-            _main.mutex.Try();
+            main.mutex.Try();
 
-            if (_main.Size())
-            {
-                buffer.Append(_main.Data(), _main.Size());
-                _main.Clear();
-            }
-
-            _main.mutex.Release();
-
-            if (buffer.Size() == 0)
+            if (main.Size() == 0)
             {
                 SIM800::Update("");
             }
@@ -98,9 +87,9 @@ namespace Modem
                     answer.Clear();
                     answer_exist = false;
 
-                    for (int i = 0; i < buffer.Size(); i++)
+                    for (int i = 0; i < main.Size(); i++)
                     {
-                        char symbol = buffer[i];
+                        char symbol = main[i];
 
                         if (symbol == 0x0a)
                         {
@@ -116,7 +105,7 @@ namespace Modem
                             {
                                 answer.Append('\0');
                                 answer_exist = true;
-                                buffer.RemoveFirst(i + 1);
+                                main.RemoveFirst(i + 1);
                                 break;
                             }
                         }
@@ -125,7 +114,7 @@ namespace Modem
                             answer.Append('>');
                             answer.Append('\0');
                             answer_exist = true;
-                            buffer.RemoveFirst(i + 1);
+                            main.RemoveFirst(i + 1);
                             break;
                         }
                         else
@@ -138,6 +127,8 @@ namespace Modem
 
                 } while (answer_exist);
             }
+
+            main.mutex.Release();
         }
     }
 
@@ -161,15 +152,15 @@ void Modem::CallbackOnReceive(char symbol)
         return;
     }
 
-    if (!InData::_main.mutex.IsBusy())
+    if (!InData::main.mutex.IsBusy())
     {
         if (InData::addit.Size())
         {
-            InData::_main.Append(InData::addit.Data(), InData::addit.Size());
+            InData::main.Append(InData::addit.Data(), InData::addit.Size());
             InData::addit.Clear();
         }
 
-        InData::_main.Append(symbol);
+        InData::main.Append(symbol);
     }
     else
     {
