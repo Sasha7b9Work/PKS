@@ -74,6 +74,8 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
+    uint size = strlen(answer);
+
     char first_word[32];
 
     GetWord(answer, 1, first_word);
@@ -109,6 +111,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         {
             char buf[32];
             strcpy(buf, answer);
+            size = size;
             int i = 0;
         }
         else if (strcmp(GetWord(answer, 3, buffer), "/update") == 0)
