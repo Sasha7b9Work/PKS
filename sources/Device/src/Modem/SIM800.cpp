@@ -333,28 +333,6 @@ pchar SIM800::LevelSignal()
 }
 
 
-void SIM800::Transmit::With0D(pchar message)
-{
-    HAL_USART_GPRS::Transmit(message);
-
-    static const char end_message[2] = { 0x0d, 0 };
-
-    HAL_USART_GPRS::Transmit(end_message);
-}
-
-
-void SIM800::Transmit::RAW(pchar message)
-{
-    HAL_USART_GPRS::Transmit(message);
-}
-
-
-void SIM800::Transmit::UINT8(uint8 byte)
-{
-    HAL_USART_GPRS::Transmit(&byte, 1);
-}
-
-
 void SIM800::Reset()
 {
     state = State::START;
