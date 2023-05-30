@@ -33,7 +33,7 @@ file(GLOB HARDWARE                    src/Hardware/*.*
                                 ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS              src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                src/Hardware/HAL/*.*
-                                ../common/Hardware/HAL/HAL_PINS.*)
+                                ../common/Hardware/HAL/*.*)
 file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*
                                 ../common/Modem/Modem.*
@@ -48,7 +48,7 @@ source_group(Hardware/HAL       FILES ${HARDWARE_HAL})
 source_group(Modem              FILES ${MODEM})
 source_group(Utils              FILES ${UTILS})
 
-set_source_files_properties(${GD32F3} ${HARDWARE_CMSIS} src/Hardware/HAL/systick.c
+set_source_files_properties(${GD32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/systick.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}

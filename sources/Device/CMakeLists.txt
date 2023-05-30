@@ -40,7 +40,7 @@ file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
-                                   ../common/Hardware/HAL/HAL_PINS.*)
+                                   ../common/Hardware/HAL/*.*)
 file(GLOB HARDWARE_MODULES_SSD1306       src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 ../common/Measurer/*.*)
@@ -64,7 +64,7 @@ source_group(Modem                    FILES ${MODEM})
 source_group(Modem/Sender             FILES ${MODEM_SENDER})
 source_group(Utils                    FILES ${UTILS})
 
-set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} src/Hardware/HAL/systick.c
+set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/systick.c
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}
