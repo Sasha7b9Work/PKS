@@ -30,7 +30,18 @@ bool Sender::SendToSIM800()
     {
         if (meter.ElapsedTime() > 3000)
         {
-            MQTT::Packet::Publish("/versionSW", VERSION);
+            char buffer[32];
+
+            std::sprintf(buffer, "%d : %dst", VERSION,
+#ifdef FOUR_STEPS_VERSION
+                4
+#endif
+#ifdef FIVE_STEPS_VERSION
+                5
+#endif
+            );
+
+            MQTT::Packet::Publish("/versionSW", buffer);
             versionSW_is_sended = true;
 
             MQTT::Packet::Publish("base/id", (int)HAL::GetUID());

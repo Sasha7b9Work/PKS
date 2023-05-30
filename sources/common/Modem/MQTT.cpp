@@ -148,7 +148,7 @@ void MQTT::Update(pchar answer)
         }
         else
         {
-            if (meter.ElapsedTime() > 1000)
+            if (meter.ElapsedTime() > 5000)
             {
                 SIM800::Transmit::With0D("AT+CIPSEND");
 
