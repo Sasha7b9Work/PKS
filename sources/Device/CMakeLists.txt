@@ -46,6 +46,8 @@ file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/*.*)
+file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
+file(GLOB MODEM_MQTT_SENDER        ../common/Modem/MQTT/Sender/*.*)
 file(GLOB MODEM_SENDER             ../common/Modem/Sender/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
 
@@ -61,7 +63,8 @@ source_group(Hardware/Modules/SSD1306 FILES ${HARDWARE_MODULES_SSD1306})
 source_group(Hardware/Modules/M25P80  FILES ${HARDWARE_MODULES_M25P80})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
-source_group(Modem/Sender             FILES ${MODEM_SENDER})
+source_group(Modem/MQTT               FILES ${MODEM_MQTT})
+source_group(Modem/MQTT/Sender        FILES ${MODEM_MQTT_SENDER})
 source_group(Utils                    FILES ${UTILS})
 
 set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/systick.c
@@ -80,6 +83,7 @@ add_library(${PROJECT_NAME}
             ${HARDWARE_MODULES_M25P80}
             ${MEASURER}
             ${MODEM}
-            ${MODEM_SENDER}
+            ${MODEM_MQTT}
+            ${MODEM_MQTT_SENDER}
             ${UTILS}
             )

@@ -1,7 +1,7 @@
 // 2023/05/26 12:14:31 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/Sender/GP.h"
-#include "Modem/MQTT.h"
+#include "Modem/MQTT/Sender/GP.h"
+#include "Modem/MQTT/MQTT.h"
 
 
 namespace Sender

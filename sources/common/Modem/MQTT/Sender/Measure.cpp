@@ -1,6 +1,6 @@
 // 2023/05/26 11:43:55 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/Sender/Measure.h"
+#include "Modem/MQTT/Sender/Measure.h"
 #include "Hardware/Timer.h"
 #include <cstdio>
 #include <cstring>

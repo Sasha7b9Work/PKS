@@ -3,7 +3,7 @@
 #include "Hardware/HAL/HAL_PINS.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
-#include "Modem/Sender/GP.h"
+#include "Modem/MQTT/Sender/GP.h"
 #include <gd32f30x.h>
 #include <cstdlib>
 

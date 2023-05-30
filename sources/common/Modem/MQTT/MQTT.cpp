@@ -1,17 +1,17 @@
 // 2023/5/2 13:43:57 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/MQTT.h"
+#include "Modem/MQTT/MQTT.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
-#include "Modem/Sender/Counter.h"
-#include "Modem/Sender/Measure.h"
-#include "Modem/Sender/LevelContactors.h"
-#include "Modem/Sender/ContactorsIsOK.h"
-#include "Modem/Sender/GP.h"
+#include "Modem/MQTT/Sender/Counter.h"
+#include "Modem/MQTT/Sender/Measure.h"
+#include "Modem/MQTT/Sender/LevelContactors.h"
+#include "Modem/MQTT/Sender/ContactorsIsOK.h"
+#include "Modem/MQTT/Sender/GP.h"
 #include "Modem/SIM800.h"
-#include "Modem/Sender/Sender.h"
+#include "Modem/MQTT/Sender/Sender.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>

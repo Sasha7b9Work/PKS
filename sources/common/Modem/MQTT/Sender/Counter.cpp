@@ -1,8 +1,8 @@
 // 2023/05/26 12:02:52 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/Sender/Counter.h"
+#include "Modem/MQTT/Sender/Counter.h"
 #include "Hardware/Timer.h"
-#include "Modem/MQTT.h"
+#include "Modem/MQTT/MQTT.h"
 #include <cstdio>
 
 

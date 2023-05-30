@@ -1,8 +1,8 @@
 // 2023/05/26 11:56:47 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/Sender/LevelContactors.h"
+#include "Modem/MQTT/Sender/LevelContactors.h"
 #include "Hardware/Timer.h"
-#include "Modem/MQTT.h"
+#include "Modem/MQTT/MQTT.h"
 #include <cstdio>
 
 

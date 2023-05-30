@@ -6,7 +6,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
 #include "Hardware/Bootloader.h"
-#include "Modem/MQTT.h"
+#include "Modem/MQTT/MQTT.h"
 #include <cstring>
 #include <cstdio>
 
