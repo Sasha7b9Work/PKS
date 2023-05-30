@@ -51,7 +51,7 @@ namespace SIM800
         meter.Reset();
     }
 
-    static void Reset()
+    void Reset()
     {
         state = State::START;
         Modem::Reset();

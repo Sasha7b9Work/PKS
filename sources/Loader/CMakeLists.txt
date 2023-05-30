@@ -36,7 +36,8 @@ file(GLOB HARDWARE_HAL                src/Hardware/HAL/*.*
                                 ../common/Hardware/HAL/HAL_PINS.*)
 file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*
-                                ../common/Modem/Modem.*)
+                                ../common/Modem/Modem.*
+                                ../common/Modem/SIM800.*)
 file(GLOB UTILS                 ../common/Utils/Math.*)
 
 source_group(GD32F3             FILES ${GD32F3})

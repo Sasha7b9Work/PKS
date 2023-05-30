@@ -779,11 +779,6 @@
               <FilePath>..\common\Modem\MQTT.h</FilePath>
             </File>
             <File>
-              <FileName>SIM800.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\SIM800.h</FilePath>
-            </File>
-            <File>
               <FileName>Modem.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\Modem.h</FilePath>
@@ -792,6 +787,11 @@
               <FileName>Modem.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\Modem.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SIM800.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SIM800.h</FilePath>
             </File>
           </Files>
         </Group>

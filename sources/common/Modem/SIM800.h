@@ -14,6 +14,8 @@ namespace SIM800
 
     pchar LevelSignal();
 
+    void Reset();
+
     // Передать с завершающим 0x0d
     void Transmit(pchar);
 
@@ -22,5 +24,7 @@ namespace SIM800
 
     void TransmitUINT8(uint8);
 
-    void Reset();
+    void Transmit(pchar format, int param);
+
+    void Transmit(pchar format, pchar param);
 }
