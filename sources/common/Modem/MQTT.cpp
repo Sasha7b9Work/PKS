@@ -37,7 +37,7 @@ namespace MQTT
     static TimeMeterMS meterPing;
 
     // Если nned_ping == true, то посылаем команду пинга
-    static bool need_ping = false;
+//    static bool need_ping = false;
 
     static const char *MQTT_type = "MQTT";
     static const char *MQTT_CID = "mqtt-pks3-r0rk8m";    // уникальное имя устройства в сети MQTT

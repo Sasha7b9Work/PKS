@@ -214,7 +214,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPUN);
-                SIM800::Transmit("AT+FTPSERV=\"%s\"", address);
+                SIM800::Trans::Format("AT+FTPSERV=\"%s\"", address);
             }
         }
         break;
@@ -225,7 +225,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPPW);
-                SIM800::Transmit("AT+FTPUN=\"%s\"", login);
+                SIM800::Trans::Format("AT+FTPUN=\"%s\"", login);
             }
         }
         break;
@@ -236,7 +236,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPGETPATH);
-                SIM800::Transmit("AT+FTPPW=\"%s\"", password);
+                SIM800::Trans::Format("AT+FTPPW=\"%s\"", password);
             }
         }
         break;
@@ -247,7 +247,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_SET_NAME_FIRMWARE);
-                SIM800::Transmit("AT+FTPGETPATH=\"%s\"", directory);
+                SIM800::Trans::Format("AT+FTPGETPATH=\"%s\"", directory);
             }
         }
         break;
@@ -258,7 +258,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_REQUEST_CONNECT);
-                SIM800::Transmit("AT+FTPGETNAME=\"%s\"", file_firmware);
+                SIM800::Trans::Format("AT+FTPGETNAME=\"%s\"", file_firmware);
             }
         }
         break;

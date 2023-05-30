@@ -25,9 +25,9 @@ namespace SIM800
         void RAW(pchar);
 
         void UINT8(uint8);
+
+        void Format(pchar format, int param);
+
+        void Format(pchar format, pchar param);
     }
-
-    void Transmit(pchar format, int param);
-
-    void Transmit(pchar format, pchar param);
 }

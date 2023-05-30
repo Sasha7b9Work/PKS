@@ -44,7 +44,7 @@ void ReaderFTP::ReceiveBytes(int num_bytes)
 {
     Reset();
     need_bytes = num_bytes;
-    SIM800::Transmit("AT+FTPGET=2,%d", need_bytes);
+    SIM800::Trans::Format("AT+FTPGET=2,%d", need_bytes);
 }
 
 void ReaderFTP::AppendByte(char symbol)
@@ -85,7 +85,7 @@ void ReaderFTP::AppendByte(char symbol)
                         pchar third_word = GetWord(buffer_command, 3, buffer);
                         if (third_word[0] == '1')
                         {
-                            SIM800::Transmit("AT+FTPGET=2,%d", need_bytes);
+                            SIM800::Trans::Format("AT+FTPGET=2,%d", need_bytes);
                             pointer_command = 0;
                         }
                         else

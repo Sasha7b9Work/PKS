@@ -228,7 +228,7 @@ void SIM800::Trans::With0D(pchar message)
 }
 
 
-void SIM800::Transmit(pchar format, pchar param)
+void SIM800::Trans::Format(pchar format, pchar param)
 {
     char buffer[64];
     std::sprintf(buffer, (char *)format, param);
@@ -236,7 +236,7 @@ void SIM800::Transmit(pchar format, pchar param)
 }
 
 
-void SIM800::Transmit(pchar format, int param)
+void SIM800::Trans::Format(pchar format, int param)
 {
     char buffer[64];
     std::sprintf(buffer, (char *)format, param);
