@@ -4,6 +4,7 @@
 #include "Modem/Sender/Counter.h"
 #include "Modem/MQTT.h"
 #include "Hardware/Timer.h"
+#include "Hardware/HAL/HAL.h"
 #include <cstdio>
 
 
@@ -31,11 +32,14 @@ bool Sender::SendToSIM800()
         {
             MQTT::Packet::Publish("/versionSW", VERSION);
             versionSW_is_sended = true;
+
+            MQTT::Packet::Publish("base/id", (int)HAL::GetUID());
+
             return true;
         }
     }
 
-    if (meter.ElapsedTime() > 5000)
+    if (meter.ElapsedTime() > 60000)
     {
         meter.Reset();
 
