@@ -343,7 +343,7 @@ void SIM800::Trans::With0D(pchar message)
 }
 
 
-void SIM800::TransmitRAW(pchar message)
+void SIM800::Trans::RAW(pchar message)
 {
     HAL_USART_GPRS::Transmit(message);
 }

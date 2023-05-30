@@ -21,10 +21,9 @@ namespace SIM800
         // Передать с завершающим 0x0d
         void With0D(pchar);
 
+        // Передать без завершающего 0x0d
+        void RAW(pchar);
     }
-
-    // Передать без завершающего 0x0d
-    void TransmitRAW(pchar);
 
     void TransmitUINT8(uint8);
 

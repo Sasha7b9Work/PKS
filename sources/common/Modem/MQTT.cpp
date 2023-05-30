@@ -75,7 +75,7 @@ void MQTT::Update(pchar answer)
             // тип протокола
             SIM800::TransmitUINT8(0x00);
             SIM800::TransmitUINT8((uint8)std::strlen(MQTT_type));
-            SIM800::TransmitRAW(MQTT_type);
+            SIM800::Trans::RAW(MQTT_type);
 
             // просто так нужно
             SIM800::TransmitUINT8(0x04);    // версия протокола
@@ -85,7 +85,7 @@ void MQTT::Update(pchar answer)
 
             SIM800::TransmitUINT8(0x00);    // property lenth
             SIM800::TransmitUINT8(0x10);    // 
-            SIM800::TransmitRAW(MQTT_CID);
+            SIM800::Trans::RAW(MQTT_CID);
 
             SIM800::TransmitUINT8(0x1A);
 
@@ -185,8 +185,8 @@ void  MQTT::Packet::Publish(pchar MQTT_topic, pchar MQTT_messege)
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
     SIM800::TransmitUINT8(0);
     SIM800::TransmitUINT8((uint8)(std::strlen(MQTT_topic)));
-    SIM800::TransmitRAW(MQTT_topic);
-    SIM800::TransmitRAW(MQTT_messege);
+    SIM800::Trans::RAW(MQTT_topic);
+    SIM800::Trans::RAW(MQTT_messege);
 }
 
 
