@@ -11,7 +11,7 @@ include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
                     ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
                     ../common/
-                    src/Hardware/HAL/
+                    ../common/Hardware/HAL/
                     src/
                     )
 
