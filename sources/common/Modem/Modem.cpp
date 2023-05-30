@@ -64,6 +64,7 @@ namespace Modem
     {
         static Buffer<256> main;
         static Buffer<256> addit;
+        static Buffer<256> buffer;
 
         static void Clear()
         {
@@ -75,7 +76,19 @@ namespace Modem
         {
             main.mutex.Try();
 
-            if (main.Size() == 0)
+            if (main.Size())
+            {
+                for (int i = 0; i < main.Size(); i++)
+                {
+                    Log::ReceiveFromSIM800(main[i]);
+                }
+                buffer.Append(main.Data(), main.Size());
+                main.Clear();
+            }
+
+            main.mutex.Release();
+
+            if (buffer.Size() == 0)
             {
                 SIM800::Update("");
             }
@@ -90,9 +103,9 @@ namespace Modem
                     answer.Clear();
                     answer_exist = false;
 
-                    for (int i = 0; i < main.Size(); i++)
+                    for (int i = 0; i < buffer.Size(); i++)
                     {
-                        char symbol = main[i];
+                        char symbol = buffer[i];
 
                         if (symbol == 0x0a)
                         {
@@ -108,7 +121,7 @@ namespace Modem
                             {
                                 answer.Append('\0');
                                 answer_exist = true;
-                                main.RemoveFirst(i + 1);
+                                buffer.RemoveFirst(i + 1);
                                 break;
                             }
                         }
@@ -117,7 +130,7 @@ namespace Modem
                             answer.Append('>');
                             answer.Append('\0');
                             answer_exist = true;
-                            main.RemoveFirst(i + 1);
+                            buffer.RemoveFirst(i + 1);
                             break;
                         }
                         else
@@ -130,8 +143,6 @@ namespace Modem
 
                 } while (answer_exist);
             }
-
-            main.mutex.Release();
         }
     }
 
