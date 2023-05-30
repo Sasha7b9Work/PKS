@@ -8,7 +8,7 @@
 #include "Hardware/Programmer.h"
 #include "Modem/ReaderFTP.h"
 #include "Modem/SIM800.h"
-#include "Application.h"
+#include "Utils/Math.h"
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
@@ -336,14 +336,14 @@ void Updater::Update(pchar answer)
 
                 int written_bytes = Programmer::WrittenBytes();
 
-                crc = Programmer::CalculateCRC(HAL_ROM::ADDR_STORAGE, written_bytes);
+                crc = Math::CalculateCRC(HAL_ROM::ADDR_STORAGE, written_bytes);
 
                 if (crc == source_crc)
                 {
                     {
                         Programmer::CopyFirmware();
 
-                    } while (source_crc != Programmer::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes));
+                    } while (source_crc != Math::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes));
 
                     state = State::COMPLETED;
                 }

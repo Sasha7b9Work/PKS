@@ -2,7 +2,7 @@
 #include "defines.h"
 #include "Loader.h"
 #include "Modem/Updater.h"
-#include "Application.h"
+#include "Hardware/Application.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
 

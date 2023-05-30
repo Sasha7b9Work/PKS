@@ -21,6 +21,7 @@ namespace HAL
     void Init();
     void DeInit();
     void ErrorHandler();
+    uint GetUID();
 }
 
 

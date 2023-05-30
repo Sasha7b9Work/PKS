@@ -489,16 +489,6 @@
               <FilePath>.\src\Loader.h</FilePath>
             </File>
             <File>
-              <FileName>Application.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Application.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Application.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Application.h</FilePath>
-            </File>
-            <File>
               <FileName>common_defines.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\common_defines.h</FilePath>
@@ -527,6 +517,16 @@
               <FileName>Programmer.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\Programmer.h</FilePath>
+            </File>
+            <File>
+              <FileName>Application.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Hardware\Application.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Application.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Hardware\Application.h</FilePath>
             </File>
           </Files>
         </Group>

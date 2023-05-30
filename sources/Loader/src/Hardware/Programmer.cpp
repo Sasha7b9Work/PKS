@@ -3,6 +3,7 @@
 #include "Hardware/Programmer.h"
 #include "Modem/ReaderFTP.h"
 #include "Hardware/HAL/HAL.h"
+#include "Utils/Math.h"
 #include <cstring>
 
 
@@ -16,11 +17,6 @@ namespace Programmer
 {
     static int written_bytes = 0;
     static uint address = 0;            // Текущий адрес записи
-
-    static uint Hash(uint hash, char byte)
-    {
-        return (uint8)byte + (hash << 6) + (hash << 16) - hash;
-    }
 
     static int num_bytes = 0;
     static char bytes[ReaderFTP::SIZE_DATA_BUFFER + 4];
@@ -109,21 +105,6 @@ void Programmer::CloseSession()
 int Programmer::WrittenBytes()
 {
     return written_bytes;
-}
-
-
-uint Programmer::CalculateCRC(uint addr, int size)
-{
-    uint crc = 0;
-
-    uint8 *data = (uint8 *)addr;
-
-    for (int i = 0; i < size; i++)
-    {
-        crc = Hash(crc, (char)*data++);
-    }
-
-    return crc;
 }
 
 

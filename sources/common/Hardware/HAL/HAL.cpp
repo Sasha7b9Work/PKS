@@ -2,7 +2,9 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
+#include "Utils/Math.h"
 #include <gd32f30x.h>
+#include <cstring>
 
 
 /*
@@ -69,6 +71,16 @@ void HAL::DeInit()
     HAL_USART_GPRS::DeInit();
 
     HAL_ADC::DeInit();
+}
+
+
+uint HAL::GetUID()
+{
+    uint8 bytes[12];
+
+    std::memcpy(bytes, (void *)0x1FFFF7E8, 12);
+
+    return Math::CalculateCRC((uint)bytes, 12);
 }
 
 

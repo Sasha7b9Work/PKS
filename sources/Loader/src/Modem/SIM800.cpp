@@ -5,7 +5,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
 #include "Modem/SIM800.h"
-#include "Application.h"
 #include <cstring>
 #include <cstdio>
 
