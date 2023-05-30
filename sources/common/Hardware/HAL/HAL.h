@@ -96,14 +96,6 @@ namespace HAL_ROM
 }
 
 
-namespace HAL_RTC
-{
-    void Init();
-
-    PackedTime CurrentTime();
-}
-
-
 namespace HAL_FWDGT
 {
     void Init();

@@ -579,11 +579,6 @@
               <FilePath>.\src\Hardware\HAL\HAL_SPI.cpp</FilePath>
             </File>
             <File>
-              <FileName>HAL_RTC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_RTC.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_PINS.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_PINS.cpp</FilePath>

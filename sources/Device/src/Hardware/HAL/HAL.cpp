@@ -54,8 +54,6 @@ void HAL::Init()
 
     HAL_SPI::Init();
     
-    HAL_RTC::Init();
-
     HAL_PINS::Init();
 
 //    HAL_FWDGT::Init();

@@ -118,8 +118,6 @@ Record::Record(const FullMeasure &measure)
 
     number = FlashDisk::NumberLastRecord() + 1U;
 
-    time = HAL_RTC::CurrentTime();
-
     info = DataInfo();
 
     hash = CalculateHash();
