@@ -12,6 +12,8 @@
 
 namespace HAL_I2C
 {
+    static const uint TIMEOUT = 100;
+
     static bool WaitFlagYes(i2c_flag_enum);
     static bool WaitFlagNo(i2c_flag_enum);
 }
@@ -23,7 +25,7 @@ bool HAL_I2C::WaitFlagYes(i2c_flag_enum flag)
 
     while (i2c_flag_get(I2C_ADDR, flag))
     {
-        if (meter.ElapsedTime() > 2)
+        if (meter.ElapsedTime() > TIMEOUT)
         {
             return false;
         }
@@ -39,7 +41,7 @@ bool HAL_I2C::WaitFlagNo(i2c_flag_enum flag)
 
     while (!i2c_flag_get(I2C_ADDR, flag))
     {
-        if (meter.ElapsedTime() > 2)
+        if (meter.ElapsedTime() > TIMEOUT)
         {
             return false;
         }
@@ -127,7 +129,7 @@ bool HAL_I2C::Write(uint8 command, uint8 *data, int size)
     /* wait until stop condition generate */
     while (I2C_CTL0(I2C_ADDR) & 0x0200)
     {
-        if (meter.ElapsedTime() > 2)
+        if (meter.ElapsedTime() > TIMEOUT)
         {
             result = false;
 
