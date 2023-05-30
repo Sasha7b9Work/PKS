@@ -554,11 +554,6 @@
               <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
             </File>
             <File>
-              <FileName>systick.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\src\Hardware\HAL\systick.c</FilePath>
-            </File>
-            <File>
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
@@ -592,6 +587,11 @@
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_PINS.h</FilePath>
+            </File>
+            <File>
+              <FileName>systick.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\Hardware\HAL\systick.c</FilePath>
             </File>
           </Files>
         </Group>
