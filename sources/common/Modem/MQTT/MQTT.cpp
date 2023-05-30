@@ -150,7 +150,7 @@ void MQTT::Update(pchar answer)
         {
             static bool first = true;
 
-            if (meter.ElapsedTime() > 5000 || first)
+            if (meter.ElapsedTime() > 60000 || (first && meter.ElapsedTime() > 5000))
             {
                 SIM800::Transmit::With0D("AT+CIPSEND");
                 meter.Reset();
