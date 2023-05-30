@@ -554,29 +554,9 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
-              <FileName>HAL.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_ADC.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_ADC.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_I2C.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_I2C.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_SPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_SPI.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_PINS.cpp</FileName>
@@ -587,11 +567,6 @@
               <FileName>HAL_PINS.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_PINS.h</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_FWDGT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_FWDGT.cpp</FilePath>
             </File>
             <File>
               <FileName>systick.c</FileName>
@@ -622,6 +597,31 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Hardware\HAL\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_ADC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_FWDGT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_FWDGT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_I2C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_I2C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_SPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_SPI.cpp</FilePath>
             </File>
           </Files>
         </Group>

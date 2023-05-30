@@ -67,6 +67,7 @@ void HAL::Init()
 void HAL::DeInit()
 {
     HAL_USART_GPRS::DeInit();
+
     HAL_ADC::DeInit();
 }
 

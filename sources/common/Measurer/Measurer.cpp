@@ -50,7 +50,9 @@ void Measurer::Update()
     {
         measure = Calculate();
 
+#ifdef DEVICE
         Sender::Measure::Send(measure);
+#endif
 
         measure5Sec = Calculator::Average5Sec(measure);
 

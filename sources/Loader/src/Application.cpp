@@ -20,6 +20,8 @@ namespace Application
 
 void Application::Run()
 {
+    HAL::DeInit();
+
     const uint ADDR_APPLICATION = 0x08000000U;
 
     typedef void (*iapfun)(void);

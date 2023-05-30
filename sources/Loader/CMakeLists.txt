@@ -34,6 +34,7 @@ file(GLOB HARDWARE                    src/Hardware/*.*
 file(GLOB HARDWARE_CMSIS              src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                src/Hardware/HAL/*.*
                                 ../common/Hardware/HAL/*.*)
+file(GLOB MEASURER              ../common/Measurer/*.*)
 file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*
                                 ../common/Modem/Modem.*
@@ -45,6 +46,7 @@ source_group(src                FILES ${SRC})
 source_group(Hardware           FILES ${HARDWARE})
 source_group(Hardware/CMSIS     FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL       FILES ${HARDWARE_HAL})
+source_group(Measurer           FILES ${MEASURER})
 source_group(Modem              FILES ${MODEM})
 source_group(Utils              FILES ${UTILS})
 
@@ -57,6 +59,7 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
+            ${MEASURER}
             ${MODEM}
             ${UTILS}
             )

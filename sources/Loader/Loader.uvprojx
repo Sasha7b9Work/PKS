@@ -458,6 +458,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_usart.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_spi.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -544,11 +549,6 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
-              <FileName>HAL.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
-            </File>
-            <File>
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
@@ -592,6 +592,26 @@
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Hardware\HAL\systick.h</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_ADC.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_ADC.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_I2C.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_I2C.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_SPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_SPI.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -672,6 +692,36 @@
               <FileName>Log.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Log.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Measurer</GroupName>
+          <Files>
+            <File>
+              <FileName>Calculator.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactors.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Measurer\Contactors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Contactors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Measurer\Contactors.h</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Measurer\Measurer.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Measurer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Measurer\Measurer.h</FilePath>
             </File>
           </Files>
         </Group>

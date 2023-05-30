@@ -316,7 +316,9 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         break;
     }
 
+#ifdef DEVICE
     Sender::LevelContactors::Send(Level::current);
+#endif
 }
 
 
@@ -422,7 +424,9 @@ void Contactors::VerifyCondition()
 
         if (address == 0)   // Опросили все реле, будем посылать результат
         {
+#ifdef DEVICE
             Sender::ContactorsIsOK::Send(state_contactor);
+#endif
         }
     }
 }
