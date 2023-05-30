@@ -339,7 +339,7 @@
               <MiscControls>--cpp</MiscControls>
               <Define>USE_STDPERIPH_DRIVER,GD32F30X_HD</Define>
               <Undefine></Undefine>
-              <IncludePath>.\src;.\src\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include;..\common</IncludePath>
+              <IncludePath>.\src;..\common\Hardware\HAL;..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Include;..\common\GD32F30x_Library\Firmware\CMSIS;..\common\GD32F30x_Library\Firmware\CMSIS\GD\GD32F30x\Include;..\common</IncludePath>
             </VariousControls>
           </Cads>
           <Aads>
@@ -544,16 +544,6 @@
           <GroupName>Hardware/HAL</GroupName>
           <Files>
             <File>
-              <FileName>gd32f30x_libopt.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
-            </File>
-            <File>
-              <FileName>systick.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
-            </File>
-            <File>
               <FileName>HAL.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL.cpp</FilePath>
@@ -592,6 +582,16 @@
               <FileName>HAL.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Hardware\HAL\HAL.h</FilePath>
+            </File>
+            <File>
+              <FileName>gd32f30x_libopt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Hardware\HAL\gd32f30x_libopt.h</FilePath>
+            </File>
+            <File>
+              <FileName>systick.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Hardware\HAL\systick.h</FilePath>
             </File>
           </Files>
         </Group>
