@@ -1,4 +1,4 @@
-#define VERSION 7
+#define VERSION 10
 
 
 // Сообщения лога записываются в буфер
