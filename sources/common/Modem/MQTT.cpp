@@ -60,7 +60,7 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
-        SIM800::Trans::With0D("AT+CIPSEND");
+        SIM800::Transmit::With0D("AT+CIPSEND");
         meter.Reset();
         state = State::WAIT_RESPONSE_CIPSEND;
         break;
@@ -68,26 +68,26 @@ void MQTT::Update(pchar answer)
     case State::WAIT_RESPONSE_CIPSEND:
         if (strcmp(answer, ">") == 0)
         {
-            SIM800::Trans::UINT8(0x10);   // маркер пакета на установку соединения
-            SIM800::Trans::UINT8(0x1c);
-//            SIM800::Trans::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 14));
+            SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединения
+            SIM800::Transmit::UINT8(0x1c);
+//            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 14));
 
             // тип протокола
-            SIM800::Trans::UINT8(0x00);
-            SIM800::Trans::UINT8((uint8)std::strlen(MQTT_type));
-            SIM800::Trans::RAW(MQTT_type);
+            SIM800::Transmit::UINT8(0x00);
+            SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_type));
+            SIM800::Transmit::RAW(MQTT_type);
 
             // просто так нужно
-            SIM800::Trans::UINT8(0x04);    // версия протокола
-            SIM800::Trans::UINT8(0x02);    // connect flag
-            SIM800::Trans::UINT8(0x00);    // \ keep alive 
-            SIM800::Trans::UINT8(0x3c);    // /
+            SIM800::Transmit::UINT8(0x04);    // версия протокола
+            SIM800::Transmit::UINT8(0x02);    // connect flag
+            SIM800::Transmit::UINT8(0x00);    // \ keep alive 
+            SIM800::Transmit::UINT8(0x3c);    // /
 
-            SIM800::Trans::UINT8(0x00);    // property lenth
-            SIM800::Trans::UINT8(0x10);    // 
-            SIM800::Trans::RAW(MQTT_CID);
+            SIM800::Transmit::UINT8(0x00);    // property lenth
+            SIM800::Transmit::UINT8(0x10);    // 
+            SIM800::Transmit::RAW(MQTT_CID);
 
-            SIM800::Trans::UINT8(0x1A);
+            SIM800::Transmit::UINT8(0x1A);
 
             state = State::RUNNING;
 
@@ -139,18 +139,18 @@ void MQTT::Update(pchar answer)
 
 //            if (need_ping)
 //            {
-//                SIM800::Trans::UINT8(0xC0);
-//                SIM800::Trans::UINT8(0x00);
+//                SIM800::Transmit::UINT8(0xC0);
+//                SIM800::Transmit::UINT8(0x00);
 //                need_ping = false;
 //            }
 
-            SIM800::Trans::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
+            SIM800::Transmit::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
         }
         else
         {
             if (meter.ElapsedTime() > 1000)
             {
-                SIM800::Trans::With0D("AT+CIPSEND");
+                SIM800::Transmit::With0D("AT+CIPSEND");
 
                 meter.Reset();
             }
@@ -181,12 +181,12 @@ void MQTT::Reset()
 
 void  MQTT::Packet::Publish(pchar MQTT_topic, pchar MQTT_messege)
 {
-    SIM800::Trans::UINT8(0x30);
-    SIM800::Trans::UINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
-    SIM800::Trans::UINT8(0);
-    SIM800::Trans::UINT8((uint8)(std::strlen(MQTT_topic)));
-    SIM800::Trans::RAW(MQTT_topic);
-    SIM800::Trans::RAW(MQTT_messege);
+    SIM800::Transmit::UINT8(0x30);
+    SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_topic) + std::strlen(MQTT_messege) + 2));
+    SIM800::Transmit::UINT8(0);
+    SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_topic)));
+    SIM800::Transmit::RAW(MQTT_topic);
+    SIM800::Transmit::RAW(MQTT_messege);
 }
 
 

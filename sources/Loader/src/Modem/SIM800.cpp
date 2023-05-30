@@ -129,7 +129,7 @@ void SIM800::Update(pchar answer)
     switch (state)
     {
     case State::START:
-        SIM800::Trans::With0D("ATE0");
+        SIM800::Transmit::With0D("ATE0");
         State::Set(State::WAIT_ATE0);
         strcpy(levelSignal, "0");
         break;
@@ -140,7 +140,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 State::Set(State::WAIT_BAUDRADE);
-                SIM800::Trans::With0D("AT+IPR=115200");
+                SIM800::Transmit::With0D("AT+IPR=115200");
             }
         }
         break;
@@ -152,7 +152,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "RDY") == 0)
             {
                 State::Set(State::WAIT_GSMBUSY);
-                SIM800::Trans::With0D("AT+GSMBUSY=1");
+                SIM800::Transmit::With0D("AT+GSMBUSY=1");
             }
         }
         break;
@@ -163,7 +163,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 State::Set(State::WAIT_CREG_INIT);
-                SIM800::Trans::With0D("AT+CREG=1");
+                SIM800::Transmit::With0D("AT+CREG=1");
             }
         }
         break;
@@ -189,7 +189,7 @@ void SIM800::Update(pchar answer)
                     stat == 5)      // Registered, roaming
                 {
                     State::Set(State::WAIT_IP_INITIAL);
-                    SIM800::Trans::With0D("AT+CIPSTATUS");
+                    SIM800::Transmit::With0D("AT+CIPSTATUS");
                 }
             }
         }
@@ -218,7 +218,7 @@ pchar SIM800::LevelSignal()
 }
 
 
-void SIM800::Trans::With0D(pchar message)
+void SIM800::Transmit::With0D(pchar message)
 {
     HAL_USART_GPRS::Transmit(message);
 
@@ -228,19 +228,19 @@ void SIM800::Trans::With0D(pchar message)
 }
 
 
-void SIM800::Trans::Format(pchar format, pchar param)
+void SIM800::Transmit::Format(pchar format, pchar param)
 {
     char buffer[64];
     std::sprintf(buffer, (char *)format, param);
-    SIM800::Trans::With0D(buffer);
+    SIM800::Transmit::With0D(buffer);
 }
 
 
-void SIM800::Trans::Format(pchar format, int param)
+void SIM800::Transmit::Format(pchar format, int param)
 {
     char buffer[64];
     std::sprintf(buffer, (char *)format, param);
-    SIM800::Trans::With0D(buffer);
+    SIM800::Transmit::With0D(buffer);
 }
 
 
@@ -250,7 +250,7 @@ void SIM800::TransmitRAW(pchar message)
 }
 
 
-void SIM800::Trans::UINT8(uint8 byte)
+void SIM800::Transmit::UINT8(uint8 byte)
 {
     HAL_USART_GPRS::Transmit(&byte, 1);
 }
