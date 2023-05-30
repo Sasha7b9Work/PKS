@@ -60,7 +60,7 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
-        SIM800::Transmit("AT+CIPSEND");
+        SIM800::Trans::With0D("AT+CIPSEND");
         meter.Reset();
         state = State::WAIT_RESPONSE_CIPSEND;
         break;
@@ -150,7 +150,7 @@ void MQTT::Update(pchar answer)
         {
             if (meter.ElapsedTime() > 1000)
             {
-                SIM800::Transmit("AT+CIPSEND");
+                SIM800::Trans::With0D("AT+CIPSEND");
 
                 meter.Reset();
             }

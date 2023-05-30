@@ -150,7 +150,7 @@ void Updater::Update(pchar answer)
 
     case State::NEED_SAPBR_3_GPRS:
         SetState(State::NEED_SAPBR_3_APN);
-        SIM800::Transmit("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
+        SIM800::Trans::With0D("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
         break;
 
     case State::NEED_SAPBR_3_APN:
@@ -159,7 +159,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_SAPBR_3_USER);
-                SIM800::Transmit("AT+SAPBR=3,1,\"APN\",\"internet\"");
+                SIM800::Trans::With0D("AT+SAPBR=3,1,\"APN\",\"internet\"");
             }
         }
         break;
@@ -170,7 +170,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_SAPBR_3_PWD);
-                SIM800::Transmit("AT+SAPBR=3,1,\"USER\",\"\"");
+                SIM800::Trans::With0D("AT+SAPBR=3,1,\"USER\",\"\"");
             }
         }
         break;
@@ -181,7 +181,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_SAPBR_1_1);
-                SIM800::Transmit("AT+SAPBR=3,1,\"PWD\",\"\"");
+                SIM800::Trans::With0D("AT+SAPBR=3,1,\"PWD\",\"\"");
             }
         }
         break;
@@ -192,7 +192,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPCID);
-                SIM800::Transmit("AT+SAPBR=1,1");
+                SIM800::Trans::With0D("AT+SAPBR=1,1");
             }
         }
         break;
@@ -203,7 +203,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_FTPSERV);
-                SIM800::Transmit("AT+FTPCID=1");
+                SIM800::Trans::With0D("AT+FTPCID=1");
             }
         }
         break;
@@ -269,7 +269,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SetState(State::NEED_WAIT_CONNECT);
-                SIM800::Transmit("AT+FTPGET=1");
+                SIM800::Trans::With0D("AT+FTPGET=1");
             }
         }
         break;

@@ -128,7 +128,7 @@ void SIM800::Update(pchar answer)
     switch (state)
     {
     case State::START:
-        SIM800::Transmit("ATE0");
+        SIM800::Trans::With0D("ATE0");
         State::Set(State::WAIT_ATE0);
         strcpy(levelSignal, "0");
         break;
@@ -139,7 +139,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 State::Set(State::WAIT_BAUDRADE);
-                SIM800::Transmit("AT+IPR=115200");
+                SIM800::Trans::With0D("AT+IPR=115200");
             }
         }
         break;
@@ -151,7 +151,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "RDY") == 0)
             {
                 State::Set(State::WAIT_GSMBUSY);
-                SIM800::Transmit("AT+GSMBUSY=1");
+                SIM800::Trans::With0D("AT+GSMBUSY=1");
             }
         }
         break;
@@ -162,7 +162,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 State::Set(State::WAIT_CREG_INIT);
-                SIM800::Transmit("AT+CREG=1");
+                SIM800::Trans::With0D("AT+CREG=1");
             }
         }
         break;
@@ -188,7 +188,7 @@ void SIM800::Update(pchar answer)
                     stat == 5)      // Registered, roaming
                 {
                     State::Set(State::WAIT_IP_INITIAL);
-                    SIM800::Transmit("AT+CIPSTATUS");
+                    SIM800::Trans::With0D("AT+CIPSTATUS");
                 }
             }
         }
@@ -200,7 +200,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "INITIAL") == 0)
             {
                 State::Set(State::WAIT_CSTT);
-                SIM800::Transmit("AT+CSTT=\"internet\",\"\",\"\"");
+                SIM800::Trans::With0D("AT+CSTT=\"internet\",\"\",\"\"");
             }
         }
         break;
@@ -211,7 +211,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 1, buffer), "OK") == 0)
             {
                 State::Set(State::WAIT_IP_START);
-                SIM800::Transmit("AT+CIPSTATUS");
+                SIM800::Trans::With0D("AT+CIPSTATUS");
             }
             else if (strcmp(GetWord(answer, 1, buffer), "ERROR") == 0)
             {
@@ -226,7 +226,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "START") == 0)
             {
                 State::Set(State::WAIT_CIICR);
-                SIM800::Transmit("AT+CIICR");
+                SIM800::Trans::With0D("AT+CIICR");
             }
         }
         break;
@@ -237,7 +237,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 1, buffer), "OK") == 0)
             {
                 State::Set(State::WAIT_IP_GPRSACT);
-                SIM800::Transmit("AT+CIPSTATUS");
+                SIM800::Trans::With0D("AT+CIPSTATUS");
             }
         }
         break;
@@ -248,7 +248,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "GPRSACT") == 0)
             {
                 State::Set(State::WAIT_CIFSR);
-                SIM800::Transmit("AT+CIFSR");
+                SIM800::Trans::With0D("AT+CIFSR");
             }
         }
         break;
@@ -260,7 +260,7 @@ void SIM800::Update(pchar answer)
             {
                 // Здесь получаем IP-адрес
                 State::Set(State::WAIT_IP_STATUS);
-                SIM800::Transmit("AT+CIPSTATUS");
+                SIM800::Trans::With0D("AT+CIPSTATUS");
             }
         }
         break;
@@ -271,7 +271,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "STATUS") == 0)
             {
                 State::Set(State::WAIT_TCP_CONNECT);
-                SIM800::Transmit("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+                SIM800::Trans::With0D("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
             }
         }
         break;
@@ -283,7 +283,7 @@ void SIM800::Update(pchar answer)
                 strcmp(GetWord(answer, 2, buffer), "OK") == 0)
             {
                 State::Set(State::WAIT_CIPHEAD);
-                SIM800::Transmit("AT+CIPHEAD=1");
+                SIM800::Trans::With0D("AT+CIPHEAD=1");
             }
             else if (strcmp(GetWord(answer, 2, buffer), "FAIL") == 0)
             {
@@ -313,7 +313,7 @@ void SIM800::Update(pchar answer)
         if (meterCSQ.ElapsedTime() > 5000)
         {
             meterCSQ.Reset();
-            SIM800::Transmit("AT+CSQ");
+            SIM800::Trans::With0D("AT+CSQ");
         }
 
         break;
@@ -333,7 +333,7 @@ pchar SIM800::LevelSignal()
 }
 
 
-void SIM800::Transmit(pchar message)
+void SIM800::Trans::With0D(pchar message)
 {
     HAL_USART_GPRS::Transmit(message);
 
