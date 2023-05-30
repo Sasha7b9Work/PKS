@@ -20,12 +20,14 @@ namespace Application
 
 void Application::Run()
 {
+    const uint ADDR_APPLICATION = 0x08000000U;
+
     typedef void (*iapfun)(void);
     iapfun  jump2app;
 
-    jump2app = (iapfun) * (volatile uint *)(HAL_ROM::ADDR_APPLICATION + 4); //-V566
-    MSR_MSP(*(volatile uint *)HAL_ROM::ADDR_APPLICATION);                        //initialize app pointer //-V566
-    nvic_vector_table_set(HAL_ROM::ADDR_APPLICATION, 0);
+    jump2app = (iapfun) * (volatile uint *)(ADDR_APPLICATION + 4); //-V566
+    MSR_MSP(*(volatile uint *)ADDR_APPLICATION);                        //initialize app pointer //-V566
+    nvic_vector_table_set(ADDR_APPLICATION, 0);
     jump2app();                                                                 //jump to app
 }
 

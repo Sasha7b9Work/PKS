@@ -2,8 +2,14 @@
 #include "defines.h"
 #include "Hardware/Programmer.h"
 #include "Modem/ReaderFTP.h"
-#include "HAL/HAL.h"
+#include "Hardware/HAL/HAL.h"
 #include <cstring>
+
+
+namespace Programmer
+{
+    static const uint MAX_SIZE_STORAGE = 1024 * 76;
+}
 
 
 namespace Programmer
@@ -30,9 +36,9 @@ namespace Programmer
 
 void Programmer::Prepare(uint start_address)
 {
-    const int num_pages = HAL_ROM::MAX_SIZE_STORAGE / HAL_ROM::SIZE_PAGE;
+    const int num_pages = MAX_SIZE_STORAGE / HAL_ROM::SIZE_PAGE;
 
-    const int page = (int)((start_address - HAL_ROM::ADDR_FLASH) / HAL_ROM::SIZE_PAGE);
+    const int page = (int)((start_address - HAL_ROM::ADDR_BASE) / HAL_ROM::SIZE_PAGE);
 
     for (int i = 0; i < num_pages; i++)
     {

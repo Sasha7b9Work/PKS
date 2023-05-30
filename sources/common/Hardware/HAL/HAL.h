@@ -79,16 +79,20 @@ namespace HAL_USART_LOG
 
 namespace HAL_ROM
 {
+    static const uint ADDR_APPLICATION = 0x08000000U;
     static const uint ADDR_BASE = 0x08000000U;
     static const uint SIZE_PAGE = 2 * 1024;
-    static const uint ADDR_SAVED_FIRMWARE = ADDR_BASE + 50 * SIZE_PAGE;
-    static const uint ADDR_BOOTLOADER = ADDR_BASE + 100 * SIZE_PAGE;
+
+    // В это место записывается новая прошивка перед заменой старой на неё
+    static const uint ADDR_STORAGE = 0x8013000U;
 
     // num_sector от 0 до 127. Каждый сектор занимает 2 кБ
     void ErasePage(int num_page);
 
     // address должен быть кратен 4, size должен быть кратен 4
     void WriteData(uint address, uint8 *data, int size);
+
+    bool PageIsEmpty(int num_page);
 }
 
 

@@ -549,11 +549,6 @@
               <FilePath>.\src\Hardware\HAL\gd32f30x_libopt.h</FilePath>
             </File>
             <File>
-              <FileName>HAL.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL.h</FilePath>
-            </File>
-            <File>
               <FileName>systick.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Hardware\HAL\systick.h</FilePath>
@@ -567,11 +562,6 @@
               <FileName>HAL_ROM.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Hardware\HAL\HAL_ROM.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>HAL_USART.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\HAL\HAL_USART.cpp</FilePath>
             </File>
             <File>
               <FileName>HAL_PINS.cpp</FileName>
@@ -592,6 +582,16 @@
               <FileName>HAL_IT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_IT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL_USART.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_USART.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>HAL.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL.h</FilePath>
             </File>
           </Files>
         </Group>
