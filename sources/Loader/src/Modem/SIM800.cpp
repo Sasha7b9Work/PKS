@@ -250,7 +250,7 @@ void SIM800::TransmitRAW(pchar message)
 }
 
 
-void SIM800::TransmitUINT8(uint8 byte)
+void SIM800::Trans::UINT8(uint8 byte)
 {
     HAL_USART_GPRS::Transmit(&byte, 1);
 }
