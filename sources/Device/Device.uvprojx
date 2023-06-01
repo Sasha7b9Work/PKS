@@ -863,6 +863,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\Modem\MQTT\Sender\Sender.h</FilePath>
             </File>
+            <File>
+              <FileName>StringState.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\MQTT\Sender\StringState.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StringState.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\MQTT\Sender\StringState.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
