@@ -50,6 +50,8 @@ bool Sender::SendToSIM800()
 
             MQTT::Packet::Publish("base/id", (int)HAL::GetUID());
 
+            need_string_state = true;
+
             return true;
         }
     }

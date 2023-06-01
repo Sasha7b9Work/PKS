@@ -104,7 +104,12 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         {
             if (answer[18] == 1 && answer[17] == 'e' && answer[16] == 't' && answer[15] == 'a')
             {
-                Sender::SendStateString("Upgrade software");
+                Sender::SendStateString("Upgrade software", true);
+
+                for (int i = 0; i < 10; i++)
+                {
+                    MQTT::Update("");
+                }
 
                 Bootloader::Run();
             }
