@@ -24,6 +24,13 @@
     #endif
 #endif
 
+#ifdef FOUR_STEPS_VERSION
+    #define NUM_STEPS 4
+#endif
+#ifdef FIVE_STEPS_VERSION
+    #define NUM_STEPS 5
+#endif
+
 
 typedef unsigned char uint8;
 typedef signed char int8;

@@ -21,6 +21,8 @@ namespace Sender
         {
             MQTT::Packet::Publish("base/state/counter", value++);
 
+            MQTT::Packet::Publish("/base/state", "RUNNING 2");
+
             return true;
         }
     }

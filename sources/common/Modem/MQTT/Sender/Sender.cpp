@@ -43,14 +43,7 @@ bool Sender::SendToSIM800()
         {
             char buffer[32];
 
-            std::sprintf(buffer, "%d : %dst", VERSION,
-#ifdef FOUR_STEPS_VERSION
-                4
-#endif
-#ifdef FIVE_STEPS_VERSION
-                5
-#endif
-            );
+            std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
 
             MQTT::Packet::Publish("/versionSW", buffer);
             versionSW_is_sended = true;
@@ -140,7 +133,7 @@ bool Sender::SendAll(pchar answer)
         {
             SIM800::Transmit::With0D("AT+CIPSEND");
 
-            meter.SetResponseTime(60000);
+            meter.SetResponseTime(10000);
         }
     }
 
