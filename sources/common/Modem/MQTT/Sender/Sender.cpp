@@ -14,10 +14,6 @@ namespace Sender
     static bool versionSW_is_sended = false;
 
     static TimeMeterMS meter;
-
-    static pchar string_state = "Running";
-
-    static bool need_string_state = true;
 }
 
 
@@ -25,9 +21,9 @@ void Sender::Reset()
 {
     Counter::Reset();
 
-    versionSW_is_sended = false;
+    StringState::Reset();
 
-    need_string_state = true;
+    versionSW_is_sended = false;
 
     meter.SetResponseTime(5000);
 }
@@ -50,35 +46,17 @@ bool Sender::SendToSIM800()
 
             MQTT::Packet::Publish("base/id", (int)HAL::GetUID());
 
-            need_string_state = true;
-
             return true;
         }
-    }
-
-    if (need_string_state)
-    {
-        need_string_state = false;
-
-        MQTT::Packet::Publish("/base/state", string_state);
-
-        return true;
     }
 
     return false;
 }
 
 
-void Sender::SendStateString(pchar message, bool now)
+void Sender::ResetMeter()
 {
-    string_state = message;
-
-    need_string_state = true;
-
-    if (now)
-    {
-        meter.SetResponseTime(0);
-    }
+    meter.SetResponseTime(0);
 }
 
 
@@ -89,6 +67,11 @@ bool Sender::SendAll(pchar answer)
         bool sending = false;
 
         if (Sender::SendToSIM800())
+        {
+            sending = true;
+        }
+
+        if (Sender::StringState::SendToSIM800())
         {
             sending = true;
         }

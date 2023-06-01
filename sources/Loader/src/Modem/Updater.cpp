@@ -319,6 +319,7 @@ void Updater::Update(pchar answer)
                 Programmer::Prepare(HAL_ROM::ADDR_STORAGE);
 
                 SetState(State::GET_BYTES_FIRMWARE);
+                HAL_FWDGT::ToUpgradeMode();
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
                 ReaderFTP::received_FTPGET_1_0 = false;
             }

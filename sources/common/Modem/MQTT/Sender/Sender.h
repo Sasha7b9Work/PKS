@@ -3,6 +3,7 @@
 #include "Modem/MQTT/Sender/Measure.h"
 #include "Modem/MQTT/Sender/LevelContactors.h"
 #include "Modem/MQTT/Sender/ContactorsIsOK.h"
+#include "Modem/MQTT/Sender/StringState.h"
 #include "Modem/MQTT/Sender/GP.h"
 #include "Modem/SIM800.h"
 
@@ -15,6 +16,5 @@ namespace Sender
 
     bool SendAll(pchar);
 
-    // Если now == true, то немедленно заслать
-    void SendStateString(pchar, bool now = false);
+    void ResetMeter();
 }

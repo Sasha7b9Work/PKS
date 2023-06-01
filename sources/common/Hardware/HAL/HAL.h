@@ -101,6 +101,12 @@ namespace HAL_FWDGT
 {
     void Init();
 
+    // Установить рабочий режим
+    void ToRunningMode();
+
+    // Установить режим обновления
+    void ToUpgradeMode();
+
     void Update();
 }
 
