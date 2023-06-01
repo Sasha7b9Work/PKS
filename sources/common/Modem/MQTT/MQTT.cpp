@@ -103,60 +103,8 @@ void MQTT::Update(pchar answer)
 
     case State::RUNNING:
 
-        if (strcmp(answer, ">") == 0)
+        if (!Sender::SendAll(answer))
         {
-            bool sending = false;
-
-            if (Sender::SendToSIM800())
-            {
-                sending = true;
-            }
-
-            if (Sender::Measure::SendToSIM800())
-            {
-                sending = true;
-            }
-
-            if (Sender::LevelContactors::SendToSIM800())
-            {
-                sending = true;
-            }
-
-            if (Sender::ContactorsIsOK::SendToSIM800())
-            {
-                sending = true;
-            }
-
-            if (Sender::GP::SendToSIM800())
-            {
-                sending = true;
-            }
-
-            if (sending)
-            {
-                Sender::Counter::SendToSIM800();
-            }
-
-//            if (need_ping)
-//            {
-//                SIM800::Transmit::UINT8(0xC0);
-//                SIM800::Transmit::UINT8(0x00);
-//                need_ping = false;
-//            }
-
-            SIM800::Transmit::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
-        }
-        else
-        {
-            static bool first = true;
-
-            if (meter.ElapsedTime() > 60000 || (first && meter.ElapsedTime() > 5000))
-            {
-                SIM800::Transmit::With0D("AT+CIPSEND");
-                meter.Reset();
-                first = false;
-            }
-
             if (meterLastData.ElapsedTime() > 30000)
             {
 //            SIM800::Reset();

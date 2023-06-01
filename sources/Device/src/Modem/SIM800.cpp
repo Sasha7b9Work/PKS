@@ -7,6 +7,7 @@
 #include "Modem/Parser.h"
 #include "Hardware/Bootloader.h"
 #include "Modem/MQTT/MQTT.h"
+#include "Modem/MQTT/Sender/Sender.h"
 #include <cstring>
 #include <cstdio>
 
@@ -103,6 +104,8 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         {
             if (answer[18] == 1 && answer[17] == 'e' && answer[16] == 't' && answer[15] == 'a')
             {
+                Sender::SendStateString("Upgrade software");
+
                 Bootloader::Run();
             }
         }
