@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\Loader\src\Hardware</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -68,7 +68,7 @@
     </View>
     <View>
       <WinId>466</WinId>
-      <ViewName>Source Browser</ViewName>
+      <ViewName>Source Browser - *** Not Enabled ***</ViewName>
       <UserString>500</UserString>
       <TableColWidths>300</TableColWidths>
     </View>

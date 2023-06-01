@@ -463,6 +463,11 @@
               <FileType>1</FileType>
               <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_spi.c</FilePath>
             </File>
+            <File>
+              <FileName>gd32f30x_fwdgt.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source\gd32f30x_fwdgt.c</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
