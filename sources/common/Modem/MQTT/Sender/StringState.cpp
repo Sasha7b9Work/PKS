@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Modem/MQTT/Sender/Sender.h"
 #include "Modem/Modem.h"
+#include "Hardware/Timer.h"
 
 
 namespace Sender
@@ -28,7 +29,9 @@ void Sender::StringState::Send(pchar _state, bool now)
     {
         Sender::ResetMeter();
 
-        while (need_send)
+        TimeMeterMS meter;
+
+        while (need_send && meter.ElapsedTime() < 10000)
         {
             Modem::Update();
         }
