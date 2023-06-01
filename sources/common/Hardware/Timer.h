@@ -2,6 +2,9 @@
 #pragma once
 
 
+#define TIME_MS Timer::TimeMS()
+
+
 namespace Timer
 {
     uint TimeMS();

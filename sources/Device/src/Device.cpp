@@ -34,7 +34,12 @@ void Device::Update()
 
     Measurer::Update();
 
+    volatile uint time = TIME_MS;
+
     Display::Update();
+
+    time = TIME_MS - time;
+    time = time;
 
     Contactors::Update(Measurer::Measure5Sec());
 
