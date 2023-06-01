@@ -12,11 +12,15 @@ void Loader::Init()
     HAL::Init();
 
     Modem::Init();
+
+    HAL_FWDGT::Init();
 }
 
 
 void Loader::Update()
 {
+    HAL_FWDGT::Update();
+
     Modem::Update();
 
     if (Updater::IsCompleted())

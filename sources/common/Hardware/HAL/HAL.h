@@ -101,8 +101,6 @@ namespace HAL_FWDGT
 {
     void Init();
 
-    void DeInit();
-
     void Update();
 }
 

@@ -6,15 +6,9 @@
 
 void HAL_FWDGT::Init()
 {
-    fwdgt_config(0xFFF, FWDGT_PSC_DIV4);    // 400 мс
+    fwdgt_config(0xFFF, FWDGT_PSC_DIV4);    // 409 мс
 
     fwdgt_enable();
-}
-
-
-void HAL_FWDGT::DeInit()
-{
-
 }
 
 
