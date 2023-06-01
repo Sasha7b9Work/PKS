@@ -618,6 +618,11 @@
               <FileType>8</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_SPI.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_FWDGT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_FWDGT.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\common\GD32F30x_Library\Firmware\GD32F30x_standard_peripheral\Source</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\common\Hardware\HAL</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
