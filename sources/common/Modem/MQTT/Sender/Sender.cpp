@@ -44,9 +44,7 @@ bool Sender::SendToSIM800()
             MQTT::Packet::Publish("/versionSW", buffer);
             versionSW_is_sended = true;
 
-            std::sprintf(buffer, "%X", HAL::GetUID());
-
-            MQTT::Packet::Publish("base/id", buffer);
+            MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
 
             return true;
         }

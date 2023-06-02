@@ -21,7 +21,7 @@ namespace HAL
     void Init();
     void DeInit();
     void ErrorHandler();
-    uint GetUID();
+    char *GetUID(char buffer[32]);
 }
 
 

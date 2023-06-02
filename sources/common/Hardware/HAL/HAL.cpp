@@ -5,6 +5,8 @@
 #include "Utils/Math.h"
 #include <gd32f30x.h>
 #include <cstring>
+#include <cstdlib>
+#include <cstdio>
 
 
 /*
@@ -74,13 +76,15 @@ void HAL::DeInit()
 }
 
 
-uint HAL::GetUID()
+char *HAL::GetUID(char buffer[32])
 {
     uint8 bytes[12];
 
     std::memcpy(bytes, (void *)0x1FFFF7E8, 12);
 
-    return Math::CalculateCRC((uint)bytes, 12);
+    std::sprintf(buffer, "%X", Math::CalculateCRC((uint)bytes, 12));
+
+    return buffer;
 }
 
 

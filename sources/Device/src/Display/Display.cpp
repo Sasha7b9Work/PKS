@@ -107,9 +107,7 @@ void Display::WriteUID()
 {
     char message[32];
 
-    std::sprintf(message, "%X", HAL::GetUID());
-
-    WriteString(70, 51, message);
+    WriteString(70, 51, HAL::GetUID(message));
 }
 
 
