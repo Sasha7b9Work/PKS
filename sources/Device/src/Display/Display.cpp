@@ -6,6 +6,7 @@
 #include "Modem/Modem.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Modem/SIM800.h"
+#include "Hardware/HAL/HAL.h"
 #include <cstring>
 #include <cstdio>
 
@@ -25,6 +26,8 @@ namespace Display
     static void WriteVoltage(int i);
 
     static void WriteAmpere(int i);
+
+    static void WriteUID();
 }
 
 
@@ -53,21 +56,23 @@ void Display::Update()
         WriteAmpere(i);
     }
 
-    if (Modem::Mode::Power())
+    WriteUID();
+
+//    if (Modem::Mode::Power())
     {
-        WriteString(5, 5, "œ»“");
+        WriteString(5, 5, "POW");
     }
 
-    if (SIM800::IsRegistered())
+//    if (SIM800::IsRegistered())
     {
-        WriteString(40, 5, "–≈√");
+        WriteString(35, 5, "REG");
     }
 
-    if (MQTT::InStateRunning())
+//    if (MQTT::InStateRunning())
     {
-        WriteString(80, 5, "Ã ˛““");
+        WriteString(65, 5, "MQTT");
 
-        WriteString(120, 5, SIM800::LevelSignal());
+        WriteString(100, 5, SIM800::LevelSignal());
     }
 
     SSD1306::WriteBuffer(buffer);
@@ -82,7 +87,7 @@ void Display::WriteVoltage(int i)
 
     std::sprintf(message, "%4.1f", measure.measures[i].voltage);
 
-    WriteString(10, 20 + i * 15, message);
+    WriteString(10, 17 + i * 11, message);
 }
 
 
@@ -94,8 +99,17 @@ void Display::WriteAmpere(int i)
 
     std::sprintf(message, "%1.3f", measure.measures[i].current);
 
-    WriteString(80, 10 + i * 20, message);
+    WriteString(80, 17 + i * 11, message);
+}
 
+
+void Display::WriteUID()
+{
+    char message[32];
+
+    std::sprintf(message, "%X", HAL::GetUID());
+
+    WriteString(70, 51, message);
 }
 
 
