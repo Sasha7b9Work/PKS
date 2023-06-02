@@ -84,7 +84,7 @@ void MQTT::Update(pchar answer)
             SIM800::Transmit::UINT8(0x3c);    // /
 
             SIM800::Transmit::UINT8(0x00);    // property lenth
-            SIM800::Transmit::UINT8(0x10);    // 
+            SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_CID));
             SIM800::Transmit::RAW(MQTT_CID);
 
             SIM800::Transmit::UINT8(0x1A);
