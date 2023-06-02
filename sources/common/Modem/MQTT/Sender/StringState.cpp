@@ -9,7 +9,7 @@ namespace Sender
 {
     namespace StringState
     {
-        static pchar state = "";
+        static pchar state = "Running";
         static bool need_send = true;
     }
 }
