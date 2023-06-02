@@ -36,11 +36,6 @@ namespace MQTT
 
     static TimeMeterMS meterPing;
 
-    // ≈сли nned_ping == true, то посылаем команду пинга
-//    static bool need_ping = false;
-
-    static const char *MQTT_type = "MQTT";
-
     // —брасываетс€ каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
 }
@@ -67,13 +62,14 @@ void MQTT::Update(pchar answer)
     case State::WAIT_RESPONSE_CIPSEND:
         if (strcmp(answer, ">") == 0)
         {
+            char *MQTT_type = "MQTT";
+
             char guid[32];
             char MQTT_CID[32];
             std::sprintf(MQTT_CID, "mqttpks-%s", HAL::GetUID(guid));
 
             SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединени€
-            SIM800::Transmit::UINT8(0x1c);
-//            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 8));
+            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 8));
 
             // тип протокола
             SIM800::Transmit::UINT8(0x00);
