@@ -118,7 +118,7 @@ bool Sender::SendAll(pchar answer)
         {
             SIM800::Transmit::With0D("AT+CIPSEND");
 
-            meter.SetResponseTime(10000);
+            meter.SetResponseTime(30000);
         }
     }
 
