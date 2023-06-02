@@ -46,6 +46,8 @@ bool Sender::SendToSIM800()
 
             MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
 
+            MQTT::Packet::Publish("/state", "Running");
+
             return true;
         }
     }
