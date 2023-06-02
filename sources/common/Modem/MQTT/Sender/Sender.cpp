@@ -37,6 +37,8 @@ bool Sender::SendToSIM800()
     {
         if (_meter.ElapsedTime() > 3000)
         {
+            versionSW_is_sended = true;
+
             char buffer[32];
 
             std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
