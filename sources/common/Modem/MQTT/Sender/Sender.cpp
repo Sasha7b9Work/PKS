@@ -25,7 +25,7 @@ void Sender::Reset()
 
     versionSW_is_sended = false;
 
-    meter.SetResponseTime(5000);
+    meter.SetResponseTime(10000);
 }
 
 
