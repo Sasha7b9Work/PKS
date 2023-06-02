@@ -9,7 +9,7 @@ namespace Sender
 {
     namespace StringState
     {
-        static pchar state = "Running 2";
+        static pchar state = "Running";
         static bool need_send = true;
     }
 }
@@ -41,13 +41,18 @@ void Sender::StringState::Send(pchar _state, bool now)
 
 bool Sender::StringState::SendToSIM800()
 {
-    if (need_send)
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() > 1000)
     {
-        need_send = false;
+        if (need_send)
+        {
+            need_send = false;
 
-        MQTT::Packet::Publish("/state", state);
+            MQTT::Packet::Publish("/state", state);
 
-        return true;
+            return true;
+        }
     }
 
     return false;

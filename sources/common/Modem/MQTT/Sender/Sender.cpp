@@ -25,26 +25,31 @@ void Sender::Reset()
 
     versionSW_is_sended = false;
 
-    meter.SetResponseTime(1000);
+    meter.SetResponseTime(0);
 }
 
 
 bool Sender::SendToSIM800()
 {
-    if (!versionSW_is_sended)
+    static TimeMeterMS local_meter;
+
+    if (local_meter.ElapsedTime() > 1000)
     {
-        versionSW_is_sended = true;
+        if (!versionSW_is_sended)
+        {
+            versionSW_is_sended = true;
 
-        char buffer[32];
+            char buffer[32];
 
-        std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
+            std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
 
-        MQTT::Packet::Publish("/versionSW", buffer);
-        versionSW_is_sended = true;
+            MQTT::Packet::Publish("/versionSW", buffer);
+            versionSW_is_sended = true;
 
-        MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
+            MQTT::Packet::Publish("base/id", "0000"/*HAL::GetUID(buffer)*/);
 
-        return true;
+            return true;
+        }
     }
 
     return false;
@@ -67,45 +72,45 @@ bool Sender::SendAll(pchar answer)
         {
             sending = true;
         }
-
-        if (Sender::StringState::SendToSIM800())
+        else if (Sender::StringState::SendToSIM800())
+        {
+            sending = true;
+        }
+        else if (Sender::Measure::SendToSIM800())
+        {
+            sending = true;
+        }
+        else if (Sender::LevelContactors::SendToSIM800())
+        {
+            sending = true;
+        }
+        else if (Sender::ContactorsIsOK::SendToSIM800())
+        {
+            sending = true;
+        }
+        else if (Sender::GP::SendToSIM800())
+        {
+            sending = true;
+        }
+        else if (Sender::Counter::SendToSIM800())
         {
             sending = true;
         }
 
-        if (Sender::Measure::SendToSIM800())
-        {
-            sending = true;
-        }
-
-        if (Sender::LevelContactors::SendToSIM800())
-        {
-            sending = true;
-        }
-
-        if (Sender::ContactorsIsOK::SendToSIM800())
-        {
-            sending = true;
-        }
-
-        if (Sender::GP::SendToSIM800())
-        {
-            sending = true;
-        }
+        SIM800::Transmit::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
 
         if (sending)
         {
-            Sender::Counter::SendToSIM800();
+            SIM800::Transmit::With0D("AT+CIPSEND");
         }
 
-//            if (need_ping)
-//            {
-//                SIM800::Transmit::UINT8(0xC0);
-//                SIM800::Transmit::UINT8(0x00);
-//                need_ping = false;
-//            }
+//      if (need_ping)
+//      {
+//          SIM800::Transmit::UINT8(0xC0);
+//          SIM800::Transmit::UINT8(0x00);
+//          need_ping = false;
+//      }
 
-        SIM800::Transmit::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
 
         return true;
     }

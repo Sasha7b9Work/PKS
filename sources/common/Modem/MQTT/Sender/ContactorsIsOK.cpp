@@ -40,6 +40,8 @@ namespace Sender
 
         bool SendToSIM800()
         {
+            bool sended = false;
+
             static const char *const names[NUM_PINS_MX] =
             {
                 "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8", "A9",
@@ -49,7 +51,6 @@ namespace Sender
 
             char buffer[100];
 
-            bool sended = false;
             bool all_is_ok = true;
 
             for (int i = 0; i < NUM_PINS_MX; i++)
