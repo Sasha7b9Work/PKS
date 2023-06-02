@@ -58,7 +58,7 @@ namespace Sender
                 {
                     if (i == 27)
                     {
-                        MQTT::Packet::Publish("base/state/dc100v", value[i] ? "1" : "0");
+                        MQTT::Packet::Publish("/base/state/dc100v", value[i] ? "1" : "0");
                         sended = true;
                     }
                     else
