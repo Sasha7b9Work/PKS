@@ -13,9 +13,9 @@ namespace Sender
     {
         static bool value[NUM_PINS_MX] =              // Состояние каждого контактора
         {
-            false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false,
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
             false
         };
         static bool need[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
@@ -65,8 +65,8 @@ namespace Sender
                     else
                     {
                         std::sprintf(buffer, "base/cont/KM%s", names[i]);
-//                        MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
-//                        sended = true;
+                        MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
+                        sended = true;
                     }
                     need[i] = false;
                 }
