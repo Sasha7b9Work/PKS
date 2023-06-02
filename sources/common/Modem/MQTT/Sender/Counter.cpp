@@ -19,9 +19,11 @@ namespace Sender
 
         bool SendToSIM800()
         {
-            MQTT::Packet::Publish("base/state/counter", value++);
+//            MQTT::Packet::Publish("base/state/counter", value++);
 
-            return true;
+//            return true;
+
+            return false;
         }
     }
 }
