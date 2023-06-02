@@ -10,7 +10,7 @@ namespace Sender
 {
     namespace Counter
     {
-        static int value = -1;
+        static int value = -3;
 
         void Reset()
         {

@@ -45,7 +45,7 @@ bool Sender::StringState::SendToSIM800()
     {
         need_send = false;
 
-        MQTT::Packet::Publish("/base/state", state);
+        MQTT::Packet::Publish("/state", state);
 
         return true;
     }
