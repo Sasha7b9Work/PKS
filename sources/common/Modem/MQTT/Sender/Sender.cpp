@@ -25,33 +25,26 @@ void Sender::Reset()
 
     versionSW_is_sended = false;
 
-    meter.SetResponseTime(10000);
+    meter.SetResponseTime(0);
 }
 
 
 bool Sender::SendToSIM800()
 {
-    static TimeMeterMS _meter;
-
     if (!versionSW_is_sended)
     {
-        if (_meter.ElapsedTime() > 3000)
-        {
-            versionSW_is_sended = true;
+        versionSW_is_sended = true;
 
-            char buffer[32];
+        char buffer[32];
 
-            std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
+        std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
 
-            MQTT::Packet::Publish("/versionSW", buffer);
-            versionSW_is_sended = true;
+        MQTT::Packet::Publish("/versionSW", buffer);
+        versionSW_is_sended = true;
 
-            MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
+        MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
 
-            MQTT::Packet::Publish("/state", "Running");
-
-            return true;
-        }
+        return true;
     }
 
     return false;
