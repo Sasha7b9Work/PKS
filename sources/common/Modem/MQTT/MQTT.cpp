@@ -40,7 +40,6 @@ namespace MQTT
 //    static bool need_ping = false;
 
     static const char *MQTT_type = "MQTT";
-    static const char *MQTT_CID = "mqtt-pks3-r0rk8";    // уникальное имя устройства в сети MQTT
 
     // Сбрасывается каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
@@ -68,6 +67,10 @@ void MQTT::Update(pchar answer)
     case State::WAIT_RESPONSE_CIPSEND:
         if (strcmp(answer, ">") == 0)
         {
+            char guid[32];
+            char MQTT_CID[32];
+            std::sprintf(MQTT_CID, "mqttpks-%s", HAL::GetUID(guid));
+
             SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединения
             SIM800::Transmit::UINT8(0x1c);
 //            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 8));
