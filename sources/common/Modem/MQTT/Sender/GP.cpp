@@ -9,7 +9,7 @@ namespace Sender
     namespace GP
     {
         static bool value[3] = { false, false, false };
-        static bool need[3] = { false, false, false };
+        static bool need[3] = { true, true, true };
 
         void Send(int num, bool is_low)
         {
@@ -35,7 +35,7 @@ namespace Sender
                 {
                     if (need[i])
                     {
-                        name[6] = (char)((i + 1) | 0x30);
+                        name[14] = (char)((i + 1) | 0x30);
 
                         MQTT::Packet::Publish(name, value[i] ? "1" : "0");
 

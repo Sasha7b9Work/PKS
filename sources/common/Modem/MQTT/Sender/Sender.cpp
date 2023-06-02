@@ -48,6 +48,8 @@ bool Sender::SendToSIM800()
 
             MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
 
+            MQTT::Packet::Publish("/base/state/dc100v", "0");
+
             return true;
         }
     }
@@ -120,7 +122,7 @@ bool Sender::SendAll(pchar answer)
         {
             SIM800::Transmit::With0D("AT+CIPSEND");
 
-            meter.SetResponseTime(1000);
+            meter.SetResponseTime(5000);
         }
     }
 

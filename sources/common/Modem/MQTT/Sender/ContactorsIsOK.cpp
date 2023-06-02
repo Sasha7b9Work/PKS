@@ -64,9 +64,9 @@ namespace Sender
                     }
                     else
                     {
-//                        std::sprintf(buffer, "base/cont/KM%s", names[i]);
-                        MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
-                        sended = true;
+                        std::sprintf(buffer, "base/cont/KM%s", names[i]);
+//                        MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
+//                        sended = true;
                     }
                     need[i] = false;
                 }
