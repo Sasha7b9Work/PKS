@@ -48,8 +48,6 @@ bool Sender::SendToSIM800()
 
             MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
 
-            MQTT::Packet::Publish("/base/state/dc100v", "0");
-
             return true;
         }
     }
