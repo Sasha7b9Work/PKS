@@ -26,8 +26,6 @@ namespace Display
     static void WriteVoltage(int i);
 
     static void WriteAmpere(int i);
-
-    static void WriteUID();
 }
 
 
@@ -56,7 +54,13 @@ void Display::Update()
         WriteAmpere(i);
     }
 
-    WriteUID();
+    char message[32];
+
+    WriteString(70, 51, HAL::GetUID(message));
+
+    std::sprintf(message, "st : %d", NUM_STEPS);
+
+    WriteString(5, 51, message);
 
     if (Modem::Mode::Power())
     {
@@ -100,14 +104,6 @@ void Display::WriteAmpere(int i)
     std::sprintf(message, "%1.3f", measure.measures[i].current);
 
     WriteString(80, 17 + i * 11, message);
-}
-
-
-void Display::WriteUID()
-{
-    char message[32];
-
-    WriteString(70, 51, HAL::GetUID(message));
 }
 
 
