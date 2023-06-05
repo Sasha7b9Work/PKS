@@ -89,10 +89,3 @@ namespace Measurer
 
     FullMeasure Measure1Min();
 }
-
-
-namespace Contactors
-{
-    // Проверить исправность каждого контактора
-    void VerifyServiceability();
-}

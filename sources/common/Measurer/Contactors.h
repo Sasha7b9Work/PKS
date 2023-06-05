@@ -8,4 +8,7 @@ namespace Contactors
     void Init();
 
     void Update(const FullMeasure &);
+
+    // ѕроверить исправность каждого контактора
+    void VerifyServiceability();
 }

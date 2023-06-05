@@ -427,6 +427,7 @@ void Contactors::VerifyServiceability()
 #ifdef DEVICE
             Sender::ContactorsIsOK::Send(state_contactor);
 #endif
+            first = true;
         }
     }
 }
