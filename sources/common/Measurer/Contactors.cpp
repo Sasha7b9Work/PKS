@@ -79,6 +79,7 @@ namespace Contactors
         static const int MAX = ABOVE_290;
 #endif
 
+        // Номер включённой ступени
         static int current[3] = { 0, 0, 0 };
     }
 
@@ -100,14 +101,20 @@ namespace Contactors
     // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
     static bool ReleIsBusy(uint address);
 
-    // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
-    static bool state_contactor[NUM_PINS_MX] =
+    namespace Serviceability
     {
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false,
-        false, false, false, false, false, false, false, false, false,
-        false
-    };
+        // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
+        static bool state[NUM_PINS_MX] =
+        {
+            false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false,
+            false, false, false, false, false, false, false, false, false,
+            false
+        };
+
+        // Перевести в состояние транзита фазы с неисправными реле
+        static void DisableBadPhases();
+    }
 }
 
 
@@ -374,7 +381,7 @@ void Contactors::Contactor::Disable()
 }
 
 
-void Contactors::VerifyServiceability()
+void Contactors::Serviceability::Verify()
 {
     static TimeMeterMS meter;
 
@@ -398,14 +405,12 @@ void Contactors::VerifyServiceability()
     {
         if (!ReleIsBusy(address))
         {
-            bool state = StateRele();
-
-            state_contactor[address] = state;
+            state[address] = StateRele();
         }
 
         if (address == 27)                          // Был выставлен адрес P2 = 31
         {
-            state_contactor[address] = !pinP2.IsHi();
+            state[address] = !pinP2.IsHi();
         }
 
         address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
@@ -425,7 +430,7 @@ void Contactors::VerifyServiceability()
         if (address == 0)   // Опросили все реле, будем посылать результат
         {
 #ifdef DEVICE
-            Sender::ContactorsIsOK::Send(state_contactor);
+            Sender::ContactorsIsOK::Send(state);
 #endif
             first = true;
         }
