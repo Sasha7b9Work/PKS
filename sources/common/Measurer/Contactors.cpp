@@ -80,7 +80,7 @@ namespace Contactors
 #endif
 
         // Номер включённой ступени
-        static int current[3] = { 0, 0, 0 };
+        static int step[3] = { 0, 0, 0 };
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
@@ -106,14 +106,14 @@ namespace Contactors
         // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
         static bool state[NUM_PINS_MX] =
         {
-            false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false,
-            false, false, false, false, false, false, false, false, false,
-            false
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
+            true, true, true, true, true, true, true, true, true,
+            true
         };
 
-        // Перевести в состояние транзита фазы с неисправными реле
-        static void DisableBadPhases();
+        // Возвращает true, если все контакторы по фазе исправны
+        static bool AllIsOk(Phase::E);
     }
 }
 
@@ -174,44 +174,52 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             {
                 break;
             }
-            
-            float inU = measure.voltage + (float)Level::current[phase] * 10.0f;
+
             int new_level = 0;
-            
-            if (inU < 160.5f)
+
+            if (!Serviceability::AllIsOk(phase))                            // Если хотя бы один контактор на фазе неисправен
             {
                 new_level = 0;
             }
             else
             {
-                float delta = 0.0f;
-                int num_steps = 0;
-                if (measure.voltage < 220.0f)
-                {
-                    delta = 220.0f - measure.voltage;
+                float inU = measure.voltage + (float)Level::step[phase] * 10.0f;
 
-                    num_steps = -(int)(delta / 10.0f + 1.0f);
-                }
-                else if (measure.voltage > 240.0f)
+                if (inU < 160.5f)
                 {
-                    delta = measure.voltage - 240.0f;
-
-                    num_steps = (int)(delta / 10.0f + 1.0f);
+                    new_level = 0;
                 }
                 else
                 {
-                    break;
-                }
+                    float delta = 0.0f;
+                    int num_steps = 0;
+                    if (measure.voltage < 220.0f)
+                    {
+                        delta = 220.0f - measure.voltage;
 
-                new_level = Math::Limitation(Level::current[phase] + num_steps, Level::MIN, Level::MAX);
+                        num_steps = -(int)(delta / 10.0f + 1.0f);
+                    }
+                    else if (measure.voltage > 240.0f)
+                    {
+                        delta = measure.voltage - 240.0f;
+
+                        num_steps = (int)(delta / 10.0f + 1.0f);
+                    }
+                    else
+                    {
+                        break;
+                    }
+
+                    new_level = Math::Limitation(Level::step[phase] + num_steps, Level::MIN, Level::MAX);
+                }
             }
     
-            if (new_level == Level::current[phase])
+            if (new_level == Level::step[phase])
             {
                 break;
             }
     
-            Level::current[phase] = new_level;
+            Level::step[phase] = new_level;
 
             ENABLE_RELE(2, State::TRANSIT_EN_1);
         }
@@ -271,7 +279,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                     {true,  true,  true,  true}     // 4
             };
 
-            int st = Level::current[phase] > 0 ? Level::current[phase] : -Level::current[phase];
+            int st = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
 
             CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);
             CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);
@@ -285,13 +293,13 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::POLARITY_LEVEL:
         if (meter[phase].IsFinished())
         {
-            if (Level::current[phase] == 0)
+            if (Level::step[phase] == 0)
             {
                 State::current[phase] = State::IDLE;
             }
             else
             {
-                if (Level::current[phase] > 0)
+                if (Level::step[phase] > 0)
                 {
                     ENABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }
@@ -324,7 +332,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     }
 
 #ifdef DEVICE
-    Sender::LevelContactors::Send(Level::current);
+    Sender::LevelContactors::Send(Level::step);
 #endif
 }
 
@@ -432,9 +440,26 @@ void Contactors::Serviceability::Verify()
 #ifdef DEVICE
             Sender::ContactorsIsOK::Send(state);
 #endif
-            first = true;
         }
     }
+}
+
+
+bool Contactors::Serviceability::AllIsOk(Phase::E phase)
+{
+    int first = phase * 9;
+
+    int last = first + ((NUM_STEPS == 4) ? 8 : 9);
+
+    for (int i = first; i < last; i++)
+    {
+        if (!state[i])
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
 
 
