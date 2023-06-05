@@ -58,17 +58,17 @@ void Display::Update()
 
     WriteUID();
 
-//    if (Modem::Mode::Power())
+    if (Modem::Mode::Power())
     {
         WriteString(5, 5, "POW");
     }
 
-//    if (SIM800::IsRegistered())
+    if (SIM800::IsRegistered())
     {
         WriteString(35, 5, "REG");
     }
 
-//    if (MQTT::InStateRunning())
+    if (MQTT::InStateRunning())
     {
         WriteString(65, 5, "MQTT");
 
