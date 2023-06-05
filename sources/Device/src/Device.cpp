@@ -47,5 +47,5 @@ void Device::Update()
 
     HAL_PINS::Update();
 
-    Contactors::VerifyCondition();
+    Contactors::VerifyServiceability();
 }

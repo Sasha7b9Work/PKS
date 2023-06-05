@@ -374,7 +374,7 @@ void Contactors::Contactor::Disable()
 }
 
 
-void Contactors::VerifyCondition()
+void Contactors::VerifyServiceability()
 {
     static TimeMeterMS meter;
 

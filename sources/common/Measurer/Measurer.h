@@ -93,6 +93,6 @@ namespace Measurer
 
 namespace Contactors
 {
-    // Проверить состояние очередного вывода. Вызывается в глвном цикле
-    void VerifyCondition();
+    // Проверить исправность каждого контактора
+    void VerifyServiceability();
 }
