@@ -156,13 +156,13 @@ void Contactors::Update(const FullMeasure &measure)
 
 void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool is_good)
 {
-#define ENABLE_RELE(num, state)  { Enable(num, phase, state, meter[phase]); }
-#define DISABLE_RELE(num, state) { Disable(num, phase, state, meter[phase]); }
+#define ENABLE_RELE(num, state)  { Enable((num), (phase), (state), (meter[phase])); }
+#define DISABLE_RELE(num, state) { Disable((num), (phase), (state), (meter[phase])); }
 
-#define CHANGE_RELE(num, state, enabled) if(enabled) ENABLE_RELE(num, state) else DISABLE_RELE(num, state)
+#define CHANGE_RELE(num, state, enabled) if(enabled) ENABLE_RELE((num), (state)) else DISABLE_RELE((num), (state))
 
-#define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsFinished()) { ENABLE_RELE(num, state); }
-#define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsFinished()) { DISABLE_RELE(num, state); }
+#define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsFinished()) { ENABLE_RELE((num), (state)); }
+#define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsFinished()) { DISABLE_RELE((num), (state)); }
 
     static TimeMeterMS meter[3];
 
@@ -301,11 +301,11 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             {
                 if (Level::step[phase] > 0)
                 {
-                    ENABLE_RELE(9, State::TRANSIT_EXIT_1);
+                    ENABLE_RELE(((NUM_STEPS == 4) ? 8 : 9), State::TRANSIT_EXIT_1);
                 }
                 else
                 {
-                    DISABLE_RELE(9, State::TRANSIT_EXIT_1);
+                    DISABLE_RELE(((NUM_STEPS == 4) ? 8 : 9), State::TRANSIT_EXIT_1);
                 }
             }
         }
