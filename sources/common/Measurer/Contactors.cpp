@@ -81,6 +81,8 @@ namespace Contactors
 
         // Номер включённой ступени
         static int step[3] = { 0, 0, 0 };
+        // Напряжение, которое было при предыдущем включении ступени. Нужно для контроля исправности 8/9 контактора
+        static int voltage[3] = { 0.0f, 0.0f, 0.0f };
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
@@ -299,11 +301,11 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             }
             else
             {
-                if (Level::step[phase] > 0)
+                if (Level::step[phase] > 0)             // Идём в понижение
                 {
                     ENABLE_RELE(((NUM_STEPS == 4) ? 8 : 9), State::TRANSIT_EXIT_1);
                 }
-                else
+                else                                    // Идём в повшение
                 {
                     DISABLE_RELE(((NUM_STEPS == 4) ? 8 : 9), State::TRANSIT_EXIT_1);
                 }
