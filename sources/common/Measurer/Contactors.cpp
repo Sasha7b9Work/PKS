@@ -82,7 +82,7 @@ namespace Contactors
         // Номер включённой ступени
         static int step[3] = { 0, 0, 0 };
         // Напряжение, которое было при предыдущем включении ступени. Нужно для контроля исправности 8/9 контактора
-        static int voltage[3] = { 0.0f, 0.0f, 0.0f };
+        static float voltage[3] = { 0.0f, 0.0f, 0.0f };
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);

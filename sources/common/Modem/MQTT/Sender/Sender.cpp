@@ -68,6 +68,15 @@ bool Sender::SendAll(pchar answer)
     {
         bool sending = false;
 
+        if (GL::now_enabled)
+        {
+            GL::now_enabled = false;
+
+            MQTT::Packet::Publish("/base/enabled", "0");
+
+            MQTT::Packet::Publish("/base/enabled", "1");
+        }
+
         if (Sender::SendToSIM800())
         {
             sending = true;

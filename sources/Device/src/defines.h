@@ -9,3 +9,6 @@
 #define OLD_VERSION
 
 #define ENABLE_LOG
+
+
+#include "Globals.h"

@@ -19,9 +19,16 @@ namespace Sender
 
         bool SendToSIM800()
         {
-//            MQTT::Packet::Publish("base/state/counter", value++);
+            static TimeMeterMS meter;
 
-//            return true;
+            if (meter.ElapsedTime() > 60000)
+            {
+                meter.Reset();
+
+                MQTT::Packet::Publish("base/state/counter", value++);
+
+                return true;
+            }
 
             return false;
         }
