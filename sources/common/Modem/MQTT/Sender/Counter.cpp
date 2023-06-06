@@ -10,11 +10,11 @@ namespace Sender
 {
     namespace Counter
     {
-        static int value = 1;
+        static int value = -1;
 
         void Reset()
         {
-            value = 1;
+            value = -1;
         }
 
         bool SendToSIM800()
@@ -23,7 +23,7 @@ namespace Sender
 
             if (meter.IsFinished())
             {
-                meter.SetResponseTime(60000);
+                meter.SetResponseTime(10000);
 
                 MQTT::Packet::Publish("base/state/counter", value++);
 
