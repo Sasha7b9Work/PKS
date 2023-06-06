@@ -75,6 +75,8 @@ bool Sender::SendAll(pchar answer)
             MQTT::Packet::Publish("/base/enabled", "0");
 
             MQTT::Packet::Publish("/base/enabled", "1");
+
+            sending = true;
         }
 
         if (Sender::SendToSIM800())
