@@ -8,3 +8,4 @@ https://rightech.io/developers/introductions/
 
 
 mosquitto_pub -h dev.rightech.io -i mqtt-pks3-r0rk8m -t base/state/voltage_c -m 12
+mosquitto_pub -h dev.rightech.io -i mqttpks-3F0ECAD9 -t base/state/counter -m 12
