@@ -12,6 +12,11 @@
 #include <gd32f30x_rcu.h>
 
 
+namespace Device
+{
+    static TimeMeterMS meter;
+}
+
 void Device::Init()
 {
     GL::now_enabled = true;
@@ -27,13 +32,13 @@ void Device::Init()
     FlashDisk::Init();
 
     Display::Init();
+
+    meter.Reset();
 }
 
 
 void Device::Update()
 {
-    static TimeMeterMS meter;
-
     if (meter.ElapsedTime() < 180000)
     {
         HAL_FWDGT::Update();
