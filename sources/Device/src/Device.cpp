@@ -68,7 +68,7 @@ void Device::Update()
 
 void Device::Reset()
 {
-    Modem::Reset();
-    SIM800::Reset();
-    MQTT::Reset();
+    while (true)
+    {
+    }
 }
