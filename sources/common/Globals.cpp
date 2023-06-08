@@ -6,4 +6,6 @@
 namespace GL
 {
     bool now_enabled = true;
+
+    uint _RCU_RSTSCK = 0;
 }

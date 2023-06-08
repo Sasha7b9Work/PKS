@@ -3,10 +3,12 @@
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
 #include "Utils/Math.h"
+#include "Globals.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
+
 
 
 /*
@@ -42,6 +44,8 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_AF);
     rcu_periph_clock_enable(RCU_TIMER1);    // Для опроса контакторв
     rcu_periph_clock_enable(RCU_TIMER5);
+
+    GL::_RCU_RSTSCK = *((uint *)(0x40021000 + 0x24));
 
     if (RESET != rcu_flag_get(RCU_FLAG_FWDGTRST)) {
         /* clear the FWDGT reset flag */

@@ -14,6 +14,8 @@ namespace Sender
     static bool versionSW_is_sended = false;
 
     static TimeMeterMS meter;
+
+    static void SendLastReset();
 }
 
 
@@ -47,6 +49,8 @@ bool Sender::SendToSIM800()
             versionSW_is_sended = true;
 
             MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
+
+            SendLastReset();
 
             return true;
         }
@@ -136,4 +140,33 @@ bool Sender::SendAll(pchar answer)
     }
 
     return false;
+}
+
+
+void Sender::SendLastReset()
+{
+    if (_GET_BIT(GL::_RCU_RSTSCK, 31))
+    {
+        MQTT::Packet::Publish("/last/reset", "Low power");
+    }
+    else if (_GET_BIT(GL::_RCU_RSTSCK, 30))
+    {
+        MQTT::Packet::Publish("/last/reset", "Watchdog");
+    }
+    else if (_GET_BIT(GL::_RCU_RSTSCK, 29))
+    {
+        MQTT::Packet::Publish("/last/reset", "Free watchdog");
+    }
+    else if (_GET_BIT(GL::_RCU_RSTSCK, 28))
+    {
+        MQTT::Packet::Publish("/last/reset", "Software");
+    }
+    else if (_GET_BIT(GL::_RCU_RSTSCK, 27))
+    {
+        MQTT::Packet::Publish("/last/reset", "Power");
+    }
+    else if (_GET_BIT(GL::_RCU_RSTSCK, 26))
+    {
+        MQTT::Packet::Publish("/last/reset", "External pin");
+    }
 }

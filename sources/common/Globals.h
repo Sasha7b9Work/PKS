@@ -6,4 +6,6 @@ namespace GL
 {
     // Когда устройство включается или переходит сюда из загрузчика, здесь true. Нужно для засылки в MQTT
     extern bool now_enabled;
+
+    extern uint _RCU_RSTSCK;
 }
