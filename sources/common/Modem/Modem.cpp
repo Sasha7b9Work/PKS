@@ -71,6 +71,7 @@ namespace Modem
         {
             main.Clear();
             addit.Clear();
+            buffer.Clear();
         }
 
         void Update()
