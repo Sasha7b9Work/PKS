@@ -56,9 +56,23 @@ namespace Modem
             WAIT_5000_MS,           // Ожидать 5 секунд единицу на GSM_STATUS
             HARDWARE_IS_OK,         // Железо отработало, работают команды
         };
+
+        static void Set(E v)
+        {
+            state = v;
+        }
+
+        static E Current()
+        {
+            return state;
+        }
+
+    private:
+
+        static E state;
     };
 
-    static State::E state = State::IDLE;
+    State::E State::state = State::IDLE;
 
     // Данные, получаемые от SIM800
     namespace InData
@@ -209,12 +223,12 @@ void Modem::Update()
 {
     static TimeMeterMS meter;
 
-    switch (state)
+    switch (State::Current())
     {
     case State::IDLE:
         pinGSM_PWR.Set();
         GSM_PG::ToOutLow();
-        state = State::WAIT_DISCHARGE_CAPS;
+        State::Set(State::WAIT_DISCHARGE_CAPS);
         meter.Reset();
         break;
 
@@ -223,7 +237,7 @@ void Modem::Update()
         {
             GSM_PG::ToInPullDown();
             pinGSM_PWR.Reset();
-            state = State::WAIT_HI_GSM_PG;
+            State::Set(State::WAIT_HI_GSM_PG);
             meter.Reset();
         }
         break;
@@ -232,15 +246,15 @@ void Modem::Update()
         if (GSM_PG::ReadInput())
         {
             meter.Reset();
-            state = State::WAIT_500_MS;
+            State::Set(State::WAIT_500_MS);
         }
         if (meter.ElapsedTime() > 100)
         {
-            state = State::IDLE;
+            State::Set(State::IDLE);
         }
 #ifdef OLD_VERSION
         meter.Reset();
-        state = State::WAIT_500_MS;
+        State::Set(State::WAIT_500_MS);
 #endif
         break;
 
@@ -249,7 +263,7 @@ void Modem::Update()
         {
             pinGSM_PWRKEY.Reset();
             meter.Reset();
-            state = State::WAIT_1250_MS;
+            State::Set(State::WAIT_1250_MS);
         }
         break;
 
@@ -258,19 +272,19 @@ void Modem::Update()
         {
             pinGSM_PWRKEY.Set();
             meter.Reset();
-            state = State::WAIT_5000_MS;
+            State::Set(State::WAIT_5000_MS);
         }
         break;
 
     case State::WAIT_5000_MS:
         if (pinGSM_STATUS.IsHi())
         {
-            state = State::HARDWARE_IS_OK;
+            State::Set(State::HARDWARE_IS_OK);
             meter.Reset();
         }
         if (meter.ElapsedTime() > 5000)
         {
-            state = State::IDLE;
+            State::Set(State::IDLE);
         }
         break;
 
@@ -283,7 +297,7 @@ void Modem::Update()
 
 bool Modem::Mode::Power()
 {
-    return (state == State::HARDWARE_IS_OK);
+    return (State::Current() == State::HARDWARE_IS_OK);
 }
 
 
@@ -306,7 +320,7 @@ bool Modem::ExistUpdate()
 
 void Modem::Reset()
 {
-    state = State::IDLE;
+    State::Set(State::IDLE);
     InData::Clear();
     SIM800::Reset();
     MQTT::Reset();
