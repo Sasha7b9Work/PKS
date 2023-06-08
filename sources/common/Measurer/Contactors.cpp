@@ -398,14 +398,13 @@ void Contactors::Serviceability::Verify()
     }
     else
     {
-        if (!ReleIsBusy(address))
-        {
-            Sender::StateContactors::SendState(address, StateRele());
-        }
-
-        if (address == 27)                          // Был выставлен адрес P2 = 31
+        if (address == 27)
         {
             Sender::StateContactors::Send100V(!pinP2.IsHi());
+        }
+        else if (!ReleIsBusy(address))
+        {
+            Sender::StateContactors::SendState(address, StateRele());
         }
 
         address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
