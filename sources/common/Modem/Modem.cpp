@@ -74,7 +74,12 @@ namespace Modem
 
     State::E State::state = State::IDLE;
 
-    void Reset();
+    static bool need_reset = false;
+
+    void Reset()
+    {
+        need_reset = true;
+    }
 
     // Данные, получаемые от SIM800
     namespace InData
@@ -225,6 +230,13 @@ void Modem::Update()
 {
     static TimeMeterMS meter;
 
+    if (need_reset)
+    {
+        need_reset = false;
+        State::Set(State::IDLE);
+        InData::Clear();
+    }
+
     switch (State::Current())
     {
     case State::IDLE:
@@ -317,14 +329,6 @@ void Modem::Init()
 bool Modem::ExistUpdate()
 {
     return false;
-}
-
-
-void Modem::Reset()
-{
-    InData::Clear();
-
-    State::Set(State::IDLE);
 }
 
 
