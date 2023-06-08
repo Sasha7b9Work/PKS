@@ -145,6 +145,8 @@ bool Sender::SendAll(pchar answer)
 
 void Sender::SendLastReset()
 {
+    MQTT::Packet::Publish("/last/reset", "-");
+
     if (_GET_BIT(GL::_RCU_RSTSCK, 28))
     {
         MQTT::Packet::Publish("/last/reset", "Software");
