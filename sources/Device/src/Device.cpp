@@ -39,7 +39,7 @@ void Device::Init()
 
 void Device::Update()
 {
-    if (meter.ElapsedTime() < 180000)
+//    if (meter.ElapsedTime() < 180000)
     {
         HAL_FWDGT::Update();
     }
