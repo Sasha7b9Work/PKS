@@ -268,10 +268,10 @@ void Modem::Update()
         {
             State::Set(State::IDLE);
         }
-#ifdef OLD_VERSION
-        meter.Reset();
-        State::Set(State::WAIT_500_MS);
-#endif
+//#ifdef OLD_VERSION
+//        meter.Reset();
+//        State::Set(State::WAIT_500_MS);
+//#endif
         break;
 
     case State::WAIT_500_MS:
