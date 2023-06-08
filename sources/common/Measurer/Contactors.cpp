@@ -6,7 +6,7 @@
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
 #include "Modem/MQTT/Sender/LevelContactors.h"
-#include "Modem/MQTT/Sender/ContactorsIsOK.h"
+#include "Modem/MQTT/Sender/StateContactors.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
@@ -440,7 +440,7 @@ void Contactors::Serviceability::Verify()
         if (address == 0)   // Опросили все реле, будем посылать результат
         {
 #ifdef DEVICE
-            Sender::ContactorsIsOK::Send(state);
+            Sender::StateContactors::Send(state);
 #endif
         }
     }

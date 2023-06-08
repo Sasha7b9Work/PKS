@@ -5,7 +5,7 @@
 
 namespace Sender
 {
-    namespace ContactorsIsOK
+    namespace StateContactors
     {
         void Send(const bool state[NUM_PINS_MX]);
 

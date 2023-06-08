@@ -99,7 +99,7 @@ bool Sender::SendAll(pchar answer)
         {
             sending = true;
         }
-        else if (Sender::ContactorsIsOK::SendToSIM800())
+        else if (Sender::StateContactors::SendToSIM800())
         {
             sending = true;
         }

@@ -5,11 +5,6 @@
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
-#include "Modem/MQTT/Sender/Counter.h"
-#include "Modem/MQTT/Sender/Measure.h"
-#include "Modem/MQTT/Sender/LevelContactors.h"
-#include "Modem/MQTT/Sender/ContactorsIsOK.h"
-#include "Modem/MQTT/Sender/GP.h"
 #include "Modem/SIM800.h"
 #include "Modem/MQTT/Sender/Sender.h"
 #include <cstring>

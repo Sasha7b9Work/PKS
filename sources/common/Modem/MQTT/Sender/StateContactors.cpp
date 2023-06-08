@@ -1,7 +1,7 @@
 // 2023/05/26 12:09:43 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "defines.h"
-#include "Modem/MQTT/Sender/ContactorsIsOK.h"
+#include "Modem/MQTT/Sender/StateContactors.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Hardware/Timer.h"
 #include <cstdio>
