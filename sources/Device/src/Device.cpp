@@ -32,7 +32,12 @@ void Device::Init()
 
 void Device::Update()
 {
-    HAL_FWDGT::Update();
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() < 180000)
+    {
+        HAL_FWDGT::Update();
+    }
 
     Measurer::Update();
 
