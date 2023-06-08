@@ -11,11 +11,11 @@ namespace Sender
 {
     namespace StateContactors
     {
-        static int value[NUM_PINS_MX] =              // Состояние каждого контактора
+        static int state[NUM_PINS_MX] =              // Состояние каждого контактора
         {
-            -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1,
-            -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0,
             0
         };
         static bool need[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
@@ -34,7 +34,7 @@ namespace Sender
 
             for (int i = first; i < last; i++)
             {
-                if (value[i] == -1)
+                if (state[i] == -1)
                 {
                     return false;
                 }
@@ -43,13 +43,25 @@ namespace Sender
             return true;
         }
 
-        void SendState(uint num, int state)
+        void SendState(uint num, int _state)
         {
-            if (value[num] != state)
+            if (state[num] != _state)
             {
                 need[num] = true;
 
-                value[num] = state;
+                state[num] = _state;
+            }
+        }
+
+        void Send100V(bool _st)
+        {
+            int _state = _st ? 1 : 0;
+
+            if (state[27] != _state)
+            {
+                need[27] = true;
+
+                state[27] = _state;
             }
         }
 
@@ -74,26 +86,33 @@ namespace Sender
                 {
                     if (i == 27)
                     {
-                        MQTT::Packet::Publish("/base/state/dc100v", value[i] ? "1" : "0");
+                        MQTT::Packet::Publish("/base/state/dc100v", state[27] == 0 ? "0" : "1");
                         sended = true;
                     }
                     else
                     {
                         std::sprintf(buffer, "base/cont/KM%s", names[i]);
-                        MQTT::Packet::Publish(buffer, value[i] ? "1" : "0");
+                        MQTT::Packet::Publish(buffer, state[i]);
                         sended = true;
                     }
                     need[i] = false;
                 }
 
-                if (!value[i])
+                if (!state[i])
                 {
                     all_is_ok = false;
                 }
             }
             if (sended)
             {
-                MQTT::Packet::Publish("/base/state/state_contactors", all_is_ok ? "1" : "0");
+                static bool prev_all_is_ok = !all_is_ok;
+
+                if (prev_all_is_ok != all_is_ok)
+                {
+                    MQTT::Packet::Publish("/base/state/state_contactors", all_is_ok ? "1" : "0");
+
+                    prev_all_is_ok = all_is_ok;
+                }
             }
 
             return sended;
