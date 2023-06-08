@@ -42,8 +42,6 @@ void Device::Init()
     
     Contactors::Init();
 
-    Modem::Init();
-
     FlashDisk::Init();
 
     Display::Init();

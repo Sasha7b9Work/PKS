@@ -241,6 +241,7 @@ void Modem::Update()
     {
     case State::IDLE:
         LOG_WRITE("+++MODEM::IDLE+++");
+        Init();
         pinGSM_PWR.Set();
         GSM_PG::ToOutLow();
         State::Set(State::WAIT_DISCHARGE_CAPS);
