@@ -98,7 +98,7 @@ namespace Sender
                     need[i] = false;
                 }
 
-                if (!state[i])
+                if (state[i] == -1)
                 {
                     all_is_ok = false;
                 }
