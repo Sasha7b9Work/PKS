@@ -9,7 +9,7 @@
 
 namespace Sender
 {
-    namespace ContactorsIsOK
+    namespace StateContactors
     {
         static bool value[NUM_PINS_MX] =              // Состояние каждого контактора
         {

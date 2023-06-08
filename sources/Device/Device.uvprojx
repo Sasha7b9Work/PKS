@@ -814,16 +814,6 @@
           <GroupName>Modem/MQTT/Sender</GroupName>
           <Files>
             <File>
-              <FileName>ContactorsIsOK.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\ContactorsIsOK.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ContactorsIsOK.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\ContactorsIsOK.h</FilePath>
-            </File>
-            <File>
               <FileName>Counter.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\MQTT\Sender\Counter.cpp</FilePath>
@@ -882,6 +872,16 @@
               <FileName>StringState.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\MQTT\Sender\StringState.h</FilePath>
+            </File>
+            <File>
+              <FileName>StateContactors.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\MQTT\Sender\StateContactors.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StateContactors.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\MQTT\Sender\StateContactors.h</FilePath>
             </File>
           </Files>
         </Group>
