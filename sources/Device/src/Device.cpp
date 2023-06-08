@@ -14,6 +14,24 @@
 #include <gd32f30x_rcu.h>
 
 
+namespace Modem
+{
+    void Reset();
+}
+
+
+namespace SIM800
+{
+    void Reset();
+}
+
+
+namespace MQTT
+{
+    void Reset();
+}
+
+
 void Device::Init()
 {
     GL::now_enabled = true;

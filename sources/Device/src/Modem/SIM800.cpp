@@ -8,6 +8,7 @@
 #include "Hardware/Bootloader.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Modem/MQTT/Sender/Sender.h"
+#include "Device.h"
 #include <cstring>
 #include <cstdio>
 
@@ -45,6 +46,11 @@ namespace SIM800
 
     static State::E state = State::START;
 
+    void Reset()
+    {
+        state = State::START;
+    }
+
     static TimeMeterMS state_meter;
 
     void State::Set(E new_state)
@@ -66,7 +72,7 @@ namespace SIM800
             return true;
         }
 
-        Modem::Reset();
+        Device::Reset();
 
         return false;
     }
@@ -81,12 +87,12 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
     if (strcmp(answer, "CLOSED") == 0)
     {
-        Modem::Reset();
+        Device::Reset();
         return true;
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
     {
-        Modem::Reset();
+        Device::Reset();
         return true;
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
@@ -225,7 +231,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(GetWord(answer, 1, buffer), "ERROR") == 0)
             {
-                Modem::Reset();
+                Device::Reset();
             }
         }
         break;
@@ -297,7 +303,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(GetWord(answer, 2, buffer), "FAIL") == 0)
             {
-                Modem::Reset();
+                Device::Reset();
             }
         }
         break;
@@ -311,7 +317,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(answer, "ERROR") == 0)
             {
-                Modem::Reset();
+                Device::Reset();
             }
         }
         break;
@@ -340,10 +346,4 @@ bool SIM800::IsRegistered()
 pchar SIM800::LevelSignal()
 {
     return levelSignal;
-}
-
-
-void SIM800::Reset()
-{
-    state = State::START;
 }

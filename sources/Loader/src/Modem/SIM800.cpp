@@ -1,5 +1,6 @@
 // 2023/5/3 11:29:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
+#include "Loader.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
@@ -53,7 +54,6 @@ namespace SIM800
     void Reset()
     {
         state = State::START;
-        Modem::Reset();
     }
 
     static bool MeterIsRunning(uint time)
@@ -63,7 +63,7 @@ namespace SIM800
             return true;
         }
 
-        Reset();
+        Loader::Reset();
 
         return false;
     }
@@ -89,7 +89,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
     if (strcmp(answer, "CLOSED") == 0)
     {
-        Reset();
+        Loader::Reset();
         return true;
     }
     else if (strcmp(first_word, "+CSQ") == 0)
@@ -99,6 +99,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
     {
+        Loader::Reset();
         return true;
     }
     else if (strcmp(answer, "SEND OK") == 0)

@@ -11,8 +11,6 @@ namespace SIM800
 
     pchar LevelSignal();
 
-    void Reset();
-
     namespace Transmit
     {
         // Передать с завершающим 0x0d

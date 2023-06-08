@@ -74,6 +74,8 @@ namespace Modem
 
     State::E State::state = State::IDLE;
 
+    void Reset();
+
     // Данные, получаемые от SIM800
     namespace InData
     {

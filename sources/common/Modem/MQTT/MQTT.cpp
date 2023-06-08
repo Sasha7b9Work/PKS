@@ -29,6 +29,11 @@ namespace MQTT
 
     static State::E state = State::IDLE;
 
+    void Reset()
+    {
+        state = State::IDLE;
+    }
+
     static TimeMeterMS meterPing;
 
     // —брасываетс€ каждый раз при поступлении данынх
@@ -114,12 +119,6 @@ void MQTT::Update(pchar answer)
 
         break;
     }
-}
-
-
-void MQTT::Reset()
-{
-    state = State::IDLE;
 }
 
 

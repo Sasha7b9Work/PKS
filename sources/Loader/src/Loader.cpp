@@ -7,6 +7,24 @@
 #include "Modem/Modem.h"
 
 
+namespace Modem
+{
+    void Reset();
+}
+
+
+namespace SIM800
+{
+    void Reset();
+}
+
+
+namespace Updater
+{
+    void Reset();
+}
+
+
 void Loader::Init()
 {
     HAL::Init();
@@ -27,4 +45,12 @@ void Loader::Update()
     {
         Application::Run();
     }
+}
+
+
+void Loader::Reset()
+{
+    Modem::Reset();
+    SIM800::Reset();
+    Updater::Reset();
 }

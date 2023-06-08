@@ -1,5 +1,6 @@
 // 2023/04/05 12:25:03 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
+#include "Loader.h"
 #include "Modem/Modem.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
@@ -77,6 +78,11 @@ namespace Updater
 
     static State::E state = State::IDLE;
 
+    void Reset()
+    {
+        state = State::IDLE;
+    }
+
     static pchar address("s92153gg.beget.tech");
     static pchar login("s92153gg_1");
     static pchar password("Qwerty123!");
@@ -85,12 +91,6 @@ namespace Updater
     static pchar file_firmware("Meter.frm");
 
     void Update(const pchar);
-
-    static void Reset()
-    {
-        state = State::IDLE;
-        Modem::Reset();
-    }
 
     static TimeMeterMS state_meter;
 
@@ -107,7 +107,7 @@ namespace Updater
             return true;
         }
 
-        Reset();
+        Loader::Reset();
 
         return false;
     }
@@ -350,7 +350,7 @@ void Updater::Update(pchar answer)
                 }
                 else
                 {
-                    Reset();
+                    Loader::Reset();
                 }
             }
             else if (ReaderFTP::requested_bytes_received)

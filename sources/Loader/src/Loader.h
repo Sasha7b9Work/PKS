@@ -7,4 +7,6 @@ namespace Loader
     void Init();
 
     void Update();
+
+    void Reset();
 }

@@ -8,8 +8,6 @@ namespace MQTT
 
     bool InStateRunning();
 
-    void Reset();
-
     void CallbackOnReceiveData(pchar);
 
     namespace Packet
