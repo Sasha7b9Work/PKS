@@ -84,6 +84,11 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         SIM800_RESET();
         return true;
     }
+    else if (strcmp(answer, "SEND FAIL") == 0)
+    {
+        SIM800_RESET();
+        return true;
+    }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
         GetWord(answer, 2, levelSignal);
