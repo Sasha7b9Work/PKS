@@ -31,29 +31,30 @@ public:
         size = 0;
     }
 
-    void Append(const void *data, int _size)
+    bool Append(const void *data, int _size)
     {
         if (Size() + _size > capacity)
         {
             LOG_ERROR("!!!buffer is full!!!");
+            return false;
         }
-        else
-        {
-            std::memcpy(&buffer[size], data, (uint)_size);
-            size += _size;
-        }
+
+        std::memcpy(&buffer[size], data, (uint)_size);
+        size += _size;
+
+        return true;
     }
 
-    void Append(char symbol)
+    bool Append(char symbol)
     {
         if (size < capacity)
         {
             buffer[size++] = symbol;
+            return true;
         }
-        else
-        {
-            LOG_ERROR("!!!buffer is full!!!");
-        }
+
+        LOG_ERROR("!!!buffer is full!!!");
+        return false;
     }
 
     // Удалить первых n элементов

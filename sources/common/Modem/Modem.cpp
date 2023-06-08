@@ -82,7 +82,10 @@ namespace Modem
                 {
                     Log::ReceiveFromSIM800(main[i]);
                 }
-                buffer.Append(main.Data(), main.Size());
+                if (!buffer.Append(main.Data(), main.Size()))
+                {
+                    buffer.Clear();
+                }
                 main.Clear();
             }
 
@@ -178,15 +181,24 @@ void Modem::CallbackOnReceive(char symbol)
     {
         if (InData::addit.Size())
         {
-            InData::main.Append(InData::addit.Data(), InData::addit.Size());
+            if (!InData::main.Append(InData::addit.Data(), InData::addit.Size()))
+            {
+                InData::main.Clear();
+            }
             InData::addit.Clear();
         }
 
-        InData::main.Append(symbol);
+        if (!InData::main.Append(symbol))
+        {
+            InData::main.Clear();
+        }
     }
     else
     {
-        InData::addit.Append(symbol);
+        if (!InData::addit.Append(symbol))
+        {
+            InData::addit.Clear();
+        }
     }
 }
 
