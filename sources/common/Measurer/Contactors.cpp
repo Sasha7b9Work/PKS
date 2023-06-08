@@ -98,25 +98,10 @@ namespace Contactors
     static void SetAddressMX(uint);
 
     // Возвращает состояние реле, выбранного установленным ранее адресом по SetAddressMX()
-    static bool StateRele();
+    static int StateRele();
 
     // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
     static bool ReleIsBusy(uint address);
-
-    namespace Serviceability
-    {
-        // Сюда накапливаются состояния всех реле, чтобы потом одной строкой отослать неисправные
-        static bool state[NUM_PINS_MX] =
-        {
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            true
-        };
-
-        // Возвращает true, если все контакторы по фазе исправны
-        static bool AllIsOk(Phase::E);
-    }
 }
 
 
@@ -179,7 +164,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
             int new_level = 0;
 
-            if (!Serviceability::AllIsOk(phase))                            // Если хотя бы один контактор на фазе неисправен
+            if (!Sender::StateContactors::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
             {
                 new_level = 0;
             }
@@ -415,53 +400,18 @@ void Contactors::Serviceability::Verify()
     {
         if (!ReleIsBusy(address))
         {
-            state[address] = StateRele();
+            Sender::StateContactors::SendState(address, StateRele());
         }
 
         if (address == 27)                          // Был выставлен адрес P2 = 31
         {
-            state[address] = !pinP2.IsHi();
+            Sender::StateContactors::Send100V(!pinP2.IsHi());
         }
 
         address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
 
-        if (address == 27)                          // 28-й элемент массива - адрес пина P2 для контроля напряжения 100В
-        {
-            address = 31;
-        };
-
-        SetAddressMX(address);
-
-        if (address == 31)
-        {
-            address = 27;
-        }
-
-        if (address == 0)   // Опросили все реле, будем посылать результат
-        {
-#ifdef DEVICE
-            Sender::StateContactors::Send(state);
-#endif
-        }
+        SetAddressMX(address == 27 ? 31 : address);     // 28-й элемент массива - адрес пина P2 для контроля напряжения 100В
     }
-}
-
-
-bool Contactors::Serviceability::AllIsOk(Phase::E phase)
-{
-    int first = phase * 9;
-
-    int last = first + ((NUM_STEPS == 4) ? 8 : 9);
-
-    for (int i = first; i < last; i++)
-    {
-        if (!state[i])
-        {
-            return false;
-        }
-    }
-
-    return true;
 }
 
 
@@ -475,12 +425,22 @@ void Contactors::SetAddressMX(uint address)
 }
 
 
-bool Contactors::StateRele()
+int Contactors::StateRele()
 {
     bool p1 = pinP1.IsHi();
     bool p2 = pinP2.IsHi();
 
-    return ((p1 && !p2) || (!p1 && p2));
+    if ((p1 && p2) || (!p1 && !p2))
+    {
+        return -1;
+    }
+
+    if (p1)
+    {
+        return 0;
+    }
+
+    return 1;
 }
 
 

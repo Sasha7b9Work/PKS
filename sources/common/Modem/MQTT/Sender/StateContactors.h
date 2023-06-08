@@ -7,7 +7,15 @@ namespace Sender
 {
     namespace StateContactors
     {
-        void Send(const bool state[NUM_PINS_MX]);
+        // Состояния
+        // -1 - неисправность
+        // 0 - выкл
+        // 1 - выкл
+        void SendState(uint num, int state);
+
+        void Send100V(bool);
+
+        bool AllIsOK(Phase::E);
 
         bool SendToSIM800();
     }

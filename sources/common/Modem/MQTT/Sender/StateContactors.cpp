@@ -11,12 +11,12 @@ namespace Sender
 {
     namespace StateContactors
     {
-        static bool value[NUM_PINS_MX] =              // Состояние каждого контактора
+        static int value[NUM_PINS_MX] =              // Состояние каждого контактора
         {
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            true, true, true, true, true, true, true, true, true,
-            false
+            -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            -1, -1, -1, -1, -1, -1, -1, -1, -1,
+            0
         };
         static bool need[NUM_PINS_MX] =    // true, если нужно передавать состояние конактора
         {
@@ -26,15 +26,30 @@ namespace Sender
             true
         };
 
-        void Send(const bool state[NUM_PINS_MX])
+        bool AllIsOK(Phase::E phase)
         {
-            for (int i = 0; i < NUM_PINS_MX; i++)
+            int first = phase * 9;
+
+            int last = first + ((NUM_STEPS == 4) ? 8 : 9);
+
+            for (int i = first; i < last; i++)
             {
-                if (state[i] != value[i])
+                if (value[i] == -1)
                 {
-                    value[i] = state[i];
-                    need[i] = true;
+                    return false;
                 }
+            }
+
+            return true;
+        }
+
+        void SendState(uint num, int state)
+        {
+            if (value[num] != state)
+            {
+                need[num] = true;
+
+                value[num] = state;
             }
         }
 
