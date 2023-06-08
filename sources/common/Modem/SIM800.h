@@ -2,9 +2,6 @@
 #pragma once
 
 
-#define SIM800_RESET()    SIM800::Reset()
-
-
 namespace SIM800
 {
     void Update(pchar);

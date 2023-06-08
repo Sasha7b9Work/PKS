@@ -66,7 +66,7 @@ namespace SIM800
             return true;
         }
 
-        SIM800_RESET();
+        Modem::Reset();
 
         return false;
     }
@@ -81,12 +81,12 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
     if (strcmp(answer, "CLOSED") == 0)
     {
-        SIM800_RESET();
+        Modem::Reset();
         return true;
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
     {
-        SIM800_RESET();
+        Modem::Reset();
         return true;
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
@@ -225,7 +225,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(GetWord(answer, 1, buffer), "ERROR") == 0)
             {
-                SIM800_RESET();
+                Modem::Reset();
             }
         }
         break;
@@ -297,7 +297,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(GetWord(answer, 2, buffer), "FAIL") == 0)
             {
-                SIM800_RESET();
+                Modem::Reset();
             }
         }
         break;
@@ -311,7 +311,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(answer, "ERROR") == 0)
             {
-                SIM800_RESET();
+                Modem::Reset();
             }
         }
         break;
@@ -346,6 +346,4 @@ pchar SIM800::LevelSignal()
 void SIM800::Reset()
 {
     state = State::START;
-    MODEM_RESET();
-    MQTT::Reset();
 }

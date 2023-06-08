@@ -3,9 +3,6 @@
 #include "Measurer/Measurer.h"
 
 
-#define MODEM_RESET()  Modem::Reset()
-
-
 namespace Modem
 {
     void Init();
