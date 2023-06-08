@@ -29,9 +29,11 @@ namespace MQTT
 
     static State::E state = State::IDLE;
 
+    static bool need_reset = false;
+
     void Reset()
     {
-        state = State::IDLE;
+        need_reset = true;
     }
 
     static TimeMeterMS meterPing;
@@ -49,6 +51,13 @@ bool MQTT::InStateRunning()
 
 void MQTT::Update(pchar answer)
 {
+    if (need_reset)
+    {
+        need_reset = false;
+
+        state = State::IDLE;
+    }
+
     static TimeMeterMS meter;
 
     switch (state)

@@ -46,9 +46,11 @@ namespace SIM800
 
     static State::E state = State::START;
 
+    static bool need_reset = false;
+
     void Reset()
     {
-        state = State::START;
+        need_reset = true;
     }
 
     static TimeMeterMS state_meter;
@@ -138,6 +140,12 @@ void SIM800::Update(pchar answer)
     }
 
     const uint DEFAULT_TIME = 10000;
+
+    if (need_reset)
+    {
+        need_reset = false;
+        state = State::START;
+    }
 
     char buffer[32];
 
