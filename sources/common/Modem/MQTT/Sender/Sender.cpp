@@ -149,23 +149,23 @@ void Sender::SendLastReset()
     {
         MQTT::Packet::Publish("/last/reset", "Software");
     }
-    else if (_GET_BIT(GL::_RCU_RSTSCK, 31))
+    if (_GET_BIT(GL::_RCU_RSTSCK, 31))
     {
         MQTT::Packet::Publish("/last/reset", "Low power");
     }
-    else if (_GET_BIT(GL::_RCU_RSTSCK, 30))
+    if (_GET_BIT(GL::_RCU_RSTSCK, 30))
     {
         MQTT::Packet::Publish("/last/reset", "Watchdog");
     }
-    else if (_GET_BIT(GL::_RCU_RSTSCK, 29))
+    if (_GET_BIT(GL::_RCU_RSTSCK, 29))
     {
         MQTT::Packet::Publish("/last/reset", "Free watchdog");
     }
-    else if (_GET_BIT(GL::_RCU_RSTSCK, 27))
+    if (_GET_BIT(GL::_RCU_RSTSCK, 27))
     {
         MQTT::Packet::Publish("/last/reset", "Power");
     }
-    else if (_GET_BIT(GL::_RCU_RSTSCK, 26))
+    if (_GET_BIT(GL::_RCU_RSTSCK, 26))
     {
         MQTT::Packet::Publish("/last/reset", "External pin");
     }
