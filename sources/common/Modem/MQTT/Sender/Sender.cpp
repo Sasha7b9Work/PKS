@@ -145,7 +145,11 @@ bool Sender::SendAll(pchar answer)
 
 void Sender::SendLastReset()
 {
-    if (_GET_BIT(GL::_RCU_RSTSCK, 31))
+    if (_GET_BIT(GL::_RCU_RSTSCK, 28))
+    {
+        MQTT::Packet::Publish("/last/reset", "Software");
+    }
+    else if (_GET_BIT(GL::_RCU_RSTSCK, 31))
     {
         MQTT::Packet::Publish("/last/reset", "Low power");
     }
@@ -156,10 +160,6 @@ void Sender::SendLastReset()
     else if (_GET_BIT(GL::_RCU_RSTSCK, 29))
     {
         MQTT::Packet::Publish("/last/reset", "Free watchdog");
-    }
-    else if (_GET_BIT(GL::_RCU_RSTSCK, 28))
-    {
-        MQTT::Packet::Publish("/last/reset", "Software");
     }
     else if (_GET_BIT(GL::_RCU_RSTSCK, 27))
     {

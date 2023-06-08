@@ -498,6 +498,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\common_defines.h</FilePath>
             </File>
+            <File>
+              <FileName>Globals.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Globals.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Globals.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Globals.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

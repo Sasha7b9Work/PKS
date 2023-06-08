@@ -511,12 +511,12 @@
             <File>
               <FileName>Globals.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Globals.cpp</FilePath>
+              <FilePath>..\common\Globals.cpp</FilePath>
             </File>
             <File>
               <FileName>Globals.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Globals.h</FilePath>
+              <FilePath>..\common\Globals.h</FilePath>
             </File>
           </Files>
         </Group>
