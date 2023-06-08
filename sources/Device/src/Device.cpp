@@ -3,6 +3,8 @@
 #include "Device.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
+#include "Modem/SIM800.h"
+#include "Modem/MQTT/MQTT.h"
 #include "Display/Display.h"
 #include "Measurer/Measurer.h"
 #include "FlashDisk/FlashDisk.h"
@@ -11,11 +13,6 @@
 #include "Hardware/Modules/M25P80/M25P80.h"
 #include <gd32f30x_rcu.h>
 
-
-namespace Device
-{
-    static TimeMeterMS meter;
-}
 
 void Device::Init()
 {
@@ -32,17 +29,12 @@ void Device::Init()
     FlashDisk::Init();
 
     Display::Init();
-
-    meter.Reset();
 }
 
 
 void Device::Update()
 {
-//    if (meter.ElapsedTime() < 180000)
-    {
-        HAL_FWDGT::Update();
-    }
+    HAL_FWDGT::Update();
 
     Measurer::Update();
 
@@ -55,4 +47,12 @@ void Device::Update()
     HAL_PINS::Update();
 
     Contactors::Serviceability::Verify();
+}
+
+
+void Device::Reset()
+{
+    Modem::Reset();
+    SIM800::Reset();
+    MQTT::Reset();
 }

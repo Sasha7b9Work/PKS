@@ -320,10 +320,9 @@ bool Modem::ExistUpdate()
 
 void Modem::Reset()
 {
-    State::Set(State::IDLE);
     InData::Clear();
-    SIM800::Reset();
-    MQTT::Reset();
+
+    State::Set(State::IDLE);
 }
 
 

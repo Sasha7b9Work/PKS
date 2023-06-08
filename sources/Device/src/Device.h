@@ -7,4 +7,6 @@ namespace Device
     void Init();
 
     void Update();
+
+    void Reset();
 }
