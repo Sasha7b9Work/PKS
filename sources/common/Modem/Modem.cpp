@@ -305,6 +305,15 @@ void Modem::Update()
         break;
 
     case State::HARDWARE_IS_OK:
+
+        static bool first = true;
+
+        if (first)
+        {
+            first = false;
+            State::Set(State::IDLE);
+        }
+
         InData::Update();
         break;
     }
