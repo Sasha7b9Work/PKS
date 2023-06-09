@@ -240,7 +240,7 @@ void Modem::Update()
     switch (State::Current())
     {
     case State::IDLE:
-        LOG_WRITE("+++MODEM::IDLE+++");
+        LOG_WRITE("   MODEM::IDLE   ");
         Init();
         pinGSM_PWR.Set();
         GSM_PG::ToOutLow();
@@ -251,6 +251,7 @@ void Modem::Update()
     case State::WAIT_DISCHARGE_CAPS:
         if (meter.ElapsedTime() > 1000)
         {
+            LOG_WRITE(" MODEM::WAIT_DISCHARGE_CAPS   ");
             GSM_PG::ToInPullDown();
             pinGSM_PWR.Reset();
             State::Set(State::WAIT_HI_GSM_PG);
@@ -313,8 +314,10 @@ void Modem::Update()
             first = false;
             State::Set(State::IDLE);
         }
-
-        InData::Update();
+        else
+        {
+            InData::Update();
+        }
         break;
     }
 }
