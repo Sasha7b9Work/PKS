@@ -34,11 +34,11 @@ namespace MQTT
 
 void Device::Init()
 {
-    LOG_WRITE("   Device::Init()   ");
-
     GL::now_enabled = true;
 
     Log::Init();
+
+    LOG_WRITE("   Device::Init()   ");
 
     HAL::Init();
     
