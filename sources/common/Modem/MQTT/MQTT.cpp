@@ -150,8 +150,6 @@ void MQTT::Packet::Publish(pchar topic, int value)
     char buffer[32];
     sprintf(buffer, "%d", value);
     Publish(topic, buffer);
-
-    LOG_WRITE("publish %s : %d", topic, value);
 }
 
 
