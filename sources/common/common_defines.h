@@ -2,7 +2,7 @@
 
 
 // Сообщения лога записываются в буфер
-#define SOFTWARE_LOG
+//#define SOFTWARE_LOG
 
 #define ENABLE_LOG
 

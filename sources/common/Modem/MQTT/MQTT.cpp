@@ -140,6 +140,8 @@ void  MQTT::Packet::Publish(pchar MQTT_topic, pchar MQTT_messege)
     SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit::RAW(MQTT_topic);
     SIM800::Transmit::RAW(MQTT_messege);
+
+    LOG_WRITE("publish %s : %s", MQTT_topic, MQTT_messege);
 }
 
 
@@ -148,6 +150,8 @@ void MQTT::Packet::Publish(pchar topic, int value)
     char buffer[32];
     sprintf(buffer, "%d", value);
     Publish(topic, buffer);
+
+    LOG_WRITE("publish %s : %d", topic, value);
 }
 
 

@@ -38,24 +38,21 @@ void Log::ReceiveFromSIM800(char symbol)
 
     log_buffer[pointer++] = symbol;
 
-#else
-
-    HAL_USART_LOG::Transmit(symbol);
-
 #endif
+
+//    HAL_USART_LOG::Transmit(symbol);
 }
 
 
 void Log::Write(char *format, ...)
 {
+
     char message[100];
 
     std::va_list args;
     va_start(args, format);
     std::vsprintf(message, format, args);
     va_end(args);
-
-#ifdef SOFTWARE_LOG
 
     int size = (int)strlen(message) + 1;
 
@@ -64,12 +61,18 @@ void Log::Write(char *format, ...)
         Init();
     }
 
+#ifdef SOFTWARE_LOG
+
     memcpy(log_buffer + pointer, message, (uint)size);
     pointer += size;
 
-#else
-
-    HAL_USART_LOG::Transmit(message);
-
 #endif
+
+    char buffer[100];
+
+    static int counter = 0;
+
+    std::sprintf(buffer, "%d : %s", counter++, message);
+
+    HAL_USART_LOG::Transmit(buffer);
 }

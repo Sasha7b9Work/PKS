@@ -67,7 +67,7 @@ void HAL::Init()
     HAL_FWDGT::Init();
 
 #ifdef ENABLE_LOG
-//    HAL_USART_LOG::Init();
+    HAL_USART_LOG::Init();
 #endif
 }
 
