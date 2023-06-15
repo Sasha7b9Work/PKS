@@ -48,11 +48,6 @@ namespace SIM800
 
     static bool need_reset = false;
 
-    void Reset()
-    {
-        need_reset = true;
-    }
-
     static TimeMeterMS state_meter;
 
     void State::Set(E new_state)
