@@ -73,6 +73,7 @@ struct PinIN
     void Init(uint input_mode);
     bool IsLow();
     bool IsHi();
+    void DeInit();
 private:
     uint port;
     uint pin;

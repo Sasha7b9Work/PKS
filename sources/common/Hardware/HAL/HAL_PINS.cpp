@@ -212,6 +212,15 @@ void PinIN::Init(uint input_mode)
 }
 
 
+void PinIN::DeInit()
+{
+    gpio_init(port, GPIO_MODE_OUT_PP, GPIO_OSPEED_MAX, pin);
+
+    // Переводим в ноль
+    GPIO_BC(port) = pin;
+}
+
+
 bool PinIN::IsLow()
 {
     return gpio_input_bit_get(port, pin) == RESET;
