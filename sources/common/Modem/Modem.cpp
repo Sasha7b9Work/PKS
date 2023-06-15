@@ -226,6 +226,18 @@ void Modem::CallbackOnReceive(char symbol)
 }
 
 
+void Modem::Init()
+{
+    pinGSM_PWR.Init();
+    pinGSM_PWR.Set();
+
+    pinGSM_PWRKEY.Init();
+    pinGSM_PWRKEY.Reset();
+
+    pinGSM_STATUS.Init(GPIO_MODE_IPD);
+}
+
+
 void Modem::Update()
 {
     static TimeMeterMS meter;
@@ -326,17 +338,6 @@ void Modem::Update()
 bool Modem::Mode::Power()
 {
     return (State::Current() == State::HARDWARE_IS_OK);
-}
-
-
-void Modem::Init()
-{
-    pinGSM_PWR.Init();
-    pinGSM_PWRKEY.Init();
-    pinGSM_STATUS.Init(GPIO_MODE_IPD);
-
-    pinGSM_PWR.Set();
-    pinGSM_PWRKEY.Set();
 }
 
 

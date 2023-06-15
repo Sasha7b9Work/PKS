@@ -47,6 +47,8 @@ void Device::Init()
     FlashDisk::Init();
 
     Display::Init();
+
+    Modem::Init();
 }
 
 
