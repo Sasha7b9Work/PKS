@@ -235,6 +235,8 @@ void Modem::Init()
     pinGSM_PWRKEY.Reset();
 
     pinGSM_STATUS.DeInit();
+
+    HAL_USART_GPRS::DeInit();
 }
 
 
@@ -261,7 +263,7 @@ void Modem::Update()
         break;
 
     case State::WAIT_DISCHARGE_CAPS:
-        if (meter.ElapsedTime() > 2000)
+        if (meter.ElapsedTime() > 10000)
         {
             LOG_WRITE(" MODEM::WAIT_DISCHARGE_CAPS   ");
             GSM_PG::ToInPullDown();
@@ -277,6 +279,7 @@ void Modem::Update()
             meter.Reset();
             State::Set(State::WAIT_500_MS);
             pinGSM_STATUS.Init(GPIO_MODE_IPD);
+            HAL_USART_GPRS::Init();
         }
         if (meter.ElapsedTime() > 100)
         {

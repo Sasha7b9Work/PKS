@@ -40,6 +40,14 @@ void HAL_USART_GPRS::DeInit()
     usart_deinit(USART_GPRS_ADDR);
 
     nvic_irq_disable(UART3_IRQn);
+
+    gpio_init(GPIOC, GPIO_MODE_OUT_PP, GPIO_OSPEED_MAX, GPIO_PIN_10);
+
+    gpio_init(GPIOC, GPIO_MODE_OUT_PP, GPIO_OSPEED_MAX, GPIO_PIN_11);
+
+    GPIO_BC(GPIOC) = GPIO_PIN_10;
+
+    GPIO_BC(GPIOC) = GPIO_PIN_11;
 }
 
 
