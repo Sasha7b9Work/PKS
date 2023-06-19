@@ -13,6 +13,10 @@
 
   <project>
     <PathAndName>.\Loader\Loader.uvprojx</PathAndName>
+  </project>
+
+  <project>
+    <PathAndName>.\TesterRele\TesterRele.uvprojx</PathAndName>
     <NodeIsActive>1</NodeIsActive>
   </project>
 
