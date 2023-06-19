@@ -50,7 +50,6 @@ void Loader::Update()
 
 void Loader::Reset()
 {
-    Modem::Reset();
     SIM800::Reset();
     Updater::Reset();
 }
