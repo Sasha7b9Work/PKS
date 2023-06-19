@@ -1,13 +1,13 @@
 #include "defines.h"
-#include "Device.h"
+#include "TesterRele.h"
 
 
 int main()
 {
-    Device::Init();
+    TesterRele::Init();
 
     while(1)
     {
-        Device::Update();
+        TesterRele::Update();
     }
 }

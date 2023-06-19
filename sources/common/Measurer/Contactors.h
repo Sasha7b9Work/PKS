@@ -14,4 +14,6 @@ namespace Contactors
     {
         void Verify();
     }
+
+    void Test();
 }

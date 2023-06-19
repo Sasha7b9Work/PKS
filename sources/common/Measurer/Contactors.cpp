@@ -456,3 +456,9 @@ bool Contactors::ReleIsBusy(uint address)
 
     return Contactors::IsBusy(Phase::C);
 }
+
+
+void Contactors::Test()
+{
+
+}

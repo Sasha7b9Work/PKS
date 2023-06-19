@@ -489,16 +489,6 @@
               <FilePath>.\src\defines.h</FilePath>
             </File>
             <File>
-              <FileName>Device.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Device.h</FilePath>
-            </File>
-            <File>
-              <FileName>Device.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Device.cpp</FilePath>
-            </File>
-            <File>
               <FileName>main.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\main.cpp</FilePath>
@@ -517,6 +507,21 @@
               <FileName>Globals.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Globals.h</FilePath>
+            </File>
+            <File>
+              <FileName>TesterRele.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\TesterRele.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>TesterRele.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\TesterRele.h</FilePath>
+            </File>
+            <File>
+              <FileName>etc.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\etc.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -752,136 +757,6 @@
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Measurer\Measurer.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem</GroupName>
-          <Files>
-            <File>
-              <FileName>SIM800.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\SIM800.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Parser.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\Parser.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Parser.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Parser.h</FilePath>
-            </File>
-            <File>
-              <FileName>Modem.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Modem.h</FilePath>
-            </File>
-            <File>
-              <FileName>Modem.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\Modem.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\SIM800.h</FilePath>
-            </File>
-            <File>
-              <FileName>SIM800_transmit.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem/MQTT</GroupName>
-          <Files>
-            <File>
-              <FileName>MQTT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>MQTT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>Modem/MQTT/Sender</GroupName>
-          <Files>
-            <File>
-              <FileName>Counter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Counter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Counter.h</FilePath>
-            </File>
-            <File>
-              <FileName>GP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\GP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>GP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\GP.h</FilePath>
-            </File>
-            <File>
-              <FileName>LevelContactors.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\LevelContactors.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>LevelContactors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\LevelContactors.h</FilePath>
-            </File>
-            <File>
-              <FileName>Measure.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Measure.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Measure.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Measure.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Sender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>StringState.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\StringState.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>StringState.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\StringState.h</FilePath>
-            </File>
-            <File>
-              <FileName>StateContactors.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\StateContactors.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>StateContactors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\StateContactors.h</FilePath>
             </File>
           </Files>
         </Group>

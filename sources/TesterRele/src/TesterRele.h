@@ -2,7 +2,7 @@
 #pragma once
 
 
-namespace Device
+namespace TesterRele
 {
     void Init();
 
