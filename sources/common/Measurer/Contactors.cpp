@@ -460,5 +460,29 @@ bool Contactors::ReleIsBusy(uint address)
 
 void Contactors::Test()
 {
+    static TimeMeterMS meter;
 
+    if (meter.ElapsedTime() < 200)
+    {
+        return;
+    }
+
+    meter.Reset();
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 1; j < 10; j++)
+        {
+            Contactor &contactor = _contactors[i][j];
+
+            if (contactor.enabled)
+            {
+                contactor.Disable();
+            }
+            else
+            {
+                contactor.Enable();
+            }
+        }
+    }
 }
