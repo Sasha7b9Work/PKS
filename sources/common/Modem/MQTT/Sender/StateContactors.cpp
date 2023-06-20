@@ -27,24 +27,22 @@ namespace Sender
             true
         };
 
-        bool AllIsOK(Phase::E phase)
+        bool AllIsOK(Phase::E)
         {
-            return true;
-
-            int first = phase * 9;
-
-            for (int i = 0; i < 9; i++)
-            {
-                if (NUM_STEPS == 4 && i == 3)
-                {
-                    continue;
-                }
-
-                if (state[i + first] == -1)
-                {
-                    return false;
-                }
-            }
+//            int first = phase * 9;
+//
+//            for (int i = 0; i < 9; i++)
+//            {
+//                if (NUM_STEPS == 4 && i == 3)
+//                {
+//                    continue;
+//                }
+//
+//                if (state[i + first] == -1)
+//                {
+//                    return false;
+//                }
+//            }
 
             return true;
         }

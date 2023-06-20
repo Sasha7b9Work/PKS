@@ -81,8 +81,6 @@ namespace Contactors
 
         // Номер включённой ступени
         static int step[3] = { 0, 0, 0 };
-        // Напряжение, которое было при предыдущем включении ступени. Нужно для контроля исправности 8/9 контактора
-        static float voltage[3] = { 0.0f, 0.0f, 0.0f };
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
@@ -247,15 +245,14 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
             int st = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
 
-            CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);
-            if (NUM_STEPS == 5)
-            {
-                CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);
-            }
-            CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);
-            CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);
-            CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][4]);
-            CHANGE_RELE(8, State::POLARITY_LEVEL, states[st][4]);
+            CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);   // KM1
+#ifdef FIVE_STEPS_VERSION
+            CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);   // KM4
+#endif
+            CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);   // KM5
+            CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);   // KM6
+            CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][4]);   // KM7
+            CHANGE_RELE(8, State::POLARITY_LEVEL, states[st][4]);   // KM8
         }
         break;
 

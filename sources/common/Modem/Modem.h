@@ -5,6 +5,8 @@
 
 namespace Modem
 {
+    void Reset();
+
     void Init();
 
     void Update();

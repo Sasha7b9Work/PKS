@@ -4,6 +4,8 @@
 
 namespace MQTT
 {
+    void Reset();
+
     void Update(pchar);
 
     bool InStateRunning();

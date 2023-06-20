@@ -4,6 +4,8 @@
 
 namespace SIM800
 {
+    void Reset();
+
     void Update(pchar);
 
     // Возвращает true, если зарегистрирован в сети

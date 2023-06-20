@@ -14,24 +14,6 @@
 #include <gd32f30x_rcu.h>
 
 
-namespace Modem
-{
-    void Reset();
-}
-
-
-namespace SIM800
-{
-    void Reset();
-}
-
-
-namespace MQTT
-{
-    void Reset();
-}
-
-
 void Device::Init()
 {
     GL::now_enabled = true;
@@ -67,12 +49,4 @@ void Device::Update()
     HAL_PINS::Update();
 
     Contactors::Serviceability::Verify();
-}
-
-
-void Device::Reset()
-{
-    while (true)
-    {
-    }
 }

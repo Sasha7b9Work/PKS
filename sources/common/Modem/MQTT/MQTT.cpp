@@ -42,6 +42,12 @@ bool MQTT::InStateRunning()
 }
 
 
+void MQTT::Reset()
+{
+    state = State::IDLE;
+}
+
+
 void MQTT::Update(pchar answer)
 {
     static TimeMeterMS meter;

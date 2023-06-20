@@ -69,7 +69,7 @@ namespace SIM800
             return true;
         }
 
-        Device::Reset();
+        Modem::Reset();
 
         return false;
     }
@@ -84,12 +84,12 @@ bool SIM800::ProcessUnsolicited(pchar answer)
 
     if (strcmp(answer, "CLOSED") == 0)
     {
-        Device::Reset();
+        Modem::Reset();
         return true;
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
     {
-        Device::Reset();
+        Modem::Reset();
         return true;
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
@@ -124,6 +124,12 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
 
     return false;
+}
+
+
+void SIM800::Reset()
+{
+    state = State::START;
 }
 
 
@@ -235,7 +241,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(GetWord(answer, 1, buffer), "ERROR") == 0)
             {
-                Device::Reset();
+                Modem::Reset();
             }
         }
         break;
@@ -307,7 +313,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(GetWord(answer, 2, buffer), "FAIL") == 0)
             {
-                Device::Reset();
+                Modem::Reset();
             }
         }
         break;
@@ -321,7 +327,7 @@ void SIM800::Update(pchar answer)
             }
             else if (strcmp(answer, "ERROR") == 0)
             {
-                Device::Reset();
+                Modem::Reset();
             }
         }
         break;
