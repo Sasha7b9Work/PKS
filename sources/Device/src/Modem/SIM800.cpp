@@ -78,6 +78,11 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
+    if (answer[0])
+    {
+        LOG_WRITE("<<< %s", answer);
+    }
+
     char first_word[32];
 
     GetWord(answer, 1, first_word);
@@ -153,7 +158,7 @@ void SIM800::Update(pchar answer)
     switch (state)
     {
     case State::START:
-        LOG_WRITE("+++SIM800::IDLE+++");
+        LOG_WRITE("+++ SIM800::IDLE +++");
         SIM800::Transmit::With0D("ATE0");
         State::Set(State::WAIT_ATE0);
         strcpy(levelSignal, "0");

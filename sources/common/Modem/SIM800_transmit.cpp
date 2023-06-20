@@ -3,10 +3,16 @@
 #include "Modem/SIM800.h"
 #include "Hardware/HAL/HAL.h"
 #include <cstdio>
+#include <cstring>
 
 
 void SIM800::Transmit::With0D(pchar message)
 {
+    if (std::strlen(message) > 2)
+    {
+        LOG_WRITE(">>> %s", message);
+    }
+
     HAL_USART_GPRS::Transmit(message);
 
     static const char end_message[2] = { 0x0d, 0 };

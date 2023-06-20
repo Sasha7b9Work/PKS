@@ -55,7 +55,7 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
-        LOG_WRITE("+++MQTT::IDLE+++");
+        LOG_WRITE("+++ MQTT::IDLE +++");
         SIM800::Transmit::With0D("AT+CIPSEND");
         meter.Reset();
         state = State::WAIT_RESPONSE_CIPSEND;

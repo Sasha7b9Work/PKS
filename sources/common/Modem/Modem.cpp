@@ -246,7 +246,7 @@ void Modem::Update()
     switch (State::Current())
     {
     case State::IDLE:
-        LOG_WRITE("   MODEM::IDLE   ");
+        LOG_WRITE("+++ MODEM::IDLE +++");
         SIM800::Reset();
 #ifdef DEVICE
         MQTT::Reset();
@@ -317,18 +317,7 @@ void Modem::Update()
         break;
 
     case State::HARDWARE_IS_OK:
-
-        static bool first = true;
-
-        if (first)
-        {
-            first = false;
-            State::Set(State::IDLE);
-        }
-        else
-        {
-            InData::Update();
-        }
+        InData::Update();
         break;
     }
 }
