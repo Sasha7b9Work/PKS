@@ -9,6 +9,7 @@
 
   <project>
     <PathAndName>.\Device\Device.uvprojx</PathAndName>
+    <NodeIsActive>1</NodeIsActive>
   </project>
 
   <project>
@@ -17,8 +18,6 @@
 
   <project>
     <PathAndName>.\TesterRele\TesterRele.uvprojx</PathAndName>
-    <NodeIsActive>1</NodeIsActive>
-    <NodeIsExpanded>1</NodeIsExpanded>
   </project>
 
 </ProjectWorkspace>

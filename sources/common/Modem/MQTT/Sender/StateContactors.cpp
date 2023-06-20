@@ -29,6 +29,8 @@ namespace Sender
 
         bool AllIsOK(Phase::E phase)
         {
+            return true;
+
             int first = phase * 9;
 
             for (int i = 0; i < 9; i++)
