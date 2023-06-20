@@ -13,6 +13,7 @@ namespace Sender
     {
         static int state[NUM_PINS_MX] =              // Состояние каждого контактора
         {
+         // 1  2  3  4  5  6  7  8  9
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -30,11 +31,14 @@ namespace Sender
         {
             int first = phase * 9;
 
-            int last = first + ((NUM_STEPS == 4) ? 8 : 9);
-
-            for (int i = first; i < last; i++)
+            for (int i = 0; i < 9; i++)
             {
-                if (state[i] == -1)
+                if (NUM_STEPS == 4 && i == 3)
+                {
+                    continue;
+                }
+
+                if (state[i + first] == -1)
                 {
                     return false;
                 }

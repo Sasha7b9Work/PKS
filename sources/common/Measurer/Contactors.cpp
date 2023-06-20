@@ -234,7 +234,6 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_6:
         if (meter[phase].IsFinished())
         {
-#ifdef FIVE_STEPS_VERSION
             static const bool states[6][5] =
             {
             //    KM1    KM4    KM5    KM6   KM7,8
@@ -246,34 +245,17 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                 {true,  true,  true,  true,  true}      // 5
             };
 
-            int st = Level::current[phase] > 0 ? Level::current[phase] : -Level::current[phase];
+            int st = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
 
             CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);
-            CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);
+            if (NUM_STEPS == 5)
+            {
+                CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);
+            }
             CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);
             CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);
             CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][4]);
             CHANGE_RELE(8, State::POLARITY_LEVEL, states[st][4]);
-#endif
-#ifdef FOUR_STEPS_VERSION
-            static const bool states[6][5] =
-            {
-                //    KM1    KM4    KM5   KM6,7
-                    {false, false, false, false},   // Транзит
-                    {true,  false, false, false},   // 1
-                    {true,  false, false, true},    // 2
-                    {true,  false, true,  true},    // 3
-                    {true,  true,  true,  true}     // 4
-            };
-
-            int st = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
-
-            CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);
-            CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);
-            CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);
-            CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);
-            CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][3]);
-#endif
         }
         break;
 
@@ -288,11 +270,11 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             {
                 if (Level::step[phase] > 0)             // Идём в понижение
                 {
-                    ENABLE_RELE(((NUM_STEPS == 4) ? 8 : 9), State::TRANSIT_EXIT_1);
+                    ENABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }
                 else                                    // Идём в повшение
                 {
-                    DISABLE_RELE(((NUM_STEPS == 4) ? 8 : 9), State::TRANSIT_EXIT_1);
+                    DISABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }
             }
         }
