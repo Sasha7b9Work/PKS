@@ -129,6 +129,9 @@ void HAL_PINS::Init()
     }
 
     pinLevel1.Init(GPIO_MODE_IPU);
+    pinLevel2.Init(GPIO_MODE_IPU);
+    pinLevel3.Init(GPIO_MODE_IPU);
+    pinLevel4.Init(GPIO_MODE_IPU);
 }
 
 

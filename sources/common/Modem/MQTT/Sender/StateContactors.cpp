@@ -4,6 +4,7 @@
 #include "Modem/MQTT/Sender/StateContactors.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Hardware/Timer.h"
+#include "Settings/Settings.h"
 #include <cstdio>
 
 
@@ -27,22 +28,27 @@ namespace Sender
             true
         };
 
-        bool AllIsOK(Phase::E)
+        bool AllIsOK(Phase::E phase)
         {
-//            int first = phase * 9;
-//
-//            for (int i = 0; i < 9; i++)
-//            {
-//                if (NUM_STEPS == 4 && i == 3)
-//                {
-//                    continue;
-//                }
-//
-//                if (state[i + first] == -1)
-//                {
-//                    return false;
-//                }
-//            }
+            if (!gset.IsControllingRelays())
+            {
+                return true;
+            }
+
+            int first = phase * 9;
+
+            for (int i = 0; i < 9; i++)
+            {
+                if (NUM_STEPS == 4 && i == 3)
+                {
+                    continue;
+                }
+
+                if (state[i + first] == -1)
+                {
+                    return false;
+                }
+            }
 
             return true;
         }
