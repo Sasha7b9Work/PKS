@@ -16,8 +16,6 @@
 
 void Device::Init()
 {
-    GL::now_enabled = true;
-
     Log::Init();
 
     LOG_WRITE("   Device::Init()   ");
