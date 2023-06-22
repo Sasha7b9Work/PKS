@@ -5,8 +5,19 @@
 
 static Settings def_set =
 {
-    30.0f           // koeff_current
 };
 
 
 Settings gset = def_set;
+
+
+float Settings::GetKoeffCurrent()
+{
+    return 30.0f;
+}
+
+
+bool Settings::IsControllingRelays()
+{
+    return false;
+}

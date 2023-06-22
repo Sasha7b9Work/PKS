@@ -75,6 +75,11 @@ PinOUT pinKMC7(GPIOD, GPIO_PIN_13);
 PinOUT pinKMC8(GPIOD, GPIO_PIN_14);
 PinOUT pinKMC9(GPIOD, GPIO_PIN_15);
 
+PinIN pinLevel1(GPIOC, GPIO_PIN_6);
+PinIN pinLevel2(GPIOC, GPIO_PIN_7);
+PinIN pinLevel3(GPIOC, GPIO_PIN_8);
+PinIN pinLevel4(GPIOC, GPIO_PIN_9);
+
 
 struct ObservedPin : public PinIN
 {
@@ -122,6 +127,8 @@ void HAL_PINS::Init()
     {
         pinsGP[i].Init(GPIO_MODE_IPU);
     }
+
+    pinLevel1.Init(GPIO_MODE_IPU);
 }
 
 
