@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
+#include "Settings/Settings.h"
 #include <cmath>
 
 
@@ -111,7 +112,7 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
         currentRMS += value * value;
     }
 
-    current = std::sqrtf(currentRMS / (float)period);
+    current = std::sqrtf(currentRMS / (float)period) * gset.koeff_current;
 
     // Рассчитывем напряжение
 

@@ -2,7 +2,7 @@
 
 project (Device)
 
-set(CMAKE_UNITY_BUILD OFF)
+set(CMAKE_UNITY_BUILD ON)
 
 message("------------------------------------------------------------------------ ${PROJECT_NAME}")
 
@@ -49,6 +49,7 @@ file(GLOB MODEM                          src/Modem/*.*
 file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
 file(GLOB MODEM_MQTT_SENDER        ../common/Modem/MQTT/Sender/*.*)
 file(GLOB MODEM_SENDER             ../common/Modem/Sender/*.*)
+file(GLOB SETTINGS                 ../common/Settings/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
 
 source_group(GD32F3                   FILES ${GD32F3})
@@ -65,6 +66,7 @@ source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
 source_group(Modem/MQTT               FILES ${MODEM_MQTT})
 source_group(Modem/MQTT/Sender        FILES ${MODEM_MQTT_SENDER})
+source_group(Settings                 FILES ${SETTINGS})
 source_group(Utils                    FILES ${UTILS})
 
 set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/systick.c
@@ -85,5 +87,6 @@ add_library(${PROJECT_NAME}
             ${MODEM}
             ${MODEM_MQTT}
             ${MODEM_MQTT_SENDER}
+            ${SETTINGS}
             ${UTILS}
             )
