@@ -19,5 +19,7 @@ namespace MQTT
         void Publish(pchar topic, pchar message);
 
         void Publish(pchar topic, int);
+
+        void PublishF(pchar topic, float);
     }
 }
