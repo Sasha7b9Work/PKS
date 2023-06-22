@@ -59,6 +59,8 @@ struct PhaseMeasure
 
     PhaseMeasure() : voltage(0.0f), current(0.0f) { }
 
+    float GetPower() const { return voltage * current; }
+
     void Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sample samplesAmpers[NUM_SAMPLES]);
 
     void CalculateLimits(const Sample samples[NUM_SAMPLES], FullMeasure *out);

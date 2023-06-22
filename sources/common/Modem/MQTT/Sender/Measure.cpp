@@ -43,18 +43,21 @@ namespace Sender
                 {
                     SendMeasure("base/state/voltage_a", value.measures[0].voltage);
                     SendMeasure("base/state/current_a", value.measures[0].current * 1000.0f);
+                    SendMeasure("/power_a", value.measures[0].GetPower());
                 }
 
                 if (value.is_good[1])
                 {
                     SendMeasure("base/state/voltage_b", value.measures[1].voltage);
                     SendMeasure("base/state/current_b", value.measures[1].current * 1000.0f);
+                    SendMeasure("/power_b", value.measures[1].GetPower());
                 }
 
                 if (value.is_good[2])
                 {
                     SendMeasure("base/state/voltage_c", value.measures[2].voltage);
                     SendMeasure("base/state/current_c", value.measures[2].current * 1000.0f);
+                    SendMeasure("/power_c", value.measures[2].GetPower());
                 }
 
                 need = false;
