@@ -2,13 +2,14 @@
 #include "defines.h"
 #include "Modem/SIM800.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/MQTT/MQTT.h"
 #include <cstdio>
 #include <cstring>
 
 
 void SIM800::Transmit::With0D(pchar message)
 {
-    if (std::strlen(message) > 2)
+    if (std::strlen(message) > 2 && MQTT::InStateIdle())
     {
         LOG_WRITE(">>> %s", message);
     }

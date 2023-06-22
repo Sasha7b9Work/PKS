@@ -258,7 +258,7 @@ void Modem::Update()
         break;
 
     case State::WAIT_DISCHARGE_CAPS:
-        if (meter.ElapsedTime() > 10000)
+        if (meter.ElapsedTime() > 3000)
         {
             LOG_WRITE(" MODEM::WAIT_DISCHARGE_CAPS   ");
             GSM_PG::ToInPullDown();

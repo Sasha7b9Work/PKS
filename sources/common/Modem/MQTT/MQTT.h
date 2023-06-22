@@ -10,6 +10,8 @@ namespace MQTT
 
     bool InStateRunning();
 
+    bool InStateIdle();
+
     void CallbackOnReceiveData(pchar);
 
     namespace Packet

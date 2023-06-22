@@ -42,6 +42,12 @@ bool MQTT::InStateRunning()
 }
 
 
+bool MQTT::InStateIdle()
+{
+    return state == State::IDLE;
+}
+
+
 void MQTT::Reset()
 {
     state = State::IDLE;
