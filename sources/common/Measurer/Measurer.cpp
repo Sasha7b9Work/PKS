@@ -171,7 +171,7 @@ float Sample::ToCurrent() const
 
 float Sample::AmplitudeCurrent() const
 {
-    return 10.0f * 2.0f;
+    return 5.0f * 2.0f;
 }
 
 
