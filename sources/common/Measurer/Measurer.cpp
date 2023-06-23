@@ -12,6 +12,57 @@ namespace Contactors
 }
 
 
+namespace Filtr
+{
+#define NCoef 2
+#define DCgain 1
+
+    uint16 Convert(int meas, uint16 sample)
+    {
+        int16 ACoef[NCoef + 1] =
+        {
+            9098,
+            18197,
+            9098
+        };
+
+        int16 BCoef[NCoef + 1] = {
+            16384,
+            15579,
+            4430
+        };
+
+        static int y[6][NCoef + 1]; //output samples
+        //Warning!!!!!! This variable should be signed (input sample width + Coefs width + 2 )-bit width to avoid saturation.
+
+        static int16 x[6][NCoef + 1]; //input samples
+        int n;
+
+        //shift the old samples
+        for (n = NCoef; n > 0; n--)
+        {
+            x[meas][n] = x[meas][n - 1];
+            y[meas][n] = y[meas][n - 1];
+        }
+
+        //Calculate the new output
+        x[meas][0] = sample - ((1 << 12) / 2);
+        y[meas][0] = ACoef[0] * x[meas][0];
+
+        for (n = 1; n <= NCoef; n++)
+        {
+            y[meas][0] += ACoef[n] * x[meas][n] - BCoef[n] * y[meas][n];
+        }
+
+        y[meas][0] /= BCoef[0];
+
+        uint16 result = (uint16)((y[meas][0] / DCgain) + (1 << 12) / 2);
+
+        return result;
+    }
+}
+
+
 namespace Measurer
 {
     static struct FullMeasure measure;
@@ -97,13 +148,13 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
     if (pos_adc_value < NUM_SAMPLES)
     {
-        voltA [pos_adc_value] = adc_values[0];
-        voltB [pos_adc_value] = adc_values[1];
-        voltC [pos_adc_value] = adc_values[2];
+        voltA[pos_adc_value] = Filtr::Convert(0, adc_values[0]);
+        voltB[pos_adc_value] = Filtr::Convert(1, adc_values[1]);
+        voltC[pos_adc_value] = Filtr::Convert(2, adc_values[2]);
 
-        currentA[pos_adc_value] = adc_values[3];
-        currentB[pos_adc_value] = adc_values[4];
-        currentC[pos_adc_value] = adc_values[5];
+        currentA[pos_adc_value] = Filtr::Convert(3, adc_values[3]);
+        currentB[pos_adc_value] = Filtr::Convert(4, adc_values[4]);
+        currentC[pos_adc_value] = Filtr::Convert(5, adc_values[5]);
 
         pos_adc_value++;
 
