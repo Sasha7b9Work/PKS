@@ -86,7 +86,7 @@ namespace Measurer
 
     static FullMeasure Calculate();
 
-    static Averager<uint16, 3> averager[6];
+    static Averager<uint16, 10> averager[6];
 }
 
 

@@ -7,6 +7,7 @@ template<class T, int size_buffer>
 class Averager //-V730
 {
 public:
+    Averager() : num_elements(0) {}
     T Push(T value)
     {
         if (num_elements == size_buffer)
@@ -42,5 +43,5 @@ public:
     void Reset() { num_elements = 0; }
 private:
     T buffer[size_buffer];
-    int num_elements = 0;
+    int num_elements;
 };
