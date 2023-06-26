@@ -3,6 +3,7 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include "Modem/MQTT/Sender/Measure.h"
+#include "Measurer/Averager.h"
 #include <cmath>
 
 
@@ -84,6 +85,8 @@ namespace Measurer
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 
     static FullMeasure Calculate();
+
+    static Averager<uint16, 3> averager[6];
 }
 
 
@@ -148,13 +151,13 @@ void Measurer::AppendMeasures(uint16 adc_values[6])
 
     if (pos_adc_value < NUM_SAMPLES)
     {
-        voltA[pos_adc_value] = Filtr::Convert(0, adc_values[0]);
-        voltB[pos_adc_value] = Filtr::Convert(1, adc_values[1]);
-        voltC[pos_adc_value] = Filtr::Convert(2, adc_values[2]);
+        voltA[pos_adc_value] = averager[0].Push(adc_values[0]);
+        voltB[pos_adc_value] = averager[1].Push(adc_values[1]);
+        voltC[pos_adc_value] = averager[2].Push(adc_values[2]);
 
-        currentA[pos_adc_value] = Filtr::Convert(3, adc_values[3]);
-        currentB[pos_adc_value] = Filtr::Convert(4, adc_values[4]);
-        currentC[pos_adc_value] = Filtr::Convert(5, adc_values[5]);
+        currentA[pos_adc_value] = averager[3].Push(adc_values[3]);
+        currentB[pos_adc_value] = averager[4].Push(adc_values[4]);
+        currentC[pos_adc_value] = averager[5].Push(adc_values[5]);
 
         pos_adc_value++;
 

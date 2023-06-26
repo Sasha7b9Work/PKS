@@ -19,6 +19,7 @@ add_definitions(-DGD32F30X_HD)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
+add_compile_options(/wd4127)
 add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
 add_compile_options(/wd4626)    # assignment operator was implicitly defined as deleted
 add_compile_options(/wd4820)    # 'xxx': '4' bytes padding added after data member 'yyy'

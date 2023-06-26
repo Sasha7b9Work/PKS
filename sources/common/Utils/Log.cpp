@@ -27,7 +27,7 @@ void Log::Init()
 }
 
 
-void Log::ReceiveFromSIM800(char symbol)
+void Log::ReceiveFromSIM800(char)
 {
 #ifdef SOFTWARE_LOG
 
