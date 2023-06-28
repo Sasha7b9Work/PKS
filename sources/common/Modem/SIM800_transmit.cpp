@@ -9,7 +9,11 @@
 
 void SIM800::Transmit::With0D(pchar message)
 {
-    if (std::strlen(message) > 2 && MQTT::InStateIdle())
+    if (std::strlen(message) > 2
+#ifdef DEVICE
+        && MQTT::InStateIdle()
+#endif
+        )
     {
         LOG_WRITE(">>> %s", message);
     }
