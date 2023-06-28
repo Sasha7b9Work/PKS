@@ -34,8 +34,8 @@ file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_
 file(GLOB SRC                            src/*.*
                                    ../common/*.h
                                    ../common/*.cpp)
-file(GLOB DISPLAY                        src/Display/*.*)
-file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
+file(GLOB DISPLAY                  ../common/Display/*.*)
+file(GLOB DISPLAY_FONT             ../common/Display/Font/*.*)
 file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)

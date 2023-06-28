@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\Device\src\Display</LastAddFilePath>
+    <LastAddFilePath>C:\My\GitHub\_work\ElectricityMeter\sources\common\Display</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
@@ -68,7 +68,7 @@
     </View>
     <View>
       <WinId>466</WinId>
-      <ViewName>Source Browser - *** Not Enabled ***</ViewName>
+      <ViewName>Source Browser</ViewName>
       <UserString>500</UserString>
       <TableColWidths>300</TableColWidths>
     </View>
