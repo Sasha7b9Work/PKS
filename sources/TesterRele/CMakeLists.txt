@@ -36,7 +36,6 @@ file(GLOB SRC                            src/*.*
                                    ../common/*.cpp)
 file(GLOB DISPLAY                        src/Display/*.*)
 file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
-file(GLOB FLASHDISK                      src/FlashDisk/*.*)
 file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
@@ -51,7 +50,6 @@ source_group(GD32F3                   FILES ${GD32F3})
 source_group(src                      FILES ${SRC})
 source_group(Display                  FILES ${DISPLAY})
 source_group(Display/Font             FILES ${DISPLAY_FONT})
-source_group(FlashDisk                FILES ${FLASHDISK})
 source_group(Hardware                 FILES ${HARDWARE})
 source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
@@ -68,7 +66,6 @@ add_library(${PROJECT_NAME}
             ${SRC}
             ${DISPLAY}
             ${DISPLAY_FONT}
-            ${FLASHDISK}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}

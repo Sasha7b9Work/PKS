@@ -717,21 +717,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>FlashDisk</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDisk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDisk.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Measurer</GroupName>
           <Files>
             <File>

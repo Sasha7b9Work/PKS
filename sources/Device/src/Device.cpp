@@ -7,7 +7,6 @@
 #include "Modem/MQTT/MQTT.h"
 #include "Display/Display.h"
 #include "Measurer/Measurer.h"
-#include "FlashDisk/FlashDisk.h"
 #include "Hardware/Timer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/Modules/M25P80/M25P80.h"
@@ -23,8 +22,6 @@ void Device::Init()
     HAL::Init();
     
     Contactors::Init();
-
-    FlashDisk::Init();
 
     Display::Init();
 

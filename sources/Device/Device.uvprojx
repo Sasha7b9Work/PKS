@@ -637,21 +637,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware/Modules/SSD1306</GroupName>
-          <Files>
-            <File>
-              <FileName>SSD1306.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.h</FilePath>
-            </File>
-            <File>
-              <FileName>SSD1306.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\SSD1306\SSD1306.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Hardware/Modules/M25P80</GroupName>
           <Files>
             <File>
@@ -678,6 +663,16 @@
               <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\SSD1306.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -708,21 +703,6 @@
               <FileName>Font.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>.\src\Display\Font\Font.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
-          <GroupName>FlashDisk</GroupName>
-          <Files>
-            <File>
-              <FileName>FlashDisk.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.h</FilePath>
-            </File>
-            <File>
-              <FileName>FlashDisk.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\FlashDisk\FlashDisk.cpp</FilePath>
             </File>
           </Files>
         </Group>

@@ -36,13 +36,11 @@ file(GLOB SRC                            src/*.*
                                    ../common/*.cpp)
 file(GLOB DISPLAY                        src/Display/*.*)
 file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
-file(GLOB FLASHDISK                      src/FlashDisk/*.*)
 file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/*.*)
-file(GLOB HARDWARE_MODULES_SSD1306       src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
@@ -57,11 +55,9 @@ source_group(GD32F3                   FILES ${GD32F3})
 source_group(src                      FILES ${SRC})
 source_group(Display                  FILES ${DISPLAY})
 source_group(Display/Font             FILES ${DISPLAY_FONT})
-source_group(FlashDisk                FILES ${FLASHDISK})
 source_group(Hardware                 FILES ${HARDWARE})
 source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
-source_group(Hardware/Modules/SSD1306 FILES ${HARDWARE_MODULES_SSD1306})
 source_group(Hardware/Modules/M25P80  FILES ${HARDWARE_MODULES_M25P80})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
@@ -78,11 +74,9 @@ add_library(${PROJECT_NAME}
             ${SRC}
             ${DISPLAY}
             ${DISPLAY_FONT}
-            ${FLASHDISK}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${HARDWARE_MODULES_SSD1306}
             ${HARDWARE_MODULES_M25P80}
             ${MEASURER}
             ${MODEM}
