@@ -74,7 +74,12 @@ void MQTT::Update(pchar answer)
 
             char guid[32];
             char MQTT_CID[32];
-            std::sprintf(MQTT_CID, "mqttpks-%s", HAL::GetUID(guid));
+#ifdef FOUR_STEPS_VERSION
+            std::sprintf(MQTT_CID, "pks-444-%s", HAL::GetUID(guid));
+#endif
+#ifdef FIVE_STEPS_VERSION
+            std::sprintf(MQTT_CID, "pks-555-%s", HAL::GetUID(guid));
+#endif
 
             SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединения
             SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 8));
