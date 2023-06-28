@@ -3,13 +3,9 @@
 #include "Device.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
-#include "Modem/SIM800.h"
-#include "Modem/MQTT/MQTT.h"
 #include "Display/Display.h"
-#include "Measurer/Measurer.h"
-#include "Hardware/Timer.h"
 #include "Measurer/Contactors.h"
-#include <gd32f30x_rcu.h>
+#include "Memory/Memory.h"
 
 
 void Device::Init()
@@ -25,6 +21,13 @@ void Device::Init()
     Display::Init();
 
     Modem::Init();
+
+    Memory::Init();
+
+    if (!Memory::Test())
+    {
+        Memory::Test();
+    }
 }
 
 
