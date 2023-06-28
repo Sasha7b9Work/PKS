@@ -1,6 +1,6 @@
 ﻿// 2023/04/07 17:06:22 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Hardware/Modules/M25P80/M25P80.h"
+#include "Memory/M25P80.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
 #include <cstring>
