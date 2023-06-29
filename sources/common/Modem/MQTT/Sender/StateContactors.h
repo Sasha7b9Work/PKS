@@ -10,7 +10,7 @@ namespace Sender
         // Состояния
         // -1 - неисправность
         // 0 - выкл
-        // 1 - выкл
+        // 1 - вкл
         void SendState(uint num, int state);
 
         void Send100V(bool);

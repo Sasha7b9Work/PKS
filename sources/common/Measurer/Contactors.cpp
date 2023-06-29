@@ -162,11 +162,11 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
             int new_level = 0;
 
-            if (!Sender::StateContactors::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
-            {
-//                new_level = 0;
-            }
-            else
+//            if (!Sender::StateContactors::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
+//            {
+////                new_level = 0;
+//            }
+//            else
             {
                 float inU = measure.voltage + (float)Level::step[phase] * 10.0f;
 
