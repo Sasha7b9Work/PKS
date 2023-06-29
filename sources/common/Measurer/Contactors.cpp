@@ -164,7 +164,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
             if (!Sender::StateContactors::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
             {
-                new_level = 0;
+//                new_level = 0;
             }
             else
             {
