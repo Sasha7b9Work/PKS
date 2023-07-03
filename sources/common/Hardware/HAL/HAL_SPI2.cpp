@@ -53,9 +53,9 @@ void HAL_SPI2::Init()
     is.trans_mode = SPI_TRANSMODE_FULLDUPLEX;
     is.device_mode = SPI_MASTER;
     is.frame_size = SPI_FRAMESIZE_8BIT;
-    is.clock_polarity_phase = SPI_CK_PL_LOW_PH_1EDGE;
+    is.clock_polarity_phase = SPI_CK_PL_HIGH_PH_1EDGE;
     is.nss = SPI_NSS_SOFT;
-    is.prescale = SPI_PSC_256;
+    is.prescale = SPI_PSC_32;
     is.endian = SPI_ENDIAN_MSB;
     spi_init(SPI_ADDR, &is);
 
