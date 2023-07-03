@@ -37,7 +37,7 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_DMA0);      // Сбор информации
     rcu_periph_clock_enable(RCU_I2C0);      // Display
     rcu_periph_clock_enable(RCU_I2C1);
-    rcu_periph_clock_enable(RCU_SPI2);      // Ext Flash
+    rcu_periph_clock_enable(RCU_SPI1);      // Ext Flash  M25P80
     rcu_periph_clock_enable(RCU_TIMER0);    // ADC
     rcu_periph_clock_enable(RCU_USART1);    // Log
     rcu_periph_clock_enable(RCU_UART3);     // GPRS

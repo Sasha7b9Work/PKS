@@ -6,6 +6,15 @@
 #include <cstring>
 
 
+/*                         | MK  | FLASH |
+    -----------------------+-----+-------+
+    CS          - PD3 - 84 |     |       |
+    SPI1 MISO   - PB4 - 90 |  I  |   2   |
+    SPI1 SCK    - PB3 - 89 |     |       |
+    SPI1 MOSI   - PB5 - 91 |  O  |   5   |
+*/
+
+
 /*
 *   Block 0
 *   Sector 0
@@ -30,7 +39,7 @@ namespace M25P80
 
     void WaitRelease();
 
-    // Произвести запись в пределах одного сектора. Size не может быть больше 256 байт
+// Произвести запись в пределах одного сектора. Size не может быть больше 256 байт
 //    static void WriteToSector(uint address, uint8 *buffer, int size);
 }
 
