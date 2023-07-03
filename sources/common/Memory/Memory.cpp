@@ -12,12 +12,18 @@ bool Memory::Test()
     *  3. Проверяем все байты
     */
 
+    DEBUG_POINT;
+
     M25P80::EraseSector(0);
+
+    DEBUG_POINT;
 
     for (uint i = 0; i < 0x10000; i++)
     {
         M25P80::WriteByte(i, (uint8)i);
     }
+
+    DEBUG_POINT;
 
     for (uint i = 0; i < 0x10000; i++)
     {
@@ -26,6 +32,8 @@ bool Memory::Test()
             return false;
         }
     }
+
+    DEBUG_POINT;
 
     return true;
 }

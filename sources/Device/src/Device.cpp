@@ -12,9 +12,9 @@ void Device::Init()
 {
     Log::Init();
 
-    LOG_WRITE("   Device::Init()   ");
-
     HAL::Init();
+
+    LOG_WRITE("   Device::Init()   ");
     
     Contactors::Init();
 
@@ -22,10 +22,16 @@ void Device::Init()
 
     Modem::Init();
 
-//    if (!Memory::Test())
-//    {
-//        Memory::Test();
-//    }
+    if (!Memory::Test())
+    {
+        LOG_WRITE("Memory test if fail");
+
+        Memory::Test();
+    }
+    else
+    {
+        LOG_WRITE("Memory test is ok");
+    }
 }
 
 

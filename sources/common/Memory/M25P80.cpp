@@ -43,17 +43,31 @@ namespace M25P80
 
 void M25P80::EraseSector(uint num_sector)
 {
+    DEBUG_POINT;
+
     WaitRelease();
+
+    DEBUG_POINT;
 
     HAL_SPI2::Write(WRITE_ENABLE);
 
+    DEBUG_POINT;
+
     WaitRelease();
+
+    DEBUG_POINT;
 
     Write32bit(SECTOR_ERASE, num_sector * 0x10000);
 
+    DEBUG_POINT;
+
     WaitRelease();
 
+    DEBUG_POINT;
+
     HAL_SPI2::Write(WRITE_DISABLE);
+
+    DEBUG_POINT;
 }
 
 
@@ -130,6 +144,8 @@ bool M25P80::IsBusy()
     static uint8 in[2] = { 0, 0 };
 
     HAL_SPI2::WriteRead(out, in, 2);
+
+    LOG_WRITE("read %X", in[1]);
 
     return (in[1] & 0x01);
 }

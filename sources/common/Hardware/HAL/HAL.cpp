@@ -56,7 +56,7 @@ void HAL::Init()
 
     HAL_I2C::Init();
 
-//    HAL_ADC::Init();
+    HAL_ADC::Init();
 
     HAL_USART_GPRS::Init();
 
