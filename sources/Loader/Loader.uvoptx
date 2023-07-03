@@ -637,7 +637,7 @@
 
   <Group>
     <GroupName>Hardware/HAL</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -792,8 +792,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\common\Hardware\HAL\HAL_SPI.cpp</PathWithFileName>
-      <FilenameWithoutPath>HAL_SPI.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\common\Hardware\HAL\HAL_FWDGT.cpp</PathWithFileName>
+      <FilenameWithoutPath>HAL_FWDGT.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>
@@ -804,8 +804,8 @@
       <tvExp>0</tvExp>
       <tvExpOptDlg>0</tvExpOptDlg>
       <bDave2>0</bDave2>
-      <PathWithFileName>..\common\Hardware\HAL\HAL_FWDGT.cpp</PathWithFileName>
-      <FilenameWithoutPath>HAL_FWDGT.cpp</FilenameWithoutPath>
+      <PathWithFileName>..\common\Hardware\HAL\HAL_SPI2.cpp</PathWithFileName>
+      <FilenameWithoutPath>HAL_SPI2.cpp</FilenameWithoutPath>
       <RteFlg>0</RteFlg>
       <bShared>0</bShared>
     </File>

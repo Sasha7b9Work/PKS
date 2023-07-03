@@ -12,9 +12,9 @@
 */
 
 
-namespace HAL_SPI
+namespace HAL_SPI2
 {
-    const uint SPI_ADDR = SPI1;
+    const uint SPI_ADDR = SPI2;
 
     namespace CS
     {
@@ -38,7 +38,7 @@ namespace HAL_SPI
 }
 
 
-void HAL_SPI::Init()
+void HAL_SPI2::Init()
 {
     CS::Init();
 
@@ -63,7 +63,7 @@ void HAL_SPI::Init()
 }
 
 
-void HAL_SPI::Write(uint8 byte)
+void HAL_SPI2::Write(uint8 byte)
 {
     CS::Low();
 
@@ -75,7 +75,7 @@ void HAL_SPI::Write(uint8 byte)
 }
 
 
-void HAL_SPI::Write(const void *buffer, int size)
+void HAL_SPI2::Write(const void *buffer, int size)
 {
     CS::Low();
 
@@ -92,7 +92,7 @@ void HAL_SPI::Write(const void *buffer, int size)
 }
 
 
-void HAL_SPI::WriteRead(const void *_out, void *_in, int size)
+void HAL_SPI2::WriteRead(const void *_out, void *_in, int size)
 {
     CS::Low();
 

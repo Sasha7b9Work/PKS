@@ -39,7 +39,7 @@ void M25P80::EraseSector(uint num_sector)
 {
     WaitRelease();
 
-    HAL_SPI::Write(WRITE_ENABLE);
+    HAL_SPI2::Write(WRITE_ENABLE);
 
     WaitRelease();
 
@@ -47,7 +47,7 @@ void M25P80::EraseSector(uint num_sector)
 
     WaitRelease();
 
-    HAL_SPI::Write(WRITE_DISABLE);
+    HAL_SPI2::Write(WRITE_DISABLE);
 }
 
 
@@ -84,13 +84,13 @@ void M25P80::WriteByte(uint8 byte)
 
     WaitRelease();
 
-    HAL_SPI::Write(WRITE_ENABLE);
+    HAL_SPI2::Write(WRITE_ENABLE);
 
-    HAL_SPI::Write(data, 5);
+    HAL_SPI2::Write(data, 5);
 
     WaitRelease();
 
-    HAL_SPI::Write(WRITE_DISABLE);
+    HAL_SPI2::Write(WRITE_DISABLE);
 }
 
 
@@ -105,7 +105,7 @@ uint8 M25P80::ReadByte()
 
     uint8 in[5] = { 0, 0, 0, 0, 0 };
 
-    HAL_SPI::WriteRead(data, in, 5);
+    HAL_SPI2::WriteRead(data, in, 5);
 
     return data[4];
 }
@@ -132,7 +132,7 @@ void M25P80::Write32bit(uint8 command, uint bits24)
     data[2] = bs.byte[1];
     data[3] = bs.byte[0];
 
-    HAL_SPI::Write(data, 4);
+    HAL_SPI2::Write(data, 4);
 }
 
 
@@ -141,7 +141,7 @@ bool M25P80::IsBusy()
     static const uint8 out[2] = { READ_STATUS, 0 };
     static uint8 in[2] = { 0, 0 };
 
-    HAL_SPI::WriteRead(out, in, 2);
+    HAL_SPI2::WriteRead(out, in, 2);
 
     return (in[1] & 0x01);
 }

@@ -43,7 +43,7 @@ namespace HAL_I2C
 
 
 // Для внешней памяти
-namespace HAL_SPI
+namespace HAL_SPI2
 {
     void Init();
     void Write(uint8);
