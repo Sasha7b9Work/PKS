@@ -22,12 +22,10 @@ void Device::Init()
 
     Modem::Init();
 
-    Memory::Init();
-
-    if (!Memory::Test())
-    {
-        Memory::Test();
-    }
+//    if (!Memory::Test())
+//    {
+//        Memory::Test();
+//    }
 }
 
 

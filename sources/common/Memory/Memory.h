@@ -4,7 +4,5 @@
 
 namespace Memory
 {
-    void Init();
-
     bool Test();
 }

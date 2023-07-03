@@ -22,7 +22,7 @@
 */
 
 //                            page
-#define PROGRAM_PAGE  0x02
+#define PAGE_PROGRAM  0x02
 #define READ_DATA     0x03
 #define WRITE_DISABLE 0x04
 #define READ_STATUS   0x05
@@ -38,9 +38,6 @@ namespace M25P80
     bool IsBusy();
 
     void WaitRelease();
-
-// Произвести запись в пределах одного сектора. Size не может быть больше 256 байт
-//    static void WriteToSector(uint address, uint8 *buffer, int size);
 }
 
 
@@ -60,35 +57,15 @@ void M25P80::EraseSector(uint num_sector)
 }
 
 
-//void M25P80::WriteToSector(uint address, uint8 *buffer, int size)
-//{
-//    uint8 data[256 + 4];
-//
-//    BitSet32 bs(address);
-//
-//    data[0] = PROGRAM_PAGE;
-//    data[1] = bs.byte[2];
-//    data[2] = bs.byte[1];
-//    data[1] = bs.byte[0];
-//
-//    for (int i = 0; i < size; i++)
-//    {
-//        data[i + 4] = buffer[i];
-//    }
-//
-//    WaitRelease();
-//
-//    HAL_SPI::Write(data, size + 4);
-//}
-
-
-void M25P80::WriteByte(uint8 byte)
+void M25P80::WriteByte(uint address, uint8 byte)
 {
-    uint8 data[5] = { PROGRAM_PAGE };
+    uint8 data[5] = { PAGE_PROGRAM };
 
-    data[1] = 0;
-    data[2] = 0;
-    data[3] = 0;
+    BitSet32 bs(address);
+
+    data[1] = bs.byte[2];
+    data[2] = bs.byte[1];
+    data[3] = bs.byte[0];
     data[4] = byte;
 
     WaitRelease();
@@ -103,13 +80,15 @@ void M25P80::WriteByte(uint8 byte)
 }
 
 
-uint8 M25P80::ReadByte()
+uint8 M25P80::ReadByte(uint addreess)
 {
     uint8 data[5] = { READ_DATA };
 
-    data[1] = 0;
-    data[2] = 0;
-    data[3] = 0;
+    BitSet32 bs(addreess);
+
+    data[1] = bs.byte[2];
+    data[2] = bs.byte[1];
+    data[3] = bs.byte[0];
     data[4] = 0;
 
     uint8 in[5] = { 0, 0, 0, 0, 0 };

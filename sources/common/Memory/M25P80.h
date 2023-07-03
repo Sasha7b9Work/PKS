@@ -3,7 +3,7 @@
 
 
 // Описывает сектор
-struct Sector                   // 4 kB
+struct Sector               // 64 kB
 {
     static const int SIZE = 64 * 1024;
 
@@ -31,8 +31,8 @@ namespace M25P80
     void Read(uint address, void *buffer, int size);
 
     // Записать байт по нулевому адресу
-    void WriteByte(uint8 byte);
+    void WriteByte(uint address, uint8 byte);
 
     // Читать байт из нулевого адреса
-    uint8 ReadByte();
+    uint8 ReadByte(uint address);
 }

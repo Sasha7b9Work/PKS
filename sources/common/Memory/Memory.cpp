@@ -1,15 +1,31 @@
 // 2023/06/28 17:50:45 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Memory/Memory.h"
-
-
-void Memory::Init()
-{
-
-}
+#include "Memory/M25P80.h"
 
 
 bool Memory::Test()
 {
-    return false;
+    /*
+    *  1. Стираем нулевой сектор сектор.
+    *  2. Записываем во все байты нулевого сектора (uint8)address.
+    *  3. Проверяем все байты
+    */
+
+    M25P80::EraseSector(0);
+
+    for (uint i = 0; i < 0x10000; i++)
+    {
+        M25P80::WriteByte(i, (uint8)i);
+    }
+
+    for (uint i = 0; i < 0x10000; i++)
+    {
+        if (M25P80::ReadByte(i) != (uint8)i)
+        {
+            return false;
+        }
+    }
+
+    return true;
 }
