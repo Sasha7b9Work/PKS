@@ -144,7 +144,4 @@ extern PinOUT pinKMC7;
 extern PinOUT pinKMC8;
 extern PinOUT pinKMC9;
 
-extern PinIN pinLevel1;
-extern PinIN pinLevel2;
-extern PinIN pinLevel3;
 extern PinIN pinLevel4;

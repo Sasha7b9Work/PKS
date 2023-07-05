@@ -22,16 +22,16 @@ void Device::Init()
 
     Modem::Init();
 
-    if (!Memory::Test())
-    {
-        LOG_WRITE("Memory test if fail");
-
-        Memory::Test();
-    }
-    else
-    {
-        LOG_WRITE("Memory test is ok");
-    }
+//    if (!Memory::Test())
+//    {
+//        LOG_WRITE("Memory test if fail");
+//
+//        Memory::Test();
+//    }
+//    else
+//    {
+//        LOG_WRITE("Memory test is ok");
+//    }
 }
 
 

@@ -7,6 +7,7 @@
 #include "Modem/MQTT/MQTT.h"
 #include "Modem/SIM800.h"
 #include "Hardware/HAL/HAL.h"
+#include "Settings/Settings.h"
 #include <cstring>
 #include <cstdio>
 
@@ -58,7 +59,7 @@ void Display::Update()
 
     WriteString(70, 51, HAL::GetUID(message));
 
-    std::sprintf(message, "st : %d", NUM_STEPS);
+    std::sprintf(message, "v%d:%d", NUM_STEPS, gset.GetKoeffCurrent());
 
     WriteString(5, 51, message);
 
@@ -101,7 +102,7 @@ void Display::WriteAmpere(int i)
 
     char message[30];
 
-    std::sprintf(message, "%1.3f", measure.measures[i].current);
+    std::sprintf(message, "%4.1f", measure.measures[i].current);
 
     WriteString(80, 17 + i * 11, message);
 }

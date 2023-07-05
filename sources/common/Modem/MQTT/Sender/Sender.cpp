@@ -5,6 +5,7 @@
 #include "Modem/MQTT/MQTT.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
+#include "Settings/Settings.h"
 #include <cstdio>
 #include <cstring>
 
@@ -43,7 +44,7 @@ bool Sender::SendToSIM800()
 
             char buffer[32];
 
-            std::sprintf(buffer, "%d : %dst", VERSION, NUM_STEPS);
+            std::sprintf(buffer, "%d : %dst : %d", VERSION, NUM_STEPS, gset.GetKoeffCurrent());
 
             MQTT::Packet::Publish("/versionSW", buffer);
             versionSW_is_sended = true;

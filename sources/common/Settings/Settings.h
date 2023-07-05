@@ -4,7 +4,7 @@
 
 struct Settings
 {
-    float GetKoeffCurrent();        // Коэфццициент преобразования тока
+    int GetKoeffCurrent();        // Коэфццициент преобразования тока
 
     bool IsControllingRelays();     // Если true, то контролировать состояние реле и отключать фазу, если хотя бы одно реле на ней неисправно
 };

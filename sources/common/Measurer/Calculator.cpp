@@ -112,7 +112,7 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
         currentRMS += value * value;
     }
 
-    current = std::sqrtf(currentRMS / (float)period) * gset.GetKoeffCurrent();
+    current = std::sqrtf(currentRMS / (float)period) * (float)gset.GetKoeffCurrent();
 
     // Рассчитывем напряжение
 

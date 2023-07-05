@@ -1,4 +1,4 @@
-#define VERSION 106
+#define VERSION 107
 
 
 // Сообщения лога записываются в буфер
@@ -7,10 +7,10 @@
 #define ENABLE_LOG
 
 // Раскомментировать для 5-ступенчатой версии
-#define FIVE_STEPS_VERSION
+//#define FIVE_STEPS_VERSION
 
 // Раскомментировать для 4-ступенчатой версии
-//#define FOUR_STEPS_VERSION
+#define FOUR_STEPS_VERSION
 
 #ifndef FIVE_STEPS_VERSION
     #ifndef FOUR_STEPS_VERSION

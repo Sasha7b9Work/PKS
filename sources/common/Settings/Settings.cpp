@@ -12,33 +12,9 @@ static Settings def_set =
 Settings gset = def_set;
 
 
-float Settings::GetKoeffCurrent()
+int Settings::GetKoeffCurrent()
 {
-    bool pin1 = pinLevel1.IsHi();
-    bool pin2 = pinLevel2.IsHi();
-    bool pin3 = pinLevel3.IsHi();
-
-    if (pin1 && pin2 && pin3)
-    {
-        return 30.0f;
-    }
-
-    if (!pin1 && pin2 && pin3)
-    {
-        return 20.0f;
-    }
-
-    if (!pin1 && !pin2 && pin3)
-    {
-        return 16.0f;
-    }
-
-    if (pin1 && !pin2 && !pin3)
-    {
-        return 40.0f;
-    }
-
-    return 50.0f;
+    return 16;
 }
 
 
