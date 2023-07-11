@@ -39,7 +39,7 @@ namespace Sender
 
             for (int i = 0; i < 9; i++)
             {
-                if (NUM_STEPS == 4 && i == 3)
+                if (gset.GetNumberSteps() == 4 && i == 3)
                 {
                     continue;
                 }

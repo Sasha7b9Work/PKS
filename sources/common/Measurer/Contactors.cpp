@@ -7,6 +7,7 @@
 #include "Utils/Math.h"
 #include "Modem/MQTT/Sender/LevelContactors.h"
 #include "Modem/MQTT/Sender/StateContactors.h"
+#include "Settings/Settings.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
@@ -65,19 +66,39 @@ namespace Contactors
     // Состояние контакторов
     namespace Level
     {
-#ifdef FOUR_STEPS_VERSION
-        static const int LESS_180 = -4;
-        static const int ABOVE_280 = 4;
-        static const int MIN = LESS_180;
-        static const int MAX = ABOVE_280;
-#endif
+//#ifdef FOUR_STEPS_VERSION_
+//        static const int LESS_180 = -4;
+//        static const int ABOVE_280 = 4;
+//        static const int MIN = LESS_180;
+//        static const int MAX = ABOVE_280;
+//#endif
+//
+//#ifdef FIVE_STEPS_VERSION_
+//        static const int LESS_170 = -5;
+//        static const int ABOVE_290 = 5;
+//        static const int MIN = LESS_170;
+//        static const int MAX = ABOVE_290;
+//#endif
 
-#ifdef FIVE_STEPS_VERSION
-        static const int LESS_170 = -5;
-        static const int ABOVE_290 = 5;
-        static const int MIN = LESS_170;
-        static const int MAX = ABOVE_290;
-#endif
+        static int LESS_X()
+        {
+            return -gset.GetNumberSteps();
+        }
+
+        static int ABOVE_X()
+        {
+            return gset.GetNumberSteps();
+        }
+
+        static int MIN()
+        {
+            return LESS_X();
+        }
+
+        static int MAX()
+        {
+            return ABOVE_X();
+        }
 
         // Номер включённой ступени
         static int step[3] = { 0, 0, 0 };
@@ -195,7 +216,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                         break;
                     }
 
-                    new_level = Math::Limitation(Level::step[phase] + num_steps, Level::MIN, Level::MAX);
+                    new_level = Math::Limitation(Level::step[phase] + num_steps, Level::MIN(), Level::MAX());
                 }
             }
     
@@ -246,9 +267,10 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             int st = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
 
             CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);   // KM1
-#ifdef FIVE_STEPS_VERSION
-            CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);   // KM4
-#endif
+            if (gset.GetNumberSteps() == 5)
+            {
+                CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);   // KM4
+            }
             CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);   // KM5
             CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);   // KM6
             CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][4]);   // KM7

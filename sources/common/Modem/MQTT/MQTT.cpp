@@ -7,6 +7,7 @@
 #include "Modem/Parser.h"
 #include "Modem/SIM800.h"
 #include "Modem/MQTT/Sender/Sender.h"
+#include "Settings/Settings.h"
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -75,7 +76,9 @@ void MQTT::Update(pchar answer)
             char guid[32];
             char MQTT_CID[32];
 
-            std::sprintf(MQTT_CID, "pks-%d%d%d-%s", NUM_STEPS, NUM_STEPS, NUM_STEPS, HAL::GetUID(guid));
+            std::sprintf(MQTT_CID, "pks-%d%02d-%s", gset.GetNumberSteps(), gset.GetKoeffCurrent(), HAL::GetUID(guid));
+
+            LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
 
             SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединения
             SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 8));

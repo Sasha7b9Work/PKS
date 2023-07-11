@@ -4,7 +4,9 @@
 
 struct Settings
 {
-    int GetKoeffCurrent();        // Коэфццициент преобразования тока
+    int GetKoeffCurrent();          // Коэфццициент преобразования тока
+
+    int GetNumberSteps();          // Число ступеней регулирования
 
     bool IsControllingRelays();     // Если true, то контролировать состояние реле и отключать фазу, если хотя бы одно реле на ней неисправно
 };

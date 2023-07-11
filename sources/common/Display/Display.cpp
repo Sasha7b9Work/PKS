@@ -59,7 +59,7 @@ void Display::Update()
 
     WriteString(70, 51, HAL::GetUID(message));
 
-    std::sprintf(message, "v%d:%d", NUM_STEPS, gset.GetKoeffCurrent());
+    std::sprintf(message, "v%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent());
 
     WriteString(5, 51, message);
 

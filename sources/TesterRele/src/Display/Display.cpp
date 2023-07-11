@@ -7,6 +7,7 @@
 #include "Modem/MQTT/MQTT.h"
 #include "Modem/SIM800.h"
 #include "Hardware/HAL/HAL.h"
+#include "Settings/Settings.h"
 #include <cstring>
 #include <cstdio>
 
@@ -58,7 +59,7 @@ void Display::Update()
 
     WriteString(70, 51, HAL::GetUID(message));
 
-    std::sprintf(message, "st : %d", NUM_STEPS);
+    std::sprintf(message, "st : %d", gset.GetNumberSteps());
 
     WriteString(5, 51, message);
 
