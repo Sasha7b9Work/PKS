@@ -337,19 +337,19 @@ bool Modem::ExistUpdate()
 
 void Modem::GSM_PG::ToOutLow()
 {
-    gpio_init(GPIOE, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
+    gpio_init(GPIOD, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
 
-    GPIO_BC(GPIOE) = GPIO_PIN_2;
+    GPIO_BC(GPIOD) = GPIO_PIN_2;
 }
 
 
 void Modem::GSM_PG::ToInPullDown()
 {
-    gpio_init(GPIOE, GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
+    gpio_init(GPIOD, GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
 }
 
 
 bool Modem::GSM_PG::ReadInput()
 {
-    return gpio_input_bit_get(GPIOE, GPIO_PIN_2) == SET;
+    return gpio_input_bit_get(GPIOD, GPIO_PIN_2) == SET;
 }
