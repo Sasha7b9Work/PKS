@@ -28,7 +28,7 @@ int Settings::GetNumberSteps()
 
     int result = *((int *)address);
 
-    return (result > 5) ? 5 : result;
+    return result;
 }
 
 
