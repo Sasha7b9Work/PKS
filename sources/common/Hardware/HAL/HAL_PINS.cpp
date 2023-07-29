@@ -26,11 +26,11 @@ PinI2C pinI2C_SDA;
 
 const uint USART_GPRS_ADDR = UART3;
 PinUSART_TX pinUSART_GPRS_TX;
-PinUSART_RX pinUSART_GPRS_RX(GPIOC, GPIO_PIN_11);
+PinUSART_RX pinUSART_GPRS_RX;
 
 const uint USART_LOG_ADDR = USART1;
 PinUSART_TX pinUSART_LOG_TX;
-PinUSART_RX pinUSART_LOG_RX(GPIOB, GPIO_PIN_7);
+PinUSART_RX pinUSART_LOG_RX;
 
 PinOUT pinGSM_PWR(GPIOA, GPIO_PIN_12);
 PinOUT pinGSM_PWRKEY(GPIOA, GPIO_PIN_11);
@@ -185,8 +185,11 @@ void PinUSART_TX::Init(uint _port, uint _pin)
 }
 
 
-void PinUSART_RX::Init()
+void PinUSART_RX::Init(uint _port, uint _pin)
 {
+    port = _port;
+    pin = _pin;
+
     gpio_init(port, GPIO_MODE_IN_FLOATING, GPIO_OSPEED_50MHZ, pin);
 }
 

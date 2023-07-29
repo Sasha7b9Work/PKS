@@ -10,7 +10,7 @@
 void HAL_USART_GPRS::Init()
 {
     pinUSART_GPRS_TX.Init(GPIOC, GPIO_PIN_10);
-    pinUSART_GPRS_RX.Init();
+    pinUSART_GPRS_RX.Init(GPIOC, GPIO_PIN_11);
 
 //    gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
 
@@ -82,12 +82,12 @@ void HAL_USART_LOG::Init()
     if (gset.OnlyMeasure())
     {
         pinUSART_LOG_TX.Init(GPIOB, GPIO_PIN_6);
-        pinUSART_LOG_RX.Init();
+        pinUSART_LOG_RX.Init(GPIOB, GPIO_PIN_7);
     }
     else
     {
         pinUSART_LOG_TX.Init(GPIOD, GPIO_PIN_5);
-        pinUSART_LOG_RX.Init();
+        pinUSART_LOG_RX.Init(GPIOD, GPIO_PIN_6);
     }
 
     gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
