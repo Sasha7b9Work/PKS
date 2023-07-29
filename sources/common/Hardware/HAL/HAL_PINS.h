@@ -35,8 +35,7 @@ private:
 
 struct PinUSART_TX
 {
-    PinUSART_TX(uint _port, uint _pin) : port(_port), pin(_pin) { }
-    void Init();
+    void Init(uint port, uint pin);
 private:
     uint port;
     uint pin;

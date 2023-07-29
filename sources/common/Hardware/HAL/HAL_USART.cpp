@@ -2,13 +2,14 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
+#include "Settings/Settings.h"
 #include <gd32f30x.h>
 #include <cstring>
 
 
 void HAL_USART_GPRS::Init()
 {
-    pinUSART_GPRS_TX.Init();
+    pinUSART_GPRS_TX.Init(GPIOC, GPIO_PIN_10);
     pinUSART_GPRS_RX.Init();
 
 //    gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
@@ -78,8 +79,16 @@ void HAL_USART_GPRS::CallbackOnReceive(char symbol)
 
 void HAL_USART_LOG::Init()
 {
-    pinUSART_LOG_TX.Init();
-    pinUSART_LOG_RX.Init();
+    if (gset.OnlyMeasure())
+    {
+        pinUSART_LOG_TX.Init(GPIOB, GPIO_PIN_6);
+        pinUSART_LOG_RX.Init();
+    }
+    else
+    {
+        pinUSART_LOG_TX.Init(GPIOD, GPIO_PIN_5);
+        pinUSART_LOG_RX.Init();
+    }
 
     gpio_pin_remap_config(GPIO_USART1_REMAP, ENABLE);
 
