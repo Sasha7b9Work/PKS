@@ -26,8 +26,7 @@ private:
 
 struct PinI2C
 {
-    PinI2C(uint _port, uint _pin) : port(_port), pin(_pin) { }
-    void Init();
+    void Init(uint port, uint pin);
 private:
     uint port;
     uint pin;

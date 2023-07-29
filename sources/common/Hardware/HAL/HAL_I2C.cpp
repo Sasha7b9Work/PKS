@@ -2,6 +2,7 @@
 #include "defines.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/Timer.h"
+#include "Settings/Settings.h"
 #include <gd32f30x.h>
 
 
@@ -53,8 +54,8 @@ bool HAL_I2C::WaitFlagNo(i2c_flag_enum flag)
 
 void HAL_I2C::Init()
 {
-    pinI2C_SCL.Init();
-    pinI2C_SDA.Init();
+    pinI2C_SCL.Init(GPIOB, gset.OnlyMeasure() ? GPIO_PIN_8 : GPIO_PIN_6);
+    pinI2C_SDA.Init(GPIOB, gset.OnlyMeasure() ? GPIO_PIN_9 : GPIO_PIN_7);
 
     /* configure I2C clock */
     i2c_clock_config(I2C_ADDR, I2C_SPEED, I2C_DTCY_2);

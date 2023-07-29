@@ -32,6 +32,12 @@ int Settings::GetNumberSteps()
 }
 
 
+bool Settings::OnlyMeasure()
+{
+    return GetNumberSteps() < 0;
+}
+
+
 bool Settings::IsControllingRelays()
 {
     return pinLevel4.IsHi();

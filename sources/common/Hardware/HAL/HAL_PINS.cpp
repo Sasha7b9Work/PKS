@@ -21,8 +21,8 @@ PinADC pinCur2H(GPIOA, GPIO_PIN_6, ADC_CHANNEL_6);
 PinADC pinCur3H(GPIOC, GPIO_PIN_4, ADC_CHANNEL_14);
 
 const uint I2C_ADDR = I2C0;
-PinI2C pinI2C_SCL(GPIOB, GPIO_PIN_8);
-PinI2C pinI2C_SDA(GPIOB, GPIO_PIN_9);
+PinI2C pinI2C_SCL;
+PinI2C pinI2C_SDA;
 
 const uint USART_GPRS_ADDR = UART3;
 PinUSART_TX pinUSART_GPRS_TX(GPIOC, GPIO_PIN_10);
@@ -166,8 +166,11 @@ void PinADC::Init()
 }
 
 
-void PinI2C::Init()
+void PinI2C::Init(uint _port, uint _pin)
 {
+    port = _port;
+    pin = _pin;
+
     gpio_pin_remap_config(GPIO_I2C0_REMAP, ENABLE);
     gpio_init(port, GPIO_MODE_AF_OD, GPIO_OSPEED_50MHZ, pin);
 }
