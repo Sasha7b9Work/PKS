@@ -53,8 +53,7 @@ private:
 
 struct PinOUT
 {
-    PinOUT(uint _port, uint _pin) : port(_port), pin(_pin) { }
-    void Init();
+    void Init(uint port, uint pin);
     void Set();
     void Reset();
     void SetState(bool);

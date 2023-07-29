@@ -7,6 +7,7 @@
 #include "Modem/Parser.h"
 #include "Utils/Buffer.h"
 #include "Modem/MQTT/MQTT.h"
+#include "Settings/Settings.h"
 #ifdef LOADER
 #include "Modem/Updater.h"
 #endif
@@ -221,10 +222,12 @@ void Modem::CallbackOnReceive(char symbol)
 
 void Modem::Init()
 {
-    pinGSM_PWR.Init();
+    pinGSM_PWR.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
+                    gset.OnlyMeasure() ? GPIO_PIN_12 : GPIO_PIN_2);
     pinGSM_PWR.Set();
 
-    pinGSM_PWRKEY.Init();
+    pinGSM_PWRKEY.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
+                       gset.OnlyMeasure() ? GPIO_PIN_11 : GPIO_PIN_0);
     pinGSM_PWRKEY.Reset();
 
     pinGSM_STATUS.DeInit();

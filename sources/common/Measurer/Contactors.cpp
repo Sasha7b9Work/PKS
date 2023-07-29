@@ -51,7 +51,7 @@ namespace Contactors
     {
         PinOUT *pin;
         bool    enabled;
-        void Init();
+        void Init(uint port, uint pin);
         void Enable();
         void Disable();
     };
@@ -132,27 +132,67 @@ bool Contactors::IsBusy(Phase::E phase)
 
 void Contactors::Init()
 {
+    if (gset.OnlyMeasure())
+    {
+        return;
+    }
+
+    uint ports[3][10] =
+    {
+        //0    1      2      3      4      5      6      7      8      9
+        {0,  GPIOE, GPIOE, GPIOE, GPIOB, GPIOB, GPIOB, GPIOC, GPIOE, GPIOE},
+        {0,  GPIOE, GPIOE, GPIOE, GPIOE, GPIOB, GPIOB, GPIOB, GPIOB, GPIOB},
+        {0,  GPIOB, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD}
+    };
+
+    uint pins[3][10] =
+    {
+        //0          1            2            3            4            5            6            7            8            9
+        {0, GPIO_PIN_9,  GPIO_PIN_8,  GPIO_PIN_7,  GPIO_PIN_2,  GPIO_PIN_1,  GPIO_PIN_0,  GPIO_PIN_5,  GPIO_PIN_10, GPIO_PIN_11},
+        {0, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14},
+        {0, GPIO_PIN_15, GPIO_PIN_8,  GPIO_PIN_9,  GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15}
+    };
+
     for (int phase = 0; phase < 3; phase++)
     {
         for (int i = 1; i < 10; i++)
         {
-            _contactors[phase][i].Init();
+            _contactors[phase][i].Init(ports[phase][i], pins[phase][i]);
         }
     }
 
-    pinMX0.Init();
-    pinMX1.Init();
-    pinMX2.Init();
-    pinMX3.Init();
-    pinMX4.Init();
+    if (gset.OnlyMeasure())
+    {
+        pinMX0.Init(GPIOB, GPIO_PIN_0);
+        pinMX1.Init(GPIOB, GPIO_PIN_0);
+        pinMX2.Init(GPIOB, GPIO_PIN_0);
+        pinMX3.Init(GPIOB, GPIO_PIN_0);
+        pinMX4.Init(GPIOB, GPIO_PIN_0);
 
-    pinP1.Init(GPIO_MODE_IPU);
-    pinP2.Init(GPIO_MODE_IPU);
+        pinP1.Init(GPIO_MODE_IPU);
+        pinP2.Init(GPIO_MODE_IPU);
+    }
+    else
+    {
+        pinMX0.Init(GPIOA, GPIO_PIN_8);
+        pinMX1.Init(GPIOA, GPIO_PIN_9);
+        pinMX2.Init(GPIOA, GPIO_PIN_10);
+        pinMX3.Init(GPIOA, GPIO_PIN_11);
+        pinMX4.Init(GPIOA, GPIO_PIN_12);
+
+        pinP1.Init(GPIO_MODE_IPU);
+        pinP2.Init(GPIO_MODE_IPU);
+    }
 }
 
 
 void Contactors::Update(const FullMeasure &measure)
 {
+    if (gset.OnlyMeasure())
+    {
+        return;
+    }
+
     for (int i = 0; i < 3; i++)
     {
         UpdatePhase((Phase::E)i, measure.measures[i], measure.is_good[i]);
@@ -345,9 +385,9 @@ void Contactors::Disable(int num, Phase::E phase, State::E next, TimeMeterMS &me
 }
 
 
-void Contactors::Contactor::Init()
+void Contactors::Contactor::Init(uint port, uint _pin)
 {
-    pin->Init();
+    pin->Init(port, _pin);
 
     enabled = false;
 
@@ -379,6 +419,11 @@ void Contactors::Contactor::Disable()
 
 void Contactors::Serviceability::Verify()
 {
+    if (gset.OnlyMeasure())
+    {
+        return;
+    }
+
     static TimeMeterMS meter;
 
     if (meter.ElapsedTime() < 1)

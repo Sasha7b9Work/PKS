@@ -6,6 +6,7 @@
 #include "Display/Display.h"
 #include "Measurer/Contactors.h"
 #include "Memory/Memory.h"
+#include "Settings/Settings.h"
 
 
 void Device::Init()
@@ -15,7 +16,7 @@ void Device::Init()
     HAL::Init();
 
     LOG_WRITE("   Device::Init()   ");
-    
+
     Contactors::Init();
 
     Display::Init();
