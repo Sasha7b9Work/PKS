@@ -4,6 +4,7 @@
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 #include "Modem/MQTT/Sender/GP.h"
+#include "Settings/Settings.h"
 #include <gd32f30x.h>
 #include <cstdlib>
 
@@ -34,7 +35,7 @@ PinUSART_RX pinUSART_LOG_RX;
 
 PinOUT pinGSM_PWR;
 PinOUT pinGSM_PWRKEY;
-PinIN  pinGSM_STATUS(GPIOA, GPIO_PIN_10);
+PinIN  pinGSM_STATUS;
 
 PinOUT pinMX0;
 PinOUT pinMX1;
@@ -42,8 +43,8 @@ PinOUT pinMX2;
 PinOUT pinMX3;
 PinOUT pinMX4;
 
-PinIN pinP1(GPIOE, GPIO_PIN_4);
-PinIN pinP2(GPIOE, GPIO_PIN_3);
+PinIN pinP1;
+PinIN pinP2;
 
 PinOUT pinKMA1;
 PinOUT pinKMA2;
@@ -73,12 +74,12 @@ PinOUT pinKMC7;
 PinOUT pinKMC8;
 PinOUT pinKMC9;
 
-PinIN pinLevel4(GPIOC, GPIO_PIN_9);
+PinIN pinLevel4;
 
 
 struct ObservedPin : public PinIN
 {
-    ObservedPin(uint _port, uint _pin) : PinIN(_port, _pin), state(false) { }
+    ObservedPin() : PinIN(), state(false) { }
 
     bool IsHi()
     {
@@ -108,22 +109,18 @@ private:
 };
 
 
-static ObservedPin pinsGP[3] =
-{
-    ObservedPin(GPIOC, GPIO_PIN_2),
-    ObservedPin(GPIOC, GPIO_PIN_1),
-    ObservedPin(GPIOC, GPIO_PIN_0)
-};
-
+static ObservedPin pinsGP[3];
 
 void HAL_PINS::Init()
 {
+    uint pins[3] = { GPIO_PIN_2, GPIO_PIN_1, GPIO_PIN_2 };
+
     for (int i = 0; i < 3; i++)
     {
-        pinsGP[i].Init(GPIO_MODE_IPU);
+        pinsGP[i].Init(GPIOC, pins[i], GPIO_MODE_IPU);
     }
 
-    pinLevel4.Init(GPIO_MODE_IPU);
+    pinLevel4.Init(GPIOC, GPIO_PIN_9, GPIO_MODE_IPU);
 }
 
 
@@ -171,7 +168,11 @@ void PinI2C::Init(uint _port, uint _pin)
     port = _port;
     pin = _pin;
 
-    gpio_pin_remap_config(GPIO_I2C0_REMAP, ENABLE);
+    if (gset.OnlyMeasure())
+    {
+        gpio_pin_remap_config(GPIO_I2C0_REMAP, ENABLE);
+    }
+
     gpio_init(port, GPIO_MODE_AF_OD, GPIO_OSPEED_50MHZ, pin);
 }
 
@@ -221,8 +222,11 @@ void PinOUT::SetState(bool state)
 }
 
 
-void PinIN::Init(uint input_mode)
+void PinIN::Init(uint _port, uint _pin, uint input_mode)
 {
+    port = _port;
+    pin = _pin;
+
     gpio_init(port, input_mode, GPIO_OSPEED_50MHZ, pin);
 }
 

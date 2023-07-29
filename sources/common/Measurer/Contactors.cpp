@@ -168,9 +168,6 @@ void Contactors::Init()
         pinMX2.Init(GPIOB, GPIO_PIN_0);
         pinMX3.Init(GPIOB, GPIO_PIN_0);
         pinMX4.Init(GPIOB, GPIO_PIN_0);
-
-        pinP1.Init(GPIO_MODE_IPU);
-        pinP2.Init(GPIO_MODE_IPU);
     }
     else
     {
@@ -179,10 +176,10 @@ void Contactors::Init()
         pinMX2.Init(GPIOA, GPIO_PIN_10);
         pinMX3.Init(GPIOA, GPIO_PIN_11);
         pinMX4.Init(GPIOA, GPIO_PIN_12);
-
-        pinP1.Init(GPIO_MODE_IPU);
-        pinP2.Init(GPIO_MODE_IPU);
     }
+
+    pinP1.Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IPU);
+    pinP2.Init(GPIOE, GPIO_PIN_3, GPIO_MODE_IPU);
 }
 
 

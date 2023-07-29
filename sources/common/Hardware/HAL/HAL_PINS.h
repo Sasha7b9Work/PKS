@@ -26,6 +26,7 @@ private:
 
 struct PinI2C
 {
+    PinI2C() : port(0), pin(0) { }
     void Init(uint port, uint pin);
 private:
     uint port;
@@ -35,6 +36,7 @@ private:
 
 struct PinUSART_TX
 {
+    PinUSART_TX() : port(0), pin(0) { }
     void Init(uint port, uint pin);
 private:
     uint port;
@@ -44,6 +46,7 @@ private:
 
 struct PinUSART_RX
 {
+    PinUSART_RX() : port(0), pin(0) { }
     void Init(uint port, uint pin);
 private:
     uint port;
@@ -53,6 +56,7 @@ private:
 
 struct PinOUT
 {
+    PinOUT() : port(0), pin(0) { }
     void Init(uint port, uint pin);
     void Set();
     void Reset();
@@ -65,8 +69,8 @@ private:
 
 struct PinIN
 {
-    PinIN(uint _port, uint _pin) : port(_port), pin(_pin) { }
-    void Init(uint input_mode);
+    PinIN() : port(0), pin(0) { }
+    void Init(uint port, uint pin, uint input_mode);
     bool IsLow();
     bool IsHi();
     void DeInit();

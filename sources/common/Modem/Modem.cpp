@@ -276,7 +276,9 @@ void Modem::Update()
         {
             meter.Reset();
             State::Set(State::WAIT_500_MS);
-            pinGSM_STATUS.Init(GPIO_MODE_IPD);
+            pinGSM_STATUS.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
+                gset.OnlyMeasure() ? GPIO_PIN_10 : GPIO_PIN_1,
+                GPIO_MODE_IPD);
             HAL_USART_GPRS::Init();
         }
         if (meter.ElapsedTime() > 100)
