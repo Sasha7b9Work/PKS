@@ -34,7 +34,7 @@ int Settings::GetNumberSteps()
 
 bool Settings::OnlyMeasure()
 {
-    return GetNumberSteps() < 0;
+    return GetNumberSteps() <= 0;
 }
 
 
