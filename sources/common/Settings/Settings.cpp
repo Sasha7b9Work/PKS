@@ -18,7 +18,7 @@ int Settings::GetKoeffCurrent()
 
     int result = *((int *)address);
 
-    return (result > 100) ? 16 : result;
+    return (result <= 0) ? 16 : result;
 }
 
 
