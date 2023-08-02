@@ -140,10 +140,10 @@ void PhaseMeasure::Calculate(const Sample samplesVolts[NUM_SAMPLES], const Sampl
 
     voltage = std::sqrtf(voltsRMS / (float)period);
 
-//    if (voltage < 20.0f)
-//    {
-//        voltage = 0.0f;
-//    }
+    if (voltage < 5.0f)
+    {
+        voltage = 0.0f;
+    }
 }
 
 
