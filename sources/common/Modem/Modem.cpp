@@ -230,7 +230,13 @@ void Modem::Init()
                        gset.OnlyMeasure() ? GPIO_PIN_11 : GPIO_PIN_0);
     pinGSM_PWRKEY.Reset();
 
+    pinGSM_STATUS.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
+        gset.OnlyMeasure() ? GPIO_PIN_10 : GPIO_PIN_1,
+        GPIO_MODE_IPD);
+
     pinGSM_STATUS.DeInit();
+
+    HAL_USART_GPRS::Init();
 
     HAL_USART_GPRS::DeInit();
 }
