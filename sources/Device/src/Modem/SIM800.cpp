@@ -158,7 +158,6 @@ void SIM800::Update(pchar answer)
     switch (state)
     {
     case State::START:
-        LOG_WRITE("+++ SIM800::IDLE +++");
         SIM800::Transmit::With0D("ATE0");
         State::Set(State::WAIT_ATE0);
         strcpy(levelSignal, "0");

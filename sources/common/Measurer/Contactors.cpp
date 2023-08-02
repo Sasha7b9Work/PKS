@@ -163,23 +163,23 @@ void Contactors::Init()
 
     if (gset.OnlyMeasure())
     {
-        pinMX0.Init(GPIOB, GPIO_PIN_0);
-        pinMX1.Init(GPIOB, GPIO_PIN_0);
-        pinMX2.Init(GPIOB, GPIO_PIN_0);
-        pinMX3.Init(GPIOB, GPIO_PIN_0);
-        pinMX4.Init(GPIOB, GPIO_PIN_0);
+        pinMX0._Init(GPIOB, GPIO_PIN_0);
+        pinMX1._Init(GPIOB, GPIO_PIN_0);
+        pinMX2._Init(GPIOB, GPIO_PIN_0);
+        pinMX3._Init(GPIOB, GPIO_PIN_0);
+        pinMX4._Init(GPIOB, GPIO_PIN_0);
     }
     else
     {
-        pinMX0.Init(GPIOA, GPIO_PIN_8);
-        pinMX1.Init(GPIOA, GPIO_PIN_9);
-        pinMX2.Init(GPIOA, GPIO_PIN_10);
-        pinMX3.Init(GPIOA, GPIO_PIN_11);
-        pinMX4.Init(GPIOA, GPIO_PIN_12);
+        pinMX0._Init(GPIOA, GPIO_PIN_8);
+        pinMX1._Init(GPIOA, GPIO_PIN_9);
+        pinMX2._Init(GPIOA, GPIO_PIN_10);
+        pinMX3._Init(GPIOA, GPIO_PIN_11);
+        pinMX4._Init(GPIOA, GPIO_PIN_12);
     }
 
-    pinP1.Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IPU);
-    pinP2.Init(GPIOE, GPIO_PIN_3, GPIO_MODE_IPU);
+    pinP1._Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IPU);
+    pinP2._Init(GPIOE, GPIO_PIN_3, GPIO_MODE_IPU);
 }
 
 
@@ -384,7 +384,7 @@ void Contactors::Disable(int num, Phase::E phase, State::E next, TimeMeterMS &me
 
 void Contactors::Contactor::Init(uint port, uint _pin)
 {
-    pin->Init(port, _pin);
+    pin->_Init(port, _pin);
 
     enabled = false;
 

@@ -222,17 +222,17 @@ void Modem::CallbackOnReceive(char symbol)
 
 void Modem::Init()
 {
-    pinGSM_PWR.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
-                    gset.OnlyMeasure() ? GPIO_PIN_12 : GPIO_PIN_2);
+    pinGSM_PWR._Init((gset.OnlyMeasure() ? GPIOA : GPIOD),
+                    (gset.OnlyMeasure() ? GPIO_PIN_12 : GPIO_PIN_2));
     pinGSM_PWR.Set();
 
-    pinGSM_PWRKEY.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
-                       gset.OnlyMeasure() ? GPIO_PIN_11 : GPIO_PIN_0);
+    pinGSM_PWRKEY._Init((gset.OnlyMeasure() ? GPIOA : GPIOD),
+                       (gset.OnlyMeasure() ? GPIO_PIN_11 : GPIO_PIN_0));
     pinGSM_PWRKEY.Reset();
 
-    pinGSM_STATUS.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
-        gset.OnlyMeasure() ? GPIO_PIN_10 : GPIO_PIN_1,
-        GPIO_MODE_IPD);
+    pinGSM_STATUS._Init((gset.OnlyMeasure() ? GPIOA : GPIOD),
+                        (gset.OnlyMeasure() ? GPIO_PIN_10 : GPIO_PIN_1),
+                        GPIO_MODE_IPD);
 
     pinGSM_STATUS.DeInit();
 
@@ -255,7 +255,7 @@ void Modem::Update()
     switch (State::Current())
     {
     case State::IDLE:
-        LOG_WRITE("+++ MODEM::IDLE +++");
+        LOG_WRITE("Modem : State::IDLE");
         SIM800::Reset();
 #ifdef DEVICE
         MQTT::Reset();
@@ -267,9 +267,9 @@ void Modem::Update()
         break;
 
     case State::WAIT_DISCHARGE_CAPS:
+        LOG_WRITE("Modem : State::WAIT_DISCHARGE_CAPS");
         if (meter.ElapsedTime() > 3000)
         {
-            LOG_WRITE(" MODEM::WAIT_DISCHARGE_CAPS   ");
             GSM_PG::ToInPullDown();
             pinGSM_PWR.Reset();
             State::Set(State::WAIT_HI_GSM_PG);
@@ -278,23 +278,22 @@ void Modem::Update()
         break;
 
     case State::WAIT_HI_GSM_PG:
+        LOG_WRITE("Modem : State::WAIT_HI_GSM_PG");
         if (GSM_PG::ReadInput())
         {
             meter.Reset();
             State::Set(State::WAIT_500_MS);
-            pinGSM_STATUS.Init(gset.OnlyMeasure() ? GPIOA : GPIOD,
-                gset.OnlyMeasure() ? GPIO_PIN_10 : GPIO_PIN_1,
-                GPIO_MODE_IPD);
+            pinGSM_STATUS._Init((gset.OnlyMeasure() ? GPIOA : GPIOD),
+                                (gset.OnlyMeasure() ? GPIO_PIN_10 : GPIO_PIN_1),
+                                GPIO_MODE_IPD);
             HAL_USART_GPRS::Init();
         }
         if (meter.ElapsedTime() > 100)
         {
+            LOG_WRITE("!!! ERROR !!! Reset to state idle");
             State::Set(State::IDLE);
         }
-//#ifdef OLD_VERSION
-//        meter.Reset();
-//        State::Set(State::WAIT_500_MS);
-//#endif
+
         break;
 
     case State::WAIT_500_MS:

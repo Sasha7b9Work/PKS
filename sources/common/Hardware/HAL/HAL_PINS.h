@@ -15,7 +15,7 @@ namespace HAL_PINS
 struct PinADC
 {
     PinADC(uint _port, uint _pin, uint8 _channel) : port(_port), pin(_pin), channel(_channel) { }
-    void Init();
+    void _Init();
     uint8 Channel() const { return channel; }
 private:
     uint port;
@@ -27,7 +27,7 @@ private:
 struct PinI2C
 {
     PinI2C() : port(0), pin(0) { }
-    void Init(uint port, uint pin);
+    void _Init(uint port, uint pin);
 private:
     uint port;
     uint pin;
@@ -37,7 +37,7 @@ private:
 struct PinUSART_TX
 {
     PinUSART_TX() : port(0), pin(0) { }
-    void Init(uint port, uint pin);
+    void _Init(uint port, uint pin);
 private:
     uint port;
     uint pin;
@@ -47,7 +47,7 @@ private:
 struct PinUSART_RX
 {
     PinUSART_RX() : port(0), pin(0) { }
-    void Init(uint port, uint pin);
+    void _Init(uint port, uint pin);
 private:
     uint port;
     uint pin;
@@ -57,7 +57,7 @@ private:
 struct PinOUT
 {
     PinOUT() : port(0), pin(0) { }
-    void Init(uint port, uint pin);
+    void _Init(uint port, uint pin);
     void Set();
     void Reset();
     void SetState(bool);
@@ -70,7 +70,7 @@ private:
 struct PinIN
 {
     PinIN() : port(0), pin(0) { }
-    void Init(uint port, uint pin, uint input_mode);
+    void _Init(uint port, uint pin, uint input_mode);
     bool IsLow();
     bool IsHi();
     void DeInit();

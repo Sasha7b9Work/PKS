@@ -44,13 +44,13 @@ void HAL_ADC::Init()
 
     nvic_irq_enable(ADC0_1_IRQn, 0, 0);
 
-    pinVolt1.Init();
-    pinVolt2.Init();
-    pinVolt3.Init();
+    pinVolt1._Init();
+    pinVolt2._Init();
+    pinVolt3._Init();
 
-    pinCur1L.Init();
-    pinCur2L.Init();
-    pinCur3L.Init();
+    pinCur1L._Init();
+    pinCur2L._Init();
+    pinCur3L._Init();
 
     ///////////////////////////////////////////////////////////////////////////////////////////// DMA
     /* ADC_DMA_channel configuration */

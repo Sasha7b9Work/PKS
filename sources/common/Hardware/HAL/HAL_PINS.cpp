@@ -117,10 +117,10 @@ void HAL_PINS::Init()
 
     for (int i = 0; i < 3; i++)
     {
-        pinsGP[i].Init(GPIOC, pins[i], GPIO_MODE_IPU);
+        pinsGP[i]._Init(GPIOC, pins[i], GPIO_MODE_IPU);
     }
 
-    pinLevel4.Init(GPIOC, GPIO_PIN_9, GPIO_MODE_IPU);
+    pinLevel4._Init(GPIOC, GPIO_PIN_9, GPIO_MODE_IPU);
 }
 
 
@@ -157,13 +157,13 @@ void HAL_PINS::SendState()
 }
 
 
-void PinADC::Init()
+void PinADC::_Init()
 {
     gpio_init(port, GPIO_MODE_AIN, GPIO_OSPEED_MAX, pin);
 }
 
 
-void PinI2C::Init(uint _port, uint _pin)
+void PinI2C::_Init(uint _port, uint _pin)
 {
     port = _port;
     pin = _pin;
@@ -177,7 +177,7 @@ void PinI2C::Init(uint _port, uint _pin)
 }
 
 
-void PinUSART_TX::Init(uint _port, uint _pin)
+void PinUSART_TX::_Init(uint _port, uint _pin)
 {
     port = _port;
     pin = _pin;
@@ -186,7 +186,7 @@ void PinUSART_TX::Init(uint _port, uint _pin)
 }
 
 
-void PinUSART_RX::Init(uint _port, uint _pin)
+void PinUSART_RX::_Init(uint _port, uint _pin)
 {
     port = _port;
     pin = _pin;
@@ -195,7 +195,7 @@ void PinUSART_RX::Init(uint _port, uint _pin)
 }
 
 
-void PinOUT::Init(uint _port, uint _pin)
+void PinOUT::_Init(uint _port, uint _pin)
 {
     port = _port;
     pin = _pin;
@@ -222,7 +222,7 @@ void PinOUT::SetState(bool state)
 }
 
 
-void PinIN::Init(uint _port, uint _pin, uint input_mode)
+void PinIN::_Init(uint _port, uint _pin, uint input_mode)
 {
     port = _port;
     pin = _pin;
