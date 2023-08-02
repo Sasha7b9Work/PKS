@@ -1,9 +1,10 @@
 // 2023/04/05 16:54:23 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Hardware/Timer.h"
-#include <gd32f30x.h>
 #include "Hardware/HAL/systick.h"
 #include "Modem/Modem.h"
+#include "Hardware/HAL/HAL.h"
+#include <gd32f30x.h>
 
 
 uint timer_counter = 0;
@@ -53,5 +54,10 @@ bool TimeMeterMS::IsFinished() const
 
 void Timer::DelayMS(uint ms)
 {
-    delay_1ms(ms);
+    uint time_end = TimeMS() + ms;
+
+    while (TimeMS() < time_end)
+    {
+        HAL_FWDGT::Update();
+    }
 }

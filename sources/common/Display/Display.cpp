@@ -8,6 +8,7 @@
 #include "Modem/SIM800.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
+#include "Hardware/Timer.h"
 #include <cstring>
 #include <cstdio>
 
@@ -16,7 +17,7 @@
 
 namespace Display
 {
-    static const uint SIZE_BUFFER = 1024;
+    static const uint SIZE_BUFFER = 64 * 128 / 8;
     static uint8 buffer[SIZE_BUFFER];
 
     static int cursorX = 0;
@@ -39,6 +40,14 @@ namespace Font
 void Display::Init()
 {
     SSD1306::Init();
+
+    Fill(0);
+
+    Timer::DelayMS(250);
+
+    Fill(1);
+
+    Timer::DelayMS(250);
 }
 
 
@@ -111,6 +120,21 @@ void Display::WriteAmpere(int i)
 void Display::BeginScene()
 {
     std::memset(buffer, 0, SIZE_BUFFER);
+}
+
+
+void Display::Fill(int color)
+{
+    if (color)
+    {
+        std::memset(buffer, 0xFF, SIZE_BUFFER);
+    }
+    else
+    {
+        std::memset(buffer, 0x00, SIZE_BUFFER);
+    }
+
+    SSD1306::WriteBuffer(buffer);
 }
 
 
