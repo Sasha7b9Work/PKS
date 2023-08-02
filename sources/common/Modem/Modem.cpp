@@ -170,7 +170,7 @@ namespace Modem
     {
         static uint PortPG()
         {
-            return gset.OnlyMeasure() ? GPIOE : GPIOD;
+            return gset.OnlyMeasure() ? GPIOD : GPIOE;
         }
 
         static void ToOutLow();
