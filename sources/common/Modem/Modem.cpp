@@ -168,6 +168,11 @@ namespace Modem
 
     namespace GSM_PG
     {
+        static uint PortPG()
+        {
+            return gset.OnlyMeasure() ? GPIOE : GPIOD;
+        }
+
         static void ToOutLow();
 
         static void ToInPullDown();
@@ -347,19 +352,19 @@ bool Modem::ExistUpdate()
 
 void Modem::GSM_PG::ToOutLow()
 {
-    gpio_init(GPIOD, GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
+    gpio_init(PortPG(), GPIO_MODE_OUT_PP, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
 
-    GPIO_BC(GPIOD) = GPIO_PIN_2;
+    GPIO_BC(PortPG()) = GPIO_PIN_2;
 }
 
 
 void Modem::GSM_PG::ToInPullDown()
 {
-    gpio_init(GPIOD, GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
+    gpio_init(PortPG(), GPIO_MODE_IPD, GPIO_OSPEED_50MHZ, GPIO_PIN_2);
 }
 
 
 bool Modem::GSM_PG::ReadInput()
 {
-    return gpio_input_bit_get(GPIOD, GPIO_PIN_2) == SET;
+    return gpio_input_bit_get(PortPG(), GPIO_PIN_2) == SET;
 }
