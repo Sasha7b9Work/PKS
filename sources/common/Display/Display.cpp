@@ -11,6 +11,7 @@
 #include "Hardware/Timer.h"
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
 
 #include "Display/Font/font10_7.inc"
 
@@ -41,11 +42,15 @@ void Display::Init()
 {
     SSD1306::Init();
 
-    Fill(0);
+    Fill(1);
 
     Timer::DelayMS(250);
 
-    Fill(1);
+    Fill(2);
+
+    Timer::DelayMS(250);
+
+    Fill(0);
 
     Timer::DelayMS(250);
 }
@@ -125,13 +130,20 @@ void Display::BeginScene()
 
 void Display::Fill(int color)
 {
-    if (color)
+    if (color == 1)
     {
         std::memset(buffer, 0xFF, SIZE_BUFFER);
     }
-    else
+    else if(color == 0)
     {
         std::memset(buffer, 0x00, SIZE_BUFFER);
+    }
+    else if (color == 2)
+    {
+        for (int i = 0; i < SIZE_BUFFER; i++)
+        {
+            buffer[i] = (uint8)std::rand();
+        }
     }
 
     SSD1306::WriteBuffer(buffer);
