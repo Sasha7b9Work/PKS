@@ -30,8 +30,6 @@ namespace MQTT
 
     static State::E state = State::IDLE;
 
-    static TimeMeterMS meterPing;
-
     // —брасываетс€ каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
 }
@@ -52,6 +50,7 @@ bool MQTT::InStateIdle()
 void MQTT::Reset()
 {
     state = State::IDLE;
+    meterLastData.Reset();
 }
 
 
@@ -62,6 +61,7 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
+        Sender::Reset();
         LOG_WRITE("+++ MQTT::IDLE +++");
         SIM800::Transmit::With0D("AT+CIPSEND");
         meter.Reset();
@@ -104,29 +104,17 @@ void MQTT::Update(pchar answer)
 
             meterLastData.Reset();
 
-            meterPing.Reset();
-
             HAL_PINS::SendState();
-
-            Sender::Reset();
         }
         break;
 
     case State::RUNNING:
 
-        if (!Sender::SendAll(answer))
-        {
-            if (meterLastData.ElapsedTime() > 30000)
-            {
-//            SIM800::Reset();
-            }
+        Sender::SendAll(answer);
 
-            if (meterPing.ElapsedTime() > 20000)
-            {
-                meterPing.Reset();
-//            SIM800::Transmit("AT+CIPSEND");
-//            need_ping = true;
-            }
+        if (meterLastData.ElapsedTime() > 60000)
+        {
+            Modem::Reset();
         }
 
         break;
@@ -172,7 +160,9 @@ void MQTT::Packet::PublishF(pchar topic, float value)
 }
 
 
-void MQTT::CallbackOnReceiveData(pchar)
+void MQTT::CallbackOnReceiveData(pchar answer)
 {
     meterLastData.Reset();
+
+    LOG_WRITE((char *)answer);
 }

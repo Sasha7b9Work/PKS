@@ -17,6 +17,12 @@ namespace Sender
     static TimeMeterMS meter;
 
     static void SendLastReset();
+
+    // По этому таймеру будем посылать пинги
+    static TimeMeterMS meterPing;
+
+    // Если true - нужно посылать пинг
+    static bool need_ping = false;
 }
 
 
@@ -69,11 +75,24 @@ void Sender::ResetMeter()
 
 bool Sender::SendAll(pchar answer)
 {
+    if (meterPing.ElapsedTime() > 20000)
+    {
+        meterPing.Reset();
+        need_ping = true;
+    }
+
     if (std::strcmp(answer, ">") == 0)
     {
         bool sending = false;
 
-        if (Sender::SendToSIM800())
+        if (need_ping)
+        {
+            sending = true;
+            need_ping = false;
+            SIM800::Transmit::UINT8(0xC0);
+            SIM800::Transmit::UINT8(0x00);
+        }
+        else if (Sender::SendToSIM800())
         {
             sending = true;
         }
@@ -108,14 +127,6 @@ bool Sender::SendAll(pchar answer)
         {
             SIM800::Transmit::With0D("AT+CIPSEND");
         }
-
-//      if (need_ping)
-//      {
-//          SIM800::Transmit::UINT8(0xC0);
-//          SIM800::Transmit::UINT8(0x00);
-//          need_ping = false;
-//      }
-
 
         return true;
     }
