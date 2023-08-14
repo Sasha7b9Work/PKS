@@ -47,7 +47,7 @@ void Log::ReceiveFromSIM800(char)
 void Log::Write(char *format, ...)
 {
 
-    char message[100];
+    char message[256];
 
     std::va_list args;
     va_start(args, format);
@@ -68,11 +68,11 @@ void Log::Write(char *format, ...)
 
 #endif
 
-    char buffer[100];
+    char buffer[256];
 
     static int counter = 0;
 
-    std::sprintf(buffer, "%d : %s", counter++, message);
+    std::sprintf(buffer, "%d : %s", counter++, message); //-V512
 
     HAL_USART_LOG::Transmit(buffer);
 }

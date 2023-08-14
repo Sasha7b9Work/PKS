@@ -14,9 +14,7 @@ Settings gset = def_set;
 
 int Settings::GetKoeffCurrent()
 {
-    int address = 0x803F804;
-
-    int result = *((int *)address);
+    int result = *((int *)0x803F804); //-V566
 
     return (result <= 0) ? 16 : result;
 }
@@ -24,9 +22,7 @@ int Settings::GetKoeffCurrent()
 
 int Settings::GetNumberSteps()
 {
-    int address = 0x803F800;
-
-    int result = *((int *)address);
+    int result = *((int *)0x803F800); //-V566
 
     return result;
 }

@@ -102,10 +102,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         GetWord(answer, 2, levelSignal);
         return true;
     }
-    else if (strcmp(answer, "SEND FAIL") == 0)
-    {
-        return true;
-    }
     else if (strcmp(answer, "SEND OK") == 0)
     {
         return true;
