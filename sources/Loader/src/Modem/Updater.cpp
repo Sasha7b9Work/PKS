@@ -299,7 +299,7 @@ void Updater::Update(pchar answer)
         {
             if (ReaderFTP::requested_bytes_received)
             {
-                memcpy(&version, ReaderFTP::buffer_data, 4);
+                memcpy(&version, ReaderFTP::buffer_data, 4); //-V1086
 
                 // \todo здесь сверяем нужную версию с уже имеющейся
 
@@ -314,7 +314,7 @@ void Updater::Update(pchar answer)
         {
             if (ReaderFTP::requested_bytes_received)
             {
-                memcpy(&source_crc, ReaderFTP::buffer_data, 4);
+                memcpy(&source_crc, ReaderFTP::buffer_data, 4); //-V1086
 
                 Programmer::Prepare(HAL_ROM::ADDR_STORAGE);
 
@@ -341,6 +341,7 @@ void Updater::Update(pchar answer)
 
                 if (crc == source_crc)
                 {
+                    do 
                     {
                         Programmer::CopyFirmware();
 

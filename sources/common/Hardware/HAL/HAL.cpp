@@ -45,7 +45,7 @@ void HAL::Init()
     rcu_periph_clock_enable(RCU_TIMER1);    // Для опроса контакторв
     rcu_periph_clock_enable(RCU_TIMER5);
 
-    GL::_RCU_RSTSCK = *((uint *)(0x40021000 + 0x24));
+    GL::_RCU_RSTSCK = *((uint *)(0x40021000 + 0x24)); //-V566
 
     if (RESET != rcu_flag_get(RCU_FLAG_FWDGTRST)) {
         /* clear the FWDGT reset flag */
@@ -84,7 +84,7 @@ char *HAL::GetUID(char buffer[32])
 {
     uint8 bytes[12];
 
-    std::memcpy(bytes, (void *)0x1FFFF7E8, 12);
+    std::memcpy(bytes, (void *)0x1FFFF7E8, 12); //-V566
 
     std::sprintf(buffer, "%X", Math::CalculateCRC((uint)bytes, 12));
 

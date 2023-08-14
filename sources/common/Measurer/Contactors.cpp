@@ -269,7 +269,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
         break;
 
-    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);       break;
+    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);       break; //-V525
     case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);      break;
     case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);      break;
     case State::TRANSIT_EN_4:
@@ -308,7 +308,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             {
                 CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);   // KM4
             }
-            CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);   // KM5
+            CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);   // KM5 //-V525
             CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);   // KM6
             CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][4]);   // KM7
             CHANGE_RELE(8, State::POLARITY_LEVEL, states[st][4]);   // KM8
@@ -472,7 +472,7 @@ int Contactors::StateRele()
     bool p1 = pinP1.IsHi();
     bool p2 = pinP2.IsHi();
 
-    if ((p1 && p2) || (!p1 && !p2))
+    if ((p1 && p2) || (!p1 && !p2)) //-V728
     {
         return -1;
     }

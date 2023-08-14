@@ -139,8 +139,6 @@ extern "C" {
 
     void WWDGT_IRQHandler(void)
     {
-        uint time = Timer::TimeMS();
-        time = time;
     }
 
 #ifdef __cplusplus
