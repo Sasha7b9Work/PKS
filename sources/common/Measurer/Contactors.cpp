@@ -447,7 +447,22 @@ void Contactors::Serviceability::Verify()
         }
         else if (!ReleIsBusy(address))
         {
-            Sender::StateContactors::SendState(address, StateRele());
+            int state = StateRele();
+
+            if (state == -1)
+            {
+                int i = 0;
+            }
+            else if (state == 0)
+            {
+                int i = 0;
+            }
+            else if (state == 1)
+            {
+                int i = 0;
+            }
+
+            Sender::StateContactors::SendState(address, state);
         }
 
         address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
