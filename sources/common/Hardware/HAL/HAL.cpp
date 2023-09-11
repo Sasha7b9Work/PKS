@@ -86,7 +86,7 @@ char *HAL::GetUID(char buffer[32])
 
     std::memcpy(bytes, (void *)0x1FFFF7E8, 12); //-V566
 
-    std::sprintf(buffer, "%X", Math::CalculateCRC((uint)bytes, 12));
+    std::sprintf(buffer, "%08X", Math::CalculateCRC((uint)bytes, 12));
 
     return buffer;
 }
