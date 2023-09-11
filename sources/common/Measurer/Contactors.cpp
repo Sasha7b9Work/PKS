@@ -32,6 +32,11 @@ namespace Contactors
             TRANSIT_EN_4,
             TRANSIT_EN_5,
             TRANSIT_EN_6,
+            RELE_4,
+            RELE_5,
+            RELE_6,
+            RELE_7,
+            RELE_8,
             POLARITY_LEVEL,
             TRANSIT_EXIT_1,
             TRANSIT_EXIT_2,
@@ -66,20 +71,6 @@ namespace Contactors
     // Состояние контакторов
     namespace Level
     {
-//#ifdef FOUR_STEPS_VERSION_
-//        static const int LESS_180 = -4;
-//        static const int ABOVE_280 = 4;
-//        static const int MIN = LESS_180;
-//        static const int MAX = ABOVE_280;
-//#endif
-//
-//#ifdef FIVE_STEPS_VERSION_
-//        static const int LESS_170 = -5;
-//        static const int ABOVE_290 = 5;
-//        static const int MIN = LESS_170;
-//        static const int MAX = ABOVE_290;
-//#endif
-
         static int LESS_X()
         {
             return -gset.GetNumberSteps();
@@ -208,6 +199,18 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 #define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsFinished()) { DISABLE_RELE((num), (state)); }
 
     static TimeMeterMS meter[3];
+    static int st[3] = { 0, 0, 0 };
+
+    static const bool states[6][5] =
+    {
+        //    KM1    KM4    KM5    KM6   KM7,8
+            {false, false, false, false, false},    // Транзит
+            {true,  false, false, false, false},    // 1
+            {true,  false, false, false, true},     // 2
+            {true,  false, false, true,  true},     // 3
+            {true,  false, true,  true,  true},     // 4
+            {true,  true,  true,  true,  true}      // 5
+    };
 
     switch (State::current[phase])
     {
@@ -222,7 +225,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
 //            if (!Sender::StateContactors::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
 //            {
-////                new_level = 0;
+//                new_level = 0;
 //            }
 //            else
             {
@@ -290,30 +293,41 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_6:
         if (meter[phase].IsFinished())
         {
-            static const bool states[6][5] =
-            {
-            //    KM1    KM4    KM5    KM6   KM7,8
-                {false, false, false, false, false},    // Транзит
-                {true,  false, false, false, false},    // 1
-                {true,  false, false, false, true},     // 2
-                {true,  false, false, true,  true},     // 3
-                {true,  false, true,  true,  true},     // 4
-                {true,  true,  true,  true,  true}      // 5
-            };
+            st[phase] = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
 
-            int st = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
-
-            CHANGE_RELE(1, State::POLARITY_LEVEL, states[st][0]);   // KM1
-            if (gset.GetNumberSteps() == 5)
-            {
-                CHANGE_RELE(4, State::POLARITY_LEVEL, states[st][1]);   // KM4
-            }
-            CHANGE_RELE(5, State::POLARITY_LEVEL, states[st][2]);   // KM5 //-V525
-            CHANGE_RELE(6, State::POLARITY_LEVEL, states[st][3]);   // KM6
-            CHANGE_RELE(7, State::POLARITY_LEVEL, states[st][4]);   // KM7
-            CHANGE_RELE(8, State::POLARITY_LEVEL, states[st][4]);   // KM8
+            CHANGE_RELE(1, State::RELE_4, states[st[phase]][0]);   // KM1
         }
         break;
+
+    case State::RELE_4:
+        if (meter[phase].IsFinished())
+        {
+            if (gset.GetNumberSteps() == 5)
+            {
+                CHANGE_RELE(4, State::RELE_5, states[st[phase]][1]);   // KM4
+            }
+            else
+            {
+                State::current[phase] = State::RELE_5;
+            }
+        }
+        break;
+
+    case State::RELE_5:
+        if (meter[phase].IsFinished()) { CHANGE_RELE(5, State::RELE_6, states[st[phase]][2]);   // KM5 //-V525
+        }                                                                               break;
+
+    case State::RELE_6:
+        if (meter[phase].IsFinished()) { CHANGE_RELE(6, State::RELE_7, states[st[phase]][3]);   // KM6
+        }                                                                               break;
+
+    case State::RELE_7:
+        if (meter[phase].IsFinished()) { CHANGE_RELE(7, State::RELE_8, states[st[phase]][4]);   // KM7
+        }                                                                               break;
+
+    case State::RELE_8:
+        if (meter[phase].IsFinished()) { CHANGE_RELE(8, State::POLARITY_LEVEL, states[st[phase]][4]);   // KM8
+        }                                                                               break;
 
     case State::POLARITY_LEVEL:
         if (meter[phase].IsFinished())
