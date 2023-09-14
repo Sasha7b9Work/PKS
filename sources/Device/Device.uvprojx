@@ -871,6 +871,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Storage</GroupName>
+          <Files>
+            <File>
+              <FileName>Storage.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Storage\Storage.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Storage.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Storage\Storage.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Utils</GroupName>
           <Files>
             <File>

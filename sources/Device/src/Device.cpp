@@ -6,6 +6,7 @@
 #include "Display/Display.h"
 #include "Measurer/Contactors.h"
 #include "Settings/Settings.h"
+#include "Storage/Storage.h"
 
 
 void Device::Init()
@@ -14,9 +15,7 @@ void Device::Init()
 
     HAL::Init();
 
-    LOG_WRITE("   Device::Init()   ");
-
-    Contactors::Init();
+    Storage::Init();
 
     Display::Init();
 
@@ -28,11 +27,9 @@ void Device::Update()
 {
     HAL_FWDGT::Update();
 
-    Measurer::Update();
+    Storage::Update();
 
     Display::Update();
-
-    Contactors::Update(Measurer::Measure5Sec());
 
     Modem::Update();
 
