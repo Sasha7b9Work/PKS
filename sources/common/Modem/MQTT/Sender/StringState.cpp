@@ -29,9 +29,9 @@ void Sender::StringState::Send(pchar _state, bool now)
     {
         Sender::ResetMeter();
 
-        TimeMeterMS meter;
+        TimeMeterMS _meter;
 
-        while (need_send && meter.ElapsedTime() < 10000)
+        while (need_send && _meter.ElapsedTime() < 10000)
         {
             Modem::Update();
         }
@@ -41,9 +41,9 @@ void Sender::StringState::Send(pchar _state, bool now)
 
 bool Sender::StringState::SendToSIM800()
 {
-    static TimeMeterMS meter;
+    static TimeMeterMS _meter;
 
-    if (meter.ElapsedTime() > 1000)
+    if (_meter.ElapsedTime() > 1000)
     {
         if (need_send)
         {

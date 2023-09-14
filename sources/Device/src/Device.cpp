@@ -5,7 +5,6 @@
 #include "Modem/Modem.h"
 #include "Display/Display.h"
 #include "Measurer/Contactors.h"
-#include "Memory/Memory.h"
 #include "Settings/Settings.h"
 
 
@@ -22,17 +21,6 @@ void Device::Init()
     Display::Init();
 
     Modem::Init();
-
-//    if (!Memory::Test())
-//    {
-//        LOG_WRITE("Memory test if fail");
-//
-//        Memory::Test();
-//    }
-//    else
-//    {
-//        LOG_WRITE("Memory test is ok");
-//    }
 }
 
 

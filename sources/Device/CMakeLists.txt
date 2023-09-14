@@ -41,7 +41,6 @@ file(GLOB HARDWARE                       src/Hardware/*.*
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/*.*)
-file(GLOB MEMORY                   ../common/Memory/*.*)
 file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/*.*)
@@ -58,7 +57,6 @@ source_group(Display/Font             FILES ${DISPLAY_FONT})
 source_group(Hardware                 FILES ${HARDWARE})
 source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
-source_group(Memory                   FILES ${MEMORY})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
 source_group(Modem/MQTT               FILES ${MODEM_MQTT})
@@ -77,7 +75,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${MEMORY}
             ${MEASURER}
             ${MODEM}
             ${MODEM_MQTT}

@@ -726,31 +726,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Memory</GroupName>
-          <Files>
-            <File>
-              <FileName>M25P80.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Memory\M25P80.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>M25P80.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Memory\M25P80.h</FilePath>
-            </File>
-            <File>
-              <FileName>Memory.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Memory\Memory.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Memory.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Memory\Memory.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Modem</GroupName>
           <Files>
             <File>
