@@ -883,6 +883,16 @@
               <FileType>5</FileType>
               <FilePath>.\src\Storage\Storage.h</FilePath>
             </File>
+            <File>
+              <FileName>MemoryStorage.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Storage\MemoryStorage.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MemoryStorage.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Storage\MemoryStorage.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
