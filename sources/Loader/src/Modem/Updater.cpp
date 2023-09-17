@@ -373,7 +373,7 @@ void Updater::Update(pchar answer)
 
                 LOG_WRITE("%d recv %d", __LINE__, ReaderFTP::pointer_data);
 
-                Console::AppendLineF("%d recv %d", __LINE__, ReaderFTP::pointer_data);
+                Console::AppendLineF("%d recv %d", __LINE__, Programmer::WrittenBytes());
 
                 Programmer::CloseSession();
 
@@ -402,7 +402,7 @@ void Updater::Update(pchar answer)
 
                 LOG_WRITE("%d recv %d", __LINE__, ReaderFTP::pointer_data);
 
-                Console::AppendLineF("%d recv %d", __LINE__, ReaderFTP::pointer_data);
+                Console::AppendLineF("%d recv %d", __LINE__, Programmer::WrittenBytes());
 
                 state_meter.Reset();
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);

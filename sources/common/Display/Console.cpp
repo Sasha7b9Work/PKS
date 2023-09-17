@@ -9,8 +9,9 @@
 
 namespace Console
 {
+    static const int MAX_LINES = 6;
     static int num_lines = 0;
-    static char lines[5][128];
+    static char lines[MAX_LINES][128];
 }
 
 
@@ -22,14 +23,14 @@ bool Console::IsEmpty()
 
 void Console::AppendLine(pchar line)
 {
-    if (num_lines == 5)
+    if (num_lines == MAX_LINES)
     {
-        for (int i = 1; i < 5; i++)
+        for (int i = 1; i < MAX_LINES; i++)
         {
             std::strcpy(&lines[i - 1][0], &lines[i][0]);
         }
 
-        num_lines = 4;
+        num_lines = MAX_LINES - 1;
     }
 
     std::strcpy(&lines[num_lines++][0], line);
@@ -57,6 +58,6 @@ void Console::Draw()
     {
         Display::WriteString(0, y, lines[i]);
 
-        y += 64 / 5;
+        y += 63 / MAX_LINES;
     }
 }
