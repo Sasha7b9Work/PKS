@@ -17,6 +17,8 @@ namespace Sender
 
         bool AllIsOK(Phase::E);
 
+        int Get(int phase, int num);
+
         bool SendToSIM800();
     }
 }

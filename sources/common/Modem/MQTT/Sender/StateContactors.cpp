@@ -68,6 +68,13 @@ namespace Sender
             }
         }
 
+        int Get(int phase, int num)
+        {
+            int first = phase * 9;
+
+            return state[first + num];
+        }
+
         void Send100V(bool _st)
         {
             int _state = _st ? 1 : 0;

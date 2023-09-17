@@ -29,8 +29,7 @@ namespace Display
     static FontDef font_10x7 = { 7, 10, Font10x7 };
 
 #ifdef DEVICE
-    static void WriteVoltage(int i);
-    static void WriteAmpere(int i);
+    static void WriteMeasures(int i);
 #else
 #endif
 }
@@ -69,9 +68,7 @@ void Display::Update()
 
     for (int i = 0; i < 3; i++)
     {
-        WriteVoltage(i);
-
-        WriteAmpere(i);
+        WriteMeasures(i);
     }
 
     char message[32];
@@ -103,32 +100,42 @@ void Display::Update()
 }
 
 
-void Display::WriteVoltage(int i)
+void Display::WriteMeasures(int i)
 {
     FullMeasure measure = Measurer::LastMeasure();
 
     char message[30];
 
-    std::sprintf(message, "%4.1f", measure.measures[i].voltage);
+    bool need_bad_info = !Sender::StateContactors::AllIsOK((Phase::E)i) && (((Timer::TimeMS() / 1000 / 5) % 2) == 0);
 
-    WriteString(20, 17 + i * 11, message);
+    if (need_bad_info)
+    {
+        for (int num = 0; num < 8; num++)
+        {
+            if (Sender::StateContactors::Get(i, num) == -1)
+            {
+                std::sprintf(message, "%d", num + 1);
 
-    std::sprintf(message, "%d", Sender::LevelContactors::Get((Phase::E)i));
+                WriteString(num * 10, 17 + i * 11, message);
+            }
+        }
+    }
+    else
+    {
+        std::sprintf(message, "%d", Sender::LevelContactors::Get((Phase::E)i));
 
-    WriteString(0, 17 + i * 11, message);
+        WriteString(0, 17 + i * 11, message);
+
+        std::sprintf(message, "%4.1f", measure.measures[i].voltage);
+
+        WriteString(20, 17 + i * 11, message);
+
+        std::sprintf(message, "%4.1f", measure.measures[i].current);
+
+        WriteString(80, 17 + i * 11, message);
+    }
 }
 
-
-void Display::WriteAmpere(int i)
-{
-    FullMeasure measure = Measurer::LastMeasure();
-
-    char message[30];
-
-    std::sprintf(message, "%4.1f", measure.measures[i].current);
-
-    WriteString(80, 17 + i * 11, message);
-}
 
 #else
 
