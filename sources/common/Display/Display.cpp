@@ -73,27 +73,27 @@ void Display::Update()
 
     char message[32];
 
-    WriteString(70, 51, HAL::GetUID(message));
+    WriteString(70, 54, HAL::GetUID(message));
 
     std::sprintf(message, "%d:%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent(), VERSION);
 
-    WriteString(0, 51, message);
+    WriteString(0, 54, message);
 
     if (Modem::Mode::Power())
     {
-        WriteString(5, 5, "POW");
+        WriteString(5, 0, "POW");
     }
 
     if (SIM800::IsRegistered())
     {
-        WriteString(35, 5, "REG");
+        WriteString(35, 0, "REG");
     }
 
     if (MQTT::InStateRunning())
     {
-        WriteString(65, 5, "MQTT");
+        WriteString(65, 0, "MQTT");
 
-        WriteString(100, 5, SIM800::LevelSignal());
+        WriteString(100, 0, SIM800::LevelSignal());
     }
 
     SSD1306::WriteBuffer(buffer);
@@ -102,6 +102,8 @@ void Display::Update()
 
 void Display::WriteMeasures(int i)
 {
+#define Y() (13 + i * 13)
+
     FullMeasure measure = Measurer::LastMeasure();
 
     char message[30];
@@ -112,13 +114,13 @@ void Display::WriteMeasures(int i)
     {
         for (int num = 0; num < 8; num++)
         {
-            WriteString(0, 17 + i * 11, "Defect");
+            WriteString(0, Y(), "Defect");
 
             if (Sender::StateContactors::Get(i, num) == -1)
             {
                 std::sprintf(message, "%d", num + 1);
 
-                WriteString(num * 10 + 50, 17 + i * 11, message);
+                WriteString(num * 10 + 50, Y(), message);
             }
         }
     }
@@ -126,15 +128,15 @@ void Display::WriteMeasures(int i)
     {
         std::sprintf(message, "%d", Sender::LevelContactors::Get((Phase::E)i));
 
-        WriteString(0, 17 + i * 11, message);
+        WriteString(0, Y(), message);
 
         std::sprintf(message, "%4.1f", measure.measures[i].voltage);
 
-        WriteString(20, 17 + i * 11, message);
+        WriteString(20, Y(), message);
 
         std::sprintf(message, "%4.1f", measure.measures[i].current);
 
-        WriteString(80, 17 + i * 11, message);
+        WriteString(80, Y(), message);
     }
 }
 
