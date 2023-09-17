@@ -2,7 +2,7 @@
 
 project (TesterRele)
 
-set(CMAKE_UNITY_BUILD OFF)
+#set(CMAKE_UNITY_BUILD OFF)
 
 message("------------------------------------------------------------------------ ${PROJECT_NAME}")
 
@@ -34,14 +34,13 @@ file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_
 file(GLOB SRC                            src/*.*
                                    ../common/*.h
                                    ../common/*.cpp)
-file(GLOB DISPLAY                        src/Display/*.*)
-file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
+file(GLOB DISPLAY                  ../common/Display/*.*)
+file(GLOB DISPLAY_FONT             ../common/Display/Font/*.*)
 file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/*.*)
-file(GLOB HARDWARE_MODULES_SSD1306       src/Hardware/Modules/SSD1306/*.*)
 file(GLOB HARDWARE_MODULES_M25P80        src/Hardware/Modules/M25P80/*.*)
 file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
@@ -53,7 +52,6 @@ source_group(Display/Font             FILES ${DISPLAY_FONT})
 source_group(Hardware                 FILES ${HARDWARE})
 source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
-source_group(Hardware/Modules/SSD1306 FILES ${HARDWARE_MODULES_SSD1306})
 source_group(Hardware/Modules/M25P80  FILES ${HARDWARE_MODULES_M25P80})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Utils                    FILES ${UTILS})
@@ -69,7 +67,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}
-            ${HARDWARE_MODULES_SSD1306}
             ${HARDWARE_MODULES_M25P80}
             ${MEASURER}
             ${UTILS}
