@@ -39,7 +39,7 @@ namespace Sender
 
             for (int i = 0; i < 9; i++)
             {
-                if (gset.GetNumberSteps() == 4 && i == 3)
+                if (gset.GetNumberSteps() == 4 && (i == 3 || i == 12 || i == 21))
                 {
                     continue;
                 }
@@ -55,7 +55,7 @@ namespace Sender
 
         void SendState(uint num, int _state)
         {
-            if (gset.GetNumberSteps() == 4 && num == 2)
+            if (gset.GetNumberSteps() == 4 && (num == 3 || num == 12 || num == 21))
             {
                 _state = 1;
             }
