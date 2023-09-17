@@ -26,9 +26,11 @@ namespace Display
 
     static FontDef font_10x7 = { 7, 10, Font10x7 };
 
+#ifdef DEVICE
     static void WriteVoltage(int i);
-
     static void WriteAmpere(int i);
+#else
+#endif
 }
 
 
@@ -56,6 +58,7 @@ void Display::Init()
 }
 
 
+#ifdef DEVICE
 void Display::Update()
 {
     FullMeasure measure = Measurer::LastMeasure();
@@ -120,6 +123,21 @@ void Display::WriteAmpere(int i)
 
     WriteString(80, 17 + i * 11, message);
 }
+
+#else
+
+
+void Display::Update()
+{
+    BeginScene();
+
+    Fill(2);
+
+    SSD1306::WriteBuffer(buffer);
+}
+
+
+#endif
 
 
 void Display::BeginScene()

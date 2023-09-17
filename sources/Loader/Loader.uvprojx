@@ -512,6 +512,61 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Display</GroupName>
+          <Files>
+            <File>
+              <FileName>Display.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Display\Display.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Display.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Display\Display.h</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Display\SSD1306.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SSD1306.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Display\SSD1306.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Display/Font</GroupName>
+          <Files>
+            <File>
+              <FileName>Font.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Display\Font\Font.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Font.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Display\Font\Font.h</FilePath>
+            </File>
+            <File>
+              <FileName>font5.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Display\Font\font5.inc</FilePath>
+            </File>
+            <File>
+              <FileName>font8.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Display\Font\font8.inc</FilePath>
+            </File>
+            <File>
+              <FileName>font10_7.inc</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Display\Font\font10_7.inc</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Hardware</GroupName>
           <Files>
             <File>

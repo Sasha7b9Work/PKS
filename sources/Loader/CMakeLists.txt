@@ -21,6 +21,7 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
 add_compile_options(/wd4127)
 add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
+add_compile_options(/wd4623)    # default constructor was implicitly defined as deleted
 add_compile_options(/wd4626)    # assignment operator was implicitly defined as deleted
 add_compile_options(/wd4820)    # 'xxx': '4' bytes padding added after data member 'yyy'
 add_compile_options(/wd5027)    # move assignment operator was implicitly defined as deleted
@@ -30,6 +31,8 @@ file(GLOB GD32F3                ../common/GD32F30x_Library/Firmware/GD32F30x_sta
                                 ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Source/*.*)
 file(GLOB SRC                   src/*.*
                                 ../common/*.h ../common/*.cpp)
+file(GLOB DISPLAY               ../common/Display/*.*)
+file(GLOB DISPLAY_FONT          ../common/Display/Font/*.*)
 file(GLOB HARDWARE                    src/Hardware/*.*
                                 ../comm)
 file(GLOB HARDWARE_CMSIS              src/Hardware/CMSIS/*.*)
@@ -44,6 +47,8 @@ file(GLOB UTILS                 ../common/Utils/Math.*)
 
 source_group(GD32F3             FILES ${GD32F3})
 source_group(src                FILES ${SRC})
+source_group(Display                  FILES ${DISPLAY})
+source_group(Display/Font             FILES ${DISPLAY_FONT})
 source_group(Hardware           FILES ${HARDWARE})
 source_group(Hardware/CMSIS     FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL       FILES ${HARDWARE_HAL})
@@ -57,6 +62,8 @@ set_source_files_properties(${GD32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/s
 add_library(${PROJECT_NAME}
             ${GD32F3}
             ${SRC}
+            ${DISPLAY}
+            ${DISPLAY_FONT}
             ${HARDWARE}
             ${HARDWARE_CMSIS}
             ${HARDWARE_HAL}

@@ -5,6 +5,7 @@
 #include "Hardware/Application.h"
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
+#include "Display/Display.h"
 
 
 namespace Modem
@@ -29,6 +30,8 @@ void Loader::Init()
 {
     HAL::Init();
 
+    Display::Init();
+
     Modem::Init();
 
     HAL_FWDGT::Init();
@@ -40,6 +43,8 @@ void Loader::Update()
     HAL_FWDGT::Update();
 
     Modem::Update();
+
+    Display::Update();
 
     if (Updater::IsCompleted())
     {
