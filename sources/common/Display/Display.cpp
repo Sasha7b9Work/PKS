@@ -73,11 +73,23 @@ void Display::Update()
 
     char message[32];
 
-    WriteString(70, 54, HAL::GetUID(message));
+    WriteString(72, 54, HAL::GetUID(message));
 
-    std::sprintf(message, "%d:%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent(), VERSION);
+    std::sprintf(message, "%d", gset.GetNumberSteps());
 
     WriteString(0, 54, message);
+
+    WriteString(6, 54, ":");
+
+    std::sprintf(message, "%d", gset.GetKoeffCurrent());
+
+    WriteString(12, 54, message);
+
+    WriteString(25, 54, ":");
+
+    std::sprintf(message, "%d", VERSION);
+
+    WriteString(32, 54, message);
 
     if (Modem::Mode::Power())
     {
