@@ -118,7 +118,7 @@ void Display::WriteMeasures(int i)
             {
                 std::sprintf(message, "%d", num + 1);
 
-                WriteString(num * 10 + 30, 17 + i * 11, message);
+                WriteString(num * 10 + 50, 17 + i * 11, message);
             }
         }
     }
