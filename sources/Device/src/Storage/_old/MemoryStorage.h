@@ -1,6 +1,7 @@
 // 2023/09/08 22:13:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Storage/Storage.h"
+#include "Hardware/HAL/HAL.h"
 
 
 struct StructData
