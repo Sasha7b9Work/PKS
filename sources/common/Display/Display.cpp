@@ -9,6 +9,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
+#include "Display/Console.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -131,7 +132,7 @@ void Display::Update()
 {
     BeginScene();
 
-    Fill(2);
+    Console::Draw();
 
     SSD1306::WriteBuffer(buffer);
 }

@@ -10,6 +10,7 @@
 #include "Modem/ReaderFTP.h"
 #include "Modem/SIM800.h"
 #include "Utils/Math.h"
+#include "Display/Console.h"
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
@@ -74,6 +75,35 @@ namespace Updater
 
             COMPLETED                   // В этом состоянии находися, если обновление завершено или не требуется
         };
+
+        static pchar Name(E v)
+        {
+            static const pchar names[] =
+            {
+                "IDLE",
+                "NEED_SAPBR_3_GPRS",
+                "NEED_SAPBR_3_APN",
+                "NEED_SAPBR_3_USER",
+                "NEED_SAPBR_3_PWD",
+                "NEED_SAPBR_1_1",
+                "NEED_FTPCID",
+                "NEED_FTPSERV",
+                "NEED_FTPUN",
+                "NEED_FTPPW",
+                "NEED_FTPGETPATH",
+    
+                "NEED_SET_NAME_FIRMWARE",
+                "NEED_REQUEST_CONNECT",
+                "NEED_WAIT_CONNECT",
+                "GET_BYTES_VER",
+                "GET_BYTES_CRC",
+                "GET_BYTES_FIRMWARE",
+    
+                "COMPLETED"
+            };
+
+            return names[v];
+        }
     };
 
     static State::E state = State::IDLE;
@@ -94,10 +124,18 @@ namespace Updater
 
     static TimeMeterMS state_meter;
 
-    static void SetState(State::E _state)
+#define SET_STATE(x)    SetState(x, __LINE__)
+
+    static void SetState(State::E _state, int line)
     {
         state = _state;
         state_meter.Reset();
+
+        char buffer[128];
+
+        std::sprintf(buffer, "%d %s", line, State::Name(_state));
+
+        Console::AppendLine(buffer);
     }
 
     static bool MeterIsRunning(uint time)
@@ -145,11 +183,11 @@ void Updater::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
-        state = State::NEED_SAPBR_3_GPRS;
+        SET_STATE(State::NEED_SAPBR_3_GPRS);
         break;
 
     case State::NEED_SAPBR_3_GPRS:
-        SetState(State::NEED_SAPBR_3_APN);
+        SET_STATE(State::NEED_SAPBR_3_APN);
         SIM800::Transmit::With0D("AT+SAPBR=3,1,\"CONTYPE\",\"GPRS\"");
         break;
 
@@ -158,7 +196,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_SAPBR_3_USER);
+                SET_STATE(State::NEED_SAPBR_3_USER);
                 SIM800::Transmit::With0D("AT+SAPBR=3,1,\"APN\",\"internet\"");
             }
         }
@@ -169,7 +207,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_SAPBR_3_PWD);
+                SET_STATE(State::NEED_SAPBR_3_PWD);
                 SIM800::Transmit::With0D("AT+SAPBR=3,1,\"USER\",\"\"");
             }
         }
@@ -180,7 +218,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_SAPBR_1_1);
+                SET_STATE(State::NEED_SAPBR_1_1);
                 SIM800::Transmit::With0D("AT+SAPBR=3,1,\"PWD\",\"\"");
             }
         }
@@ -191,7 +229,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_FTPCID);
+                SET_STATE(State::NEED_FTPCID);
                 SIM800::Transmit::With0D("AT+SAPBR=1,1");
             }
         }
@@ -202,7 +240,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_FTPSERV);
+                SET_STATE(State::NEED_FTPSERV);
                 SIM800::Transmit::With0D("AT+FTPCID=1");
             }
         }
@@ -213,7 +251,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_FTPUN);
+                SET_STATE(State::NEED_FTPUN);
                 SIM800::Transmit::Format("AT+FTPSERV=\"%s\"", address);
             }
         }
@@ -224,7 +262,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_FTPPW);
+                SET_STATE(State::NEED_FTPPW);
                 SIM800::Transmit::Format("AT+FTPUN=\"%s\"", login);
             }
         }
@@ -235,7 +273,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_FTPGETPATH);
+                SET_STATE(State::NEED_FTPGETPATH);
                 SIM800::Transmit::Format("AT+FTPPW=\"%s\"", password);
             }
         }
@@ -246,7 +284,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_SET_NAME_FIRMWARE);
+                SET_STATE(State::NEED_SET_NAME_FIRMWARE);
                 SIM800::Transmit::Format("AT+FTPGETPATH=\"%s\"", directory);
             }
         }
@@ -257,7 +295,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_REQUEST_CONNECT);
+                SET_STATE(State::NEED_REQUEST_CONNECT);
                 SIM800::Transmit::Format("AT+FTPGETNAME=\"%s\"", file_firmware);
             }
         }
@@ -268,7 +306,7 @@ void Updater::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                SetState(State::NEED_WAIT_CONNECT);
+                SET_STATE(State::NEED_WAIT_CONNECT);
                 SIM800::Transmit::With0D("AT+FTPGET=1");
             }
         }
@@ -281,14 +319,14 @@ void Updater::Update(pchar answer)
             {
                 if (strcmp(answer, "+FTPGET: 1,1") == 0)
                 {
-                    SetState(State::GET_BYTES_VER);
+                    SET_STATE(State::GET_BYTES_VER);
                     crc = 0;
                     version = 0;
                     ReaderFTP::ReceiveBytes(4);
                 }
                 else if(strcmp(answer, "+FTPGET: 1,77") == 0)           // Если нет файла на сервере  (77 == Operate error)
                 {
-                    state = State::COMPLETED;
+                    SET_STATE(State::COMPLETED);
                 }
             }
         }
@@ -303,7 +341,7 @@ void Updater::Update(pchar answer)
 
                 // \todo здесь сверяем нужную версию с уже имеющейся
 
-                SetState(State::GET_BYTES_CRC);
+                SET_STATE(State::GET_BYTES_CRC);
                 ReaderFTP::ReceiveBytes(4);
             }
         }
@@ -318,7 +356,7 @@ void Updater::Update(pchar answer)
 
                 Programmer::Prepare(HAL_ROM::ADDR_STORAGE);
 
-                SetState(State::GET_BYTES_FIRMWARE);
+                SET_STATE(State::GET_BYTES_FIRMWARE);
                 HAL_FWDGT::ToUpgradeMode();
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);
                 ReaderFTP::received_FTPGET_1_0 = false;
@@ -347,7 +385,7 @@ void Updater::Update(pchar answer)
 
                     } while (source_crc != Math::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes));
 
-                    state = State::COMPLETED;
+                    SET_STATE(State::COMPLETED);
                 }
                 else
                 {
