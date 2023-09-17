@@ -77,9 +77,9 @@ void Display::Update()
 
     WriteString(70, 51, HAL::GetUID(message));
 
-    std::sprintf(message, "v%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent());
+    std::sprintf(message, "%d:%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent(), VERSION);
 
-    WriteString(5, 51, message);
+    WriteString(0, 51, message);
 
     if (Modem::Mode::Power())
     {
