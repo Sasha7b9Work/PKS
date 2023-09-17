@@ -134,7 +134,11 @@ void Display::Update()
 
     if (Console::IsEmpty())
     {
-        Display::WriteString(0, 0, "Upgrade");
+        char message[64];
+
+        std::sprintf(message, "Upgrade v %d", VERSION);
+
+        Display::WriteString(0, 0, message);
     }
     else
     {
