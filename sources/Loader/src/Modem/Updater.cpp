@@ -81,23 +81,23 @@ namespace Updater
             static const pchar names[] =
             {
                 "IDLE",
-                "NEED_SAPBR_3_GPRS",
-                "NEED_SAPBR_3_APN",
-                "NEED_SAPBR_3_USER",
-                "NEED_SAPBR_3_PWD",
-                "NEED_SAPBR_1_1",
-                "NEED_FTPCID",
-                "NEED_FTPSERV",
-                "NEED_FTPUN",
-                "NEED_FTPPW",
-                "NEED_FTPGETPATH",
+                "SAPBR_3_GPRS",
+                "SAPBR_3_APN",
+                "SAPBR_3_USER",
+                "SAPBR_3_PWD",
+                "SAPBR_1_1",
+                "FTPCID",
+                "FTPSERV",
+                "FTPUN",
+                "FTPPW",
+                "FTPGETPATH",
     
-                "NEED_SET_NAME_FIRMWARE",
-                "NEED_REQUEST_CONNECT",
-                "NEED_WAIT_CONNECT",
-                "GET_BYTES_VER",
-                "GET_BYTES_CRC",
-                "GET_BYTES_FIRMWARE",
+                "SET_NAME_FIRMWARE",
+                "REQUEST_CONNECT",
+                "WAIT_CONNECT",
+                "BYTES_VER",
+                "BYTES_CRC",
+                "BYTES_FIRMWARE",
     
                 "COMPLETED"
             };
@@ -371,6 +371,10 @@ void Updater::Update(pchar answer)
             {
                 Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
 
+                LOG_WRITE("%d recv %d", __LINE__, ReaderFTP::pointer_data);
+
+                Console::AppendLineF("%d recv %d", __LINE__, ReaderFTP::pointer_data);
+
                 Programmer::CloseSession();
 
                 int written_bytes = Programmer::WrittenBytes();
@@ -395,6 +399,10 @@ void Updater::Update(pchar answer)
             else if (ReaderFTP::requested_bytes_received)
             {
                 Programmer::WriteBytes(ReaderFTP::buffer_data, ReaderFTP::pointer_data);
+
+                LOG_WRITE("%d recv %d", __LINE__, ReaderFTP::pointer_data);
+
+                Console::AppendLineF("%d recv %d", __LINE__, ReaderFTP::pointer_data);
 
                 state_meter.Reset();
                 ReaderFTP::ReceiveBytes(ReaderFTP::SIZE_DATA_BUFFER);

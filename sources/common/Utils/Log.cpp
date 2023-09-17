@@ -46,7 +46,6 @@ void Log::ReceiveFromSIM800(char)
 
 void Log::Write(char *format, ...)
 {
-
     char message[256];
 
     std::va_list args;

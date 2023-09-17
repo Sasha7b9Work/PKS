@@ -4,7 +4,11 @@
 
 namespace Console
 {
+    bool IsEmpty();
+
     void AppendLine(pchar);
+
+    void AppendLineF(char *format, ...);
 
     void Draw();
 }

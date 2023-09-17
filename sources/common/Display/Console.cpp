@@ -2,6 +2,8 @@
 #include "defines.h"
 #include "Display/Console.h"
 #include "Display/Display.h"
+#include <cstdarg>
+#include <cstdio>
 #include <cstring>
 
 
@@ -9,6 +11,12 @@ namespace Console
 {
     static int num_lines = 0;
     static char lines[5][128];
+}
+
+
+bool Console::IsEmpty()
+{
+    return num_lines == 0;
 }
 
 
@@ -25,6 +33,19 @@ void Console::AppendLine(pchar line)
     }
 
     std::strcpy(&lines[num_lines++][0], line);
+}
+
+
+void Console::AppendLineF(char *format, ...)
+{
+    char message[256];
+
+    std::va_list args;
+    va_start(args, format);
+    std::vsprintf(message, format, args);
+    va_end(args);
+
+    AppendLine(message);
 }
 
 

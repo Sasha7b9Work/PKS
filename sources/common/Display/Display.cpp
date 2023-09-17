@@ -132,7 +132,14 @@ void Display::Update()
 {
     BeginScene();
 
-    Console::Draw();
+    if (Console::IsEmpty())
+    {
+        Display::WriteString(0, 0, "Upgrade");
+    }
+    else
+    {
+        Console::Draw();
+    }
 
     SSD1306::WriteBuffer(buffer);
 }
