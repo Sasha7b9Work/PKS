@@ -55,7 +55,7 @@ namespace Sender
 
         void SendState(uint num, int _state)
         {
-            if (gset.GetNumberSteps() == 4 && num == 4)
+            if (gset.GetNumberSteps() == 4 && num == 2)
             {
                 _state = 1;
             }
@@ -97,6 +97,11 @@ namespace Sender
 
             for (int i = 0; i < NUM_PINS_MX; i++)
             {
+                if (i == 8 || i == 17 || i == 26)
+                {
+                    continue;
+                }
+
                 if (need[i])
                 {
                     if (i == 27)
