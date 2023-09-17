@@ -112,11 +112,13 @@ void Display::WriteMeasures(int i)
     {
         for (int num = 0; num < 8; num++)
         {
+            WriteString(0, 17 + i * 11, "Defect");
+
             if (Sender::StateContactors::Get(i, num) == -1)
             {
                 std::sprintf(message, "%d", num + 1);
 
-                WriteString(num * 10, 17 + i * 11, message);
+                WriteString(num * 10 + 30, 17 + i * 11, message);
             }
         }
     }
