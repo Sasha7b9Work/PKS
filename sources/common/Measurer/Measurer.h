@@ -39,8 +39,6 @@ struct Sample
     float AmpersInSample() const { return AmplitudeCurrent() / MAX; }
     float AmplitudeCurrent() const;                 // Размах тока от MIN до MAX
     float AmplitudeVoltage() const;                 // Размах напряжения от MIN до MAX
-    void FromVoltage(float);
-    void FromCurrent(float);
     operator uint16() const { return rel; }
 
 private:

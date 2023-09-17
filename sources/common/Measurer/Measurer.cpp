@@ -236,15 +236,3 @@ float Sample::AmplitudeVoltage() const
     // Vin_max = Vadc_max * 5000 / 16 / 2 = 3.3 * 5000 / 16 / 2
     return 515.625f * 2.0f;
 }
-
-
-void Sample::FromVoltage(float level)
-{
-    rel = (uint16)(level / VoltsInSample() + ZERO);
-}
-
-
-void Sample::FromCurrent(float level)
-{
-    rel = (uint16)(level / AmpersInSample() + ZERO);
-}
