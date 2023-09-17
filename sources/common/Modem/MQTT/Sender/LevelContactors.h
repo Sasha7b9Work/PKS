@@ -10,5 +10,7 @@ namespace Sender
         void Send(const int level[Phase::Count]);
 
         bool SendToSIM800();
+
+        int Get(Phase::E);
     }
 }

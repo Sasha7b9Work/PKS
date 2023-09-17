@@ -25,6 +25,11 @@ namespace Sender
             }
         }
 
+        int Get(Phase::E phase)
+        {
+            return value[phase];
+        }
+
         bool SendToSIM800()
         {
             static const char *const names[Phase::Count] = { "A", "B", "C" };

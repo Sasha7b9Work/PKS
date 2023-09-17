@@ -10,6 +10,7 @@
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
 #include "Display/Console.h"
+#include "Modem/MQTT/Sender/Sender.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -110,7 +111,11 @@ void Display::WriteVoltage(int i)
 
     std::sprintf(message, "%4.1f", measure.measures[i].voltage);
 
-    WriteString(10, 17 + i * 11, message);
+    WriteString(20, 17 + i * 11, message);
+
+    std::sprintf(message, "%d", Sender::LevelContactors::Get((Phase::E)i));
+
+    WriteString(0, 17 + i * 11, message);
 }
 
 
