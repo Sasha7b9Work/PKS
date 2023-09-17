@@ -57,7 +57,7 @@ namespace Sender
         {
             if (gset.GetNumberSteps() == 4 && num == 4)
             {
-                return;
+                _state = 1;
             }
 
             if (state[num] != _state)
@@ -97,11 +97,6 @@ namespace Sender
 
             for (int i = 0; i < NUM_PINS_MX; i++)
             {
-                if (i == 8 || i == 17 || i == 26)       // 9 контактор не задействуем
-                {
-                    continue;
-                }
-
                 if (need[i])
                 {
                     if (i == 27)
