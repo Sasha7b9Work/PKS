@@ -3,18 +3,18 @@
 #include <cstring>
 
 
-template<class T, int size_buffer>
+template<class T>
 class Averager //-V730
 {
 public:
     Averager() : num_elements(0) {}
     T Push(T value)
     {
-        if (num_elements == size_buffer)
+        if (num_elements == SIZE_BUFFER)
         {
-            if (size_buffer != 1)
+            if (SIZE_BUFFER != 1)
             {
-                std::memmove(buffer, buffer + 1, sizeof(T) * (size_buffer - 1));
+                std::memmove(buffer, buffer + 1, sizeof(T) * (SIZE_BUFFER - 1));
             }
             num_elements--;
         }
@@ -42,6 +42,7 @@ public:
     int NumElements() const { return num_elements; }
     void Reset() { num_elements = 0; }
 private:
-    T buffer[size_buffer];
+    static const int SIZE_BUFFER = 10;
+    T buffer[SIZE_BUFFER];
     int num_elements;
 };
