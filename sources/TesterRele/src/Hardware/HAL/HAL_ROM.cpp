@@ -25,8 +25,10 @@ void HAL_ROM::ErasePage(int num_page)
 }
 
 
-void HAL_ROM::WriteData(uint address, uint8 *data, int size)
+void HAL_ROM::WriteData(uint address, const void *_data, int size)
 {
+    uint8 *data = (uint8 *)_data;
+
     fmc_unlock();
 
     while (size % 4)

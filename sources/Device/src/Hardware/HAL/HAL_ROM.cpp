@@ -30,8 +30,10 @@ void HAL_ROM::ErasePage(int num_page)
 }
 
 
-void HAL_ROM::WriteData(uint address, uint8 *data, int size)
+void HAL_ROM::WriteData(uint address, const void *_data, int size)
 {
+    uint8 *data = (uint8 *)_data;
+
     fmc_unlock();
 
     while (size % 4)
@@ -49,6 +51,18 @@ void HAL_ROM::WriteData(uint address, uint8 *data, int size)
 
         fmc_flag_clear(FMC_FLAG_BANK0_END | FMC_FLAG_BANK0_WPERR | FMC_FLAG_BANK0_PGERR);
     }
+
+    fmc_lock();
+}
+
+
+void HAL_ROM::WriteUInt(uint address, uint value)
+{
+    fmc_unlock();
+
+    fmc_word_program(address, value);
+
+    fmc_flag_clear(FMC_FLAG_BANK0_END | FMC_FLAG_BANK0_WPERR | FMC_FLAG_BANK0_PGERR);
 
     fmc_lock();
 }

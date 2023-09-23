@@ -91,9 +91,11 @@ namespace HAL_ROM
     void ErasePage(int num_page);
 
     // address должен быть кратен 4, size должен быть кратен 4
-    void WriteData(uint address, uint8 *data, int size);
+    void WriteData(uint address, const void *data, int size);
 
     bool PageIsEmpty(int num_page);
+
+    void WriteUInt(uint address, uint value);
 }
 
 

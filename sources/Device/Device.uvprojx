@@ -186,6 +186,7 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
+            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -882,6 +883,16 @@
               <FileName>Storage.h</FileName>
               <FileType>5</FileType>
               <FilePath>.\src\Storage\Storage.h</FilePath>
+            </File>
+            <File>
+              <FileName>MemoryStorage.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Storage\MemoryStorage.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MemoryStorage.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Storage\MemoryStorage.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -36,9 +36,9 @@ typedef unsigned char uchar;
 
 union BitSet32
 {
-    BitSet32(uint _word) : word(_word) { }
+    BitSet32(uint _word = 0) : word(_word) { }
     uint   word;
-    uint8  byte[4];
+    uint8  bytes[4];
 };
 
 

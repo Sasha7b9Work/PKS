@@ -128,9 +128,9 @@ void M25P80::Write32bit(uint8 command, uint bits24)
     BitSet32 bs(bits24);
 
     data[0] = command;
-    data[1] = bs.byte[2];
-    data[2] = bs.byte[1];
-    data[3] = bs.byte[0];
+    data[1] = bs.bytes[2];
+    data[2] = bs.bytes[1];
+    data[3] = bs.bytes[0];
 
     HAL_SPI2::Write(data, 4);
 }
