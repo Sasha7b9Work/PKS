@@ -8,7 +8,7 @@
 
 void Storage::Init()
 {
-    Contactors::Init();
+
 }
 
 

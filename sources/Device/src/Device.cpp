@@ -5,6 +5,7 @@
 #include "Modem/Modem.h"
 #include "Display/Display.h"
 #include "Storage/Storage.h"
+#include "Measurer/Contactors.h"
 
 
 void Device::Init()
@@ -12,6 +13,8 @@ void Device::Init()
     Log::Init();
 
     HAL::Init();
+
+    Contactors::Init();
 
     Storage::Init();
 
