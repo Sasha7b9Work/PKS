@@ -21,6 +21,9 @@ struct Measurements
         // 29 - gpB
         // 30 - gpC
         uint bits;
+        int stateA : 2;
+        int stateB : 2;
+        int stateC : 2;
 
         // num - от нуля до 8 (KM1...KM9)
         void SetKM(Phase::E, int num, bool);
@@ -29,6 +32,8 @@ struct Measurements
         bool GetGP(Phase::E) const;
         void Set100V(bool);
         bool Get100V() const;
+        void SetStateRele(Phase::E, int);
+        int GetStateRele(Phase::E);
 
     private:
 

@@ -86,3 +86,35 @@ bool Measurements::Flags::Get100V() const
 {
     return _GET_BIT(bits, 27) != 0;
 }
+
+
+void Measurements::Flags::SetStateRele(Phase::E phase, int state)
+{
+    if (phase == Phase::A)
+    {
+        stateA = state;
+    }
+    else if (phase == Phase::B)
+    {
+        stateB = state;
+    }
+    else
+    {
+        stateC = state;
+    }
+}
+
+
+int Measurements::Flags::GetStateRele(Phase::E phase)
+{
+    if (phase == Phase::A)
+    {
+        return stateA;
+    }
+    else if (phase == Phase::B)
+    {
+        return stateB;
+    }
+
+    return stateC;
+}
