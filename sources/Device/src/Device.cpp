@@ -4,8 +4,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
 #include "Display/Display.h"
-#include "Measurer/Contactors.h"
-#include "Settings/Settings.h"
 #include "Storage/Storage.h"
 
 
@@ -32,8 +30,4 @@ void Device::Update()
     Display::Update();
 
     Modem::Update();
-
-    HAL_PINS::Update();
-
-    Contactors::Serviceability::Verify();
 }

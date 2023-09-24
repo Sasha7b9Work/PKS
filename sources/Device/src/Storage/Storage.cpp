@@ -3,6 +3,7 @@
 #include "Storage/Storage.h"
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
+#include "Hardware/HAL/HAL.h"
 
 
 void Storage::Init()
@@ -15,7 +16,11 @@ void Storage::Update()
 {
     Measurer::Update();
 
+    Contactors::Serviceability::Verify();
+
     Contactors::Update(Measurer::Measure5Sec());
+
+    HAL_PINS::Update();
 }
 
 
