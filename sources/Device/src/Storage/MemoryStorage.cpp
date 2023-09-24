@@ -26,7 +26,7 @@ void MemoryStorage::Init()
 }
 
 
-void MemoryStorage::Data::Append(const StructData &data)
+void MemoryStorage::Append(const StructData &data)
 {
     StructData *address = FindFirstEmpty();
 
@@ -41,7 +41,7 @@ void MemoryStorage::Data::Append(const StructData &data)
 }
 
 
-StructData *MemoryStorage::Data::GetOldest()
+StructData *MemoryStorage::GetOldest()
 {
     StructData *result = nullptr;
 
@@ -67,7 +67,7 @@ StructData *MemoryStorage::Data::GetOldest()
 }
 
 
-void MemoryStorage::Data::Erase(StructData *data)
+void MemoryStorage::Erase(StructData *data)
 {
     data->Erase();
 }

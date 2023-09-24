@@ -35,19 +35,6 @@ private:
 };
 
 
-struct StructIncident
-{
-    uint     time;              // Время от 2000-го года. Если в старшем бите 0 - это данные
-    uint     code;              // Код инцидента
-    uint     field0;
-    uint     field1;
-    uint     field2;
-    uint     field3;
-    uint     crc;
-    BitSet32 control_field;     // Это нужно для контроля правильности записи
-};
-
-
 struct MemoryStorage
 {
     static const uint BEGIN = 0x8000000 + 200 * 1024;
@@ -55,25 +42,13 @@ struct MemoryStorage
 
     static void Init();
 
-    struct Data
-    {
-        static void Append(const StructData &);
+    static void Append(const StructData &);
 
-        // Возвращает указатель на самую старую структуру данных (которая считана раньше всех). После использования нужно вызвать Erase()
-        // с этим указателем, чтобы стереть структуру из хранилища
-        static StructData *GetOldest();
+    // Возвращает указатель на самую старую структуру данных (которая считана раньше всех). После использования нужно вызвать Erase()
+    // с этим указателем, чтобы стереть структуру из хранилища
+    static StructData *GetOldest();
 
-        static void Erase(StructData *);
-    };
-
-    struct Incident
-    {
-        static void Append(const StructIncident &);
-
-        static StructIncident *GetNext();
-
-        static void Erase(StructIncident *);
-    };
+    static void Erase(StructData *);
 
 private:
 
