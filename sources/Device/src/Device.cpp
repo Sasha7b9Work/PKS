@@ -30,6 +30,8 @@ void Device::Update()
 
     Storage::Update();
 
+    Contactors::Update(Measurer::Measure5Sec());
+
     Display::Update();
 
     Modem::Update();

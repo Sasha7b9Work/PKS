@@ -18,8 +18,6 @@ void Storage::Update()
 
     Contactors::Serviceability::Verify();
 
-    Contactors::Update(Measurer::Measure5Sec());
-
     HAL_PINS::Update();
 }
 
