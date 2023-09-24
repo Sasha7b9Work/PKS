@@ -76,3 +76,15 @@ void Sender::Measure::Send(const FullMeasure &)
 {
 
 }
+
+
+int Sender::LevelContactors::Get(Phase::E)
+{
+    return 0;
+}
+
+
+int Sender::StateContactors::Get(int, int)
+{
+    return 0;
+}

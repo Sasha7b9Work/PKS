@@ -80,7 +80,7 @@ namespace HAL_USART_LOG
 
 namespace HAL_ROM
 {
-    static const uint ADDR_APPLICATION = 0x08000000U;
+    static const uint ADDR_APPLICATION = 0x08000000U;       // 33 кБ
     static const uint ADDR_BASE = 0x08000000U;
     static const uint SIZE_PAGE = 2 * 1024;
 

@@ -6,6 +6,12 @@
 #include "Hardware/HAL/HAL.h"
 
 
+namespace Storage
+{
+
+}
+
+
 void Storage::Init()
 {
 
@@ -120,4 +126,28 @@ int Measurements::Flags::GetStateRele(Phase::E phase)
     }
 
     return stateC;
+}
+
+
+void Measurements::SetFullMeasure(FullMeasure &meas)
+{
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        volts[i] = (uint16)(meas.measures[i].voltage * 10.0f + 0.5f);
+        currents[i] = (uint16)(meas.measures[i].current * 10.0f + 0.5f);
+    }
+}
+
+
+FullMeasure Measurements::GetFullMeasure() const
+{
+    FullMeasure meas;
+
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        meas.measures[i].voltage = volts[i] / 10.0f;
+        meas.measures[i].current = currents[i] / 10.0f;
+    }
+
+    return meas;
 }
