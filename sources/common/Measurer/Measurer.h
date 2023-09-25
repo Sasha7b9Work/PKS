@@ -76,14 +76,12 @@ struct FullMeasure
 
 namespace Measurer
 {
-    void Update();
+    void Update(void);
 
     void AppendMeasures(uint16 adc_values[6]);
 
     // Не ноль, если буферы заполнены
     bool BuffersFull();
-
-    FullMeasure LastMeasure();
 
     FullMeasure Measure5Sec();
 

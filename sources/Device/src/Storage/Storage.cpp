@@ -4,6 +4,8 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Timer.h"
+#include "Modem/MQTT/Sender/Sender.h"
 
 
 namespace Storage
@@ -20,11 +22,16 @@ void Storage::Init()
 
 void Storage::Update()
 {
-    Measurer::Update();
+    static TimeMeterMS meter_measures;
 
-    Contactors::Serviceability::Verify();
+    if (meter_measures.IsFinished())
+    {
+        meter_measures.SetResponseTime(60000);
 
-    HAL_PINS::Update();
+        FullMeasure measure = Measurer::Measure5Sec();
+
+        Sender::Measure::Send(measure);
+    }
 }
 
 

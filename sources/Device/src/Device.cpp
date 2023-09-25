@@ -28,9 +28,15 @@ void Device::Update()
 {
     HAL_FWDGT::Update();
 
-    Storage::Update();
-
     Contactors::Update(Measurer::Measure5Sec());
+
+    Contactors::Serviceability::Verify();
+
+    Measurer::Update();
+
+    HAL_PINS::Update();
+
+    Storage::Update();
 
     Display::Update();
 
