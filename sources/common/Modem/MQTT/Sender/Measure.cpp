@@ -20,6 +20,11 @@ namespace Sender
             need = true;
         }
 
+        bool ExistDataToTransfer()
+        {
+            return need;
+        }
+
         bool SendToSIM800()
         {
             bool result = need;

@@ -13,6 +13,8 @@ struct StructData
     uint         crc;
     BitSet32     control_field;     // Это нужно для контроля правильности записи
 
+    FullMeasure GetFullMeasure();
+
 private:
 
     // true, если запись пуста

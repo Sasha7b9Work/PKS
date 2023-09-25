@@ -55,17 +55,35 @@ void Storage::Update()
 
 void Storage::SendAll()
 {
+    static StructData *data = nullptr;
+
     switch (state)
     {
-    case State::IDLE:
+        case State::IDLE:
         {
+            data = MemoryStorage::GetOldest();
 
+            if (data)
+            {
+                Sender::Measure::Send(data->GetFullMeasure());
+
+                state = State::WAIT;
+            }
         }
         break;
 
     case State::WAIT:
         {
+            if (Sender::ExistDataToTransfer())
+            {
 
+            }
+            else
+            {
+                MemoryStorage::Erase(data);
+                data = nullptr;
+                state = State::IDLE;
+            }
         }
         break;
     }

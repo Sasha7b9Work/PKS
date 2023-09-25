@@ -173,3 +173,9 @@ void Sender::SendLastReset()
         MQTT::Packet::Publish("/last/reset", "External pin");
     }
 }
+
+
+bool Sender::ExistDataToTransfer()
+{
+    return Measure::ExistDataToTransfer();
+}

@@ -11,5 +11,7 @@ namespace Sender
         void Send(const FullMeasure &meas);
 
         bool SendToSIM800();
+
+        bool ExistDataToTransfer();
     }
 }
