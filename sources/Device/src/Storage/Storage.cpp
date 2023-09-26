@@ -42,7 +42,7 @@ void Storage::Update()
 
     if (meter_measures.IsFinished())
     {
-        meter_measures.SetResponseTime(60000);
+        meter_measures.SetResponseTime(30000);
 
         lastMeasure = Measurer::Measure5Sec();
 
