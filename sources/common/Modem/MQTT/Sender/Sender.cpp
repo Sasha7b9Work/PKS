@@ -92,31 +92,31 @@ bool Sender::SendAll(pchar answer)
             SIM800::Transmit::UINT8(0xC0);
             SIM800::Transmit::UINT8(0x00);
         }
-        else if (Sender::SendToSIM800())
+        if (Sender::SendToSIM800())
         {
             sending = true;
         }
-        else if (Sender::StringState::SendToSIM800())
+        if (Sender::StringState::SendToSIM800())
         {
             sending = true;
         }
-        else if (Sender::Measure::SendToSIM800())
+        if (Sender::Measure::SendToSIM800())
         {
             sending = true;
         }
-        else if (Sender::LevelContactors::SendToSIM800())
+        if (Sender::LevelContactors::SendToSIM800())
         {
             sending = true;
         }
-        else if (Sender::StateContactors::SendToSIM800())
+        if (Sender::StateContactors::SendToSIM800())
         {
             sending = true;
         }
-        else if (Sender::GP::SendToSIM800())
+        if (Sender::GP::SendToSIM800())
         {
             sending = true;
         }
-        else if (Sender::Counter::SendToSIM800())
+        if (Sender::Counter::SendToSIM800())
         {
             sending = true;
         }
