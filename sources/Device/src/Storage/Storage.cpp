@@ -20,11 +20,7 @@ void Storage::Init()
 
 void Storage::Update()
 {
-    Measurer::Update();
 
-    Contactors::Serviceability::Verify();
-
-    HAL_PINS::Update();
 }
 
 
