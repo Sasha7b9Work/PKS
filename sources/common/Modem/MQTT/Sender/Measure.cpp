@@ -12,18 +12,26 @@ namespace Sender
     {
         static FullMeasure value;
         static bool need = false;
+        static TimeMeterMS meter;
 
         void Send(const FullMeasure &meas)
         {
+            if (!meter.IsFinished())
+            {
+                return;
+            }
+
+            meter.SetResponseTime(60000);
+
             value = meas;
 
             need = true;
         }
 
-        bool ExistDataToTransfer()
-        {
-            return need;
-        }
+//        static void SendMeasure(pchar name, float voltage)
+//        {
+//            MQTT::Packet::Publish(name, (int)(voltage + 0.5f));
+//        }
 
         bool SendToSIM800()
         {

@@ -17,7 +17,4 @@ namespace Sender
     bool SendAll(pchar);
 
     void ResetMeter();
-
-    // Существуют ли данные для передачи
-    bool ExistDataToTransfer();
 }

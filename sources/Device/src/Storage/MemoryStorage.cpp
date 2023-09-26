@@ -179,9 +179,3 @@ void MemoryStorage::Write(uint address, uint value)
 {
     HAL_ROM::WriteData(address, &value, 4);
 }
-
-
-FullMeasure StructData::GetFullMeasure()
-{
-    return meas.GetFullMeasure();
-}

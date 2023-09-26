@@ -92,31 +92,31 @@ bool Sender::SendAll(pchar answer)
             SIM800::Transmit::UINT8(0xC0);
             SIM800::Transmit::UINT8(0x00);
         }
-        if (Sender::SendToSIM800())
+        else if (Sender::SendToSIM800())
         {
             sending = true;
         }
-        if (Sender::StringState::SendToSIM800())
+        else if (Sender::StringState::SendToSIM800())
         {
             sending = true;
         }
-        if (Sender::Measure::SendToSIM800())
+        else if (Sender::Measure::SendToSIM800())
         {
             sending = true;
         }
-        if (Sender::LevelContactors::SendToSIM800())
+        else if (Sender::LevelContactors::SendToSIM800())
         {
             sending = true;
         }
-        if (Sender::StateContactors::SendToSIM800())
+        else if (Sender::StateContactors::SendToSIM800())
         {
             sending = true;
         }
-        if (Sender::GP::SendToSIM800())
+        else if (Sender::GP::SendToSIM800())
         {
             sending = true;
         }
-        if (Sender::Counter::SendToSIM800())
+        else if (Sender::Counter::SendToSIM800())
         {
             sending = true;
         }
@@ -172,10 +172,4 @@ void Sender::SendLastReset()
     {
         MQTT::Packet::Publish("/last/reset", "External pin");
     }
-}
-
-
-bool Sender::ExistDataToTransfer()
-{
-    return Measure::ExistDataToTransfer();
 }

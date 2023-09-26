@@ -4,29 +4,11 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
-#include "Hardware/Timer.h"
-#include "Modem/MQTT/Sender/Sender.h"
-#include "Storage/MemoryStorage.h"
 
 
 namespace Storage
 {
-    struct State
-    {
-        enum E
-        {
-            IDLE,       // В процесс простоя
-            WAIT        // Отдали данные на передачу, ждём результат
-        };
-    };
 
-    static State::E state = State::IDLE;
-
-    static FullMeasure lastMeasure;
-    static StructData  lastData;
-
-    // Послать все сообщения, находящиеся в хранилище
-    static void SendAll();
 }
 
 
@@ -38,55 +20,11 @@ void Storage::Init()
 
 void Storage::Update()
 {
-    static TimeMeterMS meter_measures;
+    Measurer::Update();
 
-    if (meter_measures.IsFinished())
-    {
-        meter_measures.SetResponseTime(1000);
+    Contactors::Serviceability::Verify();
 
-        lastMeasure = Measurer::Measure5Sec();
-
-        Sender::Measure::Send(lastMeasure);
-    }
-
-    SendAll();
-}
-
-
-void Storage::SendAll()
-{
-    static StructData *data = nullptr;
-
-    switch (state)
-    {
-        case State::IDLE:
-        {
-            data = MemoryStorage::GetOldest();
-
-            if (data)
-            {
-                Sender::Measure::Send(data->GetFullMeasure());
-
-                state = State::WAIT;
-            }
-        }
-        break;
-
-    case State::WAIT:
-        {
-            if (Sender::ExistDataToTransfer())
-            {
-
-            }
-            else
-            {
-                MemoryStorage::Erase(data);
-                data = nullptr;
-                state = State::IDLE;
-            }
-        }
-        break;
-    }
+    HAL_PINS::Update();
 }
 
 

@@ -62,7 +62,7 @@ void Display::Init()
 #ifdef DEVICE
 void Display::Update()
 {
-    FullMeasure measure = Measurer::Measure5Sec();
+    FullMeasure measure = Measurer::LastMeasure();
 
     BeginScene();
 
@@ -116,7 +116,7 @@ void Display::WriteMeasures(int i)
 {
 #define Y() (13 + i * 13)
 
-    FullMeasure measure = Measurer::Measure5Sec();
+    FullMeasure measure = Measurer::LastMeasure();
 
     char message[30];
 
