@@ -28,11 +28,6 @@ namespace Sender
             need = true;
         }
 
-//        static void SendMeasure(pchar name, float voltage)
-//        {
-//            MQTT::Packet::Publish(name, (int)(voltage + 0.5f));
-//        }
-
         bool SendToSIM800()
         {
             bool result = need;

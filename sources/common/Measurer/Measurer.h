@@ -83,8 +83,6 @@ namespace Measurer
     // Не ноль, если буферы заполнены
     bool BuffersFull();
 
-    FullMeasure LastMeasure();
-
     FullMeasure Measure5Sec();
 
     FullMeasure Measure1Min();

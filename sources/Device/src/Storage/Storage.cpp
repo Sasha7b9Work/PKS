@@ -4,6 +4,7 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/MQTT/Sender/Sender.h"
 
 
 namespace Storage
@@ -20,7 +21,7 @@ void Storage::Init()
 
 void Storage::Update()
 {
-
+    Sender::Measure::Send(Measurer::Measure5Sec());
 }
 
 

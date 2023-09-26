@@ -66,7 +66,7 @@ namespace Filtr
 
 namespace Measurer
 {
-    static struct FullMeasure measure;
+    static struct FullMeasure lastMeasure;
     static struct FullMeasure measure5Sec;
     static struct FullMeasure measure1Min;
 
@@ -102,15 +102,11 @@ void Measurer::Update()
 {
     if (BuffersFull())
     {
-        measure = Calculate();
+        lastMeasure = Calculate();
 
-#ifdef DEVICE
-        Sender::Measure::Send(measure);
-#endif
+        measure5Sec = Calculator::Average5Sec(lastMeasure);
 
-        measure5Sec = Calculator::Average5Sec(measure);
-
-        measure1Min = Calculator::Average1Min(measure);
+        measure1Min = Calculator::Average1Min(lastMeasure);
 
         for (int i = 0; i < Phase::Count; i++)
         {
@@ -119,12 +115,6 @@ void Measurer::Update()
 
         pos_adc_value = 0;
     }
-}
-
-
-FullMeasure Measurer::LastMeasure()
-{
-    return measure;
 }
 
 
@@ -201,7 +191,7 @@ FullMeasure Measurer::Calculate()
         result.is_good[i] = (!is_bad[i] && !bad_in_begin[i]);
         if (!result.is_good[i])
         {
-            result.measures[i] = measure.measures[i];
+            result.measures[i] = lastMeasure.measures[i];
         }
     }
 
