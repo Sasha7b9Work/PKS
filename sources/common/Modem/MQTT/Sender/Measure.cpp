@@ -12,17 +12,9 @@ namespace Sender
     {
         static FullMeasure value;
         static bool need = false;
-        static TimeMeterMS meter;
 
         void Send(const FullMeasure &meas)
         {
-            if (!meter.IsFinished())
-            {
-                return;
-            }
-
-            meter.SetResponseTime(60000);
-
             value = meas;
 
             need = true;
