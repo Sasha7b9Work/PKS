@@ -27,7 +27,10 @@ namespace Counter
         {
             prev_time = TIME_MS / 100;
 
-            MQTT::Send::Counter(counter++);
+            if (MQTT::Send::Counter(counter))
+            {
+                counter++;
+            }
         }
     }
 }
