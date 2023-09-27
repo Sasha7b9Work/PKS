@@ -95,6 +95,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
         GetWord(answer, 2, levelSignal);
+        LOG_WRITE("CSQ : %s", levelSignal);
         return true;
     }
     else if (strcmp(answer, "SEND OK") == 0)
