@@ -16,5 +16,5 @@ namespace Sender
 
     void ResetMeter();
 
-    void Update(pchar);
+    void Update(pchar answer);
 }

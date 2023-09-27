@@ -16,6 +16,15 @@ namespace MQTT
 
     uint TimeConnect();
 
+    namespace Send
+    {
+        // Установка функции, которая будет вызываться по завершении передачи
+        void SetCallbackOnSend(void (*callback)(bool));
+
+        // Послать значение счётчика
+        bool Counter(int);
+    }
+
     namespace Packet
     {
         void Publish(pchar topic, pchar message);

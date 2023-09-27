@@ -18,13 +18,53 @@ using namespace std;
 
 namespace MQTT
 {
+    namespace Request
+    {
+        static char topic[64] = { '\0' };
+        static char message[32] = { '\0' };
+
+        void Clear()
+        {
+            topic[0] = '\0';
+            message[0] = '\0';
+        }
+
+        bool IsEmpty()
+        {
+            return topic[0] == '\0';
+        }
+
+        void Set(pchar _topic, int value)
+        {
+            std::strcpy(topic, _topic);
+            std::sprintf(message, "%d", value);
+        }
+
+        void Send()
+        {
+            if (topic[0])
+            {
+                MQTT::Packet::Publish(topic, message);
+
+                SIM800::Transmit::UINT8((uint8)0x1A);
+            }
+            else
+            {
+                SIM800::Transmit::UINT8((uint8)0x1B);
+            }
+        }
+    }
+
+    static void (*callbackOnTransmit)(bool) = nullptr;
+
     struct State
     {
         enum E
         {
             IDLE,
-            WAIT_RESPONSE_CIPSEND,      // Ждеём приглашения ">"
-            RUNNING
+            WAIT_RESPONSE_CIPSEND,      // Ждём приглашения ">"
+            WAIT_DATA_FOR_SEND,         // Ждём данные для отсылки
+            SENDING_DATA                // Здесь можно посылать данные
         };
     };
 
@@ -44,7 +84,7 @@ namespace MQTT
 
 bool MQTT::InStateRunning()
 {
-    return state == State::RUNNING;
+    return (state == State::WAIT_DATA_FOR_SEND) || (state == State::SENDING_DATA);
 }
 
 
@@ -65,9 +105,13 @@ void MQTT::Update(pchar answer)
 {
     static TimeMeterMS meter;
 
+    static bool sending_request = false;            // Послан ли запрос на передачу данных (ожидание '>')
+
     switch (state)
     {
     case State::IDLE:
+        sending_request = false;
+        Request::Clear();
         time_connect = Timer::TimeMS();
         LOG_WRITE("MQTT start connect %d ms", time_connect);
         Sender::Reset();
@@ -109,7 +153,7 @@ void MQTT::Update(pchar answer)
 
             SIM800::Transmit::UINT8(0x1A);
 
-            state = State::RUNNING;
+            state = State::WAIT_DATA_FOR_SEND;
 
             meterLastData.Reset();
 
@@ -117,17 +161,49 @@ void MQTT::Update(pchar answer)
         }
         break;
 
-    case State::RUNNING:
+    case State::WAIT_DATA_FOR_SEND:
+        break;
 
-        Sender::Update(answer);
-
-        if (meterLastData.ElapsedTime() > 60000)
+    case State::SENDING_DATA:
+        if (strcmp(answer, ">") == 0)
         {
-            Modem::Reset();
+            Request::Send();
+            Request::Clear();
+            if (callbackOnTransmit)
+            {
+                callbackOnTransmit(true);
+            }
+            state = State::WAIT_DATA_FOR_SEND;
         }
-
         break;
     }
+}
+
+
+void MQTT::Send::SetCallbackOnSend(void (*callback)(bool))
+{
+    callbackOnTransmit = callback;
+}
+
+
+bool MQTT::Send::Counter(int counter)
+{
+    if (MQTT::state != State::WAIT_DATA_FOR_SEND)
+    {
+        callbackOnTransmit(false);
+
+        return false;
+    }
+    else
+    {
+        Request::Set("base/state/counter", counter);
+
+        SIM800::Transmit::With0D("AT+CIPSEND");
+
+        MQTT::state = State::SENDING_DATA;
+    }
+
+    return true;
 }
 
 
@@ -139,8 +215,6 @@ void  MQTT::Packet::Publish(pchar MQTT_topic, pchar MQTT_messege)
     SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_topic)));
     SIM800::Transmit::RAW(MQTT_topic);
     SIM800::Transmit::RAW(MQTT_messege);
-
-//    LOG_WRITE("publish %s : %s", MQTT_topic, MQTT_messege);
 }
 
 

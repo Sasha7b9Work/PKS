@@ -24,7 +24,7 @@ namespace Sender
     // Если true - нужно посылать пинг
     static bool need_ping = false;
 
-    static bool SendAll(pchar);
+    bool SendAll(pchar);
 }
 
 
@@ -75,9 +75,9 @@ void Sender::ResetMeter()
 }
 
 
-void Sender::Update(pchar answer)
+void Sender::Update(pchar )
 {
-    SendAll(answer);
+
 }
 
 

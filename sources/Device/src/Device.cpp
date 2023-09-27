@@ -6,6 +6,7 @@
 #include "Display/Display.h"
 #include "Storage/Storage.h"
 #include "Measurer/Contactors.h"
+#include "Modem/MQTT/MQTT.h"
 
 
 void Device::Init()
@@ -39,6 +40,10 @@ void Device::Update()
     Storage::Update();
 
     Display::Update();
+
+    int counter = 0;
+
+    MQTT::Send::Counter(counter++);
 
     Modem::Update();
 }
