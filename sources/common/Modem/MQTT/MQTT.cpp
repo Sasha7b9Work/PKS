@@ -119,7 +119,7 @@ void MQTT::Update(pchar answer)
 
     case State::RUNNING:
 
-        Sender::SendAll(answer);
+        Sender::Update(answer);
 
         if (meterLastData.ElapsedTime() > 60000)
         {
