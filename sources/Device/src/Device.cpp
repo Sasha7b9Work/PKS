@@ -7,6 +7,7 @@
 #include "Storage/Storage.h"
 #include "Measurer/Contactors.h"
 #include "Modem/MQTT/MQTT.h"
+#include "Hardware/Timer.h"
 
 
 void Device::Init()
@@ -41,9 +42,15 @@ void Device::Update()
 
     Display::Update();
 
-    static int counter = VERSION;
+    static int counter = 0;
+    static uint prev_time = 0;
 
-    MQTT::Send::Counter(counter++);
+    if (TIME_MS > prev_time)
+    {
+        prev_time = TIME_MS;
+
+        MQTT::Send::Counter(counter++);
+    }
 
     Modem::Update();
 }
