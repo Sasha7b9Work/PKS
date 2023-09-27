@@ -45,9 +45,9 @@ void Device::Update()
     static int counter = 0;
     static uint prev_time = 0;
 
-    if (TIME_MS > prev_time)
+    if ((TIME_MS / 1000) > prev_time)
     {
-        prev_time = TIME_MS;
+        prev_time = TIME_MS / 1000;
 
         MQTT::Send::Counter(counter++);
     }
