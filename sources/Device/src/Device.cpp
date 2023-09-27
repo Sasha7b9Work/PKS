@@ -23,7 +23,7 @@ namespace Counter
 
     void Update()
     {
-        uint dT = 1000;
+        uint dT = 200;
 
         if ((TIME_MS / dT) > prev_time)
         {
