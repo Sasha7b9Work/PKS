@@ -61,6 +61,7 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
+        LOG_WRITE("MQTT enter %d ms", Timer::TimeMS());
         Sender::Reset();
         LOG_WRITE("+++ MQTT::IDLE +++");
         SIM800::Transmit::With0D("AT+CIPSEND");

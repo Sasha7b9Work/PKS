@@ -125,6 +125,8 @@ bool Sender::SendAll(pchar answer)
 
         if (sending)
         {
+            LOG_WRITE("Send in %d ms", Timer::TimeMS());
+
             SIM800::Transmit::With0D("AT+CIPSEND");
         }
 
