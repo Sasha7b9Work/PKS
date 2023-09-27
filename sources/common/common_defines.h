@@ -1,4 +1,4 @@
-#define VERSION 191
+#define VERSION 192
 
 
 // Сообщения лога записываются в буфер

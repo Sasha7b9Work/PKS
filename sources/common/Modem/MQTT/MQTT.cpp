@@ -83,6 +83,12 @@ namespace MQTT
 }
 
 
+void MQTT::CallbackOnReceiveChar(char symbol)
+{
+    last_received = symbol;
+}
+
+
 bool MQTT::InStateRunning()
 {
     return (state == State::WAIT_DATA_FOR_SEND);
