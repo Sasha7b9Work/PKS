@@ -1,7 +1,6 @@
 // 2023/05/29 15:29:29 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/MQTT/Sender/Sender.h"
-#include "Modem/MQTT/Sender/Counter.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Hardware/Timer.h"
 #include "Hardware/HAL/HAL.h"
@@ -30,8 +29,6 @@ namespace Sender
 
 void Sender::Reset()
 {
-    Counter::Reset();
-
     StringState::Reset();
 
     versionSW_is_sended = false;
@@ -121,10 +118,6 @@ bool Sender::SendAll(pchar answer)
             sending = true;
         }
         if (Sender::GP::SendToSIM800())
-        {
-            sending = true;
-        }
-        if (Sender::Counter::SendToSIM800())
         {
             sending = true;
         }

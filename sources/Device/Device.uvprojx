@@ -785,16 +785,6 @@
           <GroupName>Modem/MQTT/Sender</GroupName>
           <Files>
             <File>
-              <FileName>Counter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Counter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender\Counter.h</FilePath>
-            </File>
-            <File>
               <FileName>GP.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\MQTT\Sender\GP.cpp</FilePath>

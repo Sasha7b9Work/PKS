@@ -196,7 +196,7 @@ bool MQTT::Send::Counter(int counter)
 
     while (last_received != '>')
     {
-        if (meter.ElapsedTime() > 100)
+        if (meter.ElapsedTime() > 20)
         {
             return false;
         }
