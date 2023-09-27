@@ -171,6 +171,7 @@ void MQTT::Update(pchar answer)
                 callbackOnTransmit(true);
             }
             state = State::WAIT_DATA_FOR_SEND;
+            LOG_WRITE("%d ms", TIME_MS);
         }
         break;
     }
@@ -187,6 +188,8 @@ bool MQTT::Send::Counter(int counter)
 {
     if (MQTT::state != State::WAIT_DATA_FOR_SEND)
     {
+        LOG_WRITE("%d ms", TIME_MS);
+
         if (callbackOnTransmit)
         {
             callbackOnTransmit(false);
