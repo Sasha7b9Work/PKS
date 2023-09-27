@@ -13,17 +13,24 @@
 namespace Counter
 {
     static int counter = 0;
+    static uint prev_time = 0;
 
     void Reset()
     {
         counter = 0;
+        prev_time = 0;
     }
 
     void Update()
     {
-        if (MQTT::Send::Counter(counter))
+        if ((TIME_MS / 1000) > prev_time)
         {
-            counter++;
+            prev_time = TIME_MS / 1000;
+
+            if (MQTT::Send::Counter(counter))
+            {
+                counter++;
+            }
         }
     }
 }
