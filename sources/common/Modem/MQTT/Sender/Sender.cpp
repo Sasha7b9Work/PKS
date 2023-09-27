@@ -95,10 +95,10 @@ bool Sender::SendAll(pchar answer)
 
         if (need_ping)
         {
-            sending = true;
             need_ping = false;
             SIM800::Transmit::UINT8(0xC0);
             SIM800::Transmit::UINT8(0x00);
+            sending = true;
         }
         if (Sender::SendToSIM800())
         {
