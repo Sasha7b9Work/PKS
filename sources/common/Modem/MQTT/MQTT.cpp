@@ -32,6 +32,13 @@ namespace MQTT
 
     // —брасываетс€ каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
+
+    static uint time_connect = 0;
+
+    uint TimeConnect()
+    {
+        return time_connect;
+    }
 }
 
 
@@ -61,7 +68,8 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
-        LOG_WRITE("MQTT enter %d ms", Timer::TimeMS());
+        time_connect = Timer::TimeMS();
+        LOG_WRITE("MQTT start connect %d ms", time_connect);
         Sender::Reset();
         LOG_WRITE("+++ MQTT::IDLE +++");
         SIM800::Transmit::With0D("AT+CIPSEND");

@@ -14,6 +14,8 @@ namespace MQTT
 
     void CallbackOnReceiveData(pchar);
 
+    uint TimeConnect();
+
     namespace Packet
     {
         void Publish(pchar topic, pchar message);

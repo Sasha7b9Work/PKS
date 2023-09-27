@@ -125,7 +125,7 @@ bool Sender::SendAll(pchar answer)
 
         if (sending)
         {
-            LOG_WRITE("Send in %d ms", Timer::TimeMS());
+            LOG_WRITE("Send %d ms after connect", Timer::TimeMS() - MQTT::TimeConnect());
 
             SIM800::Transmit::With0D("AT+CIPSEND");
         }
