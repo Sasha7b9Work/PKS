@@ -41,7 +41,7 @@ void Device::Update()
 
     Display::Update();
 
-    int counter = 0;
+    static int counter = VERSION;
 
     MQTT::Send::Counter(counter++);
 
