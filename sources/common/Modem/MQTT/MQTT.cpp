@@ -179,8 +179,6 @@ void MQTT::Send::SetCallbackOnSend(void (*callback)(bool))
 
 bool MQTT::Send::Counter(int counter)
 {
-    uint time_start = TIME_MS;
-
     last_received = 0;
 
     if (MQTT::state != State::WAIT_DATA_FOR_SEND)
@@ -191,6 +189,8 @@ bool MQTT::Send::Counter(int counter)
     Request::Set("base/state/counter", counter);
 
     SIM800::Transmit::With0D("AT+CIPSEND");
+
+    uint time_start = TIME_MS;
 
     TimeMeterMS meter;
 
