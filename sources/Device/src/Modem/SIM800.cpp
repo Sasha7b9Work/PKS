@@ -78,11 +78,6 @@ namespace SIM800
 
 bool SIM800::ProcessUnsolicited(pchar answer)
 {
-    if (answer[0])
-    {
-        LOG_WRITE("<<< %s", answer);
-    }
-
     char first_word[32];
 
     GetWord(answer, 1, first_word);

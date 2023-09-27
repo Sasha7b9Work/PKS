@@ -82,13 +82,6 @@ namespace Modem
         static Buffer<256> addit;
         static Buffer<256> buffer;
 
-//        static void Clear()
-//        {
-//            main.Clear();
-//            addit.Clear();
-//            buffer.Clear();
-//        }
-
         void Update()
         {
             main.mutex.Try();
@@ -192,8 +185,6 @@ void Modem::CallbackOnReceive(char symbol)
     }
 #endif
 
-//     Log::ReceiveFromSIM800(symbol);
-    
     if (symbol == 0)
     {
         return;
@@ -272,7 +263,6 @@ void Modem::Update()
         break;
 
     case State::WAIT_DISCHARGE_CAPS:
-        LOG_WRITE("Modem : State::WAIT_DISCHARGE_CAPS");
         if (meter.ElapsedTime() > 3000)
         {
             GSM_PG::ToInPullDown();
