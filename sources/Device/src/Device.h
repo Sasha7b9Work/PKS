@@ -8,3 +8,9 @@ namespace Device
 
     void Update();
 }
+
+
+namespace Counter
+{
+    void Reset();
+}

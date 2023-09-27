@@ -10,6 +10,8 @@
 #include "Settings/Settings.h"
 #ifdef LOADER
 #include "Modem/Updater.h"
+#else
+#include "Device.h"
 #endif
 #include <gd32f30x.h>
 #include <cstring>
@@ -241,6 +243,12 @@ void Modem::Init()
 void Modem::Reset()
 {
     State::Set(State::IDLE);
+
+#ifdef DEVICE
+
+    Counter::Reset();
+
+#endif
 }
 
 
