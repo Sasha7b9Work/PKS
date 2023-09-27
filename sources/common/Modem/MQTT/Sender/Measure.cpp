@@ -16,17 +16,22 @@ namespace Sender
 
         void Send(const FullMeasure &meas)
         {
-            value = meas;
-
             if (!meter.IsFinished())
             {
                 return;
             }
 
-            meter.SetResponseTime(10000);
+            meter.SetResponseTime(60000);
+
+            value = meas;
 
             need = true;
         }
+
+//        static void SendMeasure(pchar name, float voltage)
+//        {
+//            MQTT::Packet::Publish(name, (int)(voltage + 0.5f));
+//        }
 
         bool SendToSIM800()
         {
