@@ -105,12 +105,9 @@ void MQTT::Update(pchar answer)
 {
     static TimeMeterMS meter;
 
-    static bool sending_request = false;            // ѕослан ли запрос на передачу данных (ожидание '>')
-
     switch (state)
     {
     case State::IDLE:
-        sending_request = false;
         Request::Clear();
         time_connect = Timer::TimeMS();
         LOG_WRITE("MQTT start connect %d ms", time_connect);
@@ -190,7 +187,10 @@ bool MQTT::Send::Counter(int counter)
 {
     if (MQTT::state != State::WAIT_DATA_FOR_SEND)
     {
-        callbackOnTransmit(false);
+        if (callbackOnTransmit)
+        {
+            callbackOnTransmit(false);
+        }
 
         return false;
     }
