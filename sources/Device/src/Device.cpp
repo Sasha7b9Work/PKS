@@ -23,9 +23,9 @@ namespace Counter
 
     void Update()
     {
-        if ((TIME_MS / 1000) > prev_time)
+        if ((TIME_MS / 100) > prev_time)
         {
-            prev_time = TIME_MS / 1000;
+            prev_time = TIME_MS / 100;
 
             MQTT::Send::Counter(counter++);
         }
