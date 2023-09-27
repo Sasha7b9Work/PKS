@@ -63,8 +63,7 @@ namespace MQTT
         {
             IDLE,
             WAIT_RESPONSE_CIPSEND,      // Ждём приглашения ">"
-            WAIT_DATA_FOR_SEND,         // Ждём данные для отсылки
-            SENDING_DATA                // Здесь можно посылать данные
+            WAIT_DATA_FOR_SEND          // Ждём данные для отсылки
         };
     };
 
@@ -79,12 +78,14 @@ namespace MQTT
     {
         return time_connect;
     }
+
+    static char last_received = 0;          // Последний принятый символ
 }
 
 
 bool MQTT::InStateRunning()
 {
-    return (state == State::WAIT_DATA_FOR_SEND) || (state == State::SENDING_DATA);
+    return (state == State::WAIT_DATA_FOR_SEND);
 }
 
 
@@ -160,21 +161,6 @@ void MQTT::Update(pchar answer)
 
     case State::WAIT_DATA_FOR_SEND:
         break;
-
-    case State::SENDING_DATA:
-        if (strcmp(answer, ">") == 0)
-        {
-            Request::Send();
-            Request::Clear();
-            if (callbackOnTransmit)
-            {
-                callbackOnTransmit(true);
-            }
-            state = State::WAIT_DATA_FOR_SEND;
-
-            LOG_WRITE("transmit %d ms", TIME_MS);
-        }
-        break;
     }
 }
 
@@ -187,25 +173,40 @@ void MQTT::Send::SetCallbackOnSend(void (*callback)(bool))
 
 bool MQTT::Send::Counter(int counter)
 {
+    uint time_start = TIME_MS;
+
+    last_received = 0;
+
     if (MQTT::state != State::WAIT_DATA_FOR_SEND)
     {
-        if (callbackOnTransmit)
-        {
-            callbackOnTransmit(false);
-        }
-
         return false;
     }
-    else
+
+    Request::Set("base/state/counter", counter);
+
+    SIM800::Transmit::With0D("AT+CIPSEND");
+
+    TimeMeterMS meter;
+
+    while (last_received != '>')
     {
-        LOG_WRITE("send %d ms", TIME_MS);
-
-        Request::Set("base/state/counter", counter);
-
-        SIM800::Transmit::With0D("AT+CIPSEND");
-
-        MQTT::state = State::SENDING_DATA;
+        if (meter.ElapsedTime() > 100)
+        {
+            return false;
+        }
     }
+
+    Request::Send();
+    Request::Clear();
+
+    if (callbackOnTransmit)
+    {
+        callbackOnTransmit(true);
+    }
+
+    uint time = TIME_MS - time_start;
+
+    LOG_WRITE("time transmit %d ms", time);
 
     return true;
 }

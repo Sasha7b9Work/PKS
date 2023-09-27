@@ -14,6 +14,8 @@ namespace MQTT
 
     void CallbackOnReceiveData(pchar);
 
+    void CallbackOnReceiveChar(char);
+
     uint TimeConnect();
 
     namespace Send
