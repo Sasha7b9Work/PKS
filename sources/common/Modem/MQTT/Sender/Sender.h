@@ -12,8 +12,6 @@ namespace Sender
 {
     void Reset();
 
-    bool SendToSIM800();
-
     void ResetMeter();
 
     void Update(pchar answer);
