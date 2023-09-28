@@ -92,7 +92,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
         Modem::Reset();
         return true;
     }
-    else if (strcmp(answer, "ERROR"))
+    else if (strcmp(answer, "ERROR") == 0)
     {
         Modem::Reset();
         return true;
