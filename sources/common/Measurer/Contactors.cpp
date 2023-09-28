@@ -453,7 +453,7 @@ int Contactors::Serviceability::Verify(uint address, bool *valid)
 
     SetAddressMX(address == 27 ? 31 : address);
 
-    Timer::DelayMS(10);
+    Timer::DelayMS(2);
 
     if (address == 27)
     {
