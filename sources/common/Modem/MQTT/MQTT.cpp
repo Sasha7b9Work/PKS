@@ -40,18 +40,19 @@ namespace MQTT
             std::sprintf(message, "%d", value);
         }
 
+        void SendFinalSequence(bool not_empty)
+        {
+            SIM800::Transmit::UINT8(not_empty ? (uint8)0x1A : (uint8)0x1B);
+        }
+
         void Send()
         {
             if (topic[0])
             {
                 MQTT::Packet::Publish(topic, message);
+            }
 
-                SIM800::Transmit::UINT8((uint8)0x1A);
-            }
-            else
-            {
-                SIM800::Transmit::UINT8((uint8)0x1B);
-            }
+            SendFinalSequence(topic[0] != '\0');
         }
     }
 
@@ -61,6 +62,7 @@ namespace MQTT
         {
             IDLE,
             WAIT_RESPONSE_CIPSEND,      // ∆дЄм приглашени€ ">"
+            SEND_VERSION,
             WAIT_DATA_FOR_SEND          // ∆дЄм данные дл€ отсылки
         };
     };
@@ -155,11 +157,18 @@ void MQTT::Update(pchar answer)
 
             SIM800::Transmit::UINT8(0x1A);
 
-            state = State::WAIT_DATA_FOR_SEND;
+            state = State::SEND_VERSION;
 
             meterLastData.Reset();
 
             HAL_PINS::SendState();
+        }
+        break;
+
+    case State::SEND_VERSION:
+        if (Send::Version())
+        {
+            state = State::WAIT_DATA_FOR_SEND;
         }
         break;
 
@@ -180,11 +189,9 @@ bool MQTT::Send::Counter(int counter)
 
     Request::Set("base/state/counter", counter);
 
-    SIM800::Transmit::With0D("AT+CIPSEND");
-
-    uint time_start = TIME_MS;
-
     TimeMeterMS meter;
+
+    SIM800::Transmit::With0D("AT+CIPSEND");
 
     while (last_received != '>')
     {
@@ -197,9 +204,69 @@ bool MQTT::Send::Counter(int counter)
     Request::Send();
     Request::Clear();
 
-    uint time = TIME_MS - time_start;
+    return true;
+}
 
-    LOG_WRITE("time transmit %d ms", time);
+
+bool MQTT::Send::Version()
+{
+    last_received = 0;
+
+    if (MQTT::state != State::SEND_VERSION)
+    {
+        return false;
+    }
+
+    char buffer[32];
+
+    std::sprintf(buffer, "v%d:%d:%d", VERSION, gset.GetNumberSteps(), gset.GetKoeffCurrent());
+
+    TimeMeterMS meter;
+
+    SIM800::Transmit::With0D("AT+CIPSEND");
+
+    while (last_received != '>')
+    {
+        if (meter.ElapsedTime() > 20)
+        {
+            return false;
+        }
+    }
+
+    MQTT::Packet::Publish("/versionSW", buffer);
+
+    MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
+
+    MQTT::Packet::Publish("/last/reset", "-");
+
+    if (_GET_BIT(GL::_RCU_RSTSCK, 28))
+    {
+        MQTT::Packet::Publish("/last/reset", "Software");
+    }
+    if (_GET_BIT(GL::_RCU_RSTSCK, 31))
+    {
+        MQTT::Packet::Publish("/last/reset", "Low power");
+    }
+    if (_GET_BIT(GL::_RCU_RSTSCK, 30))
+    {
+        MQTT::Packet::Publish("/last/reset", "Watchdog");
+    }
+    if (_GET_BIT(GL::_RCU_RSTSCK, 29))
+    {
+        MQTT::Packet::Publish("/last/reset", "Free watchdog");
+    }
+    if (_GET_BIT(GL::_RCU_RSTSCK, 27))
+    {
+        MQTT::Packet::Publish("/last/reset", "Power");
+    }
+    if (_GET_BIT(GL::_RCU_RSTSCK, 26))
+    {
+        MQTT::Packet::Publish("/last/reset", "External pin");
+    }
+
+    Request::SendFinalSequence(true);
+
+    Request::Clear();
 
     return true;
 }

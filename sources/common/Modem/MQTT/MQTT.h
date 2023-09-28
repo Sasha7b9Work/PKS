@@ -22,6 +22,8 @@ namespace MQTT
     {
         // Послать значение счётчика
         bool Counter(int);
+
+        bool Version();
     }
 
     namespace Packet
