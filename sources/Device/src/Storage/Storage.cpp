@@ -104,6 +104,8 @@ void Storage::GetStateContactors(Measurements &meas)
         for (int i = 0; i < 9; i++)
         {
             meas.flags.SetKM((Phase::E)phase, i, states[phase * 9 + i]);
+
+            LOG_WRITE("%d %d : %d : %d", phase, i, states[phase * 9 + i], meas.flags.GetKM((Phase::E)phase, i));
         }
     }
 
