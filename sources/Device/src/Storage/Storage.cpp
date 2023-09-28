@@ -47,6 +47,8 @@ MeasurementsReady::MeasurementsReady()
 namespace Storage
 {
     static void GetPinsGP(Measurements &);
+
+    static void GetStateContactors(Measurements &);
 }
 
 
@@ -71,6 +73,8 @@ void Storage::Update()
 
     GetPinsGP(measurements);
 
+    GetStateContactors(measurements);
+
     Sender::SendMeasures(measurements);
 }
 
@@ -85,6 +89,25 @@ void Storage::GetPinsGP(Measurements &meas)
     {
         meas.flags.SetGP((Phase::E)i, is_hi[i]);
     }
+}
+
+
+void Storage::GetStateContactors(Measurements &meas)
+{
+    int states[NUM_PINS_MX];
+    bool valid[NUM_PINS_MX];
+
+    Contactors::Serviceability::Update(states, valid);
+
+    for (int phase = 0; phase < Phase::Count; phase++)
+    {
+        for (int i = 0; i < 9; i++)
+        {
+            meas.flags.SetKM((Phase::E)phase, i, states[phase * 9 + i]);
+        }
+    }
+
+    meas.flags.Set100V(states[27] != 0);
 }
 
 

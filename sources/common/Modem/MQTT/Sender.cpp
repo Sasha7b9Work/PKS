@@ -110,9 +110,29 @@ bool Sender::SendMeasures(const Measurements &meas)
         }
     }
 
-    MQTT::Packet::Publish("/base/state/gp1", meas.flags.GetGP(Phase::A) ? "1" : "0");
-    MQTT::Packet::Publish("/base/state/gp2", meas.flags.GetGP(Phase::B) ? "1" : "0");
-    MQTT::Packet::Publish("/base/state/gp3", meas.flags.GetGP(Phase::C) ? "1" : "0");
+    {
+        MQTT::Packet::Publish("/base/state/gp1", meas.flags.GetGP(Phase::A) ? "1" : "0");
+        MQTT::Packet::Publish("/base/state/gp2", meas.flags.GetGP(Phase::B) ? "1" : "0");
+        MQTT::Packet::Publish("/base/state/gp3", meas.flags.GetGP(Phase::C) ? "1" : "0");
+    }
+
+    {
+        for (int phase = Phase::A; phase < Phase::Count; phase++)
+        {
+            for (int i = 0; i < 8; i++)
+            {
+                char topic[32] = { '\0' };
+                std::strcat(topic, "base/cont/KM");
+
+                static const pchar names[Phase::Count] = { "A", "B", "C" };
+                std::strcat(topic, names[phase]);
+
+                MQTT::Packet::Publish(topic, meas.flags.GetKM((Phase::E)phase, i));
+            }
+        }
+
+        MQTT::Packet::Publish("/base/state/dc100v", meas.flags.Get100V() ? "1" : "0");
+    }
 
     Request::SendFinalSequence(true);
 
