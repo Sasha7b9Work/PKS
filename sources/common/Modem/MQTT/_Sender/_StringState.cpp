@@ -1,6 +1,6 @@
 // 2023/06/01 13:48:21 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/MQTT/Sender/Sender.h"
+#include "Modem/MQTT/_Sender/_Sender.h"
 #include "Modem/Modem.h"
 #include "Hardware/Timer.h"
 

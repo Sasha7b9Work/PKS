@@ -1,6 +1,6 @@
 // 2023/06/08 16:06:01 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
-#include "Modem/MQTT/Sender/Sender.h"
+#include "Modem/MQTT/_Sender/_Sender.h"
 
 
 void Sender::StateContactors::SendState(uint, int)

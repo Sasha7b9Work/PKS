@@ -7,7 +7,7 @@
 #include "Modem/Parser.h"
 #include "Hardware/Bootloader.h"
 #include "Modem/MQTT/MQTT.h"
-#include "Modem/MQTT/Sender/Sender.h"
+#include "Modem/MQTT/_Sender/_Sender.h"
 #include "Device.h"
 #include <cstring>
 #include <cstdio>

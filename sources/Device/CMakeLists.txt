@@ -46,7 +46,7 @@ file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/*.*)
 file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
-file(GLOB MODEM_MQTT_SENDER        ../common/Modem/MQTT/Sender/*.*)
+file(GLOB MODEM_MQTT_SENDER        ../common/Modem/MQTT/_Sender/*.*)
 file(GLOB MODEM_SENDER             ../common/Modem/Sender/*.*)
 file(GLOB SETTINGS                 ../common/Settings/*.*)
 file(GLOB STORAGE                        src/Storage/*.*)

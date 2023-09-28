@@ -5,8 +5,8 @@
 #include "Hardware/HAL/systick.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
-#include "Modem/MQTT/Sender/LevelContactors.h"
-#include "Modem/MQTT/Sender/StateContactors.h"
+#include "Modem/MQTT/_Sender/_LevelContactors.h"
+#include "Modem/MQTT/_Sender/_StateContactors.h"
 #include "Settings/Settings.h"
 #include <gd32f30x.h>
 #include <cstring>
