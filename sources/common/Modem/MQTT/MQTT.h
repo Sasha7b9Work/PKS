@@ -10,21 +10,13 @@ namespace MQTT
 
     bool InStateRunning();
 
+    bool InStateSendVersion();
+
     bool InStateIdle();
 
     void CallbackOnReceiveData(pchar);
 
-    void CallbackOnReceiveChar(char);
-
     uint TimeConnect();
-
-    namespace Send
-    {
-        // Послать значение счётчика
-        bool Counter(int);
-
-        bool Version();
-    }
 
     namespace Packet
     {

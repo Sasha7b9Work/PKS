@@ -4,6 +4,7 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include "Modem/MQTT/MQTT.h"
+#include "Modem/MQTT/Sender.h"
 #include <gd32f30x.h>
 #include <systick.h>
 
@@ -138,7 +139,7 @@ extern "C" {
 
             HAL_USART_GPRS::CallbackOnReceive(symbol);
 
-            MQTT::CallbackOnReceiveChar(symbol);
+            Sender::CallbackOnReceiveChar(symbol);
         }
     }
 

@@ -7,6 +7,7 @@
 #include "Modem/Parser.h"
 #include "Modem/SIM800.h"
 #include "Modem/MQTT/_Sender/_Sender.h"
+#include "Modem/MQTT/Sender.h"
 #include "Settings/Settings.h"
 #include <cstring>
 #include <cstdlib>
@@ -18,44 +19,6 @@ using namespace std;
 
 namespace MQTT
 {
-    namespace Request
-    {
-        static char topic[64] = { '\0' };
-        static char message[32] = { '\0' };
-
-        void Clear()
-        {
-            topic[0] = '\0';
-            message[0] = '\0';
-        }
-
-        bool IsEmpty()
-        {
-            return topic[0] == '\0';
-        }
-
-        void Set(pchar _topic, int value)
-        {
-            std::strcpy(topic, _topic);
-            std::sprintf(message, "%d", value);
-        }
-
-        void SendFinalSequence(bool not_empty)
-        {
-            SIM800::Transmit::UINT8(not_empty ? (uint8)0x1A : (uint8)0x1B);
-        }
-
-        void Send()
-        {
-            if (topic[0])
-            {
-                MQTT::Packet::Publish(topic, message);
-            }
-
-            SendFinalSequence(topic[0] != '\0');
-        }
-    }
-
     struct State
     {
         enum E
@@ -78,20 +41,18 @@ namespace MQTT
     {
         return time_connect;
     }
-
-    static char last_received = 0;          // Последний принятый символ
-}
-
-
-void MQTT::CallbackOnReceiveChar(char symbol)
-{
-    last_received = symbol;
 }
 
 
 bool MQTT::InStateRunning()
 {
     return (state == State::WAIT_DATA_FOR_SEND);
+}
+
+
+bool MQTT::InStateSendVersion()
+{
+    return (state == State::SEND_VERSION);
 }
 
 
@@ -115,7 +76,6 @@ void MQTT::Update(pchar answer)
     switch (state)
     {
     case State::IDLE:
-        Request::Clear();
         time_connect = Timer::TimeMS();
         LOG_WRITE("MQTT start connect %d ms", time_connect);
         Sender::Reset();
@@ -166,7 +126,7 @@ void MQTT::Update(pchar answer)
         break;
 
     case State::SEND_VERSION:
-        if (Send::Version())
+        if (Sender::SendVersion())
         {
             state = State::WAIT_DATA_FOR_SEND;
         }
@@ -175,100 +135,6 @@ void MQTT::Update(pchar answer)
     case State::WAIT_DATA_FOR_SEND:
         break;
     }
-}
-
-
-bool MQTT::Send::Counter(int counter)
-{
-    last_received = 0;
-
-    if (MQTT::state != State::WAIT_DATA_FOR_SEND)
-    {
-        return false;
-    }
-
-    Request::Set("base/state/counter", counter);
-
-    TimeMeterMS meter;
-
-    SIM800::Transmit::With0D("AT+CIPSEND");
-
-    while (last_received != '>')
-    {
-        if (meter.ElapsedTime() > 20)
-        {
-            return false;
-        }
-    }
-
-    Request::Send();
-    Request::Clear();
-
-    return true;
-}
-
-
-bool MQTT::Send::Version()
-{
-    last_received = 0;
-
-    if (MQTT::state != State::SEND_VERSION)
-    {
-        return false;
-    }
-
-    char buffer[32];
-
-    std::sprintf(buffer, "v%d:%d:%d", VERSION, gset.GetNumberSteps(), gset.GetKoeffCurrent());
-
-    TimeMeterMS meter;
-
-    SIM800::Transmit::With0D("AT+CIPSEND");
-
-    while (last_received != '>')
-    {
-        if (meter.ElapsedTime() > 20)
-        {
-            return false;
-        }
-    }
-
-    MQTT::Packet::Publish("/versionSW", buffer);
-
-    MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
-
-    MQTT::Packet::Publish("/last/reset", "-");
-
-    if (_GET_BIT(GL::_RCU_RSTSCK, 28))
-    {
-        MQTT::Packet::Publish("/last/reset", "Software");
-    }
-    if (_GET_BIT(GL::_RCU_RSTSCK, 31))
-    {
-        MQTT::Packet::Publish("/last/reset", "Low power");
-    }
-    if (_GET_BIT(GL::_RCU_RSTSCK, 30))
-    {
-        MQTT::Packet::Publish("/last/reset", "Watchdog");
-    }
-    if (_GET_BIT(GL::_RCU_RSTSCK, 29))
-    {
-        MQTT::Packet::Publish("/last/reset", "Free watchdog");
-    }
-    if (_GET_BIT(GL::_RCU_RSTSCK, 27))
-    {
-        MQTT::Packet::Publish("/last/reset", "Power");
-    }
-    if (_GET_BIT(GL::_RCU_RSTSCK, 26))
-    {
-        MQTT::Packet::Publish("/last/reset", "External pin");
-    }
-
-    Request::SendFinalSequence(true);
-
-    Request::Clear();
-
-    return true;
 }
 
 

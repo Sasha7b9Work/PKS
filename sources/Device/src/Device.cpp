@@ -6,7 +6,7 @@
 #include "Display/Display.h"
 #include "Storage/Storage.h"
 #include "Measurer/Contactors.h"
-#include "Modem/MQTT/MQTT.h"
+#include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
 
 
@@ -27,7 +27,7 @@ namespace Counter
         {
             prev_time = TIME_MS / 1000;
 
-            if (MQTT::Send::Counter(counter))
+            if (Sender::SendCounter(counter))
             {
                 counter++;
             }

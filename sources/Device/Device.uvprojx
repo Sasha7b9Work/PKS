@@ -774,14 +774,14 @@
           <GroupName>Modem/MQTT</GroupName>
           <Files>
             <File>
-              <FileName>MQTT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
-            </File>
-            <File>
               <FileName>MQTT.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
+            </File>
+            <File>
+              <FileName>MQTT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -847,6 +847,26 @@
               <FileName>_StringState.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\MQTT\_Sender\_StringState.h</FilePath>
+            </File>
+            <File>
+              <FileName>MQTT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>MQTT.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\MQTT\Sender.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Sender.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\MQTT\Sender.h</FilePath>
             </File>
           </Files>
         </Group>

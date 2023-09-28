@@ -6,7 +6,7 @@
   <Header>### uVision Project, (C) Keil Software</Header>
 
   <PrjGuiSettings>
-    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\common\Hardware\HAL</LastAddFilePath>
+    <LastAddFilePath>D:\Projects\ElectricityMeter\sources\common\Modem\MQTT</LastAddFilePath>
   </PrjGuiSettings>
 
   <ViewPool/>
