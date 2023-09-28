@@ -127,6 +127,8 @@ bool Sender::SendMeasures(const Measurements &meas)
 
                 std::sprintf(topic, "base/cont/KM%s%d", names[phase], i + 1);
 
+                LOG_WRITE("KM %d %d = %d", phase, i, meas.flags.GetKM((Phase::E)phase, i));
+
                 MQTT::Packet::Publish(topic, meas.flags.GetKM((Phase::E)phase, i));
             }
         }
