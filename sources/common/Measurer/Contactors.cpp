@@ -8,6 +8,7 @@
 #include "Modem/MQTT/_Sender/_LevelContactors.h"
 #include "Modem/MQTT/_Sender/_StateContactors.h"
 #include "Settings/Settings.h"
+#include "Hardware/Timer.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
@@ -451,6 +452,8 @@ int Contactors::Serviceability::Verify(uint address, bool *valid)
     }
 
     SetAddressMX(address == 27 ? 31 : address);
+
+    Timer::DelayMS(10);
 
     if (address == 27)
     {
