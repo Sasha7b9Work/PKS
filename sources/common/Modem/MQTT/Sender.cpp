@@ -110,9 +110,9 @@ bool Sender::SendMeasures(const Measurements &meas)
         }
     }
 
-    MQTT::Packet::Publish("/base/state/gp0", meas.flags.GetGP(Phase::A) ? "1" : "0");
-    MQTT::Packet::Publish("/base/state/gp1", meas.flags.GetGP(Phase::B) ? "1" : "0");
-    MQTT::Packet::Publish("/base/state/gp2", meas.flags.GetGP(Phase::C) ? "1" : "0");
+    MQTT::Packet::Publish("/base/state/gp1", meas.flags.GetGP(Phase::A) ? "1" : "0");
+    MQTT::Packet::Publish("/base/state/gp2", meas.flags.GetGP(Phase::B) ? "1" : "0");
+    MQTT::Packet::Publish("/base/state/gp3", meas.flags.GetGP(Phase::C) ? "1" : "0");
 
     Request::SendFinalSequence(true);
 
