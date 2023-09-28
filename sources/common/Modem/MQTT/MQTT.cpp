@@ -55,8 +55,6 @@ namespace MQTT
         }
     }
 
-    static void (*callbackOnTransmit)(bool) = nullptr;
-
     struct State
     {
         enum E
@@ -171,12 +169,6 @@ void MQTT::Update(pchar answer)
 }
 
 
-void MQTT::Send::SetCallbackOnSend(void (*callback)(bool))
-{
-    callbackOnTransmit = callback;
-}
-
-
 bool MQTT::Send::Counter(int counter)
 {
     last_received = 0;
@@ -204,11 +196,6 @@ bool MQTT::Send::Counter(int counter)
 
     Request::Send();
     Request::Clear();
-
-    if (callbackOnTransmit)
-    {
-        callbackOnTransmit(true);
-    }
 
     uint time = TIME_MS - time_start;
 
