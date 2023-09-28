@@ -4,6 +4,7 @@
 
 
 #define DEVICE
+#define TESTER
 
 // Версия, которая у меня, недоработанная
 #define OLD_VERSION

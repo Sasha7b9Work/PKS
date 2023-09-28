@@ -1,8 +1,4 @@
-#define VERSION 204
-
-
-// Сообщения лога записываются в буфер
-//#define SOFTWARE_LOG
+#define VERSION 205
 
 #define ENABLE_LOG
 
@@ -13,6 +9,7 @@ typedef signed short int16;
 typedef unsigned int uint;
 typedef const char *pchar;
 typedef unsigned char uchar;
+typedef unsigned long long uint64;
 
 
 #define _bitset(bits)                               \
@@ -32,6 +29,10 @@ typedef unsigned char uchar;
 #define _GET_BIT(value, bit)   (((value) >> (bit)) & 0x01)
 #define _SET_BIT(value, bit)   ((value) |= (1 << (bit)))
 #define _CLEAR_BIT(value, bit) ((value) &= (~(1 << (bit))))
+
+#define _GET_BIT_U64(value, bit)   (((value) >> (bit)) & 0x01)
+#define _SET_BIT_U64(value, bit)   ((value) |= ((uint64)1 << (bit)))
+#define _CLEAR_BIT_U64(value, bit) ((value) &= (~((uint64)1 << (bit))))
 
 
 union BitSet32

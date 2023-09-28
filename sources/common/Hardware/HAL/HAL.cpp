@@ -62,7 +62,11 @@ void HAL::Init()
 
     HAL_SPI2::Init();
     
+#ifdef DEVICE
+#ifndef TESTER
     HAL_PINS_GP::Init();
+#endif
+#endif
 
     HAL_FWDGT::Init();
 

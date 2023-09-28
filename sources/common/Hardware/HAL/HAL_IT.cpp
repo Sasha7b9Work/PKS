@@ -139,7 +139,11 @@ extern "C" {
 
             HAL_USART_GPRS::CallbackOnReceive(symbol);
 
+#ifdef DEVICE
+#ifndef TESTER
             Sender::CallbackOnReceiveChar(symbol);
+#endif
+#endif
         }
     }
 

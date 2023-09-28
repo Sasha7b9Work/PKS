@@ -24,34 +24,47 @@ void Storage::Update()
 }
 
 
-int Measurements::Flags::NumBitKM(Phase::E phase, int num) const
+int Measurements::Flags::ShiftBitsStateKM(Phase::E phase, int num) const
 {
-    return num + (int)phase * 9;
+    return num * 2 + (int)phase * 9 * 2;
 }
 
 
-int Measurements::Flags::NumBItGP(Phase::E phase) const
+int Measurements::Flags::NumBitGP(Phase::E phase) const
 {
-    return 28 + (int)phase;
+    return 55 + (int)phase;
 }
 
 
-void Measurements::Flags::SetKM(Phase::E phase, int num, bool state)
+void Measurements::Flags::SetKM(Phase::E phase, int num, int state)
 {
-    if (state)
+    int shift = ShiftBitsStateKM(phase, num);
+
+    if (state < 0)
     {
-        _SET_BIT(bits, NumBitKM(phase, num));
+        bits |= (uint64)0x3 << shift;
     }
     else
     {
-        _CLEAR_BIT(bits, NumBitKM(phase, num));
+        bits &= ~((uint64)0x3 << shift);
+
+        if (state > 0)
+        {
+            bits |= ((uint64)0x1 << shift);
+        }
     }
 }
 
 
-bool Measurements::Flags::GetKM(Phase::E phase, int num) const
+int Measurements::Flags::GetKM(Phase::E phase, int num) const
 {
-    return (_GET_BIT(bits, NumBitKM(phase, num)) != 0);
+    int shift = ShiftBitsStateKM(phase, num);
+
+    int value = (int)(0x3 & (bits >> shift));
+
+    static const int states[4] = { 0, 1, 0, -1 };
+
+    return states[value];
 }
 
 
@@ -59,18 +72,18 @@ void Measurements::Flags::SetGP(Phase::E phase, bool state)
 {
     if (state)
     {
-        _SET_BIT(bits, NumBItGP(phase));
+        _SET_BIT_U64(bits, NumBitGP(phase));
     }
     else
     {
-        _CLEAR_BIT(bits, NumBItGP(phase));
+        _CLEAR_BIT_U64(bits, NumBitGP(phase));
     }
 }
 
 
 bool Measurements::Flags::GetGP(Phase::E phase) const
 {
-    return (_GET_BIT(bits, NumBItGP(phase)) != 0);
+    return (_GET_BIT_U64(bits, NumBitGP(phase)) != 0);
 }
 
 
@@ -78,50 +91,50 @@ void Measurements::Flags::Set100V(bool state)
 {
     if (state)
     {
-        _SET_BIT(bits, 27);
+        _SET_BIT_U64(bits, 54);
     }
     else
     {
-        _CLEAR_BIT(bits, 27);
+        _CLEAR_BIT_U64(bits, 54);
     }
 }
 
 
 bool Measurements::Flags::Get100V() const
 {
-    return _GET_BIT(bits, 27) != 0;
+    return _GET_BIT(bits, 54) != 0;
 }
 
 
-void Measurements::Flags::SetStateRele(Phase::E phase, int state)
+void Measurements::Flags::SetStageRele(Phase::E phase, int state)
 {
     if (phase == Phase::A)
     {
-        stateA = state;
+        stageA = state;
     }
     else if (phase == Phase::B)
     {
-        stateB = state;
+        stageB = state;
     }
     else
     {
-        stateC = state;
+        stageC = state;
     }
 }
 
 
-int Measurements::Flags::GetStateRele(Phase::E phase)
+int Measurements::Flags::GetStageRele(Phase::E phase)
 {
     if (phase == Phase::A)
     {
-        return stateA;
+        return stageA;
     }
     else if (phase == Phase::B)
     {
-        return stateB;
+        return stageB;
     }
 
-    return stateC;
+    return stageC;
 }
 
 
