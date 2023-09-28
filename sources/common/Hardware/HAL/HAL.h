@@ -25,6 +25,16 @@ namespace HAL
 }
 
 
+namespace HAL_PINS_GP
+{
+    void Init();
+
+    void Update();
+
+    void SendState();
+}
+
+
 namespace HAL_ADC
 {
     void Init();

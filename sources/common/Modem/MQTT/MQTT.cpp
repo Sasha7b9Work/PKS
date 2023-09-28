@@ -161,7 +161,7 @@ void MQTT::Update(pchar answer)
 
             meterLastData.Reset();
 
-            HAL_PINS::SendState();
+            HAL_PINS_GP::SendState();
         }
         break;
 

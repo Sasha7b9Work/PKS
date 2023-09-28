@@ -62,7 +62,7 @@ void HAL::Init()
 
     HAL_SPI2::Init();
     
-    HAL_PINS::Init();
+    HAL_PINS_GP::Init();
 
     HAL_FWDGT::Init();
 

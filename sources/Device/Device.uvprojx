@@ -633,6 +633,11 @@
               <FileType>8</FileType>
               <FilePath>..\common\Hardware\HAL\HAL_SPI2.cpp</FilePath>
             </File>
+            <File>
+              <FileName>HAL_PINS_GP.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Hardware\HAL\HAL_PINS_GP.cpp</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

@@ -62,7 +62,7 @@ void Device::Update()
 
     Contactors::Serviceability::Verify();
 
-    HAL_PINS::Update();
+    HAL_PINS_GP::Update();
 
     Storage::Update();
 
