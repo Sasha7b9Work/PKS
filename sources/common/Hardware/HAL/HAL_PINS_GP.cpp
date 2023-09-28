@@ -11,19 +11,8 @@ struct ObservedPin : public PinIN
 
     bool IsHi()
     {
-        prev_state = state;
         state = PinIN::IsHi();
         return state;
-    }
-
-    bool IsSwitched() const
-    {
-        return state != prev_state;
-    }
-
-    void ResetSwitch()
-    {
-        prev_state = state;
     }
 
     bool GetState() const
@@ -33,7 +22,6 @@ struct ObservedPin : public PinIN
 
 private:
     bool state;
-    bool prev_state;
 };
 
 
@@ -59,12 +47,7 @@ void HAL_PINS_GP::Update(bool is_hi[Phase::Count])
     {
         pinsGP[i].IsHi();
 
-        if (pinsGP[i].IsSwitched())
-        {
-            is_hi[i] = !pinsGP[i].GetState();
-
-            pinsGP[i].ResetSwitch();
-        }
+        is_hi[i] = !pinsGP[i].GetState();
     }
 }
 #endif
