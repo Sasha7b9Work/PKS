@@ -121,11 +121,16 @@ bool Sender::SendMeasures(const Measurements &meas)
         {
             for (int i = 0; i < 8; i++)
             {
-                char topic[32] = { '\0' };
-                std::strcat(topic, "base/cont/KM");
+                char buffer[32] = { '\0' };
+                std::strcat(buffer, "base/cont/KM");
 
                 static const pchar names[Phase::Count] = { "A", "B", "C" };
-                std::strcat(topic, names[phase]);
+                std::strcat(buffer, names[phase]);
+
+                std::strcat(buffer, "%%d");
+
+                char topic[32];
+                std::sprintf(topic, buffer, i + 1);
 
                 MQTT::Packet::Publish(topic, meas.flags.GetKM((Phase::E)phase, i));
             }
