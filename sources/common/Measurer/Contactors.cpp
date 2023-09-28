@@ -461,13 +461,17 @@ int Contactors::Serviceability::Verify(uint address, bool *valid)
 
     *valid = ReleIsBusy(address) ? false : true;
 
-    return StateRele();
+    int state = StateRele();
+
+    LOG_WRITE("state %d = %d", address, state);
+
+    return state;
 }
 
 
 void Contactors::Serviceability::Update(int states[NUM_PINS_MX], bool valid[NUM_PINS_MX])
 {
-    for (uint address = 0; address < 28; address++)
+    for (uint address = 0; address < NUM_PINS_MX; address++)
     {
         states[address] = Verify(address, &valid[address]);
     }
