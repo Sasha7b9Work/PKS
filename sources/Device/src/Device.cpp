@@ -60,10 +60,6 @@ void Device::Update()
 
     Contactors::Update(Measurer::Measure5Sec());
 
-    Contactors::Serviceability::Verify();
-
-    HAL_PINS_GP::Update();
-
     Storage::Update();
 
     Display::Update();

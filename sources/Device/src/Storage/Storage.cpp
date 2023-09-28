@@ -4,11 +4,49 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
+#include "Modem/MQTT/Sender.h"
+#include "Hardware/Timer.h"
+
+
+Measurements::Measurements() : number(0)
+{
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        volts[i] = 0;
+        currents[i] = 0;
+    }
+
+    flags.bits = 0;
+    flags.stageA = 0;
+    flags.stageB = 0;
+    flags.stageC = 0;
+}
+
+
+MeasurementsReady::MeasurementsReady()
+{
+    bool ready = true;
+
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        volts[i] = ready;
+        currents[i] = ready;
+        gp[i] = ready;
+        stage[i] = ready;
+
+        for (int j = 0; j < 9; j++)
+        {
+            km[i][j] = ready;
+        }
+    }
+
+    _100V = ready;
+}
 
 
 namespace Storage
 {
-
+    static void GetPinsGP(Measurements &);
 }
 
 
@@ -20,7 +58,33 @@ void Storage::Init()
 
 void Storage::Update()
 {
+    static Measurements measurements;
 
+    static TimeMeterMS meter;
+
+    if (meter.ElapsedTime() < 10000)
+    {
+        return;
+    }
+
+    meter.Reset();
+
+    GetPinsGP(measurements);
+
+    Sender::SendMeasures(measurements);
+}
+
+
+void Storage::GetPinsGP(Measurements &meas)
+{
+    bool is_hi[Phase::Count];
+
+    HAL_PINS_GP::Update(is_hi);
+
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        meas.flags.SetGP((Phase::E)i, is_hi[i]);
+    }
 }
 
 

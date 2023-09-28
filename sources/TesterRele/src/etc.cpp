@@ -18,12 +18,6 @@ bool Modem::Mode::Power()
 }
 
 
-void Sender::GP::Send(int, bool)
-{
-
-}
-
-
 void Modem::CallbackOnReceive(char)
 {
 

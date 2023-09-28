@@ -120,8 +120,6 @@ void MQTT::Update(pchar answer)
             state = State::SEND_VERSION;
 
             meterLastData.Reset();
-
-            HAL_PINS_GP::SendState();
         }
         break;
 

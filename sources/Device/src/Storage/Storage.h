@@ -5,6 +5,8 @@
 
 struct Measurements
 {
+    Measurements();
+
     uint number;
 
     uint16 volts[Phase::Count];     // Здесь хранятся значения, увеличенные в 10 раз
@@ -50,6 +52,20 @@ struct Measurements
         int NumBitGP(Phase::E) const;
 
     } flags;
+};
+
+
+struct MeasurementsReady
+{
+    bool volts[Phase::Count];
+    bool currents[Phase::Count];
+
+    bool km[Phase::Count][9];
+    bool _100V;
+    bool gp[Phase::Count];
+    bool stage[Phase::Count];
+
+    MeasurementsReady();
 };
 
 

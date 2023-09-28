@@ -89,6 +89,39 @@ bool Sender::SendCounter(int counter)
 }
 
 
+bool Sender::SendMeasures(const Measurements &meas)
+{
+    last_received = 0;
+
+    if (!MQTT::InStateRunning())
+    {
+        return false;
+    }
+
+    TimeMeterMS meter;
+
+    SIM800::Transmit::With0D("AT+CIPSEND");
+
+    while (last_received != '>')
+    {
+        if (meter.ElapsedTime() > 20)
+        {
+            return false;
+        }
+    }
+
+    MQTT::Packet::Publish("/base/state/gp0", meas.flags.GetGP(Phase::A) ? "1" : "0");
+    MQTT::Packet::Publish("/base/state/gp1", meas.flags.GetGP(Phase::B) ? "1" : "0");
+    MQTT::Packet::Publish("/base/state/gp2", meas.flags.GetGP(Phase::C) ? "1" : "0");
+
+    Request::SendFinalSequence(true);
+
+    Request::Clear();
+
+    return true;
+}
+
+
 bool Sender::SendVersion()
 {
     last_received = 0;

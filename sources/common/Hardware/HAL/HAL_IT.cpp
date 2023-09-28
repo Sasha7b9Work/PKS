@@ -4,7 +4,11 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include "Modem/MQTT/MQTT.h"
-#include "Modem/MQTT/Sender.h"
+#ifdef DEVICE
+    #ifndef TESTER
+        #include "Modem/MQTT/Sender.h"
+    #endif
+#endif
 #include <gd32f30x.h>
 #include <systick.h>
 

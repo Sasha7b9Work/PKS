@@ -112,6 +112,13 @@ namespace Contactors
 
     // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
     static bool ReleIsBusy(uint address);
+
+    namespace Serviceability
+    {
+        // Адреса от 0 до 27. 0...26 - состояние реле
+        // 27 - 100 В. 0 - нету
+        static int Verify(uint address, bool *valid);
+    }
 }
 
 
@@ -435,45 +442,34 @@ void Contactors::Contactor::Disable()
 }
 
 
-void Contactors::Serviceability::Verify()
+int Contactors::Serviceability::Verify(uint address, bool *valid)
 {
     if (gset.OnlyMeasure())
     {
-        return;
+        *valid = false;
+        return 0;
     }
 
-    static TimeMeterMS meter;
+    SetAddressMX(address == 27 ? 31 : address);
 
-    if (meter.ElapsedTime() < 1)
+    if (address == 27)
     {
-        return;
+        *valid = true;
+
+        return !pinP2.IsHi() ? 1 : 0;
     }
 
-    meter.Reset();
+    *valid = ReleIsBusy(address) ? false : true;
 
-    static bool first = true;
+    return StateRele();
+}
 
-    static uint address = 0;
 
-    if (first)
+void Contactors::Serviceability::Update(int states[NUM_PINS_MX], bool valid[NUM_PINS_MX])
+{
+    for (uint address = 0; address < 28; address++)
     {
-        SetAddressMX(address);
-        first = false;
-    }
-    else
-    {
-        if (address == 27)
-        {
-            Sender::StateContactors::Send100V(!pinP2.IsHi());
-        }
-        else if (!ReleIsBusy(address))
-        {
-            Sender::StateContactors::SendState(address, StateRele());
-        }
-
-        address = Math::CircularIncrease(address, 0U, (uint)NUM_PINS_MX);
-
-        SetAddressMX(address == 27 ? 31 : address);     // 28-й элемент массива - адрес пина P2 для контроля напряжения 100В
+        states[address] = Verify(address, &valid[address]);
     }
 }
 

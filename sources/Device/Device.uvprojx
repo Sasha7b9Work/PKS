@@ -800,16 +800,6 @@
           <GroupName>Modem/MQTT/Sender</GroupName>
           <Files>
             <File>
-              <FileName>_GP.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_GP.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>_GP.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_GP.h</FilePath>
-            </File>
-            <File>
               <FileName>_LevelContactors.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\MQTT\_Sender\_LevelContactors.cpp</FilePath>

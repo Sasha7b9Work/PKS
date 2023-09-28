@@ -4,7 +4,6 @@
 #include "Modem/MQTT/_Sender/_LevelContactors.h"
 #include "Modem/MQTT/_Sender/_StateContactors.h"
 #include "Modem/MQTT/_Sender/_StringState.h"
-#include "Modem/MQTT/_Sender/_GP.h"
 #include "Modem/SIM800.h"
 
 

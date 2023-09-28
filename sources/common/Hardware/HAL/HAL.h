@@ -1,6 +1,7 @@
 ﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Hardware/HAL/HAL_PINS.h"
+#include "Measurer/Measurer.h"
 
 
 struct PackedTime
@@ -29,9 +30,7 @@ namespace HAL_PINS_GP
 {
     void Init();
 
-    void Update();
-
-    void SendState();
+    void Update(bool is_hi[Phase::Count]);
 }
 
 

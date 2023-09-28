@@ -12,8 +12,8 @@ namespace Contactors
     namespace Serviceability
     {
         // Проверить исправность каждого контактора
-        // Здесь же проверяется исправность датчика 100 В
-        void Verify();
+        // Здесь же проверяется исправность датчика 100 В - у него индекс 27
+        void Update(int states[NUM_PINS_MX], bool valid[NUM_PINS_MX]);
     }
 
     void Test();

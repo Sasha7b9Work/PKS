@@ -52,34 +52,20 @@ void HAL_PINS_GP::Init()
 }
 
 
-void HAL_PINS_GP::Update()
-{
 #ifdef DEVICE
+void HAL_PINS_GP::Update(bool is_hi[Phase::Count])
+{
     for (int i = 0; i < 3; i++)
     {
         pinsGP[i].IsHi();
 
         if (pinsGP[i].IsSwitched())
         {
-            Sender::GP::Send(i + 1, !pinsGP[i].GetState());
+            is_hi[i] = !pinsGP[i].GetState();
 
             pinsGP[i].ResetSwitch();
         }
     }
-#endif
 }
-
-
-void HAL_PINS_GP::SendState()
-{
-#ifdef DEVICE
-    for (int i = 0; i < 3; i++)
-    {
-        pinsGP[i].IsHi();
-
-        Sender::GP::Send(i + 1, !pinsGP[i].GetState());
-
-        pinsGP[i].ResetSwitch();
-    }
 #endif
-}
+
