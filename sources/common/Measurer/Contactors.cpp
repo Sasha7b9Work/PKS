@@ -3,7 +3,6 @@
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
-#include "Hardware/Timer.h"
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
