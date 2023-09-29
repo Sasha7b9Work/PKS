@@ -12,7 +12,7 @@ struct Measurements
     uint16 volts[Phase::Count];     // Здесь хранятся значения, увеличенные в 10 раз
     uint16 currents[Phase::Count];  // Здесь хранятся значения, увеличенные в 10 раз
 
-    void SetFullMeasure(FullMeasure &);
+    void SetFullMeasure(const FullMeasure &);
     FullMeasure GetFullMeasure() const;
 
     struct Flags

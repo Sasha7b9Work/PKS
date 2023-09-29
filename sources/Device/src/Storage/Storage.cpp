@@ -51,6 +51,8 @@ namespace Storage
     static void GetStateContactors(Measurements &);
 
     static void GetStagesContactors(Measurements &);
+
+    static void GetMeasures(Measurements &);
 }
 
 
@@ -78,6 +80,8 @@ void Storage::Update()
     GetStateContactors(measurements);
 
     GetStagesContactors(measurements);
+
+    GetMeasures(measurements);
 
     Sender::SendMeasures(measurements);
 }
@@ -124,6 +128,12 @@ void Storage::GetStagesContactors(Measurements &meas)
     {
         meas.flags.SetStageRele((Phase::E)i, stages[i]);
     }
+}
+
+
+void Storage::GetMeasures(Measurements &meas)
+{
+    meas.SetFullMeasure(Measurer::Measure5Sec());
 }
 
 
@@ -241,12 +251,15 @@ int Measurements::Flags::GetStageRele(Phase::E phase) const
 }
 
 
-void Measurements::SetFullMeasure(FullMeasure &meas)
+void Measurements::SetFullMeasure(const FullMeasure &meas)
 {
     for (int i = 0; i < Phase::Count; i++)
     {
-        volts[i] = (uint16)(meas.measures[i].voltage * 10.0f + 0.5f);
-        currents[i] = (uint16)(meas.measures[i].current * 10.0f + 0.5f);
+        if (meas.is_good[i])
+        {
+            volts[i] = (uint16)(meas.measures[i].voltage * 10.0f + 0.5f);
+            currents[i] = (uint16)(meas.measures[i].current * 10.0f + 0.5f);
+        }
     }
 }
 
