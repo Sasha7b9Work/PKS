@@ -61,6 +61,8 @@ namespace Sender
 
 bool Sender::SendCounter(int counter)
 {
+    LOG_WRITE("send counter %d", counter);
+
     last_received = 0;
 
     if (!MQTT::InStateRunning())
