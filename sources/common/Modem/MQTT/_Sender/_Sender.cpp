@@ -70,10 +70,6 @@ bool Sender::SendAll(pchar answer)
         {
             sending = true;
         }
-        if (Sender::LevelContactors::SendToSIM800())
-        {
-            sending = true;
-        }
         if (Sender::StateContactors::SendToSIM800())
         {
             sending = true;

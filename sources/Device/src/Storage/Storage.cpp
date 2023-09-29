@@ -49,6 +49,8 @@ namespace Storage
     static void GetPinsGP(Measurements &);
 
     static void GetStateContactors(Measurements &);
+
+    static void GetStagesContactors(Measurements &);
 }
 
 
@@ -74,6 +76,8 @@ void Storage::Update()
     GetPinsGP(measurements);
 
     GetStateContactors(measurements);
+
+    GetStagesContactors(measurements);
 
     Sender::SendMeasures(measurements);
 }
@@ -107,6 +111,19 @@ void Storage::GetStateContactors(Measurements &meas)
     }
 
     meas.flags.Set100V(states[27] != 0);
+}
+
+
+void Storage::GetStagesContactors(Measurements &meas)
+{
+    int stages[Phase::Count];
+
+    Contactors::GetStages(stages);
+
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        meas.flags.SetStageRele((Phase::E)i, stages[i]);
+    }
 }
 
 
@@ -209,7 +226,7 @@ void Measurements::Flags::SetStageRele(Phase::E phase, int state)
 }
 
 
-int Measurements::Flags::GetStageRele(Phase::E phase)
+int Measurements::Flags::GetStageRele(Phase::E phase) const
 {
     if (phase == Phase::A)
     {

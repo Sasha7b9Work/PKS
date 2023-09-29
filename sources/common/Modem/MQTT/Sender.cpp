@@ -134,6 +134,19 @@ bool Sender::SendMeasures(const Measurements &meas)
         MQTT::Packet::Publish("/base/state/dc100v", meas.flags.Get100V() ? "1" : "0");
     }
 
+    {
+        static const char *const names[Phase::Count] = { "A", "B", "C" };
+
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            char topic[32];
+
+            std::sprintf(topic, "base/cont/level%s", names[i]);
+
+            MQTT::Packet::Publish(topic, -meas.flags.GetStageRele((Phase::E)i));
+        }
+    }
+
     Request::SendFinalSequence(true);
 
     Request::Clear();

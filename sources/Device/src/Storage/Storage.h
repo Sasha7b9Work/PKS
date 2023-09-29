@@ -43,7 +43,7 @@ struct Measurements
         bool Get100V() const;
 
         void SetStageRele(Phase::E, int);
-        int GetStageRele(Phase::E);
+        int GetStageRele(Phase::E) const;
 
     private:
 

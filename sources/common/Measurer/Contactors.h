@@ -18,5 +18,9 @@ namespace Contactors
         void Update();
     }
 
+    void GetStages(int stages[Phase::Count]);
+
+    int GetStage(Phase::E);
+
     void Test();
 }

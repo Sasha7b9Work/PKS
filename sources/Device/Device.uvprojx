@@ -799,16 +799,6 @@
           <GroupName>Modem/MQTT/Sender</GroupName>
           <Files>
             <File>
-              <FileName>_LevelContactors.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_LevelContactors.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>_LevelContactors.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_LevelContactors.h</FilePath>
-            </File>
-            <File>
               <FileName>_Measure.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\MQTT\_Sender\_Measure.cpp</FilePath>

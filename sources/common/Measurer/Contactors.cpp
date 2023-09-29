@@ -5,7 +5,6 @@
 #include "Hardware/HAL/systick.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
-#include "Modem/MQTT/_Sender/_LevelContactors.h"
 #include "Modem/MQTT/_Sender/_StateContactors.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
@@ -93,7 +92,7 @@ namespace Contactors
         }
 
         // Номер включённой ступени
-        static int step[3] = { 0, 0, 0 };
+        static int stages[Phase::Count] = { 0, 0, 0 };
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
@@ -250,7 +249,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             }
             else
             {
-                float inU = measure.voltage + (float)Level::step[phase] * 10.0f;
+                float inU = measure.voltage + (float)Level::stages[phase] * 10.0f;
 
                 if (inU < 160.5f)
                 {
@@ -277,16 +276,16 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                         break;
                     }
 
-                    new_level = Math::Limitation(Level::step[phase] + num_steps, Level::MIN(), Level::MAX());
+                    new_level = Math::Limitation(Level::stages[phase] + num_steps, Level::MIN(), Level::MAX());
                 }
             }
     
-            if (new_level == Level::step[phase])
+            if (new_level == Level::stages[phase])
             {
                 break;
             }
     
-            Level::step[phase] = new_level;
+            Level::stages[phase] = new_level;
 
             ENABLE_RELE(2, State::TRANSIT_EN_1);
         }
@@ -314,7 +313,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_6:
         if (meter[phase].IsFinished())
         {
-            st[phase] = Level::step[phase] > 0 ? Level::step[phase] : -Level::step[phase];
+            st[phase] = Level::stages[phase] > 0 ? Level::stages[phase] : -Level::stages[phase];
 
             CHANGE_RELE(1, State::RELE_4, states[st[phase]][0]);   // KM1
         }
@@ -353,13 +352,13 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::POLARITY_LEVEL:
         if (meter[phase].IsFinished())
         {
-            if (Level::step[phase] == 0)
+            if (Level::stages[phase] == 0)
             {
                 State::current[phase] = State::IDLE;
             }
             else
             {
-                if (Level::step[phase] > 0)             // Идём в понижение
+                if (Level::stages[phase] > 0)             // Идём в понижение
                 {
                     ENABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }
@@ -390,10 +389,21 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         }
         break;
     }
+}
 
-#ifdef DEVICE
-    Sender::LevelContactors::Send(Level::step);
-#endif
+
+void Contactors::GetStages(int stages[Phase::Count])
+{
+    for (int i = 0; i < Phase::Count; i++)
+    {
+        stages[i] = Level::stages[i];
+    }
+}
+
+
+int Contactors::GetStage(Phase::E phase)
+{
+    return Level::stages[phase];
 }
 
 

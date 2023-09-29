@@ -42,12 +42,6 @@ bool SIM800::IsRegistered()
 }
 
 
-void Sender::LevelContactors::Send(const int [Phase::Count])
-{
-
-}
-
-
 bool Sender::StateContactors::AllIsOK(Phase::E)
 {
     return false;
@@ -69,12 +63,6 @@ void Sender::StateContactors::SendState(uint, int)
 void Sender::Measure::Send(const FullMeasure &)
 {
 
-}
-
-
-int Sender::LevelContactors::Get(Phase::E)
-{
-    return 0;
 }
 
 

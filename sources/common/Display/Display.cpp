@@ -11,6 +11,7 @@
 #include "Hardware/Timer.h"
 #include "Display/Console.h"
 #include "Modem/MQTT/_Sender/_Sender.h"
+#include "Measurer/Contactors.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -138,7 +139,7 @@ void Display::WriteMeasures(int i)
     }
     else
     {
-        std::sprintf(message, "%d", -Sender::LevelContactors::Get((Phase::E)i));
+        std::sprintf(message, "%d", -Contactors::GetStage((Phase::E)i));
 
         WriteString(0, Y(), message);
 
