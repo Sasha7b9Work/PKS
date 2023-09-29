@@ -25,8 +25,6 @@ namespace Sender
 
 void Sender::Reset()
 {
-    StringState::Reset();
-
     meter.SetResponseTime(0);
 }
 
@@ -60,10 +58,6 @@ bool Sender::SendAll(pchar answer)
             need_ping = false;
             SIM800::Transmit::UINT8(0xC0);
             SIM800::Transmit::UINT8(0x00);
-            sending = true;
-        }
-        if (Sender::StringState::SendToSIM800())
-        {
             sending = true;
         }
         if (Sender::Measure::SendToSIM800())

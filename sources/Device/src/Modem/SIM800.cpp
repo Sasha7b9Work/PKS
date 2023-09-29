@@ -121,8 +121,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
             {
                 HAL_FWDGT::ToUpgradeMode();
 
-                Sender::StringState::Send("Upgrade software", true);
-
                 Bootloader::Run();
             }
         }

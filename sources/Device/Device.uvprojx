@@ -809,16 +809,6 @@
               <FilePath>..\common\Modem\MQTT\_Sender\_Measure.h</FilePath>
             </File>
             <File>
-              <FileName>_StringState.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_StringState.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>_StringState.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_StringState.h</FilePath>
-            </File>
-            <File>
               <FileName>MQTT.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
