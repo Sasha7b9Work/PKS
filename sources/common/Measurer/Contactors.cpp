@@ -116,9 +116,15 @@ namespace Contactors
 
     namespace Serviceability
     {
-        // Адреса от 0 до 27. 0...26 - состояние реле
-        // 27 - 100 В. 0 - нету
-        static int Verify(uint address, bool *valid);
+        static int states[NUM_PINS_MX] = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0 };
+
+        void GetStates(int _states[NUM_PINS_MX])
+        {
+            for (int i = 0; i < NUM_PINS_MX; i++)
+            {
+                _states[i] = states[i];
+            }
+        }
     }
 }
 
@@ -443,36 +449,38 @@ void Contactors::Contactor::Disable()
 }
 
 
-int Contactors::Serviceability::Verify(uint address, bool *valid)
+void Contactors::Serviceability::Update()
 {
-    if (gset.OnlyMeasure())
+    static uint address = 0;
+    static bool first = true;
+
+    if (first)
     {
-        *valid = false;
-        return 0;
+        first = false;
+        SetAddressMX(address);
     }
-
-    SetAddressMX(address == 27 ? 31 : address);
-
-    Timer::DelayMS(2);
-
-    if (address == 27)
+    else
     {
-        *valid = true;
+        if (!ReleIsBusy(address))
+        {
+            if (address == 27)
+            {
+                states[address] = !pinP2.IsHi() ? 1 : 0;
+            }
+            else
+            {
+                states[address] = StateRele();
+            }
+        }
 
-        return !pinP2.IsHi() ? 1 : 0;
-    }
+        address++;
 
-    *valid = ReleIsBusy(address) ? false : true;
+        if (address == 28)
+        {
+            address = 0;
+        }
 
-    return StateRele();
-}
-
-
-void Contactors::Serviceability::Update(int states[NUM_PINS_MX], bool valid[NUM_PINS_MX])
-{
-    for (uint address = 0; address < NUM_PINS_MX; address++)
-    {
-        states[address] = Verify(address, &valid[address]);
+        SetAddressMX(address == 27 ? 31 : address);
     }
 }
 

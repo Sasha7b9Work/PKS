@@ -119,7 +119,7 @@ bool Sender::SendMeasures(const Measurements &meas)
     {
         for (int phase = Phase::A; phase < Phase::Count; phase++)
         {
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 8; i++)
             {
                 char topic[32] = { '\0' };
 

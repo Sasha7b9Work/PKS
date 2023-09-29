@@ -95,9 +95,8 @@ void Storage::GetPinsGP(Measurements &meas)
 void Storage::GetStateContactors(Measurements &meas)
 {
     int states[NUM_PINS_MX];
-    bool valid[NUM_PINS_MX];
 
-    Contactors::Serviceability::Update(states, valid);
+    Contactors::Serviceability::GetStates(states);
 
     for (int phase = 0; phase < Phase::Count; phase++)
     {
