@@ -135,12 +135,7 @@ namespace Contactors
 
             for (int i = 0; i < 8; i++)
             {
-                if (gset.GetNumberSteps() == 4 && i == 4)
-                {
-                    continue;
-                }
-
-                if (*state == 1)
+                if (*state == -1)
                 {
                     return false;
                 }
@@ -502,8 +497,12 @@ void Contactors::Serviceability::Update()
             if (address == 27)
             {
                 states[address] = !pinP2.IsHi() ? 1 : 0;
+            }
+            else
+            {
+                states[address] = StateRele();
 
-                if(address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
+                if (address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
                 {
                     states[address] = 0;
                 }
@@ -514,10 +513,6 @@ void Contactors::Serviceability::Update()
                         states[address] = 0;
                     }
                 }
-            }
-            else
-            {
-                states[address] = StateRele();
             }
         }
 
