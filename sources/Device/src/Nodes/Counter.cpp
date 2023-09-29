@@ -32,6 +32,8 @@ namespace Counter
 
         if (TIME_MS - prev_time_reset > 120000)
         {
+            prev_time_reset = TIME_MS;
+
             Modem::Reset();
         }
     }
