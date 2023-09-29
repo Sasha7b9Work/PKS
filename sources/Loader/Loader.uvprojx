@@ -758,11 +758,6 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
             </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\Sender.cpp</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>

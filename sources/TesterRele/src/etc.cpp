@@ -42,31 +42,7 @@ bool SIM800::IsRegistered()
 }
 
 
-bool Sender::StateContactors::AllIsOK(Phase::E)
-{
-    return false;
-}
-
-
-void Sender::StateContactors::Send100V(bool)
-{
-
-}
-
-
-void Sender::StateContactors::SendState(uint, int)
-{
-
-}
-
-
 void Sender::Measure::Send(const FullMeasure &)
 {
 
-}
-
-
-int Sender::StateContactors::Get(int, int)
-{
-    return 0;
 }

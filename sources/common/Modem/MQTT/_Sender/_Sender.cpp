@@ -70,10 +70,6 @@ bool Sender::SendAll(pchar answer)
         {
             sending = true;
         }
-        if (Sender::StateContactors::SendToSIM800())
-        {
-            sending = true;
-        }
 
         SIM800::Transmit::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
 

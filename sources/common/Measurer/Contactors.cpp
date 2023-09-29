@@ -5,7 +5,6 @@
 #include "Hardware/HAL/systick.h"
 #include "Hardware/Timer.h"
 #include "Utils/Math.h"
-#include "Modem/MQTT/_Sender/_StateContactors.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
 #include <gd32f30x.h>
@@ -124,6 +123,33 @@ namespace Contactors
                 _states[i] = states[i];
             }
         }
+
+        int GetState(Phase::E phase, int num)
+        {
+            return states[phase * 9 + num];
+        }
+
+        bool AllIsOK(Phase::E phase)
+        {
+            int *state = &states[phase * 9];
+
+            for (int i = 0; i < 8; i++)
+            {
+                if (gset.GetNumberSteps() == 4 && i == 4)
+                {
+                    continue;
+                }
+
+                if (*state == 1)
+                {
+                    return false;
+                }
+
+                state++;
+            }
+
+            return true;
+        }
     }
 }
 
@@ -236,7 +262,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
             int new_level = 0;
 
-            if (!Sender::StateContactors::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
+            if (!Contactors::Serviceability::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
             {
                 new_level = 0;
 
@@ -476,6 +502,18 @@ void Contactors::Serviceability::Update()
             if (address == 27)
             {
                 states[address] = !pinP2.IsHi() ? 1 : 0;
+
+                if(address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
+                {
+                    states[address] = 0;
+                }
+                if (gset.GetNumberSteps() == 4)
+                {
+                    if (address == 3 || address == 12 || address == 21)     // Для 4-х ступенчатого варианта 4-е реле не опрашиваем
+                    {
+                        states[address] = 0;
+                    }
+                }
             }
             else
             {

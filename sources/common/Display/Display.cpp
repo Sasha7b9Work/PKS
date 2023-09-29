@@ -121,7 +121,7 @@ void Display::WriteMeasures(int i)
 
     char message[30];
 
-    bool need_bad_info = !Sender::StateContactors::AllIsOK((Phase::E)i) && (((Timer::TimeMS() / 1000 / 5) % 2) == 0);
+    bool need_bad_info = !Contactors::Serviceability::AllIsOK((Phase::E)i) && (((Timer::TimeMS() / 1000 / 5) % 2) == 0);
 
     if (need_bad_info)
     {
@@ -129,7 +129,7 @@ void Display::WriteMeasures(int i)
         {
             WriteString(0, Y(), "Defect");
 
-            if (Sender::StateContactors::Get(i, num) == -1)
+            if (Contactors::Serviceability::GetState((Phase::E)i, num) == -1)
             {
                 std::sprintf(message, "%d", num + 1);
 

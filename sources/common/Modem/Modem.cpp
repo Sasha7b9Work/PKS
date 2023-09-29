@@ -247,9 +247,9 @@ void Modem::Reset()
 
     SIM800::Reset();
 
-    MQTT::Reset();
-
 #ifdef DEVICE
+
+    MQTT::Reset();
 
     Counter::Reset();
 

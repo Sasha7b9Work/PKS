@@ -15,7 +15,11 @@ namespace Contactors
         // Здесь же проверяется исправность датчика 100 В - у него индекс 27
         void GetStates(int states[NUM_PINS_MX]);
 
+        int GetState(Phase::E, int);
+
         void Update();
+
+        bool AllIsOK(Phase::E);
     }
 
     void GetStages(int stages[Phase::Count]);
