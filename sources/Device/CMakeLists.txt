@@ -48,6 +48,7 @@ file(GLOB MODEM                          src/Modem/*.*
 file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
 file(GLOB MODEM_MQTT_SENDER        ../common/Modem/MQTT/_Sender/*.*)
 file(GLOB MODEM_SENDER             ../common/Modem/Sender/*.*)
+file(GLOB NODES                          src/Nodes/*.*)
 file(GLOB SETTINGS                 ../common/Settings/*.*)
 file(GLOB STORAGE                        src/Storage/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
@@ -63,6 +64,7 @@ source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
 source_group(Modem/MQTT               FILES ${MODEM_MQTT})
 source_group(Modem/MQTT/Sender        FILES ${MODEM_MQTT_SENDER})
+source_group(Nodes                    FILES ${NODES})
 source_group(Settings                 FILES ${SETTINGS})
 source_group(Storage                  FILES ${STORAGE})
 source_group(Utils                    FILES ${UTILS})
@@ -82,6 +84,7 @@ add_library(${PROJECT_NAME}
             ${MODEM}
             ${MODEM_MQTT}
             ${MODEM_MQTT_SENDER}
+            ${NODES}
             ${SETTINGS}
             ${STORAGE}
             ${UTILS}

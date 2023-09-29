@@ -9,9 +9,10 @@
 #include "Modem/MQTT/MQTT.h"
 #include "Settings/Settings.h"
 #ifdef LOADER
-#include "Modem/Updater.h"
+    #include "Modem/Updater.h"
 #else
-#include "Device.h"
+    #include "Device.h"
+    #include "Nodes/Counter.h"
 #endif
 #include <gd32f30x.h>
 #include <cstring>
