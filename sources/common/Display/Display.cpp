@@ -10,7 +10,6 @@
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
 #include "Display/Console.h"
-#include "Modem/MQTT/_Sender/_Sender.h"
 #include "Measurer/Contactors.h"
 #include <cstring>
 #include <cstdio>

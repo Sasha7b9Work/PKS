@@ -2,11 +2,10 @@
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Modem/SIM800.h"
-#include "Modem/MQTT/_Sender/_Sender.h"
 #include "Modem/MQTT/MQTT.h"
 
 
-    void Modem::Update()
+void Modem::Update()
 {
 
 }

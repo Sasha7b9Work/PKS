@@ -796,26 +796,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modem/MQTT/Sender</GroupName>
-          <Files>
-            <File>
-              <FileName>MQTT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
-            </File>
-            <File>
-              <FileName>_Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_Sender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>_Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_Sender.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Nodes</GroupName>
           <Files>
             <File>

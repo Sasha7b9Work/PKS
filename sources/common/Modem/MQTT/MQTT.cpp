@@ -6,7 +6,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Parser.h"
 #include "Modem/SIM800.h"
-#include "Modem/MQTT/_Sender/_Sender.h"
 #include "Modem/MQTT/Sender.h"
 #include "Settings/Settings.h"
 #include <cstring>
@@ -77,8 +76,6 @@ void MQTT::Update(pchar answer)
     {
     case State::IDLE:
         time_connect = Timer::TimeMS();
-        LOG_WRITE("MQTT start connect %d ms", time_connect);
-        Sender::Reset();
         LOG_WRITE("+++ MQTT::IDLE +++");
         SIM800::Transmit::With0D("AT+CIPSEND");
         meter.Reset();
