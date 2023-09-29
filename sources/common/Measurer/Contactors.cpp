@@ -376,14 +376,16 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             if (Level::stages[phase] == 0)
             {
                 State::current[phase] = State::IDLE;
+
+                DISABLE_RELE(9, State::TRANSIT_EXIT_1);
             }
             else
             {
-                if (Level::stages[phase] > 0)             // Идём в понижение
+                if (Level::stages[phase] > 0)               // Идём в понижение
                 {
                     ENABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }
-                else                                    // Идём в повшение
+                else                                        // Идём в повшение
                 {
                     DISABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }

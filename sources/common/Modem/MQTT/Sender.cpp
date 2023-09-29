@@ -65,6 +65,7 @@ bool Sender::SendCounter(int counter)
 
     if (!MQTT::InStateRunning())
     {
+        LOG_FUNC_ENTER();
         return false;
     }
 
@@ -78,12 +79,15 @@ bool Sender::SendCounter(int counter)
     {
         if (meter.ElapsedTime() > 20)
         {
+            LOG_FUNC_ENTER();
             return false;
         }
     }
 
     Request::Send();
     Request::Clear();
+
+    LOG_FUNC_ENTER();
 
     return true;
 }
@@ -95,6 +99,7 @@ bool Sender::SendMeasures(const Measurements &meas)
 
     if (!MQTT::InStateRunning())
     {
+        LOG_FUNC_ENTER();
         return false;
     }
 
@@ -106,6 +111,7 @@ bool Sender::SendMeasures(const Measurements &meas)
     {
         if (meter.ElapsedTime() > 20)
         {
+            LOG_FUNC_ENTER();
             return false;
         }
     }
@@ -177,6 +183,8 @@ bool Sender::SendMeasures(const Measurements &meas)
     Request::SendFinalSequence(true);
 
     Request::Clear();
+
+    LOG_FUNC_ENTER();
 
     return true;
 }
