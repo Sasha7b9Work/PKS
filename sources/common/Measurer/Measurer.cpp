@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
-#include "Modem/MQTT/_Sender/_Measure.h"
 #include "Measurer/Averager.h"
 #include <cmath>
 
@@ -103,10 +102,6 @@ void Measurer::Update()
     if (BuffersFull())
     {
         measure = Calculate();
-
-#ifdef DEVICE
-        Sender::Measure::Send(measure);
-#endif
 
         measure5Sec = Calculator::Average5Sec(measure);
 

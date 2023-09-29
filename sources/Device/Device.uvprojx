@@ -799,16 +799,6 @@
           <GroupName>Modem/MQTT/Sender</GroupName>
           <Files>
             <File>
-              <FileName>_Measure.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_Measure.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>_Measure.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\_Sender\_Measure.h</FilePath>
-            </File>
-            <File>
               <FileName>MQTT.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>

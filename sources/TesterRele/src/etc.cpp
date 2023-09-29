@@ -40,9 +40,3 @@ bool SIM800::IsRegistered()
 {
     return false;
 }
-
-
-void Sender::Measure::Send(const FullMeasure &)
-{
-
-}

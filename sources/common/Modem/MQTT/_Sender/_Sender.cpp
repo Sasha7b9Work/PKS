@@ -60,10 +60,6 @@ bool Sender::SendAll(pchar answer)
             SIM800::Transmit::UINT8(0x00);
             sending = true;
         }
-        if (Sender::Measure::SendToSIM800())
-        {
-            sending = true;
-        }
 
         SIM800::Transmit::UINT8(sending ? (uint8)0x1A : (uint8)0x1B);
 
