@@ -35,6 +35,8 @@ void Device::Update()
 
     Contactors::Update(Measurer::Measure5Sec());
 
+    Contactors::Serviceability::Update();
+
     Storage::Update();
 
     Display::Update();
