@@ -464,11 +464,7 @@ int Contactors::Serviceability::Verify(uint address, bool *valid)
 
     *valid = ReleIsBusy(address) ? false : true;
 
-    int state = StateRele();
-
-    LOG_WRITE("state %d = %d", address, state);
-
-    return state;
+    return StateRele();
 }
 
 
