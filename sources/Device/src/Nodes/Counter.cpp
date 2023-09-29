@@ -30,7 +30,7 @@ namespace Counter
             }
         }
 
-        static const uint TIME_DISCONNECT = 60 * 60;
+        static const uint TIME_DISCONNECT = 60 * 60 * 1000;
 
         if (TIME_MS - prev_time_reset > TIME_DISCONNECT)
         {
