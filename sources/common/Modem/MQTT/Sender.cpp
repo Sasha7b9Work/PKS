@@ -117,6 +117,8 @@ bool Sender::SendMeasures(const Measurements &meas)
     }
 
     {
+        bool good = true;       // ѕризнак того, что исправны все контакторы
+
         for (int phase = Phase::A; phase < Phase::Count; phase++)
         {
             for (int i = 0; i < 8; i++)
@@ -127,11 +129,20 @@ bool Sender::SendMeasures(const Measurements &meas)
 
                 std::sprintf(topic, "base/cont/KM%s%d", names[phase], i + 1);
 
-                MQTT::Packet::Publish(topic, meas.flags.GetKM((Phase::E)phase, i));
+                int state = meas.flags.GetKM((Phase::E)phase, i);
+
+                MQTT::Packet::Publish(topic, state);
+
+                if (state == -1)
+                {
+                    good = false;
+                }
             }
         }
 
         MQTT::Packet::Publish("/base/state/dc100v", meas.flags.Get100V() ? "1" : "0");
+
+        MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
     }
 
     {
