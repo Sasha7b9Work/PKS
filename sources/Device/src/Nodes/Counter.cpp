@@ -3,12 +3,14 @@
 #include "Nodes/Counter.h"
 #include "Hardware/Timer.h"
 #include "Modem/MQTT/Sender.h"
+#include "Modem/Modem.h"
 
 
 namespace Counter
 {
     static int counter = 0;
     static uint prev_time = 0;
+    static uint prev_time_reset = 0;
 
     void Reset()
     {
@@ -26,6 +28,11 @@ namespace Counter
             {
                 counter++;
             }
+        }
+
+        if (TIME_MS - prev_time_reset > 120000)
+        {
+            Modem::Reset();
         }
     }
 }

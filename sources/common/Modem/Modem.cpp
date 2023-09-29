@@ -245,6 +245,10 @@ void Modem::Reset()
 {
     State::Set(State::IDLE);
 
+    SIM800::Reset();
+
+    MQTT::Reset();
+
 #ifdef DEVICE
 
     Counter::Reset();
