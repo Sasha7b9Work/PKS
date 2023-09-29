@@ -56,6 +56,40 @@ namespace Sender
     {
         last_received = symbol;
     }
+
+
+    static bool gp[Phase::Count] = { false, false, false };
+    static bool need_gp[Phase::Count] = { true, true, true };
+
+    static int states[Phase::Count][9];
+    static bool need_states[Phase::Count][9];
+
+    static bool all_states = true;
+    static bool need_all_states = true;
+
+    static int levels[Phase::Count] = { 0, 0, 0 };
+    static bool need_levels[Phase::Count] = { true, true, true };
+
+    void Reset()
+    {
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            gp[i] = false;
+            need_gp[i] = true;
+
+            for (int km = 0; km < 9; km++)
+            {
+                states[i][km] = 2;
+                need_states[i][km] = true;
+            }
+
+            levels[i] = 0;
+            need_levels[i] = true;
+        }
+
+        all_states = true;
+        need_all_states = true;
+    }
 }
 
 
@@ -119,9 +153,22 @@ bool Sender::SendMeasures(const Measurements &meas)
     }
 
     {
-        MQTT::Packet::Publish("/base/state/gp1", meas.flags.GetGP(Phase::A) ? "1" : "0");
-        MQTT::Packet::Publish("/base/state/gp2", meas.flags.GetGP(Phase::B) ? "1" : "0");
-        MQTT::Packet::Publish("/base/state/gp3", meas.flags.GetGP(Phase::C) ? "1" : "0");
+        for (int phase = Phase::A; phase < Phase::Count; phase++)
+        {
+            bool new_gp = meas.flags.GetGP(Phase::A);
+
+            if (need_gp[phase] || new_gp != gp[phase])
+            {
+                need_gp[phase] = false;
+
+                gp[phase] = new_gp;
+
+                char topic[32];
+                std::sprintf(topic, "/base/state/gp%d", phase + 1);
+
+                MQTT::Packet::Publish(topic, new_gp ? "1" : "0");
+            }
+        }
     }
 
     {
@@ -139,7 +186,14 @@ bool Sender::SendMeasures(const Measurements &meas)
 
                 int state = meas.flags.GetKM((Phase::E)phase, i);
 
-                MQTT::Packet::Publish(topic, state);
+                if (need_states[phase][i] || state != states[phase][i])
+                {
+                    need_states[phase][i] = false;
+
+                    states[phase][i] = state;
+
+                    MQTT::Packet::Publish(topic, state);
+                }
 
                 if (state == -1)
                 {
@@ -150,7 +204,14 @@ bool Sender::SendMeasures(const Measurements &meas)
 
         MQTT::Packet::Publish("/base/state/dc100v", meas.flags.Get100V() ? "1" : "0");
 
-        MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
+        if (need_all_states || good != all_states)
+        {
+            need_all_states = false;
+
+            all_states = good;
+
+            MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
+        }
     }
 
     {
@@ -162,7 +223,15 @@ bool Sender::SendMeasures(const Measurements &meas)
 
             std::sprintf(topic, "base/cont/level%s", names[i]);
 
-            MQTT::Packet::Publish(topic, -meas.flags.GetStageRele((Phase::E)i));
+            int level = -meas.flags.GetLevelRele((Phase::E)i);
+
+            if (need_levels[i] || level != levels[i])
+            {
+                need_levels[i] = false;
+                levels[i] = level;
+
+                MQTT::Packet::Publish(topic, level);
+            }
         }
     }
 

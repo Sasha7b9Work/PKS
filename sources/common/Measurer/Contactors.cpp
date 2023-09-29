@@ -91,7 +91,7 @@ namespace Contactors
         }
 
         // Номер включённой ступени
-        static int stages[Phase::Count] = { 0, 0, 0 };
+        static int levels[Phase::Count] = { 0, 0, 0 };
     }
 
     static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
@@ -270,7 +270,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             }
             else
             {
-                float inU = measure.voltage + (float)Level::stages[phase] * 10.0f;
+                float inU = measure.voltage + (float)Level::levels[phase] * 10.0f;
 
                 if (inU < 160.5f)
                 {
@@ -297,16 +297,16 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                         break;
                     }
 
-                    new_level = Math::Limitation(Level::stages[phase] + num_steps, Level::MIN(), Level::MAX());
+                    new_level = Math::Limitation(Level::levels[phase] + num_steps, Level::MIN(), Level::MAX());
                 }
             }
     
-            if (new_level == Level::stages[phase])
+            if (new_level == Level::levels[phase])
             {
                 break;
             }
     
-            Level::stages[phase] = new_level;
+            Level::levels[phase] = new_level;
 
             ENABLE_RELE(2, State::TRANSIT_EN_1);
         }
@@ -334,7 +334,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_6:
         if (meter[phase].IsFinished())
         {
-            st[phase] = Level::stages[phase] > 0 ? Level::stages[phase] : -Level::stages[phase];
+            st[phase] = Level::levels[phase] > 0 ? Level::levels[phase] : -Level::levels[phase];
 
             CHANGE_RELE(1, State::RELE_4, states[st[phase]][0]);   // KM1
         }
@@ -373,7 +373,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::POLARITY_LEVEL:
         if (meter[phase].IsFinished())
         {
-            if (Level::stages[phase] == 0)
+            if (Level::levels[phase] == 0)
             {
                 State::current[phase] = State::IDLE;
 
@@ -381,7 +381,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             }
             else
             {
-                if (Level::stages[phase] > 0)               // Идём в понижение
+                if (Level::levels[phase] > 0)               // Идём в понижение
                 {
                     ENABLE_RELE(9, State::TRANSIT_EXIT_1);
                 }
@@ -415,18 +415,18 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 }
 
 
-void Contactors::GetStages(int stages[Phase::Count])
+void Contactors::GetLevels(int levels[Phase::Count])
 {
     for (int i = 0; i < Phase::Count; i++)
     {
-        stages[i] = Level::stages[i];
+        levels[i] = Level::levels[i];
     }
 }
 
 
-int Contactors::GetStage(Phase::E phase)
+int Contactors::GetLevel(Phase::E phase)
 {
-    return Level::stages[phase];
+    return Level::levels[phase];
 }
 
 

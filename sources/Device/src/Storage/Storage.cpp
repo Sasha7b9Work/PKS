@@ -17,9 +17,9 @@ Measurements::Measurements() : number(0)
     }
 
     flags.bits = 0;
-    flags.stageA = 0;
-    flags.stageB = 0;
-    flags.stageC = 0;
+    flags.levelA = 0;
+    flags.levelB = 0;
+    flags.levelC = 0;
 }
 
 
@@ -50,7 +50,7 @@ namespace Storage
 
     static void GetStateContactors(Measurements &);
 
-    static void GetStagesContactors(Measurements &);
+    static void GetLevelsContactors(Measurements &);
 
     static void GetMeasures(Measurements &);
 }
@@ -79,7 +79,7 @@ void Storage::Update()
 
     GetStateContactors(measurements);
 
-    GetStagesContactors(measurements);
+    GetLevelsContactors(measurements);
 
     GetMeasures(measurements);
 
@@ -118,15 +118,15 @@ void Storage::GetStateContactors(Measurements &meas)
 }
 
 
-void Storage::GetStagesContactors(Measurements &meas)
+void Storage::GetLevelsContactors(Measurements &meas)
 {
-    int stages[Phase::Count];
+    int levels[Phase::Count];
 
-    Contactors::GetStages(stages);
+    Contactors::GetLevels(levels);
 
     for (int i = 0; i < Phase::Count; i++)
     {
-        meas.flags.SetStageRele((Phase::E)i, stages[i]);
+        meas.flags.SetLevelRele((Phase::E)i, levels[i]);
     }
 }
 
@@ -219,35 +219,35 @@ bool Measurements::Flags::Get100V() const
 }
 
 
-void Measurements::Flags::SetStageRele(Phase::E phase, int state)
+void Measurements::Flags::SetLevelRele(Phase::E phase, int state)
 {
     if (phase == Phase::A)
     {
-        stageA = state;
+        levelA = state;
     }
     else if (phase == Phase::B)
     {
-        stageB = state;
+        levelB = state;
     }
     else
     {
-        stageC = state;
+        levelC = state;
     }
 }
 
 
-int Measurements::Flags::GetStageRele(Phase::E phase) const
+int Measurements::Flags::GetLevelRele(Phase::E phase) const
 {
     if (phase == Phase::A)
     {
-        return stageA;
+        return levelA;
     }
     else if (phase == Phase::B)
     {
-        return stageB;
+        return levelB;
     }
 
-    return stageC;
+    return levelC;
 }
 
 

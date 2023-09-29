@@ -13,6 +13,7 @@
 #else
     #include "Device.h"
     #include "Nodes/Counter.h"
+    #include "Modem/MQTT/Sender.h"
 #endif
 #include <gd32f30x.h>
 #include <cstring>
@@ -268,6 +269,7 @@ void Modem::Update()
         SIM800::Reset();
 #ifdef DEVICE
         MQTT::Reset();
+        Sender::Reset();
 #endif
         pinGSM_PWR.Set();
         GSM_PG::ToOutLow();

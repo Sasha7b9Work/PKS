@@ -138,7 +138,7 @@ void Display::WriteMeasures(int i)
     }
     else
     {
-        std::sprintf(message, "%d", -Contactors::GetStage((Phase::E)i));
+        std::sprintf(message, "%d", -Contactors::GetLevel((Phase::E)i));
 
         WriteString(0, Y(), message);
 

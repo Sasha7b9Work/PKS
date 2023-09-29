@@ -22,9 +22,9 @@ namespace Contactors
         bool AllIsOK(Phase::E);
     }
 
-    void GetStages(int stages[Phase::Count]);
+    void GetLevels(int levels[Phase::Count]);
 
-    int GetStage(Phase::E);
+    int GetLevel(Phase::E);
 
     void Test();
 }

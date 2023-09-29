@@ -28,9 +28,9 @@ struct Measurements
         // 56                    - gpB
         // 57                    - gpC
         uint64 bits;
-        int stageA : 5;     // 
-        int stageB : 5;
-        int stageC : 5;
+        int levelA : 5;     // 
+        int levelB : 5;
+        int levelC : 5;
 
         // num - от нуля до 8 (KM1...KM9)       state = -1,0,1
         void SetKM(Phase::E, int num, int state);
@@ -42,8 +42,8 @@ struct Measurements
         void Set100V(bool);
         bool Get100V() const;
 
-        void SetStageRele(Phase::E, int);
-        int GetStageRele(Phase::E) const;
+        void SetLevelRele(Phase::E, int);
+        int GetLevelRele(Phase::E) const;
 
     private:
 
