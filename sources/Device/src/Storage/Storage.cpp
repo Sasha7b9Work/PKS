@@ -75,12 +75,10 @@ void Storage::Update()
 
     static TimeMeterMS meter;
 
-    if (meter.ElapsedTime() < 10000)
+    if (meter.IsFinished())
     {
         return;
     }
-
-    meter.Reset();
 
     measurements.counter = counter++;
 
@@ -92,7 +90,10 @@ void Storage::Update()
 
     GetMeasures(measurements);
 
-    Sender::SendMeasures(measurements);
+    if (Sender::SendMeasures(measurements))
+    {
+        meter.SetResponseTime(10000);
+    }
 }
 
 
