@@ -74,6 +74,19 @@ void Storage::Init()
 }
 
 
+void Storage::Update()
+{
+    static Measurements measurements;
+
+    if (CollectMeasure(measurements))
+    {
+        MemoryStorage::Append(measurements);
+    }
+
+    SendMeasure();
+}
+
+
 bool Storage::CollectMeasure(Measurements &measurements)
 {
     static TimeMeterMS meter;
@@ -107,19 +120,6 @@ void Storage::SendMeasure()
     {
         MemoryStorage::Erase(meas);
     }
-}
-
-
-void Storage::Update()
-{
-    static Measurements measurements;
-
-    if (CollectMeasure(measurements))
-    {
-        MemoryStorage::Append(measurements);
-    }
-
-    SendMeasure();
 }
 
 
