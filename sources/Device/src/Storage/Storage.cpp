@@ -95,7 +95,7 @@ bool Storage::CollectMeasure(Measurements &measurements)
 
     measurements.counter = counter++;
 
-    meter.SetResponseTime(10000);
+    meter.SetResponseTime(TIME_UPDATE_MS);
 
     return true;
 }
