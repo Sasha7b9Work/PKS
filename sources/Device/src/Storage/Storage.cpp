@@ -70,7 +70,7 @@ namespace Storage
 
 void Storage::Init()
 {
-    MemoryStorage::Init();
+//    MemoryStorage::Init();
 }
 
 
