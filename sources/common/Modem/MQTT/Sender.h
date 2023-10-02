@@ -9,9 +9,6 @@ namespace Sender
 
     void Reset();
 
-    // Послать значение счётчика
-    bool SendCounter(int);
-
     bool SendVersion();
 
     bool SendMeasures(const Measurements &);

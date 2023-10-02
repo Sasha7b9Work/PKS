@@ -46,7 +46,6 @@ file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/*.*)
 file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
-file(GLOB NODES                          src/Nodes/*.*)
 file(GLOB SETTINGS                 ../common/Settings/*.*)
 file(GLOB STORAGE                        src/Storage/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
@@ -61,7 +60,6 @@ source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
 source_group(Modem/MQTT               FILES ${MODEM_MQTT})
-source_group(Nodes                    FILES ${NODES})
 source_group(Settings                 FILES ${SETTINGS})
 source_group(Storage                  FILES ${STORAGE})
 source_group(Utils                    FILES ${UTILS})
@@ -80,7 +78,6 @@ add_library(${PROJECT_NAME}
             ${MEASURER}
             ${MODEM}
             ${MODEM_MQTT}
-            ${NODES}
             ${SETTINGS}
             ${STORAGE}
             ${UTILS}

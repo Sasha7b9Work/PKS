@@ -8,7 +8,6 @@
 #include "Measurer/Contactors.h"
 #include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
-#include "Nodes/Counter.h"
 
 
 void Device::Init()
@@ -40,8 +39,6 @@ void Device::Update()
     Storage::Update();
 
     Display::Update();
-
-    Counter::Update();
 
     Modem::Update();
 }

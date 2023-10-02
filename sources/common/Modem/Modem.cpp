@@ -12,7 +12,6 @@
     #include "Modem/Updater.h"
 #else
     #include "Device.h"
-    #include "Nodes/Counter.h"
     #include "Modem/MQTT/Sender.h"
 #endif
 #include <gd32f30x.h>
@@ -252,7 +251,7 @@ void Modem::Reset()
 
     MQTT::Reset();
 
-    Counter::Reset();
+    Storage::Reset();
 
 #endif
 }

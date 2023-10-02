@@ -99,42 +99,6 @@ namespace Sender
 }
 
 
-bool Sender::SendCounter(int counter)
-{
-    last_received = 0;
-
-    if (!MQTT::InStateWaitData())
-    {
-        LOG_FUNC_ENTER();
-        return false;
-    }
-
-    MQTT::ToStateConfirm();
-
-    Request::Set("base/state/counter", counter);
-
-    TimeMeterMS meter;
-
-    SIM800::Transmit::With0D("AT+CIPSEND");
-
-    while (last_received != '>')
-    {
-        if (meter.ElapsedTime() > 20)
-        {
-            LOG_FUNC_ENTER();
-            return false;
-        }
-    }
-
-    Request::Send();
-    Request::Clear();
-
-    LOG_FUNC_ENTER();
-
-    return true;
-}
-
-
 bool Sender::SendMeasures(const Measurements &meas)
 {
     last_received = 0;
@@ -159,6 +123,8 @@ bool Sender::SendMeasures(const Measurements &meas)
     }
 
     MQTT::ToStateConfirm();
+
+    MQTT::Packet::Publish("base/state/counter", (int)meas.counter);
 
     {
         for (int phase = Phase::A; phase < Phase::Count; phase++)

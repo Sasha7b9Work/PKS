@@ -796,21 +796,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Nodes</GroupName>
-          <Files>
-            <File>
-              <FileName>Counter.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Nodes\Counter.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Counter.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Nodes\Counter.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Settings</GroupName>
           <Files>
             <File>

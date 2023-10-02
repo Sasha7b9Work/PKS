@@ -46,6 +46,13 @@ MeasurementsReady::MeasurementsReady()
 
 namespace Storage
 {
+    static uint counter = 0;
+
+    void Reset()
+    {
+        counter = 0;
+    }
+
     static void GetPinsGP(Measurements &);
 
     static void GetStateContactors(Measurements &);
@@ -74,6 +81,8 @@ void Storage::Update()
     }
 
     meter.Reset();
+
+    measurements.counter = counter++;
 
     GetPinsGP(measurements);
 

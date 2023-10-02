@@ -9,6 +9,8 @@ struct Measurements
 
     uint number;
 
+    uint counter;
+
     uint16 volts[Phase::Count];     // Здесь хранятся значения, увеличенные в 10 раз
     uint16 currents[Phase::Count];  // Здесь хранятся значения, увеличенные в 10 раз
 
@@ -74,4 +76,6 @@ namespace Storage
     void Init();
 
     void Update();
+
+    void Reset();
 }
