@@ -6,6 +6,45 @@
 #include <cstring>
 
 
+struct StructData
+{
+    StructData() : number(0) {}
+
+    uint         number;
+    Measurements meas;
+    uint         crc;
+    BitSet32     control_field;     // Это нужно для контроля правильности записи
+
+    void Write(const Measurements &);
+
+    // true, если запись пуста
+    bool IsEmpty() const;
+
+    // true, если содержатся корректные данные
+    bool IsValid() const;
+
+    void Erase();
+
+    bool Write(uint address) const;
+
+    bool IsErased();
+
+    bool Read(uint address);
+
+    uint *FirstWord();
+
+    uint CalculateCRC() const;
+};
+
+
+namespace MemoryStorage
+{
+    static StructData *FindFirstEmpty();
+
+    static void EraseFull();
+}
+
+
 void MemoryStorage::Init()
 {
     for (StructData *address = (StructData *)BEGIN; (uint)address < END; address++)
@@ -23,18 +62,18 @@ void MemoryStorage::Init()
 }
 
 
-void MemoryStorage::Append(const Measurements & /*data*/)
+void MemoryStorage::Append(const Measurements &data)
 {
-//    StructData *address = FindFirstEmpty();
-//
-//    if (!address)
-//    {
-//        EraseFull();
-//
-//        address = (StructData *)BEGIN;
-//    }
-//
-//    data.Write((uint)address);
+    StructData *address = FindFirstEmpty();
+
+    if (!address)
+    {
+        EraseFull();
+
+        address = (StructData *)BEGIN;
+    }
+
+    address->Write(data);
 }
 
 
@@ -174,7 +213,7 @@ bool StructData::Read(uint address)
 }
 
 
-void MemoryStorage::Write(uint address, uint value)
+bool MemoryStorage::IsEmpty()
 {
-    HAL_ROM::WriteData(address, &value, 4);
+    return GetOldest() == nullptr;
 }
