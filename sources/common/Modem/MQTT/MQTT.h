@@ -8,11 +8,14 @@ namespace MQTT
 
     void Update(pchar);
 
-    bool InStateRunning();
+    // Находимся в состоянии ожидания новых данных для пересылки
+    bool InStateWaitData();
 
     bool InStateSendVersion();
 
     bool InStateIdle();
+
+    bool InStateRunning();
 
     void CallbackOnReceiveData(pchar);
 

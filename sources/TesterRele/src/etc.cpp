@@ -23,7 +23,7 @@ void Modem::CallbackOnReceive(char)
 }
 
 
-bool MQTT::InStateRunning()
+bool MQTT::InStateWaitData()
 {
     return false;
 }

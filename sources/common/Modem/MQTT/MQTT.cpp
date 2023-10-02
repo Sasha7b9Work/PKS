@@ -18,18 +18,19 @@ using namespace std;
 
 namespace MQTT
 {
-    struct State
+    struct StateMQTT
     {
         enum E
         {
             IDLE,
             WAIT_RESPONSE_CIPSEND,      // ∆дЄм приглашени€ ">"
             SEND_VERSION,
-            WAIT_DATA_FOR_SEND          // ∆дЄм данные дл€ отсылки
+            WAIT_DATA_FOR_SEND,         // ∆дЄм данные дл€ отсылки
+            WAIT_CONFIRM                // ќжидаем подтверждени€
         };
     };
 
-    static State::E state = State::IDLE;
+    StateMQTT::E state = StateMQTT::IDLE;
 
     // —брасываетс€ каждый раз при поступлении данынх
     static TimeMeterMS meterLastData;
@@ -40,30 +41,42 @@ namespace MQTT
     {
         return time_connect;
     }
+
+    // ѕерейти в режим ожидани€ ответа
+    void ToStateConfirm()
+    {
+        state = StateMQTT::WAIT_CONFIRM;
+    }
 }
 
 
-bool MQTT::InStateRunning()
+bool MQTT::InStateWaitData()
 {
-    return (state == State::WAIT_DATA_FOR_SEND);
+    return (state == StateMQTT::WAIT_DATA_FOR_SEND);
 }
 
 
 bool MQTT::InStateSendVersion()
 {
-    return (state == State::SEND_VERSION);
+    return (state == StateMQTT::SEND_VERSION);
 }
 
 
 bool MQTT::InStateIdle()
 {
-    return state == State::IDLE;
+    return state == StateMQTT::IDLE;
+}
+
+
+bool MQTT::InStateRunning()
+{
+    return state >= StateMQTT::WAIT_DATA_FOR_SEND;
 }
 
 
 void MQTT::Reset()
 {
-    state = State::IDLE;
+    state = StateMQTT::IDLE;
     meterLastData.Reset();
 }
 
@@ -74,15 +87,15 @@ void MQTT::Update(pchar answer)
 
     switch (state)
     {
-    case State::IDLE:
+    case StateMQTT::IDLE:
         time_connect = Timer::TimeMS();
         LOG_WRITE("+++ MQTT::IDLE +++");
         SIM800::Transmit::With0D("AT+CIPSEND");
         meter.Reset();
-        state = State::WAIT_RESPONSE_CIPSEND;
+        state = StateMQTT::WAIT_RESPONSE_CIPSEND;
         break;
 
-    case State::WAIT_RESPONSE_CIPSEND:
+    case StateMQTT::WAIT_RESPONSE_CIPSEND:
         if (strcmp(answer, ">") == 0)
         {
             char *MQTT_type = "MQTT";
@@ -114,20 +127,30 @@ void MQTT::Update(pchar answer)
 
             SIM800::Transmit::UINT8(0x1A);
 
-            state = State::SEND_VERSION;
+            state = StateMQTT::SEND_VERSION;
 
             meterLastData.Reset();
         }
         break;
 
-    case State::SEND_VERSION:
+    case StateMQTT::SEND_VERSION:
         if (Sender::SendVersion())
         {
-            state = State::WAIT_DATA_FOR_SEND;
+            state = StateMQTT::WAIT_DATA_FOR_SEND;
         }
         break;
 
-    case State::WAIT_DATA_FOR_SEND:
+    case StateMQTT::WAIT_DATA_FOR_SEND:
+        break;
+
+    case StateMQTT::WAIT_CONFIRM:
+
+        if (std::strcmp(answer, "SEND OK") == 0 ||
+            std::strcmp(answer, "SEND FAIL") == 0)
+        {
+            state = StateMQTT::WAIT_DATA_FOR_SEND;
+        }
+
         break;
     }
 }

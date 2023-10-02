@@ -10,6 +10,12 @@
 #include <cstdio>
 
 
+namespace MQTT
+{
+    void ToStateConfirm();
+}
+
+
 namespace Sender
 {
     namespace Request
@@ -99,11 +105,13 @@ bool Sender::SendCounter(int counter)
 
     last_received = 0;
 
-    if (!MQTT::InStateRunning())
+    if (!MQTT::InStateWaitData())
     {
         LOG_FUNC_ENTER();
         return false;
     }
+
+    MQTT::ToStateConfirm();
 
     Request::Set("base/state/counter", counter);
 
@@ -133,7 +141,7 @@ bool Sender::SendMeasures(const Measurements &meas)
 {
     last_received = 0;
 
-    if (!MQTT::InStateRunning())
+    if (!MQTT::InStateWaitData())
     {
         LOG_FUNC_ENTER();
         return false;
@@ -151,6 +159,8 @@ bool Sender::SendMeasures(const Measurements &meas)
             return false;
         }
     }
+
+    MQTT::ToStateConfirm();
 
     {
         for (int phase = Phase::A; phase < Phase::Count; phase++)

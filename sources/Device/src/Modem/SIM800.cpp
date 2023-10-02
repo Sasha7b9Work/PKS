@@ -98,8 +98,8 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(answer, "SEND FAIL") == 0)
     {
-        Modem::Reset();
-        return true;
+        LOG_WRITE("%s", answer);
+        return false;
     }
     else if (strcmp(first_word, "+CSQ") == 0)               // Получили ответ на запрос об уровне сигнала
     {
@@ -109,7 +109,7 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     }
     else if (strcmp(answer, "SEND OK") == 0)
     {
-        return true;
+        return false;
     }
     else if (strcmp(first_word, "+IPD") == 0)
     {
