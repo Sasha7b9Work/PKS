@@ -114,11 +114,18 @@ bool Storage::CollectMeasure(Measurements &measurements)
 
 void Storage::SendMeasure()
 {
-    Measurements *meas = MemoryStorage::GetOldest();
+    static TimeMeterMS meter;
 
-    if (Sender::SendMeasures(*meas))
+    if (meter.IsFinished())
     {
-        MemoryStorage::Erase(meas);
+        const Measurements *meas = MemoryStorage::GetOldest();
+
+        if (Sender::SendMeasures(*meas))
+        {
+            MemoryStorage::Erase(meas);
+
+            meter.SetResponseTime(100);
+        }
     }
 }
 

@@ -66,7 +66,7 @@ Measurements *MemoryStorage::GetOldest()
 }
 
 
-void MemoryStorage::Erase(Measurements * /*data*/)
+void MemoryStorage::Erase(const Measurements * /*data*/)
 {
 //    data->Erase();
 }

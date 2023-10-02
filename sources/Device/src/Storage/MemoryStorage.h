@@ -49,7 +49,7 @@ struct MemoryStorage
     // с этим указателем, чтобы стереть структуру из хранилища
     static Measurements *GetOldest();
 
-    static void Erase(Measurements *);
+    static void Erase(const Measurements *);
 
     static bool IsEmpty();
 
