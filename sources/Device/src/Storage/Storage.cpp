@@ -94,7 +94,7 @@ void Storage::Update()
     {
         counter++;
 
-        meter.SetResponseTime(100);
+        meter.SetResponseTime(10000);
     }
 }
 
