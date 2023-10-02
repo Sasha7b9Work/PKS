@@ -26,22 +26,20 @@ Measurements::Measurements()
 
 MeasurementsReady::MeasurementsReady()
 {
-    bool ready = true;
-
     for (int i = 0; i < Phase::Count; i++)
     {
-        volts[i] = ready;
-        currents[i] = ready;
-        gp[i] = ready;
-        stage[i] = ready;
+        volts[i] = true;
+        currents[i] = true;
+        gp[i] = true;
+        stage[i] = true;
 
         for (int j = 0; j < 9; j++)
         {
-            km[i][j] = ready;
+            km[i][j] = true;
         }
     }
 
-    _100V = ready;
+    _100V = true;
 }
 
 

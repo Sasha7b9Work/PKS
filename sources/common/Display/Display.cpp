@@ -116,8 +116,6 @@ void Display::WriteMeasures(int i)
 {
 #define Y() (13 + i * 13)
 
-    FullMeasure measure = Measurer::LastMeasure();
-
     char message[30];
 
     bool need_bad_info = !Contactors::Serviceability::AllIsOK((Phase::E)i) && (((Timer::TimeMS() / 1000 / 5) % 2) == 0);
@@ -138,6 +136,8 @@ void Display::WriteMeasures(int i)
     }
     else
     {
+        FullMeasure measure = Measurer::LastMeasure();
+
         std::sprintf(message, "%d", -Contactors::GetLevel((Phase::E)i));
 
         WriteString(0, Y(), message);
