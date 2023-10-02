@@ -9,7 +9,7 @@
 #include "Storage/MemoryStorage.h"
 
 
-Measurements::Measurements() : number(0)
+Measurements::Measurements()
 {
     for (int i = 0; i < Phase::Count; i++)
     {
@@ -62,29 +62,27 @@ namespace Storage
 
     static void GetMeasures(Measurements &);
 
-    // ƒобавить очередное измерение в хранилище
-    static void AppendMeasure();
+    // —обрать очередное измерение
+    static bool CollectMeasure(Measurements &);
 
-    // ѕослать очередное измерение из хранилища на сервер
+    // ѕослать очередное измерение
     static void SendMeasure();
 }
 
 
 void Storage::Init()
 {
-    MemoryStorage::In it();
+    MemoryStorage::Init();
 }
 
 
-void Storage::AppendMeasure()
+bool Storage::CollectMeasure(Measurements &measurements)
 {
-    static Measurements measurements;
-
     static TimeMeterMS meter;
 
     if (!meter.IsFinished())
     {
-        return;
+        return false;
     }
 
     GetPinsGP(measurements);
@@ -95,27 +93,33 @@ void Storage::AppendMeasure()
 
     GetMeasures(measurements);
 
-    measurements.counter = counter;
+    measurements.counter = counter++;
 
-    if (Sender::SendMeasures(measurements))
-    {
-        counter++;
+    meter.SetResponseTime(10000);
 
-        meter.SetResponseTime(10000);
-    }
-
+    return true;
 }
 
 
 void Storage::SendMeasure()
 {
+    Measurements *meas = MemoryStorage::GetOldest();
 
+    if (Sender::SendMeasures(*meas))
+    {
+        MemoryStorage::Erase(meas);
+    }
 }
 
 
 void Storage::Update()
 {
-    AppendMeasure();
+    static Measurements measurements;
+
+    if (CollectMeasure(measurements))
+    {
+        MemoryStorage::Append(measurements);
+    }
 
     SendMeasure();
 }

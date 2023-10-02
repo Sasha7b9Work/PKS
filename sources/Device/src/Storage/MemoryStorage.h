@@ -7,8 +7,9 @@ struct StructData
 {
     friend struct MemoryStorage;
 
-    StructData() {}
+    StructData() : number(0) {}
 
+    uint         number;
     Measurements meas;
     uint         crc;
     BitSet32     control_field;     // Это нужно для контроля правильности записи
@@ -42,13 +43,15 @@ struct MemoryStorage
 
     static void Init();
 
-    static void Append(const StructData &);
+    static void Append(const Measurements &);
 
     // Возвращает указатель на самую старую структуру данных (которая считана раньше всех). После использования нужно вызвать Erase()
     // с этим указателем, чтобы стереть структуру из хранилища
-    static StructData *GetOldest();
+    static Measurements *GetOldest();
 
-    static void Erase(StructData *);
+    static void Erase(Measurements *);
+
+    static bool IsEmpty();
 
 private:
 

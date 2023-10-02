@@ -7,8 +7,6 @@ struct Measurements
 {
     Measurements();
 
-    uint number;
-
     uint counter;
 
     uint16 volts[Phase::Count];     // Здесь хранятся значения, увеличенные в 10 раз

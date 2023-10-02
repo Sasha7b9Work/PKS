@@ -26,50 +26,52 @@ void MemoryStorage::Init()
 }
 
 
-void MemoryStorage::Append(const StructData &data)
+void MemoryStorage::Append(const Measurements & /*data*/)
 {
-    StructData *address = FindFirstEmpty();
-
-    if (!address)
-    {
-        EraseFull();
-
-        address = (StructData *)BEGIN;
-    }
-
-    data.Write((uint)address);
+//    StructData *address = FindFirstEmpty();
+//
+//    if (!address)
+//    {
+//        EraseFull();
+//
+//        address = (StructData *)BEGIN;
+//    }
+//
+//    data.Write((uint)address);
 }
 
 
-StructData *MemoryStorage::GetOldest()
+Measurements *MemoryStorage::GetOldest()
 {
-    StructData *result = nullptr;
+//    StructData *result = nullptr;
+//
+//    for (StructData *data = (StructData *)BEGIN; data < (StructData *)END; data++)
+//    {
+//        if (data && data->IsValid())
+//        {
+//            if (!result)
+//            {
+//                result = data;
+//            }
+//            else
+//            {
+//                if (data->number < result->number)
+//                {
+//                    result = data;
+//                }
+//            }
+//        }
+//    }
+//
+//    return result;
 
-    for (StructData *data = (StructData *)BEGIN; data < (StructData *)END; data++)
-    {
-        if (data && data->IsValid())
-        {
-            if (!result)
-            {
-                result = data;
-            }
-            else
-            {
-                if (data->meas.number < result->meas.number)
-                {
-                    result = data;
-                }
-            }
-        }
-    }
-
-    return result;
+    return nullptr;
 }
 
 
-void MemoryStorage::Erase(StructData *data)
+void MemoryStorage::Erase(Measurements * /*data*/)
 {
-    data->Erase();
+//    data->Erase();
 }
 
 
