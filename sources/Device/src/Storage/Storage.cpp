@@ -80,8 +80,6 @@ void Storage::Update()
         return;
     }
 
-    measurements.counter = counter++;
-
     GetPinsGP(measurements);
 
     GetStateContactors(measurements);
@@ -90,8 +88,12 @@ void Storage::Update()
 
     GetMeasures(measurements);
 
+    measurements.counter = counter;
+
     if (Sender::SendMeasures(measurements))
     {
+        counter++;
+
         meter.SetResponseTime(10000);
     }
 }
