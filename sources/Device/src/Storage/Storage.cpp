@@ -6,6 +6,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
+#include "Storage/MemoryStorage.h"
 
 
 Measurements::Measurements() : number(0)
@@ -60,16 +61,22 @@ namespace Storage
     static void GetLevelsContactors(Measurements &);
 
     static void GetMeasures(Measurements &);
+
+    // ƒобавить очередное измерение в хранилище
+    static void AppendMeasure();
+
+    // ѕослать очередное измерение из хранилища на сервер
+    static void SendMeasure();
 }
 
 
 void Storage::Init()
 {
-
+    MemoryStorage::In it();
 }
 
 
-void Storage::Update()
+void Storage::AppendMeasure()
 {
     static Measurements measurements;
 
@@ -96,6 +103,21 @@ void Storage::Update()
 
         meter.SetResponseTime(10000);
     }
+
+}
+
+
+void Storage::SendMeasure()
+{
+
+}
+
+
+void Storage::Update()
+{
+    AppendMeasure();
+
+    SendMeasure();
 }
 
 
