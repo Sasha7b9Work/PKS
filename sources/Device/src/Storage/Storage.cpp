@@ -120,6 +120,8 @@ void Storage::SendMeasure()
     {
         const Measurements *meas = MemoryStorage::GetOldest();
 
+        LOG_WRITE_TRACE("address meas = %X", meas);
+
         if (Sender::SendMeasures(*meas))
         {
             MemoryStorage::Erase(meas);
