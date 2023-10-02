@@ -95,6 +95,12 @@ void Storage::Update()
         counter++;
 
         meter.SetResponseTime(10000);
+
+        LOG_FUNC_ENTER();
+    }
+    else
+    {
+        LOG_FUNC_ENTER();
     }
 }
 
