@@ -75,7 +75,7 @@ void Storage::Update()
 
     static TimeMeterMS meter;
 
-    if (meter.IsFinished())
+    if (!meter.IsFinished())
     {
         return;
     }
@@ -95,12 +95,6 @@ void Storage::Update()
         counter++;
 
         meter.SetResponseTime(10000);
-
-        LOG_FUNC_ENTER();
-    }
-    else
-    {
-        LOG_FUNC_ENTER();
     }
 }
 
