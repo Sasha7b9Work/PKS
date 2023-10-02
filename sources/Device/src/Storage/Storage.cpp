@@ -80,12 +80,10 @@ void Storage::Update()
 
     if (CollectMeasure(measurements))
     {
-        Sender::SendMeasures(measurements);
-
-//        MemoryStorage::Append(measurements);
+        MemoryStorage::Append(measurements);
     }
 
-//    SendMeasure();
+    SendMeasure();
 }
 
 
