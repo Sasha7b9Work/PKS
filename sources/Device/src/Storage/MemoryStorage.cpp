@@ -6,37 +6,36 @@
 #include <cstring>
 
 
-struct RecordData
-{
-    RecordData() : number(0) {}
-
-    uint         number;
-    Measurements measurements;
-    uint         crc;
-    BitSet32     control_field;     // Это нужно для контроля правильности записи
-
-    void Write(const Measurements &, const RecordData *oldest);
-
-    // true, если запись пуста
-    bool IsEmpty() const;
-
-    // true, если содержатся корректные данные
-    bool IsValid() const;
-
-    bool IsErased();
-
-    void Erase();
-
-    bool Read(uint address);
-
-    uint *FirstWord();
-
-    uint CalculateCRC() const;
-};
-
-
 namespace MemoryStorage
 {
+    struct RecordData
+    {
+        RecordData() : number(0) {}
+
+        uint         number;
+        Measurements measurements;
+        uint         crc;
+        BitSet32     control_field;     // Это нужно для контроля правильности записи
+
+        void Write(const Measurements &, const RecordData *oldest);
+
+        // true, если запись пуста
+        bool IsEmpty() const;
+
+        // true, если содержатся корректные данные
+        bool IsValid() const;
+
+        bool IsErased();
+
+        void Erase();
+
+        bool Read(uint address);
+
+        uint *FirstWord();
+
+        uint CalculateCRC() const;
+    };
+
     static RecordData *PrepreEmptyPlaceForRecord();
 
     // Возвращает указатель на самую старую запись
@@ -63,18 +62,18 @@ void MemoryStorage::Init()
 {
     for (RecordData *address = Begin(); address < End(); address++)
     {
-        if (address->IsEmpty())
+        if (address->IsEmpty() || address->IsErased())
         {
             continue;
         }
 
         if (!address->IsValid())
         {
-            LOG_WRITE_TRACE("Erase %X", address);
-
             address->Erase();
         }
     }
+
+
 }
 
 
@@ -86,7 +85,7 @@ void MemoryStorage::Append(const Measurements &data)
 }
 
 
-void RecordData::Write(const Measurements &meas, const RecordData *oldest)
+void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData *oldest)
 {
     uint address = (uint)this;
 
@@ -106,7 +105,7 @@ void RecordData::Write(const Measurements &meas, const RecordData *oldest)
 }
 
 
-RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
+MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
 {
     for (RecordData *rec = Begin(); rec < End(); rec++)
     {
@@ -190,7 +189,7 @@ int MemoryStorage::NumPageForAddress(uint address)
 }
 
 
-bool RecordData::IsEmpty() const
+bool MemoryStorage::RecordData::IsEmpty() const
 {
     uint8 *address = (uint8 *)this;
 
@@ -210,7 +209,7 @@ bool RecordData::IsEmpty() const
 }
 
 
-bool RecordData::IsValid() const
+bool MemoryStorage::RecordData::IsValid() const
 {
     uint *pointer = (uint *)this;
 
@@ -225,31 +224,31 @@ bool RecordData::IsValid() const
 }
 
 
-void RecordData::Erase()
+void MemoryStorage::RecordData::Erase()
 {
     HAL_ROM::WriteUInt((uint)FirstWord(), 0U);
 }
 
 
-bool RecordData::IsErased()
+bool MemoryStorage::RecordData::IsErased()
 {
     return *FirstWord() == 0U;
 }
 
 
-uint *RecordData::FirstWord()
+uint *MemoryStorage::RecordData::FirstWord()
 {
     return (uint *)this;
 }
 
 
-uint RecordData::CalculateCRC() const
+uint MemoryStorage::RecordData::CalculateCRC() const
 {
     return Math::CalculateCRC((uint)this, sizeof(RecordData) - sizeof(crc) - sizeof(control_field));
 }
 
 
-bool RecordData::Read(uint address)
+bool MemoryStorage::RecordData::Read(uint address)
 {
     std::memcpy((void *)address, this, sizeof(RecordData));
 
@@ -263,7 +262,7 @@ bool MemoryStorage::IsEmpty()
 }
 
 
-RecordData *MemoryStorage::GetOldestRec()
+MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
 {
     RecordData *result = nullptr;
 
