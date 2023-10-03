@@ -231,7 +231,7 @@ bool MemoryStorage::RecordData::IsEmpty() const
     {
         if (*address != 0xFF)
         {
-            LOG_WRITE_TRACE("                                                 record %X not empty for address %X", this, address);
+            LOG_WRITE_TRACE("                                                 record %X not empty for address %X:", this, address);
             return false;
         }
 
@@ -384,6 +384,13 @@ void MemoryStorage::Page::Erase() const
     LOG_WRITE_TRACE("Erase page %d address %X", num_page, Address());
 
     HAL_ROM::ErasePage(num_page);
+
+    uint *address = (uint *)startAddress;
+
+    if (*address != (uint)(-1))
+    {
+        LOG_WRITE("                     ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %u from address %X", *address, address);
+    }
 }
 
 
