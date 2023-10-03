@@ -1,4 +1,4 @@
-#define VERSION 266
+#define VERSION 267
 
 #define ENABLE_LOG
 

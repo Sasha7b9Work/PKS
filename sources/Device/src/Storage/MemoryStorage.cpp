@@ -396,5 +396,5 @@ void MemoryStorage::Page::Erase() const
 
 int MemoryStorage::Page::Number() const
 {
-    return (int)((startAddress - HAL_ROM::ADDR_STORAGE) / HAL_ROM::SIZE_PAGE);
+    return (int)((startAddress - HAL_ROM::ADDR_BASE) / HAL_ROM::SIZE_PAGE);
 }
