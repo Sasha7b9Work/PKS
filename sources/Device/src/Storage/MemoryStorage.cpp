@@ -91,13 +91,19 @@ void MemoryStorage::Init()
     {
         Page page(address);
 
-        if (!page.ExistEmptyRecords() && !page.ExistDataRecords())
+        bool exist_empty = page.ExistEmptyRecords();
+
+        bool exist_data = page.ExistDataRecords();
+
+        LOG_WRITE_TRACE("Page %d:%X exist_empty:%d exist_data:%d", page.Number(), page.Address(), exist_empty, exist_data);
+
+        if (!exist_empty && !exist_data)
         {
             page.Erase();
         }
         else
         {
-            LOG_WRITE_TRACE("Page %d address %Xnot erased", page.Number(), page.Address());
+            LOG_WRITE_TRACE("Page %d:%X not erased", page.Number(), page.Address());
         }
     }
 }
