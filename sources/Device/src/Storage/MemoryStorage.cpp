@@ -66,7 +66,7 @@ namespace MemoryStorage
     }
 
     // —тереть сектор, которому принадлежит адрес address
-    static void ErasePageForAddress(uint address);
+    static void ErasePageForAddress(uint address, int line);
 
     static int NumPageForAddress(uint address);
 }
@@ -141,7 +141,7 @@ MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
         {
             if (rec + 1 > End())
             {
-                ErasePageForAddress((uint)Begin());
+                ErasePageForAddress((uint)Begin(), __LINE__);
 
                 return Begin();
             }
@@ -154,12 +154,12 @@ MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
 
     if (oldest == nullptr)
     {
-        ErasePageForAddress((uint)Begin());
+        ErasePageForAddress((uint)Begin(), __LINE__);
 
         return Begin();
     }
 
-    ErasePageForAddress((uint)oldest);
+    ErasePageForAddress((uint)oldest, __LINE__);
 
     return PrepreEmptyPlaceForRecord();
 }
@@ -205,8 +205,10 @@ void MemoryStorage::Erase(const Measurements *meas)
 }
 
 
-void MemoryStorage::ErasePageForAddress(uint address)
+void MemoryStorage::ErasePageForAddress(uint address, int line)
 {
+    LOG_WRITE("Erase page for address %u from line %d", address, line);
+
     HAL_ROM::ErasePage(NumPageForAddress(address));
 }
 
