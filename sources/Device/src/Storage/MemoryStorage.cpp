@@ -23,7 +23,7 @@ namespace MemoryStorage
         bool IsEmpty() const;
 
         // true, если содержатся корректные данные
-        bool IsValid() const;
+        bool ContainData() const;
 
         bool IsErased();
 
@@ -40,11 +40,12 @@ namespace MemoryStorage
     {
         Page(uint _startAddress) : startAddress(_startAddress) { }
         bool ExistEmptyRecords() const;
-        bool ExistValidRecords() const;
+        // Содержит записи с данными
+        bool ExistDataRecords() const;
         void Erase() const;
     private:
         uint startAddress;
-        RecordData *AddressFirstRecord() const;
+        RecordData *GetFirstRecord() const;
     };
 
     static RecordData *PrepreEmptyPlaceForRecord();
@@ -78,7 +79,7 @@ void MemoryStorage::Init()
             continue;
         }
 
-        if (!address->IsValid())
+        if (!address->ContainData())
         {
             address->Erase();
         }
@@ -88,7 +89,7 @@ void MemoryStorage::Init()
     {
         Page page(address);
 
-        if (!page.ExistEmptyRecords() && !page.ExistValidRecords())
+        if (!page.ExistEmptyRecords() && !page.ExistDataRecords())
         {
             page.Erase();
         }
@@ -162,7 +163,7 @@ Measurements *MemoryStorage::GetOldest()
 
     for (RecordData *data = (RecordData *)Begin(); data < (RecordData *)End(); data++)
     {
-        if (data->IsValid())
+        if (data->ContainData())
         {
             if (!result)
             {
@@ -228,7 +229,7 @@ bool MemoryStorage::RecordData::IsEmpty() const
 }
 
 
-bool MemoryStorage::RecordData::IsValid() const
+bool MemoryStorage::RecordData::ContainData() const
 {
     uint *pointer = (uint *)this;
 
@@ -289,7 +290,7 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
     {
         if (rec + 1 <= End())
         {
-            if (rec->IsValid())
+            if (rec->ContainData())
             {
                 if (result == nullptr)
                 {
@@ -314,16 +315,56 @@ bool MemoryStorage::Page::ExistEmptyRecords() const
 {
     uint end = startAddress + HAL_ROM::SIZE_PAGE;
 
+    RecordData *record = GetFirstRecord();
+
+    while ((uint)record < end)
+    {
+        if (record->IsEmpty())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+bool MemoryStorage::Page::ExistDataRecords() const
+{
+    uint end = startAddress + HAL_ROM::SIZE_PAGE;
+
+    RecordData *record = GetFirstRecord();
+
+    while ((uint)record < end)
+    {
+        if (record->ContainData())
+        {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
+MemoryStorage::RecordData *MemoryStorage::Page::GetFirstRecord() const
+{
     RecordData *record = Begin();
 
     while ((uint)record < startAddress)
     {
         record++;
     }
+
+    return record;
 }
 
 
-MemoryStorage::RecordData *MemoryStorage::Page::AddressFirstRecord() const
+void MemoryStorage::Page::Erase() const
 {
-    RecordData *record = Begin();
+    int num_page = (int)((startAddress - HAL_ROM::ADDR_STORAGE) / HAL_ROM::SIZE_PAGE);
+
+    LOG_WRITE_TRACE("Erase page %d", num_page);
+
+    HAL_ROM::ErasePage(num_page);
 }
