@@ -231,6 +231,7 @@ bool MemoryStorage::RecordData::IsEmpty() const
     {
         if (*address != 0xFF)
         {
+            LOG_WRITE_TRACE("                                                 record %X not empty for address %X", this, address);
             return false;
         }
 
