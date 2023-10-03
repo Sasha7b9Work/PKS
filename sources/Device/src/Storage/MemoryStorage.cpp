@@ -36,6 +36,17 @@ namespace MemoryStorage
         uint CalculateCRC() const;
     };
 
+    struct Page
+    {
+        Page(uint _startAddress) : startAddress(_startAddress) { }
+        bool ExistEmptyRecords() const;
+        bool ExistValidRecords() const;
+        void Erase() const;
+    private:
+        uint startAddress;
+        RecordData *AddressFirstRecord() const;
+    };
+
     static RecordData *PrepreEmptyPlaceForRecord();
 
     // ¬озвращает указатель на самую старую запись
@@ -73,7 +84,15 @@ void MemoryStorage::Init()
         }
     }
 
+    for (uint address = BEGIN; address < END; address += HAL_ROM::SIZE_PAGE)
+    {
+        Page page(address);
 
+        if (!page.ExistEmptyRecords() && !page.ExistValidRecords())
+        {
+            page.Erase();
+        }
+    }
 }
 
 
@@ -288,4 +307,23 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
     }
 
     return result;
+}
+
+
+bool MemoryStorage::Page::ExistEmptyRecords() const
+{
+    uint end = startAddress + HAL_ROM::SIZE_PAGE;
+
+    RecordData *record = Begin();
+
+    while ((uint)record < startAddress)
+    {
+        record++;
+    }
+}
+
+
+MemoryStorage::RecordData *MemoryStorage::Page::AddressFirstRecord() const
+{
+    RecordData *record = Begin();
 }
