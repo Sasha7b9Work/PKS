@@ -20,7 +20,11 @@ void HAL_ROM::ErasePage(int num_page)
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
     fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
 
-    fmc_page_erase(FLASH_BASE + num_page * PAGE_SIZE);
+    uint address = FLASH_BASE + num_page * PAGE_SIZE;
+
+    LOG_WRITE_TRACE("Erase page for address %X", address);
+
+    fmc_page_erase(address);
 
     fmc_flag_clear(FMC_FLAG_BANK0_END);
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
