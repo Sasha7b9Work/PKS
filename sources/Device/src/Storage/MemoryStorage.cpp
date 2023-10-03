@@ -108,6 +108,8 @@ void MemoryStorage::Append(const Measurements &data)
     RecordData *rec = PrepreEmptyPlaceForRecord();
 
     rec->Write(data, GetOldestRec());
+
+    LOG_WRITE_TRACE("write data to %X", rec);
 }
 
 

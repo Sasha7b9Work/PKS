@@ -80,13 +80,13 @@ void Storage::Init()
 
 void Storage::Update()
 {
-//    static Measurements measurements;
-//
-//    if (CollectMeasure(measurements))
-//    {
-//        MemoryStorage::Append(measurements);
-//    }
-//
+    static Measurements measurements;
+
+    if (CollectMeasure(measurements))
+    {
+        MemoryStorage::Append(measurements);
+    }
+
 //    SendMeasure();
 }
 

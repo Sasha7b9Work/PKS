@@ -22,7 +22,7 @@ void HAL_ROM::ErasePage(int num_page)
 
     uint address = FLASH_BASE + num_page * PAGE_SIZE;
 
-    LOG_WRITE_TRACE("Erase page for address %X", address);
+    LOG_WRITE_TRACE("Erase page %d for address %X", num_page, address);
 
     fmc_page_erase(address);
 
