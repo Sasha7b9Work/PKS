@@ -71,7 +71,7 @@ struct MeasurementsReady
 
 namespace Storage
 {
-    static const uint TIME_UPDATE_MS = 10000;
+    static const uint TIME_UPDATE_MS = 1;
 
     void Init();
 
