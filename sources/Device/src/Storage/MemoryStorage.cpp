@@ -323,6 +323,8 @@ bool MemoryStorage::Page::ExistEmptyRecords() const
         {
             return true;
         }
+
+        record++;
     }
 
     return false;
@@ -341,6 +343,8 @@ bool MemoryStorage::Page::ExistDataRecords() const
         {
             return true;
         }
+
+        record++;
     }
 
     return false;
