@@ -203,7 +203,7 @@ bool RecordData::IsEmpty() const
             return false;
         }
 
-        end++;
+        address++;
     }
 
     return true;
