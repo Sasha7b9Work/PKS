@@ -124,10 +124,10 @@ void Storage::SendMeasure()
     {
         const Measurements *meas = MemoryStorage::GetOldest();
 
-        LOG_WRITE_TRACE("address meas = %X", meas);
-
-        if (Sender::SendMeasures(*meas))
+        if (meas && Sender::SendMeasures(*meas))
         {
+            LOG_WRITE_TRACE("address meas = %X", meas);
+
             MemoryStorage::Erase(meas);
 
             meter.SetResponseTime(100);

@@ -63,8 +63,6 @@ void MemoryStorage::Init()
 {
     for (RecordData *address = Begin(); address < End(); address++)
     {
-        LOG_WRITE_TRACE("address record %X", address);
-
         if (address->IsEmpty())
         {
             continue;
@@ -72,6 +70,8 @@ void MemoryStorage::Init()
 
         if (!address->IsValid())
         {
+            LOG_WRITE_TRACE("Erase %X", address);
+
             address->Erase();
         }
     }
