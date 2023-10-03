@@ -43,6 +43,8 @@ namespace MemoryStorage
         // Содержит записи с данными
         bool ExistDataRecords() const;
         void Erase() const;
+        int Number() const;
+        uint Address() const { return startAddress; }
     private:
         uint startAddress;
         RecordData *GetFirstRecord() const;
@@ -92,6 +94,10 @@ void MemoryStorage::Init()
         if (!page.ExistEmptyRecords() && !page.ExistDataRecords())
         {
             page.Erase();
+        }
+        else
+        {
+            LOG_WRITE_TRACE("Page %d address %Xnot erased", page.Number(), page.Address());
         }
     }
 }
@@ -366,9 +372,15 @@ MemoryStorage::RecordData *MemoryStorage::Page::GetFirstRecord() const
 
 void MemoryStorage::Page::Erase() const
 {
-    int num_page = (int)((startAddress - HAL_ROM::ADDR_STORAGE) / HAL_ROM::SIZE_PAGE);
+    int num_page = Number();
 
-    LOG_WRITE_TRACE("Erase page %d", num_page);
+    LOG_WRITE_TRACE("Erase page %d address %X", num_page, Address());
 
     HAL_ROM::ErasePage(num_page);
+}
+
+
+int MemoryStorage::Page::Number() const
+{
+    return (int)((startAddress - HAL_ROM::ADDR_STORAGE) / HAL_ROM::SIZE_PAGE);
 }
