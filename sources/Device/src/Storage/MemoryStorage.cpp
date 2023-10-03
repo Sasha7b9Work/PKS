@@ -61,8 +61,10 @@ namespace MemoryStorage
 
 void MemoryStorage::Init()
 {
-    for (RecordData *address = (RecordData *)BEGIN; (uint)address < END; address++)
+    for (RecordData *address = Begin(); address < End(); address++)
     {
+        LOG_WRITE_TRACE("address record %X", address);
+
         if (address->IsEmpty())
         {
             continue;
