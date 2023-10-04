@@ -105,6 +105,8 @@ namespace HAL_ROM
     bool PageIsEmpty(int num_page);
 
     void WriteUInt(uint address, uint value);
+
+    uint ReadUint(uint address);
 }
 
 

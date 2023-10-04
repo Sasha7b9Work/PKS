@@ -115,19 +115,27 @@ void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData
 {
     uint address = (uint)this;
 
-    HAL_ROM::WriteUInt(address, (uint)((oldest == nullptr) ? 1 : oldest->number + 1));  // number
+    number = (uint)((oldest == nullptr) ? 1 : oldest->number + 1);
+
+    HAL_ROM::WriteUInt(address, number);  // number
 
     address += sizeof(uint);
 
-    HAL_ROM::WriteData(address, &meas, sizeof(Measurements));                   // Measurements
+    measurements = meas;
+
+    HAL_ROM::WriteData(address, &measurements, sizeof(Measurements));                   // Measurements
 
     address += sizeof(Measurements);
 
-    HAL_ROM::WriteUInt(address, CalculateCRC());                                // crc
+    crc = CalculateCRC();
+
+    HAL_ROM::WriteUInt(address, crc);                                // crc
 
     address += sizeof(uint);
 
-    HAL_ROM::WriteUInt(address, 0x00000000);                                    // control_fields
+    control_field = 0;
+
+    HAL_ROM::WriteUInt(address, control_field);                                    // control_fields
 
     if (ContainValidData())
     {
@@ -252,11 +260,6 @@ bool MemoryStorage::RecordData::ContainValidData() const
     if (*pointer == (uint)-1)
     {
         return false;                   // Здесь ничего не записано
-    }
-
-    if (crc != CalculateCRC())
-    {
-        LOG_WRITE_TRACE("crc %X <-> CalculateCRC() %X", crc, CalculateCRC());
     }
 
     return (crc == CalculateCRC()) &&

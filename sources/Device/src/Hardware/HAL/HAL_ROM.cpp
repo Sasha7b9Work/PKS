@@ -70,3 +70,11 @@ void HAL_ROM::WriteUInt(uint address, uint value)
 
     fmc_lock();
 }
+
+
+uint HAL_ROM::ReadUint(uint address)
+{
+    uint *pointer = (uint *)address;
+
+    return *pointer;
+}
