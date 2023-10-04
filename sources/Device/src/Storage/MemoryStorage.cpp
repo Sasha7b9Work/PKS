@@ -115,27 +115,21 @@ void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData
 {
     uint address = (uint)this;
 
-    number = (uint)((oldest == nullptr) ? 1 : oldest->number + 1);
-
-    HAL_ROM::WriteUInt(address, number);  // number
+    HAL_ROM::WriteUInt(address, (uint)((oldest == nullptr) ? 1 : (oldest->number + 1)));  // number
 
     address += sizeof(uint);
 
-    measurements = meas;
-
-    HAL_ROM::WriteData(address, &measurements, sizeof(Measurements));                   // Measurements
+    HAL_ROM::WriteData(address, &meas, sizeof(Measurements));       // Measurements
 
     address += sizeof(Measurements);
 
     crc = CalculateCRC();
 
-    HAL_ROM::WriteUInt(address, crc);                                // crc
+    HAL_ROM::WriteUInt(address, CalculateCRC());                            // crc
 
     address += sizeof(uint);
 
-    control_field = 0;
-
-    HAL_ROM::WriteUInt(address, control_field);                                    // control_fields
+    HAL_ROM::WriteUInt(address, 0);                                         // control_fields
 
     if (ContainValidData())
     {
@@ -262,7 +256,7 @@ bool MemoryStorage::RecordData::ContainValidData() const
         return false;                   // Здесь ничего не записано
     }
 
-    return (crc == CalculateCRC()) &&
+    return (HAL_ROM::ReadUint((uint)&crc - (uint)this) == CalculateCRC()) &&
            (control_field == 0);
 }
 
@@ -309,8 +303,12 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
 {
     RecordData *result = nullptr;
 
+    int counter = 0;
+
     for (RecordData *rec = Begin(); rec < End(); rec++)
     {
+        counter++;
+        
         if (rec + 1 <= End())
         {
             if (rec->ContainValidData())
@@ -331,6 +329,8 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
             }
         }
     }
+    
+    counter = counter;
 
     return result;
 }
