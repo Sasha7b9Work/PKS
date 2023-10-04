@@ -15,7 +15,7 @@ namespace MemoryStorage
         uint         number;
         Measurements measurements;
         uint         crc;
-        BitSet32     control_field;     // Это нужно для контроля правильности записи
+        uint         control_field;     // Это нужно для контроля правильности записи
 
         void Write(const Measurements &, const RecordData *oldest);
 
@@ -108,15 +108,6 @@ void MemoryStorage::Append(const Measurements &data)
     RecordData *rec = PrepreEmptyPlaceForRecord();
 
     rec->Write(data, GetOldestRec());
-
-    if (rec->ContainValidData())
-    {
-        LOG_WRITE_TRACE("write data to %X", rec);
-    }
-    else
-    {
-        LOG_ERROR("error write data to %X");
-    }
 }
 
 
@@ -137,6 +128,15 @@ void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData
     address += sizeof(uint);
 
     HAL_ROM::WriteUInt(address, 0x00000000);                                    // control_fields
+
+    if (ContainValidData())
+    {
+        LOG_WRITE_TRACE("write data to %X", this);
+    }
+    else
+    {
+        LOG_ERROR("error write data to %X", this);
+    }
 }
 
 
@@ -254,9 +254,13 @@ bool MemoryStorage::RecordData::ContainValidData() const
         return false;                   // Здесь ничего не записано
     }
 
+    if (crc != CalculateCRC())
+    {
+        LOG_WRITE_TRACE("crc %X <-> CalculateCRC() %X", crc, CalculateCRC());
+    }
+
     return (crc == CalculateCRC()) &&
-           (control_field.bytes[0] == 0x00) &&
-           (control_field.bytes[1] == BINARY_U8(01111110));
+           (control_field == 0);
 }
 
 
@@ -288,7 +292,7 @@ bool MemoryStorage::RecordData::Read(uint address)
 {
     std::memcpy((void *)address, this, sizeof(RecordData));
 
-    return (CalculateCRC() == crc) && (control_field.word == 0);
+    return (CalculateCRC() == crc) && (control_field == 0);
 }
 
 
