@@ -113,31 +113,17 @@ void MemoryStorage::Append(const Measurements &data)
 
 void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData *oldest)
 {
-    uint address = (uint)this;
+    HAL_ROM::WriteUInt((uint)&number, (uint)((oldest == nullptr) ? 1 : (oldest->number + 1)));  // number
 
-    HAL_ROM::WriteUInt(address, (uint)((oldest == nullptr) ? 1 : (oldest->number + 1)));  // number
+    HAL_ROM::WriteData((uint)&measurements, &meas, sizeof(Measurements));                       // Measurements
 
-    address += sizeof(uint);
+    HAL_ROM::WriteUInt((uint)&crc, CalculateCRC());                                             // crc
 
-    HAL_ROM::WriteData(address, &meas, sizeof(Measurements));       // Measurements
+    HAL_ROM::WriteUInt((uint)&control_field, 0);                                                // control_fields
 
-    address += sizeof(Measurements);
-
-    crc = CalculateCRC();
-
-    HAL_ROM::WriteUInt(address, CalculateCRC());                            // crc
-
-    address += sizeof(uint);
-
-    HAL_ROM::WriteUInt(address, 0);                                         // control_fields
-
-    if (ContainValidData())
+    if (!ContainValidData())
     {
-        LOG_WRITE_TRACE("write data to %X", this);
-    }
-    else
-    {
-        LOG_ERROR("error write data to %X", this);
+        LOG_ERROR("Error write record to %X", this);
     }
 }
 
@@ -236,7 +222,6 @@ bool MemoryStorage::RecordData::IsEmpty() const
     {
         if (*address != 0xFF)
         {
-//            LOG_WRITE_TRACE("                                                 record %X not empty for address %X:", this, address);
             return false;
         }
 
@@ -256,7 +241,7 @@ bool MemoryStorage::RecordData::ContainValidData() const
         return false;                   // Здесь ничего не записано
     }
 
-    return (HAL_ROM::ReadUint((uint)&crc - (uint)this) == CalculateCRC()) &&
+    return (HAL_ROM::ReadUint((uint)&crc) == CalculateCRC()) &&
            (control_field == 0);
 }
 
