@@ -298,8 +298,6 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
         {
             if (rec->ContainValidData())
             {
-                LOG_WRITE_TRACE("                               record %X contain data", rec);
-
                 if (result == nullptr)
                 {
                     result = rec;
