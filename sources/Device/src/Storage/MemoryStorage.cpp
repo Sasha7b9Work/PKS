@@ -10,7 +10,7 @@ namespace MemoryStorage
 {
     struct RecordData
     {
-        RecordData() : number(0) {}
+        RecordData() : number(1) {}
 
         uint         number;
         Measurements measurements;
@@ -23,7 +23,7 @@ namespace MemoryStorage
         bool IsEmpty() const;
 
         // true, если содержатся корректные данные
-        bool ContainData() const;
+        bool ContainValidData() const;
 
         bool IsErased();
 
@@ -81,7 +81,7 @@ void MemoryStorage::Init()
             continue;
         }
 
-        if (!address->ContainData())
+        if (!address->ContainValidData())
         {
             address->Erase();
         }
@@ -109,7 +109,14 @@ void MemoryStorage::Append(const Measurements &data)
 
     rec->Write(data, GetOldestRec());
 
-    LOG_WRITE_TRACE("write data to %X", rec);
+    if (rec->ContainValidData())
+    {
+        LOG_WRITE_TRACE("write data to %X", rec);
+    }
+    else
+    {
+        LOG_ERROR("error write data to %X");
+    }
 }
 
 
@@ -137,15 +144,13 @@ MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
 {
     for (RecordData *rec = Begin(); rec < End(); rec++)
     {
+        if (rec + 1 > End())
+        {
+            break;
+        }
+
         if (rec->IsEmpty())
         {
-            if (rec + 1 > End())
-            {
-                ErasePageForAddress((uint)Begin(), __LINE__);
-
-                return Begin();
-            }
-
             return rec;
         }
     }
@@ -171,7 +176,7 @@ Measurements *MemoryStorage::GetOldest()
 
     for (RecordData *data = (RecordData *)Begin(); data < (RecordData *)End(); data++)
     {
-        if (data->ContainData())
+        if (data->ContainValidData())
         {
             if (!result)
             {
@@ -207,7 +212,7 @@ void MemoryStorage::Erase(const Measurements *meas)
 
 void MemoryStorage::ErasePageForAddress(uint address, int line)
 {
-    LOG_WRITE("Erase page for address %u from line %d", address, line);
+    LOG_WRITE_TRACE("Erase page for address %X from line %d", address, line);
 
     HAL_ROM::ErasePage(NumPageForAddress(address));
 }
@@ -240,7 +245,7 @@ bool MemoryStorage::RecordData::IsEmpty() const
 }
 
 
-bool MemoryStorage::RecordData::ContainData() const
+bool MemoryStorage::RecordData::ContainValidData() const
 {
     uint *pointer = (uint *)this;
 
@@ -301,8 +306,10 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
     {
         if (rec + 1 <= End())
         {
-            if (rec->ContainData())
+            if (rec->ContainValidData())
             {
+                LOG_WRITE_TRACE("                               record %X contain data", rec);
+
                 if (result == nullptr)
                 {
                     result = rec;
@@ -350,7 +357,7 @@ bool MemoryStorage::Page::ExistDataRecords() const
 
     while ((uint)record < end)
     {
-        if (record->ContainData())
+        if (record->ContainValidData())
         {
             return true;
         }

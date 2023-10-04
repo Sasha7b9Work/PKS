@@ -70,11 +70,11 @@ namespace Storage
 
 void Storage::Init()
 {
-    uint time_start = TIME_MS;
-
-    MemoryStorage::Init();
-
-    LOG_WRITE("Time init storage %d ms", TIME_MS - time_start);
+//    uint time_start = TIME_MS;
+//
+//    MemoryStorage::Init();
+//
+//    LOG_WRITE("Time init storage %d ms", TIME_MS - time_start);
 }
 
 

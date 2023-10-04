@@ -91,3 +91,21 @@ void Log::WriteTrace(char *file, int line, char *format, ...)
 
     HAL_USART_LOG::Transmit(buffer);
 }
+
+
+void Log::Error(char *file, int line, char *format, ...)
+{
+    char message[256];
+
+    std::va_list args;
+    va_start(args, format);
+    std::vsprintf(message, format, args);
+    va_end(args);
+
+    char buffer[512];
+
+    std::sprintf(buffer, "%d : %s     %s:%d                                !!!!!!!!!!! ERRROR !!!!!!!!!!", counter++, message, file, line);
+
+    HAL_USART_LOG::Transmit(buffer);
+
+}
