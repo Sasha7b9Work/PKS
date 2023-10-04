@@ -107,6 +107,8 @@ void MemoryStorage::Append(const Measurements &data)
 {
     RecordData *rec = PrepreEmptyPlaceForRecord();
 
+    LOG_WRITE_TRACE("Write record to %X", rec);
+
     rec->Write(data, GetOldestRec());
 }
 
@@ -202,7 +204,11 @@ void MemoryStorage::ErasePageForAddress(uint address, int line)
 {
     LOG_WRITE_TRACE("Erase page for address %X from line %d", address, line);
 
-    HAL_ROM::ErasePage(NumPageForAddress(address));
+    int num_page = NumPageForAddress(address);
+
+    LOG_WRITE_TRACE("Page for address %X : %d", address, num_page);
+
+    HAL_ROM::ErasePage(num_page);
 }
 
 
