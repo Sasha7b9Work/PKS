@@ -50,7 +50,7 @@ namespace MemoryStorage
         RecordData *GetFirstRecord() const;
     };
 
-    static RecordData *PrepreEmptyPlaceForRecord();
+    static RecordData *PrepreEmptyPlaceForRecord(int line);
 
     // ¬озвращает указатель на самую старую запись
     static RecordData *GetOldestRec();
@@ -74,6 +74,13 @@ namespace MemoryStorage
 
 void MemoryStorage::Init()
 {
+    for (int page = 100; page < 125; page++)
+    {
+        HAL_ROM::ErasePage(page);
+    }
+
+    return;
+
     for (RecordData *address = Begin(); address < End(); address++)
     {
         if (address->IsEmpty() || address->IsErased())
@@ -105,7 +112,8 @@ void MemoryStorage::Init()
 
 void MemoryStorage::Append(const Measurements &data)
 {
-    RecordData *rec = PrepreEmptyPlaceForRecord();
+    LOG_WRITE_TRACE("                                                                                  ");
+    RecordData *rec = PrepreEmptyPlaceForRecord(__LINE__);
 
     LOG_WRITE_TRACE("Write record to %X", rec);
 
@@ -130,8 +138,10 @@ void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData
 }
 
 
-MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
+MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord(int line)
 {
+//    LOG_WRITE_TRACE("PrepreEmptyPlaceForRecord() from line %d", line);
+
     for (RecordData *rec = Begin(); rec < End(); rec++)
     {
         if (rec + 1 > End())
@@ -156,7 +166,7 @@ MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord()
 
     ErasePageForAddress((uint)oldest, __LINE__);
 
-    return PrepreEmptyPlaceForRecord();
+    return PrepreEmptyPlaceForRecord(__LINE__);
 }
 
 

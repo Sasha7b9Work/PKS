@@ -105,7 +105,6 @@ bool Sender::SendMeasures(const Measurements &meas)
 
     if (!MQTT::InStateWaitData())
     {
-        LOG_FUNC_ENTER();
         return false;
     }
 
@@ -117,7 +116,6 @@ bool Sender::SendMeasures(const Measurements &meas)
     {
         if (meter.ElapsedTime() > 20)
         {
-            LOG_FUNC_ENTER();
             return false;
         }
     }
@@ -228,8 +226,6 @@ bool Sender::SendMeasures(const Measurements &meas)
     Request::SendFinalSequence(true);
 
     Request::Clear();
-
-    LOG_FUNC_ENTER();
 
     return true;
 }

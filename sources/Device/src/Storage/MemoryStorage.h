@@ -6,7 +6,7 @@
 namespace MemoryStorage
 {
     static const uint BEGIN = 0x8000000 + 200 * 1024;
-    static const uint END = 0x8000000 + 250 * 1024;
+    static const uint END = 0x8000000 + 206 * 1024;
 
     void Init();
 

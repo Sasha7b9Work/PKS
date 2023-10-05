@@ -70,11 +70,11 @@ namespace Storage
 
 void Storage::Init()
 {
-//    uint time_start = TIME_MS;
-//
-//    MemoryStorage::Init();
-//
-//    LOG_WRITE("Time init storage %d ms", TIME_MS - time_start);
+    uint time_start = TIME_MS;
+
+    MemoryStorage::Init();
+
+    LOG_WRITE("Time init storage %d ms", TIME_MS - time_start);
 }
 
 
@@ -87,7 +87,7 @@ void Storage::Update()
         MemoryStorage::Append(measurements);
     }
 
-//    SendMeasure();
+    SendMeasure();
 }
 
 
@@ -126,8 +126,6 @@ void Storage::SendMeasure()
 
         if (meas && Sender::SendMeasures(*meas))
         {
-            LOG_WRITE_TRACE("address meas = %X", meas);
-
             MemoryStorage::Erase(meas);
 
             meter.SetResponseTime(100);
