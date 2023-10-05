@@ -320,7 +320,7 @@ MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
                 }
                 else
                 {
-                    if (rec->number > result->number)
+                    if (rec->number < result->number)
                     {
                         result = rec;
                     }
