@@ -138,10 +138,8 @@ void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData
 }
 
 
-MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord(int line)
+MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord(int /*line*/)
 {
-//    LOG_WRITE_TRACE("PrepreEmptyPlaceForRecord() from line %d", line);
-
     for (RecordData *rec = Begin(); rec < End(); rec++)
     {
         if (rec + 1 > End())
