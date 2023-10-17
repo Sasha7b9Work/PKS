@@ -74,39 +74,39 @@ namespace MemoryStorage
 
 void MemoryStorage::Init()
 {
-    for (int page = 100; page < 125; page++)
-    {
-        HAL_ROM::ErasePage(page);
-    }
-
-    return;
-
-    for (RecordData *address = Begin(); address < End(); address++)
-    {
-        if (address->IsEmpty() || address->IsErased())
-        {
-            continue;
-        }
-
-        if (!address->ContainValidData())
-        {
-            address->Erase();
-        }
-    }
-
-    for (uint address = BEGIN; address < END; address += HAL_ROM::SIZE_PAGE)
-    {
-        Page page(address);
-
-        bool exist_empty = page.ExistEmptyRecords();
-
-        bool exist_data = page.ExistDataRecords();
-
-        if (!exist_empty && !exist_data)
-        {
-            page.Erase();
-        }
-    }
+//    for (int page = 100; page < 125; page++)
+//    {
+//        HAL_ROM::ErasePage(page);
+//    }
+//
+//    return;
+//
+//    for (RecordData *address = Begin(); address < End(); address++)
+//    {
+//        if (address->IsEmpty() || address->IsErased())
+//        {
+//            continue;
+//        }
+//
+//        if (!address->ContainValidData())
+//        {
+//            address->Erase();
+//        }
+//    }
+//
+//    for (uint address = BEGIN; address < END; address += HAL_ROM::SIZE_PAGE)
+//    {
+//        Page page(address);
+//
+//        bool exist_empty = page.ExistEmptyRecords();
+//
+//        bool exist_data = page.ExistDataRecords();
+//
+//        if (!exist_empty && !exist_data)
+//        {
+//            page.Erase();
+//        }
+//    }
 }
 
 
