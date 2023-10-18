@@ -3,6 +3,8 @@
 #include "Storage/MemoryStorage.h"
 #include "Utils/Math.h"
 #include "Hardware/HAL/HAL.h"
+#include "Measurer/Measurer.h"
+#include "Hardware/Timer.h"
 #include <cstring>
 
 
@@ -110,14 +112,13 @@ void MemoryStorage::Init()
 }
 
 
-void MemoryStorage::Append(const Measurements &data)
+void *MemoryStorage::Append(const Measurements &data)
 {
-    LOG_WRITE_TRACE("                                                                                  ");
     RecordData *rec = PrepreEmptyPlaceForRecord(__LINE__);
 
-    LOG_WRITE_TRACE("Write record to %X", rec);
-
     rec->Write(data, GetOldestRec());
+
+    return rec;
 }
 
 
@@ -406,4 +407,21 @@ void MemoryStorage::Page::Erase() const
 int MemoryStorage::Page::Number() const
 {
     return (int)((startAddress - HAL_ROM::ADDR_BASE) / HAL_ROM::SIZE_PAGE);
+}
+
+
+void MemoryStorage::Test()
+{
+    while (true)
+    {
+        Measurements meas;
+
+        meas.SetFullMeasure(Measurer::Measure1Min());
+
+        void *address = Append(meas);
+
+        LOG_WRITE("New measure append to address %X", address);
+
+        Timer::DelayMS(1000);
+    }
 }

@@ -10,7 +10,7 @@ namespace MemoryStorage
 
     void Init();
 
-    void Append(const Measurements &);
+    void *Append(const Measurements &);
 
     // Возвращает указатель на самую старую структуру данных (которая считана раньше всех). После использования нужно вызвать Erase()
     // с этим указателем, чтобы стереть структуру из хранилища
@@ -19,4 +19,6 @@ namespace MemoryStorage
     void Erase(const Measurements *);
 
     bool IsEmpty();
+
+    void Test();
 };
