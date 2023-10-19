@@ -4,8 +4,6 @@
 #include <gd32f30x.h>
 
 
-#define PAGE_SIZE (2 * 1024)
-
 /*
 *   В последней странице в первом слове хранится количество ступеней переключения - 4 или 5
 *   Во втором слове - коэффициент пересчёта тока
@@ -20,7 +18,7 @@ void HAL_ROM::ErasePage(int num_page)
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
     fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
 
-    uint address = FLASH_BASE + num_page * PAGE_SIZE;
+    uint address = FLASH_BASE + num_page * SIZE_PAGE;
 
     LOG_WRITE_TRACE("Erase page %d for address %X", num_page, address);
 

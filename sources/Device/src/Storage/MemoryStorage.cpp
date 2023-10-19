@@ -10,403 +10,306 @@
 
 namespace MemoryStorage
 {
+    static const uint BEGIN = 0x8000000 + 200 * 1024;
+    static const uint END = 0x8000000 + 210 * 1024;
+
     struct RecordData
     {
-        RecordData() : number(1) {}
-
-        uint         number;
+        int          number;
         Measurements measurements;
         uint         crc;
         uint         control_field;     // Ёто нужно дл€ контрол€ правильности записи
 
-        void Write(const Measurements &, const RecordData *oldest);
+        void *Begin()
+        {
+            return (void *)this;
+        }
 
-        // true, если запись пуста
-        bool IsEmpty() const;
+        void *End()
+        {
+            return (void *)(this + 1);
+        }
 
-        // true, если содержатс€ корректные данные
-        bool ContainValidData() const;
+        void Write(int _number, const Measurements &meas)
+        {
+            RecordData data;
 
-        bool IsErased();
+            data.number = _number;
+            std::memcpy(&data.measurements, &meas, sizeof(Measurements));
+            data.crc = Math::CalculateCRC(&data, sizeof(uint) + sizeof(Measurements));
+            data.control_field = 0;
 
-        void Erase();
+            HAL_ROM::WriteData((uint)Begin(), (const void *)&data, sizeof(data));
+        }
 
-        bool Read(uint address);
+        bool IsEmpty()                          // —юда может быть произведена запись
+        {
+            uint *address = (uint *)this;
 
-        uint *FirstWord();
+            while (address < (uint *)End())
+            {
+                if (*address != (uint)(-1))
+                {
+                    return false;
+                }
+            }
 
-        uint CalculateCRC() const;
+            return true;
+        }
+
+        bool IsErased()                         // «апись стЄрта
+        {
+            return number == 0;
+        }
+
+        bool IsValid()
+        {
+            if (number == (uint)-1 || number == 0 || control_field != 0)
+            {
+                return false;
+            }
+
+            return Math::CalculateCRC(&measurements, sizeof(measurements)) == crc;
+        }
+
+        void Erase()
+        {
+            HAL_ROM::WriteUInt((uint)Begin(), 0);
+        }
     };
 
     struct Page
     {
-        Page(uint _startAddress) : startAddress(_startAddress) { }
-        bool ExistEmptyRecords() const;
-        // —одержит записи с данными
-        bool ExistDataRecords() const;
-        void Erase() const;
-        int Number() const;
-        uint Address() const { return startAddress; }
+        void Init(int num_page)
+        {
+            startAddress = BEGIN + HAL_ROM::SIZE_PAGE * num_page;
+        }
+
+        RecordData *FirstRecord()
+        {
+            return (RecordData *)startAddress;
+        }
+
+        int GetRecordsCount() const
+        {
+            return sizeof(*this) / sizeof(RecordData);
+        }
+
+        RecordData *LastRecord()
+        {
+            return FirstRecord() + GetRecordsCount();
+
+        }
+
+        void Prepare()
+        {
+            RecordData *record = FirstRecord();
+
+            while (record < LastRecord())
+            {
+                if (record->IsEmpty() || record->IsErased())
+                {
+                    continue;
+                }
+
+                if (!record->IsValid())
+                {
+                    record->Erase();
+                }
+            }
+        }
+
+        // ¬озвращает первую пригодную дл€ записи страницу или nullptr, если все зан€ты
+        static Page *GetFirstForRecord();
+
+        // ¬озвращает страницу с самой старой записью
+        static Page *GetWithOldestRecord();
+
+        RecordData *GetFirstEmptyRecord()
+        {
+            RecordData *record = FirstRecord();
+
+            while (record < LastRecord())
+            {
+                if (record->IsEmpty())
+                {
+                    return record;
+                }
+            }
+
+            return nullptr;
+        }
+
+        RecordData *Append(const Measurements &measurements);
+
+        void Erase()
+        {
+            HAL_ROM::ErasePage((int)((startAddress - BEGIN) / HAL_ROM::SIZE_PAGE));
+        }
+
+        void *Begin()
+        {
+            return (void *)startAddress;
+        }
+
+        bool IsEmpty()
+        {
+            RecordData *record = FirstRecord();
+
+            while (record < LastRecord())
+            {
+                if (record->IsEmpty())
+                {
+                    continue;;
+                }
+
+                return false;
+            }
+
+            return true;
+        }
+
+        int GetLastNumber()
+        {
+            RecordData *record = FirstRecord();
+
+            int result = 0;
+
+            while (record < LastRecord())
+            {
+                if (record->IsValid())
+                {
+                    result = record->number;
+                }
+            }
+
+            return result;
+        }
+
     private:
+
         uint startAddress;
-        RecordData *GetFirstRecord() const;
     };
 
-    static RecordData *PrepreEmptyPlaceForRecord(int line);
+    static const int NUM_PAGES = (END - BEGIN) / HAL_ROM::SIZE_PAGE;
 
-    // ¬озвращает указатель на самую старую запись
-    static RecordData *GetOldestRec();
+    static Page pages[NUM_PAGES];
 
-    static RecordData *Begin()
+    static int GetNewNumber()
     {
-        return (RecordData *)BEGIN;
+        int result = 0;
+
+        for (int i = 0; i < NUM_PAGES; i++)
+        {
+            Page &page = pages[i];
+
+            if (page.IsEmpty())
+            {
+                continue;
+            }
+
+            if (page.GetLastNumber() > result)
+            {
+                result = page.GetLastNumber();
+            }
+        }
+
+        return result + 1;
     }
 
-    static RecordData *End()
+    Page *Page::GetWithOldestRecord()
     {
-        return (RecordData *)END;
+        Page *result = nullptr;
+        int number = 0;
+
+        for (int i = 0; i < NUM_PAGES; i++)
+        {
+            Page &page = pages[i];
+
+            if (page.IsEmpty())
+            {
+                continue;
+            }
+
+            if (page.GetLastNumber() > number)
+            {
+                number = page.GetLastNumber();
+                result = &page;
+            }
+        }
+
+        return result;
     }
 
-    // —тереть сектор, которому принадлежит адрес address
-    static void ErasePageForAddress(uint address, int line);
+    Page *Page::GetFirstForRecord()
+    {
+        for (int i = 0; i < NUM_PAGES; i++)
+        {
+            if (pages[i].GetFirstEmptyRecord())
+            {
+                return &pages[i];
+            }
+        }
 
-    static int NumPageForAddress(uint address);
+        return nullptr;
+    }
+
+    RecordData *Page::Append(const Measurements &measurements)
+    {
+        RecordData *record = GetFirstEmptyRecord();
+
+        if (!record)
+        {
+            Erase();
+
+            record = (RecordData *)Begin();
+        }
+
+        record->Write(GetNewNumber(), measurements);
+
+        return record;
+    }
 }
 
 
 void MemoryStorage::Init()
 {
-//    for (int page = 100; page < 125; page++)
-//    {
-//        HAL_ROM::ErasePage(page);
-//    }
-//
-//    return;
-//
-//    for (RecordData *address = Begin(); address < End(); address++)
-//    {
-//        if (address->IsEmpty() || address->IsErased())
-//        {
-//            continue;
-//        }
-//
-//        if (!address->ContainValidData())
-//        {
-//            address->Erase();
-//        }
-//    }
-//
-//    for (uint address = BEGIN; address < END; address += HAL_ROM::SIZE_PAGE)
-//    {
-//        Page page(address);
-//
-//        bool exist_empty = page.ExistEmptyRecords();
-//
-//        bool exist_data = page.ExistDataRecords();
-//
-//        if (!exist_empty && !exist_data)
-//        {
-//            page.Erase();
-//        }
-//    }
-}
-
-
-void *MemoryStorage::Append(const Measurements &data)
-{
-    RecordData *rec = PrepreEmptyPlaceForRecord(__LINE__);
-
-    rec->Write(data, GetOldestRec());
-
-    return rec;
-}
-
-
-void MemoryStorage::RecordData::Write(const Measurements &meas, const RecordData *oldest)
-{
-    HAL_ROM::WriteUInt((uint)&number, (uint)((oldest == nullptr) ? 1 : (oldest->number + 1)));  // number
-
-    HAL_ROM::WriteData((uint)&measurements, &meas, sizeof(Measurements));                       // Measurements
-
-    HAL_ROM::WriteUInt((uint)&crc, CalculateCRC());                                             // crc
-
-    HAL_ROM::WriteUInt((uint)&control_field, 0);                                                // control_fields
-
-    if (!ContainValidData())
+    for (int i = 0; i < NUM_PAGES; i++)
     {
-        LOG_ERROR("Error write record to %X", this);
+        pages[i].Init(i);
+    }
+
+    for (int i = 0; i < NUM_PAGES; i++)
+    {
+        pages[i].Prepare();
     }
 }
 
 
-MemoryStorage::RecordData *MemoryStorage::PrepreEmptyPlaceForRecord(int /*line*/)
+void MemoryStorage::Erase(const Measurements *)
 {
-    for (RecordData *rec = Begin(); rec < End(); rec++)
-    {
-        if (rec + 1 > End())
-        {
-            break;
-        }
 
-        if (rec->IsEmpty())
-        {
-            return rec;
-        }
+}
+
+
+void *MemoryStorage::Append(const Measurements &meas)
+{
+    Page *page = Page::GetFirstForRecord();
+
+    if (page)
+    {
+        page->Append(meas);
     }
 
-    RecordData *oldest = GetOldestRec();
+    page = Page::GetWithOldestRecord();
 
-    if (oldest == nullptr)
-    {
-        ErasePageForAddress((uint)Begin(), __LINE__);
-
-        return Begin();
-    }
-
-    ErasePageForAddress((uint)oldest, __LINE__);
-
-    return PrepreEmptyPlaceForRecord(__LINE__);
+    return page->Append(meas);
 }
 
 
 Measurements *MemoryStorage::GetOldest()
 {
-    RecordData *result = nullptr;
-
-    for (RecordData *data = (RecordData *)Begin(); data < (RecordData *)End(); data++)
-    {
-        if (data->ContainValidData())
-        {
-            if (!result)
-            {
-                result = data;
-            }
-            else
-            {
-                if (data->number < result->number)
-                {
-                    result = data;
-                }
-            }
-        }
-    }
-
-    return result ? &result->measurements : nullptr;
-}
-
-
-void MemoryStorage::Erase(const Measurements *meas)
-{
-    for (RecordData *data = (RecordData *)Begin(); data < (RecordData *)End(); data++)
-    {
-        if (&data->measurements == meas)
-        {
-            data->Erase();
-
-            return;
-        }
-    }
-}
-
-
-void MemoryStorage::ErasePageForAddress(uint address, int line)
-{
-    LOG_WRITE_TRACE("Erase page for address %X from line %d", address, line);
-
-    int num_page = NumPageForAddress(address);
-
-    LOG_WRITE_TRACE("Page for address %X : %d", address, num_page);
-
-    HAL_ROM::ErasePage(num_page);
-}
-
-
-int MemoryStorage::NumPageForAddress(uint address)
-{
-    return (int)((address - HAL_ROM::ADDR_BASE) / HAL_ROM::SIZE_PAGE);
-}
-
-
-bool MemoryStorage::RecordData::IsEmpty() const
-{
-    uint8 *address = (uint8 *)this;
-
-    uint8 *end = address + sizeof(*this);
-
-    while (address < end)
-    {
-        if (*address != 0xFF)
-        {
-            return false;
-        }
-
-        address++;
-    }
-
-    return true;
-}
-
-
-bool MemoryStorage::RecordData::ContainValidData() const
-{
-    uint *pointer = (uint *)this;
-
-    if (*pointer == (uint)-1)
-    {
-        return false;                   // «десь ничего не записано
-    }
-
-    return (HAL_ROM::ReadUint((uint)&crc) == CalculateCRC()) &&
-           (control_field == 0);
-}
-
-
-void MemoryStorage::RecordData::Erase()
-{
-    HAL_ROM::WriteUInt((uint)FirstWord(), 0U);
-}
-
-
-bool MemoryStorage::RecordData::IsErased()
-{
-    return *FirstWord() == 0U;
-}
-
-
-uint *MemoryStorage::RecordData::FirstWord()
-{
-    return (uint *)this;
-}
-
-
-uint MemoryStorage::RecordData::CalculateCRC() const
-{
-    return Math::CalculateCRC((uint)this, sizeof(RecordData) - sizeof(crc) - sizeof(control_field));
-}
-
-
-bool MemoryStorage::RecordData::Read(uint address)
-{
-    std::memcpy((void *)address, this, sizeof(RecordData));
-
-    return (CalculateCRC() == crc) && (control_field == 0);
-}
-
-
-bool MemoryStorage::IsEmpty()
-{
-    return GetOldest() == nullptr;
-}
-
-
-MemoryStorage::RecordData *MemoryStorage::GetOldestRec()
-{
-    RecordData *result = nullptr;
-
-    int counter = 0;
-
-    for (RecordData *rec = Begin(); rec < End(); rec++)
-    {
-        counter++;
-        
-        if (rec + 1 <= End())
-        {
-            if (rec->ContainValidData())
-            {
-                if (result == nullptr)
-                {
-                    result = rec;
-                }
-                else
-                {
-                    if (rec->number < result->number)
-                    {
-                        result = rec;
-                    }
-                }
-            }
-        }
-    }
-    
-    counter = counter;
-
-    return result;
-}
-
-
-bool MemoryStorage::Page::ExistEmptyRecords() const
-{
-    uint end = startAddress + HAL_ROM::SIZE_PAGE;
-
-    RecordData *record = GetFirstRecord();
-
-    while ((uint)record < end)
-    {
-        if (record->IsEmpty())
-        {
-            return true;
-        }
-
-        record++;
-    }
-
-    return false;
-}
-
-
-bool MemoryStorage::Page::ExistDataRecords() const
-{
-    uint end = startAddress + HAL_ROM::SIZE_PAGE;
-
-    RecordData *record = GetFirstRecord();
-
-    while ((uint)record < end)
-    {
-        if (record->ContainValidData())
-        {
-            return true;
-        }
-
-        record++;
-    }
-
-    return false;
-}
-
-
-MemoryStorage::RecordData *MemoryStorage::Page::GetFirstRecord() const
-{
-    RecordData *record = Begin();
-
-    while ((uint)record < startAddress)
-    {
-        record++;
-    }
-
-    return record;
-}
-
-
-void MemoryStorage::Page::Erase() const
-{
-    int num_page = Number();
-
-    LOG_WRITE_TRACE("Erase page %d address %X", num_page, Address());
-
-    HAL_ROM::ErasePage(num_page);
-
-    uint *address = (uint *)startAddress;
-
-    if (*address != (uint)(-1))
-    {
-        LOG_WRITE("                     ERROR !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! %u from address %X", *address, address);
-    }
-}
-
-
-int MemoryStorage::Page::Number() const
-{
-    return (int)((startAddress - HAL_ROM::ADDR_BASE) / HAL_ROM::SIZE_PAGE);
+    return nullptr;
 }
 
 

@@ -379,7 +379,7 @@ void Updater::Update(pchar answer)
 
                 int written_bytes = Programmer::WrittenBytes();
 
-                crc = Math::CalculateCRC(HAL_ROM::ADDR_STORAGE, written_bytes);
+                crc = Math::CalculateCRC((void *)HAL_ROM::ADDR_STORAGE, written_bytes);
 
                 if (crc == source_crc)
                 {
@@ -387,7 +387,7 @@ void Updater::Update(pchar answer)
                     {
                         Programmer::CopyFirmware();
 
-                    } while (source_crc != Math::CalculateCRC(HAL_ROM::ADDR_APPLICATION, written_bytes));
+                    } while (source_crc != Math::CalculateCRC((void *)HAL_ROM::ADDR_APPLICATION, written_bytes));
 
                     SET_STATE(State::COMPLETED);
                 }

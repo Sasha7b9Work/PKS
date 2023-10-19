@@ -33,7 +33,7 @@ namespace Math
         return (uint8)byte + (hash << 6) + (hash << 16) - hash;
     }
 
-    inline uint CalculateCRC(uint address, int size)
+    inline uint CalculateCRC(const void *address, int size)
     {
         uint crc = 0;
 
