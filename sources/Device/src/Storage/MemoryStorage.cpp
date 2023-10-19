@@ -52,6 +52,8 @@ namespace MemoryStorage
                 {
                     return false;
                 }
+
+                address++;
             }
 
             return true;
@@ -103,9 +105,7 @@ namespace MemoryStorage
 
         void Prepare()
         {
-            RecordData *record = FirstRecord();
-
-            while (record < LastRecord())
+            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsEmpty() || record->IsErased())
                 {
@@ -127,11 +127,7 @@ namespace MemoryStorage
 
         RecordData *GetFirstEmptyRecord()
         {
-            RecordData *record = FirstRecord();
-
-            RecordData *last = LastRecord();
-
-            while (record < last)
+            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsEmpty())
                 {
@@ -158,13 +154,11 @@ namespace MemoryStorage
 
         bool IsEmpty()
         {
-            RecordData *record = FirstRecord();
-
-            while (record < LastRecord())
+            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsEmpty())
                 {
-                    continue;;
+                    continue;
                 }
 
                 return false;
@@ -175,13 +169,11 @@ namespace MemoryStorage
 
         int GetLastNumber()
         {
-            RecordData *record = FirstRecord();
-
             int result = 0;
 
-            while (record < LastRecord())
+            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
             {
-                if (record->IsValid())
+                if (record->IsValid() && record->number > result)
                 {
                     result = record->number;
                 }
