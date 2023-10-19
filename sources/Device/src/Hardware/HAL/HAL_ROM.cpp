@@ -10,7 +10,7 @@
 */
 
 
-void HAL_ROM::ErasePage(int num_page, char *file, int line)
+void HAL_ROM::ErasePage(int num_page)
 {
     fmc_unlock();
 
@@ -19,8 +19,6 @@ void HAL_ROM::ErasePage(int num_page, char *file, int line)
     fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
 
     uint address = FLASH_BASE + num_page * SIZE_PAGE;
-
-    LOG_WRITE_TRACE("Erase page %d for address %X from %s:%d", num_page, address, file, line);
 
     fmc_page_erase(address);
 

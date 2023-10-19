@@ -7,7 +7,7 @@
 #define PAGE_SIZE (2 * 1024)
 
 
-void HAL_ROM::ErasePage(int num_page, char *, int)
+void HAL_ROM::ErasePage(int num_page)
 {
     fmc_unlock();
 

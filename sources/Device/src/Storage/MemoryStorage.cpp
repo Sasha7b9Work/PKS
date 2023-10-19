@@ -83,7 +83,6 @@ namespace MemoryStorage
         void Init(int num_page)
         {
             startAddress = BEGIN + HAL_ROM::SIZE_PAGE * num_page;
-            LOG_WRITE_TRACE("Init start %X, begin %X", startAddress, BEGIN);
         }
 
         RecordData *FirstRecord()
@@ -143,19 +142,13 @@ namespace MemoryStorage
             return nullptr;
         }
 
-        RecordData *Append(const Measurements &measurements, char *file, int line);
+        RecordData *Append(const Measurements &measurements);
 
-        void Erase(char *file, int line)
+        void Erase()
         {
-            LOG_WRITE_TRACE("Erase() from %s:%d", file, line);
-
             int num_page = (int)((startAddress - HAL_ROM::ADDR_BASE) / HAL_ROM::SIZE_PAGE);
 
-            LOG_WRITE_TRACE("start %X, base %X", startAddress, HAL_ROM::ADDR_BASE);
-
-            LOG_WRITE_TRACE("Erase %d page", num_page);
-
-            HAL_ROM::ErasePage(num_page, __FILE__, __LINE__);
+            HAL_ROM::ErasePage(num_page);
         }
 
         void *Begin()
@@ -265,17 +258,13 @@ namespace MemoryStorage
         return nullptr;
     }
 
-    RecordData *Page::Append(const Measurements &measurements, char *file, int line)
+    RecordData *Page::Append(const Measurements &measurements)
     {
-        LOG_WRITE_TRACE("Page::Append() from %s:%d", file, line);
-
-        LOG_WRITE_TRACE("startAddress = %X", startAddress);
-
         RecordData *record = GetFirstEmptyRecord();
 
         if (!record)
         {
-            Erase(__FILE__, __LINE__);
+            Erase();
 
             record = (RecordData *)Begin();
         }
@@ -304,7 +293,7 @@ void MemoryStorage::Init()
 
     for (int i = 0; i < NUM_PAGES; i++)
     {
-        pages[i].Erase(__FILE__, __LINE__);
+        pages[i].Erase();
     }
 }
 
@@ -319,18 +308,14 @@ void *MemoryStorage::Append(const Measurements &meas)
 {
     Page *page = Page::GetFirstForRecord();
 
-    LOG_WRITE_TRACE("GetFirstForRecord() = %X", page);
-
     if (page)
     {
-        page->Append(meas, __FILE__, __LINE__);
+        page->Append(meas);
     }
 
     page = Page::GetWithOldestRecord();
 
-    LOG_WRITE_TRACE("page %X", page);
-
-    return page->Append(meas, __FILE__, __LINE__);
+    return page->Append(meas);
 }
 
 
