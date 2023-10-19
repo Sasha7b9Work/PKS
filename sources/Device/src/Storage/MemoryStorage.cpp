@@ -263,6 +263,8 @@ namespace MemoryStorage
 
         record->Write(GetNewNumber(), measurements);
 
+        LOG_WRITE_TRACE("record for write %X, number %d", record, record->number);
+
         return record;
     }
 }
@@ -300,12 +302,12 @@ void *MemoryStorage::Append(const Measurements &meas)
 {
     Page *page = Page::GetFirstForRecord();
 
-    if (page)
+    if (!page)
     {
-        page->Append(meas);
+        page = Page::GetWithOldestRecord();
     }
 
-    page = Page::GetWithOldestRecord();
+    LOG_WRITE("page for write %X", page->Begin());
 
     return page->Append(meas);
 }
@@ -325,9 +327,7 @@ void MemoryStorage::Test()
 
         meas.SetFullMeasure(Measurer::Measure1Min());
 
-        void *address = Append(meas);
-
-        LOG_WRITE("New measure append to address %X", address);
+        Append(meas);
 
         Timer::DelayMS(1000);
     }
