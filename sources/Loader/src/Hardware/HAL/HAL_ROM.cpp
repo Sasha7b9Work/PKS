@@ -4,7 +4,7 @@
 #include <gd32f30x.h>
 
 
-void HAL_ROM::ErasePage(int num_page)
+void HAL_ROM::ErasePage(int num_page, char *, int)
 {
     fmc_unlock();
 

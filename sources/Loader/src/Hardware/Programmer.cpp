@@ -40,7 +40,7 @@ void Programmer::Prepare(uint start_address)
     {
         if (!HAL_ROM::PageIsEmpty(page + i))
         {
-            HAL_ROM::ErasePage(page + i);
+            HAL_ROM::ErasePage(page + i, __FILE__, __LINE__);
         }
     }
 
