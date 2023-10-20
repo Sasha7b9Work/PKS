@@ -6,6 +6,7 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include <cstring>
+#include <cstdlib>
 
 
 namespace MemoryStorage
@@ -129,6 +130,7 @@ namespace MemoryStorage
 
                 if (!record->IsValid())
                 {
+                    LOG_WRITE_TRACE("record %X                          is corrupted", record);
                     record->Erase();
                 }
             }
@@ -448,6 +450,35 @@ void MemoryStorage::Test()
     {
         AppendMeasure();
     }
+
+//    for (int i = 0; i < 100; i++)
+//    {
+//        uint value = 0;
+//        uint address = 0;
+//
+//        while (value == 0)
+//        {
+//            address = BEGIN + std::rand() % (END - BEGIN);
+//
+//            address &= 0xFFFFFFFFFC;
+//
+//            value = *((uint *)address);
+//        }
+//
+//        value = 0;
+//
+//        LOG_WRITE("all records %d", GetRecordsCount());
+//
+//        LOG_WRITE("write %u to %X", value, address);
+//
+//        HAL_ROM::WriteUInt(address, value);
+//
+//        LOG_WRITE("after %d", GetRecordsCount());
+//
+//        Prepare();
+//
+//        Timer::DelayMS(100);
+//    }
 }
 
 
