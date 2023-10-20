@@ -14,7 +14,7 @@ namespace MemoryStorage
     static const uint BEGIN = 0x8000000 + 200 * 1024;
     static const uint END = 0x8000000 + 206 * 1024;
 
-    struct RecordData
+    struct Record
     {
         int          number;
         Measurements measurements;
@@ -33,7 +33,7 @@ namespace MemoryStorage
 
         void Write(int _number, const Measurements &meas)
         {
-            RecordData data;
+            Record data;
 
             data.number = _number;
             std::memcpy(&data.measurements, &meas, sizeof(Measurements));
@@ -76,9 +76,9 @@ namespace MemoryStorage
             HAL_ROM::WriteUInt((uint)Begin(), 0);
         }
 
-        static RecordData *Oldest();
+        static Record *Oldest();
 
-        static RecordData *Newest();
+        static Record *Newest();
     };
 
     struct Page
@@ -88,17 +88,17 @@ namespace MemoryStorage
             startAddress = BEGIN + HAL_ROM::SIZE_PAGE * num_page;
         }
 
-        RecordData *FirstRecord()
+        Record *FirstRecord()
         {
-            return (RecordData *)startAddress;
+            return (Record *)startAddress;
         }
 
         int GetRecordsCount() const
         {
-            return HAL_ROM::SIZE_PAGE / sizeof(RecordData);
+            return HAL_ROM::SIZE_PAGE / sizeof(Record);
         }
 
-        RecordData *LastRecord()
+        Record *LastRecord()
         {
             return FirstRecord() + GetRecordsCount();
 
@@ -106,7 +106,7 @@ namespace MemoryStorage
 
         void Prepare()
         {
-            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsEmpty() || record->IsErased())
                 {
@@ -126,9 +126,9 @@ namespace MemoryStorage
         // ¬озвращает страницу с самой старой записью
         static Page *GetWithOldestRecord();
 
-        RecordData *GetFirstEmptyRecord()
+        Record *GetFirstEmptyRecord()
         {
-            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsEmpty())
                 {
@@ -139,7 +139,7 @@ namespace MemoryStorage
             return nullptr;
         }
 
-        RecordData *Append(const Measurements &measurements);
+        Record *Append(const Measurements &measurements);
 
         void Erase()
         {
@@ -155,7 +155,7 @@ namespace MemoryStorage
 
         bool IsEmpty()
         {
-            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsEmpty())
                 {
@@ -172,7 +172,7 @@ namespace MemoryStorage
         {
             int result = 0;
 
-            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsValid() && record->number > result)
                 {
@@ -183,11 +183,11 @@ namespace MemoryStorage
             return result;
         }
 
-        RecordData *GetOldestRecord()
+        Record *GetOldestRecord()
         {
-            RecordData *result = nullptr;
+            Record *result = nullptr;
 
-            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsValid())
                 {
@@ -201,11 +201,11 @@ namespace MemoryStorage
             return result;
         }
 
-        RecordData *GetNewestRecord()
+        Record *GetNewestRecord()
         {
-            RecordData *result = nullptr;
+            Record *result = nullptr;
 
-            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
             {
                 if (record->IsValid())
                 {
@@ -290,15 +290,15 @@ namespace MemoryStorage
         return nullptr;
     }
 
-    RecordData *Page::Append(const Measurements &measurements)
+    Record *Page::Append(const Measurements &measurements)
     {
-        RecordData *record = GetFirstEmptyRecord();
+        Record *record = GetFirstEmptyRecord();
 
         if (!record)
         {
             Erase();
 
-            record = (RecordData *)Begin();
+            record = (Record *)Begin();
         }
 
         record->Write(GetNewNumber(), measurements);
@@ -384,13 +384,13 @@ void MemoryStorage::Prepare()
 }
 
 
-MemoryStorage::RecordData *MemoryStorage::RecordData::Oldest()
+MemoryStorage::Record *MemoryStorage::Record::Oldest()
 {
-    RecordData *result = nullptr;
+    Record *result = nullptr;
 
     for (int i = 0; i < NUM_PAGES; i++)
     {
-        RecordData *oldest = pages[i].GetOldestRecord();
+        Record *oldest = pages[i].GetOldestRecord();
 
         if (oldest)
         {
@@ -405,13 +405,13 @@ MemoryStorage::RecordData *MemoryStorage::RecordData::Oldest()
 }
 
 
-MemoryStorage::RecordData *MemoryStorage::RecordData::Newest()
+MemoryStorage::Record *MemoryStorage::Record::Newest()
 {
-    RecordData *result = nullptr;
+    Record *result = nullptr;
 
     for (int i = 0; i < NUM_PAGES; i++)
     {
-        RecordData *newest = pages[i].GetNewestRecord();
+        Record *newest = pages[i].GetNewestRecord();
 
         if (newest)
         {
@@ -444,7 +444,7 @@ void MemoryStorage::Test()
 
 int MemoryStorage::NumberOldestRecord()
 {
-    RecordData *record = RecordData::Oldest();
+    Record *record = Record::Oldest();
 
     return record ? record->number : 0;
 }
@@ -452,7 +452,7 @@ int MemoryStorage::NumberOldestRecord()
 
 int MemoryStorage::NumberNewestRecord()
 {
-    RecordData *record = RecordData::Newest();
+    Record *record = Record::Newest();
 
     return record ? record->number : 0;
 }
