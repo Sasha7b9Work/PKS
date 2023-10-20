@@ -75,6 +75,10 @@ namespace MemoryStorage
         {
             HAL_ROM::WriteUInt((uint)Begin(), 0);
         }
+
+        static RecordData *Oldest();
+
+        static RecordData *Newest();
     };
 
     struct Page
@@ -179,6 +183,42 @@ namespace MemoryStorage
             return result;
         }
 
+        RecordData *GetOldestRecord()
+        {
+            RecordData *result = nullptr;
+
+            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            {
+                if (record->IsValid())
+                {
+                    if (!result || (record->number < result->number))
+                    {
+                        result = record;
+                    }
+                }
+            }
+
+            return result;
+        }
+
+        RecordData *GetNewestRecord()
+        {
+            RecordData *result = nullptr;
+
+            for (RecordData *record = FirstRecord(); record < LastRecord(); record++)
+            {
+                if (record->IsValid())
+                {
+                    if (!result || (record->number > result->number))
+                    {
+                        result = record;
+                    }
+                }
+            }
+
+            return result;
+        }
+
     private:
 
         uint startAddress;
@@ -213,7 +253,6 @@ namespace MemoryStorage
     Page *Page::GetWithOldestRecord()
     {
         Page *result = nullptr;
-        int number = INT_MAX;
 
         for (int i = 0; i < NUM_PAGES; i++)
         {
@@ -226,10 +265,12 @@ namespace MemoryStorage
 
             int last_number = page.GetLastNumber();
 
-            if (last_number != 0 && last_number < number)
+            if (last_number != 0)
             {
-                number = page.GetLastNumber();
-                result = &page;
+                if (!result || (last_number < result->GetLastNumber()))
+                {
+                    result = &page;
+                }
             }
         }
 
@@ -266,6 +307,12 @@ namespace MemoryStorage
 
         return record;
     }
+
+    // Проверить все сектора на предмет повреждённых записей и стереть их
+    static void Prepare();
+
+    static int NumberOldestRecord();
+    static int NumberNewestRecord();
 }
 
 
@@ -279,10 +326,7 @@ void MemoryStorage::Init()
         pages[i].Init(i);
     }
 
-//    for (int i = 0; i < NUM_PAGES; i++)
-//    {
-//        pages[i].Prepare();
-//    }
+    Prepare();
 
     for (int i = 0; i < NUM_PAGES; i++)
     {
@@ -331,6 +375,57 @@ namespace MemoryStorage
 }
 
 
+void MemoryStorage::Prepare()
+{
+    for (int i = 0; i < NUM_PAGES; i++)
+    {
+        pages[i].Prepare();
+    }
+}
+
+
+MemoryStorage::RecordData *MemoryStorage::RecordData::Oldest()
+{
+    RecordData *result = nullptr;
+
+    for (int i = 0; i < NUM_PAGES; i++)
+    {
+        RecordData *oldest = pages[i].GetOldestRecord();
+
+        if (oldest)
+        {
+            if (!result || oldest->number < result->number)
+            {
+                result = oldest;
+            }
+        }
+    }
+
+    return result;
+}
+
+
+MemoryStorage::RecordData *MemoryStorage::RecordData::Newest()
+{
+    RecordData *result = nullptr;
+
+    for (int i = 0; i < NUM_PAGES; i++)
+    {
+        RecordData *newest = pages[i].GetNewestRecord();
+
+        if (newest)
+        {
+            if (!result || newest->number > newest->number)
+            {
+                result = newest;
+            }
+        }
+    }
+
+    return result;
+}
+
+
 void MemoryStorage::Test()
 {
     for (int i = 0; i < 126; i++)
@@ -344,4 +439,20 @@ void MemoryStorage::Test()
 
         Timer::DelayMS(1000);
     }
+}
+
+
+int MemoryStorage::NumberOldestRecord()
+{
+    RecordData *record = RecordData::Oldest();
+
+    return record ? record->number : 0;
+}
+
+
+int MemoryStorage::NumberNewestRecord()
+{
+    RecordData *record = RecordData::Newest();
+
+    return record ? record->number : 0;
 }
