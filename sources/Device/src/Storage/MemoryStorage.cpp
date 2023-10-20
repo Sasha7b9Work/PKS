@@ -11,7 +11,7 @@
 namespace MemoryStorage
 {
     static const uint BEGIN = 0x8000000 + 200 * 1024;
-    static const uint END = 0x8000000 + 206 * 1024;
+    static const uint END = 0x8000000 + 250 * 1024;
 
     struct Record
     {
@@ -92,14 +92,29 @@ namespace MemoryStorage
             return (Record *)startAddress;
         }
 
-        int GetRecordsCount() const
+        int GetMaxRecordsCount() const
         {
             return HAL_ROM::SIZE_PAGE / sizeof(Record);
         }
 
+        int GetRecordsCount()
+        {
+            int result = 0;
+
+            for (Record *record = FirstRecord(); record < LastRecord(); record++)
+            {
+                if (record->IsValid())
+                {
+                    result++;
+                }
+            }
+
+            return result;
+        }
+
         Record *LastRecord()
         {
-            return FirstRecord() + GetRecordsCount();
+            return FirstRecord() + GetMaxRecordsCount();
 
         }
 
@@ -312,6 +327,8 @@ namespace MemoryStorage
 
     static int NumberOldestRecord();
     static int NumberNewestRecord();
+
+    static int GetRecordsCount();
 }
 
 
@@ -414,7 +431,7 @@ MemoryStorage::Record *MemoryStorage::Record::Newest()
 
         if (newest)
         {
-            if (!result || newest->number > newest->number)
+            if (!result || newest->number > result->number)
             {
                 result = newest;
             }
@@ -427,18 +444,9 @@ MemoryStorage::Record *MemoryStorage::Record::Newest()
 
 void MemoryStorage::Test()
 {
-    for (int i = 0; i < 165; i++)
+    for (int i = 0; i < 1200; i++)
     {
         AppendMeasure();
-    }
-
-    while (true)
-    {
-        AppendMeasure();
-
-        LOG_WRITE("oldest %d, newest %d", NumberOldestRecord(), NumberNewestRecord());
-
-        Timer::DelayMS(1000);
     }
 }
 
@@ -456,4 +464,17 @@ int MemoryStorage::NumberNewestRecord()
     Record *record = Record::Newest();
 
     return record ? record->number : 0;
+}
+
+
+int MemoryStorage::GetRecordsCount()
+{
+    int result = 0;
+
+    for (int i = 0; i < NUM_PAGES; i++)
+    {
+        result += pages[i].GetRecordsCount();
+    }
+
+    return result;
 }
