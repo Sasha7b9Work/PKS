@@ -6,6 +6,7 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include <cstring>
+#include <limits.h>
 
 
 namespace MemoryStorage
@@ -212,7 +213,7 @@ namespace MemoryStorage
     Page *Page::GetWithOldestRecord()
     {
         Page *result = nullptr;
-        int number = 0;
+        int number = INT_MAX;
 
         for (int i = 0; i < NUM_PAGES; i++)
         {
@@ -223,7 +224,9 @@ namespace MemoryStorage
                 continue;
             }
 
-            if (page.GetLastNumber() > number)
+            int last_number = page.GetLastNumber();
+
+            if (last_number != 0 && last_number < number)
             {
                 number = page.GetLastNumber();
                 result = &page;
