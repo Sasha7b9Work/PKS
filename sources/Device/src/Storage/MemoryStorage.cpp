@@ -6,7 +6,6 @@
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
 #include <cstring>
-#include <limits.h>
 
 
 namespace MemoryStorage
