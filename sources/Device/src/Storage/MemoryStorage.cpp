@@ -427,7 +427,7 @@ MemoryStorage::Record *MemoryStorage::Record::Newest()
 
 void MemoryStorage::Test()
 {
-    for (int i = 0; i < 126; i++)
+    for (int i = 0; i < 165; i++)
     {
         AppendMeasure();
     }
@@ -435,6 +435,8 @@ void MemoryStorage::Test()
     while (true)
     {
         AppendMeasure();
+
+        LOG_WRITE("oldest %d, newest %d", NumberOldestRecord(), NumberNewestRecord());
 
         Timer::DelayMS(1000);
     }
