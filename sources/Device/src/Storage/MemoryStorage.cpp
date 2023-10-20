@@ -11,7 +11,7 @@
 namespace MemoryStorage
 {
     static const uint BEGIN = 0x8000000 + 200 * 1024;
-    static const uint END = 0x8000000 + 210 * 1024;
+    static const uint END = 0x8000000 + 206 * 1024;
 
     struct RecordData
     {
@@ -36,7 +36,7 @@ namespace MemoryStorage
 
             data.number = _number;
             std::memcpy(&data.measurements, &meas, sizeof(Measurements));
-            data.crc = Math::CalculateCRC(&data, sizeof(uint) + sizeof(Measurements));
+            data.crc = Math::CalculateCRC(&data, sizeof(number) + sizeof(Measurements));
             data.control_field = 0;
 
             HAL_ROM::WriteData((uint)Begin(), (const void *)&data, sizeof(data));
@@ -44,16 +44,12 @@ namespace MemoryStorage
 
         bool IsEmpty()                          // —юда может быть произведена запись
         {
-            uint *address = (uint *)this;
-
-            while (address < (uint *)End())
+            for (uint *address = (uint *)this; address < (uint *)End(); address++)
             {
                 if (*address != (uint)(-1))
                 {
                     return false;
                 }
-
-                address++;
             }
 
             return true;
@@ -71,7 +67,7 @@ namespace MemoryStorage
                 return false;
             }
 
-            return Math::CalculateCRC(&measurements, sizeof(measurements)) == crc;
+            return Math::CalculateCRC(&number, sizeof(measurements) + sizeof(number)) == crc;
         }
 
         void Erase()
@@ -319,15 +315,29 @@ Measurements *MemoryStorage::GetOldest()
 }
 
 
-void MemoryStorage::Test()
+namespace MemoryStorage
 {
-    while (true)
+    void AppendMeasure()
     {
         Measurements meas;
 
         meas.SetFullMeasure(Measurer::Measure1Min());
 
         Append(meas);
+    }
+}
+
+
+void MemoryStorage::Test()
+{
+    for (int i = 0; i < 126; i++)
+    {
+        AppendMeasure();
+    }
+
+    while (true)
+    {
+        AppendMeasure();
 
         Timer::DelayMS(1000);
     }
