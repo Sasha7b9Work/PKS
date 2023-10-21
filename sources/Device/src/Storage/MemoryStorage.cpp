@@ -14,6 +14,8 @@ namespace MemoryStorage
     static const uint BEGIN = 0x8000000 + 200 * 1024;
     static const uint END = 0x8000000 + 210 * 1024;
 
+#pragma pack(1)
+    
     struct Record
     {
         int          number;
@@ -389,19 +391,6 @@ const Measurements *MemoryStorage::GetOldest()
 }
 
 
-namespace MemoryStorage
-{
-    void AppendMeasure()
-    {
-        Measurements meas;
-
-        meas.SetFullMeasure(Measurer::Measure1Min());
-
-        Append(meas);
-    }
-}
-
-
 void MemoryStorage::Prepare()
 {
     for (int i = 0; i < NUM_PAGES; i++)
@@ -496,9 +485,20 @@ namespace MemoryStorage
 {
     namespace NSTest
     {
+        static void AppendMeasure()
+        {
+            Measurements meas;
+
+            meas.SetFullMeasure(Measurer::Measure1Min());
+
+            Record *record = (Record *)Append(meas);
+
+            LOG_WRITE("Append record number %d to %X", record->number, record);
+        }
+
         static void Fill()
         {
-            for (int i = 0; i < 200; i++)
+            for (int i = 0; i < 500; i++)
             {
                 AppendMeasure();
             }
@@ -541,8 +541,10 @@ namespace MemoryStorage
             {
                 const Measurements *meas = MemoryStorage::GetOldest();
 
-                LOG_WRITE("erase record %d, all %d, first %d, last %d",
-                    Record::ForMeasurements(meas)->number, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
+                Record *record = Record::ForMeasurements(meas);
+
+                LOG_WRITE("erase record %X number %d for measure %X, all %d, first %d, last %d",
+                    record, record->number, meas, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
 
                 MemoryStorage::Erase(meas);
             }
