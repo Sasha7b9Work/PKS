@@ -12,7 +12,7 @@
 namespace MemoryStorage
 {
     static const uint BEGIN = 0x8000000 + 200 * 1024;
-    static const uint END = 0x8000000 + 250 * 1024;
+    static const uint END = 0x8000000 + 210 * 1024;
 
     struct Record
     {
@@ -79,6 +79,8 @@ namespace MemoryStorage
         static Record *Oldest();
 
         static Record *Newest();
+
+        static Record *ForMeasurements(const Measurements *);
     };
 
     struct Page
@@ -353,9 +355,9 @@ void MemoryStorage::Init()
 }
 
 
-void MemoryStorage::Erase(const Measurements *)
+void MemoryStorage::Erase(const Measurements *meas)
 {
-
+    Record::ForMeasurements(meas)->Erase();
 }
 
 
@@ -374,7 +376,7 @@ void *MemoryStorage::Append(const Measurements &meas)
 }
 
 
-Measurements *MemoryStorage::GetOldest()
+const Measurements *MemoryStorage::GetOldest()
 {
     return nullptr;
 }
@@ -444,44 +446,6 @@ MemoryStorage::Record *MemoryStorage::Record::Newest()
 }
 
 
-void MemoryStorage::Test()
-{
-    for (int i = 0; i < 1200; i++)
-    {
-        AppendMeasure();
-    }
-
-//    for (int i = 0; i < 100; i++)
-//    {
-//        uint value = 0;
-//        uint address = 0;
-//
-//        while (value == 0)
-//        {
-//            address = BEGIN + std::rand() % (END - BEGIN);
-//
-//            address &= 0xFFFFFFFFFC;
-//
-//            value = *((uint *)address);
-//        }
-//
-//        value = 0;
-//
-//        LOG_WRITE("all records %d", GetRecordsCount());
-//
-//        LOG_WRITE("write %u to %X", value, address);
-//
-//        HAL_ROM::WriteUInt(address, value);
-//
-//        LOG_WRITE("after %d", GetRecordsCount());
-//
-//        Prepare();
-//
-//        Timer::DelayMS(100);
-//    }
-}
-
-
 int MemoryStorage::NumberOldestRecord()
 {
     Record *record = Record::Oldest();
@@ -509,3 +473,87 @@ int MemoryStorage::GetRecordsCount()
 
     return result;
 }
+
+
+MemoryStorage::Record *MemoryStorage::Record::ForMeasurements(const Measurements *meas)
+{
+    uint *pointer = (uint *)meas;
+
+    pointer--;
+
+    return (MemoryStorage::Record *)pointer;
+}
+
+
+namespace MemoryStorage
+{
+    namespace NSTest
+    {
+        static void Fill()
+        {
+            for (int i = 0; i < 200; i++)
+            {
+                AppendMeasure();
+            }
+        }
+
+        // Повредить хранилище
+        static void Corrupt()
+        {
+            for (int i = 0; i < 100; i++)
+            {
+                uint value = 0;
+                uint address = 0;
+
+                while (value == 0)
+                {
+                    address = BEGIN + std::rand() % (END - BEGIN);
+
+                    address &= 0xFFFFFFFFFC;
+
+                    value = *((uint *)address);
+                }
+
+                value = 0;
+
+                LOG_WRITE("all records %d", GetRecordsCount());
+
+                LOG_WRITE("write %u to %X", value, address);
+
+                HAL_ROM::WriteUInt(address, value);
+
+                LOG_WRITE("after %d", GetRecordsCount());
+
+                Prepare();
+            }
+        }
+
+        static void ReadAll()
+        {
+            while (GetRecordsCount())
+            {
+                const Measurements *meas = MemoryStorage::GetOldest();
+
+                Record *record = Record::ForMeasurements(meas);
+
+                LOG_WRITE("erase record %d, all %d, first %d, last %d",
+                    record->number, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
+
+                MemoryStorage::Erase(meas);
+            }
+        }
+    }
+}
+
+
+void MemoryStorage::Test()
+{
+    NSTest::Fill();
+
+    NSTest::Corrupt();
+
+    NSTest::ReadAll();
+}
+
+
+#include "MemoryStorage_test.inc"

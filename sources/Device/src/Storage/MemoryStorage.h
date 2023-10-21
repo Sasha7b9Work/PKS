@@ -11,7 +11,7 @@ namespace MemoryStorage
 
     // Возвращает указатель на самую старую структуру данных (которая считана раньше всех). После использования нужно вызвать Erase()
     // с этим указателем, чтобы стереть структуру из хранилища
-    Measurements *GetOldest();
+    const Measurements *GetOldest();
 
     void Erase(const Measurements *);
 
