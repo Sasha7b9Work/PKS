@@ -24,8 +24,6 @@ void Device::Init()
     Display::Init();
 
     Modem::Init();
-
-    MemoryStorage::Test();
 }
 
 

@@ -12,7 +12,7 @@
 namespace MemoryStorage
 {
     static const uint BEGIN = 0x8000000 + 200 * 1024;
-    static const uint END = 0x8000000 + 210 * 1024;
+    static const uint END = 0x8000000 + 250 * 1024;
 
 #pragma pack(1)
     
@@ -139,7 +139,6 @@ namespace MemoryStorage
 
                 if (!record->IsValid())
                 {
-                    LOG_WRITE_TRACE("record %X                          is corrupted", record);
                     record->Erase();
                 }
             }
@@ -328,16 +327,14 @@ namespace MemoryStorage
 
         record->Write(GetNewNumber(), measurements);
 
-        LOG_WRITE_TRACE("record for write %X, number %d", record, record->number);
-
         return record;
     }
 
     // Проверить все сектора на предмет повреждённых записей и стереть их
     static void Prepare();
 
-    static int NumberOldestRecord();
-    static int NumberNewestRecord();
+    int NumberOldestRecord();
+    int NumberNewestRecord();
 
     static int GetRecordsCount();
 }
@@ -345,20 +342,12 @@ namespace MemoryStorage
 
 void MemoryStorage::Init()
 {
-    LOG_WRITE(" ");
-    LOG_WRITE_TRACE("MemoryStorage::Init()");
-
     for (int i = 0; i < NUM_PAGES; i++)
     {
         pages[i].Init(i);
     }
 
     Prepare();
-
-    for (int i = 0; i < NUM_PAGES; i++)
-    {
-        pages[i].Erase();
-    }
 }
 
 
@@ -376,8 +365,6 @@ void *MemoryStorage::Append(const Measurements &meas)
     {
         page = Page::GetWithOldestRecord();
     }
-
-    LOG_WRITE("page for write %X", page->Begin());
 
     return page->Append(meas);
 }
@@ -490,15 +477,13 @@ namespace MemoryStorage
             Measurements meas;
 
             meas.SetFullMeasure(Measurer::Measure1Min());
-
-            Record *record = (Record *)Append(meas);
-
-            LOG_WRITE("Append record number %d to %X", record->number, record);
         }
 
         static void Fill()
         {
-            for (int i = 0; i < 500; i++)
+            const int num_records = 1150 * 10;
+
+            for (int i = 0; i < num_records; i++)
             {
                 AppendMeasure();
             }
@@ -523,13 +508,7 @@ namespace MemoryStorage
 
                 value = 0;
 
-                LOG_WRITE("all records %d", GetRecordsCount());
-
-                LOG_WRITE("write %u to %X", value, address);
-
                 HAL_ROM::WriteUInt(address, value);
-
-                LOG_WRITE("after %d", GetRecordsCount());
 
                 Prepare();
             }
@@ -541,10 +520,10 @@ namespace MemoryStorage
             {
                 const Measurements *meas = MemoryStorage::GetOldest();
 
-                Record *record = Record::ForMeasurements(meas);
-
-                LOG_WRITE("erase record %X number %d for measure %X, all %d, first %d, last %d",
-                    record, record->number, meas, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
+//                Record *record = Record::ForMeasurements(meas);
+//
+//                LOG_WRITE("erase record %X number %d for measure %X, all %d, first %d, last %d",
+//                    record, record->number, meas, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
 
                 MemoryStorage::Erase(meas);
             }
