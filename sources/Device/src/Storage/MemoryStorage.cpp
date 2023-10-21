@@ -21,6 +21,11 @@ namespace MemoryStorage
         uint         crc;
         uint         control_field;     // Это нужно для контроля правильности записи
 
+        Measurements *GetMeasurements()
+        {
+            return &measurements;
+        }
+
         void *Begin()
         {
             return (void *)this;
@@ -378,7 +383,9 @@ void *MemoryStorage::Append(const Measurements &meas)
 
 const Measurements *MemoryStorage::GetOldest()
 {
-    return nullptr;
+    Record *record = Record::Oldest();
+
+    return record ? record->GetMeasurements() : nullptr;
 }
 
 
@@ -534,10 +541,8 @@ namespace MemoryStorage
             {
                 const Measurements *meas = MemoryStorage::GetOldest();
 
-                Record *record = Record::ForMeasurements(meas);
-
                 LOG_WRITE("erase record %d, all %d, first %d, last %d",
-                    record->number, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
+                    Record::ForMeasurements(meas)->number, GetRecordsCount(), NumberOldestRecord(), NumberNewestRecord());
 
                 MemoryStorage::Erase(meas);
             }
