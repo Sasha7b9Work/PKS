@@ -12,10 +12,10 @@
 
 
 // Через такое время обновляются все показания
-static const int TIME_UPDATE_SENSORS = 10000;
+static const int TIME_UPDATE_SENSORS = 30000;
 
 // Время между посылками
-static const int TIME_BETWEEN_SENDED = 100;
+static const int TIME_BETWEEN_SENDED = 200;
 
 
 #include "Globals.h"

@@ -86,11 +86,14 @@ void Storage::Update()
     {
         meter.SetResponseTime(TIME_UPDATE_SENSORS);
 
-        static Measurements measurements;
+        for (int i = 0; i < 3; i++)
+        {
+            static Measurements measurements;
 
-        CollectMeasure(measurements);
+            CollectMeasure(measurements);
 
-        MemoryStorage::Append(measurements);
+            MemoryStorage::Append(measurements);
+        }
     }
 
     SendMeasure();
