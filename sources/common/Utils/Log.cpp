@@ -87,7 +87,7 @@ void Log::WriteTrace(char *file, int line, char *format, ...)
 
     char buffer[512];
 
-    std::sprintf(buffer, "%d : %s     %s:%d", counter++, message, file, line);
+    std::sprintf(buffer, "%d : %s                                  %s:%d", counter++, message, file, line);
 
     HAL_USART_LOG::Transmit(buffer);
 }

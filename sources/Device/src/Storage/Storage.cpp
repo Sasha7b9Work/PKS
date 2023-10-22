@@ -61,7 +61,7 @@ namespace Storage
     static void GetMeasures(Measurements &);
 
     // Собрать очередное измерение
-    static bool CollectMeasure(Measurements &);
+    static void CollectMeasure(Measurements &);
 
     // Послать очередное измерение
     static void SendMeasure();
@@ -80,26 +80,28 @@ void Storage::Init()
 
 void Storage::Update()
 {
-    static Measurements measurements;
+    static TimeMeterMS meter;
 
-    if (CollectMeasure(measurements))
+    if (meter.IsFinished())
     {
-        MemoryStorage::Append(measurements);
+        meter.SetResponseTime(TIME_UPDATE_SENSORS);
+
+        for (int i = 0; i < 3; i++)
+        {
+            static Measurements measurements;
+
+            CollectMeasure(measurements);
+
+            MemoryStorage::Append(measurements);
+        }
     }
 
     SendMeasure();
 }
 
 
-bool Storage::CollectMeasure(Measurements &measurements)
+void Storage::CollectMeasure(Measurements &measurements)
 {
-    static TimeMeterMS meter;
-
-    if (!meter.IsFinished())
-    {
-        return false;
-    }
-
     GetPinsGP(measurements);
 
     GetStateContactors(measurements);
@@ -109,10 +111,6 @@ bool Storage::CollectMeasure(Measurements &measurements)
     GetMeasures(measurements);
 
     measurements.counter = counter++;
-
-    meter.SetResponseTime(TIME_UPDATE_MS);
-
-    return true;
 }
 
 
@@ -128,7 +126,7 @@ void Storage::SendMeasure()
         {
             MemoryStorage::Erase(meas);
 
-            meter.SetResponseTime(100);
+            meter.SetResponseTime(TIME_BETWEEN_SENDED);
         }
     }
 }
