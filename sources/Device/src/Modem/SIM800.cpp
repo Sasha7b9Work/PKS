@@ -300,7 +300,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "STATUS") == 0)
             {
                 State::Set(State::WAIT_TCP_CONNECT);
-                SIM800::Transmit::With0D("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+                SIM800::Transmit::With0D("AT+CIPSTART=\"TCP\",\"85.143.167.242\",\"1883\"");
             }
         }
         break;

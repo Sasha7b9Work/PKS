@@ -100,30 +100,40 @@ void MQTT::Update(pchar answer)
         {
             char *MQTT_type = "MQTT";
 
-            char guid[32];
+            pchar user = "mqttusr";
+            pchar password = "tgsdj9e5dc";
+
             char MQTT_CID[32];
+            char GUID[32];
 
-            std::sprintf(MQTT_CID, "pks-%d%02d-%s", gset.GetNumberSteps(), gset.GetKoeffCurrent(), HAL::GetUID(guid));
+            std::sprintf(MQTT_CID, "-uskd----%s", HAL::GetUID(GUID));
 
-            LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
+            //            LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
 
             SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединения
-            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + 8));
 
-            // тип протокола
-            SIM800::Transmit::UINT8(0x00);
-            SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_type));
+            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(user) + std::strlen(password) + 10));  // Размер передаваемых в MQTT данных
+            SIM800::Transmit::UINT8(0x00);                                                                   // \ Размер MQTT_type
+            SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_type));                                          // /
             SIM800::Transmit::RAW(MQTT_type);
 
-            // просто так нужно
-            SIM800::Transmit::UINT8(0x04);    // версия протокола
-            SIM800::Transmit::UINT8(0x02);    // connect flag
-            SIM800::Transmit::UINT8(0x00);    // \ keep alive 
-            SIM800::Transmit::UINT8(0x3c);    // /
+            SIM800::Transmit::UINT8(0x05);    // версия протокола
+            //                                         +------------------ User Name Flag
+            //                                         |+----------------- Password Flag
+            //                                         ||
+            uint8 connect_flag = BINARY_U8(11000000);
 
-            SIM800::Transmit::UINT8(0x00);    // property lenth
+            SIM800::Transmit::UINT8(connect_flag);      // connect flag
+            SIM800::Transmit::UINT8(0x00);              // \ keep alive 
+            SIM800::Transmit::UINT8(0x3c);              // /
+
+            SIM800::Transmit::UINT8(0x00);              // property lenth
             SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_CID));
             SIM800::Transmit::RAW(MQTT_CID);
+            SIM800::Transmit::UINT8((uint8)std::strlen(user));
+            SIM800::Transmit::RAW(user);
+            SIM800::Transmit::UINT8((uint8)std::strlen(password));
+            SIM800::Transmit::RAW(password);
 
             SIM800::Transmit::UINT8(0x1A);
 
