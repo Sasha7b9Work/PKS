@@ -108,30 +108,42 @@ void MQTT::Update(pchar answer)
 
             std::sprintf(MQTT_CID, "-uskd----%s", HAL::GetUID(GUID));
 
-            //            LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
+//          LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
 
             SIM800::Transmit::UINT8(0x10);   // маркер пакета на установку соединения
 
-            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(user) + std::strlen(password) + 10));  // Размер передаваемых в MQTT данных
+            SIM800::Transmit::UINT8((uint8)(std::strlen(MQTT_type) + std::strlen(MQTT_CID) + std::strlen(user) + std::strlen(password) + 18));  // Размер передаваемых в MQTT данных
             SIM800::Transmit::UINT8(0x00);                                                                   // \ Размер MQTT_type
             SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_type));                                          // /
             SIM800::Transmit::RAW(MQTT_type);
 
             SIM800::Transmit::UINT8(0x05);    // версия протокола
-            //                                         +------------------ User Name Flag
-            //                                         |+----------------- Password Flag
-            //                                         ||
-            uint8 connect_flag = BINARY_U8(11000000);
+//                                         +------------------ User Name Flag
+//                                         |+----------------- Password Flag
+//                                         ||    
+//                                         ||    +------------ Clean Start
+            uint8 connect_flag = BINARY_U8(11000010);
 
             SIM800::Transmit::UINT8(connect_flag);      // connect flag
             SIM800::Transmit::UINT8(0x00);              // \ keep alive 
             SIM800::Transmit::UINT8(0x3c);              // /
 
-            SIM800::Transmit::UINT8(0x00);              // property lenth
+            SIM800::Transmit::UINT8(0x05);              // property length
+            SIM800::Transmit::UINT8(0x11);              // Session Expiry Interval identifier
+            SIM800::Transmit::UINT8(0x00);              // \ 
+            SIM800::Transmit::UINT8(0x00);              // | Session Expiry Interval (10)
+            SIM800::Transmit::UINT8(0x01);              // |
+            SIM800::Transmit::UINT8(0x2c);              // /
+
+            SIM800::Transmit::UINT8(0x00);
             SIM800::Transmit::UINT8((uint8)std::strlen(MQTT_CID));
             SIM800::Transmit::RAW(MQTT_CID);
+
+            SIM800::Transmit::UINT8(0x00);
             SIM800::Transmit::UINT8((uint8)std::strlen(user));
             SIM800::Transmit::RAW(user);
+
+            SIM800::Transmit::UINT8(0x00);
             SIM800::Transmit::UINT8((uint8)std::strlen(password));
             SIM800::Transmit::RAW(password);
 
@@ -144,10 +156,10 @@ void MQTT::Update(pchar answer)
         break;
 
     case StateMQTT::SEND_VERSION:
-        if (Sender::SendVersion())
-        {
-            state = StateMQTT::WAIT_DATA_FOR_SEND;
-        }
+//        if (Sender::SendVersion())
+//        {
+//            state = StateMQTT::WAIT_DATA_FOR_SEND;
+//        }
         break;
 
     case StateMQTT::WAIT_DATA_FOR_SEND:
