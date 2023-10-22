@@ -70,7 +70,7 @@ bool MQTT::InStateIdle()
 
 bool MQTT::InStateRunning()
 {
-    return state >= StateMQTT::WAIT_DATA_FOR_SEND;
+    return state >= StateMQTT::SEND_VERSION;
 }
 
 
