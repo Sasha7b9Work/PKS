@@ -76,6 +76,12 @@ namespace Sender
     static int levels[Phase::Count] = { 0, 0, 0 };
     static bool need_levels[Phase::Count] = { true, true, true };
 
+    static float voltage[Phase::Count] = { 0.0f, 0.0f, 0.0f };
+    static bool need_voltage[Phase::Count] = { true, true, true };
+
+    static float current[Phase::Count] = { 0.0f, 0.0f, 0.0f };
+    static bool need_current[Phase::Count] = { true, true, true };
+
     void Reset()
     {
         for (int i = 0; i < Phase::Count; i++)
@@ -95,6 +101,42 @@ namespace Sender
 
         all_states = true;
         need_all_states = true;
+    }
+
+    static int ToInt(float value)
+    {
+        return (int)(value * 10.0f + 0.5f);
+    }
+
+    static void SendPhase(Phase::E phase, const FullMeasure &value)
+    {
+        bool need_power = false;
+
+        static const pchar letters[Phase::Count] = { "a", "b", "c" };
+
+        char topic[32];
+
+        if (need_voltage[phase] || ToInt(voltage[phase]) != ToInt(value.measures[phase].voltage))
+        {
+            need_power = true;
+            std::sprintf(topic, "base/state/voltage_%s", letters[phase]);
+            MQTT::Packet::PublishF(topic, value.measures[phase].voltage);
+            need_voltage[phase] = false;
+        }
+
+        if (need_current[phase] || ToInt(current[phase]) != ToInt(value.measures[phase].current))
+        {
+            need_power = true;
+            std::sprintf(topic, "base/state/current_%s", letters[phase]);
+            MQTT::Packet::PublishF(topic, value.measures[phase].current);
+            need_current[phase] = false;
+        }
+
+        if (need_power)
+        {
+            std::sprintf(topic, "/power_%s", letters[phase]);
+            MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
+        }
     }
 }
 
@@ -210,17 +252,9 @@ bool Sender::SendMeasures(const Measurements &meas)
     {
         FullMeasure value = meas.GetFullMeasure();
 
-        MQTT::Packet::PublishF("base/state/voltage_a", value.measures[0].voltage);
-        MQTT::Packet::PublishF("base/state/current_a", value.measures[0].current);
-        MQTT::Packet::PublishF("/power_a", value.measures[0].GetPower() / 1e3f);
-
-        MQTT::Packet::PublishF("base/state/voltage_b", value.measures[1].voltage);
-        MQTT::Packet::PublishF("base/state/current_b", value.measures[1].current);
-        MQTT::Packet::PublishF("/power_b", value.measures[1].GetPower() / 1e3f);
-
-        MQTT::Packet::PublishF("base/state/voltage_c", value.measures[2].voltage);
-        MQTT::Packet::PublishF("base/state/current_c", value.measures[2].current);
-        MQTT::Packet::PublishF("/power_c", value.measures[2].GetPower() / 1e3f);
+        SendPhase(Phase::A, value);
+        SendPhase(Phase::B, value);
+        SendPhase(Phase::C, value);
     }
 
     Request::SendFinalSequence(true);
