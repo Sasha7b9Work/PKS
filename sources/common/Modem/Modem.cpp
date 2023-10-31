@@ -245,11 +245,7 @@ void Modem::Reset()
 {
     State::Set(State::IDLE);
 
-    SIM800::Reset();
-
 #ifdef DEVICE
-
-    MQTT::Reset();
 
     Storage::Reset();
 
