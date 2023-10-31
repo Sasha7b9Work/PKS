@@ -29,7 +29,7 @@ void Device::Init()
 
 void Device::Update()
 {
-//    HAL_FWDGT::Update();
+    HAL_FWDGT::Update();
 
     Measurer::Update();
 
