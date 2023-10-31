@@ -119,6 +119,7 @@ namespace Sender
         if (need_voltage[phase] || ToInt(voltage[phase]) != ToInt(value.measures[phase].voltage))
         {
             need_power = true;
+            voltage[phase] = value.measures[phase].voltage;
             std::sprintf(topic, "base/state/voltage_%s", letters[phase]);
             MQTT::Packet::PublishF(topic, value.measures[phase].voltage);
             need_voltage[phase] = false;
@@ -127,6 +128,7 @@ namespace Sender
         if (need_current[phase] || ToInt(current[phase]) != ToInt(value.measures[phase].current))
         {
             need_power = true;
+            current[phase] = value.measures[phase].current;
             std::sprintf(topic, "base/state/current_%s", letters[phase]);
             MQTT::Packet::PublishF(topic, value.measures[phase].current);
             need_current[phase] = false;
