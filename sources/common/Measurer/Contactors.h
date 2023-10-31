@@ -9,6 +9,12 @@ namespace Contactors
 
     void Update(const FullMeasure &);
 
+    void GetLevels(int levels[Phase::Count]);
+
+    int GetLevel(Phase::E);
+
+    void Test();
+
     namespace Serviceability
     {
         // ѕроверить исправность каждого контактора
@@ -21,10 +27,4 @@ namespace Contactors
 
         bool AllIsOK(Phase::E);
     }
-
-    void GetLevels(int levels[Phase::Count]);
-
-    int GetLevel(Phase::E);
-
-    void Test();
 }

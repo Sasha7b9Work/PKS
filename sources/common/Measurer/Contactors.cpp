@@ -59,12 +59,26 @@ namespace Contactors
         void Disable();
     };
 
-    static Contactor _contactors[3][10] =
+    static Contactor contactors[3][10] =
     {
         {{ &pinKMA1 }, { &pinKMA1 }, { &pinKMA2 }, { &pinKMA3 }, { &pinKMA4 }, { &pinKMA5 }, { &pinKMA6 }, { &pinKMA7 }, { &pinKMA8 }, { &pinKMA9 } },
         {{ &pinKMB1 }, { &pinKMB1 }, { &pinKMB2 }, { &pinKMB3 }, { &pinKMB4 }, { &pinKMB5 }, { &pinKMB6 }, { &pinKMB7 }, { &pinKMB8 }, { &pinKMB9 } },
         {{ &pinKMC1 }, { &pinKMC1 }, { &pinKMC2 }, { &pinKMC3 }, { &pinKMC4 }, { &pinKMC5 }, { &pinKMC6 }, { &pinKMC7 }, { &pinKMC8 }, { &pinKMC9 } },
     };
+
+    static Contactor &GetContactor(uint address)
+    {
+        if (address < 9)
+        {
+            return contactors[0][address + 1];
+        }
+        else if (address < 18)
+        {
+            return contactors[1][address - 8];
+        }
+
+        return contactors[2][address - 17];
+    }
 
     // Состояние контакторов
     namespace Level
@@ -106,7 +120,7 @@ namespace Contactors
     static void SetAddressMX(uint);
 
     // Возвращает состояние реле, выбранного установленным ранее адресом по SetAddressMX()
-    static int StateRele();
+    static int StateRele(uint address);
 
     // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
     static bool ReleIsBusy(uint address);
@@ -181,7 +195,7 @@ void Contactors::Init()
     {
         for (int i = 1; i < 10; i++)
         {
-            _contactors[phase][i].Init(ports[phase][i], pins[phase][i]);
+            contactors[phase][i].Init(ports[phase][i], pins[phase][i]);
         }
     }
 
@@ -262,7 +276,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
                 for (int i = 0; i < 10; i++)
                 {
-                    _contactors[phase][i].Disable();
+                    contactors[phase][i].Disable();
                 }
 
                 return;
@@ -431,7 +445,7 @@ int Contactors::GetLevel(Phase::E phase)
 
 void Contactors::Enable(int num, Phase::E phase, State::E next, TimeMeterMS &meter)
 {
-    _contactors[phase][num].Enable();
+    contactors[phase][num].Enable();
 
     State::current[phase] = next;
 
@@ -441,7 +455,7 @@ void Contactors::Enable(int num, Phase::E phase, State::E next, TimeMeterMS &met
 
 void Contactors::Disable(int num, Phase::E phase, State::E next, TimeMeterMS &meter)
 {
-    _contactors[phase][num].Disable();
+    contactors[phase][num].Disable();
 
     State::current[phase] = next;
 
@@ -501,7 +515,7 @@ void Contactors::Serviceability::Update()
             }
             else
             {
-                states[address] = StateRele();
+                states[address] = StateRele(address);
 
                 if (address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
                 {
@@ -539,12 +553,22 @@ void Contactors::SetAddressMX(uint address)
 }
 
 
-int Contactors::StateRele()
+int Contactors::StateRele(uint address)
 {
     bool p1 = pinP1.IsHi();
     bool p2 = pinP2.IsHi();
 
     if ((p1 && p2) || (!p1 && !p2)) //-V728
+    {
+        return -1;
+    }
+
+    if (p1 && GetContactor(address).enabled)
+    {
+        return -1;
+    }
+
+    if (p2 && !GetContactor(address).enabled)
     {
         return -1;
     }
@@ -588,7 +612,7 @@ void Contactors::Test()
     {
         for (int j = 1; j < 10; j++)
         {
-            Contactor &contactor = _contactors[i][j];
+            Contactor &contactor = contactors[i][j];
 
             if (contactor.enabled)
             {
