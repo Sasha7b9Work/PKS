@@ -641,21 +641,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Hardware/Modules/M25P80</GroupName>
-          <Files>
-            <File>
-              <FileName>M25P80.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Hardware\Modules\M25P80\M25P80.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>M25P80.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Hardware\Modules\M25P80\M25P80.h</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Display</GroupName>
           <Files>
             <File>
