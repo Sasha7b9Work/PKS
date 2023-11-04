@@ -15,7 +15,7 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>115 77</TableColWidths>
+      <TableColWidths>158 136</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
@@ -40,7 +40,7 @@
       <WinId>1506</WinId>
       <ViewName>Symbols</ViewName>
       <UserString></UserString>
-      <TableColWidths>70 70 70</TableColWidths>
+      <TableColWidths>106 106 106</TableColWidths>
     </View>
     <View>
       <WinId>1936</WinId>
@@ -68,7 +68,7 @@
     </View>
     <View>
       <WinId>466</WinId>
-      <ViewName>Source Browser - *** Not Enabled ***</ViewName>
+      <ViewName>Source Browser</ViewName>
       <UserString>500</UserString>
       <TableColWidths>300</TableColWidths>
     </View>
@@ -101,10 +101,10 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>100</Top>
-        <Left>1008</Left>
-        <Right>1615</Right>
-        <Bottom>1039</Bottom>
+        <Top>149</Top>
+        <Left>710</Left>
+        <Right>2096</Right>
+        <Bottom>1372</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
