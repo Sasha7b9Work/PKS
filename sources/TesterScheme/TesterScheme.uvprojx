@@ -884,6 +884,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Debug.h</FilePath>
             </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Utils\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\String.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1765,6 +1775,16 @@
               <FileName>Debug.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>String.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Utils\String.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>String.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\String.h</FilePath>
             </File>
           </Files>
         </Group>
