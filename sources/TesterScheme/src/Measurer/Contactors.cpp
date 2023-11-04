@@ -13,9 +13,6 @@
 
 namespace Contactors
 {
-    static const uint TIME_WAIT_BIG = 5000;
-    static const uint TIME_WAIT_SMALL = 100;
-
     struct State
     {
         static Phase::E phase;
@@ -80,39 +77,6 @@ namespace Contactors
         return contactors[2][address - 17];
     }
 
-    // Состояние контакторов
-    namespace Level
-    {
-        static int LESS_X()
-        {
-            return -gset.GetNumberSteps();
-        }
-
-        static int ABOVE_X()
-        {
-            return gset.GetNumberSteps();
-        }
-
-        static int MIN()
-        {
-            return LESS_X();
-        }
-
-        static int MAX()
-        {
-            return ABOVE_X();
-        }
-
-        // Номер включённой ступени
-        static int levels[Phase::Count] = { 0, 0, 0 };
-    }
-
-    static void Enable(int contactor, Phase::E, State::E next, TimeMeterMS &);
-
-    static void Disable(int contactor, Phase::E, State::E next, TimeMeterMS &);
-
-    static void UpdatePhase(Phase::E, const PhaseMeasure &, bool good);
-
     // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
     bool IsBusy(Phase::E phase);
 
@@ -159,6 +123,17 @@ namespace Contactors
             return true;
         }
     }
+}
+
+
+void Contactors::Update()
+{
+    if (gset.OnlyMeasure())
+    {
+        return;
+    }
+
+
 }
 
 
@@ -218,230 +193,6 @@ void Contactors::Init()
 
     pinP1._Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IPU);
     pinP2._Init(GPIOE, GPIO_PIN_3, GPIO_MODE_IPU);
-}
-
-
-void Contactors::Update()
-{
-    if (gset.OnlyMeasure())
-    {
-        return;
-    }
-
-
-}
-
-
-void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool is_good)
-{
-#define ENABLE_RELE(num, state)  { Enable((num), (phase), (state), (meter[phase])); }
-#define DISABLE_RELE(num, state) { Disable((num), (phase), (state), (meter[phase])); }
-
-#define CHANGE_RELE(num, state, enabled) if(enabled) ENABLE_RELE((num), (state)) else DISABLE_RELE((num), (state))
-
-#define WAIT_ENABLE_RELE(num, state)  if(meter[phase].IsFinished()) { ENABLE_RELE((num), (state)); }
-#define WAIT_DISABLE_RELE(num, state) if(meter[phase].IsFinished()) { DISABLE_RELE((num), (state)); }
-
-    static TimeMeterMS meter[3];
-    static int st[3] = { 0, 0, 0 };
-
-    static const bool states[6][5] =
-    {
-        //    KM1    KM4    KM5    KM6   KM7,8
-            {false, false, false, false, false},    // Транзит
-            {true,  false, false, false, false},    // 1
-            {true,  false, false, false, true},     // 2
-            {true,  false, false, true,  true},     // 3
-            {true,  false, true,  true,  true},     // 4
-            {true,  true,  true,  true,  true}      // 5
-    };
-
-    switch (State::current[phase])
-    {
-    case State::IDLE:
-        {
-            if (!is_good)
-            {
-                break;
-            }
-
-            int new_level = 0;
-
-            if (!Contactors::Serviceability::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
-            {
-                new_level = 0;
-
-                for (int i = 0; i < 10; i++)
-                {
-                    contactors[phase][i].Disable();
-                }
-
-                return;
-            }
-            else
-            {
-                float inU = measure.voltage + (float)Level::levels[phase] * 10.0f;
-
-                if (inU < 160.5f)
-                {
-                    new_level = 0;
-                }
-                else
-                {
-                    float delta = 0.0f;
-                    int num_steps = 0;
-                    if (measure.voltage < 220.0f)
-                    {
-                        delta = 220.0f - measure.voltage;
-
-                        num_steps = -(int)(delta / 10.0f + 1.0f);
-                    }
-                    else if (measure.voltage > 240.0f)
-                    {
-                        delta = measure.voltage - 240.0f;
-
-                        num_steps = (int)(delta / 10.0f + 1.0f);
-                    }
-                    else
-                    {
-                        break;
-                    }
-
-                    new_level = Math::Limitation(Level::levels[phase] + num_steps, Level::MIN(), Level::MAX());
-                }
-            }
-    
-            if (new_level == Level::levels[phase])
-            {
-                break;
-            }
-    
-            Level::levels[phase] = new_level;
-
-            ENABLE_RELE(2, State::TRANSIT_EN_1);
-        }
-
-        break;
-
-    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);       break; //-V525
-    case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);      break;
-    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);      break;
-    case State::TRANSIT_EN_4:
-        if (meter[phase].IsFinished())
-        {
-            meter[phase].SetResponseTime(TIME_WAIT_BIG);
-            State::current[phase] = State::TRANSIT_EN_5;
-        }
-        break;
-
-    case State::TRANSIT_EN_5:
-        if (meter[phase].IsFinished())
-        {
-            DISABLE_RELE(3, State::TRANSIT_EN_6);
-        }
-        break;
-
-    case State::TRANSIT_EN_6:
-        if (meter[phase].IsFinished())
-        {
-            st[phase] = Level::levels[phase] > 0 ? Level::levels[phase] : -Level::levels[phase];
-
-            CHANGE_RELE(1, State::RELE_4, states[st[phase]][0]);   // KM1
-        }
-        break;
-
-    case State::RELE_4:
-        if (meter[phase].IsFinished())
-        {
-            if (gset.GetNumberSteps() == 5)
-            {
-                CHANGE_RELE(4, State::RELE_5, states[st[phase]][1]);   // KM4
-            }
-            else
-            {
-                State::current[phase] = State::RELE_5;
-            }
-        }
-        break;
-
-    case State::RELE_5:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(5, State::RELE_6, states[st[phase]][2]);   // KM5 //-V525
-        }                                                                               break;
-
-    case State::RELE_6:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(6, State::RELE_7, states[st[phase]][3]);   // KM6
-        }                                                                               break;
-
-    case State::RELE_7:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(7, State::RELE_8, states[st[phase]][4]);   // KM7
-        }                                                                               break;
-
-    case State::RELE_8:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(8, State::POLARITY_LEVEL, states[st[phase]][4]);   // KM8
-        }                                                                               break;
-
-    case State::POLARITY_LEVEL:
-        if (meter[phase].IsFinished())
-        {
-            if (Level::levels[phase] == 0)
-            {
-                State::current[phase] = State::IDLE;
-
-                DISABLE_RELE(9, State::TRANSIT_EXIT_1);
-            }
-            else
-            {
-                if (Level::levels[phase] > 0)               // Идём в понижение
-                {
-                    ENABLE_RELE(9, State::TRANSIT_EXIT_1);
-                }
-                else                                        // Идём в повшение
-                {
-                    DISABLE_RELE(9, State::TRANSIT_EXIT_1);
-                }
-            }
-        }
-        break;
-    case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2);     break;
-    case State::TRANSIT_EXIT_2:     WAIT_ENABLE_RELE(3, State::TRANSIT_EXIT_3);     break;
-    case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4);     break;
-    case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5);    break;
-    case State::TRANSIT_EXIT_5:
-        if (meter[phase].IsFinished())
-        {
-            meter[phase].SetResponseTime(TIME_WAIT_BIG);
-            State::current[phase] = State::TRANSIT_EXIT_6;
-        }
-        break;
-    case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END);       break;
-
-    case State::END:
-        if (meter[phase].IsFinished())
-        {
-            State::current[phase] = State::IDLE;
-        }
-        break;
-    }
-}
-
-
-void Contactors::Enable(int num, Phase::E phase, State::E next, TimeMeterMS &meter)
-{
-    contactors[phase][num].Enable();
-
-    State::current[phase] = next;
-
-    meter.SetResponseTime(TIME_WAIT_SMALL);
-}
-
-
-void Contactors::Disable(int num, Phase::E phase, State::E next, TimeMeterMS &meter)
-{
-    contactors[phase][num].Disable();
-
-    State::current[phase] = next;
-
-    meter.SetResponseTime(TIME_WAIT_SMALL);
 }
 
 
