@@ -71,9 +71,7 @@ void Display::Update()
         WriteMeasures(i);
     }
 
-    char message[32];
-
-    WriteString(72, 54, HAL::GetUID(message));
+    WriteString(72, 54, HAL::GetUID());
 
     WriteString(0, 54, "TEST");
 

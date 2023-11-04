@@ -100,10 +100,9 @@ void MQTT::Update(pchar answer)
         {
             char *MQTT_type = "MQTT";
 
-            char guid[32];
             char MQTT_CID[32];
 
-            std::sprintf(MQTT_CID, "pks-%d%02d-%s", gset.GetNumberSteps(), gset.GetKoeffCurrent(), HAL::GetUID(guid));
+            std::sprintf(MQTT_CID, "pks-%d%02d-%s", gset.GetNumberSteps(), gset.GetKoeffCurrent(), HAL::GetUID());
 
             LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
 

@@ -84,13 +84,18 @@ void HAL::DeInit()
 }
 
 
-char *HAL::GetUID(char buffer[32])
+char *HAL::GetUID()
 {
-    uint8 bytes[12];
+    static char buffer[32] = { '\0' };
 
-    std::memcpy(bytes, (void *)0x1FFFF7E8, 12); //-V566
+    if (buffer[0] == '\0')
+    {
+        uint8 bytes[12];
 
-    std::sprintf(buffer, "%08X", Math::CalculateCRC(bytes, 12));
+        std::memcpy(bytes, (void *)0x1FFFF7E8, 12); //-V566
+
+        std::sprintf(buffer, "%08X", Math::CalculateCRC(bytes, 12));
+    }
 
     return buffer;
 }

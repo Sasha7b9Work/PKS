@@ -294,7 +294,7 @@ bool Sender::SendVersion()
 
     MQTT::Packet::Publish("/versionSW", buffer);
 
-    MQTT::Packet::Publish("base/id", HAL::GetUID(buffer));
+    MQTT::Packet::Publish("base/id", HAL::GetUID());
 
     MQTT::Packet::Publish("/last/reset", "-");
 

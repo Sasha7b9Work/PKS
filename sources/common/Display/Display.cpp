@@ -73,7 +73,7 @@ void Display::Update()
 
     char message[32];
 
-    WriteString(72, 54, HAL::GetUID(message));
+    WriteString(72, 54, HAL::GetUID());
 
     std::sprintf(message, "%d", gset.GetNumberSteps());
 
