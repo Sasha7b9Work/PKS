@@ -9,8 +9,6 @@ namespace Contactors
 
     void Update(const FullMeasure &);
 
-    void GetLevels(int levels[Phase::Count]);
-
     void Test();
 
     namespace Serviceability

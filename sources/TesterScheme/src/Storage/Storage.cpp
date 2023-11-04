@@ -56,8 +56,6 @@ namespace Storage
 
     static void GetStateContactors(Measurements &);
 
-    static void GetLevelsContactors(Measurements &);
-
     static void GetMeasures(Measurements &);
 
     // Собрать очередное измерение
@@ -102,8 +100,6 @@ void Storage::CollectMeasure(Measurements &measurements)
     GetPinsGP(measurements);
 
     GetStateContactors(measurements);
-
-    GetLevelsContactors(measurements);
 
     GetMeasures(measurements);
 
@@ -157,19 +153,6 @@ void Storage::GetStateContactors(Measurements &meas)
     }
 
     meas.flags.Set100V(states[27] != 0);
-}
-
-
-void Storage::GetLevelsContactors(Measurements &meas)
-{
-    int levels[Phase::Count];
-
-    Contactors::GetLevels(levels);
-
-    for (int i = 0; i < Phase::Count; i++)
-    {
-        meas.flags.SetLevelRele((Phase::E)i, levels[i]);
-    }
 }
 
 
