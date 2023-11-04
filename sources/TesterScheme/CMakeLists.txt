@@ -2,7 +2,7 @@
 
 project (TesterScheme)
 
-#set(CMAKE_UNITY_BUILD OFF)
+set(CMAKE_UNITY_BUILD OFF)
 
 message("------------------------------------------------------------------------ ${PROJECT_NAME}")
 
@@ -35,14 +35,14 @@ file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_
 file(GLOB SRC                            src/*.*
                                    ../common/*.h
                                    ../common/*.cpp)
-file(GLOB DISPLAY                  ../common/Display/*.*)
-file(GLOB DISPLAY_FONT             ../common/Display/Font/*.*)
+file(GLOB DISPLAY                        src/Display/*.*)
+file(GLOB DISPLAY_FONT                   src/Display/Font/*.*)
 file(GLOB HARDWARE                       src/Hardware/*.*
                                    ../common/Hardware/*.*)
 file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
 file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/*.*)
-file(GLOB MEASURER                 ../common/Measurer/*.*)
+file(GLOB MEASURER                       src/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/*.*)
 file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)

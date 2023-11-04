@@ -645,24 +645,34 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
+              <FileName>Console.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Console.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Console.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Console.h</FilePath>
+            </File>
+            <File>
               <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Display\Display.cpp</FilePath>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Display.h</FilePath>
+              <FilePath>.\src\Display\Display.h</FilePath>
             </File>
             <File>
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Display\SSD1306.cpp</FilePath>
+              <FilePath>.\src\Display\SSD1306.cpp</FilePath>
             </File>
             <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\SSD1306.h</FilePath>
+              <FilePath>.\src\Display\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -672,27 +682,27 @@
             <File>
               <FileName>Font.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Display\Font\Font.cpp</FilePath>
+              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
             </File>
             <File>
               <FileName>Font.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\Font.h</FilePath>
+              <FilePath>.\src\Display\Font\Font.h</FilePath>
             </File>
             <File>
               <FileName>font5.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\font5.inc</FilePath>
+              <FilePath>.\src\Display\Font\font5.inc</FilePath>
             </File>
             <File>
               <FileName>font8.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\font8.inc</FilePath>
+              <FilePath>.\src\Display\Font\font8.inc</FilePath>
             </File>
             <File>
               <FileName>font10_7.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\font10_7.inc</FilePath>
+              <FilePath>.\src\Display\Font\font10_7.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -700,34 +710,34 @@
           <GroupName>Measurer</GroupName>
           <Files>
             <File>
+              <FileName>Averager.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Averager.h</FilePath>
+            </File>
+            <File>
               <FileName>Calculator.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
+              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
             </File>
             <File>
               <FileName>Contactors.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Contactors.cpp</FilePath>
+              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
             </File>
             <File>
               <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Measurer\Contactors.h</FilePath>
+              <FilePath>.\src\Measurer\Contactors.h</FilePath>
             </File>
             <File>
               <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Measurer.cpp</FilePath>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
             </File>
             <File>
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Averager.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Measurer\Averager.h</FilePath>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1517,24 +1527,34 @@
           <GroupName>Display</GroupName>
           <Files>
             <File>
+              <FileName>Console.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Display\Console.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Console.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Display\Console.h</FilePath>
+            </File>
+            <File>
               <FileName>Display.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Display\Display.cpp</FilePath>
+              <FilePath>.\src\Display\Display.cpp</FilePath>
             </File>
             <File>
               <FileName>Display.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Display.h</FilePath>
+              <FilePath>.\src\Display\Display.h</FilePath>
             </File>
             <File>
               <FileName>SSD1306.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Display\SSD1306.cpp</FilePath>
+              <FilePath>.\src\Display\SSD1306.cpp</FilePath>
             </File>
             <File>
               <FileName>SSD1306.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\SSD1306.h</FilePath>
+              <FilePath>.\src\Display\SSD1306.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1544,27 +1564,27 @@
             <File>
               <FileName>Font.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Display\Font\Font.cpp</FilePath>
+              <FilePath>.\src\Display\Font\Font.cpp</FilePath>
             </File>
             <File>
               <FileName>Font.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\Font.h</FilePath>
+              <FilePath>.\src\Display\Font\Font.h</FilePath>
             </File>
             <File>
               <FileName>font5.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\font5.inc</FilePath>
+              <FilePath>.\src\Display\Font\font5.inc</FilePath>
             </File>
             <File>
               <FileName>font8.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\font8.inc</FilePath>
+              <FilePath>.\src\Display\Font\font8.inc</FilePath>
             </File>
             <File>
               <FileName>font10_7.inc</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Display\Font\font10_7.inc</FilePath>
+              <FilePath>.\src\Display\Font\font10_7.inc</FilePath>
             </File>
           </Files>
         </Group>
@@ -1572,34 +1592,34 @@
           <GroupName>Measurer</GroupName>
           <Files>
             <File>
+              <FileName>Averager.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Measurer\Averager.h</FilePath>
+            </File>
+            <File>
               <FileName>Calculator.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Calculator.cpp</FilePath>
+              <FilePath>.\src\Measurer\Calculator.cpp</FilePath>
             </File>
             <File>
               <FileName>Contactors.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Contactors.cpp</FilePath>
+              <FilePath>.\src\Measurer\Contactors.cpp</FilePath>
             </File>
             <File>
               <FileName>Contactors.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Measurer\Contactors.h</FilePath>
+              <FilePath>.\src\Measurer\Contactors.h</FilePath>
             </File>
             <File>
               <FileName>Measurer.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Measurer\Measurer.cpp</FilePath>
+              <FilePath>.\src\Measurer\Measurer.cpp</FilePath>
             </File>
             <File>
               <FileName>Measurer.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Measurer\Measurer.h</FilePath>
-            </File>
-            <File>
-              <FileName>Averager.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Measurer\Averager.h</FilePath>
+              <FilePath>.\src\Measurer\Measurer.h</FilePath>
             </File>
           </Files>
         </Group>
