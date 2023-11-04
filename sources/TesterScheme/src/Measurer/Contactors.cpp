@@ -123,6 +123,12 @@ namespace Contactors
             return true;
         }
     }
+
+    static int num_step = 0;
+    static int next_rele = 0;
+
+    // Проверить конкретное реле для всех трёх фаз
+    static void VerifyRele(int num_rele);
 }
 
 
@@ -133,8 +139,16 @@ void Contactors::Update()
         return;
     }
 
+    VerifyRele(next_rele++);
 
+    if (next_rele == 8)
+    {
+        next_rele = 0;
+    }
 }
+
+
+void VerifyRele(int )
 
 
 bool Contactors::IsBusy(Phase::E phase)
