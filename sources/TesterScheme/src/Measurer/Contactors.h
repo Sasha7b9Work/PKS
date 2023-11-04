@@ -11,8 +11,6 @@ namespace Contactors
 
     void GetLevels(int levels[Phase::Count]);
 
-    int GetLevel(Phase::E);
-
     void Test();
 
     namespace Serviceability

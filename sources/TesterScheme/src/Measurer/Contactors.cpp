@@ -437,12 +437,6 @@ void Contactors::GetLevels(int levels[Phase::Count])
 }
 
 
-int Contactors::GetLevel(Phase::E phase)
-{
-    return Level::levels[phase];
-}
-
-
 void Contactors::Enable(int num, Phase::E phase, State::E next, TimeMeterMS &meter)
 {
     contactors[phase][num].Enable();
