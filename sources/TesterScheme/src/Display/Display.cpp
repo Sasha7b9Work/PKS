@@ -11,6 +11,7 @@
 #include "Hardware/Timer.h"
 #include "Display/Console.h"
 #include "Measurer/Contactors.h"
+#include "Utils/String.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -100,8 +101,6 @@ void Display::WriteMeasures(int i)
 {
 #define Y() (13 + i * 13)
 
-    char message[30];
-
     bool need_bad_info = !Contactors::Serviceability::AllIsOK((Phase::E)i) && (((Timer::TimeMS() / 1000 / 5) % 2) == 0);
 
     if (need_bad_info)
@@ -112,9 +111,7 @@ void Display::WriteMeasures(int i)
 
             if (Contactors::Serviceability::GetState((Phase::E)i, num) == -1)
             {
-                std::sprintf(message, "%d", num + 1);
-
-                WriteString(num * 10 + 50, Y(), message);
+                WriteString(num * 10 + 50, Y(), String("%d", num + 1));
             }
         }
     }
@@ -124,9 +121,7 @@ void Display::WriteMeasures(int i)
 
         WriteString(0, Y(), "TEST");
 
-        std::sprintf(message, "%4.1f", measure.measures[i].voltage);
-
-        WriteString(40, Y(), message);
+        WriteString(40, Y(), String("%4.1f", measure.measures[i].voltage));
 
         WriteString(100, Y(), "TEST");
     }

@@ -80,9 +80,7 @@ void Display::Update()
 
     WriteString(6, 54, ":");
 
-    std::sprintf(message, "%d", gset.GetKoeffCurrent());
-
-    WriteString(12, 54, message);
+    WriteString(12, 54, String("%d", gset.GetKoeffCurrent()));
 
     WriteString(25, 54, ":");
 
