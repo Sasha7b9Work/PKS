@@ -59,6 +59,11 @@ public:
         return buffer;
     }
 
+    operator char *()
+    {
+        return buffer;
+    }
+
 private:
     char *buffer;
 };

@@ -11,6 +11,7 @@
 #include "Hardware/Timer.h"
 #include "Display/Console.h"
 #include "Measurer/Contactors.h"
+#include "Utils/String.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -75,9 +76,7 @@ void Display::Update()
 
     WriteString(72, 54, HAL::GetUID());
 
-    std::sprintf(message, "%d", gset.GetNumberSteps());
-
-    WriteString(0, 54, message);
+    WriteString(0, 54, String("%d", gset.GetNumberSteps()));
 
     WriteString(6, 54, ":");
 
