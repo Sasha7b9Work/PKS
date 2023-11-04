@@ -75,7 +75,21 @@ void Display::Update()
 
     WriteString(72, 54, HAL::GetUID(message));
 
-    WriteString(0, 54, "TEST");
+    std::sprintf(message, "%d", gset.GetNumberSteps());
+
+    WriteString(0, 54, message);
+
+    WriteString(6, 54, ":");
+
+    std::sprintf(message, "%d", gset.GetKoeffCurrent());
+
+    WriteString(12, 54, message);
+
+    WriteString(25, 54, ":");
+
+    std::sprintf(message, "%d", VERSION);
+
+    WriteString(32, 54, message);
 
     if (Modem::Mode::Power())
     {
@@ -124,13 +138,17 @@ void Display::WriteMeasures(int i)
     {
         FullMeasure measure = Measurer::LastMeasure();
 
-        WriteString(0, Y(), "TEST");
+        std::sprintf(message, "%d", -Contactors::GetLevel((Phase::E)i));
+
+        WriteString(0, Y(), message);
 
         std::sprintf(message, "%4.1f", measure.measures[i].voltage);
 
-        WriteString(40, Y(), message);
+        WriteString(20, Y(), message);
 
-        WriteString(100, Y(), "TEST");
+        std::sprintf(message, "%4.1f", measure.measures[i].current);
+
+        WriteString(80, Y(), message);
     }
 }
 
