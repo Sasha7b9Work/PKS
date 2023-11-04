@@ -107,12 +107,6 @@ void Display::WriteMeasures(int i)
     {
         for (int num = 0; num < 8; num++)
         {
-            WriteString(0, Y(), "Defect");
-
-            if (Contactors::Serviceability::GetState((Phase::E)i, num) == -1)
-            {
-                WriteString(num * 10 + 50, Y(), String("%d", num + 1));
-            }
         }
     }
     else
