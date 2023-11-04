@@ -9,8 +9,6 @@ namespace Contactors
 
     void Update(const FullMeasure &);
 
-    void Test();
-
     namespace Serviceability
     {
         // ѕроверить исправность каждого контактора
