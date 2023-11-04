@@ -33,7 +33,7 @@ void Device::Update()
 
     Measurer::Update();
 
-    Contactors::Update(Measurer::Measure5Sec());
+    Contactors::Update();
 
     Contactors::Serviceability::Update();
 

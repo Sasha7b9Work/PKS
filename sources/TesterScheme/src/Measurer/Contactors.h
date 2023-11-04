@@ -7,7 +7,7 @@ namespace Contactors
 {
     void Init();
 
-    void Update(const FullMeasure &);
+    void Update();
 
     namespace Serviceability
     {

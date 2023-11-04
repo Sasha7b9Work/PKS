@@ -221,17 +221,14 @@ void Contactors::Init()
 }
 
 
-void Contactors::Update(const FullMeasure &measure)
+void Contactors::Update()
 {
     if (gset.OnlyMeasure())
     {
         return;
     }
 
-    for (int i = 0; i < 3; i++)
-    {
-        UpdatePhase((Phase::E)i, measure.measures[i], measure.is_good[i]);
-    }
+
 }
 
 
