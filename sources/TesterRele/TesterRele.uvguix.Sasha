@@ -15,17 +15,17 @@
     <View>
       <WinId>38003</WinId>
       <ViewName>Registers</ViewName>
-      <TableColWidths>158 136</TableColWidths>
+      <TableColWidths>248 248</TableColWidths>
     </View>
     <View>
       <WinId>346</WinId>
       <ViewName>Code Coverage</ViewName>
-      <TableColWidths>860 160</TableColWidths>
+      <TableColWidths>860 184</TableColWidths>
     </View>
     <View>
       <WinId>204</WinId>
       <ViewName>Performance Analyzer</ViewName>
-      <TableColWidths>1020</TableColWidths>
+      <TableColWidths>1020 153 153 100</TableColWidths>
     </View>
   </SECTreeCtrl>
 
@@ -70,7 +70,7 @@
       <WinId>466</WinId>
       <ViewName>Source Browser - *** Not Enabled ***</ViewName>
       <UserString>500</UserString>
-      <TableColWidths>300</TableColWidths>
+      <TableColWidths>166</TableColWidths>
     </View>
   </TreeListPane>
 
@@ -78,11 +78,11 @@
 
   <WindowSettings>
     <LogicAnalizer>
-      <ShowLACursor>1</ShowLACursor>
-      <ShowSignalInfo>1</ShowSignalInfo>
+      <ShowLACursor>0</ShowLACursor>
+      <ShowSignalInfo>0</ShowSignalInfo>
       <ShowCycles>0</ShowCycles>
-      <LeftSideBarSize>0</LeftSideBarSize>
-      <TimeBaseIndex>-1</TimeBaseIndex>
+      <LeftSideBarSize>50</LeftSideBarSize>
+      <TimeBaseIndex>16</TimeBaseIndex>
     </LogicAnalizer>
   </WindowSettings>
 
@@ -101,17 +101,17 @@
         <yPos>-1</yPos>
       </MaxPosition>
       <NormalPosition>
-        <Top>149</Top>
-        <Left>710</Left>
-        <Right>2096</Right>
-        <Bottom>1372</Bottom>
+        <Top>179</Top>
+        <Left>682</Left>
+        <Right>2068</Right>
+        <Bottom>1402</Bottom>
       </NormalPosition>
     </WindowPosition>
     <MDIClientArea>
       <RegID>0</RegID>
       <MDITabState>
-        <Len>60</Len>
-        <Data>010000000400000001000000010000000100000001000000000000000200000000000000010000000100000000000000280000002800000000000000</Data>
+        <Len>523</Len>
+        <Data>01000000040000000100000001000000010000000100000000000000020000000000000001000000010000000000000028000000280000000100000003000000020000000100000047433A5C4D795C4769744875625C5F776F726B5C456C6563747269636974794D657465725C736F75726365735C546573746572536368656D655C7372635C4465766963652E637070000000000A4465766963652E63707000000000BCA8E100FFFFFFFF61433A5C4D795C4769744875625C5F776F726B5C456C6563747269636974794D657465725C736F75726365735C546573746572536368656D655C7372635C48617264776172655C434D5349535C737461727475705F67643332663330785F68642E730000000015737461727475705F67643332663330785F68642E7300000000FFDC7800FFFFFFFF54433A5C4D795C4769744875625C5F776F726B5C456C6563747269636974794D657465725C736F75726365735C546573746572536368656D655C7372635C4D656173757265725C436F6E746163746F72732E637070000000000E436F6E746163746F72732E63707000000000BECEA100FFFFFFFF0100000010000000C5D4F200FFDC7800BECEA100F0A0A100BCA8E1009CC1B600F7B88600D9ADC200A5C2D700B3A6BE00EAD6A300F6FA7D00B5E99D005FC3CF00C1838300CACAD500010000000000000002000000000000004A000000CC0800008D050000</Data>
       </MDITabState>
     </MDIClientArea>
   </WinLayoutEx>

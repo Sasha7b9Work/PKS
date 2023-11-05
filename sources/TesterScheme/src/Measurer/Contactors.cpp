@@ -63,25 +63,25 @@ namespace Contactors
         int ReadNativeState();
     };
 
-    static Contactor contactors[3][10] =
+    static Contactor contactors[3][9] =
     {
-        {{ &pinKMA1, 0  }, { &pinKMA1, 0  }, { &pinKMA2, 1  }, { &pinKMA3, 2  }, { &pinKMA4, 3  }, { &pinKMA5, 4  }, { &pinKMA6, 5  }, { &pinKMA7, 6  }, { &pinKMA8, 7  }, { &pinKMA9, 8  } },
-        {{ &pinKMB1, 9  }, { &pinKMB1, 9  }, { &pinKMB2, 10 }, { &pinKMB3, 11 }, { &pinKMB4, 12 }, { &pinKMB5, 13 }, { &pinKMB6, 14 }, { &pinKMB7, 15 }, { &pinKMB8, 16 }, { &pinKMB9, 17 } },
-        {{ &pinKMC1, 18 }, { &pinKMC1, 18 }, { &pinKMC2, 19 }, { &pinKMC3, 20 }, { &pinKMC4, 21 }, { &pinKMC5, 22 }, { &pinKMC6, 23 }, { &pinKMC7, 24 }, { &pinKMC8, 25 }, { &pinKMC9, 26 } },
+        { { &pinKMA1, 0  }, { &pinKMA2, 1  }, { &pinKMA3, 2  }, { &pinKMA4, 3  }, { &pinKMA5, 4  }, { &pinKMA6, 5  }, { &pinKMA7, 6  }, { &pinKMA8, 7  }, { &pinKMA9, 8  } },
+        { { &pinKMB1, 9  }, { &pinKMB2, 10 }, { &pinKMB3, 11 }, { &pinKMB4, 12 }, { &pinKMB5, 13 }, { &pinKMB6, 14 }, { &pinKMB7, 15 }, { &pinKMB8, 16 }, { &pinKMB9, 17 } },
+        { { &pinKMC1, 18 }, { &pinKMC2, 19 }, { &pinKMC3, 20 }, { &pinKMC4, 21 }, { &pinKMC5, 22 }, { &pinKMC6, 23 }, { &pinKMC7, 24 }, { &pinKMC8, 25 }, { &pinKMC9, 26 } },
     };
 
     static Contactor &GetContactor(uint address)
     {
         if (address < 9)
         {
-            return contactors[0][address + 1];
+            return contactors[0][address];
         }
         else if (address < 18)
         {
-            return contactors[1][address - 8];
+            return contactors[1][address - 9];
         }
 
-        return contactors[2][address - 17];
+        return contactors[2][address - 18];
     }
 
     // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
@@ -167,9 +167,8 @@ void Contactors::Test::Update()
     if (num_next == 8)
     {
         num_next = 0;
+        num_step++;
     }
-
-    num_step++;
 }
 
 
@@ -186,7 +185,10 @@ void Contactors::Test::VerifyRele(int num_rele)
 
         if (!contactor.IsOK())
         {
-            counter_bads[contactor.address]++;
+            if (counter_bads[contactor.address] < 99)
+            {
+                counter_bads[contactor.address]++;
+            }
         }
 
         contactor.Disable();
@@ -198,7 +200,10 @@ void Contactors::Test::VerifyRele(int num_rele)
 
         if (!contactor.IsOK())
         {
-            counter_bads[contactor.address]++;
+            if (counter_bads[contactor.address] < 99)
+            {
+                counter_bads[contactor.address]++;
+            }
         }
     }
 }
@@ -283,10 +288,12 @@ int Contactors::StateRele(uint address)
 
 int Contactors::Contactor::ReadNativeState()
 {
-//    while (TIME_MS < time_action + 5)
-//    {
-//        Modem::Update();
-//    }
+    SetAddressMX(address);
+
+    while (TIME_MS < time_action + 5)
+    {
+        Modem::Update();
+    }
 
     int result = 0;
 
@@ -343,7 +350,7 @@ void Contactors::Init()
 
     for (int phase = 0; phase < 3; phase++)
     {
-        for (int i = 1; i < 10; i++)
+        for (int i = 1; i < 9; i++)
         {
             contactors[phase][i].Init(ports[phase][i], pins[phase][i]);
         }
@@ -371,7 +378,7 @@ void Contactors::Init()
 
     for (int phase = 0; phase < 3; phase++)
     {
-        for (int rele = 0; rele < 10; rele++)
+        for (int rele = 0; rele < 9; rele++)
         {
             contactors[phase][rele].Disable();
         }
