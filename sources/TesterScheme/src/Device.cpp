@@ -34,6 +34,7 @@ void Device::Update()
     Measurer::Update();
 
     Contactors::Test::Update();
+    LOG_WRITE("num step %d", Contactors::Test::GetCountSteps());
 
     Storage::Update();
 

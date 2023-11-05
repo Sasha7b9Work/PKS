@@ -114,7 +114,7 @@ void Display::WriteMeasures(int phase)
                 continue;
             }
 
-            WriteString(num * 10 + 50, Y(), String("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)));
+            WriteString(num * 16, Y(), String("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)));
         }
     }
     else

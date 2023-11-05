@@ -135,7 +135,7 @@ namespace Contactors
     namespace Test
     {
         static int num_step = 0;
-        static int next_rele = 0;
+        static int num_next = 0;
 
         static int counter_bads[NUM_PINS_MX];
 
@@ -162,7 +162,14 @@ void Contactors::Test::Update()
         return;
     }
 
-    VerifyRele(next_rele++);
+    VerifyRele(num_next++);
+
+    if (num_next == 8)
+    {
+        num_next = 0;
+    }
+
+    num_step++;
 }
 
 
@@ -276,10 +283,10 @@ int Contactors::StateRele(uint address)
 
 int Contactors::Contactor::ReadNativeState()
 {
-    while (TIME_MS < time_action + 5)
-    {
-        Modem::Update();
-    }
+//    while (TIME_MS < time_action + 5)
+//    {
+//        Modem::Update();
+//    }
 
     int result = 0;
 
