@@ -52,12 +52,17 @@ bool TimeMeterMS::IsFinished() const
 }
 
 
-void Timer::DelayMS(uint ms)
+void Timer::DelayMS(uint ms, void (*func)())
 {
     uint time_end = TimeMS() + ms;
 
     while (TimeMS() < time_end)
     {
         HAL_FWDGT::Update();
+
+        if (func)
+        {
+            func();
+        }
     }
 }

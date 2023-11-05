@@ -76,6 +76,8 @@ void Display::Update()
 
     WriteString(0, 54, "TEST");
 
+    WriteString(30, 54, String("%d", Contactors::Test::GetCountSteps()));
+
     if (Modem::Mode::Power())
     {
         WriteString(5, 0, "POW");
@@ -97,16 +99,22 @@ void Display::Update()
 }
 
 
-void Display::WriteMeasures(int i)
+void Display::WriteMeasures(int phase)
 {
-#define Y() (13 + i * 13)
+#define Y() (13 + phase * 13)
 
-    bool need_bad_info = !Contactors::Serviceability::AllIsOK((Phase::E)i) && (((Timer::TimeMS() / 1000 / 5) % 2) == 0);
+    bool need_bad_info = ((Timer::TimeMS() / 1000 / 5) % 2) == 0;
 
     if (need_bad_info)
     {
         for (int num = 0; num < 8; num++)
         {
+            if (num == 3 && gset.GetNumberSteps() == 4)
+            {
+                continue;
+            }
+
+            WriteString(num * 10 + 50, Y(), String("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)));
         }
     }
     else
@@ -115,7 +123,7 @@ void Display::WriteMeasures(int i)
 
         WriteString(0, Y(), "TEST");
 
-        WriteString(40, Y(), String("%4.1f", measure.measures[i].voltage));
+        WriteString(40, Y(), String("%4.1f", measure.measures[phase].voltage));
 
         WriteString(100, Y(), "TEST");
     }

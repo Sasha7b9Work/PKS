@@ -33,9 +33,7 @@ void Device::Update()
 
     Measurer::Update();
 
-    Contactors::Update();
-
-    Contactors::Serviceability::Update();
+    Contactors::Test::Update();
 
     Storage::Update();
 

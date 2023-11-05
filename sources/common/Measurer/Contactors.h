@@ -23,6 +23,8 @@ namespace Contactors
 
         int GetState(Phase::E, int);
 
+        int GetCounterBad(Phase::E, int);
+
         void Update();
 
         bool AllIsOK(Phase::E);

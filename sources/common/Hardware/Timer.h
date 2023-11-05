@@ -9,7 +9,8 @@ namespace Timer
 {
     uint TimeMS();
 
-    void DelayMS(uint ms);
+    // Если опеределена func, то она будет вызываться во время ожидания
+    void DelayMS(uint ms, void (*func)() = nullptr);
 }
 
 

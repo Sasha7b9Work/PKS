@@ -7,7 +7,14 @@ namespace Contactors
 {
     void Init();
 
-    void Update();
+    namespace Test
+    {
+        void Update();
+
+        int GetCounterBad(Phase::E phase, int num);
+
+        int GetCountSteps();
+    }
 
     namespace Serviceability
     {

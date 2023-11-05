@@ -6,6 +6,7 @@
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
+#include "Modem/Modem.h"
 #include <gd32f30x.h>
 #include <cstring>
 #include <cstdlib>
@@ -50,17 +51,23 @@ namespace Contactors
     struct Contactor
     {
         PinOUT *pin;
+        uint    address;
         bool    enabled;
+        uint    time_action;    // Время последнего включения/выключения. Нужно для того, чтобы узнать когда можно считывать его состояние
         void Init(uint port, uint pin);
         void Enable();
         void Disable();
+        // Читает "нативное" состояние выводов. p1 в бит 0, p2 в бит 2
+        bool IsOK();
+    private:
+        int ReadNativeState();
     };
 
     static Contactor contactors[3][10] =
     {
-        {{ &pinKMA1 }, { &pinKMA1 }, { &pinKMA2 }, { &pinKMA3 }, { &pinKMA4 }, { &pinKMA5 }, { &pinKMA6 }, { &pinKMA7 }, { &pinKMA8 }, { &pinKMA9 } },
-        {{ &pinKMB1 }, { &pinKMB1 }, { &pinKMB2 }, { &pinKMB3 }, { &pinKMB4 }, { &pinKMB5 }, { &pinKMB6 }, { &pinKMB7 }, { &pinKMB8 }, { &pinKMB9 } },
-        {{ &pinKMC1 }, { &pinKMC1 }, { &pinKMC2 }, { &pinKMC3 }, { &pinKMC4 }, { &pinKMC5 }, { &pinKMC6 }, { &pinKMC7 }, { &pinKMC8 }, { &pinKMC9 } },
+        {{ &pinKMA1, 0  }, { &pinKMA1, 0  }, { &pinKMA2, 1  }, { &pinKMA3, 2  }, { &pinKMA4, 3  }, { &pinKMA5, 4  }, { &pinKMA6, 5  }, { &pinKMA7, 6  }, { &pinKMA8, 7  }, { &pinKMA9, 8  } },
+        {{ &pinKMB1, 9  }, { &pinKMB1, 9  }, { &pinKMB2, 10 }, { &pinKMB3, 11 }, { &pinKMB4, 12 }, { &pinKMB5, 13 }, { &pinKMB6, 14 }, { &pinKMB7, 15 }, { &pinKMB8, 16 }, { &pinKMB9, 17 } },
+        {{ &pinKMC1, 18 }, { &pinKMC1, 18 }, { &pinKMC2, 19 }, { &pinKMC3, 20 }, { &pinKMC4, 21 }, { &pinKMC5, 22 }, { &pinKMC6, 23 }, { &pinKMC7, 24 }, { &pinKMC8, 25 }, { &pinKMC9, 26 } },
     };
 
     static Contactor &GetContactor(uint address)
@@ -124,15 +131,31 @@ namespace Contactors
         }
     }
 
-    static int num_step = 0;
-    static int next_rele = 0;
 
-    // Проверить конкретное реле для всех трёх фаз
-    static void VerifyRele(int num_rele);
+    namespace Test
+    {
+        static int num_step = 0;
+        static int next_rele = 0;
+
+        static int counter_bads[NUM_PINS_MX];
+
+        // Проверить конкретное реле для всех трёх фаз
+        static void VerifyRele(int num_rele);
+
+        int GetCounterBad(Phase::E phase, int num)
+        {
+            return counter_bads[phase * 9 + num];
+        }
+
+        int GetCountSteps()
+        {
+            return num_step;
+        }
+    }
 }
 
 
-void Contactors::Update()
+void Contactors::Test::Update()
 {
     if (gset.OnlyMeasure())
     {
@@ -140,15 +163,146 @@ void Contactors::Update()
     }
 
     VerifyRele(next_rele++);
+}
 
-    if (next_rele == 8)
+
+void Contactors::Test::VerifyRele(int num_rele)
+{
+    for (int phase = 0; phase < 3; phase++)
     {
-        next_rele = 0;
+        contactors[phase][num_rele].Enable();
+    }
+
+    for (int phase = 0; phase < 3; phase++)
+    {
+        Contactor &contactor = contactors[phase][num_rele];
+
+        if (!contactor.IsOK())
+        {
+            counter_bads[contactor.address]++;
+        }
+
+        contactor.Disable();
+    }
+
+    for (int phase = 0; phase < 3; phase++)
+    {
+        Contactor &contactor = contactors[phase][num_rele];
+
+        if (!contactor.IsOK())
+        {
+            counter_bads[contactor.address]++;
+        }
     }
 }
 
 
-void VerifyRele(int )
+void Contactors::Serviceability::Update()
+{
+    static uint address = 0;
+    static bool first = true;
+
+    if (first)
+    {
+        first = false;
+        SetAddressMX(address);
+    }
+    else
+    {
+        if (!ReleIsBusy(address))
+        {
+            if (address == 27)
+            {
+                states[address] = !pinP2.IsHi() ? 1 : 0;
+            }
+            else
+            {
+                states[address] = StateRele(address);
+
+                if (address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
+                {
+                    states[address] = 0;
+                }
+                if (gset.GetNumberSteps() == 4)
+                {
+                    if (address == 3 || address == 12 || address == 21)     // Для 4-х ступенчатого варианта 4-е реле не опрашиваем
+                    {
+                        states[address] = 0;
+                    }
+                }
+            }
+        }
+
+        address++;
+
+        if (address == 28)
+        {
+            address = 0;
+        }
+
+        SetAddressMX(address == 27 ? 31 : address);
+    }
+}
+
+
+int Contactors::StateRele(uint address)
+{
+    bool p1 = pinP1.IsHi();
+    bool p2 = pinP2.IsHi();
+
+    if ((p1 && p2) || (!p1 && !p2)) //-V728
+    {
+        return -1;
+    }
+
+    if (p1 && GetContactor(address).enabled)
+    {
+        return -1;
+    }
+
+    if (p2 && !GetContactor(address).enabled)
+    {
+        return -1;
+    }
+
+    if (p1)
+    {
+        return 0;
+    }
+
+    return 1;
+}
+
+
+int Contactors::Contactor::ReadNativeState()
+{
+    while (time_action + 5 < TIME_MS)
+    {
+        Modem::Update();
+    }
+
+    int result = 0;
+
+    if (pinP1.IsHi())
+    {
+        result |= 1;
+    }
+
+    if (pinP2.IsHi())
+    {
+        result |= 2;
+    }
+
+    return result;
+}
+
+
+bool Contactors::Contactor::IsOK()
+{
+    int state = ReadNativeState();
+
+    return (enabled && state == 1) || (!enabled && state == 2);
+}
 
 
 bool Contactors::IsBusy(Phase::E phase)
@@ -207,11 +361,26 @@ void Contactors::Init()
 
     pinP1._Init(GPIOE, GPIO_PIN_4, GPIO_MODE_IPU);
     pinP2._Init(GPIOE, GPIO_PIN_3, GPIO_MODE_IPU);
+
+    for (int phase = 0; phase < 3; phase++)
+    {
+        for (int rele = 0; rele < 10; rele++)
+        {
+            contactors[phase][rele].Disable();
+        }
+    }
+
+    for (int i = 0; i < NUM_PINS_MX; i++)
+    {
+        Test::counter_bads[i] = 0;
+    }
 }
 
 
 void Contactors::Contactor::Init(uint port, uint _pin)
 {
+    time_action = TIME_MS;
+
     pin->_Init(port, _pin);
 
     enabled = false;
@@ -227,6 +396,8 @@ void Contactors::Contactor::Enable()
         enabled = true;
 
         pin->Set();
+
+        time_action = TIME_MS;
     }
 }
 
@@ -238,54 +409,8 @@ void Contactors::Contactor::Disable()
         enabled = false;
 
         pin->Reset();
-    }
-}
 
-
-void Contactors::Serviceability::Update()
-{
-    static uint address = 0;
-    static bool first = true;
-
-    if (first)
-    {
-        first = false;
-        SetAddressMX(address);
-    }
-    else
-    {
-        if (!ReleIsBusy(address))
-        {
-            if (address == 27)
-            {
-                states[address] = !pinP2.IsHi() ? 1 : 0;
-            }
-            else
-            {
-                states[address] = StateRele(address);
-
-                if (address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
-                {
-                    states[address] = 0;
-                }
-                if (gset.GetNumberSteps() == 4)
-                {
-                    if (address == 3 || address == 12 || address == 21)     // Для 4-х ступенчатого варианта 4-е реле не опрашиваем
-                    {
-                        states[address] = 0;
-                    }
-                }
-            }
-        }
-
-        address++;
-
-        if (address == 28)
-        {
-            address = 0;
-        }
-
-        SetAddressMX(address == 27 ? 31 : address);
+        time_action = TIME_MS;
     }
 }
 
@@ -297,35 +422,6 @@ void Contactors::SetAddressMX(uint address)
     pinMX2.SetState((address & 4) != 0);
     pinMX3.SetState((address & 8) != 0);
     pinMX4.SetState((address & 16) == 0);
-}
-
-
-int Contactors::StateRele(uint address)
-{
-    bool p1 = pinP1.IsHi();
-    bool p2 = pinP2.IsHi();
-
-    if ((p1 && p2) || (!p1 && !p2)) //-V728
-    {
-        return -1;
-    }
-
-    if (p1 && GetContactor(address).enabled)
-    {
-        return -1;
-    }
-
-    if (p2 && !GetContactor(address).enabled)
-    {
-        return -1;
-    }
-
-    if (p1)
-    {
-        return 0;
-    }
-
-    return 1;
 }
 
 
