@@ -276,7 +276,7 @@ int Contactors::StateRele(uint address)
 
 int Contactors::Contactor::ReadNativeState()
 {
-    while (time_action + 5 < TIME_MS)
+    while (TIME_MS < time_action + 5)
     {
         Modem::Update();
     }

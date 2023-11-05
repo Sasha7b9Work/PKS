@@ -76,7 +76,7 @@ void Display::Update()
 
     WriteString(0, 54, "TEST");
 
-    WriteString(30, 54, String("%d", Contactors::Test::GetCountSteps()));
+    WriteString(35, 54, String("%d", Contactors::Test::GetCountSteps()));
 
     if (Modem::Mode::Power())
     {
