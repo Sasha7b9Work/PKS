@@ -1,0 +1,967 @@
+{
+  "version": 1,
+  "origin": "dev.rightech.io",
+  "time": "2023-11-06T08:45:06.505Z",
+  "user": "643c6db6cee0790010606e48",
+  "group": "643c6db6cee0790010606e47",
+  "store": "models",
+  "data": {
+    "_id": "643c70e2cee0790010606e49",
+    "base": "mqtt",
+    "name": "ПКС 3-ф",
+    "description": "Контроллер ПКС трехфазный",
+    "mixins": [],
+    "data": {
+      "id": "root",
+      "name": "ПКС 3-ф",
+      "active": true,
+      "type": "subsystem",
+      "children": [
+        {
+          "id": "external-software-modules",
+          "active": true,
+          "copy": true,
+          "type": "subsystem",
+          "children": [],
+          "name": "External software modules",
+          "_inactive": false
+        },
+        {
+          "id": "lu8bk",
+          "name": "Счётчик активности",
+          "active": true,
+          "type": "argument",
+          "dataType": "number",
+          "reference": "base/state/counter"
+        },
+        {
+          "id": "1h02x",
+          "name": "GUID",
+          "active": true,
+          "type": "argument",
+          "dataType": "string",
+          "reference": "base/id",
+          "parser": {
+            "saveBinaryAs": ""
+          },
+          "levels": {
+            "type": null
+          }
+        },
+        {
+          "id": "dc100v",
+          "name": "Источник 100В",
+          "active": true,
+          "type": "argument",
+          "dataType": "boolean",
+          "description": "Состояние преобразователя 100В для контроля контакторов",
+          "levels": {
+            "type": "boolean",
+            "svg": "<svg width=\"17\" height=\"16\" viewBox=\"0 0 17 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329800)\"><path d=\"M5.23843 0C4.76409 0 4.34722 0.314446 4.21691 0.770537L1.9673 8.64415C1.7734 9.32283 2.28299 9.99841 2.98883 9.99841H4.25611L3.08639 14.6773C2.82248 15.7329 4.12726 16.4551 4.88163 15.6726L13.5582 6.81506L13.5617 6.81137C14.2025 6.1436 13.7416 5 12.7952 5H10.2315L11.4928 1.40582L11.4954 1.39836C11.7247 0.710426 11.2127 0 10.4875 0H5.23843Z\" fill=\"inherit\"/></g><defs><clipPath id=\"clip0_4135_329800\"><rect width=\"16\" height=\"16\" fill=\"white\" transform=\"translate(0.0273438)\"/></clipPath></defs></svg>",
+            "value": [
+              {
+                "color": "#a2ce4b",
+                "name": "",
+                "value": true
+              },
+              {
+                "color": "#f16059",
+                "name": "",
+                "value": false
+              }
+            ]
+          },
+          "reference": "/base/state/dc100v",
+          "display": {
+            "indicator": true
+          },
+          "_parentId": "params",
+          "children": []
+        },
+        {
+          "id": "axlzf",
+          "name": "Исправность контакторов",
+          "active": true,
+          "type": "argument",
+          "dataType": "boolean",
+          "levels": {
+            "type": "boolean",
+            "svg": "<svg width=\"17\" height=\"16\" viewBox=\"0 0 17 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329802)\"><path fill-rule=\"evenodd\" clip-rule=\"evenodd\" d=\"M2.69393 14.1663H1.3606C1.08445 14.1663 0.860596 14.3902 0.860596 14.6663C0.860596 14.9425 1.08445 15.1663 1.3606 15.1663H14.6939C14.9701 15.1663 15.1939 14.9425 15.1939 14.6663C15.1939 14.3902 14.9701 14.1663 14.6939 14.1663H13.3606V10.6663C13.3606 8.7995 13.3606 7.86608 12.9973 7.15304C12.6777 6.52583 12.1678 6.0159 11.5406 5.69632C10.8275 5.33301 9.8941 5.33301 8.02726 5.33301C6.16042 5.33301 5.227 5.33301 4.51396 5.69632C3.88675 6.0159 3.37682 6.52583 3.05724 7.15304C2.69393 7.86608 2.69393 8.7995 2.69393 10.6663V14.1663ZM9.02726 11.6663C9.02726 12.0365 8.82616 12.3597 8.52726 12.5326V14.1663H7.52726V12.5326C7.22836 12.3597 7.02726 12.0365 7.02726 11.6663C7.02726 11.1141 7.47498 10.6663 8.02726 10.6663C8.57955 10.6663 9.02726 11.1141 9.02726 11.6663ZM10.0273 6.70964C9.75112 6.70964 9.52726 6.93349 9.52726 7.20964C9.52726 7.48578 9.75112 7.70964 10.0273 7.70964C10.5886 7.70964 11.003 8.13525 10.9843 8.64811C10.9742 8.92407 11.1898 9.15595 11.4657 9.16602C11.7417 9.1761 11.9736 8.96055 11.9836 8.6846C12.0248 7.55746 11.1059 6.70964 10.0273 6.70964Z\" fill=\"inherit\"/><path d=\"M8.02734 0.833008C8.30349 0.833008 8.52734 1.05687 8.52734 1.33301V3.33301C8.52734 3.60915 8.30349 3.83301 8.02734 3.83301C7.7512 3.83301 7.52734 3.60915 7.52734 3.33301V1.33301C7.52734 1.05687 7.7512 0.833008 8.02734 0.833008Z\" fill=\"inherit\"/><path d=\"M14.3809 3.68656L13.3809 4.68656C13.1856 4.88182 12.8691 4.88182 12.6738 4.68656C12.4785 4.4913 12.4785 4.17472 12.6738 3.97945L13.6738 2.97945C13.8691 2.78419 14.1856 2.78419 14.3809 2.97945C14.5762 3.17472 14.5762 3.4913 14.3809 3.68656Z\" fill=\"inherit\"/><path d=\"M2.3809 2.97945C2.18564 2.78419 1.86905 2.78419 1.67379 2.97945C1.47853 3.17472 1.47853 3.4913 1.67379 3.68656L2.67379 4.68656C2.86905 4.88182 3.18563 4.88182 3.3809 4.68656C3.57616 4.4913 3.57616 4.17472 3.3809 3.97945L2.3809 2.97945Z\" fill=\"inherit\"/></g><defs><clipPath id=\"clip0_4135_329802\"><rect width=\"16\" height=\"16\" fill=\"white\" transform=\"translate(0.0273438)\"/></clipPath></defs></svg>",
+            "value": [
+              {
+                "color": "#a2ce4b",
+                "name": "",
+                "value": true
+              },
+              {
+                "color": "#f16059",
+                "name": "",
+                "value": false
+              }
+            ]
+          },
+          "reference": "/base/state/state_contactors",
+          "display": {
+            "indicator": true
+          }
+        },
+        {
+          "id": "q0e72",
+          "name": "Версия ПО",
+          "active": true,
+          "type": "argument",
+          "dataType": "string",
+          "reference": "/versionSW",
+          "levels": {
+            "type": null
+          },
+          "children": []
+        },
+        {
+          "id": "vtm6g",
+          "name": "Последний сброс",
+          "active": true,
+          "type": "argument",
+          "dataType": "string",
+          "levels": {
+            "type": null
+          },
+          "reference": "/last/reset"
+        },
+        {
+          "id": "params",
+          "name": "Параметры фазы",
+          "active": true,
+          "type": "subsystem",
+          "children": [
+            {
+              "id": "voltage_a",
+              "name": "Напряжение A",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "number",
+              "unit": "electric-volt",
+              "reference": "base/state/voltage_a",
+              "display": {
+                "indicator": true
+              },
+              "factor": 1,
+              "linear": true,
+              "children": [],
+              "levels": {
+                "type": "range",
+                "value": [
+                  {
+                    "color": "#3cc1d4",
+                    "name": "",
+                    "value": {
+                      "a": "-Infinity",
+                      "b": 220
+                    }
+                  },
+                  {
+                    "color": "#a2ce4b",
+                    "name": "",
+                    "value": {
+                      "a": 220,
+                      "b": 240
+                    }
+                  },
+                  {
+                    "color": "#f16059",
+                    "name": "",
+                    "value": {
+                      "a": 240,
+                      "b": "Infinity"
+                    }
+                  }
+                ],
+                "svg": "<svg width=\"17\" height=\"16\" viewBox=\"0 0 17 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329800)\"><path d=\"M5.23843 0C4.76409 0 4.34722 0.314446 4.21691 0.770537L1.9673 8.64415C1.7734 9.32283 2.28299 9.99841 2.98883 9.99841H4.25611L3.08639 14.6773C2.82248 15.7329 4.12726 16.4551 4.88163 15.6726L13.5582 6.81506L13.5617 6.81137C14.2025 6.1436 13.7416 5 12.7952 5H10.2315L11.4928 1.40582L11.4954 1.39836C11.7247 0.710426 11.2127 0 10.4875 0H5.23843Z\" fill=\"inherit\"/></g><defs><clipPath id=\"clip0_4135_329800\"><rect width=\"16\" height=\"16\" fill=\"white\" transform=\"translate(0.0273438)\"/></clipPath></defs></svg>"
+              },
+              "_inactive": false,
+              "_parentId": "params"
+            },
+            {
+              "id": "voltage_b",
+              "name": "Напряжение B",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "number",
+              "unit": "electric-volt",
+              "reference": "base/state/voltage_b",
+              "display": {
+                "indicator": true
+              },
+              "factor": 1,
+              "linear": true,
+              "children": [],
+              "levels": {
+                "type": "range",
+                "value": [
+                  {
+                    "color": "#3cc1d4",
+                    "name": "",
+                    "value": {
+                      "a": "-Infinity",
+                      "b": 220
+                    }
+                  },
+                  {
+                    "color": "#a2ce4b",
+                    "name": "",
+                    "value": {
+                      "a": 220,
+                      "b": 240
+                    }
+                  },
+                  {
+                    "color": "#f16059",
+                    "name": "",
+                    "value": {
+                      "a": 240,
+                      "b": "Infinity"
+                    }
+                  }
+                ],
+                "svg": "<svg width=\"17\" height=\"16\" viewBox=\"0 0 17 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329800)\"><path d=\"M5.23843 0C4.76409 0 4.34722 0.314446 4.21691 0.770537L1.9673 8.64415C1.7734 9.32283 2.28299 9.99841 2.98883 9.99841H4.25611L3.08639 14.6773C2.82248 15.7329 4.12726 16.4551 4.88163 15.6726L13.5582 6.81506L13.5617 6.81137C14.2025 6.1436 13.7416 5 12.7952 5H10.2315L11.4928 1.40582L11.4954 1.39836C11.7247 0.710426 11.2127 0 10.4875 0H5.23843Z\" fill=\"inherit\"/></g><defs><clipPath id=\"clip0_4135_329800\"><rect width=\"16\" height=\"16\" fill=\"white\" transform=\"translate(0.0273438)\"/></clipPath></defs></svg>"
+              },
+              "_parentId": "params"
+            },
+            {
+              "id": "voltage_c",
+              "name": "Напряжение C",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "number",
+              "unit": "electric-volt",
+              "reference": "base/state/voltage_c",
+              "display": {
+                "indicator": true
+              },
+              "factor": 1,
+              "linear": true,
+              "children": [],
+              "levels": {
+                "type": "range",
+                "value": [
+                  {
+                    "color": "#3cc1d4",
+                    "name": "",
+                    "value": {
+                      "a": "-Infinity",
+                      "b": 220
+                    }
+                  },
+                  {
+                    "color": "#a2ce4b",
+                    "name": "",
+                    "value": {
+                      "a": 220,
+                      "b": 240
+                    }
+                  },
+                  {
+                    "color": "#f16059",
+                    "name": "",
+                    "value": {
+                      "a": 240,
+                      "b": "Infinity"
+                    }
+                  }
+                ],
+                "svg": "<svg width=\"17\" height=\"16\" viewBox=\"0 0 17 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329800)\"><path d=\"M5.23843 0C4.76409 0 4.34722 0.314446 4.21691 0.770537L1.9673 8.64415C1.7734 9.32283 2.28299 9.99841 2.98883 9.99841H4.25611L3.08639 14.6773C2.82248 15.7329 4.12726 16.4551 4.88163 15.6726L13.5582 6.81506L13.5617 6.81137C14.2025 6.1436 13.7416 5 12.7952 5H10.2315L11.4928 1.40582L11.4954 1.39836C11.7247 0.710426 11.2127 0 10.4875 0H5.23843Z\" fill=\"inherit\"/></g><defs><clipPath id=\"clip0_4135_329800\"><rect width=\"16\" height=\"16\" fill=\"white\" transform=\"translate(0.0273438)\"/></clipPath></defs></svg>"
+              },
+              "_parentId": "params"
+            },
+            {
+              "id": "current_a",
+              "name": "Ток A",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "number",
+              "unit": "electric-ampere",
+              "reference": "base/state/current_a",
+              "display": {
+                "indicator": true
+              },
+              "factor": 1,
+              "children": [],
+              "linear": true,
+              "levels": {
+                "type": null
+              },
+              "_inactive": false,
+              "_parentId": "params"
+            },
+            {
+              "id": "current_b",
+              "name": "Ток B",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "number",
+              "unit": "electric-ampere",
+              "reference": "base/state/current_b",
+              "display": {
+                "indicator": true
+              },
+              "factor": 1,
+              "children": [],
+              "linear": true,
+              "levels": {
+                "type": null
+              },
+              "_parentId": "params"
+            },
+            {
+              "id": "current_c",
+              "name": "Ток C",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "number",
+              "unit": "electric-ampere",
+              "reference": "base/state/current_c",
+              "display": {
+                "indicator": true
+              },
+              "factor": 1,
+              "children": [],
+              "linear": true,
+              "levels": {
+                "type": null
+              },
+              "_parentId": "params"
+            },
+            {
+              "id": "azh6g",
+              "name": "Мощность A",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "/power_a",
+              "unit": "power-kilowatt"
+            },
+            {
+              "id": "zqkd5",
+              "name": "Мощность B",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "/power_b",
+              "unit": "power-kilowatt"
+            },
+            {
+              "id": "7uhy1",
+              "name": "Мощность C",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "/power_c",
+              "unit": "power-kilowatt"
+            },
+            {
+              "id": "hcsq4",
+              "name": "Контакторы A",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/levelA"
+            },
+            {
+              "id": "9uouo",
+              "name": "Контакторы B",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/levelB"
+            },
+            {
+              "id": "tot58",
+              "name": "Контакторы C",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/levelC"
+            },
+            {
+              "id": "gp1",
+              "name": "УЗИП вход",
+              "active": true,
+              "type": "argument",
+              "dataType": "boolean",
+              "description": "Состояние внешнего входа GP1",
+              "levels": {
+                "type": "boolean",
+                "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329968)\"><g clip-path=\"url(#clip1_4135_329968)\"><path d=\"M5.9987 14.0007C5.9987 14.3673 6.2987 14.6673 6.66536 14.6673H9.33203C9.6987 14.6673 9.9987 14.3673 9.9987 14.0007V13.334H5.9987V14.0007ZM7.9987 1.33398C5.42536 1.33398 3.33203 3.42732 3.33203 6.00065C3.33203 7.58732 4.12536 8.98065 5.33203 9.82732V11.334C5.33203 11.7007 5.63203 12.0007 5.9987 12.0007H9.9987C10.3654 12.0007 10.6654 11.7007 10.6654 11.334V9.82732C11.872 8.98065 12.6654 7.58732 12.6654 6.00065C12.6654 3.42732 10.572 1.33398 7.9987 1.33398ZM9.8987 8.73398L9.33203 9.13398V10.6673H6.66536V9.13398L6.0987 8.73398C5.1987 8.10732 4.66536 7.08732 4.66536 6.00065C4.66536 4.16065 6.1587 2.66732 7.9987 2.66732C9.8387 2.66732 11.332 4.16065 11.332 6.00065C11.332 7.08732 10.7987 8.10732 9.8987 8.73398Z\" fill=\"inherit\"/></g></g><defs><clipPath id=\"clip0_4135_329968\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath><clipPath id=\"clip1_4135_329968\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath></defs></svg>",
+                "value": [
+                  {
+                    "color": "#f16059",
+                    "name": "",
+                    "value": true
+                  },
+                  {
+                    "color": "#a2ce4b",
+                    "name": "",
+                    "value": false
+                  }
+                ]
+              },
+              "reference": "/base/state/gp1",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "gp2",
+              "name": "УЗИП выход",
+              "active": true,
+              "type": "argument",
+              "dataType": "boolean",
+              "description": "Состояние внешнего входа GP2",
+              "levels": {
+                "type": "boolean",
+                "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329968)\"><g clip-path=\"url(#clip1_4135_329968)\"><path d=\"M5.9987 14.0007C5.9987 14.3673 6.2987 14.6673 6.66536 14.6673H9.33203C9.6987 14.6673 9.9987 14.3673 9.9987 14.0007V13.334H5.9987V14.0007ZM7.9987 1.33398C5.42536 1.33398 3.33203 3.42732 3.33203 6.00065C3.33203 7.58732 4.12536 8.98065 5.33203 9.82732V11.334C5.33203 11.7007 5.63203 12.0007 5.9987 12.0007H9.9987C10.3654 12.0007 10.6654 11.7007 10.6654 11.334V9.82732C11.872 8.98065 12.6654 7.58732 12.6654 6.00065C12.6654 3.42732 10.572 1.33398 7.9987 1.33398ZM9.8987 8.73398L9.33203 9.13398V10.6673H6.66536V9.13398L6.0987 8.73398C5.1987 8.10732 4.66536 7.08732 4.66536 6.00065C4.66536 4.16065 6.1587 2.66732 7.9987 2.66732C9.8387 2.66732 11.332 4.16065 11.332 6.00065C11.332 7.08732 10.7987 8.10732 9.8987 8.73398Z\" fill=\"inherit\"/></g></g><defs><clipPath id=\"clip0_4135_329968\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath><clipPath id=\"clip1_4135_329968\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath></defs></svg>",
+                "value": [
+                  {
+                    "color": "#f16059",
+                    "name": "",
+                    "value": true
+                  },
+                  {
+                    "color": "#a2ce4b",
+                    "name": "",
+                    "value": false
+                  }
+                ]
+              },
+              "reference": "/base/state/gp2",
+              "display": {
+                "indicator": true
+              },
+              "_parentId": "params",
+              "children": []
+            },
+            {
+              "id": "gp3",
+              "name": "Дверца",
+              "active": true,
+              "type": "argument",
+              "dataType": "boolean",
+              "description": "Состояние внешнего входа GP3",
+              "levels": {
+                "type": "boolean",
+                "svg": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_329968)\"><g clip-path=\"url(#clip1_4135_329968)\"><path d=\"M5.9987 14.0007C5.9987 14.3673 6.2987 14.6673 6.66536 14.6673H9.33203C9.6987 14.6673 9.9987 14.3673 9.9987 14.0007V13.334H5.9987V14.0007ZM7.9987 1.33398C5.42536 1.33398 3.33203 3.42732 3.33203 6.00065C3.33203 7.58732 4.12536 8.98065 5.33203 9.82732V11.334C5.33203 11.7007 5.63203 12.0007 5.9987 12.0007H9.9987C10.3654 12.0007 10.6654 11.7007 10.6654 11.334V9.82732C11.872 8.98065 12.6654 7.58732 12.6654 6.00065C12.6654 3.42732 10.572 1.33398 7.9987 1.33398ZM9.8987 8.73398L9.33203 9.13398V10.6673H6.66536V9.13398L6.0987 8.73398C5.1987 8.10732 4.66536 7.08732 4.66536 6.00065C4.66536 4.16065 6.1587 2.66732 7.9987 2.66732C9.8387 2.66732 11.332 4.16065 11.332 6.00065C11.332 7.08732 10.7987 8.10732 9.8987 8.73398Z\" fill=\"inherit\"/></g></g><defs><clipPath id=\"clip0_4135_329968\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath><clipPath id=\"clip1_4135_329968\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath></defs></svg>",
+                "value": [
+                  {
+                    "color": "#f16059",
+                    "name": "",
+                    "value": true
+                  },
+                  {
+                    "color": "#a2ce4b",
+                    "name": "",
+                    "value": false
+                  }
+                ]
+              },
+              "reference": "/base/state/gp3",
+              "display": {
+                "indicator": true
+              },
+              "_parentId": "params",
+              "children": []
+            }
+          ],
+          "_inactive": false,
+          "dataType": "number",
+          "reference": "base/id"
+        },
+        {
+          "id": "contactors",
+          "name": "Контакторы",
+          "active": true,
+          "type": "argument",
+          "dataType": "string[]",
+          "levels": {
+            "type": null
+          },
+          "reference": "base/state/bad_contactors",
+          "children": [
+            {
+              "id": "mwiv8",
+              "name": "KMA1",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "children": [],
+              "reference": "base/cont/KMA1",
+              "display": {
+                "indicator": true
+              },
+              "parser": {
+                "saveBinaryAs": ""
+              }
+            },
+            {
+              "id": "uvgqu",
+              "name": "KMB1",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB1",
+              "display": {
+                "indicator": false
+              }
+            },
+            {
+              "id": "soyf7",
+              "name": "KMC1",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC1",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "hzxqr",
+              "name": "KMA2",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMA2",
+              "children": []
+            },
+            {
+              "id": "zd4m2",
+              "name": "KMB2",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB2",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "uc4d0",
+              "name": "KMC2",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC2",
+              "levels": {
+                "type": null
+              },
+              "children": [],
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "nxfpm",
+              "name": "KMA3",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMA3",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "xdr0h",
+              "name": "KMB3",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB3",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "u1d4u",
+              "name": "KMC3",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC3",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "piws5",
+              "name": "KMA4",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMA4",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "8465t",
+              "name": "KMB4",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB4",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "2wk07",
+              "name": "KMC4",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC4",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "mgrwo",
+              "name": "KMA5",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMA5",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "xh80o",
+              "name": "KMB5",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB5",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "ok3qw",
+              "name": "KMC5",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC5",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "pwioh",
+              "name": "KMA6",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMA6",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "jrbji",
+              "name": "KMB6",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB6",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "82t1x",
+              "name": "KMC6",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC6",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "97ixr",
+              "name": "KMA7",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMA7",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "cgf02",
+              "name": "KMB7",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB7",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "edi9p",
+              "name": "KMC7",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMC7",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "pmyhe",
+              "name": "KMA8",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "reference": "base/cont/KMA8",
+              "levels": {
+                "type": null
+              },
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "eed3s",
+              "name": "KMB8",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMB8",
+              "display": {
+                "indicator": true
+              }
+            },
+            {
+              "id": "w33j1",
+              "name": "KMC8",
+              "active": true,
+              "type": "argument",
+              "dataType": "number",
+              "levels": {
+                "type": null
+              },
+              "reference": "base/cont/KMC8",
+              "display": {
+                "indicator": true
+              }
+            }
+          ]
+        },
+        {
+          "id": "mqtt-last",
+          "name": "Last MQTT Publish",
+          "active": true,
+          "type": "subsystem",
+          "children": [
+            {
+              "id": "topic",
+              "name": "Topic",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "string",
+              "reference": "topic",
+              "_inactive": false,
+              "_parentId": "mqtt-last"
+            },
+            {
+              "id": "payload",
+              "name": "Payload",
+              "active": true,
+              "type": "argument",
+              "source": "state",
+              "dataType": "string",
+              "reference": "payload",
+              "_inactive": false,
+              "_parentId": "mqtt-last"
+            }
+          ],
+          "_inactive": false
+        },
+        {
+          "id": "cmds",
+          "name": "Commands",
+          "active": true,
+          "type": "subsystem",
+          "children": [
+            {
+              "id": "mekg0",
+              "name": "Обновление",
+              "active": true,
+              "type": "action",
+              "dataType": "string",
+              "levels": {
+                "type": null
+              },
+              "reference": "/update ",
+              "command": "publish",
+              "params": {
+                "payload": "",
+                "topic": "/update"
+              },
+              "service": "ric-gate"
+            }
+          ],
+          "_inactive": false
+        }
+      ],
+      "_isRoot": true,
+      "_inactive": false,
+      "description": "Контроллер ПКС трехфазный"
+    },
+    "props": {
+      "bots": true,
+      "hardwareEvents": false,
+      "helper": {
+        "nostate": "@ric-docs/docs/helpers/mqtt.md"
+      },
+      "prefix": "",
+      "order": 1,
+      "typeInput": {
+        "hidden": true
+      },
+      "statusInput": {
+        "hidden": false
+      },
+      "descriptionInput": {
+        "hidden": false
+      },
+      "defaultNode": "temperature",
+      "protocol": "mqtt",
+      "idPattern": "mqtt-$tagname-$nanoid",
+      "auth": {
+        "title": "mqtt_auth",
+        "fields": {
+          "username": {
+            "title": "mqtt_username"
+          },
+          "password": {
+            "secret": true,
+            "title": "mqtt_password"
+          }
+        }
+      },
+      "x509": {
+        "enabled": true
+      },
+      "parserParams": {
+        "saveBinaryAs": {
+          "ctrl": "Select",
+          "defaultValue": "",
+          "opts": {
+            "options": [
+              {
+                "value": "",
+                "label": "Text"
+              },
+              {
+                "value": "base64",
+                "label": "Base64"
+              },
+              {
+                "value": "hex",
+                "label": "HEX"
+              }
+            ]
+          },
+          "when": {
+            "==": [
+              {
+                "var": "node.dataType"
+              },
+              "string"
+            ]
+          }
+        }
+      },
+      "icon": "<svg width=\"16\" height=\"16\" viewBox=\"0 0 16 16\" xmlns=\"http://www.w3.org/2000/svg\"><g clip-path=\"url(#clip0_4135_330038)\"><path d=\"M15.7803 0.21967C16.0732 0.512563 16.0732 0.987437 15.7803 1.28033L14.3347 2.72592C15.4087 4.29705 15.2483 6.4587 13.8536 7.85344L13.5536 8.15344L13.5511 8.15592L13.2425 8.46455C12.8324 8.87459 12.1676 8.87459 11.7576 8.46455L7.53534 4.24233C7.1253 3.83229 7.1253 3.16749 7.53534 2.75745L8.14645 2.14634C8.3208 1.97199 8.50713 1.81693 8.70279 1.68116C10.0724 0.730759 11.8994 0.72545 13.2741 1.66524L14.7197 0.21967C15.0126 -0.0732233 15.4874 -0.0732233 15.7803 0.21967ZM6.78033 6.46967C7.07322 6.76256 7.07322 7.23744 6.78033 7.53033L5.50884 8.80182L7.19818 10.4912L8.46967 9.21967C8.76256 8.92678 9.23744 8.92678 9.53033 9.21967C9.82322 9.51256 9.82322 9.98744 9.53033 10.2803L8.25364 11.557C8.73326 12.1423 8.6999 13.0073 8.15357 13.5537L7.85357 13.8537C6.45879 15.2484 4.29705 15.4088 2.72591 14.3348L1.28033 15.7803C0.987437 16.0732 0.512563 16.0732 0.21967 15.7803C-0.0732233 15.4874 -0.0732233 15.0126 0.21967 14.7197L1.66527 13.2741C0.591326 11.7029 0.751724 9.54129 2.14646 8.14655L2.44646 7.84655C2.99275 7.30026 3.85772 7.26686 4.44297 7.74637L5.71967 6.46967C6.01256 6.17678 6.48744 6.17678 6.78033 6.46967Z\" fill=\"inherit\"/></g><defs><clipPath id=\"clip0_4135_330038\"><rect width=\"16\" height=\"16\" fill=\"white\"/></clipPath></defs></svg>"
+    },
+    "group": "643c6db6cee0790010606e47"
+  }
+}

@@ -65,7 +65,9 @@ source_group(Settings                 FILES ${SETTINGS})
 source_group(Storage                  FILES ${STORAGE})
 source_group(Utils                    FILES ${UTILS})
 
-set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/systick.c
+set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
+                            ../common/Hardware/HAL/systick.c
+                            src/Storage/MemoryStorage.cpp
                             PROPERTIES HEADER_FILE_ONLY TRUE)
 
 add_library(${PROJECT_NAME}

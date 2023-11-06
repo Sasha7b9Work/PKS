@@ -74,10 +74,6 @@ void Display::Update()
 
     WriteString(72, 54, HAL::GetUID());
 
-    WriteString(0, 54, "TEST");
-
-    WriteString(35, 54, String("%d", Contactors::Test::GetCountSteps()));
-
     if (Modem::Mode::Power())
     {
         WriteString(5, 0, "POW");
@@ -103,9 +99,9 @@ void Display::WriteMeasures(int phase)
 {
 #define Y() (13 + phase * 13)
 
-    bool need_bad_info = ((Timer::TimeMS() / 1000 / 5) % 2) == 0;
+    bool need_info_test = ((Timer::TimeMS() / 1000 / 5) % 2) == 0;
 
-    if (need_bad_info)
+    if (need_info_test)
     {
         for (int num = 0; num < 8; num++)
         {
@@ -115,6 +111,8 @@ void Display::WriteMeasures(int phase)
             }
 
             WriteString(num * 16, Y(), String("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)));
+
+            WriteString(35, 54, String("%d", Contactors::Test::GetCountSteps()));
         }
     }
     else
@@ -126,6 +124,8 @@ void Display::WriteMeasures(int phase)
         WriteString(40, Y(), String("%4.1f", measure.measures[phase].voltage));
 
         WriteString(100, Y(), "TEST");
+
+        WriteString(0, 54, String("%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent()));
     }
 }
 
