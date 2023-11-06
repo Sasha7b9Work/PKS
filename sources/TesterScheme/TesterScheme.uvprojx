@@ -750,34 +750,34 @@
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
             </File>
             <File>
-              <FileName>Parser.cpp</FileName>
+              <FileName>Modem.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\Parser.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Parser.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Parser.h</FilePath>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
             <File>
               <FileName>Modem.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\Modem.h</FilePath>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
             </File>
             <File>
-              <FileName>Modem.cpp</FileName>
+              <FileName>Parser.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\Modem.cpp</FilePath>
+              <FilePath>.\src\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Parser.h</FilePath>
             </File>
             <File>
               <FileName>SIM800.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\SIM800.h</FilePath>
+              <FilePath>.\src\Modem\SIM800.h</FilePath>
             </File>
             <File>
               <FileName>SIM800_transmit.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
+              <FilePath>.\src\Modem\SIM800_transmit.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -785,24 +785,24 @@
           <GroupName>Modem/MQTT</GroupName>
           <Files>
             <File>
+              <FileName>MQTT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\MQTT\MQTT.cpp</FilePath>
+            </File>
+            <File>
               <FileName>MQTT.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
+              <FilePath>.\src\Modem\MQTT\MQTT.h</FilePath>
             </File>
             <File>
               <FileName>Sender.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.cpp</FilePath>
+              <FilePath>.\src\Modem\MQTT\Sender.cpp</FilePath>
             </File>
             <File>
               <FileName>Sender.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
+              <FilePath>.\src\Modem\MQTT\Sender.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1642,34 +1642,34 @@
               <FilePath>.\src\Modem\SIM800.cpp</FilePath>
             </File>
             <File>
-              <FileName>Parser.cpp</FileName>
+              <FileName>Modem.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\Parser.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Parser.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\Parser.h</FilePath>
+              <FilePath>.\src\Modem\Modem.cpp</FilePath>
             </File>
             <File>
               <FileName>Modem.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\Modem.h</FilePath>
+              <FilePath>.\src\Modem\Modem.h</FilePath>
             </File>
             <File>
-              <FileName>Modem.cpp</FileName>
+              <FileName>Parser.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\Modem.cpp</FilePath>
+              <FilePath>.\src\Modem\Parser.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Parser.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\Modem\Parser.h</FilePath>
             </File>
             <File>
               <FileName>SIM800.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\SIM800.h</FilePath>
+              <FilePath>.\src\Modem\SIM800.h</FilePath>
             </File>
             <File>
               <FileName>SIM800_transmit.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
+              <FilePath>.\src\Modem\SIM800_transmit.cpp</FilePath>
             </File>
           </Files>
         </Group>
@@ -1677,24 +1677,24 @@
           <GroupName>Modem/MQTT</GroupName>
           <Files>
             <File>
+              <FileName>MQTT.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\MQTT\MQTT.cpp</FilePath>
+            </File>
+            <File>
               <FileName>MQTT.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
+              <FilePath>.\src\Modem\MQTT\MQTT.h</FilePath>
             </File>
             <File>
               <FileName>Sender.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.cpp</FilePath>
+              <FilePath>.\src\Modem\MQTT\Sender.cpp</FilePath>
             </File>
             <File>
               <FileName>Sender.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
+              <FilePath>.\src\Modem\MQTT\Sender.h</FilePath>
             </File>
           </Files>
         </Group>

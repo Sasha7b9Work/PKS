@@ -45,8 +45,8 @@ file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
                                    ../common/Hardware/HAL/*.*)
 file(GLOB MEASURER                       src/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
-                                   ../common/Modem/*.*)
-file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
+                                         src/Modem/*.*)
+file(GLOB MODEM_MQTT               .     src/Modem/MQTT/*.*)
 file(GLOB SETTINGS                 ../common/Settings/*.*)
 file(GLOB STORAGE                        src/Storage/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)

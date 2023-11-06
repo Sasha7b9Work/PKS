@@ -62,7 +62,7 @@ namespace Storage
     static void CollectMeasure(Measurements &);
 
     // Послать очередное измерение
-    static void SendMeasure();
+    void SendMeasure();
 }
 
 
@@ -88,10 +88,12 @@ void Storage::Update()
 
         CollectMeasure(measurements);
 
-        MemoryStorage::Append(measurements);
+        Sender::SendMeasures(measurements);
+
+//        MemoryStorage::Append(measurements);
     }
 
-    SendMeasure();
+//    SendMeasure();
 }
 
 
