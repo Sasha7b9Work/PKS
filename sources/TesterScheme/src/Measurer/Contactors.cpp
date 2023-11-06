@@ -70,20 +70,6 @@ namespace Contactors
         { { &pinKMC1, 18 }, { &pinKMC2, 19 }, { &pinKMC3, 20 }, { &pinKMC4, 21 }, { &pinKMC5, 22 }, { &pinKMC6, 23 }, { &pinKMC7, 24 }, { &pinKMC8, 25 }, { &pinKMC9, 26 } },
     };
 
-    static Contactor &GetContactor(uint address)
-    {
-        if (address < 9)
-        {
-            return contactors[0][address];
-        }
-        else if (address < 18)
-        {
-            return contactors[1][address - 9];
-        }
-
-        return contactors[2][address - 18];
-    }
-
     // Возвращаемое значение true означает, что фаза находится в режиме перелючения. Измерения по ней производить нельзя
     bool IsBusy(Phase::E phase);
 
@@ -206,83 +192,6 @@ void Contactors::Test::VerifyRele(int num_rele)
             }
         }
     }
-}
-
-
-void Contactors::Serviceability::Update()
-{
-    static uint address = 0;
-    static bool first = true;
-
-    if (first)
-    {
-        first = false;
-        SetAddressMX(address);
-    }
-    else
-    {
-        if (!ReleIsBusy(address))
-        {
-            if (address == 27)
-            {
-                states[address] = !pinP2.IsHi() ? 1 : 0;
-            }
-            else
-            {
-                states[address] = StateRele(address);
-
-                if (address == 8 || address == 17 || address == 26)  // Адреса 9-х реле
-                {
-                    states[address] = 0;
-                }
-                if (gset.GetNumberSteps() == 4)
-                {
-                    if (address == 3 || address == 12 || address == 21)     // Для 4-х ступенчатого варианта 4-е реле не опрашиваем
-                    {
-                        states[address] = 0;
-                    }
-                }
-            }
-        }
-
-        address++;
-
-        if (address == 28)
-        {
-            address = 0;
-        }
-
-        SetAddressMX(address == 27 ? 31 : address);
-    }
-}
-
-
-int Contactors::StateRele(uint address)
-{
-    bool p1 = pinP1.IsHi();
-    bool p2 = pinP2.IsHi();
-
-    if ((p1 && p2) || (!p1 && !p2)) //-V728
-    {
-        return -1;
-    }
-
-    if (p1 && GetContactor(address).enabled)
-    {
-        return -1;
-    }
-
-    if (p2 && !GetContactor(address).enabled)
-    {
-        return -1;
-    }
-
-    if (p1)
-    {
-        return 0;
-    }
-
-    return 1;
 }
 
 
@@ -436,19 +345,4 @@ void Contactors::SetAddressMX(uint address)
     pinMX2.SetState((address & 4) != 0);
     pinMX3.SetState((address & 8) != 0);
     pinMX4.SetState((address & 16) == 0);
-}
-
-
-bool Contactors::ReleIsBusy(uint address)
-{
-    if (address < 9)
-    {
-        return Contactors::IsBusy(Phase::A);
-    }
-    else if (address < 18)
-    {
-        return Contactors::IsBusy(Phase::B);
-    }
-
-    return Contactors::IsBusy(Phase::C);
 }

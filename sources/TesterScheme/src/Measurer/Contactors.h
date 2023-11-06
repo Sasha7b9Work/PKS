@@ -13,17 +13,8 @@ namespace Contactors
 
         int GetCounterBad(Phase::E phase, int num);
 
+        void GetCountersBad(int states[NUM_PINS_MX]);
+
         int GetCountSteps();
-    }
-
-    namespace Serviceability
-    {
-        // Проверить исправность каждого контактора
-        // Здесь же проверяется исправность датчика 100 В - у него индекс 27
-        void GetStates(int states[NUM_PINS_MX]);
-
-        void Update();
-
-        bool AllIsOK(Phase::E);
     }
 }
