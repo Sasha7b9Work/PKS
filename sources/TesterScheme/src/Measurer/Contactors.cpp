@@ -76,12 +76,6 @@ namespace Contactors
     // Устанавливает адрес на линиях MX
     static void SetAddressMX(uint);
 
-    // Возвращает состояние реле, выбранного установленным ранее адресом по SetAddressMX()
-    static int StateRele(uint address);
-
-    // Возвращает true, если реле по адресу address находится в состоянии переключения (нельзя замерять)
-    static bool ReleIsBusy(uint address);
-
     namespace Serviceability
     {
         static int states[NUM_PINS_MX] = { 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0 };
@@ -131,6 +125,11 @@ namespace Contactors
         int GetCounterBad(Phase::E phase, int num)
         {
             return counter_bads[phase * 9 + num];
+        }
+
+        void GetCountersBad(int states[NUM_PINS_MX])
+        {
+            std::memcpy(states, counter_bads, NUM_PINS_MX * sizeof(counter_bads[0]));
         }
 
         int GetCountSteps()
