@@ -130,14 +130,14 @@ namespace Sender
             need_power = true;
             current[phase] = value.measures[phase].current;
             std::sprintf(topic, "base/state/current_%s", letters[phase]);
-            MQTT::Packet::PublishF(topic, value.measures[phase].current);
+//            MQTT::Packet::PublishF(topic, value.measures[phase].current);
             need_current[phase] = false;
         }
 
         if (need_power)
         {
             std::sprintf(topic, "/power_%s", letters[phase]);
-            MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
+//            MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
         }
     }
 }
@@ -169,25 +169,6 @@ bool Sender::SendMeasures(const Measurements &meas)
     MQTT::Packet::Publish("base/state/counter", (int)meas.counter);
 
     {
-        for (int phase = Phase::A; phase < Phase::Count; phase++)
-        {
-            bool new_gp = meas.flags.GetGP(Phase::A);
-
-            if (need_gp[phase] || new_gp != gp[phase])
-            {
-                need_gp[phase] = false;
-
-                gp[phase] = new_gp;
-
-                char topic[32];
-                std::sprintf(topic, "/base/state/gp%d", phase + 1);
-
-                MQTT::Packet::Publish(topic, new_gp ? "1" : "0");
-            }
-        }
-    }
-
-    {
         bool good = true;       // ѕризнак того, что исправны все контакторы
 
         for (int phase = Phase::A; phase < Phase::Count; phase++)
@@ -217,40 +198,7 @@ bool Sender::SendMeasures(const Measurements &meas)
                 }
             }
         }
-
-        MQTT::Packet::Publish("/base/state/dc100v", meas.flags.Get100V() ? "1" : "0");
-
-        if (need_all_states || good != all_states)
-        {
-            need_all_states = false;
-
-            all_states = good;
-
-            MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
-        }
     }
-
-    {
-        static const char *const names[Phase::Count] = { "A", "B", "C" };
-
-        for (int i = 0; i < Phase::Count; i++)
-        {
-            char topic[32];
-
-            std::sprintf(topic, "base/cont/level%s", names[i]);
-
-            int level = -meas.flags.GetLevelRele((Phase::E)i);
-
-            if (need_levels[i] || level != levels[i])
-            {
-                need_levels[i] = false;
-                levels[i] = level;
-
-                MQTT::Packet::Publish(topic, level);
-            }
-        }
-    }
-
     {
         FullMeasure value = meas.GetFullMeasure();
 

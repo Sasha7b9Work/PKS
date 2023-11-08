@@ -1,2 +1,4 @@
 https://dev.rightech.io/
-mnipi-24@tut.by
+тесты:
+    mnipi-24@tut.by
+    Mnipi24Mnipi24

@@ -8,7 +8,6 @@
 #include "Measurer/Contactors.h"
 #include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
-#include "Storage/MemoryStorage.h"
 
 
 void Device::Init()
