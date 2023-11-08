@@ -12,7 +12,7 @@
 
 
 // Через такое время обновляются все показания
-static const int TIME_UPDATE_SENSORS = 1000;
+static const int TIME_UPDATE_SENSORS = 30000;
 
 // Время между посылками
 static const int TIME_BETWEEN_SENDED = 200;
