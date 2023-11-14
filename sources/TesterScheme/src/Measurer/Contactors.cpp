@@ -3,6 +3,7 @@
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
 #include "Hardware/HAL/systick.h"
+#include "Display/Display.h"
 #include "Utils/Math.h"
 #include "Settings/Settings.h"
 #include "Hardware/Timer.h"
@@ -164,6 +165,14 @@ void Contactors::Test::VerifyRele(int num_rele)
         contactors[phase][num_rele].Enable();
     }
 
+    TimeMeterMS meter;
+
+    while (meter.ElapsedTime() < 1000)
+    {
+        Modem::Update();
+        Display::Update();
+    }
+
     for (int phase = 0; phase < 3; phase++)
     {
         Contactor &contactor = contactors[phase][num_rele];
@@ -177,6 +186,14 @@ void Contactors::Test::VerifyRele(int num_rele)
         }
 
         contactor.Disable();
+    }
+
+    meter.Reset();
+
+    while (meter.ElapsedTime() < 1000)
+    {
+        Modem::Update();
+        Display::Update();
     }
 
     for (int phase = 0; phase < 3; phase++)
