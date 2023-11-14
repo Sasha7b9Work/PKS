@@ -24,21 +24,13 @@ int Settings::GetNumberSteps()
 {
     int result = *((int *)0x803F800); //-V566
 
-    return result;
+    return (result < 0) ? 4 : result;
 }
 
 
 bool Settings::OnlyMeasure()
 {
-    bool result = GetNumberSteps() <= 0;
-
-    return result;
-}
-
-
-bool Settings::IsControllingRelays()
-{
-    bool result = pinLevel4.IsHi();
+    bool result = (*((int *)0x803F800)) < 0;
 
     return result;
 }

@@ -102,7 +102,7 @@ void MQTT::Update(pchar answer)
 
             char MQTT_CID[32];
 
-            std::sprintf(MQTT_CID, "tks-%d%02d-%s", gset.GetNumberSteps(), gset.GetKoeffCurrent(), HAL::GetUID());
+            std::sprintf(MQTT_CID, "tks-----%s", HAL::GetUID());
 
             LOG_WRITE(MQTT_CID);            // WARNING без этого не соединяется
 

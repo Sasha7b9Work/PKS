@@ -124,8 +124,6 @@ void Display::WriteMeasures(int phase)
         WriteString(40, Y(), String("%4.1f", measure.measures[phase].voltage));
 
         WriteString(100, Y(), "TEST");
-
-        WriteString(0, 54, String("%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent()));
     }
 }
 

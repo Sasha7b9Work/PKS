@@ -76,16 +76,6 @@ void Display::Update()
 
     WriteString(72, 54, HAL::GetUID());
 
-    WriteString(0, 54, String("%d", gset.GetNumberSteps()));
-
-    WriteString(6, 54, ":");
-
-    WriteString(12, 54, String("%d", gset.GetKoeffCurrent()));
-
-    WriteString(25, 54, ":");
-
-    std::sprintf(message, "%d", VERSION);
-
     WriteString(32, 54, message);
 
     if (Modem::Mode::Power())
