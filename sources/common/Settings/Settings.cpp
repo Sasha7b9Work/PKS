@@ -22,7 +22,8 @@ int Settings::GetKoeffCurrent()
 
 int Settings::GetNumberSteps()
 {
-    int result = *((int *)0x803F800); //-V566
+    Не работает, если этот адрес забит FF
+    int resu lt = *((int *)0x803F800); //-V566
 
     return (result < 0) ? 4 : result;
 }
