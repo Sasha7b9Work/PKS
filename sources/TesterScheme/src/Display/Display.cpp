@@ -105,11 +105,6 @@ void Display::WriteMeasures(int phase)
     {
         for (int num = 0; num < 8; num++)
         {
-            if (num == 3 && gset.GetNumberSteps() == 4)
-            {
-                continue;
-            }
-
             WriteString(num * 16, Y(), String("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)));
 
             WriteString(35, 54, String("%d", Contactors::Test::GetCountSteps()));
@@ -121,7 +116,7 @@ void Display::WriteMeasures(int phase)
 
         WriteString(0, Y(), "TEST");
 
-        WriteString(40, Y(), String("%4.1f", measure.measures[phase].voltage));
+        WriteString(40, Y(), String("%4.1f", measure.measures[phase].voltage)); 
 
         WriteString(100, Y(), "TEST");
     }
