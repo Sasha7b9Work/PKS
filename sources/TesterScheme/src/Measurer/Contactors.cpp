@@ -179,7 +179,7 @@ void Contactors::Test::VerifyRele(int num_rele)
 
         if (!contactor.IsOK())
         {
-            if (counter_bads[contactor.address] < 99)
+            if (counter_bads[contactor.address] < 9)
             {
                 counter_bads[contactor.address]++;
             }
@@ -202,7 +202,7 @@ void Contactors::Test::VerifyRele(int num_rele)
 
         if (!contactor.IsOK())
         {
-            if (counter_bads[contactor.address] < 99)
+            if (counter_bads[contactor.address] < 9)
             {
                 counter_bads[contactor.address]++;
             }
@@ -259,23 +259,23 @@ void Contactors::Init()
 
     uint ports[3][10] =
     {
-        //0    1      2      3      4      5      6      7      8      9
-        {0,  GPIOE, GPIOE, GPIOE, GPIOB, GPIOB, GPIOB, GPIOC, GPIOE, GPIOE},
-        {0,  GPIOE, GPIOE, GPIOE, GPIOE, GPIOB, GPIOB, GPIOB, GPIOB, GPIOB},
-        {0,  GPIOB, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD}
+        // 0      1      2      3      4      5      6      7      8
+        {  GPIOE, GPIOE, GPIOE, GPIOB, GPIOB, GPIOB, GPIOC, GPIOE, GPIOE},
+        {  GPIOE, GPIOE, GPIOE, GPIOE, GPIOB, GPIOB, GPIOB, GPIOB, GPIOB},
+        {  GPIOB, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD, GPIOD}
     };
 
     uint pins[3][10] =
     {
-        //0          1            2            3            4            5            6            7            8            9
-        {0, GPIO_PIN_9,  GPIO_PIN_8,  GPIO_PIN_7,  GPIO_PIN_2,  GPIO_PIN_1,  GPIO_PIN_0,  GPIO_PIN_5,  GPIO_PIN_10, GPIO_PIN_11},
-        {0, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14},
-        {0, GPIO_PIN_15, GPIO_PIN_8,  GPIO_PIN_9,  GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15}
+        // 0            1            2            3            4            5            6            7            8
+        {  GPIO_PIN_9,  GPIO_PIN_8,  GPIO_PIN_7,  GPIO_PIN_2,  GPIO_PIN_1,  GPIO_PIN_0,  GPIO_PIN_5,  GPIO_PIN_10, GPIO_PIN_11},
+        {  GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15, GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14},
+        {  GPIO_PIN_15, GPIO_PIN_8,  GPIO_PIN_9,  GPIO_PIN_10, GPIO_PIN_11, GPIO_PIN_12, GPIO_PIN_13, GPIO_PIN_14, GPIO_PIN_15}
     };
 
     for (int phase = 0; phase < 3; phase++)
     {
-        for (int i = 1; i < 9; i++)
+        for (int i = 0; i < 8; i++)
         {
             contactors[phase][i].Init(ports[phase][i], pins[phase][i]);
         }
