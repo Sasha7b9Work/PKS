@@ -322,35 +322,27 @@ void Contactors::Contactor::Init(uint port, uint _pin)
 
     pin->_Init(port, _pin);
 
-    enabled = false;
-
-    pin->Reset();
+    Disable();
 }
 
 
 void Contactors::Contactor::Enable()
 {
-    if (!enabled)
-    {
-        enabled = true;
+    enabled = true;
 
-        pin->Set();
+    pin->Set();
 
-        time_action = TIME_MS;
-    }
+    time_action = TIME_MS;
 }
 
 
 void Contactors::Contactor::Disable()
 {
-    if (enabled)
-    {
-        enabled = false;
+    enabled = false;
 
-        pin->Reset();
+    pin->Reset();
 
-        time_action = TIME_MS;
-    }
+    time_action = TIME_MS;
 }
 
 
