@@ -116,9 +116,9 @@ void Display::WriteMeasures(int phase)
 
         WriteString(0, Y(), "TEST");
 
-        WriteString(40, Y(), String("%4.1f", measure.measures[phase].voltage)); 
+        WriteString(30, Y(), String("%4.1f", measure.measures[phase].voltage)); 
 
-        WriteString(100, Y(), "TEST");
+        WriteString(80, Y(), String("%4.1f", measure.measures[phase].current));
     }
 }
 
