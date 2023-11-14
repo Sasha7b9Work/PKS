@@ -14,23 +14,17 @@ Settings gset = def_set;
 
 int Settings::GetKoeffCurrent()
 {
-    int result = *((int *)0x803F804); //-V566
-
-    return (result <= 0) ? 16 : result;
+    return 20;
 }
 
 
 int Settings::GetNumberSteps()
 {
-    int result = *((int *)0x803F800); //-V566
-
-    return (result < 0) ? 4 : result;
+    return 5;
 }
 
 
 bool Settings::OnlyMeasure()
 {
-    bool result = (*((int *)0x803F800)) < 0;
-
-    return result;
+    return false;
 }

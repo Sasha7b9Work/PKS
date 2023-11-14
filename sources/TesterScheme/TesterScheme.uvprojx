@@ -811,12 +811,12 @@
             <File>
               <FileName>Settings.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Settings\Settings.cpp</FilePath>
+              <FilePath>.\src\Settings\Settings.cpp</FilePath>
             </File>
             <File>
               <FileName>Settings.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Settings\Settings.h</FilePath>
+              <FilePath>.\src\Settings\Settings.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1687,12 +1687,12 @@
             <File>
               <FileName>Settings.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>..\common\Settings\Settings.cpp</FilePath>
+              <FilePath>.\src\Settings\Settings.cpp</FilePath>
             </File>
             <File>
               <FileName>Settings.h</FileName>
               <FileType>5</FileType>
-              <FilePath>..\common\Settings\Settings.h</FilePath>
+              <FilePath>.\src\Settings\Settings.h</FilePath>
             </File>
           </Files>
         </Group>
