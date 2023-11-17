@@ -215,9 +215,12 @@ int Contactors::Contactor::ReadNativeState()
 {
     SetAddressMX(address);
 
-    while (TIME_MS < time_action + 5)
+    TimeMeterMS meter;
+
+    while (meter.ElapsedTime() < 100)
     {
         Modem::Update();
+        Display::Update();
     }
 
     int result = 0;
