@@ -72,11 +72,13 @@ void Display::Update()
         WriteMeasures(i);
     }
 
-    char message[32];
+    char type[32];
+
+    std::sprintf(type, "%d:%d:%d", gset.GetNumberSteps(), gset.GetKoeffCurrent(), VERSION);
+
+    WriteString(0, 54, type);
 
     WriteString(72, 54, HAL::GetUID());
-
-    WriteString(32, 54, message);
 
     if (Modem::Mode::Power())
     {
