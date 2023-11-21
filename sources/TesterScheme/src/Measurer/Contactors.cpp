@@ -243,7 +243,7 @@ bool Contactors::Contactor::IsOK()
 {
     int state = ReadNativeState();
 
-    return (enabled && state == 1) || (!enabled && state == 2);
+    return (!enabled && state == 1) || (enabled && state == 2);
 }
 
 
