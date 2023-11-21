@@ -350,6 +350,8 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             st[phase] = Level::levels[phase] > 0 ? Level::levels[phase] : -Level::levels[phase];
 
             CHANGE_RELE(1, State::RELE_4, states[st[phase]][0]);   // KM1
+
+            meter[phase].SetResponseTime(1000);
         }
         break;
 
