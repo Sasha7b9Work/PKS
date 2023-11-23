@@ -76,7 +76,7 @@ namespace Sender
     static bool _100V = false;                                          // Источник 100 В
     static bool need_100V = true;
 
-    static int levels[Phase::Count] = { 0, 0, 0 };
+    static int levels[Phase::Count] = { 0, 0, 0 };                      // Ступень контактора
     static bool need_levels[Phase::Count] = { true, true, true };
 
     static float voltage[Phase::Count] = { 0.0f, 0.0f, 0.0f };
@@ -175,8 +175,6 @@ bool Sender::SendMeasures(const Measurements &meas)
     MQTT::Packet::Publish("base/state/counter", (int)meas.counter);
 
     {
-        char topic[32] = { '\0' };
-
         bool good = true;
 
         for (int phase = Phase::A; phase < Phase::Count; phase++)
@@ -184,6 +182,8 @@ bool Sender::SendMeasures(const Measurements &meas)
             for (int i = 0; i < 8; i++)
             {
                 static const pchar names[Phase::Count] = { "A", "B", "C" };
+
+                char topic[32] = { '\0' };
 
                 std::sprintf(topic, "base/cont/KM%s%d", names[phase], i + 1);
 
@@ -226,7 +226,25 @@ bool Sender::SendMeasures(const Measurements &meas)
     }
 
     {
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < Phase::Count; i++)
+        {
+            int level = meas.flags.GetLevelRele((Phase::E)i);
+
+            if (level != levels[i] || need_levels[i])
+            {
+                levels[i] = level;
+                need_levels[i] = false;
+
+                char topic[32] = { '\0' };
+                std::sprintf(topic, "base/cont/level%c", (char)(i + (int)'A'));
+
+                MQTT::Packet::Publish(topic, level);
+            }
+        }
+    }
+
+    {
+        for (int i = 0; i < Phase::Count; i++)
         {
             bool now_gp = meas.flags.GetGP((Phase::E)i);
 
