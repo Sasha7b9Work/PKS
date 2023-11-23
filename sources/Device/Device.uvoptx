@@ -152,18 +152,18 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>75</LineNumber>
+          <LineNumber>128</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134241144</Address>
+          <Address>134237574</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Storage\Storage.cpp</Filename>
+          <Filename>&lt;1&gt;..\common\Modem\MQTT\Sender.cpp</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\ElectricityMeter\src/Storage/Storage.cpp\75</Expression>
+          <Expression>\\PKS\../common/Modem/MQTT/Sender.cpp\128</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>
@@ -1211,7 +1211,7 @@
 
   <Group>
     <GroupName>Modem</GroupName>
-    <tvExp>1</tvExp>
+    <tvExp>0</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>
@@ -1303,7 +1303,7 @@
 
   <Group>
     <GroupName>Modem/MQTT</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

@@ -130,14 +130,14 @@ namespace Sender
             need_power = true;
             current[phase] = value.measures[phase].current;
             std::sprintf(topic, "base/state/current_%s", letters[phase]);
-//            MQTT::Packet::PublishF(topic, value.measures[phase].current);
+            MQTT::Packet::PublishF(topic, value.measures[phase].current);
             need_current[phase] = false;
         }
 
         if (need_power)
         {
             std::sprintf(topic, "/power_%s", letters[phase]);
-//            MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
+            MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
         }
     }
 }
@@ -169,14 +169,16 @@ bool Sender::SendMeasures(const Measurements &meas)
     MQTT::Packet::Publish("base/state/counter", (int)meas.counter);
 
     {
-        bool good = true;       // ѕризнак того, что исправны все контакторы
+        char topic[32] = { '\0' };
+
+        static bool prev_good = false;       // ѕризнак того, что исправны все контакторы
+
+        bool good = true;
 
         for (int phase = Phase::A; phase < Phase::Count; phase++)
         {
             for (int i = 0; i < 8; i++)
             {
-                char topic[32] = { '\0' };
-
                 static const pchar names[Phase::Count] = { "A", "B", "C" };
 
                 std::sprintf(topic, "base/cont/KM%s%d", names[phase], i + 1);
@@ -197,6 +199,12 @@ bool Sender::SendMeasures(const Measurements &meas)
                     good = false;
                 }
             }
+        }
+
+        if (good != prev_good)
+        {
+            prev_good = good;
+            MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
         }
     }
     {
