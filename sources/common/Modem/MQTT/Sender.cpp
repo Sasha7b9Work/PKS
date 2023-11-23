@@ -70,8 +70,11 @@ namespace Sender
     static int states[Phase::Count][9];
     static bool need_states[Phase::Count][9];
 
-    static bool all_states = true;
+    static bool all_states = false;                                      // Состояние всех контакторов - 0, если неисправен хотя бы один контактор
     static bool need_all_states = true;
+
+    static bool _100V = false;                                          // Источник 100 В
+    static bool need_100V = true;
 
     static int levels[Phase::Count] = { 0, 0, 0 };
     static bool need_levels[Phase::Count] = { true, true, true };
@@ -99,8 +102,11 @@ namespace Sender
             need_levels[i] = true;
         }
 
-        all_states = true;
+        all_states = false;
         need_all_states = true;
+
+        _100V = false;
+        need_100V = true;
     }
 
     static int ToInt(float value)
@@ -171,8 +177,6 @@ bool Sender::SendMeasures(const Measurements &meas)
     {
         char topic[32] = { '\0' };
 
-        static bool prev_good = false;       // Признак того, что исправны все контакторы
-
         bool good = true;
 
         for (int phase = Phase::A; phase < Phase::Count; phase++)
@@ -201,12 +205,45 @@ bool Sender::SendMeasures(const Measurements &meas)
             }
         }
 
-        if (good != prev_good)
+        if (good != all_states || need_all_states)
         {
-            prev_good = good;
+            all_states = good;
+            need_all_states = false;
             MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
         }
     }
+
+    {
+        bool now_100v = meas.flags.Get100V();
+
+        if (need_100V || now_100v != _100V)
+        {
+            need_100V = false;
+            _100V = now_100v;
+
+            MQTT::Packet::Publish("/base/state/dc100v", _100V ? "1" : "0");
+        }
+    }
+
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            bool now_gp = meas.flags.GetGP((Phase::E)i);
+
+            if (now_gp != gp[i] || need_gp[i])
+            {
+                gp[i] = now_gp;
+                need_gp[i] = false;
+
+                char topic[32] = { '\0' };
+
+                std::sprintf(topic, "/base/state/gp%c", (char)(i + 0x30 + 1));
+
+                MQTT::Packet::Publish(topic, gp[i] ? "1" : "0");
+            }
+        }
+    }
+
     {
         FullMeasure value = meas.GetFullMeasure();
 
