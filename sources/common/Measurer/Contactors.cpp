@@ -565,12 +565,12 @@ int Contactors::StateRele(uint address)
         return -1;
     }
 
-    if (p1 && GetContactor(address).enabled)
+    if (p1 && !GetContactor(address).enabled)
     {
         return -1;
     }
 
-    if (p2 && !GetContactor(address).enabled)
+    if (p2 && GetContactor(address).enabled)
     {
         return -1;
     }
