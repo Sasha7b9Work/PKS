@@ -285,7 +285,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             {
                 float inU = measure.voltage + (float)Level::levels[phase] * 10.0f;
 
-                if (inU < 160.5f)
+                if (inU < 155.0f)
                 {
                     new_level = 0;
                 }
