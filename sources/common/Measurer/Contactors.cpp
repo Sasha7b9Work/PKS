@@ -270,6 +270,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
 
             int new_level = 0;
 
+#ifdef ENABLE_CONTROL_CONTACTORS
             if (!Contactors::Serviceability::AllIsOK(phase))                            // Если хотя бы один контактор на фазе неисправен
             {
                 new_level = 0;
@@ -282,6 +283,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                 return;
             }
             else
+#endif
             {
                 float inU = measure.voltage + (float)Level::levels[phase] * 10.0f;
 
