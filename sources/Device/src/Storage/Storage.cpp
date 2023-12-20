@@ -64,7 +64,7 @@ namespace Storage
     static void CollectMeasure(Measurements &);
 
     // Послать очередное измерение
-    static void SendMeasure();
+    void SendMeasure();
 }
 
 
@@ -82,6 +82,8 @@ void Storage::Update()
 {
     static TimeMeterMS meter;
 
+#ifdef ENABLE_CONTROL_CONTACTORS
+
     if (meter.IsFinished())
     {
         meter.SetResponseTime(TIME_UPDATE_SENSORS);
@@ -94,6 +96,21 @@ void Storage::Update()
     }
 
     SendMeasure();
+
+#else
+
+    if (meter.IsFinished())
+    {
+        meter.SetResponseTime(TIME_UPDATE_SENSORS);
+
+        Measurements measurements;
+
+        CollectMeasure(measurements);
+
+        Sender::SendMeasures(measurements);
+    }
+
+#endif
 }
 
 
