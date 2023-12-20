@@ -5,8 +5,4 @@
 
 #define ENABLE_LOG
 
-// Версия, которая у меня, недоработанная
-#define OLD_VERSION
-
-
 #define LOADER
