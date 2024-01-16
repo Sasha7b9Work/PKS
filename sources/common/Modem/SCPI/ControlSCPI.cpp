@@ -32,11 +32,9 @@ namespace SCPI
 }
 
 
-pchar SCPI::CONTROL::Set(pchar)
+pchar SCPI::CONTROL::Set(pchar message)
 {
-    SendUnsupportedCommand();
-
-    return nullptr;
+    return SCPI::Process(message, commands);
 }
 
 

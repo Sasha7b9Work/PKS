@@ -40,11 +40,9 @@ namespace SCPI
 }
 
 
-pchar SCPI::NET::Net(pchar)
+pchar SCPI::NET::Net(pchar message)
 {
-    SendUnsupportedCommand();
-
-    return nullptr;
+    return SCPI::Process(message, commands);
 }
 
 
