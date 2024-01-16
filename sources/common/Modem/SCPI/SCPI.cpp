@@ -112,15 +112,29 @@ void SCPI::Update()
 
 pchar SCPI::Process(pchar message, StructSCPI *_commands)
 {
+    while (*message == '|')
+    {
+        message++;
+    }
+
     for (int i = 0; ;i++)
     {
         StructSCPI &command = _commands[i];
 
         if (command.string)
         {
-            if (std::memcmp(message, command.string, std::strlen(command.string)) == 0)
+            uint length = std::strlen(command.string);
+
+            if (std::memcmp(message, command.string, length) == 0)
             {
-                return command.func(message + std::strlen(command.string));
+                pchar pointer = message + length;
+
+                while (*pointer == '|')
+                {
+                    pointer++;
+                }
+
+                return command.func(pointer);
             }
         }
         else
