@@ -30,7 +30,7 @@ int Settings::GetNumberSteps()
 
 bool Settings::OnlyMeasure()
 {
-    bool result = (*((int *)0x803F800)) < 0;
+    bool result = (*((int *)0x803F800)) < 0; //-V566
 
     return result;
 }

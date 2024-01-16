@@ -8,6 +8,8 @@
 #include "Utils/Buffer.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Settings/Settings.h"
+#include "Utils/RingBuffer.h"
+#include "Modem/ProcessorReceivedData.h"
 #ifdef LOADER
     #include "Modem/Updater.h"
 #else
@@ -16,6 +18,7 @@
 #endif
 #include <gd32f30x.h>
 #include <cstring>
+#include <cstdlib>
 
 
 /*
@@ -83,83 +86,94 @@ namespace Modem
     // Данные, получаемые от SIM800
     namespace InData
     {
-        static Buffer<256> main;
-        static Buffer<256> addit;
-        static Buffer<256> buffer;
+        static RingBuffer<512> in;          // Сюда поступают символы со входа UART
+        static Buffer<64>      answer;      // А здесь будет ответ
+        static int binary_bytes_left = 0;   // Столько двоичных байт нужно принять
 
         void Update()
         {
-            main.mutex.Try();
-
-            if (main.Size())
-            {
-                for (int i = 0; i < main.Size(); i++)
-                {
-                    Log::ReceiveFromSIM800(main[i]);
-                }
-                if (!buffer.Append(main.Data(), main.Size()))
-                {
-                    buffer.Clear();
-                }
-                main.Clear();
-            }
-
-            main.mutex.Release();
-
-            if (buffer.Size() == 0)
+            if (in.IsEmpty())
             {
                 SIM800::Update("");
             }
             else
             {
-                Buffer<64> answer;
-
-                bool answer_exist = false;
-
-                do
+                while(!in.IsEmpty())
                 {
-                    answer.Clear();
-                    answer_exist = false;
+                    bool answer_exist = false;
 
-                    for (int i = 0; i < buffer.Size(); i++)
+                    if (binary_bytes_left)
                     {
-                        char symbol = buffer[i];
+                        binary_bytes_left--;
+                        PRD::Append(in.Pop());
+                        continue;
+                    }
 
-                        if (symbol == 0x0a)
+                    char symbol = in.Pop();
+
+                    if (symbol == 0x0a)
+                    {
+                        continue;
+                    }
+                    else if (symbol == 0x0d)
+                    {
+                        if (answer.Size() == 0)
                         {
                             continue;
                         }
-                        else if (symbol == 0x0d)
-                        {
-                            if (answer.Size() == 0)
-                            {
-                                continue;
-                            }
-                            else
-                            {
-                                answer.Append('\0');
-                                answer_exist = true;
-                                buffer.RemoveFirst(i + 1);
-                                break;
-                            }
-                        }
-                        else if (symbol == '>')
-                        {
-                            answer.Append('>');
-                            answer.Append('\0');
-                            answer_exist = true;
-                            buffer.RemoveFirst(i + 1);
-                            break;
-                        }
                         else
                         {
-                            answer.Append(symbol);
+                            answer.Append('\0');
+                            answer_exist = true;
+                            break;
+                        }
+                    }
+                    else if (symbol == '>')
+                    {
+                        answer.Append('>');
+                        answer.Append('\0');
+                        answer_exist = true;
+                        break;
+                    }
+                    else
+                    {
+                        answer.Append(symbol);
+
+                        if (answer.Size() > 5 && answer[3] == 'D')
+                        {
+                            if (answer[answer.Size() - 1] == ':')
+                            {
+                                if (std::memcmp(answer.Data(), "+IPD", 4) == 0)
+                                {
+                                    char *pointer = answer.Data() + 5;
+
+                                    char buf_number[32];
+                                    char *p_buffer = buf_number;
+
+                                    while (*pointer != ':')
+                                    {
+                                        *p_buffer++ = *pointer++;
+                                    }
+
+                                    *p_buffer = '\0';
+
+                                    binary_bytes_left = (int)std::strtoull(buf_number, nullptr, 10);
+
+                                    answer.Clear();
+
+                                    continue;
+                                }
+                            }
                         }
                     }
 
                     SIM800::Update(answer_exist ? answer.Data() : "");
 
-                } while (answer_exist);
+                    if (answer_exist)
+                    {
+                        answer.Clear();
+                    }
+                }
             }
         }
     }
@@ -195,29 +209,7 @@ void Modem::CallbackOnReceive(char symbol)
         return;
     }
 
-    if (!InData::main.mutex.IsBusy())
-    {
-        if (InData::addit.Size())
-        {
-            if (!InData::main.Append(InData::addit.Data(), InData::addit.Size()))
-            {
-                InData::main.Clear();
-            }
-            InData::addit.Clear();
-        }
-
-        if (!InData::main.Append(symbol))
-        {
-            InData::main.Clear();
-        }
-    }
-    else
-    {
-        if (!InData::addit.Append(symbol))
-        {
-            InData::addit.Clear();
-        }
-    }
+    InData::in.Push(symbol);
 }
 
 
