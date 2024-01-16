@@ -37,11 +37,19 @@ OF SUCH DAMAGE.
 
 #include <stdint.h>
 
-/* configure systick */
-void systick_config(void);
-/* delay a time in milliseconds */
-void delay_1ms(uint32_t count);
-/* delay decrement */
-void delay_decrement(void);
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+    /* configure systick */
+    void systick_config(void);
+    /* delay a time in milliseconds */
+    void delay_1ms(uint32_t count);
+    /* delay decrement */
+    void delay_decrement(void);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif /* SYSTICK_H */

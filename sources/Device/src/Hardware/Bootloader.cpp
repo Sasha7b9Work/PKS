@@ -8,11 +8,11 @@
 namespace Bootloader
 {
     //set Main Stack value
-    __asm void MSR_MSP(uint)
+    __attribute__((naked, noreturn)) void MSR_MSP(uint)
     {
 #ifndef WIN32
-        MSR MSP, r0
-        BX r14
+        __asm("MSR MSP, r0");
+        __asm("BX       r14");
 #endif
     }
 }
