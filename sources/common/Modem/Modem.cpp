@@ -126,7 +126,6 @@ namespace Modem
                         {
                             answer.Append('\0');
                             answer_exist = true;
-                            break;
                         }
                     }
                     else if (symbol == '>')
@@ -134,7 +133,6 @@ namespace Modem
                         answer.Append('>');
                         answer.Append('\0');
                         answer_exist = true;
-                        break;
                     }
                     else
                     {
