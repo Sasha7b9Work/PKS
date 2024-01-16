@@ -38,10 +38,18 @@ namespace SCPI
 
     static StructSCPI commands[] =
     {
-        { "INFO",   INFO::Process },
-        { "HELLO",  INFO::Process },
-        { "PHASE",  INFO::Process },
-        { "ERROR",  INFO::Process },
+        { "INFO",   INFO::Info },
+        { "HELLO",  INFO::Hello },
+        { "PHASE",  INFO::Phase },
+        { "ERROR",  INFO::Error },
+        { "VER",    BASE::Ver },
+        { "ADDR",   BASE::Addr },
+        { "COM",    BASE::Com },
+        { "TIMER",  BASE::Timer },
+        { "TIME",   BASE::Time },
+        { "RESET",  BASE::Reset },
+        { "WDT",    BASE::Wdt },
+        { "TASK",   BASE::Task },
         { nullptr,  nullptr }
     };
 
@@ -152,4 +160,10 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
     *pointer = nullptr;
 
     return false;
+}
+
+
+void SCPI::SendUnsupportedCommand()
+{
+
 }

@@ -35,4 +35,6 @@ namespace SCPI
     void Append(char);
 
     void Update();
+
+    void SendUnsupportedCommand();
 }

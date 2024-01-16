@@ -6,6 +6,9 @@ namespace SCPI
 {
     namespace INFO
     {
-        pchar Process(pchar);
+        pchar Info(pchar);
+        pchar Hello(pchar);
+        pchar Phase(pchar);
+        pchar Error(pchar);
     }
 }
