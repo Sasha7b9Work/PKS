@@ -53,6 +53,8 @@ namespace SCPI
         { "GPRS",   MODEM::Gprs },
         { "SERVER", MODEM::Server },
         { "MODEM",  MODEM::Modem },
+        { "SET",    CONTROL::Set },
+        { "NET",    NET::Net },
         { nullptr,  nullptr }
     };
 
