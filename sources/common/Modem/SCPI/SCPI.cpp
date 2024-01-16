@@ -50,6 +50,9 @@ namespace SCPI
         { "RESET",  BASE::Reset },
         { "WDT",    BASE::Wdt },
         { "TASK",   BASE::Task },
+        { "GPRS",   MODEM::Gprs },
+        { "SERVER", MODEM::Server },
+        { "MODEM",  MODEM::Modem },
         { nullptr,  nullptr }
     };
 
