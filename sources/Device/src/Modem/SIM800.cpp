@@ -10,10 +10,17 @@
 #include "Device.h"
 #include <cstring>
 #include <cstdio>
+#include <cstdlib>
 
 
 using namespace Parser;
 using namespace std;
+
+
+namespace Modem
+{
+    extern uint64 IMEI;
+}
 
 
 namespace SIM800
@@ -28,6 +35,7 @@ namespace SIM800
             WAIT_GSMBUSY,
             WAIT_CREG_INIT,
             WAIT_REGISTRATION,
+            WAIT_IMEI,
             WAIT_IP_INITIAL,
             WAIT_CSTT,
             WAIT_IP_START,
@@ -216,12 +224,26 @@ void SIM800::Update(pchar answer)
                 if (stat == 1 ||    // Registered, home network
                     stat == 5)      // Registered, roaming
                 {
-                    State::Set(State::WAIT_IP_INITIAL);
-                    SIM800::Transmit::With0D("AT+CIPSTATUS");
+                    State::Set(State::WAIT_IMEI);
+                    SIM800::Transmit::With0D("AT+GSN");
                 }
             }
         }
         break;
+
+    case State::WAIT_IMEI:
+        if (MeterIsRunning(10000))
+        {
+            if (strcmp(GetWord(answer, 2, buffer), "OK") == 0)
+            {
+                GetWord(answer, 1, buffer);
+
+                Modem::IMEI = std::strtoull(buffer, nullptr, 10);
+
+                State::Set(State::WAIT_IP_INITIAL);
+                SIM800::Transmit::With0D("AT+CIPSTATUS");
+            }
+        }
 
     case State::WAIT_IP_INITIAL:
         if (MeterIsRunning(DEFAULT_TIME))

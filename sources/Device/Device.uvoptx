@@ -161,7 +161,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;..\common\Modem\MQTT\Sender.cpp</Filename>
+          <Filename>..\common\Modem\MQTT\Sender.cpp</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\PKS\../common/Modem/MQTT/Sender.cpp\128</Expression>
         </Bp>
@@ -351,7 +351,7 @@
           <SizeOfObject>0</SizeOfObject>
           <BreakByAccess>0</BreakByAccess>
           <BreakIfRCount>1</BreakIfRCount>
-          <Filename>&lt;1&gt;.\src\Storage\Storage.cpp</Filename>
+          <Filename>.\src\Storage\Storage.cpp</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\ElectricityMeter\src/Storage/Storage.cpp\75</Expression>
         </Bp>

@@ -1,3 +1,6 @@
-Load "C:\\My\\GitHub\\_work\\ElectricityMeter\\sources\\Device\\Objects-Debug\\ElectricityMeter.axf" 
-Erase Done.Programming Done.Application running ...
-Flash Load finished at 19:18:55
+*** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Release'
+After Build - User command #1: c:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin Objects-Debug\ElectricityMeter.axf --output Meter.bin
+After Build - User command #2: HandlerBIN.exe Meter.bin
+".\Objects-Debug\ElectricityMeter.axf" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed:  00:00:01

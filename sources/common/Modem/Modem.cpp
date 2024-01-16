@@ -48,6 +48,8 @@ using namespace std;
 
 namespace Modem
 {
+    uint64 IMEI = 0;
+
     struct State
     {
         enum E

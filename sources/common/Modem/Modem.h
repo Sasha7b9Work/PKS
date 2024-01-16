@@ -16,6 +16,8 @@ namespace Modem
 
     void CallbackOnReceive(char);
 
+    uint64 GetIMEI();
+
     namespace Mode
     {
         // Возвращает true, если напряжение подано
