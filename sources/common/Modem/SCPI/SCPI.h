@@ -2,7 +2,7 @@
 #pragma once
 
 
-namespace PRD
+namespace SCPI
 {
     void Append(char);
 }

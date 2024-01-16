@@ -773,16 +773,6 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
             </File>
-            <File>
-              <FileName>ProcessorReceivedData.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\ProcessorReceivedData.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ProcessorReceivedData.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\ProcessorReceivedData.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -807,6 +797,21 @@
               <FileName>MQTT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem/SCPI</GroupName>
+          <Files>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1659,16 +1664,6 @@
               <FileType>8</FileType>
               <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
             </File>
-            <File>
-              <FileName>ProcessorReceivedData.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\ProcessorReceivedData.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>ProcessorReceivedData.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\ProcessorReceivedData.h</FilePath>
-            </File>
           </Files>
         </Group>
         <Group>
@@ -1693,6 +1688,21 @@
               <FileName>MQTT.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem/SCPI</GroupName>
+          <Files>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
             </File>
           </Files>
         </Group>

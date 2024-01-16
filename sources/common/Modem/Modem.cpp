@@ -9,7 +9,7 @@
 #include "Modem/MQTT/MQTT.h"
 #include "Settings/Settings.h"
 #include "Utils/RingBuffer.h"
-#include "Modem/ProcessorReceivedData.h"
+#include "Modem/SCPI/SCPI.h"
 #ifdef LOADER
     #include "Modem/Updater.h"
 #else
@@ -88,6 +88,7 @@ namespace Modem
     {
         static RingBuffer<512> in;          // Сюда поступают символы со входа UART
         static Buffer<64>      answer;      // А здесь будет ответ
+
         static int binary_bytes_left = 0;   // Столько двоичных байт нужно принять
 
         void Update()
@@ -105,7 +106,7 @@ namespace Modem
                     if (binary_bytes_left)
                     {
                         binary_bytes_left--;
-                        PRD::Append(in.Pop());
+                        SCPI::Append(in.Pop());
                         continue;
                     }
 
