@@ -14,8 +14,24 @@ struct StructSCPI
 };
 
 
+struct StructString
+{
+    // Запускает строку в обработку командами commands.
+    // Возвращает указатель на первый необработанный символ
+    void ProcessCommands(StructSCPI *commands);
+
+    // true, если строка command начинается с символов symbols_begin
+    bool BeginWith(pchar symbols_begin);
+
+    pchar string;   // Обрабатываемая строка
+    pchar next;     // Указатель на первый необработанный символ
+};
+
+
 namespace SCPI
 {
+    void Init();
+
     void Append(char);
 
     void Update();

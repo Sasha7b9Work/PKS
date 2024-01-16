@@ -24,6 +24,8 @@ void Device::Init()
 
     Display::Init();
 
+    SCPI::Init();
+
     Modem::Init();
 }
 

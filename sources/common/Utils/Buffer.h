@@ -45,6 +45,11 @@ public:
         return true;
     }
 
+    int Capacity() const
+    {
+        return capacity;
+    }
+
     bool Append(char symbol)
     {
         if (size < capacity)
