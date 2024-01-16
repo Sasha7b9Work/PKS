@@ -813,6 +813,56 @@
               <FileType>5</FileType>
               <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
             </File>
+            <File>
+              <FileName>BaseSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\BaseSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>BaseSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\BaseSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ControlSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\ControlSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ControlSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\ControlSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>InfoSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\InfoSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>InfoSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\InfoSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ModemSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\ModemSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ModemSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\ModemSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>NetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\NetSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>NetSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\NetSCPI.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>
@@ -1703,6 +1753,56 @@
               <FileName>SCPI.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>BaseSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\BaseSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>BaseSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\BaseSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ControlSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\ControlSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ControlSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\ControlSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>InfoSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\InfoSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>InfoSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\InfoSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ModemSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\ModemSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ModemSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\ModemSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>NetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\NetSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>NetSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\NetSCPI.h</FilePath>
             </File>
           </Files>
         </Group>

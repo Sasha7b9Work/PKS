@@ -13,7 +13,7 @@ include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/
                     ../common/Hardware/HAL/
                     src/
-                    )
+)
 
 add_definitions(-DGD32F30X_HD)
 
