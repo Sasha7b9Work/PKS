@@ -94,15 +94,11 @@ void SCPI::Update()
     {
         buffer.RemoveAngleBrackets();
 
-        StructString str;
-        str.string = buffer.Data();
-        str.next = nullptr;
+        pchar result = Process(buffer.Data(), commands);
 
-        str.ProcessCommands(commands);
-
-        if (str.next)
+        if (result)
         {
-            buffer.SecurityRemoveFirst(str.next - buffer.Data());
+            buffer.SecurityRemoveFirst(result - buffer.Data());
         }
         else
         {
@@ -111,28 +107,6 @@ void SCPI::Update()
     }
 
     buffer.SecurityRemoveFirst(buffer.Size());
-}
-
-
-void StructString::ProcessCommands(StructSCPI *_commands)
-{
-    for(int i = 0; ; i++)
-    {
-        StructSCPI &command = _commands[i];
-
-        if (command.string)
-        {
-            if (std::memcmp(string, command.string, std::strlen(command.string)) == 0)
-            {
-                next = command.func(string + std::strlen(command.string));
-                break;
-            }
-        }
-        else
-        {
-            break;
-        }
-    }
 }
 
 
