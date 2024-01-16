@@ -44,9 +44,6 @@ union BitSet32
 
 
 #ifndef WIN32
-//    #define nullptr 0 //-V1059
-//    #pragma diag_suppress 2748
-//    #pragma anon_unions
 #else
     #define __ISB()
     #define __DSB()

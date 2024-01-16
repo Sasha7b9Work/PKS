@@ -40,6 +40,18 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wsign-conversion"
+        #pragma clang diagnostic ignored "-Wmissing-noreturn"
+        #pragma clang diagnostic ignored "-Wunused-variable"
+        #pragma clang diagnostic ignored "-Wcovered-switch-default"
+        #pragma clang diagnostic ignored "-Wpadded"
+        #pragma clang diagnostic ignored "-Wold-style-cast"
+    #endif
+#endif
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -289,5 +301,12 @@ void dma_interrupt_disable(uint32_t dma_periph, dma_channel_enum channelx, uint3
 #ifdef __cplusplus
 }
 #endif
+
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic pop
+    #endif
+#endif
+
 
 #endif /* GD32F30X_DMA_H */

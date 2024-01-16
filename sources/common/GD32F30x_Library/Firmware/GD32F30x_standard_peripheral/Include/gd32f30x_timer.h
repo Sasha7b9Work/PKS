@@ -40,6 +40,13 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x.h"
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wpadded"
+    #endif
+#endif
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -755,6 +762,12 @@ void timer_output_value_selection_config(uint32_t timer_periph, uint16_t outsel)
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic pop
+    #endif
 #endif
 
 #endif /* GD32F30X_TIMER_H */

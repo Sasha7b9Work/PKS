@@ -42,6 +42,18 @@
 #ifndef __CORE_CM4_SIMD_H
 #define __CORE_CM4_SIMD_H
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wsign-conversion"
+        #pragma clang diagnostic ignored "-Wmissing-noreturn"
+        #pragma clang diagnostic ignored "-Wunused-variable"
+        #pragma clang diagnostic ignored "-Wcovered-switch-default"
+        #pragma clang diagnostic ignored "-Wpadded"
+        #pragma clang diagnostic ignored "-Wold-style-cast"
+    #endif
+#endif
+
 #ifdef __cplusplus
  extern "C" {
 #endif
@@ -692,6 +704,12 @@ __attribute__( ( always_inline ) ) __STATIC_INLINE uint32_t __SMMLA (int32_t op1
 
 #ifdef __cplusplus
 }
+#endif
+
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic pop
+    #endif
 #endif
 
 #endif /* __CORE_CM4_SIMD_H */

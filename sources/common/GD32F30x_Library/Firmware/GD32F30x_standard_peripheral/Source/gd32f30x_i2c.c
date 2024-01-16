@@ -38,6 +38,18 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x_i2c.h"
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wsign-conversion"
+        #pragma clang diagnostic ignored "-Wmissing-noreturn"
+        #pragma clang diagnostic ignored "-Wunused-variable"
+        #pragma clang diagnostic ignored "-Wcovered-switch-default"
+        #pragma clang diagnostic ignored "-Wpadded"
+        #pragma clang diagnostic ignored "-Wold-style-cast"
+    #endif
+#endif
+
 #define I2C_ERROR_HANDLE(s)           do{}while(1)
 
 #define I2CCLK_MAX                    ((uint32_t)0x0000003CU)             /*!< i2cclk maximum value */
@@ -737,3 +749,8 @@ void i2c_interrupt_flag_clear(uint32_t i2c_periph, i2c_interrupt_flag_enum int_f
     }
 }
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic pop
+    #endif
+#endif

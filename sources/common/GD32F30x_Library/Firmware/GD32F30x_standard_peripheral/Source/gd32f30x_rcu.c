@@ -37,6 +37,18 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x_rcu.h"
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wsign-conversion"
+        #pragma clang diagnostic ignored "-Wmissing-noreturn"
+        #pragma clang diagnostic ignored "-Wunused-variable"
+        #pragma clang diagnostic ignored "-Wcovered-switch-default"
+        #pragma clang diagnostic ignored "-Wpadded"
+        #pragma clang diagnostic ignored "-Wold-style-cast"
+    #endif
+#endif
+
 /* define clock source */
 #define SEL_IRC8M                   ((uint16_t)0U)  /* IRC8M is selected as CK_SYS */
 #define SEL_HXTAL                   ((uint16_t)1U)  /* HXTAL is selected as CK_SYS */
@@ -1331,3 +1343,9 @@ void rcu_interrupt_disable(rcu_int_enum interrupt)
 {
     RCU_REG_VAL(interrupt) &= ~BIT(RCU_BIT_POS(interrupt));
 }
+
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic pop
+    #endif
+#endif

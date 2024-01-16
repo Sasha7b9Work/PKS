@@ -17,3 +17,7 @@ static const int TIME_BETWEEN_SENDED = 200;
 
 #include "Globals.h"
 #include "Utils/Debug.h"
+
+#if __ARMCLIB_VERSION < 6000000
+    #define nullptr 0
+#endif

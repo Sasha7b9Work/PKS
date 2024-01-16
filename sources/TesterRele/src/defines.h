@@ -10,3 +10,7 @@
 
 
 #include "Globals.h"
+
+#if __ARMCLIB_VERSION < 6000000
+    #define nullptr 0
+#endif

@@ -37,6 +37,18 @@ OF SUCH DAMAGE.
 
 #include "gd32f30x_usart.h"
 
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic push
+        #pragma clang diagnostic ignored "-Wsign-conversion"
+        #pragma clang diagnostic ignored "-Wmissing-noreturn"
+        #pragma clang diagnostic ignored "-Wunused-variable"
+        #pragma clang diagnostic ignored "-Wcovered-switch-default"
+        #pragma clang diagnostic ignored "-Wpadded"
+        #pragma clang diagnostic ignored "-Wold-style-cast"
+    #endif
+#endif
+
 /* USART register bit offset */
 #define GP_GUAT_OFFSET            ((uint32_t)8U)       /* bit offset of GUAT in USART_GP */
 #define CTL3_SCRTNUM_OFFSET       ((uint32_t)1U)       /* bit offset of SCRTNUM in USART_CTL3 */
@@ -870,3 +882,9 @@ void usart_interrupt_flag_clear(uint32_t usart_periph, usart_interrupt_flag_enum
 {
     USART_REG_VAL2(usart_periph, int_flag) = ~BIT(USART_BIT_POS2(int_flag));
 }
+
+#ifndef WIN32
+    #if __ARMCLIB_VERSION > 6000000
+        #pragma clang diagnostic pop
+    #endif
+#endif

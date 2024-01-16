@@ -281,15 +281,6 @@ typedef enum IRQn
 } IRQn_Type;
 
 /* includes */
-#ifndef WIN32
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Wsign-conversion"
-#pragma clang diagnostic ignored "-Wmissing-noreturn"
-#pragma clang diagnostic ignored "-Wunused-variable"
-#pragma clang diagnostic ignored "-Wcovered-switch-default"
-#pragma clang diagnostic ignored "-Wpadded"
-#pragma clang diagnostic ignored "-Wold-style-cast"
-#endif
 #include "core_cm4.h"
 #include "system_gd32f30x.h"
 #include <stdint.h>
@@ -361,8 +352,5 @@ typedef enum {ERROR = 0, SUCCESS = !ERROR} ErrStatus;
 
 #ifdef __cplusplus
 }
-#ifndef WIN32
-    #pragma clang diagnostic pop
-#endif
 #endif
 #endif
