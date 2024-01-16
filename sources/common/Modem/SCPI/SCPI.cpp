@@ -136,6 +136,29 @@ void StructString::ProcessCommands(StructSCPI *_commands)
 }
 
 
+pchar SCPI::Process(pchar message, StructSCPI *_commands)
+{
+    for (int i = 0; ;i++)
+    {
+        StructSCPI &command = _commands[i];
+
+        if (command.string)
+        {
+            if (std::memcmp(message, command.string, std::strlen(command.string)) == 0)
+            {
+                return command.func(message + std::strlen(command.string));
+            }
+        }
+        else
+        {
+            break;
+        }
+    }
+
+    return nullptr;
+}
+
+
 void SCPI::BufferSCPI::RemoveAngleBrackets()
 {
     if (buffer[0] == '<')

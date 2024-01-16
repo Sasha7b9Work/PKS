@@ -1,14 +1,10 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Debug'
-../common/Modem/SCPI/NetSCPI.cpp(23): warning: unused variable 'commands' [-Wunused-variable]
-        static StructSCPI commands[] =
-                          ^
-1 warning generated.
-compiling NetSCPI.cpp...
+compiling SCPI.cpp...
 linking...
-Program Size: Code=44640 RO-data=4160 RW-data=548 ZI-data=45900  
+Program Size: Code=45092 RO-data=4216 RW-data=724 ZI-data=45900  
 FromELF: creating hex file...
 After Build - User command #1: c:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin Objects-Debug\ElectricityMeter.axf --output Meter.bin
 After Build - User command #2: HandlerBIN.exe Meter.bin
-".\Objects-Debug\PKS.axf" - 0 Error(s), 1 Warning(s).
-Build Time Elapsed:  00:00:01
+".\Objects-Debug\PKS.axf" - 0 Error(s), 0 Warning(s).
+Build Time Elapsed:  00:00:00
