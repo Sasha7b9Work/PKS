@@ -1,4 +1,4 @@
-﻿// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
+// (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #pragma once
 #include "Hardware/HAL/HAL_PINS.h"
 #include "Measurer/Measurer.h"
@@ -13,7 +13,7 @@ struct PackedTime
     uint minutes : 6;
     uint seconds : 6;
     PackedTime(uint h = 11, uint m = 11, uint s = 11, uint d = 11, uint mo = 11, uint y = 11) :
-        year(y), month(mo), day(d), hours(h), minutes(m), seconds(s) {};
+        year(y), month(mo), day(d), hours(h), minutes(m), seconds(s) {}
 };
 
 

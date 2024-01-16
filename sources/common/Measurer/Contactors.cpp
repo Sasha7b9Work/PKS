@@ -323,14 +323,14 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     
             Level::levels[phase] = new_level;
 
-            ENABLE_RELE(2, State::TRANSIT_EN_1);
+            ENABLE_RELE(2, State::TRANSIT_EN_1)
         }
 
         break;
 
-    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2);       break; //-V525
-    case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3);      break;
-    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4);      break;
+    case State::TRANSIT_EN_1:   WAIT_ENABLE_RELE(3, State::TRANSIT_EN_2)        break; //-V525
+    case State::TRANSIT_EN_2:   WAIT_DISABLE_RELE(1, State::TRANSIT_EN_3)       break;
+    case State::TRANSIT_EN_3:   WAIT_DISABLE_RELE(2, State::TRANSIT_EN_4)       break;
     case State::TRANSIT_EN_4:
         if (meter[phase].IsFinished())
         {
@@ -342,7 +342,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
     case State::TRANSIT_EN_5:
         if (meter[phase].IsFinished())
         {
-            DISABLE_RELE(3, State::TRANSIT_EN_6);
+            DISABLE_RELE(3, State::TRANSIT_EN_6)
         }
         break;
 
@@ -351,7 +351,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         {
             st[phase] = Level::levels[phase] > 0 ? Level::levels[phase] : -Level::levels[phase];
 
-            CHANGE_RELE(1, State::RELE_4, states[st[phase]][0]);   // KM1
+            CHANGE_RELE(1, State::RELE_4, states[st[phase]][0])   // KM1
 
             meter[phase].SetResponseTime(1000);
         }
@@ -362,7 +362,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         {
             if (gset.GetNumberSteps() == 5)
             {
-                CHANGE_RELE(4, State::RELE_5, states[st[phase]][1]);   // KM4
+                CHANGE_RELE(4, State::RELE_5, states[st[phase]][1])   // KM4
             }
             else
             {
@@ -372,19 +372,19 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
         break;
 
     case State::RELE_5:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(5, State::RELE_6, states[st[phase]][2]);   // KM5 //-V525
+        if (meter[phase].IsFinished()) { CHANGE_RELE(5, State::RELE_6, states[st[phase]][2])   // KM5 //-V525
         }                                                                               break;
 
     case State::RELE_6:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(6, State::RELE_7, states[st[phase]][3]);   // KM6
+        if (meter[phase].IsFinished()) { CHANGE_RELE(6, State::RELE_7, states[st[phase]][3])   // KM6
         }                                                                               break;
 
     case State::RELE_7:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(7, State::RELE_8, states[st[phase]][4]);   // KM7
+        if (meter[phase].IsFinished()) { CHANGE_RELE(7, State::RELE_8, states[st[phase]][4])   // KM7
         }                                                                               break;
 
     case State::RELE_8:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(8, State::POLARITY_LEVEL, states[st[phase]][4]);   // KM8
+        if (meter[phase].IsFinished()) { CHANGE_RELE(8, State::POLARITY_LEVEL, states[st[phase]][4])   // KM8
         }                                                                               break;
 
     case State::POLARITY_LEVEL:
@@ -398,19 +398,19 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             {
                 if (Level::levels[phase] > 0)               // Идём в понижение
                 {
-                    ENABLE_RELE(9, State::TRANSIT_EXIT_1);
+                    ENABLE_RELE(9, State::TRANSIT_EXIT_1)
                 }
                 else                                        // Идём в повшение
                 {
-                    DISABLE_RELE(9, State::TRANSIT_EXIT_1);
+                    DISABLE_RELE(9, State::TRANSIT_EXIT_1)
                 }
             }
         }
         break;
-    case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2);     break;
-    case State::TRANSIT_EXIT_2:     WAIT_ENABLE_RELE(3, State::TRANSIT_EXIT_3);     break;
-    case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4);     break;
-    case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5);    break;
+    case State::TRANSIT_EXIT_1:     WAIT_ENABLE_RELE(2, State::TRANSIT_EXIT_2)     break;
+    case State::TRANSIT_EXIT_2:     WAIT_ENABLE_RELE(3, State::TRANSIT_EXIT_3)     break;
+    case State::TRANSIT_EXIT_3:     WAIT_ENABLE_RELE(1, State::TRANSIT_EXIT_4)     break;
+    case State::TRANSIT_EXIT_4:     WAIT_DISABLE_RELE(2, State::TRANSIT_EXIT_5)    break;
     case State::TRANSIT_EXIT_5:
         if (meter[phase].IsFinished())
         {
@@ -418,7 +418,7 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             State::current[phase] = State::TRANSIT_EXIT_6;
         }
         break;
-    case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END);       break;
+    case State::TRANSIT_EXIT_6:     WAIT_DISABLE_RELE(3, State::END)       break;
 
     case State::END:
         if (meter[phase].IsFinished())

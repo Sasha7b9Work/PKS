@@ -66,7 +66,7 @@ void HAL_USART_GPRS::Transmit(void *buffer, int size)
     {
         usart_data_transmit(USART_GPRS_ADDR, (uint16)*data++);
 
-        while (RESET == usart_flag_get(USART_GPRS_ADDR, USART_FLAG_TBE)) {};
+        while (RESET == usart_flag_get(USART_GPRS_ADDR, USART_FLAG_TBE)) {}
     }
 }
 
@@ -108,7 +108,7 @@ void HAL_USART_LOG::Transmit(pchar message)
     {
         usart_data_transmit(USART_LOG_ADDR, (uint16)message[i]);
 
-        while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {};
+        while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {}
     }
 
     static const char end_message[3] = { '\x0d', '\x0a', '\0' };
@@ -117,6 +117,6 @@ void HAL_USART_LOG::Transmit(pchar message)
     {
         usart_data_transmit(USART_LOG_ADDR, (uint16)end_message[i]);
 
-        while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {};
+        while (RESET == usart_flag_get(USART_LOG_ADDR, USART_FLAG_TBE)) {}
     }
 }

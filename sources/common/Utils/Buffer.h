@@ -9,7 +9,7 @@ class Buffer
 {
 public:
 
-    Buffer() : size(0) {}; //-V730
+    Buffer() : size(0) {} //-V730
 
     char *Data() { return buffer; }
 

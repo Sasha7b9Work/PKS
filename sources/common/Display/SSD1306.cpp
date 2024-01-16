@@ -80,7 +80,7 @@ void SSD1306::WriteBuffer(uint8 buffer[1024])
         {
             break;
         }
-    };
+    }
 }
 
 

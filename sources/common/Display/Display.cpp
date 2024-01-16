@@ -63,7 +63,7 @@ void Display::Init()
 #ifdef DEVICE
 void Display::Update()
 {
-    FullMeasure measure = Measurer::LastMeasure();
+//    FullMeasure measure = Measurer::LastMeasure();
 
     BeginScene();
 
@@ -202,7 +202,7 @@ void Display::DrawPixel(int x, int y, int color)
     if (x >= WIDTH || y >= HEIGHT)
     {
         return;
-    };
+    }
 
     if (color)
     {
@@ -225,10 +225,10 @@ char Display::WriteString(int x, int y, pchar str)
         if (WriteChar(*str) != *str)
         {
             return *str;
-        };
+        }
 
         str++;
-    };
+    }
 
     return *str;
 }
@@ -266,7 +266,7 @@ char Display::WriteChar(char ch)
         if (WIDTH < (cursorX + font_10x7.width) || HEIGHT < (cursorY + font_10x7.height))
         {
             return 0;
-        };
+        }
 
         for (int i = 0; i < font_10x7.height; i++)
         {
@@ -281,9 +281,9 @@ char Display::WriteChar(char ch)
                 else
                 {
                     DrawPixel(cursorX + j, cursorY + i, 0);
-                };
-            };
-        };
+                }
+            }
+        }
 
         cursorX += font_10x7.width;
     }
