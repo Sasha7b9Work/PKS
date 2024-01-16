@@ -9,6 +9,7 @@
 #include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
 #include "Storage/MemoryStorage.h"
+#include "Modem/SCPI/SCPI.h"
 
 
 void Device::Init()
@@ -42,6 +43,8 @@ void Device::Update()
     Display::Update();
 
     Modem::Update();
+
+    SCPI::Update();
 }
 
 

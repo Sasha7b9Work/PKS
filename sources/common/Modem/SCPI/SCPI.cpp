@@ -3,7 +3,27 @@
 #include "Modem/SCPI/SCPI.h"
 
 
-void SCPI::Append(char)
+namespace SCPI
+{
+    static StructSCPI commands[] =
+    {
+        { "INFO",   INFO::Process },
+        { "HELL",   INFO::Process },
+        { "PHASE",  INFO::Process },
+        { "ERROR",  INFO::Process },
+        { nullptr,  nullptr }
+    };
+}
+
+
+
+void SCPI::Append(char symbol)
+{
+
+}
+
+
+void SCPI::Update()
 {
 
 }
