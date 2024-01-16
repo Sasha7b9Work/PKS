@@ -8,6 +8,7 @@
 #include "Hardware/Bootloader.h"
 #include "Modem/MQTT/MQTT.h"
 #include "Device.h"
+#include "Utils/String.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -244,6 +245,7 @@ void SIM800::Update(pchar answer)
                 SIM800::Transmit::With0D("AT+CIPSTATUS");
             }
         }
+        break;
 
     case State::WAIT_IP_INITIAL:
         if (MeterIsRunning(DEFAULT_TIME))
@@ -322,7 +324,8 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "STATUS") == 0)
             {
                 State::Set(State::WAIT_TCP_CONNECT);
-                SIM800::Transmit::With0D("AT+CIPSTART=\"TCP\",\"dev.rightech.io\",\"1883\"");
+                String message("AT+CIPSTART=\"TCP\",\"%s\",\"1620\"", Device::GetServerIP(), Device::GetServerPort());
+                SIM800::Transmit::With0D(message.c_str());
             }
         }
         break;

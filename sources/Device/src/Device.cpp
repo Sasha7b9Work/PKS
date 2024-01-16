@@ -43,3 +43,15 @@ void Device::Update()
 
     Modem::Update();
 }
+
+
+int Device::GetServerPort()
+{
+    return SERVER_PORT;
+}
+
+
+pchar Device::GetServerIP()
+{
+    return SERVER_IP;
+}

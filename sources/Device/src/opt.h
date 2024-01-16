@@ -13,3 +13,7 @@ static const int TIME_UPDATE_SENSORS = 30000;
 
 // Время между посылками
 static const int TIME_BETWEEN_SENDED = 200;
+
+
+#define SERVER_IP   "power.avkpanel.ru"
+#define SERVER_PORT 1620

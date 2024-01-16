@@ -7,4 +7,8 @@ namespace Device
     void Init();
 
     void Update();
+
+    pchar GetServerIP();
+
+    int GetServerPort();
 }
