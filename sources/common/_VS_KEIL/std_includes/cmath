@@ -9,7 +9,15 @@ namespace std
 {
     double sin(double);
     float floor(float);
+    float sqrtf(float);  
+    float fabsf(float);
+    float fabs(double);
     float sqrtf(float);
-
-#include "math.h"
+    float log10f(float);
+    float cosf(float);
+    float sinf(float);
+    float expf(float);
+    void srand(unsigned int);
+    float powf(float, float);
+    float floor(float);
 }

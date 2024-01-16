@@ -1,9 +1,5 @@
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'Release'
-compiling SIM800.cpp...
-linking...
-Program Size: Code=29844 RO-data=3368 RW-data=940 ZI-data=44644  
-FromELF: creating hex file...
 After Build - User command #1: c:\Keil_v5\ARM\ARMCC\bin\fromelf.exe --bin Objects-Debug\ElectricityMeter.axf --output Meter.bin
 After Build - User command #2: HandlerBIN.exe Meter.bin
 ".\Objects-Debug\ElectricityMeter.axf" - 0 Error(s), 0 Warning(s).
