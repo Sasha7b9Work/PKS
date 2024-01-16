@@ -154,7 +154,7 @@
           <Type>0</Type>
           <LineNumber>128</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134237574</Address>
+          <Address>134242136</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -164,6 +164,22 @@
           <Filename>&lt;1&gt;..\common\Modem\MQTT\Sender.cpp</Filename>
           <ExecCommand></ExecCommand>
           <Expression>\\PKS\../common/Modem/MQTT/Sender.cpp\128</Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>240</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134238816</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>1</BreakIfRCount>
+          <Filename>&lt;1&gt;.\src\Modem\SIM800.cpp</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression>\\PKS\src/Modem/SIM800.cpp\240</Expression>
         </Bp>
       </Breakpoint>
       <Tracepoint>
@@ -1223,7 +1239,7 @@
 
   <Group>
     <GroupName>Modem</GroupName>
-    <tvExp>0</tvExp>
+    <tvExp>1</tvExp>
     <tvExpOptDlg>0</tvExpOptDlg>
     <cbSel>0</cbSel>
     <RteFlg>0</RteFlg>

@@ -235,12 +235,11 @@ void SIM800::Update(pchar answer)
     case State::WAIT_IMEI:
         if (MeterIsRunning(10000))
         {
-            if (strcmp(GetWord(answer, 2, buffer), "OK") == 0)
+            GetWord(answer, 1, buffer);
+
+            if (std::strlen(buffer) > 14)
             {
-                GetWord(answer, 1, buffer);
-
                 Modem::IMEI = std::strtoull(buffer, nullptr, 10);
-
                 State::Set(State::WAIT_IP_INITIAL);
                 SIM800::Transmit::With0D("AT+CIPSTATUS");
             }
