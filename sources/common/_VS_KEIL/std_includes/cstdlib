@@ -2,9 +2,13 @@
 
 namespace std
 {
-#include "stdlib.h"
+#define RAND_MAX 0x7fffffff
 
+    void *malloc(size_t);
+    void free(void *);
+    void srand(unsigned int);
+    unsigned int rand(void);
+    int atoi(const char *str);
     char *itoa(int num, char *str, int radix);
-
     unsigned long long int strtoull(const char *str, char **endptr, int base);
 }
