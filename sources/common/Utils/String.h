@@ -5,65 +5,30 @@
 #include <cstring>
 
 
+template<int capacity = 64>
 class String
 {
 public:
-    String() : buffer(nullptr)
+    String() : pointer(0)
     {
-        buffer = nullptr;
     }
 
-    String(char *format, ...) : buffer(nullptr)
+    String(char *format, ...)
     {
-        char data[2048];
-
         std::va_list args;
         va_start(args, format);
-        std::vsprintf(data, format, args);
+        std::vsprintf(buffer, format, args);
         va_end(args);
 
-        Set(data);
+        pointer = std::strlen(buffer);
     }
 
-    String(const String &string)
-    {
-        Clear();
-
-        Set(string.c_str());
-    }
-
-    ~String()
-    {
-        Clear();
-    }
-
-    void Clear()
-    {
-        if (buffer)
-        {
-            delete buffer;
-            buffer = nullptr;
-        }
-    }
-
-    void Set(pchar string)
-    {
-        Clear();
-
-        buffer = new char[std::strlen(string) + 1];
-        std::strcpy(buffer, string);
-    }
-
-    char *c_str() const
-    {
-        return buffer;
-    }
-
-    operator char *()
+    pchar c_str() const
     {
         return buffer;
     }
 
 private:
-    char *buffer;
+    char buffer[capacity];
+    uint pointer;
 };

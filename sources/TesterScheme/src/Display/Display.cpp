@@ -105,9 +105,9 @@ void Display::WriteMeasures(int phase)
     {
         for (int num = 0; num < 8; num++)
         {
-            WriteString(num * 16, Y(), String("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)));
+            WriteString(num * 16, Y(), String<>("%d", Contactors::Test::GetCounterBad((Phase::E)phase, num)).c_str());
 
-            WriteString(35, 54, String("%d", Contactors::Test::GetCountSteps()));
+            WriteString(35, 54, String<>("%d", Contactors::Test::GetCountSteps()).c_str());
         }
     }
     else
@@ -116,9 +116,9 @@ void Display::WriteMeasures(int phase)
 
         WriteString(0, Y(), "TEST");
 
-        WriteString(30, Y(), String("%4.1f", measure.measures[phase].voltage)); 
+        WriteString(30, Y(), String<>("%4.1f", measure.measures[phase].voltage).c_str()); 
 
-        WriteString(80, Y(), String("%4.1f", measure.measures[phase].current));
+        WriteString(80, Y(), String<>("%4.1f", measure.measures[phase].current).c_str());
     }
 }
 

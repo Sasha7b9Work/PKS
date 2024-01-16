@@ -324,7 +324,7 @@ void SIM800::Update(pchar answer)
             if (strcmp(GetWord(answer, 3, buffer), "STATUS") == 0)
             {
                 State::Set(State::WAIT_TCP_CONNECT);
-                String message("AT+CIPSTART=\"TCP\",\"%s\",\"1620\"", Device::GetServerIP(), Device::GetServerPort());
+                String<> message("AT+CIPSTART=\"TCP\",\"%s\",\"%d\"", Device::GetServerIP(), Device::GetServerPort());
                 SIM800::Transmit::With0D(message.c_str());
             }
         }
