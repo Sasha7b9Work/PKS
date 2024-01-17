@@ -128,6 +128,13 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
 
             if (std::memcmp(message, command.string, length) == 0)
             {
+                static int counter = 0;
+                
+                if(counter++ > 1)
+                {
+                    counter = counter;
+                }
+                
                 pchar pointer = message + length;
 
                 while (*pointer == '|')
