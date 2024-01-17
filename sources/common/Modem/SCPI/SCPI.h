@@ -22,7 +22,5 @@ namespace SCPI
 
     void Update();
 
-    void SendUnsupportedCommand();
-
     pchar Process(pchar, StructSCPI *);
 }

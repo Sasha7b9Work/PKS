@@ -132,3 +132,9 @@ void Server::Buffer::Append(pchar data)
         pointer += std::strlen(data);
     }
 }
+
+
+void Server::SendUnsupportedCommand()
+{
+
+}

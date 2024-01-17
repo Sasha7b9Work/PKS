@@ -1,11 +1,12 @@
 // 2024/01/16 14:38:56 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/SCPI/SCPI.h"
+#include "Modem/Server/Server.h"
 
 
 pchar SCPI::MODEM::Gprs(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -13,7 +14,7 @@ pchar SCPI::MODEM::Gprs(pchar)
 
 pchar SCPI::MODEM::Server(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -21,7 +22,7 @@ pchar SCPI::MODEM::Server(pchar)
 
 pchar SCPI::MODEM::Modem(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }

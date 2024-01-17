@@ -1,11 +1,12 @@
 // 2024/01/16 14:37:43 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/SCPI/SCPI.h"
+#include "Modem/Server/Server.h"
 
 
 pchar SCPI::BASE::Ver(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -13,7 +14,7 @@ pchar SCPI::BASE::Ver(pchar)
 
 pchar SCPI::BASE::Addr(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -21,7 +22,7 @@ pchar SCPI::BASE::Addr(pchar)
 
 pchar SCPI::BASE::Com(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -29,7 +30,7 @@ pchar SCPI::BASE::Com(pchar)
 
 pchar SCPI::BASE::Time(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -37,7 +38,7 @@ pchar SCPI::BASE::Time(pchar)
 
 pchar SCPI::BASE::Reset(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -45,7 +46,7 @@ pchar SCPI::BASE::Reset(pchar)
 
 pchar SCPI::BASE::Wdt(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -53,7 +54,7 @@ pchar SCPI::BASE::Wdt(pchar)
 
 pchar SCPI::BASE::Timer(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -61,7 +62,7 @@ pchar SCPI::BASE::Timer(pchar)
 
 pchar SCPI::BASE::Task(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }

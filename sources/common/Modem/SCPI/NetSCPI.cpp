@@ -1,6 +1,7 @@
 // 2024/01/16 14:39:13 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/SCPI/SCPI.h"
+#include "Modem/Server/Server.h"
 
 
 namespace SCPI
@@ -48,7 +49,7 @@ pchar SCPI::NET::Net(pchar message)
 
 pchar SCPI::NET::Empty(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -56,7 +57,7 @@ pchar SCPI::NET::Empty(pchar)
 
 pchar SCPI::NET::All(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -64,7 +65,7 @@ pchar SCPI::NET::All(pchar)
 
 pchar SCPI::NET::Auto(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -72,7 +73,7 @@ pchar SCPI::NET::Auto(pchar)
 
 pchar SCPI::NET::Cur(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -80,7 +81,7 @@ pchar SCPI::NET::Cur(pchar)
 
 pchar SCPI::NET::Cos(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -88,7 +89,7 @@ pchar SCPI::NET::Cos(pchar)
 
 pchar SCPI::NET::C(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -96,7 +97,7 @@ pchar SCPI::NET::C(pchar)
 
 pchar SCPI::NET::I(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -104,7 +105,7 @@ pchar SCPI::NET::I(pchar)
 
 pchar SCPI::NET::Va(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -112,7 +113,7 @@ pchar SCPI::NET::Va(pchar)
 
 pchar SCPI::NET::Ver(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -120,7 +121,7 @@ pchar SCPI::NET::Ver(pchar)
 
 pchar SCPI::NET::Vin(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -128,7 +129,7 @@ pchar SCPI::NET::Vin(pchar)
 
 pchar SCPI::NET::V(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -136,7 +137,7 @@ pchar SCPI::NET::V(pchar)
 
 pchar SCPI::NET::Reset(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }

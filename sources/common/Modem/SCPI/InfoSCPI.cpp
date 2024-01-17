@@ -2,11 +2,12 @@
 #include "defines.h"
 #include "Modem/SCPI/SCPI.h"
 #include "Modem/SCPI/InfoSCPI.h"
+#include "Modem/Server/Server.h"
 
 
 pchar SCPI::INFO::Info(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -14,7 +15,7 @@ pchar SCPI::INFO::Info(pchar)
 
 pchar SCPI::INFO::Hello(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -22,7 +23,7 @@ pchar SCPI::INFO::Hello(pchar)
 
 pchar SCPI::INFO::Phase(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -30,7 +31,7 @@ pchar SCPI::INFO::Phase(pchar)
 
 pchar SCPI::INFO::Error(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }

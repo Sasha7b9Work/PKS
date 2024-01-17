@@ -1,6 +1,7 @@
 // 2024/01/16 14:36:44 (c) Aleksandr Shevchenko e-mail : Sasha7b9@tut.by
 #include "defines.h"
 #include "Modem/SCPI/SCPI.h"
+#include "Modem/Server/Server.h"
 
 
 namespace SCPI
@@ -40,7 +41,7 @@ pchar SCPI::CONTROL::Set(pchar message)
 
 pchar SCPI::CONTROL::Auto(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -48,7 +49,7 @@ pchar SCPI::CONTROL::Auto(pchar)
 
 pchar SCPI::CONTROL::Step(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -56,7 +57,7 @@ pchar SCPI::CONTROL::Step(pchar)
 
 pchar SCPI::CONTROL::Volt(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -64,7 +65,7 @@ pchar SCPI::CONTROL::Volt(pchar)
 
 pchar SCPI::CONTROL::Boost(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -72,7 +73,7 @@ pchar SCPI::CONTROL::Boost(pchar)
 
 pchar SCPI::CONTROL::Time(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -80,7 +81,7 @@ pchar SCPI::CONTROL::Time(pchar)
 
 pchar SCPI::CONTROL::Points(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -88,7 +89,7 @@ pchar SCPI::CONTROL::Points(pchar)
 
 pchar SCPI::CONTROL::Range(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }
@@ -96,7 +97,7 @@ pchar SCPI::CONTROL::Range(pchar)
 
 pchar SCPI::CONTROL::Kt(pchar)
 {
-    SendUnsupportedCommand();
+    Server::SendUnsupportedCommand();
 
     return nullptr;
 }

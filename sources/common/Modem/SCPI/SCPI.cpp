@@ -177,9 +177,3 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 
     return false;
 }
-
-
-void SCPI::SendUnsupportedCommand()
-{
-
-}

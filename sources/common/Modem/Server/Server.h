@@ -11,4 +11,6 @@ namespace Server
     void Reset();
 
     void Send(char *format, ...);
+
+    void SendUnsupportedCommand();
 }
