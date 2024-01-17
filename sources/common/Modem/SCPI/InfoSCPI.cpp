@@ -3,6 +3,8 @@
 #include "Modem/SCPI/SCPI.h"
 #include "Modem/SCPI/InfoSCPI.h"
 #include "Modem/Server/Server.h"
+#include "Modem/Modem.h"
+#include "Modem/SIM800.h"
 
 
 pchar SCPI::INFO::Info(pchar)
@@ -13,11 +15,11 @@ pchar SCPI::INFO::Info(pchar)
 }
 
 
-pchar SCPI::INFO::Hello(pchar)
+pchar SCPI::INFO::Hello(pchar message)
 {
-    Server::SendUnsupportedCommand();
+    Server::Send("connect|%ull|%s|%s|0|0|1", Modem::GetIMEI(), SIM800::LevelSignal(), "20240117100000");
 
-    return nullptr;
+    return message;
 }
 
 
