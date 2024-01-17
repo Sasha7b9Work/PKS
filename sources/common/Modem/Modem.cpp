@@ -53,9 +53,9 @@ using namespace std;
 
 namespace Modem
 {
-    uint64 IMEI = 0;
+    char IMEI[20];
 
-    uint64 GetIMEI()
+    pchar GetIMEI()
     {
         return IMEI;
     }

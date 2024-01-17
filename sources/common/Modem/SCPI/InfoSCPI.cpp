@@ -17,7 +17,7 @@ pchar SCPI::INFO::Info(pchar)
 
 pchar SCPI::INFO::Hello(pchar message)
 {
-    Server::Send("connect|%ull|%s|%s|0|0|1", Modem::GetIMEI(), SIM800::LevelSignal(), "20240117100000");
+    Server::Send("connect|%s|%s|%s|0|0|1", Modem::GetIMEI(), SIM800::LevelSignal(), "20240117100000");
 
     return message;
 }

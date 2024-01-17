@@ -20,7 +20,7 @@ using namespace std;
 
 namespace Modem
 {
-    extern uint64 IMEI;
+    extern char IMEI[20];
 }
 
 
@@ -224,7 +224,7 @@ void SIM800::Update(pchar answer)
 
             if (std::strlen(buffer) > 14)
             {
-                Modem::IMEI = std::strtoull(buffer, nullptr, 10);
+                std::strcpy(Modem::IMEI, buffer);
                 State::Set(State::WAIT_IP_INITIAL);
                 SIM800::Transmit::With0D("AT+CIPSTATUS");
             }

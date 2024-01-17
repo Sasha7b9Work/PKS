@@ -44,6 +44,7 @@ namespace Server
         static void Clear()
         {
             pointer = 0;
+            buffer[0] = '\0';
         }
 
         static int Size()

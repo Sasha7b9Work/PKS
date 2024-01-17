@@ -16,7 +16,7 @@ namespace Modem
 
     void CallbackOnReceive(char);
 
-    uint64 GetIMEI();
+    pchar GetIMEI();
 
     namespace Mode
     {
