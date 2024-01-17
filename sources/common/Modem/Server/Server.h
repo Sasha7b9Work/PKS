@@ -4,7 +4,11 @@
 
 namespace Server
 {
+    void Update(pchar answer);
+
     bool IsConnected();
 
     void Reset();
+
+    void Send(char *format, ...);
 }

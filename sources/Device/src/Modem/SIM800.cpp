@@ -8,6 +8,7 @@
 #include "Hardware/Bootloader.h"
 #include "Device.h"
 #include "Utils/String.h"
+#include "Modem/Server/Server.h"
 #include <cstring>
 #include <cstdio>
 #include <cstdlib>
@@ -45,7 +46,7 @@ namespace SIM800
             WAIT_IP_STATUS,
             WAIT_TCP_CONNECT,
             WAIT_CIPHEAD,
-            RUNNING_MQTT
+            RUNNING_SERVER
         };
 
         static void Set(E);
@@ -334,7 +335,7 @@ void SIM800::Update(pchar answer)
         {
             if (strcmp(answer, "OK") == 0)
             {
-                State::Set(State::RUNNING_MQTT);
+                State::Set(State::RUNNING_SERVER);
             }
             else if (strcmp(answer, "ERROR") == 0)
             {
@@ -343,7 +344,9 @@ void SIM800::Update(pchar answer)
         }
         break;
 
-    case State::RUNNING_MQTT:
+    case State::RUNNING_SERVER:
+
+        Server::Update(answer);
 
         if (meterCSQ.ElapsedTime() > 5000)
         {
