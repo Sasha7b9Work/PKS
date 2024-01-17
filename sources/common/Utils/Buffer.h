@@ -50,18 +50,15 @@ public:
         return capacity;
     }
 
-    bool Append(char symbol, char *file, int line)
+    bool Append(char symbol)
     {
-        (void)file;
-        (void)line;
-
         if (size < capacity)
         {
             buffer[size++] = symbol;
             return true;
         }
 
-        LOG_ERROR("!!!buffer is full!!! from %s:%d", file, line);
+        LOG_ERROR("!!!buffer is full!!!");
         return false;
     }
 

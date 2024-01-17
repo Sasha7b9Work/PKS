@@ -135,7 +135,7 @@ namespace Modem
                             }
                             else
                             {
-                                answer.Append('\0', __FILE__, __LINE__);
+                                answer.Append('\0');
                                 answer_exist = true;
                                 buffer.RemoveFirst(i + 1);
                                 break;
@@ -143,15 +143,15 @@ namespace Modem
                         }
                         else if (symbol == '>')
                         {
-                            answer.Append('>', __FILE__, __LINE__);
-                            answer.Append('\0', __FILE__, __LINE__);
+                            answer.Append('>');
+                            answer.Append('\0');
                             answer_exist = true;
                             buffer.RemoveFirst(i + 1);
                             break;
                         }
                         else
                         {
-                            answer.Append(symbol, __FILE__, __LINE__);
+                            answer.Append(symbol);
                         }
                     }
 
@@ -204,14 +204,14 @@ void Modem::CallbackOnReceive(char symbol)
             InData::addit.Clear();
         }
 
-        if (!InData::main.Append(symbol, __FILE__, __LINE__))
+        if (!InData::main.Append(symbol))
         {
             InData::main.Clear();
         }
     }
     else
     {
-        if (!InData::addit.Append(symbol, __FILE__, __LINE__))
+        if (!InData::addit.Append(symbol))
         {
             InData::addit.Clear();
         }

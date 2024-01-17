@@ -27,7 +27,7 @@ namespace SCPI
         {
             while (Size() != Capacity())
             {
-                Append(0, __FILE__, __LINE__);
+                Append(0);
             }
 
             SecurityRemoveFirst(Capacity());
@@ -82,7 +82,7 @@ void SCPI::Append(char symbol)
     }
     else
     {
-        buffer.Append((char)std::toupper(symbol), __FILE__, __LINE__);
+        buffer.Append((char)std::toupper(symbol));
         prev_time = TIME_MS;
     }
 }

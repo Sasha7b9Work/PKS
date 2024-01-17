@@ -26,7 +26,14 @@ public:
 
     char Pop()
     {
-        return buffer[pos_out++];
+        char result = buffer[pos_out++];
+
+        if (pos_out == capacity)
+        {
+            pos_out = 0;
+        }
+
+        return result;
     }
 
 private:

@@ -131,19 +131,19 @@ namespace Modem
                         }
                         else
                         {
-                            answer.Append('\0', __FILE__, __LINE__);
+                            answer.Append('\0');
                             answer_exist = true;
                         }
                     }
                     else if (symbol == '>')
                     {
-                        answer.Append('>', __FILE__, __LINE__);
-                        answer.Append('\0', __FILE__, __LINE__);
+                        answer.Append('>');
+                        answer.Append('\0');
                         answer_exist = true;
                     }
                     else
                     {
-                        answer.Append(symbol, __FILE__, __LINE__);
+                        answer.Append(symbol);
 
                         if (answer.Size() > 5 && answer[3] == 'D')
                         {
