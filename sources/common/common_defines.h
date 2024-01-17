@@ -1,7 +1,5 @@
 #define VERSION 297
 
-#define ENABLE_LOG
-
 typedef unsigned char uint8;
 typedef signed char int8;
 typedef unsigned short uint16;

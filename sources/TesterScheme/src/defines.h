@@ -13,6 +13,9 @@
 #define ENABLE_LOG
 
 
+#define SERVER_TCP_IS_ENABLED
+
+
 // Через такое время обновляются все показания
 static const int TIME_UPDATE_SENSORS = 30000;
 

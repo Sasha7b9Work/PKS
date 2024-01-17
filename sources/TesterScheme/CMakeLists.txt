@@ -46,7 +46,6 @@ file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
 file(GLOB MEASURER                       src/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                          src/Modem/*.*)
-file(GLOB MODEM_MQTT               .     src/Modem/MQTT/*.*)
 file(GLOB SETTINGS                       src/Settings/*.*)
 file(GLOB STORAGE                        src/Storage/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
@@ -60,7 +59,6 @@ source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
-source_group(Modem/MQTT               FILES ${MODEM_MQTT})
 source_group(Settings                 FILES ${SETTINGS})
 source_group(Storage                  FILES ${STORAGE})
 source_group(Utils                    FILES ${UTILS})
@@ -80,7 +78,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE_HAL}
             ${MEASURER}
             ${MODEM}
-            ${MODEM_MQTT}
             ${SETTINGS}
             ${STORAGE}
             ${UTILS}

@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects-Debug\</OutputDirectory>
-          <OutputName>Loader</OutputName>
+          <OutputName>Loader-PKS</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -758,6 +757,71 @@
               <FileName>SIM800_transmit.cpp</FileName>
               <FileType>8</FileType>
               <FilePath>..\common\Modem\SIM800_transmit.cpp</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem/SCPI</GroupName>
+          <Files>
+            <File>
+              <FileName>BaseSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\BaseSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>BaseSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\BaseSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ControlSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\ControlSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ControlSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\ControlSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>InfoSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\InfoSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>InfoSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\InfoSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>ModemSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\ModemSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>ModemSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\ModemSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>NetSCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\NetSCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>NetSCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\NetSCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
             </File>
           </Files>
         </Group>

@@ -4,7 +4,6 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
-#include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
 
 
@@ -51,7 +50,7 @@ namespace Storage
     static void GetMeasures(Measurements &);
 
     // Собрать очередное измерение
-    static void CollectMeasure(Measurements &);
+    void CollectMeasure(Measurements &);
 }
 
 
@@ -62,18 +61,18 @@ void Storage::Init()
 
 void Storage::Update()
 {
-    static TimeMeterMS meter;
-
-    if (meter.IsFinished())
-    {
-        meter.SetResponseTime(TIME_UPDATE_SENSORS);
-
-        static Measurements measurements;
-
-        CollectMeasure(measurements);
-
-        Sender::SendMeasures(measurements);
-    }
+//    static TimeMeterMS meter;
+//
+//    if (meter.IsFinished())
+//    {
+//        meter.SetResponseTime(TIME_UPDATE_SENSORS);
+//
+//        static Measurements measurements;
+//
+//        CollectMeasure(measurements);
+//
+//        Sender::SendMeasures(measurements);
+//    }
 }
 
 

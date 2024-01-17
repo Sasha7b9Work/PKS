@@ -4,7 +4,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
 #include "Modem/SIM800.h"
-#include "Modem/MQTT/MQTT.h"
 #include "Display/Display.h"
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"

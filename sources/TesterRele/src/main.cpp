@@ -1,6 +1,5 @@
 #include "defines.h"
 #include "TesterRele.h"
-#include "Modem/MQTT/MQTT.h"
 
 
 int main()
@@ -11,10 +10,4 @@ int main()
     {
         TesterRele::Update();
     }
-}
-
-
-bool MQTT::InStateRunning()
-{
-    return false;
 }

@@ -5,5 +5,8 @@
 
 void Debug::Point(pchar file, int line)
 {
+    (void)file;
+    (void)line;
+
     LOG_WRITE("%s : %d", file, line);
 }

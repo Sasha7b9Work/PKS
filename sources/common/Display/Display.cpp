@@ -4,7 +4,7 @@
 #include "Display/SSD1306.h"
 #include "Measurer/Measurer.h"
 #include "Modem/Modem.h"
-#include "Modem/MQTT/MQTT.h"
+#include "Modem/Server/Server.h"
 #include "Modem/SIM800.h"
 #include "Hardware/HAL/HAL.h"
 #include "Settings/Settings.h"
@@ -90,12 +90,16 @@ void Display::Update()
         WriteString(35, 0, "REG");
     }
 
-    if (MQTT::InStateRunning())
+#ifdef SERVER_TCP_IS_ENABLED
+
+    if (Server::IsConnected())
     {
-        WriteString(65, 0, "MQTT");
+        WriteString(65, 0, "SERV");
 
         WriteString(100, 0, SIM800::LevelSignal());
     }
+
+#endif
 
     SSD1306::WriteBuffer(buffer);
 }

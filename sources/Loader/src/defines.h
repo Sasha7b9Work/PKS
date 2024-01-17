@@ -5,8 +5,9 @@
 #endif
 #include "common_defines.h"
 
-
 #define ENABLE_LOG
+
+//#define SERVER_TCP_IS_ENABLED
 
 #define LOADER
 

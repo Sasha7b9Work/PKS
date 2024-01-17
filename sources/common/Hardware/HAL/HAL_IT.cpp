@@ -3,12 +3,6 @@
 #include "Hardware/HAL/HAL.h"
 #include "Measurer/Measurer.h"
 #include "Hardware/Timer.h"
-#include "Modem/MQTT/MQTT.h"
-#ifdef DEVICE
-    #ifndef TESTER
-        #include "Modem/MQTT/Sender.h"
-    #endif
-#endif
 #include <gd32f30x.h>
 #include <systick.h>
 
@@ -142,12 +136,6 @@ extern "C" {
             char symbol = (char)usart_data_receive(USART_GPRS_ADDR);
 
             HAL_USART_GPRS::CallbackOnReceive(symbol);
-
-#ifdef DEVICE
-#ifndef TESTER
-            Sender::CallbackOnReceiveChar(symbol);
-#endif
-#endif
         }
     }
 

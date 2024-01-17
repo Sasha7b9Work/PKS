@@ -2,7 +2,6 @@
 #include "defines.h"
 #include "Modem/Modem.h"
 #include "Modem/SIM800.h"
-#include "Modem/MQTT/MQTT.h"
 
 
 void Modem::Update()
@@ -20,12 +19,6 @@ bool Modem::Mode::Power()
 void Modem::CallbackOnReceive(char)
 {
 
-}
-
-
-bool MQTT::InStateWaitData()
-{
-    return false;
 }
 
 

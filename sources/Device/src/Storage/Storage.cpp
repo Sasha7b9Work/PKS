@@ -4,7 +4,6 @@
 #include "Measurer/Measurer.h"
 #include "Measurer/Contactors.h"
 #include "Hardware/HAL/HAL.h"
-#include "Modem/MQTT/Sender.h"
 #include "Hardware/Timer.h"
 #include "Storage/MemoryStorage.h"
 
@@ -72,6 +71,8 @@ void Storage::Init()
 {
     uint time_start = TIME_MS;
 
+    (void)time_start;
+
     MemoryStorage::Init();
 
     LOG_WRITE("Time init storage %d ms", TIME_MS - time_start);
@@ -106,8 +107,6 @@ void Storage::Update()
         Measurements measurements;
 
         CollectMeasure(measurements);
-
-        Sender::SendMeasures(measurements);
     }
 
 #endif
@@ -130,19 +129,19 @@ void Storage::CollectMeasure(Measurements &measurements)
 
 void Storage::SendMeasure()
 {
-    static TimeMeterMS meter;
-
-    if (meter.IsFinished())
-    {
-        const Measurements *meas = MemoryStorage::GetOldest();
-
-        if (meas && Sender::SendMeasures(*meas))
-        {
-            MemoryStorage::Erase(meas);
-
-            meter.SetResponseTime(TIME_BETWEEN_SENDED);
-        }
-    }
+//    static TimeMeterMS meter;
+//
+//    if (meter.IsFinished())
+//    {
+//        const Measurements *meas = MemoryStorage::GetOldest();
+//
+//        if (meas && Sender::SendMeasures(*meas))
+//        {
+//            MemoryStorage::Erase(meas);
+//
+//            meter.SetResponseTime(TIME_BETWEEN_SENDED);
+//        }
+//    }
 }
 
 

@@ -11,6 +11,7 @@
 
 #define ENABLE_LOG
 
+//#define SERVER_TCP_IS_ENABLED
 
 #include "Globals.h"
 

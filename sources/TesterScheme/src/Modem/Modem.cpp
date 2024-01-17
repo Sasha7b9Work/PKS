@@ -6,13 +6,13 @@
 #include "Hardware/Timer.h"
 #include "Modem/Parser.h"
 #include "Utils/Buffer.h"
-#include "Modem/MQTT/MQTT.h"
 #include "Settings/Settings.h"
 #ifdef LOADER
     #include "Modem/Updater.h"
 #else
     #include "Device.h"
-    #include "Modem/MQTT/Sender.h"
+    #include "Storage/Storage.h"
+    #include "Modem/Server/Server.h"
 #endif
 #include <gd32f30x.h>
 #include <cstring>
@@ -263,8 +263,7 @@ void Modem::Update()
         LOG_WRITE("Modem : State::IDLE");
         SIM800::Reset();
 #ifdef DEVICE
-        MQTT::Reset();
-        Sender::Reset();
+        Server::Reset();
 #endif
         pinGSM_PWR.Set();
         GSM_PG::ToOutLow();

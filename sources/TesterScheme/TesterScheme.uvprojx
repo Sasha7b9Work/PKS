@@ -49,7 +49,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects-Debug\</OutputDirectory>
-          <OutputName>ElectricityMeter</OutputName>
+          <OutputName>TestScheme-PKS</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -782,27 +781,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modem/MQTT</GroupName>
+          <GroupName>Modem/Server</GroupName>
           <Files>
             <File>
-              <FileName>MQTT.cpp</FileName>
+              <FileName>Server.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modem\MQTT\MQTT.cpp</FilePath>
+              <FilePath>..\common\Modem\Server\Server.cpp</FilePath>
             </File>
             <File>
-              <FileName>MQTT.h</FileName>
+              <FileName>Server.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modem\MQTT\MQTT.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\MQTT\Sender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\MQTT\Sender.h</FilePath>
+              <FilePath>..\common\Modem\Server\Server.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -926,7 +915,7 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects\</OutputDirectory>
-          <OutputName>PKS-Test-Scheme</OutputName>
+          <OutputName>TestScheme-PKS</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
@@ -1063,7 +1052,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1659,27 +1647,17 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modem/MQTT</GroupName>
+          <GroupName>Modem/Server</GroupName>
           <Files>
             <File>
-              <FileName>MQTT.cpp</FileName>
+              <FileName>Server.cpp</FileName>
               <FileType>8</FileType>
-              <FilePath>.\src\Modem\MQTT\MQTT.cpp</FilePath>
+              <FilePath>..\common\Modem\Server\Server.cpp</FilePath>
             </File>
             <File>
-              <FileName>MQTT.h</FileName>
+              <FileName>Server.h</FileName>
               <FileType>5</FileType>
-              <FilePath>.\src\Modem\MQTT\MQTT.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>.\src\Modem\MQTT\Sender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>.\src\Modem\MQTT\Sender.h</FilePath>
+              <FilePath>..\common\Modem\Server\Server.h</FilePath>
             </File>
           </Files>
         </Group>

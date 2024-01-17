@@ -54,7 +54,7 @@
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
           <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\Listings-Debug\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -186,7 +186,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -777,31 +776,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modem/MQTT</GroupName>
-          <Files>
-            <File>
-              <FileName>MQTT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Modem/SCPI</GroupName>
           <Files>
             <File>
@@ -863,6 +837,21 @@
               <FileName>NetSCPI.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\SCPI\NetSCPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem/Server</GroupName>
+          <Files>
+            <File>
+              <FileName>Server.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Server\Server.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Server.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Server\Server.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -991,12 +980,12 @@
             <InvalidFlash>1</InvalidFlash>
           </TargetStatus>
           <OutputDirectory>.\Objects-Debug\</OutputDirectory>
-          <OutputName>ElectricityMeter</OutputName>
+          <OutputName>PKS</OutputName>
           <CreateExecutable>1</CreateExecutable>
           <CreateLib>0</CreateLib>
           <CreateHexFile>1</CreateHexFile>
-          <DebugInformation>1</DebugInformation>
-          <BrowseInformation>1</BrowseInformation>
+          <DebugInformation>0</DebugInformation>
+          <BrowseInformation>0</BrowseInformation>
           <ListingPath>.\Listings-Debug\</ListingPath>
           <HexFormatSelection>1</HexFormatSelection>
           <Merge32K>0</Merge32K>
@@ -1128,7 +1117,6 @@
             <RvdsVP>2</RvdsVP>
             <RvdsMve>0</RvdsMve>
             <RvdsCdeCp>0</RvdsCdeCp>
-            <nBranchProt>0</nBranchProt>
             <hadIRAM2>0</hadIRAM2>
             <hadIROM2>0</hadIROM2>
             <StupSel>8</StupSel>
@@ -1719,31 +1707,6 @@
           </Files>
         </Group>
         <Group>
-          <GroupName>Modem/MQTT</GroupName>
-          <Files>
-            <File>
-              <FileName>MQTT.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.h</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.cpp</FilePath>
-            </File>
-            <File>
-              <FileName>Sender.h</FileName>
-              <FileType>5</FileType>
-              <FilePath>..\common\Modem\MQTT\Sender.h</FilePath>
-            </File>
-            <File>
-              <FileName>MQTT.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\MQTT\MQTT.cpp</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>Modem/SCPI</GroupName>
           <Files>
             <File>
@@ -1805,6 +1768,21 @@
               <FileName>NetSCPI.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\SCPI\NetSCPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
+          <GroupName>Modem/Server</GroupName>
+          <Files>
+            <File>
+              <FileName>Server.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\Server\Server.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>Server.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\Server\Server.h</FilePath>
             </File>
           </Files>
         </Group>
