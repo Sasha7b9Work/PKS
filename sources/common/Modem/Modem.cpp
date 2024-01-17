@@ -94,7 +94,7 @@ namespace Modem
     namespace InData
     {
         static RingBuffer<512> in;          // Сюда поступают символы со входа UART
-        static Buffer<64>      answer;      // А здесь будет ответ
+        static Buffer<512>     answer;      // А здесь будет ответ
 
         static int binary_bytes_left = 0;   // Столько двоичных байт нужно принять
 
@@ -131,19 +131,19 @@ namespace Modem
                         }
                         else
                         {
-                            answer.Append('\0');
+                            answer.Append('\0', __FILE__, __LINE__);
                             answer_exist = true;
                         }
                     }
                     else if (symbol == '>')
                     {
-                        answer.Append('>');
-                        answer.Append('\0');
+                        answer.Append('>', __FILE__, __LINE__);
+                        answer.Append('\0', __FILE__, __LINE__);
                         answer_exist = true;
                     }
                     else
                     {
-                        answer.Append(symbol);
+                        answer.Append(symbol, __FILE__, __LINE__);
 
                         if (answer.Size() > 5 && answer[3] == 'D')
                         {
