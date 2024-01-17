@@ -79,6 +79,7 @@ void SCPI::Append(char symbol)
     else
     {
         buffer.Append((char)std::toupper(symbol));
+        prev_time = TIME_MS;
     }
 }
 

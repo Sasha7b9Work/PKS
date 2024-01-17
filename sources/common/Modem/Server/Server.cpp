@@ -59,7 +59,7 @@ namespace Server
     };
 
     int Buffer::pointer = 0;
-    char Buffer::buffer[Buffer::SIZE];
+    char Buffer::buffer[Buffer::SIZE] = { '\0' };
 }
 
 
