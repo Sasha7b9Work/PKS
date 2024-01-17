@@ -55,6 +55,11 @@ namespace Modem
 {
     uint64 IMEI = 0;
 
+    uint64 GetIMEI()
+    {
+        return IMEI;
+    }
+
     struct State
     {
         enum E
