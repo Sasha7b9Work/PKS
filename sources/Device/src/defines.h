@@ -21,15 +21,13 @@
     #pragma clang diagnostic ignored "-Wunreachable-code"
 #endif
 
-
-#include "common_defines.h"
-#include "opt.h"
+#define ENABLE_LOG
 
 #define DEVICE
 
-#define ENABLE_LOG
-
 #define SERVER_TCP_IS_ENABLED
 
+#include "common_defines.h"
+#include "opt.h"
 #include "Globals.h"
 #include "Utils/Debug.h"

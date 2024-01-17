@@ -16,7 +16,11 @@ namespace SCPI
         // "Безопасное" удаление первых n байт из буфера. При этом удалённые символы заменяются нулями
         void SecurityRemoveFirst(int n)
         {
+            int num_after = size - n;
+
             RemoveFirst(n);
+
+            std::memset(buffer + num_after, 0, (uint)n);
         }
 
         void SecurityClear()
@@ -26,7 +30,7 @@ namespace SCPI
                 Append(0);
             }
 
-            Clear();
+            SecurityRemoveFirst(Capacity());
         }
 
         // Удалить угловые скобки вместе с их содержимым
@@ -128,13 +132,8 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
 
             if (std::memcmp(message, command.string, length) == 0)
             {
-                static int counter = 0;
-                
-                if(counter++ > 1)
-                {
-                    counter = counter;
-                }
-                
+                LOG_WRITE("SCPI : %s", message);
+
                 pchar pointer = message + length;
 
                 while (*pointer == '|')
