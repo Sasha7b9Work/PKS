@@ -801,6 +801,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Modem/SCPI</GroupName>
+          <Files>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Settings</GroupName>
           <Files>
             <File>
@@ -877,6 +892,11 @@
               <FileName>Debug.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>RingBuffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\RingBuffer.h</FilePath>
             </File>
           </Files>
         </Group>
@@ -1677,6 +1697,21 @@
           </Files>
         </Group>
         <Group>
+          <GroupName>Modem/SCPI</GroupName>
+          <Files>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
+            </File>
+          </Files>
+        </Group>
+        <Group>
           <GroupName>Settings</GroupName>
           <Files>
             <File>
@@ -1753,6 +1788,11 @@
               <FileName>Debug.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Debug.h</FilePath>
+            </File>
+            <File>
+              <FileName>RingBuffer.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\RingBuffer.h</FilePath>
             </File>
           </Files>
         </Group>

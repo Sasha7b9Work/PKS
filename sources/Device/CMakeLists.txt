@@ -13,24 +13,25 @@ include_directories(../common/_VS_KEIL/CMSIS/
                     ../common/
                     ../common/Hardware/HAL/
                     src/
-                    )
+)
 
 add_definitions(-DGD32F30X_HD)
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -MP -Wall")
 
 
-add_compile_options(/wd4127)
-add_compile_options(/wd4201)    # nonstandard extension used: nameless struct/union
-add_compile_options(/wd4310)
-add_compile_options(/wd4514)    # 'function' : unreferenced inline function has been removed
-add_compile_options(/wd4623)    # default constructor was implicitly defined as deleted
-add_compile_options(/wd4626)    # assignment operator was implicitly defined as deleted
-add_compile_options(/wd4710)    # 'xxx' : function not inlined
-add_compile_options(/wd4820)    # 'xxx': '4' bytes padding added after data member 'yyy'
-add_compile_options(/wd5027)    # move assignment operator was implicitly defined as deleted
-add_compile_options(/wd5045)    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
-
+add_compile_options(
+    /wd4127
+    /wd4201    # nonstandard extension used: nameless struct/union
+    /wd4310
+    /wd4514    # 'function' : unreferenced inline function has been removed
+    /wd4623    # default constructor was implicitly defined as deleted
+    /wd4626    # assignment operator was implicitly defined as deleted
+    /wd4710    # 'xxx' : function not inlined
+    /wd4820    # 'xxx': '4' bytes padding added after data member 'yyy'
+    /wd5027    # move assignment operator was implicitly defined as deleted
+    /wd5045    # Compiler will insert Spectre mitigation for memory load if /Qspectre switch specified
+)
 
 file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
 file(GLOB SRC                            src/*.*
@@ -47,6 +48,7 @@ file(GLOB MEASURER                 ../common/Measurer/*.*)
 file(GLOB MODEM                          src/Modem/*.*
                                    ../common/Modem/*.*)
 file(GLOB MODEM_MQTT               ../common/Modem/MQTT/*.*)
+file(GLOB MODEM_SCPI               ../common/Modem/SCPI/*.*)
 file(GLOB SETTINGS                 ../common/Settings/*.*)
 file(GLOB STORAGE                        src/Storage/*.*)
 file(GLOB UTILS                    ../common/Utils/*.*)
@@ -61,6 +63,7 @@ source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
 source_group(Measurer                 FILES ${MEASURER})
 source_group(Modem                    FILES ${MODEM})
 source_group(Modem/MQTT               FILES ${MODEM_MQTT})
+source_group(Modem/SCPI               FILES ${MODEM_SCPI})
 source_group(Settings                 FILES ${SETTINGS})
 source_group(Storage                  FILES ${STORAGE})
 source_group(Utils                    FILES ${UTILS})
@@ -81,6 +84,7 @@ add_library(${PROJECT_NAME}
             ${MEASURER}
             ${MODEM}
             ${MODEM_MQTT}
+            ${MODEM_SCPI}
             ${SETTINGS}
             ${STORAGE}
             ${UTILS}

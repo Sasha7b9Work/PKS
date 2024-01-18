@@ -20,6 +20,11 @@ public:
         return buffer + Size();
     }
 
+    int Capacity()
+    {
+        return capacity;
+    }
+
     // Возвращает количество элементов в буфере
     int Size() const
     {
