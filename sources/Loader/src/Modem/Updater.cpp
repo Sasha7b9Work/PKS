@@ -11,6 +11,7 @@
 #include "Modem/SIM800.h"
 #include "Utils/Math.h"
 #include "Display/Console.h"
+#include "Globals.h"
 #include <gd32f30x.h>
 #include <cstdio>
 #include <cstring>
@@ -112,13 +113,6 @@ namespace Updater
     {
         state = State::IDLE;
     }
-
-    static pchar address("s92153gg.beget.tech");
-    static pchar login("s92153gg_1");
-    static pchar password("Qwerty123!");
-    static pchar directory("/");
-
-    static pchar file_firmware("Meter.frm");
 
     void Update(const pchar);
 
@@ -252,7 +246,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SET_STATE(State::NEED_FTPUN);
-                SIM800::Transmit::Format("AT+FTPSERV=\"%s\"", address);
+                SIM800::Transmit::Format("AT+FTPSERV=\"%s\"", GL::Firmware::Address());
             }
         }
         break;
@@ -263,7 +257,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SET_STATE(State::NEED_FTPPW);
-                SIM800::Transmit::Format("AT+FTPUN=\"%s\"", login);
+                SIM800::Transmit::Format("AT+FTPUN=\"%s\"", GL::Firmware::Login());
             }
         }
         break;
@@ -274,7 +268,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SET_STATE(State::NEED_FTPGETPATH);
-                SIM800::Transmit::Format("AT+FTPPW=\"%s\"", password);
+                SIM800::Transmit::Format("AT+FTPPW=\"%s\"", GL::Firmware::Password());
             }
         }
         break;
@@ -285,7 +279,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SET_STATE(State::NEED_SET_NAME_FIRMWARE);
-                SIM800::Transmit::Format("AT+FTPGETPATH=\"%s\"", directory);
+                SIM800::Transmit::Format("AT+FTPGETPATH=\"%s\"", GL::Firmware::Directory());
             }
         }
         break;
@@ -296,7 +290,7 @@ void Updater::Update(pchar answer)
             if (strcmp(answer, "OK") == 0)
             {
                 SET_STATE(State::NEED_REQUEST_CONNECT);
-                SIM800::Transmit::Format("AT+FTPGETNAME=\"%s\"", file_firmware);
+                SIM800::Transmit::Format("AT+FTPGETNAME=\"%s\"", GL::Firmware::FileName());
             }
         }
         break;

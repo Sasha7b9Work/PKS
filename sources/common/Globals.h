@@ -5,4 +5,17 @@
 namespace GL
 {
     extern uint _RCU_RSTSCK;
+
+    namespace Firmware
+    {
+        pchar Address();
+
+        pchar Directory();
+
+        pchar FileName();
+
+        pchar Login();
+
+        pchar Password();
+    }
 }
