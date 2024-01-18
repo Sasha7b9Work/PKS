@@ -4,6 +4,7 @@
 #include "Utils/Buffer.h"
 #include "Hardware/Timer.h"
 #include "Utils/RingBuffer.h"
+#include "Hardware/HAL/HAL.h"
 #include <cctype>
 
 
@@ -50,7 +51,7 @@ namespace SCPI
 
     static BufferSCPI buffer;
 
-#define SYMBOL_END 0x0A
+#define SYMBOL_END 0x00
 }
 
 
@@ -62,9 +63,9 @@ void SCPI::Init()
 
 void SCPI::Append(char symbol)
 {
-    if (symbol == 0x01 || symbol == 0x0d)
+    if (symbol < ' ')
     {
-        return;
+        symbol = 0;
     }
 
     symbol = (char)std::toupper(symbol);
@@ -158,7 +159,19 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 
 void SCPI::ProcessUPDATE(pchar message)
 {
+    message += 2;
 
+#define SIZE_MESSAGE 128
 
-    LOG_WRITE("Process %s", message);
+    char data[SIZE_MESSAGE];
+
+    std::memset(data, 0, SIZE_MESSAGE);
+
+    std::strcpy(data, message);
+
+    data[std::strlen(message) - 1] = '\0';
+
+    HAL_ROM::ErasePage(126);
+
+    HAL_ROM::WriteData(HAL_ROM::ADRR_PAGE_UPGRADE_DATA, data, SIZE_MESSAGE);
 }

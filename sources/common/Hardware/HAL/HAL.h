@@ -93,6 +93,9 @@ namespace HAL_ROM
     static const uint ADDR_BASE = 0x08000000U;
     static const uint SIZE_PAGE = 2 * 1024;
 
+    static const uint ADRR_PAGE_UPGRADE_DATA = ADDR_BASE + SIZE_PAGE * 126;
+    static const uint ADDR_PAGE_SETTINGS = ADDR_BASE + SIZE_PAGE * 127;
+
     // В это место записывается новая прошивка перед заменой старой на неё
     static const uint ADDR_STORAGE = 0x8013000U;
 
