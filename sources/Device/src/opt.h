@@ -6,7 +6,7 @@
 //#define ENABLE_CONTROL_CONTACTORS
 
 // Если определено, то данные сохраняеют во внутренней памяти. При наличии сети передаются на сервер
-#define ENABLE_STORAGE
+//#define ENABLE_STORAGE
 
 // Через такое время обновляются все показания
 static const int TIME_UPDATE_SENSORS = 30000;
