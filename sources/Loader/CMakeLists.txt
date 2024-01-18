@@ -45,7 +45,8 @@ file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*
                                 ../common/Modem/Modem.*
                                 ../common/Modem/SIM800*.*)
-file(GLOB UTILS                 ../common/Utils/Math.*)
+file(GLOB UTILS                 ../common/Utils/Math.*
+                                ../common/Utils/StringUtils.*)
 
 source_group(GD32F3             FILES ${GD32F3})
 source_group(src                FILES ${SRC})
