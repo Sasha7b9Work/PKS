@@ -764,6 +764,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\Utils\Log.h</FilePath>
             </File>
+            <File>
+              <FileName>StringUtils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Utils\StringUtils.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\StringUtils.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

@@ -6,6 +6,7 @@
 #include "Hardware/HAL/HAL.h"
 #include "Modem/Modem.h"
 #include "Display/Display.h"
+#include "Globals.h"
 
 
 namespace Modem
@@ -46,8 +47,10 @@ void Loader::Update()
 
     Display::Update();
 
-    if (Updater::IsCompleted())
+    if (!GL::Firmware::IsExist() || Updater::IsCompleted())
     {
+        HAL_ROM::ErasePage(126);
+
         Application::Run();
     }
 }

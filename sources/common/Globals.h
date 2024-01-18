@@ -8,6 +8,8 @@ namespace GL
 
     namespace Firmware
     {
+        bool IsExist();
+
         pchar Address();
 
         pchar Directory();
