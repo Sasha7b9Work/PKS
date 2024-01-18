@@ -5,7 +5,7 @@
 struct StructSCPI
 {
     pchar  string;
-    pchar (*func)(pchar);       // Функция возвращает указатель на последний обработанный символ
+    void (*func)(pchar);       // Функция возвращает указатель на последний обработанный символ
 };
 
 
@@ -17,5 +17,5 @@ namespace SCPI
 
     void Update();
 
-    pchar Process(pchar, StructSCPI *);
+    void Process(pchar, StructSCPI *);
 }

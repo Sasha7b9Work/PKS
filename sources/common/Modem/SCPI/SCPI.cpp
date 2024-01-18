@@ -38,7 +38,7 @@ namespace SCPI
         bool ConsistSymbol(char symbol, pchar *);
     };
 
-    static pchar ProcessUPDATE(pchar);
+    static void ProcessUPDATE(pchar);
 
     static StructSCPI commands[] =
     {
@@ -69,8 +69,6 @@ void SCPI::Append(char symbol)
 
     symbol = (char)std::toupper(symbol);
 
-    LOG_WRITE("SCPI:%c", symbol);
-
     ring.Push(symbol);
 }
 
@@ -84,28 +82,23 @@ void SCPI::Update()
 
     pchar end = nullptr;
 
-    if (buffer.ConsistSymbol(SYMBOL_END, &end))
+    while (buffer.ConsistSymbol(SYMBOL_END, &end))
     {
-        LOG_WRITE("          consist");
-        
-        pchar result = Process(buffer.Data(), commands);
+        Process(buffer.Data(), commands);
 
-        if (result)
-        {
-            buffer.SecurityRemoveFirst(result - buffer.Data());
-        }
+        buffer.SecurityRemoveFirst(end - buffer.Data() + 1);
     }
 }
 
 
-pchar SCPI::Process(pchar message, StructSCPI *_commands)
+void SCPI::Process(pchar message, StructSCPI *_commands)
 {
     // Пропускаем все символы до первого слэша
     while (*message != '/')
     {
         if (*message == SYMBOL_END)
         {
-            return message + 1;
+            return;
         }
         message++;
     }
@@ -114,10 +107,8 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
 
     if (*message == SYMBOL_END)
     {
-        return message + 1;
+        return;
     }
-
-    LOG_WRITE("           point 1");
 
     for (int i = 0; ;i++)
     {
@@ -129,8 +120,6 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
 
             if (std::memcmp(message, command.string, length) == 0)
             {
-                LOG_WRITE("SCPI : %s", message);
-
                 pchar pointer = message + length;
 
                 while (*pointer == '|')
@@ -146,8 +135,6 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
             break;
         }
     }
-
-    return nullptr;
 }
 
 
@@ -169,7 +156,7 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 }
 
 
-pchar SCPI::ProcessUPDATE(pchar message)
+void SCPI::ProcessUPDATE(pchar message)
 {
-    return nullptr;
+    LOG_WRITE("Process %s", message);
 }
