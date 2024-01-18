@@ -898,6 +898,16 @@
               <FileType>5</FileType>
               <FilePath>..\common\Utils\RingBuffer.h</FilePath>
             </File>
+            <File>
+              <FileName>StringUtils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Utils\StringUtils.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\StringUtils.h</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>
@@ -1793,6 +1803,16 @@
               <FileName>RingBuffer.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Utils\RingBuffer.h</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>..\common\Utils\StringUtils.cpp</FilePath>
+            </File>
+            <File>
+              <FileName>StringUtils.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>..\common\Utils\StringUtils.h</FilePath>
             </File>
           </Files>
         </Group>

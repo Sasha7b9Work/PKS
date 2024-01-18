@@ -158,5 +158,7 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 
 void SCPI::ProcessUPDATE(pchar message)
 {
+
+
     LOG_WRITE("Process %s", message);
 }
