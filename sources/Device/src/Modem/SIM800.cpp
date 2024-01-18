@@ -111,21 +111,6 @@ bool SIM800::ProcessUnsolicited(pchar answer)
     {
         return false;
     }
-    else if (strcmp(first_word, "+IPD") == 0)
-    {
-        char buffer[32];
-        if (strcmp(GetWord(answer, 2, buffer), "13") == 0)
-        {
-            if (answer[18] == 1 && answer[17] == 'e' && answer[16] == 't' && answer[15] == 'a')
-            {
-                HAL_FWDGT::ToUpgradeMode();
-
-                Bootloader::Run();
-            }
-        }
-
-        MQTT::CallbackOnReceiveData(answer);
-    }
 
     return false;
 }

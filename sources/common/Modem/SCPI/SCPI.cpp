@@ -3,6 +3,7 @@
 #include "Modem/SCPI/SCPI.h"
 #include "Utils/Buffer.h"
 #include "Hardware/Timer.h"
+#include "Utils/RingBuffer.h"
 #include <cctype>
 
 
@@ -33,9 +34,6 @@ namespace SCPI
             SecurityRemoveFirst(Capacity());
         }
 
-        // Удалить угловые скобки вместе с их содержимым
-        void RemoveAngleBrackets();
-
         // Возвращает true, если буфер содержит символ symbol
         bool ConsistSymbol(char symbol, pchar *);
     };
@@ -48,9 +46,11 @@ namespace SCPI
         { nullptr,  nullptr }
     };
 
+    static RingBuffer<128> ring;
+
     static BufferSCPI buffer;
 
-    static uint prev_time = 0;
+#define SYMBOL_END 0x0A
 }
 
 
@@ -62,51 +62,62 @@ void SCPI::Init()
 
 void SCPI::Append(char symbol)
 {
-    if (symbol == 0x0D)
+    if (symbol == 0x01 || symbol == 0x0d)
     {
-        prev_time = 0;
+        return;
     }
-    else
-    {
-        buffer.Append((char)std::toupper(symbol));
-        prev_time = TIME_MS;
-    }
+
+    symbol = (char)std::toupper(symbol);
+
+    LOG_WRITE("SCPI:%c", symbol);
+
+    ring.Push(symbol);
 }
 
 
 void SCPI::Update()
 {
-    if (TIME_MS - prev_time < 50)
+    while (!ring.IsEmpty())
     {
-        return;
+        buffer.Append(ring.Pop());
     }
 
-    while (buffer.Size() != 0)
-    {
-        buffer.RemoveAngleBrackets();
+    pchar end = nullptr;
 
+    if (buffer.ConsistSymbol(SYMBOL_END, &end))
+    {
+        LOG_WRITE("          consist");
+        
         pchar result = Process(buffer.Data(), commands);
 
         if (result)
         {
             buffer.SecurityRemoveFirst(result - buffer.Data());
         }
-        else
-        {
-            break;
-        }
     }
-
-    buffer.SecurityRemoveFirst(buffer.Size());
 }
 
 
 pchar SCPI::Process(pchar message, StructSCPI *_commands)
 {
-    while (*message == '|')
+    // Пропускаем все символы до первого слэша
+    while (*message != '/')
     {
+        if (*message == SYMBOL_END)
+        {
+            return message + 1;
+        }
         message++;
     }
+
+    message++;
+
+    if (*message == SYMBOL_END)
+    {
+        return message + 1;
+    }
+
+    LOG_WRITE("           point 1");
 
     for (int i = 0; ;i++)
     {
@@ -140,20 +151,6 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
 }
 
 
-void SCPI::BufferSCPI::RemoveAngleBrackets()
-{
-    if (buffer[0] == '<')
-    {
-        pchar pointer;
-
-        if (ConsistSymbol('>', &pointer))
-        {
-            SecurityRemoveFirst(pointer - Data() + 1);
-        }
-    }
-}
-
-
 bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 {
     for (int i = 0; i < size; i++)
@@ -172,7 +169,7 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 }
 
 
-pchar SCPI::ProcessUPDATE(pchar)
+pchar SCPI::ProcessUPDATE(pchar message)
 {
     return nullptr;
 }
