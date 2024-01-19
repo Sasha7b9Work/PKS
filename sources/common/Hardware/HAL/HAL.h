@@ -93,11 +93,13 @@ namespace HAL_ROM
     static const uint ADDR_BASE = 0x08000000U;
     static const uint SIZE_PAGE = 2 * 1024;
 
-    static const uint ADRR_PAGE_UPGRADE_DATA = ADDR_BASE + SIZE_PAGE * 126;
-    static const uint ADDR_PAGE_SETTINGS = ADDR_BASE + SIZE_PAGE * 127;
+    static int PAGE_UPGRADE_DATA = 126;                     // Здесь хранятся данные для обновления
+    static int PAGE_SETTINGS = 127;                         // Здесь хранятся настройки
 
     // В это место записывается новая прошивка перед заменой старой на неё
     static const uint ADDR_STORAGE = 0x8013000U;
+
+    uint AddressPage(int num_page);
 
     // num_sector от 0 до 127. Каждый сектор занимает 2 кБ
     void ErasePage(int num_page);

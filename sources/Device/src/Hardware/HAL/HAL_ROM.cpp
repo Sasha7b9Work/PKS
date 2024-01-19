@@ -10,6 +10,12 @@
 */
 
 
+uint HAL_ROM::AddressPage(int num_page)
+{
+    return ADDR_BASE + num_page * SIZE_PAGE;
+}
+
+
 void HAL_ROM::ErasePage(int num_page)
 {
     fmc_unlock();
@@ -18,9 +24,7 @@ void HAL_ROM::ErasePage(int num_page)
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);
     fmc_flag_clear(FMC_FLAG_BANK0_PGERR);
 
-    uint address = FLASH_BASE + num_page * SIZE_PAGE;
-
-    fmc_page_erase(address);
+    fmc_page_erase(AddressPage(num_page));
 
     fmc_flag_clear(FMC_FLAG_BANK0_END);
     fmc_flag_clear(FMC_FLAG_BANK0_WPERR);

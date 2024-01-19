@@ -10,6 +10,12 @@
 */
 
 
+uint HAL_ROM::AddressPage(int num_page)
+{
+    return ADDR_BASE + num_page * SIZE_PAGE;
+}
+
+
 void HAL_ROM::ErasePage(int num_page)
 {
     fmc_unlock();

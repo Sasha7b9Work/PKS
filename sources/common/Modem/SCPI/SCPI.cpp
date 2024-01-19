@@ -173,5 +173,5 @@ void SCPI::ProcessUPDATE(pchar message)
 
     HAL_ROM::ErasePage(126);
 
-    HAL_ROM::WriteData(HAL_ROM::ADRR_PAGE_UPGRADE_DATA, data, SIZE_MESSAGE);
+    HAL_ROM::WriteData(HAL_ROM::AddressPage(HAL_ROM::PAGE_UPGRADE_DATA), data, SIZE_MESSAGE);
 }
