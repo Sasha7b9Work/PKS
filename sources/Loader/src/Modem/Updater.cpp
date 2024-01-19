@@ -139,7 +139,7 @@ namespace Updater
             return true;
         }
 
-        Loader::Reset();
+        SET_STATE(State::COMPLETED);
 
         return false;
     }
@@ -259,6 +259,10 @@ void Updater::Update(pchar answer)
                 SET_STATE(State::NEED_FTPPW);
                 SIM800::Transmit::Format("AT+FTPUN=\"%s\"", GL::Firmware::Login());
             }
+            else if (answer[0] != '\0')                 // При любом другом ответе завершаем обновление
+            {
+                SET_STATE(State::COMPLETED);
+            }
         }
         break;
 
@@ -269,6 +273,10 @@ void Updater::Update(pchar answer)
             {
                 SET_STATE(State::NEED_FTPGETPATH);
                 SIM800::Transmit::Format("AT+FTPPW=\"%s\"", GL::Firmware::Password());
+            }
+            else if (answer[0] != '\0')                 // При любом другом ответе завершаем обновление
+            {
+                SET_STATE(State::COMPLETED);
             }
         }
         break;
@@ -281,6 +289,10 @@ void Updater::Update(pchar answer)
                 SET_STATE(State::NEED_SET_NAME_FIRMWARE);
                 SIM800::Transmit::Format("AT+FTPGETPATH=\"%s\"", GL::Firmware::Directory());
             }
+            else if (answer[0] != '\0')                 // При любом другом ответе завершаем обновление
+            {
+                SET_STATE(State::COMPLETED);
+            }
         }
         break;
 
@@ -292,6 +304,10 @@ void Updater::Update(pchar answer)
                 SET_STATE(State::NEED_REQUEST_CONNECT);
                 SIM800::Transmit::Format("AT+FTPGETNAME=\"%s\"", GL::Firmware::FileName());
             }
+            else if (answer[0] != '\0')                 // При любом другом ответе завершаем обновление
+            {
+                SET_STATE(State::COMPLETED);
+            }
         }
         break;
 
@@ -302,6 +318,10 @@ void Updater::Update(pchar answer)
             {
                 SET_STATE(State::NEED_WAIT_CONNECT);
                 SIM800::Transmit::With0D("AT+FTPGET=1");
+            }
+            else if (answer[0] != '\0')                 // При любом другом ответе завершаем обновление
+            {
+                SET_STATE(State::COMPLETED);
             }
         }
         break;
@@ -318,7 +338,7 @@ void Updater::Update(pchar answer)
                     version = 0;
                     ReaderFTP::ReceiveBytes(4);
                 }
-                else if(strcmp(answer, "+FTPGET: 1,77") == 0)           // Если нет файла на сервере  (77 == Operate error)
+                else if(answer[0] != '\0')              // Если нет файла на сервере  (77 == Operate error)
                 {
                     SET_STATE(State::COMPLETED);
                 }
