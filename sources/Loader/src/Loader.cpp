@@ -49,7 +49,7 @@ void Loader::Update()
 
     if (!GL::Firmware::IsExist() || Updater::IsCompleted())
     {
-        HAL_ROM::ErasePage(126);
+        HAL_ROM::ErasePage(HAL_ROM::PAGE_UPGRADE_DATA);
 
         Application::Run();
     }

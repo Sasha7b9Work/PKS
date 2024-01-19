@@ -171,7 +171,7 @@ void SCPI::ProcessUPDATE(pchar message)
 
     data[std::strlen(message) - 1] = '\0';
 
-    HAL_ROM::ErasePage(126);
+    HAL_ROM::ErasePage(HAL_ROM::PAGE_UPGRADE_DATA);
 
     HAL_ROM::WriteData(HAL_ROM::AddressPage(HAL_ROM::PAGE_UPGRADE_DATA), data, SIZE_MESSAGE);
 }
