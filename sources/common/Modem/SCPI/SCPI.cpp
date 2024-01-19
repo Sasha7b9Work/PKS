@@ -5,6 +5,7 @@
 #include "Hardware/Timer.h"
 #include "Utils/RingBuffer.h"
 #include "Hardware/HAL/HAL.h"
+#include "Hardware/Bootloader.h"
 #include <cctype>
 
 
@@ -174,4 +175,6 @@ void SCPI::ProcessUPDATE(pchar message)
     HAL_ROM::ErasePage(HAL_ROM::PAGE_UPGRADE_DATA);
 
     HAL_ROM::WriteData(HAL_ROM::AddressPage(HAL_ROM::PAGE_UPGRADE_DATA), data, SIZE_MESSAGE);
+
+    Bootloader::Run();
 }

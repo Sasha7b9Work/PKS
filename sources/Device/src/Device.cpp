@@ -18,6 +18,8 @@ void Device::Init()
 
     HAL::Init();
 
+    HAL_ROM::ErasePage(HAL_ROM::PAGE_UPGRADE_DATA);
+
     Contactors::Init();
 
     Storage::Init();
