@@ -45,6 +45,8 @@ file(GLOB MODEM                       src/Modem/*.*
                                 ../common/Modem/Parser.*
                                 ../common/Modem/Modem.*
                                 ../common/Modem/SIM800*.*)
+file(GLOB MODEM_SCPI            ../common/Modem/SCPI/SCPI.h
+                                      src/Modem/SCPI/*.*)
 file(GLOB UTILS                 ../common/Utils/Math.*
                                 ../common/Utils/StringUtils.*)
 
@@ -57,6 +59,7 @@ source_group(Hardware/CMSIS     FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL       FILES ${HARDWARE_HAL})
 source_group(Measurer           FILES ${MEASURER})
 source_group(Modem              FILES ${MODEM})
+source_group(Modem/SCPI         FILES ${MODEM_SCPI})
 source_group(Utils              FILES ${UTILS})
 
 set_source_files_properties(${GD32F3} ${HARDWARE_CMSIS} ../common/Hardware/HAL/systick.c
@@ -72,5 +75,6 @@ add_library(${PROJECT_NAME}
             ${HARDWARE_HAL}
             ${MEASURER}
             ${MODEM}
+            ${MODEM_SCPI}
             ${UTILS}
 )

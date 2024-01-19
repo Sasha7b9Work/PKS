@@ -160,9 +160,10 @@ bool SCPI::BufferSCPI::ConsistSymbol(char symbol, pchar *pointer)
 
 void SCPI::ProcessUPDATE(pchar message)
 {
+    /*
     message += 2;
 
-#define SIZE_MESSAGE 128
+    static const int SIZE_MESSAGE = 128;
 
     char data[SIZE_MESSAGE];
 
@@ -175,6 +176,7 @@ void SCPI::ProcessUPDATE(pchar message)
     HAL_ROM::ErasePage(HAL_ROM::PAGE_UPGRADE_DATA);
 
     HAL_ROM::WriteData(HAL_ROM::AddressPage(HAL_ROM::PAGE_UPGRADE_DATA), data, SIZE_MESSAGE);
+    */
 
     Bootloader::Run();
 }

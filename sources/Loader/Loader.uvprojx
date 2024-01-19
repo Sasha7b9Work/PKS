@@ -764,14 +764,14 @@
           <GroupName>Modem/SCPI</GroupName>
           <Files>
             <File>
-              <FileName>SCPI.cpp</FileName>
-              <FileType>8</FileType>
-              <FilePath>..\common\Modem\SCPI\SCPI.cpp</FilePath>
-            </File>
-            <File>
               <FileName>SCPI.h</FileName>
               <FileType>5</FileType>
               <FilePath>..\common\Modem\SCPI\SCPI.h</FilePath>
+            </File>
+            <File>
+              <FileName>SCPI.cpp</FileName>
+              <FileType>8</FileType>
+              <FilePath>.\src\Modem\SCPI\SCPI.cpp</FilePath>
             </File>
           </Files>
         </Group>
