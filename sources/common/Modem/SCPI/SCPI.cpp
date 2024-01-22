@@ -44,7 +44,7 @@ namespace SCPI
 
     static StructSCPI commands[] =
     {
-        { "UPDATE", ProcessUPDATE },
+        { "update", ProcessUPDATE },
         { nullptr,  nullptr }
     };
 
