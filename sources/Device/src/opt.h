@@ -3,7 +3,7 @@
 
 
 // Включить отлючение контакторов при неисправности одного из них
-//#define ENABLE_CONTROL_CONTACTORS
+#define ENABLE_CONTROL_CONTACTORS
 
 // Если определено, то данные сохраняеют во внутренней памяти. При наличии сети передаются на сервер
 //#define ENABLE_STORAGE
