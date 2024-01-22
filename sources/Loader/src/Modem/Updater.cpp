@@ -407,7 +407,7 @@ void Updater::Update(pchar answer)
                 }
                 else
                 {
-                    Loader::Reset();
+                    SET_STATE(State::COMPLETED);
                 }
             }
             else if (ReaderFTP::requested_bytes_received)
