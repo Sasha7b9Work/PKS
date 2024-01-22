@@ -69,8 +69,6 @@ void SCPI::Append(char symbol)
         symbol = 0;
     }
 
-    symbol = (char)std::toupper(symbol);
-
     ring.Push(symbol);
 }
 

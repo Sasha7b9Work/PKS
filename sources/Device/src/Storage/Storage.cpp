@@ -82,7 +82,7 @@ void Storage::Update()
 {
     static TimeMeterMS meter;
 
-#ifdef ENABLE_CONTROL_CONTACTORS
+#ifdef ENABLE_STORAGE
 
     if (meter.IsFinished())
     {
