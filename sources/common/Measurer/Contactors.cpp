@@ -366,13 +366,22 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
             }
             else
             {
-                State::current[phase] = State::RELE_5;
+                State::current[phase] = State::RELE_5;                              // для 4-х и 3-х ступеней
             }
         }
         break;
 
     case State::RELE_5:
-        if (meter[phase].IsFinished()) { CHANGE_RELE(5, State::RELE_6, states[st[phase]][2]);   // KM5 //-V525
+        if (meter[phase].IsFinished())
+        {
+            if (gset.GetNumberSteps() > 3)
+            {
+                CHANGE_RELE(5, State::RELE_6, states[st[phase]][2]);   // KM5 //-V525
+            }
+            else
+            {
+                State::current[phase] = State::RELE_6;                              // для 3-х ступеней
+            }
         }                                                                               break;
 
     case State::RELE_6:
@@ -496,6 +505,15 @@ void Contactors::Contactor::Disable()
     }
 }
 
+void Contactors::SetAddressMX(uint address)
+{
+    pinMX0.SetState((address & 1) != 0);
+    pinMX1.SetState((address & 2) != 0);
+    pinMX2.SetState((address & 4) != 0);
+    pinMX3.SetState((address & 8) != 0);
+    pinMX4.SetState((address & 16) == 0);
+}
+
 
 void Contactors::Serviceability::Update()
 {
@@ -523,11 +541,20 @@ void Contactors::Serviceability::Update()
                 {
                     states[address] = 0;
                 }
-                if (gset.GetNumberSteps() == 4)
+
+                if (gset.GetNumberSteps() < 5)
                 {
-                    if (address == 3 || address == 12 || address == 21)     // Для 4-х ступенчатого варианта 4-е реле не опрашиваем
+                    if (address == 3 || address == 12 || address == 21)         // Для 4-х ступенчатого варианта 4-е реле не опрашиваем
                     {
                         states[address] = 0;
+                    }
+
+                    if (gset.GetNumberSteps() < 4)                              // Для 3-х ступенчатого варианта ещё и 5-е реле не опрашиваем
+                    {
+                        if (address == 4 || address == 13 || address == 22)
+                        {
+                            states[address] = 0;
+                        }
                     }
                 }
             }
@@ -542,16 +569,6 @@ void Contactors::Serviceability::Update()
 
         SetAddressMX(address == 27 ? 31 : address);
     }
-}
-
-
-void Contactors::SetAddressMX(uint address)
-{
-    pinMX0.SetState((address & 1) != 0);
-    pinMX1.SetState((address & 2) != 0);
-    pinMX2.SetState((address & 4) != 0);
-    pinMX3.SetState((address & 8) != 0);
-    pinMX4.SetState((address & 16) == 0);
 }
 
 
