@@ -192,7 +192,7 @@ void Storage::GetLevelsContactors(Measurements &meas)
 
 void Storage::GetMeasures(Measurements &meas)
 {
-    meas.SetFullMeasure(Measurer::LastMeasure());
+    meas.SetFullMeasure(Measurer::Measure5Sec());
 }
 
 
