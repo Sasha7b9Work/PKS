@@ -46,7 +46,7 @@ FullMeasure Calculator::Averager::Calculate(const FullMeasure &meas)
 {
     Push(meas);
 
-    FullMeasure result = measure;
+    static FullMeasure result = measure;
 
     if (Timer::TimeMS() >= time_ready_measrue)
     {
@@ -56,8 +56,8 @@ FullMeasure Calculator::Averager::Calculate(const FullMeasure &meas)
             {
                 measure.measures[i].voltage = sum.measures[i].voltage / (float)counter[i];
                 measure.measures[i].current = sum.measures[i].current / (float)counter[i];
+                measure.is_good[i] = true;
             }
-            measure.is_good[i] = (counter[i] != 0);
         }
 
         result = measure;
