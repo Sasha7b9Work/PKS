@@ -65,37 +65,29 @@ namespace Sender
 
 
     static bool gp[Phase::Count] = { false, false, false };
-    static bool need_gp[Phase::Count] = { true, true, true };
 
     static int states[Phase::Count][9];
-    static bool need_states[Phase::Count][9];
 
     static bool all_states = false;                                      // Состояние всех контакторов - 0, если неисправен хотя бы один контактор
-    static bool need_all_states = true;
 
     static bool _100V = false;                                          // Источник 100 В
-    static bool need_100V = true;
 
     static int levels[Phase::Count] = { 0, 0, 0 };                      // Ступень контактора
     static bool need_levels[Phase::Count] = { true, true, true };
 
     static float voltage[Phase::Count] = { 0.0f, 0.0f, 0.0f };
-    static bool need_voltage[Phase::Count] = { true, true, true };
 
     static float current[Phase::Count] = { 0.0f, 0.0f, 0.0f };
-    static bool need_current[Phase::Count] = { true, true, true };
 
     void Reset()
     {
         for (int i = 0; i < Phase::Count; i++)
         {
             gp[i] = false;
-            need_gp[i] = true;
 
             for (int km = 0; km < 9; km++)
             {
                 states[i][km] = 2;
-                need_states[i][km] = true;
             }
 
             levels[i] = 0;
@@ -103,48 +95,26 @@ namespace Sender
         }
 
         all_states = false;
-        need_all_states = true;
 
         _100V = false;
-        need_100V = true;
-    }
-
-    static int ToInt(float value)
-    {
-        return (int)(value * 10.0f + 0.5f);
     }
 
     static void SendPhase(Phase::E phase, const FullMeasure &value)
     {
-        bool need_power = false;
-
         static const pchar letters[Phase::Count] = { "a", "b", "c" };
 
         char topic[32];
 
-        if (need_voltage[phase] || ToInt(voltage[phase]) != ToInt(value.measures[phase].voltage))
-        {
-            need_power = true;
-            voltage[phase] = value.measures[phase].voltage;
-            std::sprintf(topic, "base/state/voltage_%s", letters[phase]);
-            MQTT::Packet::PublishF(topic, value.measures[phase].voltage);
-            need_voltage[phase] = false;
-        }
+        voltage[phase] = value.measures[phase].voltage;
+        std::sprintf(topic, "base/state/voltage_%s", letters[phase]);
+        MQTT::Packet::PublishF(topic, value.measures[phase].voltage);
 
-        if (need_current[phase] || ToInt(current[phase]) != ToInt(value.measures[phase].current))
-        {
-            need_power = true;
-            current[phase] = value.measures[phase].current;
-            std::sprintf(topic, "base/state/current_%s", letters[phase]);
-            MQTT::Packet::PublishF(topic, value.measures[phase].current);
-            need_current[phase] = false;
-        }
+        current[phase] = value.measures[phase].current;
+        std::sprintf(topic, "base/state/current_%s", letters[phase]);
+        MQTT::Packet::PublishF(topic, value.measures[phase].current);
 
-        if (need_power)
-        {
-            std::sprintf(topic, "/power_%s", letters[phase]);
-            MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
-        }
+        std::sprintf(topic, "/power_%s", letters[phase]);
+        MQTT::Packet::PublishF(topic, value.measures[phase].GetPower() / 1e3f);
     }
 }
 
@@ -189,10 +159,8 @@ bool Sender::SendMeasures(const Measurements &meas)
 
                 int state = meas.flags.GetKM((Phase::E)phase, i);
 
-                if (need_states[phase][i] || state != states[phase][i])
+                if (state != states[phase][i])
                 {
-                    need_states[phase][i] = false;
-
                     states[phase][i] = state;
 
                     MQTT::Packet::Publish(topic, state);
@@ -205,10 +173,9 @@ bool Sender::SendMeasures(const Measurements &meas)
             }
         }
 
-        if (good != all_states || need_all_states)
+        if (good != all_states)
         {
             all_states = good;
-            need_all_states = false;
             MQTT::Packet::Publish("/base/state/state_contactors", good ? "1" : "0");
         }
     }
@@ -216,9 +183,8 @@ bool Sender::SendMeasures(const Measurements &meas)
     {
         bool now_100v = meas.flags.Get100V();
 
-        if (need_100V || now_100v != _100V)
+        if (now_100v != _100V)
         {
-            need_100V = false;
             _100V = now_100v;
 
             MQTT::Packet::Publish("/base/state/dc100v", _100V ? "1" : "0");
@@ -248,10 +214,9 @@ bool Sender::SendMeasures(const Measurements &meas)
         {
             bool now_gp = meas.flags.GetGP((Phase::E)i);
 
-            if (now_gp != gp[i] || need_gp[i])
+            if (now_gp != gp[i])
             {
                 gp[i] = now_gp;
-                need_gp[i] = false;
 
                 char topic[32] = { '\0' };
 
