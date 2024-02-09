@@ -6,6 +6,9 @@
 #include <cstring>
 
 
+// /update/"power.avkpanel.ru rom update / Meter.frm"
+
+
 namespace GL
 {
     bool now_enabled = true;
