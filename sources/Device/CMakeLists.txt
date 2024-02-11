@@ -6,13 +6,14 @@ project (Device)
 
 message("------------------------------------------------------------------------ ${PROJECT_NAME}")
 
-include_directories(../common/_VS_KEIL/CMSIS/
-                    ../common/_VS_KEIL/std_includes
-                    ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
-                    ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
-                    ../common/
-                    ../common/Hardware/HAL/
-                    src/
+include_directories(
+    ../common/_VS_KEIL/CMSIS/
+    ../common/_VS_KEIL/std_includes
+    ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/
+    ../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include/
+    ../common/
+    ../common/Hardware/HAL/
+    src/
 )
 
 add_definitions(-DGD32F30X_HD)
@@ -34,60 +35,63 @@ add_compile_options(
 )
 
 
-file(GLOB GD32F3                   ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
-file(GLOB SRC                            src/*.*
-                                   ../common/*.h
-                                   ../common/*.cpp)
-file(GLOB DISPLAY                  ../common/Display/*.*)
-file(GLOB DISPLAY_FONT             ../common/Display/Font/*.*)
-file(GLOB HARDWARE                       src/Hardware/*.*
-                                   ../common/Hardware/*.*)
-file(GLOB HARDWARE_CMSIS                 src/Hardware/CMSIS/*.*)
-file(GLOB HARDWARE_HAL                   src/Hardware/HAL/*.*
-                                   ../common/Hardware/HAL/*.*)
-file(GLOB MEASURER                 ../common/Measurer/*.*)
-file(GLOB MODEM                          src/Modem/*.*
-                                   ../common/Modem/*.*)
-file(GLOB MODEM_SCPI               ../common/Modem/SCPI/*.*)
-file(GLOB MODEM_SERVER             ../common/Modem/Server/*.*)
-file(GLOB SETTINGS                 ../common/Settings/*.*)
-file(GLOB STORAGE                        src/Storage/*.*)
-file(GLOB UTILS                    ../common/Utils/*.*)
+file(GLOB GD32F3            ../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include/*.*)
+file(GLOB SRC                     src/*.*
+                            ../common/*.h
+                            ../common/*.cpp)
+file(GLOB DISPLAY           ../common/Display/*.*)
+file(GLOB DISPLAY_FONT      ../common/Display/Font/*.*)
+file(GLOB HARDWARE                src/Hardware/*.*
+                            ../common/Hardware/*.*)
+file(GLOB HARDWARE_CMSIS          src/Hardware/CMSIS/*.*)
+file(GLOB HARDWARE_HAL            src/Hardware/HAL/*.*
+                            ../common/Hardware/HAL/*.*)
+file(GLOB MEASURER          ../common/Measurer/*.*)
+file(GLOB MODEM                   src/Modem/*.*
+                            ../common/Modem/*.*)
+file(GLOB MODEM_SCPI        ../common/Modem/SCPI/*.*)
+file(GLOB MODEM_SERVER      ../common/Modem/Server/*.*)
+file(GLOB SETTINGS          ../common/Settings/*.*)
+file(GLOB STORAGE                 src/Storage/*.*)
+file(GLOB UTILS             ../common/Utils/*.*)
 
-source_group(GD32F3                   FILES ${GD32F3})
-source_group(src                      FILES ${SRC})
-source_group(Display                  FILES ${DISPLAY})
-source_group(Display/Font             FILES ${DISPLAY_FONT})
-source_group(Hardware                 FILES ${HARDWARE})
-source_group(Hardware/CMSIS           FILES ${HARDWARE_CMSIS})
-source_group(Hardware/HAL             FILES ${HARDWARE_HAL})
-source_group(Measurer                 FILES ${MEASURER})
-source_group(Modem                    FILES ${MODEM})
-source_group(Modem/SCPI               FILES ${MODEM_SCPI})
-source_group(Modem/Server             FILES ${MODEM_SERVER})
-source_group(Settings                 FILES ${SETTINGS})
-source_group(Storage                  FILES ${STORAGE})
-source_group(Utils                    FILES ${UTILS})
+source_group(GD32F3         FILES ${GD32F3})
+source_group(src            FILES ${SRC})
+source_group(Display        FILES ${DISPLAY})
+source_group(Display/Font   FILES ${DISPLAY_FONT})
+source_group(Hardware       FILES ${HARDWARE})
+source_group(Hardware/CMSIS FILES ${HARDWARE_CMSIS})
+source_group(Hardware/HAL   FILES ${HARDWARE_HAL})
+source_group(Measurer       FILES ${MEASURER})
+source_group(Modem          FILES ${MODEM})
+source_group(Modem/SCPI     FILES ${MODEM_SCPI})
+source_group(Modem/Server   FILES ${MODEM_SERVER})
+source_group(Settings       FILES ${SETTINGS})
+source_group(Storage        FILES ${STORAGE})
+source_group(Utils          FILES ${UTILS})
 
-set_source_files_properties(${STM32F3} ${HARDWARE_CMSIS}
-                            ../common/Hardware/HAL/systick.c
-                            src/Storage/MemoryStorage.cpp
-                            PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties(
+    ${STM32F3} ${HARDWARE_CMSIS}
+    ../common/Hardware/HAL/systick.c
+    src/Storage/MemoryStorage.cpp
+    PROPERTIES HEADER_FILE_ONLY TRUE
+)
 
-add_library(${PROJECT_NAME}
-            ${GD32F3}
-            ${SRC}
-            ${DISPLAY}
-            ${DISPLAY_FONT}
-            ${HARDWARE}
-            ${HARDWARE_CMSIS}
-            ${HARDWARE_HAL}
-            ${MEASURER}
-            ${MODEM}
-            ${MODEM_SCPI}
-            ${MODEM_SERVER}
-            ${SETTINGS}
-            ${STORAGE}
-            ${UTILS}
+add_library(
+    ${PROJECT_NAME}
+    ${GD32F3}
+    ${SRC}
+    ${DISPLAY}
+    ${DISPLAY_FONT}
+    ${HARDWARE}
+    ${HARDWARE_CMSIS}
+    ${HARDWARE_HAL}
+    ${MEASURER}
+    ${MODEM}
+    ${MODEM_SCPI}
+    ${MODEM_SERVER}
+    ${SETTINGS}
+    ${STORAGE}
+    ${UTILS}
 )
  
