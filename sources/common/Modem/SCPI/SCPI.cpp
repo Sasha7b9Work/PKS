@@ -132,7 +132,7 @@ pchar SCPI::Process(pchar message, StructSCPI *_commands)
 
             if (std::memcmp(message, command.string, length) == 0)
             {
-                LOG_WRITE("SCPI : %s", message);
+                LOG_WRITE("SCPI >>> %s", message);
 
                 pchar pointer = message + length;
 
