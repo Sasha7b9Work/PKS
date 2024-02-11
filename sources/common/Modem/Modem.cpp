@@ -53,7 +53,7 @@ using namespace std;
 
 namespace Modem
 {
-    char IMEI[20];
+    char IMEI[48];
 
     pchar GetIMEI()
     {

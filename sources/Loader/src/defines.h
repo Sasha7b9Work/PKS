@@ -11,8 +11,10 @@
 
 #define LOADER
 
-#if __ARMCLIB_VERSION < 6000000
-    #define nullptr 0
+#ifndef WIN32
+    #if __ARMCLIB_VERSION < 6000000
+        #define nullptr 0
+    #endif
 #endif
 
 

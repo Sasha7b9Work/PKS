@@ -118,7 +118,7 @@ void Server::Send(char *format, ...)
     va_start(args, format);
     std::vsprintf(message, format, args);
 
-    std::strcat(message, "\0x0D");
+    std::strcat(message, "\x0D");
 
     Buffer::Append(message);
 }

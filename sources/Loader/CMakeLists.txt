@@ -46,17 +46,19 @@ file(GLOB MODEM                   src/Modem/*.*
                             ../common/Modem/Parser.*
                             ../common/Modem/Modem.*
                             ../common/Modem/SIM800*.*)
+file(GLOB MODEM_SERVER            src/Modem/Server/*.*)
 file(GLOB UTILS             ../common/Utils/Math.*)
 
 source_group(GD32F3         FILES ${GD32F3})
 source_group(src            FILES ${SRC})
-source_group(Display              FILES ${DISPLAY})
-source_group(Display/Font         FILES ${DISPLAY_FONT})
+source_group(Display        FILES ${DISPLAY})
+source_group(Display/Font   FILES ${DISPLAY_FONT})
 source_group(Hardware       FILES ${HARDWARE})
 source_group(Hardware/CMSIS FILES ${HARDWARE_CMSIS})
 source_group(Hardware/HAL   FILES ${HARDWARE_HAL})
 source_group(Measurer       FILES ${MEASURER})
 source_group(Modem          FILES ${MODEM})
+source_group(Modem/Server   FILES ${MODEM_SERVER})
 source_group(Utils          FILES ${UTILS})
 
 set_source_files_properties(
@@ -75,5 +77,6 @@ add_library(
     ${HARDWARE_HAL}
     ${MEASURER}
     ${MODEM}
+    ${MODEM_SERVER}
     ${UTILS}
 )

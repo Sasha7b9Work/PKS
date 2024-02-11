@@ -20,7 +20,7 @@ using namespace std;
 
 namespace Modem
 {
-    extern char IMEI[20];
+    extern char IMEI[48];
 }
 
 
