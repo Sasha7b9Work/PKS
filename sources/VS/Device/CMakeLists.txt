@@ -4,16 +4,18 @@ project (Device-GUI)
 
 set(CMAKE_UNITY_BUILD OFF)
 
-include_directories(.
-                    Device
-                    ../../Device/src
-                    ../../Device/src/Hardware/CDC
-                    ../../Device/src/Hardware/HAL
-                    ../../VS/ThirdParty/wxWidgets/include
-                    ../../generated/ThirdParty/lib/vc_dll/mswud
-                    ../../common/_VS_KEIL/CMSIS
-                    ../../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include
-                    ../../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include)
+include_directories(
+    .
+    Device
+    ../../Device/src
+    ../../Device/src/Hardware/CDC
+    ../../Device/src/Hardware/HAL
+    ../../VS/ThirdParty/wxWidgets/include
+    ../../generated/ThirdParty/lib/vc_dll/mswud
+    ../../common/_VS_KEIL/CMSIS
+    ../../common/GD32F30x_Library/Firmware/GD32F30x_standard_peripheral/Include
+    ../../common/GD32F30x_Library/Firmware/CMSIS/GD/GD32F30x/Include
+)
 
 link_directories(../../generated/ThirdParty/lib/vc_dll)
 
@@ -24,28 +26,30 @@ if(WIN32)
     set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} /SUBSYSTEM:WINDOWS")
     
 
-    add_compile_options(/wd4005)
-    add_compile_options(/wd4100)
-    add_compile_options(/wd4201)
-    add_compile_options(/wd4255)
-    add_compile_options(/wd4365)
-    add_compile_options(/wd4464)
-    add_compile_options(/wd4548)
-    add_compile_options(/wd4514)
-    add_compile_options(/wd4623)
-    add_compile_options(/wd4625)
-    add_compile_options(/wd4626)
-    add_compile_options(/wd4668)
-    add_compile_options(/wd4774)
-    add_compile_options(/wd4820)
-    add_compile_options(/wd4996)
-    add_compile_options(/wd5026)
-    add_compile_options(/wd5027)
-    add_compile_options(/wd5039)    # 'xxx': pointer or reference to potentially throwing function passed to extern C
-                                    # function under -EHc.
-    add_compile_options(/wd5045)
-    add_compile_options(/wd5220)
-    add_compile_options(/wd26812)
+    add_compile_options(
+        /wd4005
+        /wd4100
+        /wd4201
+        /wd4255
+        /wd4365
+        /wd4464
+        /wd4548
+        /wd4514
+        /wd4623
+        /wd4625
+        /wd4626
+        /wd4668
+        /wd4774
+        /wd4820
+        /wd4996
+        /wd5026
+        /wd5027
+        /wd5039    # 'xxx': pointer or reference to potentially throwing function passed to extern C
+                    # function under -EHc.
+        /wd5045
+        /wd5220
+        /wd26812
+    )
 endif()
 
 file(GLOB SRC                       *.h *.cpp
@@ -82,24 +86,27 @@ source_group(Measurer                   FILES ${MEASURER})
 source_group(Modem                      FILES ${MODEM})
 source_group(Utils                      FILES ${UTILS})
 
-set_source_files_properties(../../Device/src/Hardware/HAL/systick.c
-                            PROPERTIES HEADER_FILE_ONLY TRUE)
+set_source_files_properties(
+    ../../Device/src/Hardware/HAL/systick.c
+    PROPERTIES HEADER_FILE_ONLY TRUE
+)
 
-add_executable( ${PROJECT_NAME}
-                ${SRC}
-                ${LIBS}
-                ${DISPLAY}
-                ${DISPLAY_FONT}
-                ${FLASHDISK}
-                ${HARDWARE}
-                ${HARDWARE_HAL}
-                ${HARDWARE_MODULES_SIM800C}
-                ${HARDWARE_MODULES_M25P80}
-                ${HARDWARE_MODULES_SSD1306}
-                ${MEASURER}
-                ${MODEM}
-                ${UTILS}
-                )
+add_executable(
+    ${PROJECT_NAME}
+    ${SRC}
+    ${LIBS}
+    ${DISPLAY}
+    ${DISPLAY_FONT}
+    ${FLASHDISK}
+    ${HARDWARE}
+    ${HARDWARE_HAL}
+    ${HARDWARE_MODULES_SIM800C}
+    ${HARDWARE_MODULES_M25P80}
+    ${HARDWARE_MODULES_SSD1306}
+    ${MEASURER}
+    ${MODEM}
+    ${UTILS}
+)
 
 target_link_libraries(${PROJECT_NAME} wxbase32ud wxmsw32ud_core Ws2_32)
 
