@@ -524,6 +524,11 @@
               <FileType>8</FileType>
               <FilePath>.\src\etc.cpp</FilePath>
             </File>
+            <File>
+              <FileName>opt.h</FileName>
+              <FileType>5</FileType>
+              <FilePath>.\src\opt.h</FilePath>
+            </File>
           </Files>
         </Group>
         <Group>

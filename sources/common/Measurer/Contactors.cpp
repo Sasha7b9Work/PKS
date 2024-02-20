@@ -295,15 +295,15 @@ void Contactors::UpdatePhase(Phase::E phase, const PhaseMeasure &measure, bool i
                 {
                     float delta = 0.0f;
                     int num_steps = 0;
-                    if (measure.voltage < 220.0f)
+                    if (measure.voltage < NORMAL_VOLTAGE_MIN)
                     {
-                        delta = 220.0f - measure.voltage;
+                        delta = NORMAL_VOLTAGE_MIN - measure.voltage;
 
                         num_steps = -(int)(delta / 10.0f + 1.0f);
                     }
-                    else if (measure.voltage > 240.0f)
+                    else if (measure.voltage > NORMAL_VOLTAGE_MAX)
                     {
-                        delta = measure.voltage - 240.0f;
+                        delta = measure.voltage - NORMAL_VOLTAGE_MAX;
 
                         num_steps = (int)(delta / 10.0f + 1.0f);
                     }

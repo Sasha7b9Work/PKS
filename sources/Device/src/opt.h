@@ -13,3 +13,6 @@ static const int TIME_UPDATE_SENSORS = 30000;
 
 // Время между посылками
 static const int TIME_BETWEEN_SENDED = 200;
+
+static const float NORMAL_VOLTAGE_MIN = 220.0f;
+static const float NORMAL_VOLTAGE_MAX = 240.0f;
