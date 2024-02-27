@@ -75,12 +75,7 @@ void M25P80::EraseSector(uint num_sector)
 
 void M25P80::WriteByte(uint8 byte)
 {
-    uint8 data[5] = { PROGRAM_PAGE };
-
-    data[1] = 0;
-    data[2] = 0;
-    data[3] = 0;
-    data[4] = byte;
+    uint8 data[5] = { PROGRAM_PAGE, 0, 0, 0, byte };
 
     WaitRelease();
 
@@ -96,12 +91,7 @@ void M25P80::WriteByte(uint8 byte)
 
 uint8 M25P80::ReadByte()
 {
-    uint8 data[5] = { READ_DATA };
-
-    data[1] = 0;
-    data[2] = 0;
-    data[3] = 0;
-    data[4] = 0;
+    uint8 data[5] = { READ_DATA, 0, 0, 0, 0 };
 
     uint8 in[5] = { 0, 0, 0, 0, 0 };
 
