@@ -83,7 +83,7 @@ namespace Measurer
 
     static int16 pos_adc_value = 0;             // Позиция текущих считываемых значений
 
-    static FullMeasure Calculate();
+    static bool Calculate(FullMeasure &out);
 
     static Averager<uint16> averager[6];
 }
@@ -101,11 +101,12 @@ void Measurer::Update()
 {
     if (BuffersFull())
     {
-        measure = Calculate();
+        if (Calculate(measure))
+        {
+            measure5Sec = Calculator::Average5Sec(measure);
 
-        measure5Sec = Calculator::Average5Sec(measure);
-
-        measure1Min = Calculator::Average1Min(measure);
+            measure1Min = Calculator::Average1Min(measure);
+        }
 
         for (int i = 0; i < Phase::Count; i++)
         {
@@ -181,9 +182,11 @@ bool Measurer::BuffersFull()
 }
 
 
-FullMeasure Measurer::Calculate()
+bool Measurer::Calculate(FullMeasure &out)
 {
     bool is_bad[Phase::Count] = { Contactors::IsBusy(Phase::A), Contactors::IsBusy(Phase::B), Contactors::IsBusy(Phase::C) };
+
+    bool is_perform = true;                     // Если хотя бы одна фаза занята, то выполнять расчёт не будем
 
     FullMeasure result;
 
@@ -196,11 +199,16 @@ FullMeasure Measurer::Calculate()
         result.is_good[i] = (!is_bad[i] && !bad_in_begin[i]);
         if (!result.is_good[i])
         {
-            result.measures[i] = measure.measures[i];
+            is_perform = false;
         }
     }
 
-    return result;
+    if (is_perform)
+    {
+        out = result;
+    }
+
+    return is_perform;
 }
 
 
