@@ -23,6 +23,9 @@ namespace HAL
     void DeInit();
     void ErrorHandler();
     char *GetUID();
+
+    // Возвращает true на стенде
+    bool IsLayout();
 }
 
 

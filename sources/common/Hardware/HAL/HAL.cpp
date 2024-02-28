@@ -84,6 +84,12 @@ void HAL::DeInit()
 }
 
 
+bool HAL::IsLayout()
+{
+    return std::strcmp(GetUID(), "926C85A1") == 0;
+}
+
+
 char *HAL::GetUID()
 {
     static char buffer[32] = { '\0' };

@@ -14,6 +14,11 @@ Settings gset = def_set;
 
 int Settings::GetKoeffCurrent()
 {
+    if (HAL::IsLayout())
+    {
+        return 20;
+    }
+
     int result = *((int *)(HAL_ROM::AddressPage(HAL_ROM::PAGE_SETTINGS) + 4)); //-V566
 
     return (result <= 0) ? 16 : result;
@@ -22,6 +27,11 @@ int Settings::GetKoeffCurrent()
 
 int Settings::GetNumberSteps()
 {
+    if (HAL::IsLayout())
+    {
+        return 5;
+    }
+
     int result = *((int *)HAL_ROM::AddressPage(HAL_ROM::PAGE_SETTINGS)); //-V566
 
     return (result < 0) ? 4 : result;
@@ -30,6 +40,11 @@ int Settings::GetNumberSteps()
 
 bool Settings::OnlyMeasure()
 {
+    if (HAL::IsLayout())
+    {
+        return false;
+    }
+
     bool result = (*((int *)HAL_ROM::AddressPage(HAL_ROM::PAGE_SETTINGS))) < 0;
 
     return result;
